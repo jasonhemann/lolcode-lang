@@ -45,6 +45,12 @@ These are likely useful for historical behavior notes, but may not be easy to au
 - JavaCC/JJTree post: [https://thomasleecopeland.com/2007/09/29/an-lolcode-interpreter-using-jjtree.html](https://thomasleecopeland.com/2007/09/29/an-lolcode-interpreter-using-jjtree.html)
 - Parallel/OpenSHMEM extension paper: [https://arxiv.org/pdf/1703.10242](https://arxiv.org/pdf/1703.10242)
 
+## Additional mixed corpus source
+
+- `justinmeza/lollm`: [https://github.com/justinmeza/lollm](https://github.com/justinmeza/lollm)
+  - Contains `lolspeak.txt` training data that mixes real LOLCODE and plain lolspeak prose.
+  - Useful for robustness tooling, but not a normative conformance corpus.
+
 ## Recommended next harvest order
 
 1. `jD91mZM2/rust-lci`

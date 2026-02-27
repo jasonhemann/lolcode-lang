@@ -66,3 +66,7 @@ Outputs:
 Current project position and tracked evidence for the unofficial "1.4" extension line:
 
 - `corpus/research/SPEC_1_4_EXTENSION_STATUS.md`
+
+## Research Snapshots
+
+- `corpus/research/lollm/README.md` (mixed LOLCODE + lolspeak corpus snapshot from `justinmeza/lollm`)

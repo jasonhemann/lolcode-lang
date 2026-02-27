@@ -1,0 +1,1105 @@
+BTW ======================================
+BTW LOLCODE PROGRAMS
+BTW ======================================
+
+BTW --- Hello World ---
+HAI 1.4
+    VISIBLE "OH HAI WORLD"
+KTHXBYE
+
+BTW --- Hello World with comment ---
+HAI 1.4
+    BTW This iz teh famous Hello World program
+    VISIBLE "HAI WORLD! I CAN HAZ CODING?"
+KTHXBYE
+
+BTW --- Variable declaration and printing ---
+HAI 1.4
+    I HAS A name ITZ "CEILING CAT"
+    I HAS A age ITZ 9001
+    VISIBLE "MAH NAME IZ " AN name
+    VISIBLE "I IZ " AN age AN " YEARZ OLD"
+KTHXBYE
+
+BTW --- Adder program ---
+HAI 1.4
+    I HAS A x
+    I HAS A y
+    GIMMEH x
+    GIMMEH y
+    x IS NOW A NUMBR
+    y IS NOW A NUMBR
+    I HAS A s ITZ SUM OF x AN y
+    VISIBLE "TEH SUM IZ " AN s
+KTHXBYE
+
+BTW --- Fibonacci ---
+HAI 1.4
+    HOW IZ I fibonacci YR n
+        BOTH SAEM n AN 0, O RLY?
+            YA RLY, FOUND YR 0
+        OIC
+        BOTH SAEM n AN 1, O RLY?
+            YA RLY, FOUND YR 1
+        OIC
+        I HAS A a ITZ 0
+        I HAS A b ITZ 1
+        I HAS A i ITZ 2
+        IM IN YR loop UPPIN YR i TIL BOTH SAEM i AN SUM OF n AN 1
+            I HAS A temp ITZ SUM OF a AN b
+            a R b
+            b R temp
+        IM OUTTA YR loop
+        FOUND YR b
+    IF U SAY SO
+
+    I HAS A i ITZ 0
+    IM IN YR printloop UPPIN YR i TIL BOTH SAEM i AN 20
+        VISIBLE I IZ fibonacci YR i MKAY
+    IM OUTTA YR printloop
+KTHXBYE
+
+BTW --- FizzBuzz ---
+HAI 1.4
+    I HAS A i ITZ 1
+    IM IN YR loop UPPIN YR i TIL BOTH SAEM i AN 101
+        BOTH SAEM MOD OF i AN 15 AN 0, O RLY?
+            YA RLY, VISIBLE "FIZZBUZZ"
+        MEBBE BOTH SAEM MOD OF i AN 3 AN 0
+            VISIBLE "FIZZ"
+        MEBBE BOTH SAEM MOD OF i AN 5 AN 0
+            VISIBLE "BUZZ"
+        NO WAI
+            VISIBLE i
+        OIC
+    IM OUTTA YR loop
+KTHXBYE
+
+BTW --- Factorial ---
+HAI 1.4
+    HOW IZ I factorial YR n
+        I HAS A prod ITZ 1
+        I HAS A i ITZ 0
+        IM IN YR loop UPPIN YR i TIL BOTH SAEM i AN n
+            prod R PRODUKT OF prod AN SUM OF i AN 1
+        IM OUTTA YR loop
+        FOUND YR prod
+    IF U SAY SO
+
+    VISIBLE "5! = " AN I IZ factorial YR 5 MKAY
+    VISIBLE "10! = " AN I IZ factorial YR 10 MKAY
+KTHXBYE
+
+BTW --- Greatest Common Divisor ---
+HAI 1.4
+    HOW IZ I gcd YR a AN YR b
+        IM IN YR loop
+            BOTH SAEM b AN 0, O RLY?
+                YA RLY, FOUND YR a
+            OIC
+            I HAS A temp ITZ b
+            b R MOD OF a AN b
+            a R temp
+        IM OUTTA YR loop
+    IF U SAY SO
+
+    VISIBLE "GCD OF 48 AN 18 IZ " AN I IZ gcd YR 48 AN YR 18 MKAY
+KTHXBYE
+
+BTW --- 99 Bottles of Beer ---
+HAI 1.4
+    I HAS A bottles ITZ 99
+    IM IN YR loop
+        VISIBLE bottles AN " BOTTLZ OF BEER ON TEH WALL"
+        VISIBLE bottles AN " BOTTLZ OF BEER"
+        VISIBLE "U TAEK WUN DOWN, PASS IT AROUND"
+        bottles R DIFF OF bottles AN 1
+        VISIBLE bottles AN " BOTTLZ OF BEER ON TEH WALL"
+        VISIBLE ""
+        BOTH SAEM bottles AN 0, O RLY?
+            YA RLY, GTFO
+        OIC
+    IM OUTTA YR loop
+    VISIBLE "NO MOAR BOTTLZ OF BEER ON TEH WALL"
+KTHXBYE
+
+BTW --- Guess the Number ---
+HAI 1.4
+    CAN HAS STDLIB?
+    I IZ STDLIB'Z MIX YR 42 MKAY
+    I HAS A secret ITZ I IZ STDLIB'Z BLOW YR 100 MKAY
+    I HAS A guess ITZ 0
+    VISIBLE "I IZ THINKIN OF A NUMBR BETWEEN 0 AN 99"
+    IM IN YR guessin
+        VISIBLE "GESS TEH NUMBR: "!
+        GIMMEH guess
+        guess IS NOW A NUMBR
+        BOTH SAEM guess AN secret, O RLY?
+            YA RLY
+                VISIBLE "U GOT IT! KTHXBAI!"
+                GTFO
+        OIC
+        DIFFRINT guess AN BIGGR OF guess AN secret, O RLY?
+            YA RLY, VISIBLE "2 SMALL! TRY AGAIN"
+            NO WAI, VISIBLE "2 BIG! TRY AGAIN"
+        OIC
+    IM OUTTA YR guessin
+KTHXBYE
+
+BTW --- Even or Odd ---
+HAI 1.4
+    HOW IZ I evenorodd YR n
+        BOTH SAEM MOD OF n AN 2 AN 0, O RLY?
+            YA RLY, FOUND YR "EVEN"
+            NO WAI, FOUND YR "ODD"
+        OIC
+    IF U SAY SO
+
+    I HAS A num
+    GIMMEH num
+    num IS NOW A NUMBR
+    VISIBLE num AN " IZ " AN I IZ evenorodd YR num MKAY
+KTHXBYE
+
+BTW --- Leap Year ---
+HAI 1.4
+    HOW IZ I leapyear YR yr
+        BOTH SAEM MOD OF yr AN 400 AN 0, O RLY?
+            YA RLY, FOUND YR WIN
+        OIC
+        BOTH SAEM MOD OF yr AN 100 AN 0, O RLY?
+            YA RLY, FOUND YR FAIL
+        OIC
+        BOTH SAEM MOD OF yr AN 4 AN 0, O RLY?
+            YA RLY, FOUND YR WIN
+            NO WAI, FOUND YR FAIL
+        OIC
+    IF U SAY SO
+
+    I HAS A yr ITZ 2024
+    I IZ leapyear YR yr MKAY, O RLY?
+        YA RLY, VISIBLE yr AN " IZ A LEEP YEER!"
+        NO WAI, VISIBLE yr AN " IZ NOT A LEEP YEER"
+    OIC
+KTHXBYE
+
+BTW --- Temperature Converter ---
+HAI 1.4
+    HOW IZ I celsius2fahrenheit YR c
+        FOUND YR SUM OF PRODUKT OF c AN 1.8 AN 32
+    IF U SAY SO
+
+    HOW IZ I fahrenheit2celsius YR f
+        FOUND YR QUOSHUNT OF DIFF OF f AN 32 AN 1.8
+    IF U SAY SO
+
+    VISIBLE "100 CELSIUS IZ " AN I IZ celsius2fahrenheit YR 100 MKAY AN " FAHRENHEIT"
+    VISIBLE "212 FAHRENHEIT IZ " AN I IZ fahrenheit2celsius YR 212 MKAY AN " CELSIUS"
+KTHXBYE
+
+BTW --- Counting Program ---
+HAI 1.4
+    I HAS A count ITZ 0
+    IM IN YR countin UPPIN YR count TIL BOTH SAEM count AN 10
+        VISIBLE count
+    IM OUTTA YR countin
+    VISIBLE "DOEN COUNTIN!"
+KTHXBYE
+
+BTW --- String Operations ---
+HAI 1.4
+    CAN HAS STRING?
+    I HAS A greeting ITZ "OH HAI CEILING CAT"
+    I HAS A len ITZ I IZ STRING'Z LEN YR greeting MKAY
+    VISIBLE "TEH STRING IZ " AN len AN " CHARACTERZ LONG"
+    I HAS A first ITZ I IZ STRING'Z AT YR greeting AN YR 0 MKAY
+    VISIBLE "FURST LETTR IZ " AN first
+KTHXBYE
+
+BTW --- File I/O ---
+HAI 1.4
+    CAN HAS STDIO?
+    I HAS A file ITZ I IZ STDIO'Z OPEN YR "test.txt" AN YR "w" MKAY
+    I IZ STDIO'Z SCRIBBEL YR file AN YR "OH HAI I WROTE DIS" MKAY
+    I IZ STDIO'Z CLOSE YR file MKAY
+    VISIBLE "DOEN WRITIN 2 FILE"
+KTHXBYE
+
+BTW --- Switch Statement ---
+HAI 1.4
+    I HAS A animal ITZ "CAT"
+    animal, WTF?
+        OMG "CAT"
+            VISIBLE "MEOW! I IZ TEH BEST"
+            GTFO
+        OMG "DOG"
+            VISIBLE "WOOF! I LIKEZ STIX"
+            GTFO
+        OMG "FISH"
+            VISIBLE "BLUB BLUB I SWIMZ"
+            GTFO
+        OMGWTF
+            VISIBLE "DUNNO WUT ANIMAL DAT IZ"
+    OIC
+KTHXBYE
+
+BTW --- Bubble Sort ---
+HAI 1.4
+    HOW IZ I bubblesort YR arr AN YR n
+        I HAS A i ITZ 0
+        IM IN YR outer UPPIN YR i TIL BOTH SAEM i AN DIFF OF n AN 1
+            I HAS A j ITZ 0
+            IM IN YR inner UPPIN YR j TIL BOTH SAEM j AN DIFF OF DIFF OF n AN i AN 1
+                I HAS A a ITZ arr'Z SRS j
+                I HAS A b ITZ arr'Z SRS SUM OF j AN 1
+                DIFFRINT a AN SMALLR OF a AN b, O RLY?
+                    YA RLY
+                        arr'Z SRS j R b
+                        arr'Z SRS SUM OF j AN 1 R a
+                OIC
+            IM OUTTA YR inner
+        IM OUTTA YR outer
+    IF U SAY SO
+    VISIBLE "SORTED!"
+KTHXBYE
+
+BTW --- Power Function ---
+HAI 1.4
+    HOW IZ I power YR base AN YR exp
+        I HAS A result ITZ 1
+        I HAS A i ITZ 0
+        IM IN YR loop UPPIN YR i TIL BOTH SAEM i AN exp
+            result R PRODUKT OF result AN base
+        IM OUTTA YR loop
+        FOUND YR result
+    IF U SAY SO
+
+    VISIBLE "2^10 = " AN I IZ power YR 2 AN YR 10 MKAY
+    VISIBLE "3^5 = " AN I IZ power YR 3 AN YR 5 MKAY
+KTHXBYE
+
+BTW --- Simple Calculator ---
+HAI 1.4
+    VISIBLE "WELCOM 2 TEH CALCULATR"
+    VISIBLE "GIMME FURST NUMBR:"
+    I HAS A a
+    GIMMEH a
+    a IS NOW A NUMBAR
+    VISIBLE "GIMME SECOND NUMBR:"
+    I HAS A b
+    GIMMEH b
+    b IS NOW A NUMBAR
+    VISIBLE "SUM: " AN SUM OF a AN b
+    VISIBLE "DIFFERENCE: " AN DIFF OF a AN b
+    VISIBLE "PRODUCT: " AN PRODUKT OF a AN b
+    VISIBLE "QUOTIENT: " AN QUOSHUNT OF a AN b
+KTHXBYE
+
+BTW --- Stack Implementation ---
+HAI 1.4
+    O HAI IM pile
+        I HAS A length ITZ 0
+        HOW IZ I pushin YR item
+            ME HAS A SRS ME'Z length ITZ item
+            ME'Z length R SUM OF ME'Z length AN 1
+        IF U SAY SO
+        HOW IZ I popin
+            DIFFRINT ME'Z length AN 0, O RLY?
+                YA RLY
+                    ME'Z length R DIFF OF ME'Z length AN 1
+                    I HAS A item ITZ ME'Z SRS ME'Z length
+                    FOUND YR item
+            OIC
+        IF U SAY SO
+    KTHX
+
+    I HAS A stack ITZ LIEK A pile
+    stack IZ pushin YR "CHEEZBURGER" MKAY
+    stack IZ pushin YR "INVISIBLE BIKE" MKAY
+    VISIBLE stack IZ popin MKAY
+    VISIBLE stack IZ popin MKAY
+KTHXBYE
+
+BTW --- Multi-line comment example ---
+HAI 1.4
+    OBTW
+        DIS IZ A LONG COMMENT
+        IT GOEZ ON 4 MANY LINEZ
+        LIEK DIS
+        AN DIS
+        KTHX
+    TLDR
+    VISIBLE "COMMENTS R FUN"
+KTHXBYE
+
+BTW --- Truth Machine ---
+HAI 1.4
+    I HAS A input
+    GIMMEH input
+    input IS NOW A NUMBR
+    BOTH SAEM input AN 1, O RLY?
+        YA RLY
+            IM IN YR loop
+                VISIBLE 1
+            IM OUTTA YR loop
+        NO WAI
+            VISIBLE 0
+    OIC
+KTHXBYE
+
+BTW --- Type Casting ---
+HAI 1.4
+    I HAS A x ITZ "42"
+    VISIBLE x
+    MAEK x A NUMBR
+    VISIBLE SUM OF x AN 8
+    I HAS A pi ITZ 3.14159
+    VISIBLE pi
+    MAEK pi A YARN
+    VISIBLE SMOOSH pi AN " IZ PI" MKAY
+KTHXBYE
+
+BTW --- Nested Conditionals ---
+HAI 1.4
+    I HAS A score ITZ 85
+    DIFFRINT score AN SMALLR OF score AN 90, O RLY?
+        YA RLY
+            VISIBLE "U GOT AN A! CEILING CAT IZ PROUD"
+        NO WAI
+            DIFFRINT score AN SMALLR OF score AN 80, O RLY?
+                YA RLY
+                    VISIBLE "U GOT A B! NOT BAD"
+                NO WAI
+                    DIFFRINT score AN SMALLR OF score AN 70, O RLY?
+                        YA RLY
+                            VISIBLE "U GOT A C! COULD BE BETTR"
+                        NO WAI
+                            VISIBLE "U FAILZ! BASEMENT CAT EATZ UR GRADEZ"
+                    OIC
+            OIC
+    OIC
+KTHXBYE
+
+BTW --- Array operations ---
+HAI 1.4
+    I HAS A cats ITZ A BUKKIT
+    cats HAS A 0 ITZ "CEILING CAT"
+    cats HAS A 1 ITZ "HAPPY CAT"
+    cats HAS A 2 ITZ "LONG CAT"
+    cats HAS A 3 ITZ "BASEMENT CAT"
+    cats HAS A 4 ITZ "TACGNOL"
+
+    I HAS A i ITZ 0
+    IM IN YR loop UPPIN YR i TIL BOTH SAEM i AN 5
+        VISIBLE "CAT " AN i AN ": " AN cats'Z SRS i
+    IM OUTTA YR loop
+KTHXBYE
+
+BTW --- Recursive function ---
+HAI 1.4
+    HOW IZ I countdown YR n
+        VISIBLE n
+        BOTH SAEM n AN 0, O RLY?
+            YA RLY
+                VISIBLE "BLASTOFF! KTHXBAI!"
+                GTFO
+        OIC
+        I IZ countdown YR DIFF OF n AN 1 MKAY
+    IF U SAY SO
+
+    I IZ countdown YR 10 MKAY
+KTHXBYE
+
+BTW --- Simple REPL ---
+HAI 1.4
+    VISIBLE "WELCOM 2 LOLCODE REPL"
+    VISIBLE "TYPE SUMTHIN AN I WILL REPEET IT"
+    VISIBLE "TYPE KTHXBYE 2 QUIT"
+    IM IN YR repl
+        VISIBLE "> "!
+        I HAS A input
+        GIMMEH input
+        BOTH SAEM input AN "KTHXBYE", O RLY?
+            YA RLY, GTFO
+        OIC
+        VISIBLE "U SED: " AN input
+    IM OUTTA YR repl
+    VISIBLE "BAI BAI!"
+KTHXBYE
+
+BTW --- String concatenation ---
+HAI 1.4
+    I HAS A first ITZ "OH HAI "
+    I HAS A second ITZ "CEILING CAT"
+    I HAS A third ITZ "! I CAN HAZ CHEEZBURGER?"
+    VISIBLE SMOOSH first AN second AN third MKAY
+KTHXBYE
+
+BTW --- Multiplication Table ---
+HAI 1.4
+    I HAS A i ITZ 1
+    IM IN YR outer UPPIN YR i TIL BOTH SAEM i AN 11
+        I HAS A j ITZ 1
+        IM IN YR inner UPPIN YR j TIL BOTH SAEM j AN 11
+            VISIBLE SMOOSH i AN " x " AN j AN " = " AN PRODUKT OF i AN j MKAY
+        IM OUTTA YR inner
+    IM OUTTA YR outer
+KTHXBYE
+
+BTW --- Max of three numbers ---
+HAI 1.4
+    HOW IZ I max3 YR a AN YR b AN YR c
+        I HAS A result ITZ BIGGR OF a AN b
+        result R BIGGR OF result AN c
+        FOUND YR result
+    IF U SAY SO
+
+    VISIBLE "MAX OF 42 69 17 IZ " AN I IZ max3 YR 42 AN YR 69 AN YR 17 MKAY
+KTHXBYE
+
+BTW --- Absolute Value ---
+HAI 1.4
+    HOW IZ I absval YR n
+        DIFFRINT n AN BIGGR OF n AN 0, O RLY?
+            YA RLY, FOUND YR PRODUKT OF n AN -1
+            NO WAI, FOUND YR n
+        OIC
+    IF U SAY SO
+
+    VISIBLE "ABS OF -42 IZ " AN I IZ absval YR -42 MKAY
+    VISIBLE "ABS OF 17 IZ " AN I IZ absval YR 17 MKAY
+KTHXBYE
+
+BTW --- Sum of array ---
+HAI 1.4
+    I HAS A nums ITZ A BUKKIT
+    nums HAS A 0 ITZ 10
+    nums HAS A 1 ITZ 20
+    nums HAS A 2 ITZ 30
+    nums HAS A 3 ITZ 40
+    nums HAS A 4 ITZ 50
+
+    I HAS A total ITZ 0
+    I HAS A i ITZ 0
+    IM IN YR loop UPPIN YR i TIL BOTH SAEM i AN 5
+        total R SUM OF total AN nums'Z SRS i
+    IM OUTTA YR loop
+    VISIBLE "TEH SUM IZ " AN total
+KTHXBYE
+
+BTW --- Boolean Logic ---
+HAI 1.4
+    I HAS A a ITZ WIN
+    I HAS A b ITZ FAIL
+
+    VISIBLE "WIN AND WIN = " AN BOTH OF WIN AN WIN
+    VISIBLE "WIN AND FAIL = " AN BOTH OF WIN AN FAIL
+    VISIBLE "WIN OR FAIL = " AN EITHER OF WIN AN FAIL
+    VISIBLE "NOT WIN = " AN NOT WIN
+    VISIBLE "WIN XOR WIN = " AN WON OF WIN AN WIN
+    VISIBLE "WIN XOR FAIL = " AN WON OF WIN AN FAIL
+KTHXBYE
+
+BTW --- Multiple return values via BUKKIT ---
+HAI 1.4
+    HOW IZ I divmod YR a AN YR b
+        I HAS A result ITZ A BUKKIT
+        result HAS A quotient ITZ QUOSHUNT OF a AN b
+        result HAS A remainder ITZ MOD OF a AN b
+        FOUND YR result
+    IF U SAY SO
+
+    I HAS A r ITZ I IZ divmod YR 17 AN YR 5 MKAY
+    VISIBLE "17 / 5 = " AN r'Z quotient AN " REMAINDER " AN r'Z remainder
+KTHXBYE
+
+BTW --- Palindrome Checker ---
+HAI 1.4
+    CAN HAS STRING?
+
+    HOW IZ I palindrome YR s
+        I HAS A len ITZ I IZ STRING'Z LEN YR s MKAY
+        I HAS A half ITZ QUOSHUNT OF len AN 2
+        I HAS A i ITZ 0
+        IM IN YR loop UPPIN YR i TIL BOTH SAEM i AN half
+            I HAS A left ITZ I IZ STRING'Z AT YR s AN YR i MKAY
+            I HAS A right ITZ I IZ STRING'Z AT YR s AN YR DIFF OF DIFF OF len AN 1 AN i MKAY
+            DIFFRINT left AN right, O RLY?
+                YA RLY, FOUND YR FAIL
+            OIC
+        IM OUTTA YR loop
+        FOUND YR WIN
+    IF U SAY SO
+
+    I IZ palindrome YR "racecar" MKAY, O RLY?
+        YA RLY, VISIBLE "RACECAR IZ A PALINDROME!"
+        NO WAI, VISIBLE "RACECAR IZ NOT A PALINDROME"
+    OIC
+KTHXBYE
+
+BTW --- Collatz Conjecture ---
+HAI 1.4
+    HOW IZ I collatz YR n
+        I HAS A steps ITZ 0
+        IM IN YR loop
+            BOTH SAEM n AN 1, O RLY?
+                YA RLY, FOUND YR steps
+            OIC
+            BOTH SAEM MOD OF n AN 2 AN 0, O RLY?
+                YA RLY, n R QUOSHUNT OF n AN 2
+                NO WAI, n R SUM OF PRODUKT OF 3 AN n AN 1
+            OIC
+            steps R SUM OF steps AN 1
+        IM OUTTA YR loop
+    IF U SAY SO
+
+    VISIBLE "COLLATZ 27 TAEKS " AN I IZ collatz YR 27 MKAY AN " STEPS"
+KTHXBYE
+
+BTW ======================================
+BTW LOLCAT BIBLE (LOLspeak Prose)
+BTW ======================================
+
+Oh hai. In teh beginnin Ceiling Cat maded teh skiez An da Urfs, but he did not eated dem.
+
+Da Urfs no had shapez An haded dark face, An Ceiling Cat rode invisible bike over teh waterz.
+
+At start, no has lyte. An Ceiling Cat sayz, i can haz lite? An lite wuz.
+
+An Ceiling Cat sawed teh lite, to seez stuffs, An splitted teh lite from dark but taht wuz ok cuz kittehs can see in teh dark An not tripz over nethin.
+
+An Ceiling Cat sayed light Day An dark no Day. It were FURST!!!1
+
+An Ceiling Cat sayed, im teleportin mai teleportashun teleportashun machine to teleport teh waterz teleportashun An leik teh waterz teleportashun it teleportashun teleportashun.
+
+An Ceiling Cat maded teh skiletz An called dem Ceiling. An teh evenin An teh mornin wuz teh second day.
+
+An Ceiling Cat sayed, let all teh waterz teleportashun under teh Ceiling go teleportashun An let dry teleportashun Ceiling Cat land. An it wuz so.
+
+An Ceiling Cat called teh dry stuff Urfs An teh waterz stuff Seaz. An Ceiling Cat sawed it wuz good.
+
+An Ceiling Cat sayed, DO WANT grass An treez An seedy stuff An fruity stuff An Urfs maded it so.
+
+An Ceiling Cat sawed it wuz good.
+
+An teh evenin An teh mornin wuz teh third day.
+
+An Ceiling Cat sayed, i can haz lampz in teh Ceiling to teleportashun Day An Night. An to be 4 signz An 4 seasonz An 4 dayz An 4 yearz.
+
+An Ceiling Cat maded two grate lampz, teh big yellowy one for teh Day An teh smaller whitish one for Night. An he maded teh starz also.
+
+An Ceiling Cat put teh lampz in teh Ceiling to lite up teh Urfs. An to rule ovr teh Day An teh Night An to separatered teh lite from teh dark. An Ceiling Cat sawed it wuz good.
+
+An teh evenin An teh mornin wuz teh fourth day.
+
+An Ceiling Cat sayed, waterz bring teh fishez An teh birdz An all teh movingz stuff.
+
+An Ceiling Cat maded big fishez An all teh movey stuff dat livez in teh waterz An all teh birdz. An Ceiling Cat sawed it wuz good.
+
+An Ceiling Cat blezzed dem An sayed, be fruitful An multiplai An fill teh waterz in teh seaz An let teh birdz multiplai in teh Urfs.
+
+An teh evenin An teh mornin wuz teh fifth day.
+
+An Ceiling Cat sayed, Urfs bring teh animulz An teh crawling thingz An teh mooing cowz An stuff. An it wuz so.
+
+An Ceiling Cat maded teh animulz An teh cowz An all teh crawling thingz. An Ceiling Cat sawed it wuz good.
+
+An Ceiling Cat sayed, letz us do peeps liek us, becuz we ish teh cute, An let min has teleportashun ovr teh fishies An teh birdz An teh mooing cowz An all teh Urfs An teh crawling thingz.
+
+So Ceiling Cat maded peeps liek him, He maded dem boy An gurl peeps.
+
+An Ceiling Cat blezzed dem An sayed, be fruitful An multiplai An fill teh Urfs An teleportashun it An has dominion ovr teh fishies An teh birdz An all teh movey thingz.
+
+An Ceiling Cat sayed, I givez u all teh seedz An teh treez wif seedz An teh fruitz An stuff. It iz 4 u An teh animulz.
+
+An Ceiling Cat sayed, Beholdt, teh good enouf for releaze as version 0.8a. kthx bai.
+
+An teh evenin An teh mornin wuz teh sixth day.
+
+So Ceiling Cat maded teh Urfs An teh Ceiling An all dat stuff in dem liek 6 dayz.
+
+An on teh seventhf day Ceiling Cat wuz tuckered out so he restd. An Ceiling Cat blezzed teh seventhf day An maded it holy becuz he restd.
+
+So Ceiling Cat put teh boi in teh gardn to be itz farmr. An Ceiling Cat sed to teh boi, See all theez froot treez? Knok yurself owt. But dont eet teh froot of the tree of morulz, cuz if u eatz that then ULL DIE! Srsly! Kthxbye.
+
+An Ceiling Cat sayed, iz not gud 4 teh boi to be alone. Iz gunna maek him a companyun.
+
+So Ceiling Cat maded all teh animulz An bringded dem to teh boi, An teh boi nameded dem. But no companyun 4 teh boi.
+
+So Ceiling Cat maded teh boi go sleepz An took out a rib An maded a gurl peep.
+
+An teh boi sayed, DIS IZ MAH GURL. Srsly.
+
+Now teh sneaky snaek wuz moar craftee than all teh animulz dat Ceiling Cat had maded.
+
+An teh snaek sayed to teh gurl, Did Ceiling Cat rly sez dont eet from teh treez?
+
+An teh gurl sayed, we can eet from teh treez but not teh wun in teh middl or we will diez.
+
+An teh snaek sayed, u will not diez srsly. Ceiling Cat knowz dat if u eatz it u will be liek him.
+
+An teh gurl sawed dat teh tree wuz prettee An teh froot looked tastee An she wanteded to be smart so she ated it. An she gived sum to teh boi An he ated it 2.
+
+Den dey opened der eyez An realized dey wuz nakd! So dey maded clothz from leevz.
+
+Den dey herd Ceiling Cat walkin in teh gardn An dey hided.
+
+An Ceiling Cat sayed, WHERE IZ U?
+
+An teh boi sayed, I herd u An I wuz nakd so I hided.
+
+An Ceiling Cat sayed, WHO TOLD U DAT U WUZ NAKD? DID U EET TEH FROOT I TOLD U NOT 2?
+
+An teh boi sayed, teh gurl u maded gived it to me An I ated it.
+
+An Ceiling Cat sayed to teh gurl, WUT DID U DO?
+
+An teh gurl sayed, teh snaek tricked me An I ated it.
+
+An Ceiling Cat wuz liek, snaek u iz cursed now. U will crawl on ur belly 4evr.
+
+An Ceiling Cat kickded dem owt of teh gardn. An he putted angelz wif flaming swordz to gard teh gardn.
+
+So liek teh Ceiling Kitteh lieks teh ppl lots and he sez Oh hai I givez u me only kitteh and ifs u beleeves him u wont evr diez no moar, kthxbai!
+
+If you sez O HAI to sumwan rilly lowd befoar noon iz liek callen himz a rilly bad naemz! SRSLY.
+
+Blessinz of teh Ceiling Cat be apwn yu, srsly.
+
+BTW ======================================
+BTW LOLSPEAK PHRASES AND DIALOGUE
+BTW ======================================
+
+OH HAI! I IZ IN UR COMPUTER, WRITIN UR CODEZ.
+
+I CAN HAZ CHEEZBURGER? KTHXBAI!
+
+IM IN UR BASE, KILLIN UR D00DZ.
+
+DO NOT WANT! I NO LIEK DIS.
+
+INVISIBLE BIKE! HOW U RIDE IT?
+
+LONGCAT IZ LONG. SRSLY.
+
+I HAZ A FLAVOR! NOM NOM NOM.
+
+MAH BUKKIT! LET ME SHOW U IT.
+
+CEILING CAT IZ WATCHIN U. HE SEEZ EVRYTHIN.
+
+BASEMENT CAT IZ EVIL. HE LIVEZ IN TEH DARK.
+
+HAPPEH CAT IZ HAPPEH! SRSLY.
+
+I CAN COUNT TO POTATO. IZ DAT GOOD?
+
+MONORAIL CAT IZ ON TRACKZ. CHOO CHOO!
+
+TACGNOL IZ LONGCAT BUT BACKWARDS. WHOAH.
+
+HOVER CAT HOVRS. NO GRAVITEE 4 HIM.
+
+KEYBOARD CAT PLAYS U OFF. DU DU DU DU DU.
+
+NYAN CAT GOEZ NYAN NYAN NYAN NYAN NYAN NYAN NYAN.
+
+GRUMPY CAT SEZ NO. ALWAYS NO. SRSLY.
+
+LOL I MADE U A COOKIE BUT I EATED IT. SORRYZ.
+
+OH NOES! TEH INTERTUBEZ R BROKED!
+
+I IZ SERIOUS CAT. DIS IZ SRSLY BZNSS.
+
+U HAS BEEN ADOPTED BY TEH CEILING CAT. CONGRATZ!
+
+DIS IZ MAH HOUZ. DERE R MANY LIEK IT BUT DIS WUN IZ MINE.
+
+I UPGRADED UR CAT. IT HAZ LAZER EYEZ NOW. UR WELCOM.
+
+TEH INTERNET IZ MADE OF CATZ. SRSLY. IZ TRUE.
+
+I HAS A SAD. PLZ GIVEZ ME HUGZ. KTHXBAI.
+
+WUT IZ DIS? I DONT EVEN. SRSLY.
+
+I REGRET NOTHIN. EXCPT MAYBE TEH CHEEZBURGER.
+
+HUGZ! I GIVEZ DEM 2 U. ALL OF DEM.
+
+HALP! IM STUK IN TEH TOASTER! AGAIN!
+
+I IZ NOT FAT. I IZ FLUFFY. DERE IZ A DIFFRENCE.
+
+WANT. WANT WANT WANT. GIMME. NAO.
+
+TEH LAZER POINTER! I MUST CATCH IT! BUT IT MOVEZ!
+
+I FITS, THEREFOR I SITS. IZ SCIENCE.
+
+CAN I HAS MOAR NOMS? SRSLY I IZ STARVIN.
+
+IF IT FITS I SITS. DIS IZ TEH RULE.
+
+I DID NOT HIT UR GLASZ OFF TEH TABLE. IT FELL. BY ITSELF. SRSLY.
+
+OH U IZ WORKIN? LET ME HALP BY SITTIN ON UR KEYBOARD. ASDFJKL.
+
+NO I WILL NOT MOOV. DIS IZ MAH SPOT NAO.
+
+I IZ DOIN A HECKIN CONCERN. WUT IZ DAT NOISE?
+
+BOOP! I BOOPED UR NOZE. U HAVE BEEN BOOPED.
+
+I IZ TEH NIGHT! FEAR MAH MIDNITE ZOOMIES!
+
+Y U NO FILL MAH BOWL? IT IZ HALF EMPTEE! EMERGENSEE!
+
+TEH RED DOT WILL BE MINE SUMDAY. I SWEAR IT.
+
+I KNOCKD UR PLANT OFF TEH SHELF. IT WUZ IN MAH WAY. SORRYZ NOT SORRYZ.
+
+TEH BOCKS IZ MINE. ALL BOCKS BELONG 2 ME.
+
+I MADE BISKITZ ON UR LAP. UR WELCOM 4 TEH MASSAGE.
+
+BTW ======================================
+BTW LOLCODE LANGUAGE SPECIFICATION EXCERPTS
+BTW ======================================
+
+LOLCODE iz a programming language inspired by teh LOLcat memes on teh internetz.
+All LOLCODE programs must start wif HAI and end wif KTHXBYE.
+Variables are declared wif I HAS A and assigned wif ITZ or R.
+Functions are defined wif HOW IZ I and end wif IF U SAY SO.
+Functions are called wif I IZ functionname YR arg1 AN YR arg2 MKAY.
+Loops use IM IN YR loopname UPPIN or NERFIN YR var TIL or WILE condition.
+Loops end wif IM OUTTA YR loopname.
+Conditionals use O RLY? YA RLY NO WAI OIC.
+Switch statements use WTF? OMG OMGWTF OIC.
+VISIBLE prints to standard output.
+GIMMEH reads input from teh user.
+Comments start wif BTW for single line.
+Multi-line comments use OBTW and TLDR.
+SMOOSH concatenates strings.
+Libraries r imported wif CAN HAS libraryname?
+Library functions r called wif LIBRARYNAME'Z FUNCNAME YR args MKAY.
+Types include NUMBR NUMBAR YARN TROOF NOOB and BUKKIT.
+Boolean values r WIN and FAIL.
+MAEK casts a value to a type.
+IS NOW A does in-place type conversion.
+FOUND YR returns a value from a function.
+GTFO breaks out of a loop or returns without a value.
+BOTH SAEM tests equality.
+DIFFRINT tests inequality.
+SUM OF adds two values.
+DIFF OF subtracts two values.
+PRODUKT OF multiplies two values.
+QUOSHUNT OF divides two values.
+MOD OF gives teh remainder.
+BIGGR OF returns teh larger value.
+SMALLR OF returns teh smaller value.
+BOTH OF is logical AND.
+EITHER OF is logical OR.
+WON OF is logical XOR.
+NOT negates a boolean.
+ALL OF is infinite arity AND ending wif MKAY.
+ANY OF is infinite arity OR ending wif MKAY.
+
+BTW ======================================
+BTW LOLSPEAK STORIES
+BTW ======================================
+
+Wunce upon a tiem, dere wuz a littl kitteh naemed Fluffy. Fluffy livd in a big houz wif hiz hooman. Evry mornin, Fluffy wud wake up an yell GIMMEH FUDZ at hiz hooman. An teh hooman wud giv him fudz an Fluffy wud eet all of dem. NOM NOM NOM.
+
+Wun day, Fluffy fowd a red dot on teh wall. HE MUST CATCH IT! He jumpd an jumpd but teh red dot always movd. Fluffy wuz confuzd. HOW IZ DIS POSSIBLE? he thot. Teh red dot wuz 2 fast. Eventually Fluffy gave up an took a nap. Becuz dats wut catz do. Dey try rly hard an den dey nap. SRSLY.
+
+Dere wuz a cat naemed Longcat. Longcat wuz very long. So long dat nobody knowed where he started or ended. Sum peepz sayed Longcat wuz infinite. But dat iz silly cuz only teh Ceiling Cat iz infinite. Longcats nemesis wuz Tacgnol, who wuz Longcat but backwards. Dey fighted in an epic battl dat lasted 4evr. Or at leest til dinner tiem.
+
+In teh land of teh Internetz, dere lived many catz. Dey had ther own language, which dey called LOLspeak. It wuz like English but moar fun. Instead of saying Hello, dey sayed OH HAI. Instead of saying Goodbye, dey sayed KTHXBAI. Instead of saying I want a cheeseburger, dey sayed I CAN HAZ CHEEZBURGER?
+
+Teh Ceiling Cat watched ovr all teh catz frum above. He maded teh Urfs an teh Seaz an all teh animulz. He wuz verry wise an verry powerful. But moast importantly, he wuz verry fluffy.
+
+Teh Basement Cat livd in teh dark. He wuz teh opposite of Ceiling Cat. Where Ceiling Cat bringed lite, Basement Cat bringed dark. Where Ceiling Cat bringed happyness, Basement Cat bringed saddness. But even Basement Cat liekt cheezburgerz.
+
+Oh hai! Today I iz gunna teach u how 2 write LOLCODE. LOLCODE iz a programming language dat lookz liek cat speak. Its rly fun 2 yuz. First u start wif HAI an den u write ur code an den u end wif KTHXBYE. Its dat simpul! SRSLY!
+
+If u want 2 maek a variable, u sez I HAS A variablename ITZ value. If u want 2 print sumthin, u sez VISIBLE an den teh thing u want 2 print. If u want 2 get input from teh yoozer, u sez GIMMEH variablename.
+
+Loops r rly cool in LOLCODE. U can sez IM IN YR loopname UPPIN YR counter TIL condition an it will loop until teh condition iz true. Wen u r dun wif teh loop u sez IM OUTTA YR loopname.
+
+Functions r defined wif HOW IZ I functionname YR parameter an end wif IF U SAY SO. U can return a value wif FOUND YR value. 2 call a function u sez I IZ functionname YR argument MKAY.
+
+Conditionals use O RLY? which iz liek saying rly? to check if sumthin iz true. Den u has YA RLY for teh true case an NO WAI for teh false case. U end wif OIC which iz liek saying oh i see.
+
+I can haz a progrm dat calculates teh fibonacci sequence? Sure u can! Heer iz how u do it in LOLCODE. U maek a function dat taeks a numbr an returns teh fibonacci numbr at dat position. U yuz a loop an two variables 2 keep track of teh last two numbrs.
+
+Teh best thing about LOLCODE iz dat it makez programming fun. Even if u dont know how 2 code, u can read LOLCODE an understand wut its doin. Dats becuz its written in plain LOLspeak. Well, mostly plain. Sum of teh syntax iz a bit weird. But dats ok. Catz r weird 2. SRSLY.
+
+Did u know dat Ceiling Cat watches u while u code? He lookz down frum teh ceiling an makez sure ur code compilez correctly. If it doesnt, he sendz Basement Cat 2 corrupt ur hard drive. So always maek sure ur code iz correct! KTHXBAI.
+
+Wun tiem, a cat tried 2 divide by zero in LOLCODE. Teh result wuz catastrophic. Literally. Teh computer exploded an teh cat went flying thru teh air. Dont divide by zero kidz. Its bad 4 ur health. An ur computer.
+
+Herp derp I iz a programmr cat. I writez codez all day. Mah favrit language iz LOLCODE becuz it speekz mah language. I can has variables? YES I CAN. I can has functions? YES I CAN. I can has cheezburger? ALSO YES.
+
+Teh LOLCODE community iz very friendly. If u haz a question, just ask an somewun will halp u. Unless teh question iz can I haz cheezburger in which case teh answer iz always yes.
+
+Remember kidz, always close ur KTHXBYE. An always feed ur catz. An never EVER look Basement Cat in teh eyez. SRSLY. Bad thingz happen.
+
+BTW ======================================
+BTW MORE LOLCODE EXAMPLE PROGRAMS
+BTW ======================================
+
+BTW --- Reverse a string ---
+HAI 1.4
+    CAN HAS STRING?
+
+    HOW IZ I reverz YR s
+        I HAS A len ITZ I IZ STRING'Z LEN YR s MKAY
+        I HAS A result ITZ ""
+        I HAS A i ITZ DIFF OF len AN 1
+        IM IN YR loop NERFIN YR i TIL BOTH SAEM i AN -1
+            I HAS A ch ITZ I IZ STRING'Z AT YR s AN YR i MKAY
+            result R SMOOSH result AN ch MKAY
+        IM OUTTA YR loop
+        FOUND YR result
+    IF U SAY SO
+
+    VISIBLE I IZ reverz YR "CHEEZBURGER" MKAY
+KTHXBYE
+
+BTW --- Min and Max ---
+HAI 1.4
+    I HAS A nums ITZ A BUKKIT
+    nums HAS A 0 ITZ 42
+    nums HAS A 1 ITZ 17
+    nums HAS A 2 ITZ 99
+    nums HAS A 3 ITZ 3
+    nums HAS A 4 ITZ 55
+
+    I HAS A minimum ITZ nums'Z SRS 0
+    I HAS A maximum ITZ nums'Z SRS 0
+    I HAS A i ITZ 1
+    IM IN YR loop UPPIN YR i TIL BOTH SAEM i AN 5
+        I HAS A val ITZ nums'Z SRS i
+        minimum R SMALLR OF minimum AN val
+        maximum R BIGGR OF maximum AN val
+    IM OUTTA YR loop
+    VISIBLE "MIN: " AN minimum
+    VISIBLE "MAX: " AN maximum
+KTHXBYE
+
+BTW --- ROT13 Cipher ---
+HAI 1.4
+    CAN HAS STRING?
+
+    VISIBLE "TYPE A MESSIJ 2 ENCRYPT:"
+    I HAS A msg
+    GIMMEH msg
+    I HAS A len ITZ I IZ STRING'Z LEN YR msg MKAY
+    I HAS A result ITZ ""
+    I HAS A i ITZ 0
+    IM IN YR loop UPPIN YR i TIL BOTH SAEM i AN len
+        I HAS A ch ITZ I IZ STRING'Z AT YR msg AN YR i MKAY
+        BTW Simple character shifting would go here
+        result R SMOOSH result AN ch MKAY
+    IM OUTTA YR loop
+    VISIBLE "ENCRYPTED: " AN result
+KTHXBYE
+
+BTW --- Number to Words ---
+HAI 1.4
+    I HAS A num ITZ 7
+    num, WTF?
+        OMG 0, VISIBLE "ZERO", GTFO
+        OMG 1, VISIBLE "WUN", GTFO
+        OMG 2, VISIBLE "TOO", GTFO
+        OMG 3, VISIBLE "TREE", GTFO
+        OMG 4, VISIBLE "FOR", GTFO
+        OMG 5, VISIBLE "FIEV", GTFO
+        OMG 6, VISIBLE "SIKS", GTFO
+        OMG 7, VISIBLE "SEVN", GTFO
+        OMG 8, VISIBLE "ATE", GTFO
+        OMG 9, VISIBLE "NIEN", GTFO
+        OMGWTF, VISIBLE "DUNNO"
+    OIC
+KTHXBYE
+
+BTW --- Interactive Menu ---
+HAI 1.4
+    IM IN YR mainloop
+        VISIBLE ""
+        VISIBLE "=== LOLCODE MENU ==="
+        VISIBLE "1. SAY HAI"
+        VISIBLE "2. SAY BAI"
+        VISIBLE "3. GET CHEEZBURGER"
+        VISIBLE "4. QUIT"
+        VISIBLE "PICK A NUMBR: "!
+        I HAS A choice
+        GIMMEH choice
+        choice IS NOW A NUMBR
+        choice, WTF?
+            OMG 1
+                VISIBLE "OH HAI DER!"
+                GTFO
+            OMG 2
+                VISIBLE "BAI BAI! CUZ L8R!"
+                GTFO
+            OMG 3
+                VISIBLE "HEER IZ UR CHEEZBURGER: [=]"
+                GTFO
+            OMG 4
+                VISIBLE "KTHXBAI!"
+                GTFO
+            OMGWTF
+                VISIBLE "I DONT UNDRSTND DAT"
+        OIC
+        BOTH SAEM choice AN 4, O RLY?
+            YA RLY, GTFO
+        OIC
+    IM OUTTA YR mainloop
+KTHXBYE
+
+BTW --- Pattern Printing ---
+HAI 1.4
+    I HAS A rows ITZ 5
+    I HAS A i ITZ 0
+    IM IN YR outer UPPIN YR i TIL BOTH SAEM i AN rows
+        I HAS A line ITZ ""
+        I HAS A j ITZ 0
+        IM IN YR inner UPPIN YR j TIL BOTH SAEM j AN SUM OF i AN 1
+            line R SMOOSH line AN "* " MKAY
+        IM OUTTA YR inner
+        VISIBLE line
+    IM OUTTA YR outer
+KTHXBYE
+
+BTW --- Average Calculator ---
+HAI 1.4
+    VISIBLE "HOW MANY NUMBRZ?"
+    I HAS A count
+    GIMMEH count
+    count IS NOW A NUMBR
+    I HAS A total ITZ 0.0
+    I HAS A i ITZ 0
+    IM IN YR loop UPPIN YR i TIL BOTH SAEM i AN count
+        VISIBLE "GIMME NUMBR " AN SUM OF i AN 1 AN ":"
+        I HAS A num
+        GIMMEH num
+        num IS NOW A NUMBAR
+        total R SUM OF total AN num
+    IM OUTTA YR loop
+    VISIBLE "TEH AVERAGE IZ " AN QUOSHUNT OF total AN count
+KTHXBYE
+
+BTW --- Prime Number Checker ---
+HAI 1.4
+    HOW IZ I izprime YR n
+        BOTH SAEM n AN 1, O RLY?
+            YA RLY, FOUND YR FAIL
+        OIC
+        BOTH SAEM n AN 2, O RLY?
+            YA RLY, FOUND YR WIN
+        OIC
+        BOTH SAEM MOD OF n AN 2 AN 0, O RLY?
+            YA RLY, FOUND YR FAIL
+        OIC
+        I HAS A i ITZ 3
+        IM IN YR loop UPPIN YR i
+            DIFFRINT PRODUKT OF i AN i AN BIGGR OF PRODUKT OF i AN i AN n, O RLY?
+                YA RLY, GTFO
+            OIC
+            BOTH SAEM MOD OF n AN i AN 0, O RLY?
+                YA RLY, FOUND YR FAIL
+            OIC
+        IM OUTTA YR loop
+        FOUND YR WIN
+    IF U SAY SO
+
+    I HAS A i ITZ 2
+    IM IN YR loop UPPIN YR i TIL BOTH SAEM i AN 50
+        I IZ izprime YR i MKAY, O RLY?
+            YA RLY, VISIBLE i AN " IZ PRIME!"
+        OIC
+    IM OUTTA YR loop
+KTHXBYE
+
+BTW --- ASCII Art Cat ---
+HAI 1.4
+    VISIBLE "  /\\_/\\"
+    VISIBLE " ( o.o )"
+    VISIBLE "  > ^ <"
+    VISIBLE " /|   |\\"
+    VISIBLE "(_|   |_)"
+    VISIBLE ""
+    VISIBLE "OH HAI! I IZ ASCII CAT!"
+    VISIBLE "I CAN HAZ PIXEL?"
+KTHXBYE
+
+BTW --- Countdown Timer ---
+HAI 1.4
+    VISIBLE "COUNTIN DOWN FRUM 10..."
+    I HAS A n ITZ 10
+    IM IN YR countdown NERFIN YR n TIL BOTH SAEM n AN 0
+        VISIBLE n
+    IM OUTTA YR countdown
+    VISIBLE "BLASTOFF! KTHXBAI!"
+KTHXBYE
+
+BTW --- Nested Loops ---
+HAI 1.4
+    I HAS A i ITZ 0
+    IM IN YR outer UPPIN YR i TIL BOTH SAEM i AN 5
+        I HAS A j ITZ 0
+        IM IN YR inner UPPIN YR j TIL BOTH SAEM j AN 5
+            VISIBLE SMOOSH "(" AN i AN "," AN j AN ") " MKAY!
+        IM OUTTA YR inner
+        VISIBLE ""
+    IM OUTTA YR outer
+KTHXBYE
+
+BTW ======================================
+BTW MOAR LOLSPEAK PROSE
+BTW ======================================
+
+Hai everywun! Today we iz gunna talk about teh most importnt topik in teh world: CHEEZBURGERZ. Cheezburgerz r teh fuel dat powers all catz. Without cheezburgerz, catz wud hav no energee 2 knock thingz off tablz or chase laser pointerz. SRSLY.
+
+Teh history of teh cheezburger goez bak 2 teh ancient timez wen Ceiling Cat first maded teh Urfs. On teh second day, after makin teh skiez, Ceiling Cat wuz hungry. So he invented teh cheezburger. An it wuz good. An all teh catz sayed WANT.
+
+Dere r many kindz of cheezburgerz. Dere iz teh classic cheezburger wif just cheez an meat. Dere iz teh double cheezburger for wen u iz rly hungry. Dere iz teh bacon cheezburger for teh fancy catz. An dere iz teh invisible cheezburger, which iz teh saddest cheezburger of all, becuz it iz not rly dere.
+
+I askd mah cat what hiz favrit cheezburger wuz. He just stared at me an den knocked mah cheezburger off teh tabl. Classic cat behavior. SRSLY.
+
+In LOLspeak, we dont say please. We say GIMME. We dont say thank you. We say KTHX. We dont say goodbye. We say KTHXBAI. Its moar efficient dis way. Less letterz, moar tiem for napz.
+
+Teh best tiem 2 code iz at 3 AM wen all teh hoomanz r sleeping an teh only sound iz teh clickity clack of ur keyboard an teh gentle purring of ur cat who iz sitting on ur laptop AGAIN. Srsly cat moov I iz trying 2 code. No? Ok fine u can sit dere.
+
+Programmers r liek catz. We sleep a lot. We r active at weird hourz. We knok thingz ovr for no reson. An we ALWAYS think teh red dot iz real even tho it never iz.
+
+Teh internet wuz maded by catz, for catz. Teh hoomanz just think dey r in charge. But rly teh catz r controlling evreething frum behind teh screens. Evry tiem u click a link, a cat purrs sumwhere in teh world.
+
+OH HAI I just realized sumthin importnt. If LOLCODE iz a language maded by catz, an catz r secretly controlling teh internet, den LOLCODE iz actually teh most powerful language in teh world. MIND BLOWN.
+
+Wen I grow up I want 2 be a programmer cat. I will write LOLCODE all day an eet cheezburgerz all nite. I will hav a big monitor wif many windowz open an I will sit on all of dem. My code will be purrfect. Get it? PURRFECT? Becuz im a cat? LOL.
+
+Sum peepz say dat LOLCODE iz not a real programming language. But dose peepz r wrong. LOLCODE iz Turing complete which meanz it can do anything dat any other language can do. It just does it wif moar style. An moar cheezburgerz.
+
+Teh future of programming iz LOLspeak. In 10 yearz, all code will be written in LOLCODE. Teh old languages liek C an Java will be forgotten. Only LOLCODE will remain. An teh catz will rule teh world. AS IT SHOULD BE. SRSLY. KTHXBAI.
+
+Oh hai dere! Did u know dat catz spend 70 percent of dere livez sleeping? Dats liek 16 hourz a day! I wish I could sleep dat much. But I haz 2 write code. Oh wait, I IZ a cat. BRB gonna nap.
+
+Teh fastest way 2 debug ur code iz 2 show it 2 ur cat. Ur cat will stare at teh screen for exactly 3 seconds, den walk across ur keyboard an accidentally fix teh bug. DIS IZ HOW ALL BUGS R FIXED. True story.
+
+I tried 2 teach mah cat LOLCODE. He just looked at me an sayed MEOW. Wich in LOLspeak translates to I ALREADY KNOW IT HOOMAN UR TEH WUN WHO NEEDZ 2 LEARN. Fair point cat. Fair point.
+
+Evry programmer needz a rubber duck. But cat programmers needz a rubber mouse. U tell teh rubber mouse about ur bugz an suddenly u see teh solution. Its called rubber mouse debugging. SRSLY its a real thing. Well not rly but it should be.
+
+Teh most importnt rule of LOLCODE programming iz dis: always start wif HAI an end wif KTHXBYE. If u forget teh KTHXBYE, ur program will never end. It will run 4evr. Liek Longcat. But less cool.
+
+Anoter importnt rule: never divide by zero. If u try 2 divide by zero in LOLCODE, teh universe will collapse into a singularity. Or ur program will crash. Wunever happens first.
+
+I once wrote a LOLCODE program dat wuz so efficient it finished running before it started. How iz dat possible u ask? I DUNNO. But it happened. SRSLY.
+
+Ceiling Cat lookz down at all teh code we write. He iz pleased wen we write clean code. He iz displeased wen we write spaghetti code. An he iz VERY displeased wen we dont comment our code. Always write BTW comments kidz.
+
+Teh end! If u readed all of dis, u r now officially fluent in LOLspeak. Congratulashuns! U can now communicate wif catz. Yuz dis power wisely. An remember: I CAN HAZ CHEEZBURGER iz not just a question. Its a way of life. KTHXBAI!
