@@ -47,6 +47,8 @@
 
     (define parsed (parse-program source))
     (check-true (program? parsed) (format "parse-program accepts fixture ~a" id))
+    (check-true (pair? (program-statements parsed))
+                (format "parsed program has statements for ~a" id))
 
     (define result (run-program parsed))
     (check-true (hash? result) (format "run-program returns hash for fixture ~a" id))

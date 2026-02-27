@@ -1,10 +1,14 @@
 #lang racket/base
 
-(require racket/file)
+(require racket/file
+         "ast.rkt"
+         "parser.rkt")
 
 (provide implementation-phase
          program
          program?
+         program-version
+         program-statements
          parse-program
          run-program
          run-file)
@@ -12,12 +16,10 @@
 ;; Step 1 bootstrap marker so tests can assert the current project phase.
 (define implementation-phase 'bootstrap)
 
-(struct program (source) #:transparent)
-
 (define (parse-program source)
   (unless (string? source)
     (raise-argument-error 'parse-program "string?" source))
-  (program source))
+  (parse-source source))
 
 (define (run-program parsed)
   (unless (program? parsed)
@@ -29,4 +31,3 @@
   (unless (path-string? path)
     (raise-argument-error 'run-file "path-string?" path))
   (run-program (parse-program (file->string path))))
-

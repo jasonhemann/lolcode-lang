@@ -30,6 +30,13 @@ Step-2 spec fixture conformance harness is under:
 - `tests/spec/fixtures/programs/`
 - `tests/spec/conformance-test.rkt`
 
+Step-3 lexer/parser implementation is under:
+
+- `src/lolcode/lexer.rkt`
+- `src/lolcode/parser.rkt`
+- `src/lolcode/ast.rkt`
+- `tests/spec/parse-negative-test.rkt`
+
 Run tests:
 
 ```bash
