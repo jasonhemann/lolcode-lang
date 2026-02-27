@@ -1,0 +1,6 @@
+HAI 1.4
+    I HAS A name ITZ "CEILING CAT"
+    I HAS A age ITZ 9001
+    VISIBLE "MAH NAME IZ " AN name
+    VISIBLE "I IZ " AN age AN " YEARZ OLD"
+KTHXBYE

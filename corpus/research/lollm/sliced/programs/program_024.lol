@@ -1,0 +1,10 @@
+HAI 1.4
+    I HAS A x ITZ "42"
+    VISIBLE x
+    MAEK x A NUMBR
+    VISIBLE SUM OF x AN 8
+    I HAS A pi ITZ 3.14159
+    VISIBLE pi
+    MAEK pi A YARN
+    VISIBLE SMOOSH pi AN " IZ PI" MKAY
+KTHXBYE

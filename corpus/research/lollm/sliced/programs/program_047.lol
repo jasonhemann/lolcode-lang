@@ -1,0 +1,8 @@
+HAI 1.4
+    VISIBLE "COUNTIN DOWN FRUM 10..."
+    I HAS A n ITZ 10
+    IM IN YR countdown NERFIN YR n TIL BOTH SAEM n AN 0
+        VISIBLE n
+    IM OUTTA YR countdown
+    VISIBLE "BLASTOFF! KTHXBAI!"
+KTHXBYE

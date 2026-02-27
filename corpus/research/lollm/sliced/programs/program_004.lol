@@ -1,0 +1,10 @@
+HAI 1.4
+    I HAS A x
+    I HAS A y
+    GIMMEH x
+    GIMMEH y
+    x IS NOW A NUMBR
+    y IS NOW A NUMBR
+    I HAS A s ITZ SUM OF x AN y
+    VISIBLE "TEH SUM IZ " AN s
+KTHXBYE

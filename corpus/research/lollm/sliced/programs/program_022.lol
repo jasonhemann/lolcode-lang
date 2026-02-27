@@ -1,0 +1,10 @@
+HAI 1.4
+    OBTW
+        DIS IZ A LONG COMMENT
+        IT GOEZ ON 4 MANY LINEZ
+        LIEK DIS
+        AN DIS
+        KTHX
+    TLDR
+    VISIBLE "COMMENTS R FUN"
+KTHXBYE

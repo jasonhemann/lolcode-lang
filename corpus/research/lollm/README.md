@@ -33,3 +33,23 @@ Interpretation:
 - Useful for building "accept/reject/classify" corpus tooling.
 - Useful for fuzz-adjacent tests that exercise tokenizer/parser resilience.
 - Not suitable as conformance evidence for 1.2/1.3 pass/fail without filtering.
+
+## Program slicing
+
+Use:
+
+```bash
+./scripts/slice_lollm_corpus.sh
+```
+
+Generated output:
+
+- `corpus/research/lollm/sliced/manifest.tsv`
+- `corpus/research/lollm/sliced/programs/program_*.lol`
+- `corpus/research/lollm/sliced/SUMMARY.md`
+
+Current slice result:
+
+- complete programs: 48
+- incomplete fragments: 0
+- non-program lines dropped: 439 (245 non-empty)

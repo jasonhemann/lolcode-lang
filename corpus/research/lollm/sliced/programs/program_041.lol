@@ -1,0 +1,16 @@
+HAI 1.4
+    I HAS A num ITZ 7
+    num, WTF?
+        OMG 0, VISIBLE "ZERO", GTFO
+        OMG 1, VISIBLE "WUN", GTFO
+        OMG 2, VISIBLE "TOO", GTFO
+        OMG 3, VISIBLE "TREE", GTFO
+        OMG 4, VISIBLE "FOR", GTFO
+        OMG 5, VISIBLE "FIEV", GTFO
+        OMG 6, VISIBLE "SIKS", GTFO
+        OMG 7, VISIBLE "SEVN", GTFO
+        OMG 8, VISIBLE "ATE", GTFO
+        OMG 9, VISIBLE "NIEN", GTFO
+        OMGWTF, VISIBLE "DUNNO"
+    OIC
+KTHXBYE

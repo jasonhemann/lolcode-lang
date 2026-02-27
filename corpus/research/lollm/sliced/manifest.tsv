@@ -1,0 +1,49 @@
+id	title	start_line	end_line	line_count	file	status
+001	Hello World	6	8	3	programs/program_001.lol	complete
+002	Hello World with comment	11	14	4	programs/program_002.lol	complete
+003	Variable declaration and printing	17	22	6	programs/program_003.lol	complete
+004	Adder program	25	34	10	programs/program_004.lol	complete
+005	Fibonacci	37	60	24	programs/program_005.lol	complete
+006	FizzBuzz	63	76	14	programs/program_006.lol	complete
+007	Factorial	79	91	13	programs/program_007.lol	complete
+008	Greatest Common Divisor	94	107	14	programs/program_008.lol	complete
+009	99 Bottles of Beer	110	124	15	programs/program_009.lol	complete
+010	Guess the Number	127	147	21	programs/program_010.lol	complete
+011	Even or Odd	150	162	13	programs/program_011.lol	complete
+012	Leap Year	165	184	20	programs/program_012.lol	complete
+013	Temperature Converter	187	198	12	programs/program_013.lol	complete
+014	Counting Program	201	207	7	programs/program_014.lol	complete
+015	String Operations	210	217	8	programs/program_015.lol	complete
+016	File I/O	220	226	7	programs/program_016.lol	complete
+017	Switch Statement	229	244	16	programs/program_017.lol	complete
+018	Bubble Sort	247	264	18	programs/program_018.lol	complete
+019	Power Function	267	279	13	programs/program_019.lol	complete
+020	Simple Calculator	282	296	15	programs/program_020.lol	complete
+021	Stack Implementation	299	321	23	programs/program_021.lol	complete
+022	Multi-line comment example	324	333	10	programs/program_022.lol	complete
+023	Truth Machine	336	348	13	programs/program_023.lol	complete
+024	Type Casting	351	360	10	programs/program_024.lol	complete
+025	Nested Conditionals	363	381	19	programs/program_025.lol	complete
+026	Array operations	384	396	13	programs/program_026.lol	complete
+027	Recursive function	399	411	13	programs/program_027.lol	complete
+028	Simple REPL	414	428	15	programs/program_028.lol	complete
+029	String concatenation	431	436	6	programs/program_029.lol	complete
+030	Multiplication Table	439	447	9	programs/program_030.lol	complete
+031	Max of three numbers	450	458	9	programs/program_031.lol	complete
+032	Absolute Value	461	471	11	programs/program_032.lol	complete
+033	Sum of array	474	488	15	programs/program_033.lol	complete
+034	Boolean Logic	491	501	11	programs/program_034.lol	complete
+035	Multiple return values via BUKKIT	504	514	11	programs/program_035.lol	complete
+036	Palindrome Checker	517	538	22	programs/program_036.lol	complete
+037	Collatz Conjecture	541	557	17	programs/program_037.lol	complete
+038	Reverse a string	854	869	16	programs/program_038.lol	complete
+039	Min and Max	872	890	19	programs/program_039.lol	complete
+040	ROT13 Cipher	893	908	16	programs/program_040.lol	complete
+041	Number to Words	911	926	16	programs/program_041.lol	complete
+042	Interactive Menu	929	961	33	programs/program_042.lol	complete
+043	Pattern Printing	964	975	12	programs/program_043.lol	complete
+044	Average Calculator	978	993	16	programs/program_044.lol	complete
+045	Prime Number Checker	996	1025	30	programs/program_045.lol	complete
+046	ASCII Art Cat	1028	1037	10	programs/program_046.lol	complete
+047	Countdown Timer	1040	1047	8	programs/program_047.lol	complete
+048	Nested Loops	1050	1059	10	programs/program_048.lol	complete
