@@ -1,0 +1,14 @@
+# tier	label	repo	kind	oracle_priority	corpus_priority	source	status
+tier1	lci	justinmeza/lci	interpreter	P1	P2	implementations.pdf	unverified
+tier1	rust-lci	jD91mZM2/rust-lci	interpreter	P1	P1	implementations.pdf	unverified
+tier1	i-has-js	NullDev/I-HAS-JS	interpreter	P1	P1	implementations.pdf	unverified
+tier1	lolcode-net	JasonBock/LOLCode.net	compiler	P1	P2	implementations.pdf	unverified
+tier2	hlci	YS-L/hlci	interpreter	P2	P2	implementations.pdf	unverified
+tier2	loco	jpcarreon/loco	interpreter	P2	P2	implementations.pdf	unverified
+tier2	lol-ruby	qoobaa/lol	interpreter	P2	P2	implementations.pdf	unverified
+tier2	lolcode-py-sada	SADAsuncion/LOLCodeInterpreter	interpreter	P2	P2	implementations.pdf	unverified
+tier2	lolcode-py-cmsc124	DvaeFroot/cmsc124-lolcode-interpreter	interpreter	P2	P2	implementations.pdf	unverified
+tier2	httpd-lol	justinmeza/httpd.lol	corpus	P3	P1	manual	seeded
+tier2	loleuler	LeartS/loleuler	corpus	P3	P1	manual	seeded
+tier2	eulol	markjreed/eulol	corpus	P3	P1	manual	seeded
+tier3	pllolcode	eggyknap/pllolcode	extension	P3	P3	implementations.pdf	unverified

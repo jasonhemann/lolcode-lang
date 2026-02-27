@@ -1,0 +1,887 @@
+{
+  "generated_at": "2026-02-27T22:43:22Z",
+  "catalog_path": "corpus/tier2/CANDIDATE_REPOS.tsv",
+  "pdf_links_path": "corpus/tier2/PDF_LINKS.txt",
+  "records": [
+    {
+      "source_kind": "catalog",
+      "tier": "tier1",
+      "label": "lci",
+      "repo": "justinmeza/lci",
+      "kind": "interpreter",
+      "oracle_priority": "P1",
+      "corpus_priority": "P2",
+      "source": "implementations.pdf",
+      "catalog_status": "unverified",
+      "url": "https://github.com/justinmeza/lci",
+      "verdict": "available_live",
+      "github": {
+        "api_http_code": "200",
+        "full_name": "justinmeza/lci",
+        "archived": "",
+        "disabled": "",
+        "pushed_at": "2026-02-24T03:58:07Z",
+        "message": ""
+      },
+      "live": {
+        "http_code": "200",
+        "effective_url": "https://github.com/justinmeza/lci",
+        "error": "",
+        "ok": true
+      },
+      "archive_org": {
+        "state": "error",
+        "error": "curl: (28) Operation timed out after 6001 milliseconds with 0 bytes received",
+        "snapshot_ts": "",
+        "snapshot_url": ""
+      },
+      "archive_is": {
+        "state": "skipped_live_available",
+        "http_code": "",
+        "effective_url": "",
+        "error": "",
+        "snapshot_url": ""
+      }
+    },
+    {
+      "source_kind": "catalog",
+      "tier": "tier1",
+      "label": "rust-lci",
+      "repo": "jD91mZM2/rust-lci",
+      "kind": "interpreter",
+      "oracle_priority": "P1",
+      "corpus_priority": "P1",
+      "source": "implementations.pdf",
+      "catalog_status": "unverified",
+      "url": "https://github.com/jD91mZM2/rust-lci",
+      "verdict": "available_live",
+      "github": {
+        "api_http_code": "200",
+        "full_name": "jD91mZM2/rust-lci",
+        "archived": "",
+        "disabled": "",
+        "pushed_at": "2018-08-01T14:52:22Z",
+        "message": ""
+      },
+      "live": {
+        "http_code": "200",
+        "effective_url": "https://github.com/jD91mZM2/rust-lci",
+        "error": "",
+        "ok": true
+      },
+      "archive_org": {
+        "state": "error",
+        "error": "curl: (28) Operation timed out after 6006 milliseconds with 0 bytes received",
+        "snapshot_ts": "",
+        "snapshot_url": ""
+      },
+      "archive_is": {
+        "state": "skipped_live_available",
+        "http_code": "",
+        "effective_url": "",
+        "error": "",
+        "snapshot_url": ""
+      }
+    },
+    {
+      "source_kind": "catalog",
+      "tier": "tier1",
+      "label": "i-has-js",
+      "repo": "NullDev/I-HAS-JS",
+      "kind": "interpreter",
+      "oracle_priority": "P1",
+      "corpus_priority": "P1",
+      "source": "implementations.pdf",
+      "catalog_status": "unverified",
+      "url": "https://github.com/NullDev/I-HAS-JS",
+      "verdict": "available_live",
+      "github": {
+        "api_http_code": "200",
+        "full_name": "NullDev/I-HAS-JS",
+        "archived": "",
+        "disabled": "",
+        "pushed_at": "2023-03-01T11:06:05Z",
+        "message": ""
+      },
+      "live": {
+        "http_code": "200",
+        "effective_url": "https://github.com/NullDev/I-HAS-JS",
+        "error": "",
+        "ok": true
+      },
+      "archive_org": {
+        "state": "snapshot",
+        "error": "",
+        "snapshot_ts": "20260210224508",
+        "snapshot_url": "https://web.archive.org/web/20260210224508/https://github.com/NullDev/I-HAS-JS"
+      },
+      "archive_is": {
+        "state": "skipped_live_available",
+        "http_code": "",
+        "effective_url": "",
+        "error": "",
+        "snapshot_url": ""
+      }
+    },
+    {
+      "source_kind": "catalog",
+      "tier": "tier1",
+      "label": "lolcode-net",
+      "repo": "JasonBock/LOLCode.net",
+      "kind": "compiler",
+      "oracle_priority": "P1",
+      "corpus_priority": "P2",
+      "source": "implementations.pdf",
+      "catalog_status": "unverified",
+      "url": "https://github.com/JasonBock/LOLCode.net",
+      "verdict": "available_live",
+      "github": {
+        "api_http_code": "200",
+        "full_name": "JasonBock/LOLCode.net",
+        "archived": "",
+        "disabled": "",
+        "pushed_at": "2021-03-21T18:54:53Z",
+        "message": ""
+      },
+      "live": {
+        "http_code": "200",
+        "effective_url": "https://github.com/JasonBock/LOLCode.net",
+        "error": "",
+        "ok": true
+      },
+      "archive_org": {
+        "state": "snapshot",
+        "error": "",
+        "snapshot_ts": "20241228070340",
+        "snapshot_url": "https://web.archive.org/web/20241228070340/https://github.com/JasonBock/LOLCode.net"
+      },
+      "archive_is": {
+        "state": "skipped_live_available",
+        "http_code": "",
+        "effective_url": "",
+        "error": "",
+        "snapshot_url": ""
+      }
+    },
+    {
+      "source_kind": "catalog",
+      "tier": "tier2",
+      "label": "hlci",
+      "repo": "YS-L/hlci",
+      "kind": "interpreter",
+      "oracle_priority": "P2",
+      "corpus_priority": "P2",
+      "source": "implementations.pdf",
+      "catalog_status": "unverified",
+      "url": "https://github.com/YS-L/hlci",
+      "verdict": "available_live",
+      "github": {
+        "api_http_code": "200",
+        "full_name": "YS-L/hlci",
+        "archived": "",
+        "disabled": "",
+        "pushed_at": "2017-02-05T14:45:12Z",
+        "message": ""
+      },
+      "live": {
+        "http_code": "200",
+        "effective_url": "https://github.com/YS-L/hlci",
+        "error": "",
+        "ok": true
+      },
+      "archive_org": {
+        "state": "error",
+        "error": "curl: (28) Operation timed out after 6005 milliseconds with 0 bytes received",
+        "snapshot_ts": "",
+        "snapshot_url": ""
+      },
+      "archive_is": {
+        "state": "skipped_live_available",
+        "http_code": "",
+        "effective_url": "",
+        "error": "",
+        "snapshot_url": ""
+      }
+    },
+    {
+      "source_kind": "catalog",
+      "tier": "tier2",
+      "label": "loco",
+      "repo": "jpcarreon/loco",
+      "kind": "interpreter",
+      "oracle_priority": "P2",
+      "corpus_priority": "P2",
+      "source": "implementations.pdf",
+      "catalog_status": "unverified",
+      "url": "https://github.com/jpcarreon/loco",
+      "verdict": "available_live",
+      "github": {
+        "api_http_code": "200",
+        "full_name": "jpcarreon/loco",
+        "archived": "",
+        "disabled": "",
+        "pushed_at": "2022-06-02T08:59:19Z",
+        "message": ""
+      },
+      "live": {
+        "http_code": "200",
+        "effective_url": "https://github.com/jpcarreon/loco",
+        "error": "",
+        "ok": true
+      },
+      "archive_org": {
+        "state": "error",
+        "error": "curl: (28) Operation timed out after 6004 milliseconds with 0 bytes received",
+        "snapshot_ts": "",
+        "snapshot_url": ""
+      },
+      "archive_is": {
+        "state": "skipped_live_available",
+        "http_code": "",
+        "effective_url": "",
+        "error": "",
+        "snapshot_url": ""
+      }
+    },
+    {
+      "source_kind": "catalog",
+      "tier": "tier2",
+      "label": "lol-ruby",
+      "repo": "qoobaa/lol",
+      "kind": "interpreter",
+      "oracle_priority": "P2",
+      "corpus_priority": "P2",
+      "source": "implementations.pdf",
+      "catalog_status": "unverified",
+      "url": "https://github.com/qoobaa/lol",
+      "verdict": "available_live",
+      "github": {
+        "api_http_code": "200",
+        "full_name": "qoobaa/lol",
+        "archived": "true",
+        "disabled": "",
+        "pushed_at": "2009-10-20T07:41:36Z",
+        "message": ""
+      },
+      "live": {
+        "http_code": "200",
+        "effective_url": "https://github.com/qoobaa/lol",
+        "error": "",
+        "ok": true
+      },
+      "archive_org": {
+        "state": "snapshot",
+        "error": "",
+        "snapshot_ts": "20260227062501",
+        "snapshot_url": "https://web.archive.org/web/20260227062501/https://github.com/qoobaa/lol"
+      },
+      "archive_is": {
+        "state": "skipped_live_available",
+        "http_code": "",
+        "effective_url": "",
+        "error": "",
+        "snapshot_url": ""
+      }
+    },
+    {
+      "source_kind": "catalog",
+      "tier": "tier2",
+      "label": "lolcode-py-sada",
+      "repo": "SADAsuncion/LOLCodeInterpreter",
+      "kind": "interpreter",
+      "oracle_priority": "P2",
+      "corpus_priority": "P2",
+      "source": "implementations.pdf",
+      "catalog_status": "unverified",
+      "url": "https://github.com/SADAsuncion/LOLCodeInterpreter",
+      "verdict": "available_live",
+      "github": {
+        "api_http_code": "200",
+        "full_name": "SADAsuncion/LOLCodeInterpreter",
+        "archived": "",
+        "disabled": "",
+        "pushed_at": "2024-01-08T15:12:12Z",
+        "message": ""
+      },
+      "live": {
+        "http_code": "200",
+        "effective_url": "https://github.com/SADAsuncion/LOLCodeInterpreter",
+        "error": "",
+        "ok": true
+      },
+      "archive_org": {
+        "state": "error",
+        "error": "curl: (28) Operation timed out after 6003 milliseconds with 0 bytes received",
+        "snapshot_ts": "",
+        "snapshot_url": ""
+      },
+      "archive_is": {
+        "state": "skipped_live_available",
+        "http_code": "",
+        "effective_url": "",
+        "error": "",
+        "snapshot_url": ""
+      }
+    },
+    {
+      "source_kind": "catalog",
+      "tier": "tier2",
+      "label": "lolcode-py-cmsc124",
+      "repo": "DvaeFroot/cmsc124-lolcode-interpreter",
+      "kind": "interpreter",
+      "oracle_priority": "P2",
+      "corpus_priority": "P2",
+      "source": "implementations.pdf",
+      "catalog_status": "unverified",
+      "url": "https://github.com/DvaeFroot/cmsc124-lolcode-interpreter",
+      "verdict": "available_live",
+      "github": {
+        "api_http_code": "200",
+        "full_name": "DvaeFroot/cmsc124-lolcode-interpreter",
+        "archived": "",
+        "disabled": "",
+        "pushed_at": "2022-12-11T21:55:30Z",
+        "message": ""
+      },
+      "live": {
+        "http_code": "200",
+        "effective_url": "https://github.com/DvaeFroot/cmsc124-lolcode-interpreter",
+        "error": "",
+        "ok": true
+      },
+      "archive_org": {
+        "state": "no_snapshot",
+        "error": "",
+        "snapshot_ts": "",
+        "snapshot_url": ""
+      },
+      "archive_is": {
+        "state": "skipped_live_available",
+        "http_code": "",
+        "effective_url": "",
+        "error": "",
+        "snapshot_url": ""
+      }
+    },
+    {
+      "source_kind": "catalog",
+      "tier": "tier2",
+      "label": "httpd-lol",
+      "repo": "justinmeza/httpd.lol",
+      "kind": "corpus",
+      "oracle_priority": "P3",
+      "corpus_priority": "P1",
+      "source": "manual",
+      "catalog_status": "seeded",
+      "url": "https://github.com/justinmeza/httpd.lol",
+      "verdict": "available_live",
+      "github": {
+        "api_http_code": "200",
+        "full_name": "justinmeza/httpd.lol",
+        "archived": "",
+        "disabled": "",
+        "pushed_at": "2019-09-30T18:08:07Z",
+        "message": ""
+      },
+      "live": {
+        "http_code": "200",
+        "effective_url": "https://github.com/justinmeza/httpd.lol",
+        "error": "",
+        "ok": true
+      },
+      "archive_org": {
+        "state": "error",
+        "error": "curl: (28) Operation timed out after 6003 milliseconds with 0 bytes received",
+        "snapshot_ts": "",
+        "snapshot_url": ""
+      },
+      "archive_is": {
+        "state": "skipped_live_available",
+        "http_code": "",
+        "effective_url": "",
+        "error": "",
+        "snapshot_url": ""
+      }
+    },
+    {
+      "source_kind": "catalog",
+      "tier": "tier2",
+      "label": "loleuler",
+      "repo": "LeartS/loleuler",
+      "kind": "corpus",
+      "oracle_priority": "P3",
+      "corpus_priority": "P1",
+      "source": "manual",
+      "catalog_status": "seeded",
+      "url": "https://github.com/LeartS/loleuler",
+      "verdict": "available_live",
+      "github": {
+        "api_http_code": "200",
+        "full_name": "LeartS/loleuler",
+        "archived": "",
+        "disabled": "",
+        "pushed_at": "2014-10-31T19:48:47Z",
+        "message": ""
+      },
+      "live": {
+        "http_code": "200",
+        "effective_url": "https://github.com/LeartS/loleuler",
+        "error": "",
+        "ok": true
+      },
+      "archive_org": {
+        "state": "error",
+        "error": "curl: (28) Operation timed out after 6002 milliseconds with 0 bytes received",
+        "snapshot_ts": "",
+        "snapshot_url": ""
+      },
+      "archive_is": {
+        "state": "skipped_live_available",
+        "http_code": "",
+        "effective_url": "",
+        "error": "",
+        "snapshot_url": ""
+      }
+    },
+    {
+      "source_kind": "catalog",
+      "tier": "tier2",
+      "label": "eulol",
+      "repo": "markjreed/eulol",
+      "kind": "corpus",
+      "oracle_priority": "P3",
+      "corpus_priority": "P1",
+      "source": "manual",
+      "catalog_status": "seeded",
+      "url": "https://github.com/markjreed/eulol",
+      "verdict": "available_live",
+      "github": {
+        "api_http_code": "200",
+        "full_name": "markjreed/eulol",
+        "archived": "",
+        "disabled": "",
+        "pushed_at": "2023-02-15T16:04:22Z",
+        "message": ""
+      },
+      "live": {
+        "http_code": "200",
+        "effective_url": "https://github.com/markjreed/eulol",
+        "error": "",
+        "ok": true
+      },
+      "archive_org": {
+        "state": "snapshot",
+        "error": "",
+        "snapshot_ts": "20221220134003",
+        "snapshot_url": "https://web.archive.org/web/20221220134003/https://github.com/markjreed/eulol"
+      },
+      "archive_is": {
+        "state": "skipped_live_available",
+        "http_code": "",
+        "effective_url": "",
+        "error": "",
+        "snapshot_url": ""
+      }
+    },
+    {
+      "source_kind": "catalog",
+      "tier": "tier3",
+      "label": "pllolcode",
+      "repo": "eggyknap/pllolcode",
+      "kind": "extension",
+      "oracle_priority": "P3",
+      "corpus_priority": "P3",
+      "source": "implementations.pdf",
+      "catalog_status": "unverified",
+      "url": "https://github.com/eggyknap/pllolcode",
+      "verdict": "available_live",
+      "github": {
+        "api_http_code": "200",
+        "full_name": "eggyknap/pllolcode",
+        "archived": "",
+        "disabled": "",
+        "pushed_at": "2014-02-20T23:29:36Z",
+        "message": ""
+      },
+      "live": {
+        "http_code": "200",
+        "effective_url": "https://github.com/eggyknap/pllolcode",
+        "error": "",
+        "ok": true
+      },
+      "archive_org": {
+        "state": "snapshot",
+        "error": "",
+        "snapshot_ts": "20250126203651",
+        "snapshot_url": "https://web.archive.org/web/20250126203651/https://github.com/eggyknap/pllolcode"
+      },
+      "archive_is": {
+        "state": "skipped_live_available",
+        "http_code": "",
+        "effective_url": "",
+        "error": "",
+        "snapshot_url": ""
+      }
+    },
+    {
+      "source_kind": "pdf_link",
+      "url": "https://arxiv.org/pdf/1703.10242",
+      "verdict": "available_live",
+      "live": {
+        "http_code": "200",
+        "effective_url": "https://arxiv.org/pdf/1703.10242",
+        "error": "",
+        "ok": true
+      },
+      "archive_org": {
+        "state": "error",
+        "error": "curl: (28) Operation timed out after 6002 milliseconds with 0 bytes received",
+        "snapshot_ts": "",
+        "snapshot_url": ""
+      },
+      "archive_is": {
+        "state": "skipped_live_available",
+        "http_code": "",
+        "effective_url": "",
+        "error": "",
+        "snapshot_url": ""
+      }
+    },
+    {
+      "source_kind": "pdf_link",
+      "url": "https://code.google.com/archive/p/lolcode-java/",
+      "verdict": "available_live",
+      "live": {
+        "http_code": "200",
+        "effective_url": "https://code.google.com/archive/p/lolcode-java/",
+        "error": "",
+        "ok": true
+      },
+      "archive_org": {
+        "state": "error",
+        "error": "curl: (28) Operation timed out after 6006 milliseconds with 0 bytes received",
+        "snapshot_ts": "",
+        "snapshot_url": ""
+      },
+      "archive_is": {
+        "state": "skipped_live_available",
+        "http_code": "",
+        "effective_url": "",
+        "error": "",
+        "snapshot_url": ""
+      }
+    },
+    {
+      "source_kind": "pdf_link",
+      "url": "https://github.com/jpcarreon/loco/blob/master/README.md",
+      "verdict": "available_live",
+      "live": {
+        "http_code": "200",
+        "effective_url": "https://github.com/jpcarreon/loco/blob/master/README.md",
+        "error": "",
+        "ok": true
+      },
+      "archive_org": {
+        "state": "no_snapshot",
+        "error": "",
+        "snapshot_ts": "",
+        "snapshot_url": ""
+      },
+      "archive_is": {
+        "state": "skipped_live_available",
+        "http_code": "",
+        "effective_url": "",
+        "error": "",
+        "snapshot_url": ""
+      }
+    },
+    {
+      "source_kind": "pdf_link",
+      "url": "https://kylewoodward.com/yali-yet-another-lolcode-interpreter/",
+      "verdict": "available_live",
+      "live": {
+        "http_code": "200",
+        "effective_url": "https://kylewoodward.com/yali-yet-another-lolcode-interpreter/",
+        "error": "",
+        "ok": true
+      },
+      "archive_org": {
+        "state": "error",
+        "error": "curl: (28) Operation timed out after 6008 milliseconds with 0 bytes received",
+        "snapshot_ts": "",
+        "snapshot_url": ""
+      },
+      "archive_is": {
+        "state": "skipped_live_available",
+        "http_code": "",
+        "effective_url": "",
+        "error": "",
+        "snapshot_url": ""
+      }
+    },
+    {
+      "source_kind": "pdf_link",
+      "url": "https://lolcode.org/",
+      "verdict": "available_live",
+      "live": {
+        "http_code": "200",
+        "effective_url": "https://lolcode.org/",
+        "error": "",
+        "ok": true
+      },
+      "archive_org": {
+        "state": "error",
+        "error": "curl: (28) Operation timed out after 6001 milliseconds with 0 bytes received",
+        "snapshot_ts": "",
+        "snapshot_url": ""
+      },
+      "archive_is": {
+        "state": "skipped_live_available",
+        "http_code": "",
+        "effective_url": "",
+        "error": "",
+        "snapshot_url": ""
+      }
+    },
+    {
+      "source_kind": "pdf_link",
+      "url": "https://parrot.github.io/parrot-docs0/0.6.1/html/languages/lolcode/lolcode.pir.html",
+      "verdict": "available_live",
+      "live": {
+        "http_code": "200",
+        "effective_url": "https://parrot.github.io/parrot-docs0/0.6.1/html/languages/lolcode/lolcode.pir.html",
+        "error": "",
+        "ok": true
+      },
+      "archive_org": {
+        "state": "no_snapshot",
+        "error": "",
+        "snapshot_ts": "",
+        "snapshot_url": ""
+      },
+      "archive_is": {
+        "state": "skipped_live_available",
+        "http_code": "",
+        "effective_url": "",
+        "error": "",
+        "snapshot_url": ""
+      }
+    },
+    {
+      "source_kind": "pdf_link",
+      "url": "https://raw.githubusercontent.com/YS-L/hlci/master/README.md",
+      "verdict": "available_live",
+      "live": {
+        "http_code": "200",
+        "effective_url": "https://raw.githubusercontent.com/YS-L/hlci/master/README.md",
+        "error": "",
+        "ok": true
+      },
+      "archive_org": {
+        "state": "no_snapshot",
+        "error": "",
+        "snapshot_ts": "",
+        "snapshot_url": ""
+      },
+      "archive_is": {
+        "state": "skipped_live_available",
+        "http_code": "",
+        "effective_url": "",
+        "error": "",
+        "snapshot_url": ""
+      }
+    },
+    {
+      "source_kind": "pdf_link",
+      "url": "https://raw.githubusercontent.com/qoobaa/lol/master/README.rdoc",
+      "verdict": "available_live",
+      "live": {
+        "http_code": "200",
+        "effective_url": "https://raw.githubusercontent.com/qoobaa/lol/master/README.rdoc",
+        "error": "",
+        "ok": true
+      },
+      "archive_org": {
+        "state": "no_snapshot",
+        "error": "",
+        "snapshot_ts": "",
+        "snapshot_url": ""
+      },
+      "archive_is": {
+        "state": "skipped_live_available",
+        "http_code": "",
+        "effective_url": "",
+        "error": "",
+        "snapshot_url": ""
+      }
+    },
+    {
+      "source_kind": "pdf_link",
+      "url": "https://sourceforge.net/projects/lolcode-1337/",
+      "verdict": "available_live",
+      "live": {
+        "http_code": "200",
+        "effective_url": "https://sourceforge.net/projects/lolcode-1337/",
+        "error": "",
+        "ok": true
+      },
+      "archive_org": {
+        "state": "snapshot",
+        "error": "",
+        "snapshot_ts": "20250428135222",
+        "snapshot_url": "https://web.archive.org/web/20250428135222/https://sourceforge.net/projects/lolcode-1337/"
+      },
+      "archive_is": {
+        "state": "skipped_live_available",
+        "http_code": "",
+        "effective_url": "",
+        "error": "",
+        "snapshot_url": ""
+      }
+    },
+    {
+      "source_kind": "pdf_link",
+      "url": "https://thomasleecopeland.com/2007/09/29/an-lolcode-interpreter-using-jjtree.html",
+      "verdict": "available_live",
+      "live": {
+        "http_code": "200",
+        "effective_url": "https://thomasleecopeland.com/2007/09/29/an-lolcode-interpreter-using-jjtree.html",
+        "error": "",
+        "ok": true
+      },
+      "archive_org": {
+        "state": "error",
+        "error": "curl: (28) Operation timed out after 6006 milliseconds with 0 bytes received",
+        "snapshot_ts": "",
+        "snapshot_url": ""
+      },
+      "archive_is": {
+        "state": "skipped_live_available",
+        "http_code": "",
+        "effective_url": "",
+        "error": "",
+        "snapshot_url": ""
+      }
+    },
+    {
+      "source_kind": "pdf_link",
+      "url": "https://winterdom.com/2008/02/04/buildingonthedlr",
+      "verdict": "available_live",
+      "live": {
+        "http_code": "200",
+        "effective_url": "https://winterdom.com/2008/02/04/buildingonthedlr",
+        "error": "",
+        "ok": true
+      },
+      "archive_org": {
+        "state": "error",
+        "error": "curl: (28) Operation timed out after 6006 milliseconds with 0 bytes received",
+        "snapshot_ts": "",
+        "snapshot_url": ""
+      },
+      "archive_is": {
+        "state": "skipped_live_available",
+        "http_code": "",
+        "effective_url": "",
+        "error": "",
+        "snapshot_url": ""
+      }
+    },
+    {
+      "source_kind": "pdf_link",
+      "url": "https://www.dcode.fr/lolcode-language",
+      "verdict": "unavailable_archive_unknown",
+      "live": {
+        "http_code": "403",
+        "effective_url": "https://www.dcode.fr/lolcode-language",
+        "error": "",
+        "ok": false
+      },
+      "archive_org": {
+        "state": "error",
+        "error": "curl: (28) Operation timed out after 6003 milliseconds with 0 bytes received",
+        "snapshot_ts": "",
+        "snapshot_url": ""
+      },
+      "archive_is": {
+        "state": "no_snapshot",
+        "http_code": "404",
+        "effective_url": "https://archive.is/timegate/https://www.dcode.fr/lolcode-language",
+        "error": "",
+        "snapshot_url": ""
+      }
+    },
+    {
+      "source_kind": "pdf_link",
+      "url": "https://www.mybackdeck.com/lolcode/",
+      "verdict": "available_live",
+      "live": {
+        "http_code": "200",
+        "effective_url": "https://www.mybackdeck.com/lolcode/",
+        "error": "",
+        "ok": true
+      },
+      "archive_org": {
+        "state": "error",
+        "error": "curl: (28) Operation timed out after 6004 milliseconds with 0 bytes received",
+        "snapshot_ts": "",
+        "snapshot_url": ""
+      },
+      "archive_is": {
+        "state": "skipped_live_available",
+        "http_code": "",
+        "effective_url": "",
+        "error": "",
+        "snapshot_url": ""
+      }
+    },
+    {
+      "source_kind": "pdf_link",
+      "url": "https://www.pmichaud.com/2008/pres/yapc-pct/slides/slide68e.html",
+      "verdict": "available_live",
+      "live": {
+        "http_code": "200",
+        "effective_url": "https://www.pmichaud.com/2008/pres/yapc-pct/slides/slide68e.html",
+        "error": "",
+        "ok": true
+      },
+      "archive_org": {
+        "state": "no_snapshot",
+        "error": "",
+        "snapshot_ts": "",
+        "snapshot_url": ""
+      },
+      "archive_is": {
+        "state": "skipped_live_available",
+        "http_code": "",
+        "effective_url": "",
+        "error": "",
+        "snapshot_url": ""
+      }
+    },
+    {
+      "source_kind": "pdf_link",
+      "url": "https://ypologistisglossarion.blogspot.com/2012/10/lol.html",
+      "verdict": "available_live",
+      "live": {
+        "http_code": "200",
+        "effective_url": "https://ypologistisglossarion.blogspot.com/2012/10/lol.html",
+        "error": "",
+        "ok": true
+      },
+      "archive_org": {
+        "state": "snapshot",
+        "error": "",
+        "snapshot_ts": "20241225094908",
+        "snapshot_url": "https://web.archive.org/web/20241225094908/http://ypologistisglossarion.blogspot.com/2012/10/lol.html"
+      },
+      "archive_is": {
+        "state": "skipped_live_available",
+        "http_code": "",
+        "effective_url": "",
+        "error": "",
+        "snapshot_url": ""
+      }
+    }
+  ]
+}

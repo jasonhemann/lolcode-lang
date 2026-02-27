@@ -1,0 +1,24 @@
+# Extracted from implementations.pdf on 2026-02-27
+# Command: pdftotext -layout implementations.pdf - | rg -o 'https?://[^ )\]>]+' | sed 's/[.,]$//' | sort -u
+https://arxiv.org/pdf/1703.10242
+https://code.google.com/archive/p/lolcode-java/
+https://github.com/DvaeFroot/cmsc124-lolcode-interpreter
+https://github.com/JasonBock/LOLCode.net
+https://github.com/NullDev/I-HAS-JS
+https://github.com/SADAsuncion/LOLCodeInterpreter
+https://github.com/eggyknap/pllolcode
+https://github.com/jD91mZM2/rust-lci
+https://github.com/jpcarreon/loco/blob/master/README.md
+https://github.com/justinmeza/lci
+https://kylewoodward.com/yali-yet-another-lolcode-interpreter/
+https://lolcode.org/
+https://parrot.github.io/parrot-docs0/0.6.1/html/languages/lolcode/lolcode.pir.html
+https://raw.githubusercontent.com/YS-L/hlci/master/README.md
+https://raw.githubusercontent.com/qoobaa/lol/master/README.rdoc
+https://sourceforge.net/projects/lolcode-1337/
+https://thomasleecopeland.com/2007/09/29/an-lolcode-interpreter-using-jjtree.html
+https://winterdom.com/2008/02/04/buildingonthedlr
+https://www.dcode.fr/lolcode-language
+https://www.mybackdeck.com/lolcode/
+https://www.pmichaud.com/2008/pres/yapc-pct/slides/slide68e.html
+https://ypologistisglossarion.blogspot.com/2012/10/lol.html

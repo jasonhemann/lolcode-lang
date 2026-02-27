@@ -1,0 +1,30 @@
+{
+  "generated_at": "2026-02-27T21:47:39Z",
+  "policy": "Tier-2 non-normative corpus",
+  "corpora": [
+    {
+      "label": "httpd.lol",
+      "repo": "justinmeza/httpd.lol",
+      "pushed_at": "2019-09-30T18:08:07Z",
+      "stars": 137,
+      "forks": 10,
+      "language": "LOLCODE"
+    },
+    {
+      "label": "loleuler",
+      "repo": "LeartS/loleuler",
+      "pushed_at": "2014-10-31T19:48:47Z",
+      "stars": 18,
+      "forks": 0,
+      "language": "LOLCODE"
+    },
+    {
+      "label": "eulol",
+      "repo": "markjreed/eulol",
+      "pushed_at": "2023-02-15T16:04:22Z",
+      "stars": 7,
+      "forks": 0,
+      "language": "LOLCODE"
+    }
+  ]
+}
