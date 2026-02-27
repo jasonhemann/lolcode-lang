@@ -37,6 +37,10 @@ Step-3 lexer/parser implementation is under:
 - `src/lolcode/ast.rkt`
 - `tests/spec/parse-negative-test.rkt`
 
+Parser implementation note:
+
+- `src/lolcode/parser.rkt` now uses Racket `parser-tools/yacc` with source-positioned syntax errors.
+
 Run tests:
 
 ```bash

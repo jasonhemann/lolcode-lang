@@ -2,361 +2,315 @@
 
 (require racket/list
          racket/string
+         (only-in parser-tools/lex
+                  define-tokens
+                  define-empty-tokens
+                  make-position
+                  make-position-token
+                  position-line
+                  position-col)
+         parser-tools/yacc
          "ast.rkt"
          "lexer.rkt")
 
 (provide parse-source)
 
-(define (parse-error where tok fmt . args)
-  (define msg (apply format fmt args))
-  (error where "~a at line ~a, col ~a" msg (token-line tok) (token-col tok)))
+(define-tokens value-tokens (ID NUMBER STRING))
+
+(define-empty-tokens op-tokens
+  (HAI KTHXBYE NEWLINE EOF
+       I HAS A R ITZ O RLY RLYQ YA NO WAI OIC MEBBE
+       WTFQ OMG OMGWTF GTFO FOUND YR
+       IF U SAY SO HOW IZ
+       VISIBLE AN
+       SUM OF DIFF PRODUKT QUOSHUNT MOD BIGGR SMALLR BOTH SAEM DIFFRINT
+       SMOOSH SRS MKAY
+       KTHX IM LIEK
+       SLOT))
+
+(define keyword-token-ctors
+  (hash "HAI" token-HAI
+        "KTHXBYE" token-KTHXBYE
+        "I" token-I
+        "HAS" token-HAS
+        "A" token-A
+        "R" token-R
+        "ITZ" token-ITZ
+        "O" token-O
+        "RLY" token-RLY
+        "RLY?" token-RLYQ
+        "YA" token-YA
+        "NO" token-NO
+        "WAI" token-WAI
+        "OIC" token-OIC
+        "MEBBE" token-MEBBE
+        "WTF?" token-WTFQ
+        "OMG" token-OMG
+        "OMGWTF" token-OMGWTF
+        "GTFO" token-GTFO
+        "FOUND" token-FOUND
+        "YR" token-YR
+        "IF" token-IF
+        "U" token-U
+        "SAY" token-SAY
+        "SO" token-SO
+        "HOW" token-HOW
+        "IZ" token-IZ
+        "VISIBLE" token-VISIBLE
+        "AN" token-AN
+        "SUM" token-SUM
+        "OF" token-OF
+        "DIFF" token-DIFF
+        "PRODUKT" token-PRODUKT
+        "QUOSHUNT" token-QUOSHUNT
+        "MOD" token-MOD
+        "BIGGR" token-BIGGR
+        "SMALLR" token-SMALLR
+        "BOTH" token-BOTH
+        "SAEM" token-SAEM
+        "DIFFRINT" token-DIFFRINT
+        "SMOOSH" token-SMOOSH
+        "SRS" token-SRS
+        "MKAY" token-MKAY
+        "KTHX" token-KTHX
+        "IM" token-IM
+        "LIEK" token-LIEK
+        "'Z" token-SLOT))
+
+(define (raw->token raw)
+  (define ttype (token-type raw))
+  (define lex (token-lexeme raw))
+  (cond
+    [(eq? ttype 'NEWLINE) (token-NEWLINE)]
+    [(eq? ttype 'EOF) (token-EOF)]
+    [(eq? ttype 'NUMBER) (token-NUMBER lex)]
+    [(eq? ttype 'STRING) (token-STRING lex)]
+    [(eq? ttype 'WORD)
+     (define ctor (hash-ref keyword-token-ctors (string-upcase lex) #f))
+     (if ctor
+         (ctor)
+         (token-ID lex))]
+    [else
+     (error 'parse-source "unknown lexer token type: ~a" ttype)]))
+
+(define (raw->position-token raw)
+  (define line (token-line raw))
+  (define col (token-col raw))
+  (define len (max 1 (string-length (token-lexeme raw))))
+  (define start (make-position 0 line col))
+  (define end (make-position 0 line (+ col len)))
+  (make-position-token (raw->token raw) start end))
+
+(define parse/internal
+  (parser
+   (start program)
+   (end EOF)
+   (tokens value-tokens op-tokens)
+   (src-pos)
+   (expected-SR-conflicts 12)
+   (expected-RR-conflicts 0)
+   (error
+    (lambda (tok-ok? tok-name tok-value start-pos end-pos)
+      (define line (if start-pos (position-line start-pos) 0))
+      (define col (if start-pos (position-col start-pos) 0))
+      (error 'parse-source
+             "syntax error near ~a (~a) at line ~a, col ~a"
+             tok-name tok-value line col)))
+   (grammar
+    (program
+     [(HAI version nlopt statement-list-opt nlopt KTHXBYE nlopt)
+      (program $2 $4)])
+
+    (version
+     [(NUMBER) $1]
+     [(ID) $1])
+
+    (nlopt
+     [() (void)]
+     [(nls) (void)])
+
+    (nls
+     [(NEWLINE) (void)]
+     [(NEWLINE nls) (void)])
+
+    (statement-list-opt
+     [() '()]
+     [(statement-items) $1])
+
+    (statement-items
+     [(statement-item) (list $1)]
+     [(statement-item statement-items) (cons $1 $2)])
+
+    (statement-item
+     [(statement nlopt) $1])
+
+    (statement
+     [(if-stmt) $1]
+     [(switch-stmt) $1]
+     [(function-stmt) $1]
+     [(object-stmt) $1]
+     [(declare-stmt) $1]
+     [(assign-stmt) $1]
+     [(slot-set-stmt) $1]
+     [(visible-stmt) $1]
+     [(return-stmt) $1]
+     [(break-stmt) $1])
+
+    (declare-stmt
+     [(I HAS A declare-target declare-init-opt) (stmt-declare $4 $5)]
+     [(I HAS declare-target declare-init-opt) (stmt-declare $3 $4)])
+
+    (declare-target
+     [(ID) (expr-ident $1)]
+     [(SRS expr) (expr-srs $2)])
+
+    (declare-init-opt
+     [() #f]
+     [(ITZ expr) $2]
+     [(ITZ A ID) (expr-ident $3)])
+
+    (assign-stmt
+     [(expr R expr) (stmt-assign $1 $3)])
+
+    (slot-set-stmt
+     [(expr HAS A slot-target ITZ expr) (stmt-slot-set $1 $4 $6)])
+
+    (slot-target
+     [(ID) (expr-ident $1)]
+     [(SRS expr) (expr-srs $2)])
+
+    (visible-stmt
+     [(VISIBLE visible-args) (stmt-visible $2 #f)])
+
+    (visible-args
+     [(expr) (list $1)]
+     [(expr AN visible-args) (cons $1 $3)])
+
+    (if-stmt
+     [(expr nlopt O RLYQ nlopt YA RLY nlopt statement-list-opt mebbe-list else-opt OIC)
+      (stmt-if $1 $8 $9 $10)]
+     [(O RLYQ nlopt YA RLY nlopt statement-list-opt mebbe-list else-opt OIC)
+      (stmt-if (expr-ident "IT") $6 $7 $8)])
+
+    (mebbe-list
+     [() '()]
+     [(mebbe-list MEBBE expr nlopt statement-list-opt)
+      (append $1 (list (mebbe-branch $3 $5)))])
+
+    (else-opt
+     [() '()]
+     [(NO WAI nlopt statement-list-opt) $4])
+
+    (switch-stmt
+     [(expr nlopt WTFQ nlopt case-list default-opt OIC)
+      (stmt-switch $1 $5 $6)]
+     [(WTFQ nlopt case-list default-opt OIC)
+      (stmt-switch (expr-ident "IT") $3 $4)])
+
+    (case-list
+     [(case) (list $1)]
+     [(case-list case) (append $1 (list $2))])
+
+    (case
+     [(OMG expr nlopt statement-list-opt)
+      (switch-case $2 $4)])
+
+    (default-opt
+     [() '()]
+     [(OMGWTF nlopt statement-list-opt) $3])
+
+    (function-stmt
+     [(HOW IZ I ID arg-def-opt nlopt statement-list-opt IF U SAY SO)
+      (stmt-function-def $4 $5 $7)])
+
+    (arg-def-opt
+     [() '()]
+     [(YR ID arg-def-more) (cons $2 $3)])
+
+    (arg-def-more
+     [() '()]
+     [(AN YR ID arg-def-more) (cons $3 $4)])
+
+    (object-stmt
+     [(O HAI IM ID object-parent-opt nlopt statement-list-opt KTHX)
+      (stmt-object-def $4 $5 $7)])
+
+    (object-parent-opt
+     [() #f]
+     [(IM LIEK ID) $3])
+
+    (return-stmt
+     [(FOUND YR expr) (stmt-return $3)])
+
+    (break-stmt
+     [(GTFO) (stmt-break)])
+
+    (expr
+     [(simple-expr postfix-tail) ($2 $1)])
+
+    (postfix-tail
+     [() (lambda (base) base)]
+     [(SLOT slot-ref postfix-tail)
+      (lambda (base) ($3 (expr-slot base $2)))]
+     [(IZ ID call-args MKAY postfix-tail)
+      (lambda (base) ($5 (expr-method-call base $2 $3)))])
+
+    (slot-ref
+     [(ID) (expr-ident $1)]
+     [(SRS expr) (expr-srs $2)])
+
+    (simple-expr
+     [(NUMBER) (expr-number $1)]
+     [(STRING) (expr-string $1)]
+     [(ID) (expr-ident $1)]
+     [(SRS expr) (expr-srs $2)]
+     [(I IZ ID call-args MKAY) (expr-call $3 $4)]
+     [(bin-expr) $1]
+     [(smoosh-expr) $1])
+
+    (call-args
+     [() '()]
+     [(YR expr call-args-tail) (cons $2 $3)])
+
+    (call-args-tail
+     [() '()]
+     [(AN YR expr call-args-tail) (cons $3 $4)])
+
+    (an-opt
+     [() (void)]
+     [(AN) (void)])
+
+    (bin-expr
+     [(SUM OF expr an-opt expr) (expr-binary "SUM OF" $3 $5)]
+     [(DIFF OF expr an-opt expr) (expr-binary "DIFF OF" $3 $5)]
+     [(PRODUKT OF expr an-opt expr) (expr-binary "PRODUKT OF" $3 $5)]
+     [(QUOSHUNT OF expr an-opt expr) (expr-binary "QUOSHUNT OF" $3 $5)]
+     [(MOD OF expr an-opt expr) (expr-binary "MOD OF" $3 $5)]
+     [(BIGGR OF expr an-opt expr) (expr-binary "BIGGR OF" $3 $5)]
+     [(SMALLR OF expr an-opt expr) (expr-binary "SMALLR OF" $3 $5)]
+     [(BOTH SAEM expr an-opt expr) (expr-binary "BOTH SAEM" $3 $5)]
+     [(DIFFRINT expr an-opt expr) (expr-binary "DIFFRINT" $2 $4)])
+
+    (smoosh-expr
+     [(SMOOSH expr smoosh-tail maybe-mkay) (expr-variadic "SMOOSH" (cons $2 $3))])
+
+    (smoosh-tail
+     [() '()]
+     [(AN expr smoosh-tail) (cons $2 $3)])
+
+    (maybe-mkay
+     [() (void)]
+     [(MKAY) (void)]))))
 
 (define (parse-source source)
-  (define tv (list->vector (lex-source source)))
-  (define len (vector-length tv))
-  (define pos 0)
-
-  (define (cur) (vector-ref tv pos))
-  (define (cur-type) (token-type (cur)))
-  (define (cur-lexeme) (token-lexeme (cur)))
-  (define (cur-word-up) (string-upcase (cur-lexeme)))
-
-  (define (advance!)
-    (when (< pos (- len 1))
-      (set! pos (+ pos 1)))
-    (cur))
-
-  (define (at-type? t) (eq? (cur-type) t))
-  (define (at-word? w)
-    (and (at-type? 'WORD)
-         (string=? (cur-word-up) (string-upcase w))))
-  (define (at-words? ws)
-    (let loop ([i 0] [rest ws])
-      (cond
-        [(null? rest) #t]
-        [else
-         (define p (+ pos i))
-         (and (< p len)
-              (eq? (token-type (vector-ref tv p)) 'WORD)
-              (string=? (string-upcase (token-lexeme (vector-ref tv p)))
-                        (string-upcase (car rest)))
-              (loop (+ i 1) (cdr rest)))])))
-
-  (define (consume-word! w)
-    (unless (at-word? w)
-      (parse-error 'parse-source (cur) "expected word ~a, got ~a" w (cur-lexeme)))
-    (define t (cur))
-    (advance!)
+  (unless (string? source)
+    (raise-argument-error 'parse-source "string?" source))
+  (define toks (map raw->position-token (lex-source source)))
+  (define idx 0)
+  (define n (length toks))
+  (define (next-token)
+    (define t (list-ref toks idx))
+    (when (< idx (- n 1))
+      (set! idx (+ idx 1)))
     t)
-
-  (define (consume-words! ws)
-    (for ([w (in-list ws)])
-      (consume-word! w)))
-
-  (define (skip-newlines!)
-    (let loop ()
-      (when (at-type? 'NEWLINE)
-        (advance!)
-        (loop))))
-
-  (define (parse-identifier!)
-    (unless (at-type? 'WORD)
-      (parse-error 'parse-source (cur) "expected identifier, got ~a" (cur-lexeme)))
-    (define x (cur-lexeme))
-    (advance!)
-    x)
-
-  (define (parse-call-args!)
-    (define args '())
-    (when (at-word? "YR")
-      (let loop ()
-        (consume-word! "YR")
-        (set! args (append args (list (parse-expression!))))
-        (when (at-word? "AN")
-          (consume-word! "AN")
-          (unless (at-word? "YR")
-            (parse-error 'parse-source (cur) "expected YR after AN in call arguments"))
-          (loop))))
-    args)
-
-  (define (parse-expression-core!)
-    (cond
-      [(at-words? '("I" "IZ"))
-       (consume-words! '("I" "IZ"))
-       (define name (parse-identifier!))
-       (define args (parse-call-args!))
-       (consume-word! "MKAY")
-       (expr-call name args)]
-      [(at-word? "SRS")
-       (consume-word! "SRS")
-       (expr-srs (parse-expression!))]
-      [(at-word? "SMOOSH")
-       (consume-word! "SMOOSH")
-       (define args (list (parse-expression!)))
-       (let loop ()
-         (cond
-           [(at-word? "AN")
-            (consume-word! "AN")
-            (set! args (append args (list (parse-expression!))))
-            (loop)]
-           [(at-word? "MKAY")
-            (consume-word! "MKAY")]
-           [else (void)]))
-       (expr-variadic "SMOOSH" args)]
-      [(or (at-words? '("SUM" "OF"))
-           (at-words? '("DIFF" "OF"))
-           (at-words? '("PRODUKT" "OF"))
-           (at-words? '("QUOSHUNT" "OF"))
-           (at-words? '("MOD" "OF"))
-           (at-words? '("BIGGR" "OF"))
-           (at-words? '("SMALLR" "OF"))
-           (at-words? '("BOTH" "SAEM"))
-           (at-word? "DIFFRINT"))
-       (define op
-         (cond
-           [(at-words? '("SUM" "OF")) (consume-words! '("SUM" "OF")) "SUM OF"]
-           [(at-words? '("DIFF" "OF")) (consume-words! '("DIFF" "OF")) "DIFF OF"]
-           [(at-words? '("PRODUKT" "OF")) (consume-words! '("PRODUKT" "OF")) "PRODUKT OF"]
-           [(at-words? '("QUOSHUNT" "OF")) (consume-words! '("QUOSHUNT" "OF")) "QUOSHUNT OF"]
-           [(at-words? '("MOD" "OF")) (consume-words! '("MOD" "OF")) "MOD OF"]
-           [(at-words? '("BIGGR" "OF")) (consume-words! '("BIGGR" "OF")) "BIGGR OF"]
-           [(at-words? '("SMALLR" "OF")) (consume-words! '("SMALLR" "OF")) "SMALLR OF"]
-           [(at-words? '("BOTH" "SAEM")) (consume-words! '("BOTH" "SAEM")) "BOTH SAEM"]
-           [else (consume-word! "DIFFRINT") "DIFFRINT"]))
-       (define left (parse-expression!))
-       (when (at-word? "AN")
-         (consume-word! "AN"))
-       (define right (parse-expression!))
-       (expr-binary op left right)]
-      [(at-type? 'STRING)
-       (define t (cur-lexeme))
-       (advance!)
-       (expr-string t)]
-      [(at-type? 'NUMBER)
-       (define t (cur-lexeme))
-       (advance!)
-       (expr-number t)]
-      [(at-type? 'WORD)
-       (define t (cur-lexeme))
-       (advance!)
-       (expr-ident t)]
-      [else
-       (parse-error 'parse-source (cur) "unexpected token in expression: ~a" (cur-lexeme))]))
-
-  (define (parse-expression!)
-    (define e (parse-expression-core!))
-    (let loop ([acc e])
-      (cond
-        [(at-word? "'Z")
-         (consume-word! "'Z")
-         (define slot
-           (if (at-word? "SRS")
-               (begin
-                 (consume-word! "SRS")
-                 (parse-expression!))
-               (expr-ident (parse-identifier!))))
-         (loop (expr-slot acc slot))]
-        [(at-word? "IZ")
-         (consume-word! "IZ")
-         (define method-name (parse-identifier!))
-         (define args (parse-call-args!))
-         (consume-word! "MKAY")
-         (loop (expr-method-call acc method-name args))]
-        [else acc])))
-
-  (define (parse-statements-until stop?)
-    (define stmts '())
-    (skip-newlines!)
-    (let loop ()
-      (unless (stop?)
-        (when (at-type? 'EOF)
-          (parse-error 'parse-source (cur) "unexpected EOF while parsing block"))
-        (set! stmts (append stmts (list (parse-statement!))))
-        (skip-newlines!)
-        (loop)))
-    stmts)
-
-  (define (parse-if-tail! condition)
-    (consume-words! '("O" "RLY?"))
-    (skip-newlines!)
-    (consume-words! '("YA" "RLY"))
-    (define then-branch
-      (parse-statements-until
-       (lambda ()
-         (or (at-word? "MEBBE")
-             (at-words? '("NO" "WAI"))
-             (at-word? "OIC")))))
-    (define mebbes '())
-    (let mebbe-loop ()
-      (when (at-word? "MEBBE")
-        (consume-word! "MEBBE")
-        (define m-cond (parse-expression!))
-        (define m-body
-          (parse-statements-until
-           (lambda ()
-             (or (at-word? "MEBBE")
-                 (at-words? '("NO" "WAI"))
-                 (at-word? "OIC")))))
-        (set! mebbes (append mebbes (list (mebbe-branch m-cond m-body))))
-        (mebbe-loop)))
-    (define else-branch '())
-    (when (at-words? '("NO" "WAI"))
-      (consume-words! '("NO" "WAI"))
-      (set! else-branch
-            (parse-statements-until (lambda () (at-word? "OIC")))))
-    (consume-word! "OIC")
-    (stmt-if condition then-branch mebbes else-branch))
-
-  (define (parse-switch-tail! subject)
-    (consume-word! "WTF?")
-    (define cases '())
-    (define default '())
-    (skip-newlines!)
-    (let loop ()
-      (cond
-        [(at-word? "OMG")
-         (consume-word! "OMG")
-         (define match-expr (parse-expression!))
-         (define case-body
-           (parse-statements-until
-            (lambda ()
-              (or (at-word? "OMG")
-                  (at-word? "OMGWTF")
-                  (at-word? "OIC")))))
-         (set! cases (append cases (list (switch-case match-expr case-body))))
-         (loop)]
-        [(at-word? "OMGWTF")
-         (consume-word! "OMGWTF")
-         (set! default
-               (parse-statements-until (lambda () (at-word? "OIC"))))
-         (loop)]
-        [(at-word? "OIC")
-         (consume-word! "OIC")
-         (stmt-switch subject cases default)]
-        [else
-         (parse-error 'parse-source (cur) "expected OMG/OMGWTF/OIC in WTF block")]))
-    )
-
-  (define (parse-function-def!)
-    (consume-words! '("HOW" "IZ" "I"))
-    (define name (parse-identifier!))
-    (define args '())
-    (when (at-word? "YR")
-      (consume-word! "YR")
-      (set! args (append args (list (parse-identifier!))))
-      (let loop ()
-        (when (at-word? "AN")
-          (consume-word! "AN")
-          (consume-word! "YR")
-          (set! args (append args (list (parse-identifier!))))
-          (loop))))
-    (define body
-      (parse-statements-until
-       (lambda ()
-         (at-words? '("IF" "U" "SAY" "SO")))))
-    (consume-words! '("IF" "U" "SAY" "SO"))
-    (stmt-function-def name args body))
-
-  (define (parse-object-def!)
-    (consume-words! '("O" "HAI" "IM"))
-    (define name (parse-identifier!))
-    (define parent #f)
-    (when (at-words? '("IM" "LIEK"))
-      (consume-words! '("IM" "LIEK"))
-      (set! parent (parse-identifier!)))
-    (define body
-      (parse-statements-until (lambda () (at-word? "KTHX"))))
-    (consume-word! "KTHX")
-    (stmt-object-def name parent body))
-
-  (define (parse-visible!)
-    (consume-word! "VISIBLE")
-    (define exprs '())
-    (define suppress-newline? #f)
-    (let loop ()
-      (cond
-        [(or (at-type? 'NEWLINE) (at-type? 'EOF)) (void)]
-        [(and (at-type? 'WORD) (string=? (cur-lexeme) "!"))
-         (set! suppress-newline? #t)
-         (advance!)
-         (loop)]
-        [else
-         (set! exprs (append exprs (list (parse-expression!))))
-         (when (at-word? "AN")
-           (consume-word! "AN")
-           (loop))]))
-    (stmt-visible exprs suppress-newline?))
-
-  (define (parse-declare!)
-    (consume-words! '("I" "HAS"))
-    (when (at-word? "A")
-      (consume-word! "A"))
-    (define target
-      (if (at-word? "SRS")
-          (begin
-            (consume-word! "SRS")
-            (expr-srs (parse-expression!)))
-          (expr-ident (parse-identifier!))))
-    (define init #f)
-    (when (at-word? "ITZ")
-      (consume-word! "ITZ")
-      (if (at-word? "A")
-          (begin
-            (consume-word! "A")
-            (set! init (expr-ident (parse-identifier!))))
-          (set! init (parse-expression!))))
-    (stmt-declare target init))
-
-  (define (parse-statement!)
-    (skip-newlines!)
-    (cond
-      [(at-words? '("O" "RLY?")) (parse-if-tail! (expr-ident "IT"))]
-      [(at-word? "WTF?") (parse-switch-tail! (expr-ident "IT"))]
-      [(at-words? '("HOW" "IZ" "I")) (parse-function-def!)]
-      [(at-words? '("O" "HAI" "IM")) (parse-object-def!)]
-      [(at-word? "VISIBLE") (parse-visible!)]
-      [(at-words? '("I" "HAS")) (parse-declare!)]
-      [(at-words? '("FOUND" "YR"))
-       (consume-words! '("FOUND" "YR"))
-       (stmt-return (parse-expression!))]
-      [(at-word? "GTFO")
-       (consume-word! "GTFO")
-       (stmt-break)]
-      [else
-       (define first-expr (parse-expression!))
-       (cond
-         [(at-word? "R")
-          (consume-word! "R")
-          (stmt-assign first-expr (parse-expression!))]
-         [(at-words? '("HAS" "A"))
-          (consume-words! '("HAS" "A"))
-          (define slot
-            (if (at-word? "SRS")
-                (begin
-                  (consume-word! "SRS")
-                  (expr-srs (parse-expression!)))
-                (expr-ident (parse-identifier!))))
-          (consume-word! "ITZ")
-          (stmt-slot-set first-expr slot (parse-expression!))]
-         [(at-words? '("O" "RLY?"))
-          (parse-if-tail! first-expr)]
-         [(at-word? "WTF?")
-          (parse-switch-tail! first-expr)]
-         [else
-          (stmt-expr first-expr)])]))
-
-  (skip-newlines!)
-  (consume-word! "HAI")
-  (unless (or (at-type? 'NUMBER) (at-type? 'WORD))
-    (parse-error 'parse-source (cur) "expected version number after HAI"))
-  (define version (cur-lexeme))
-  (advance!)
-
-  (define body
-    (parse-statements-until (lambda () (at-word? "KTHXBYE"))))
-
-  (consume-word! "KTHXBYE")
-  (skip-newlines!)
-  (unless (at-type? 'EOF)
-    (parse-error 'parse-source (cur) "unexpected trailing tokens after KTHXBYE"))
-  (program version body))
+  (parse/internal next-token))
