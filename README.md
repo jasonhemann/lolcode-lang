@@ -24,6 +24,12 @@ Step-1 Racket scaffold is under:
 - `src/lolcode/main.rkt`
 - `tests/`
 
+Step-2 spec fixture conformance harness is under:
+
+- `tests/spec/fixtures/manifest.rktd`
+- `tests/spec/fixtures/programs/`
+- `tests/spec/conformance-test.rkt`
+
 Run tests:
 
 ```bash

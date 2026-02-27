@@ -1,0 +1,5 @@
+HAI 1.3
+I HAS A count ITZ A NUMBR
+VISIBLE count
+KTHXBYE
+

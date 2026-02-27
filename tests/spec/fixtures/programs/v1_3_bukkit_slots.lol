@@ -1,0 +1,6 @@
+HAI 1.3
+I HAS A obj ITZ A BUKKIT
+obj HAS A answer ITZ 42
+VISIBLE obj'Z answer
+KTHXBYE
+

@@ -1,0 +1,8 @@
+HAI 1.3
+HOW IZ I addin YR x AN YR y
+  FOUND YR SUM OF x AN y
+IF U SAY SO
+I HAS A result ITZ I IZ addin YR 2 AN YR 3 MKAY
+VISIBLE result
+KTHXBYE
+

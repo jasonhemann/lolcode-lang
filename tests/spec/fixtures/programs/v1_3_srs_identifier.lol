@@ -1,0 +1,6 @@
+HAI 1.3
+I HAS A name ITZ "var"
+I HAS A SRS name ITZ 0
+VISIBLE var
+KTHXBYE
+
