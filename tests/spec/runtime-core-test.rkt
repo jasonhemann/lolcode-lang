@@ -157,6 +157,19 @@
   (check-eq? (hash-ref string-escape-result 'status) 'ok)
   (check-equal? (hash-ref string-escape-result 'stdout) "A:B\nX\tY\n")
 
+  (define format-string-src
+    "HAI 1.2\nI HAS A name ITZ \"Ada\"\nI HAS A n ITZ 42\nVISIBLE \"HI :{name}! #:{ n }\"\nKTHXBYE\n")
+  (define format-string-result (run-source format-string-src))
+  (check-eq? (hash-ref format-string-result 'status) 'ok)
+  (check-equal? (hash-ref format-string-result 'stdout) "HI Ada! #42\n")
+
+  (define format-string-missing-src
+    "HAI 1.2\nVISIBLE \"HI :{missing}\"\nKTHXBYE\n")
+  (define format-string-missing-result (run-source format-string-missing-src))
+  (check-eq? (hash-ref format-string-missing-result 'status) 'runtime-error)
+  (check-true (regexp-match? #px"unknown identifier: missing"
+                             (hash-ref format-string-missing-result 'error)))
+
   (define loop-scope-src
     "HAI 1.2\nI HAS A msg ITZ \"outer\"\nIM IN YR loop\n  I HAS A msg ITZ \"inner\"\n  GTFO\nIM OUTTA YR loop\nVISIBLE msg\nKTHXBYE\n")
   (define loop-scope-result (run-source loop-scope-src))

@@ -332,6 +332,28 @@
     (env-set-or-define! e update-var updated)
     (set-it! e updated)))
 
+(define (expand-format-placeholders e text)
+  (define out (open-output-string))
+  (define pattern #px":\\{([^\\}]*)\\}")
+  (let loop ([start 0])
+    (define m (regexp-match-positions pattern text start))
+    (cond
+      [(not m)
+       (display (substring text start) out)
+       (get-output-string out)]
+      [else
+       (define whole (car m))
+       (define name-pos (cadr m))
+       (define match-start (car whole))
+       (define match-end (cdr whole))
+       (define raw-name (substring text (car name-pos) (cdr name-pos)))
+       (define name (string-trim raw-name))
+       (when (string=? name "")
+         (error 'run-program "empty :{...} placeholder in YARN literal"))
+       (display (substring text start match-start) out)
+       (display (lol-string (env-ref e name)) out)
+       (loop match-end)])))
+
 (define (compile-expr expr)
   (match expr
     [(expr-number text)
@@ -342,7 +364,7 @@
            (error 'run-program "invalid number literal: ~a" text)))]
 
     [(expr-string text)
-     (lambda (_e) text)]
+     (lambda (e) (expand-format-placeholders e text))]
 
     [(expr-literal value)
      (lambda (_e)

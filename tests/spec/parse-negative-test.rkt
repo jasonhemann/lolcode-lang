@@ -32,6 +32,11 @@
   (check-exn #px"unterminated string literal at line 2, col 9"
              (lambda () (parse-program unterminated-string)))
 
+  (define unterminated-format-placeholder
+    "HAI 1.2\nVISIBLE \"oops :{name\"\nKTHXBYE\n")
+  (check-exn #px"unterminated :\\{\\.\\.\\.\\} placeholder in string literal"
+             (lambda () (parse-program unterminated-format-placeholder)))
+
   (define unterminated-block-comment
     "HAI 1.2\nOBTW\nVISIBLE \"oops\"\nKTHXBYE\n")
   (check-exn #px"unterminated OBTW block comment"

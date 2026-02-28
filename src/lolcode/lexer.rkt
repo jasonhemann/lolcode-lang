@@ -96,6 +96,20 @@
       [else (void)])))
 
 (define (scan-string-tail! in line col)
+  (define (scan-format-placeholder!)
+    (define placeholder-out (open-output-string))
+    (let loop ()
+      (define pch (read-char in))
+      (cond
+        [(eof-object? pch)
+         (lex-error 'lex-source "unterminated :{...} placeholder in string literal" line col)]
+        [(or (char=? pch #\newline) (char=? pch #\return))
+         (lex-error 'lex-source "unterminated :{...} placeholder in string literal" line col)]
+        [(char=? pch #\})
+         (get-output-string placeholder-out)]
+        [else
+         (write-char pch placeholder-out)
+         (loop)])))
   (define out (open-output-string))
   (let loop ([escaped? #f])
     (define ch (read-char in))
@@ -112,6 +126,12 @@
           [(char=? ch #\)) #\newline]
           [(char=? ch #\>) #\tab]
           [(char-ci=? ch #\o) #\u0007]
+          [(char=? ch #\{)
+           (begin
+             (display ":{"
+                      out)
+             (display (scan-format-placeholder!) out)
+             #\})]
           [else ch])
         out)
        (loop #f)]
