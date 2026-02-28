@@ -46,6 +46,12 @@
   (check-eq? (hash-ref function-result 'status) 'ok)
   (check-equal? (hash-ref function-result 'stdout) "5\n")
 
+  (define expr-stmt-src
+    "HAI 1.3\nHOW IZ I ping\n  VISIBLE \"P\"\nIF U SAY SO\nI IZ ping MKAY\nKTHXBYE\n")
+  (define expr-stmt-result (run-source expr-stmt-src))
+  (check-eq? (hash-ref expr-stmt-result 'status) 'ok)
+  (check-equal? (hash-ref expr-stmt-result 'stdout) "P\n")
+
   (define bad-return-src
     "HAI 1.2\nFOUND YR 3\nKTHXBYE\n")
   (define bad-return (run-source bad-return-src))
@@ -120,6 +126,12 @@
   (define gimmeh-eof-result (run-source gimmeh-eof-src #:input ""))
   (check-eq? (hash-ref gimmeh-eof-result 'status) 'ok)
   (check-equal? (hash-ref gimmeh-eof-result 'stdout) "NOOB\n")
+
+  (define visible-bang-src
+    "HAI 1.2\nVISIBLE \"A\"!\nVISIBLE \"B\"\nKTHXBYE\n")
+  (define visible-bang-result (run-source visible-bang-src))
+  (check-eq? (hash-ref visible-bang-result 'status) 'ok)
+  (check-equal? (hash-ref visible-bang-result 'stdout) "AB\n")
 
   (define literals-src
     "HAI 1.2\nVISIBLE WIN\nVISIBLE FAIL\nVISIBLE NOOB\nKTHXBYE\n")

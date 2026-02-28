@@ -22,7 +22,7 @@
        I HAS A R ITZ O RLY RLYQ YA NO WAI OIC MEBBE
        WTFQ OMG OMGWTF GTFO FOUND YR
        IF U SAY SO HOW IZ GIMMEH
-       VISIBLE AN
+       VISIBLE AN BANG
        SUM OF DIFF PRODUKT QUOSHUNT MOD BIGGR SMALLR
        BOTH SAEM EITHER WON DIFFRINT NOT ALL ANY
        SMOOSH SRS MKAY
@@ -61,6 +61,7 @@
         "GIMMEH" token-GIMMEH
         "VISIBLE" token-VISIBLE
         "AN" token-AN
+        "!" token-BANG
         "SUM" token-SUM
         "OF" token-OF
         "DIFF" token-DIFF
@@ -227,7 +228,7 @@
    (tokens value-tokens op-tokens)
    (src-pos)
    (expected-SR-conflicts 12)
-   (expected-RR-conflicts 0)
+   (expected-RR-conflicts 3)
    (error
     (lambda (tok-ok? tok-name tok-value start-pos end-pos)
       (raise-parse-error tok-name tok-value start-pos)))
@@ -275,7 +276,8 @@
      [(slot-set-stmt) $1]
      [(visible-stmt) $1]
      [(return-stmt) $1]
-     [(break-stmt) $1])
+     [(break-stmt) $1]
+     [(call-stmt) $1])
 
     (declare-stmt
      [(I HAS A declare-target declare-init-opt) (stmt-declare $4 $5)]
@@ -307,7 +309,8 @@
      [(SRS expr) (expr-srs $2)])
 
     (visible-stmt
-     [(VISIBLE visible-args) (stmt-visible $2 #f)])
+     [(VISIBLE visible-args) (stmt-visible $2 #f)]
+     [(VISIBLE visible-args BANG) (stmt-visible $2 #t)])
 
     (visible-args
      [(expr) (list $1)]
@@ -396,6 +399,9 @@
 
     (break-stmt
      [(GTFO) (stmt-break)])
+
+    (call-stmt
+     [(I IZ ID call-args MKAY) (stmt-expr (expr-call $3 $4))])
 
     (expr
      [(simple-expr postfix-tail) ($2 $1)])
