@@ -55,10 +55,11 @@
     [("NOOB") (values #t noob)]
     [else (values #f #f)]))
 
-(define (resolve-ident-name env name)
-  (if (hash-has-key? env name)
-      (hash-ref env name)
-      (error 'run-program "unknown identifier: ~a" name)))
+(define (resolve-ident-name env globals name)
+  (cond
+    [(hash-has-key? env name) (hash-ref env name)]
+    [(hash-has-key? globals name) (hash-ref globals name)]
+    [else (error 'run-program "unknown identifier: ~a" name)]))
 
 (define (target-name env target eval-expr)
   (match target
@@ -126,7 +127,7 @@
            parsed-number
            (error 'run-program "invalid number literal: ~a" text))]
       [(expr-string text) text]
-      [(expr-ident name) (resolve-ident-name env name)]
+      [(expr-ident name) (resolve-ident-name env globals name)]
       [(expr-srs inner) (eval-expr env inner)]
       [(expr-binary op left right)
        (define lv (eval-expr env left))
@@ -255,6 +256,31 @@
                  control)))]
       [(stmt-function-def name args body)
        (hash-set! functions name (runtime-function name args body))
+       normal-control]
+      [(stmt-object-def name parent body)
+       (define obj
+         (if parent
+             (let ([p (resolve-ident-name env globals parent)])
+               (unless (hash? p)
+                 (error 'run-program "object parent must be BUKKIT, got ~e" p))
+               (hash-copy p))
+             (make-hash)))
+       (hash-set! obj "IT" noob)
+       (define body-control (execute-statements obj body))
+       (when (hash-has-key? obj "IT")
+         (hash-remove! obj "IT"))
+       (cond
+         [(ctrl-normal? body-control) (void)]
+         [(ctrl-return? body-control)
+          (error 'run-program "FOUND YR used inside object definition ~a" name)]
+         [(ctrl-break? body-control)
+          (error 'run-program "GTFO used inside object definition ~a" name)]
+         [else
+          (error 'run-program
+                 "invalid object body control transfer: ~e"
+                 body-control)])
+       (hash-set! env name obj)
+       (set-it! env obj)
        normal-control]
       [(stmt-return expr)
        (define value (eval-expr env expr))

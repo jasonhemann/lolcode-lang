@@ -235,9 +235,9 @@
 
     (if-stmt
      [(expr nlopt O RLYQ nlopt YA RLY nlopt statement-list-opt mebbe-list else-opt OIC)
-      (stmt-if $1 $8 $9 $10)]
+      (stmt-if $1 $9 $10 $11)]
      [(O RLYQ nlopt YA RLY nlopt statement-list-opt mebbe-list else-opt OIC)
-      (stmt-if (expr-ident "IT") $6 $7 $8)])
+      (stmt-if (expr-ident "IT") $7 $8 $9)])
 
     (mebbe-list
      [() '()]

@@ -58,7 +58,21 @@
   (check-true (regexp-match? #px"GTFO used outside switch/loop"
                              (hash-ref bad-break 'error)))
 
-  (define unsupported-src
+  (define object-alt-src
     "HAI 1.3\nO HAI IM pokeman\n  I HAS A name ITZ \"pikachu\"\nKTHX\nVISIBLE pokeman'Z name\nKTHXBYE\n")
+  (define object-alt (run-source object-alt-src))
+  (check-eq? (hash-ref object-alt 'status) 'ok)
+  (check-equal? (hash-ref object-alt 'stdout) "pikachu\n")
+
+  (define unsupported-src
+    "HAI 1.3\nI HAS A obj ITZ A BUKKIT\nI HAS A res ITZ obj IZ call MKAY\nKTHXBYE\n")
   (define unsupported (run-source unsupported-src))
-  (check-eq? (hash-ref unsupported 'status) 'unsupported))
+  (check-eq? (hash-ref unsupported 'status) 'unsupported)
+  (check-true (regexp-match? #px"unsupported AST form"
+                             (hash-ref unsupported 'reason)))
+
+  (define inherited-object-src
+    "HAI 1.3\nO HAI IM parent\n  I HAS A name ITZ \"pikachu\"\nKTHX\nO HAI IM child IM LIEK parent\nKTHX\nVISIBLE child'Z name\nKTHXBYE\n")
+  (define inherited-object (run-source inherited-object-src))
+  (check-eq? (hash-ref inherited-object 'status) 'ok)
+  (check-equal? (hash-ref inherited-object 'stdout) "pikachu\n"))

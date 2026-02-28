@@ -52,10 +52,15 @@
 
     (define result (run-program parsed))
     (check-true (hash? result) (format "run-program returns hash for fixture ~a" id))
+    (check-eq? (hash-ref result 'status)
+               'ok
+               (format "fixture executes successfully for ~a" id))
+    (check-eq? (hash-ref result 'phase)
+               implementation-phase
+               (format "phase marker propagated for ~a" id))
 
-    ;; During bootstrap, conformance fixtures are executable but semantics
-    ;; are not yet implemented. Later phases should replace this branch with
-    ;; output/value checks derived from each fixture metadata.
-    (when (eq? implementation-phase 'bootstrap)
-      (check-eq? (hash-ref result 'status) 'not-implemented)
-      (check-eq? (hash-ref result 'phase) 'bootstrap))))
+    (define expected-stdout (hash-ref c 'expected-stdout))
+    (when (string? expected-stdout)
+      (check-equal? (hash-ref result 'stdout)
+                    expected-stdout
+                    (format "stdout matches fixture expectation for ~a" id)))))
