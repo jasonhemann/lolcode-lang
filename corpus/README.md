@@ -71,3 +71,5 @@ Current project position and tracked evidence for the unofficial "1.4" extension
 
 - `corpus/research/lollm/README.md` (mixed LOLCODE + lolspeak corpus snapshot from `justinmeza/lollm`)
 - `./scripts/slice_lollm_corpus.sh` slices `lollm/lolspeak.txt` into individual programs + non-program text
+- `corpus/research/IMPLEMENTATION_ORACLE_MATRIX.md` (ranked implementation oracle matrix + seeded external regression targets)
+- `corpus/research/lci_issues/` (`lci` issue/PR snapshots and triage notes)
