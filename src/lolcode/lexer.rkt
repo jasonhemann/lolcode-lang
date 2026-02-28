@@ -25,6 +25,10 @@
   (cond
     [(string-ci=? text "BTW")
      (values 'comment '())]
+    [(string-ci=? text "OBTW")
+     (values 'block-comment '())]
+    [(string=? text "...")
+     (values 'line-continuation '())]
     [(and (> (string-length text) 2)
           (regexp-match? #px"(?i:^.+\\'Z$)" text))
      (define base (substring text 0 (- (string-length text) 2)))
@@ -52,6 +56,45 @@
        (read-char in)
        (loop)])))
 
+(define (word-char? ch)
+  (and (char? ch)
+       (not (or (char-whitespace? ch)
+                (char=? ch #\,)
+                (char=? ch #\")))))
+
+(define (skip-block-comment! in)
+  (let loop ([current-word ""])
+    (define ch (read-char in))
+    (cond
+      [(eof-object? ch)
+       (unless (string-ci=? current-word "TLDR")
+         (error 'lex-source "unterminated OBTW block comment"))]
+      [(word-char? ch)
+       (loop (string-append current-word (string ch)))]
+      [(string-ci=? current-word "TLDR")
+       (void)]
+      [else
+       (loop "")])))
+
+(define (skip-line-continuation! in)
+  (let loop ()
+    (define ch (peek-char in))
+    (cond
+      [(eof-object? ch) (void)]
+      [(or (char=? ch #\space) (char=? ch #\tab))
+       (read-char in)
+       (loop)]
+      [(char=? ch #\return)
+       (read-char in)
+       (define next (peek-char in))
+       (when (and (char? next) (char=? next #\newline))
+         (read-char in))
+       (void)]
+      [(char=? ch #\newline)
+       (read-char in)
+       (void)]
+      [else (void)])))
+
 (define (scan-string-tail! in line col)
   (define out (open-output-string))
   (let loop ([escaped? #f])
@@ -62,10 +105,17 @@
       [(or (char=? ch #\newline) (char=? ch #\return))
        (lex-error 'lex-source "unterminated string literal" line col)]
       [escaped?
-       (write-char ch out)
+       (write-char
+        (cond
+          [(char=? ch #\:) #\:]
+          [(char=? ch #\") #\"]
+          [(char=? ch #\)) #\newline]
+          [(char=? ch #\>) #\tab]
+          [(char-ci=? ch #\o) #\u0007]
+          [else ch])
+        out)
        (loop #f)]
       [(char=? ch #\:)
-       (write-char ch out)
        (loop #t)]
       [(char=? ch #\")
        (get-output-string out)]
@@ -111,6 +161,12 @@
         (cond
           [(eq? status 'comment)
            (skip-comment-tail! in)
+           (return-without-pos (scanner in))]
+          [(eq? status 'block-comment)
+           (skip-block-comment! in)
+           (return-without-pos (scanner in))]
+          [(eq? status 'line-continuation)
+           (skip-line-continuation! in)
            (return-without-pos (scanner in))]
           [else
            (set! pending (append pending (cdr toks)))

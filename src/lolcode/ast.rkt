@@ -15,10 +15,28 @@
          stmt-assign-target
          stmt-assign-expr
 
+         stmt-cast
+         stmt-cast?
+         stmt-cast-target
+         stmt-cast-type-name
+
+         stmt-input
+         stmt-input?
+         stmt-input-target
+
          stmt-visible
          stmt-visible?
          stmt-visible-exprs
          stmt-visible-suppress-newline?
+
+         stmt-loop
+         stmt-loop?
+         stmt-loop-label
+         stmt-loop-update-var
+         stmt-loop-update-op
+         stmt-loop-cond-kind
+         stmt-loop-cond-expr
+         stmt-loop-body
 
          stmt-if
          stmt-if?
@@ -84,11 +102,20 @@
          expr-string?
          expr-string-text
 
+         expr-literal
+         expr-literal?
+         expr-literal-value
+
          expr-binary
          expr-binary?
          expr-binary-op
          expr-binary-left
          expr-binary-right
+
+         expr-unary
+         expr-unary?
+         expr-unary-op
+         expr-unary-arg
 
          expr-variadic
          expr-variadic?
@@ -113,13 +140,21 @@
 
          expr-srs
          expr-srs?
-         expr-srs-expr)
+         expr-srs-expr
+
+         expr-cast
+         expr-cast?
+         expr-cast-expr
+         expr-cast-type-name)
 
 (struct program (version statements) #:transparent)
 
 (struct stmt-declare (target init) #:transparent)
 (struct stmt-assign (target expr) #:transparent)
+(struct stmt-cast (target type-name) #:transparent)
+(struct stmt-input (target) #:transparent)
 (struct stmt-visible (exprs suppress-newline?) #:transparent)
+(struct stmt-loop (label update-var update-op cond-kind cond-expr body) #:transparent)
 (struct stmt-if (condition then-branch mebbe-branches else-branch) #:transparent)
 (struct stmt-switch (subject cases default) #:transparent)
 (struct switch-case (match body) #:transparent)
@@ -134,10 +169,12 @@
 (struct expr-ident (name) #:transparent)
 (struct expr-number (text) #:transparent)
 (struct expr-string (text) #:transparent)
+(struct expr-literal (value) #:transparent)
 (struct expr-binary (op left right) #:transparent)
+(struct expr-unary (op arg) #:transparent)
 (struct expr-variadic (op args) #:transparent)
 (struct expr-call (name args) #:transparent)
 (struct expr-method-call (receiver name args) #:transparent)
 (struct expr-slot (object slot) #:transparent)
 (struct expr-srs (expr) #:transparent)
-
+(struct expr-cast (expr type-name) #:transparent)

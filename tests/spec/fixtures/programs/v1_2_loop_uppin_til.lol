@@ -1,0 +1,8 @@
+HAI 1.2
+I HAS A idx ITZ 0
+I HAS A acc ITZ 0
+IM IN YR count UPPIN YR idx TIL BOTH SAEM idx AN 5
+  acc R SUM OF acc AN idx
+IM OUTTA YR count
+VISIBLE acc
+KTHXBYE

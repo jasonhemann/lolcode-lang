@@ -30,4 +30,21 @@
   (define unterminated-string
     "HAI 1.2\nVISIBLE \"oops\nKTHXBYE\n")
   (check-exn #px"unterminated string literal at line 2, col 9"
-             (lambda () (parse-program unterminated-string))))
+             (lambda () (parse-program unterminated-string)))
+
+  (define unterminated-block-comment
+    "HAI 1.2\nOBTW\nVISIBLE \"oops\"\nKTHXBYE\n")
+  (check-exn #px"unterminated OBTW block comment"
+             (lambda () (parse-program unterminated-block-comment)))
+
+  (define loop-label-mismatch
+    "HAI 1.2\nIM IN YR loop\nVISIBLE \"x\"\nIM OUTTA YR notloop\nKTHXBYE\n")
+  (check-exn #px"loop label mismatch"
+             (lambda () (parse-program loop-label-mismatch)))
+
+  (define reserved-keyword-name
+    "HAI 1.2\nI HAS A SUM ITZ 1\nKTHXBYE\n")
+  (define reserved-keyword-name-msg
+    (capture-message (lambda () (parse-program reserved-keyword-name))))
+  (check-true (string? reserved-keyword-name-msg))
+  (check-true (regexp-match? #px"syntax error: unexpected SUM" reserved-keyword-name-msg)))

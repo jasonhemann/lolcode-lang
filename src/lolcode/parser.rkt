@@ -21,11 +21,13 @@
   (HAI KTHXBYE NEWLINE EOF
        I HAS A R ITZ O RLY RLYQ YA NO WAI OIC MEBBE
        WTFQ OMG OMGWTF GTFO FOUND YR
-       IF U SAY SO HOW IZ
+       IF U SAY SO HOW IZ GIMMEH
        VISIBLE AN
-       SUM OF DIFF PRODUKT QUOSHUNT MOD BIGGR SMALLR BOTH SAEM DIFFRINT
+       SUM OF DIFF PRODUKT QUOSHUNT MOD BIGGR SMALLR
+       BOTH SAEM EITHER WON DIFFRINT NOT ALL ANY
        SMOOSH SRS MKAY
-       KTHX IM LIEK
+       MAEK IS NOW
+       KTHX IM LIEK IN OUTTA IMIN IMOUTTA UPPIN NERFIN TIL WILE
        SLOT))
 
 (define keyword-token-ctors
@@ -56,6 +58,7 @@
         "SO" token-SO
         "HOW" token-HOW
         "IZ" token-IZ
+        "GIMMEH" token-GIMMEH
         "VISIBLE" token-VISIBLE
         "AN" token-AN
         "SUM" token-SUM
@@ -68,13 +71,29 @@
         "SMALLR" token-SMALLR
         "BOTH" token-BOTH
         "SAEM" token-SAEM
+        "EITHER" token-EITHER
+        "WON" token-WON
         "DIFFRINT" token-DIFFRINT
+        "NOT" token-NOT
+        "ALL" token-ALL
+        "ANY" token-ANY
         "SMOOSH" token-SMOOSH
         "SRS" token-SRS
         "MKAY" token-MKAY
+        "MAEK" token-MAEK
+        "IS" token-IS
+        "NOW" token-NOW
         "KTHX" token-KTHX
         "IM" token-IM
         "LIEK" token-LIEK
+        "IN" token-IN
+        "OUTTA" token-OUTTA
+        "IMIN" token-IMIN
+        "IMOUTTA" token-IMOUTTA
+        "UPPIN" token-UPPIN
+        "NERFIN" token-NERFIN
+        "TIL" token-TIL
+        "WILE" token-WILE
         "'Z" token-SLOT))
 
 (define current-source-lines (make-parameter #()))
@@ -127,6 +146,55 @@
          col
          context-fragment
          hint-fragment))
+
+(define (make-loop-stmt label-open label-close update cond body)
+  (unless (string-ci=? label-open label-close)
+    (error 'parse-source
+           "loop label mismatch: ~a closed by ~a"
+           label-open
+           label-close))
+  (stmt-loop label-open
+             (car update)
+             (cdr update)
+             (car cond)
+             (cdr cond)
+             body))
+
+(define (id->expr name)
+  (cond
+    [(string-ci=? name "WIN") (expr-literal #t)]
+    [(string-ci=? name "FAIL") (expr-literal #f)]
+    [(string-ci=? name "NOOB") (expr-literal 'NOOB)]
+    [else (expr-ident name)]))
+
+(define (word-token-ci=? t text)
+  (and (eq? (token-type t) 'WORD)
+       (string-ci=? (token-lexeme t) text)))
+
+(define (collapse-phrase-tokens raws)
+  (let loop ([remaining raws] [acc '()])
+    (cond
+      [(null? remaining) (reverse acc)]
+      [(and (pair? (cdr remaining))
+            (word-token-ci=? (car remaining) "IM")
+            (word-token-ci=? (cadr remaining) "IN")
+            (= (token-line (car remaining))
+               (token-line (cadr remaining))))
+       (define t (car remaining))
+       (loop (cddr remaining)
+             (cons (token 'WORD "IMIN" (token-line t) (token-col t))
+                   acc))]
+      [(and (pair? (cdr remaining))
+            (word-token-ci=? (car remaining) "IM")
+            (word-token-ci=? (cadr remaining) "OUTTA")
+            (= (token-line (car remaining))
+               (token-line (cadr remaining))))
+       (define t (car remaining))
+       (loop (cddr remaining)
+             (cons (token 'WORD "IMOUTTA" (token-line t) (token-col t))
+                   acc))]
+      [else
+       (loop (cdr remaining) (cons (car remaining) acc))])))
 
 (define (raw->token raw)
   (define ttype (token-type raw))
@@ -192,12 +260,18 @@
      [(statement nlopt) $1])
 
     (statement
+     [(loop-stmt) $1]
+     [(non-loop-statement) $1])
+
+    (non-loop-statement
      [(if-stmt) $1]
      [(switch-stmt) $1]
      [(function-stmt) $1]
      [(object-stmt) $1]
      [(declare-stmt) $1]
      [(assign-stmt) $1]
+     [(cast-stmt) $1]
+     [(input-stmt) $1]
      [(slot-set-stmt) $1]
      [(visible-stmt) $1]
      [(return-stmt) $1]
@@ -218,6 +292,12 @@
 
     (assign-stmt
      [(expr R expr) (stmt-assign $1 $3)])
+
+    (cast-stmt
+     [(expr IS NOW A ID) (stmt-cast $1 $5)])
+
+    (input-stmt
+     [(GIMMEH expr) (stmt-input $2)])
 
     (slot-set-stmt
      [(expr HAS A slot-target ITZ expr) (stmt-slot-set $1 $4 $6)])
@@ -253,6 +333,31 @@
       (stmt-switch $1 $5 $6)]
      [(WTFQ nlopt case-list default-opt OIC)
       (stmt-switch (expr-ident "IT") $3 $4)])
+
+    (loop-stmt
+     [(IMIN YR ID loop-update-opt loop-cond-opt nlopt loop-body-opt IMOUTTA YR ID)
+      (make-loop-stmt $3 $10 $4 $5 $7)])
+
+    (loop-body-opt
+     [() '()]
+     [(loop-body-items) $1])
+
+    (loop-body-items
+     [(loop-body-item) (list $1)]
+     [(loop-body-item loop-body-items) (cons $1 $2)])
+
+    (loop-body-item
+     [(statement nlopt) $1])
+
+    (loop-update-opt
+     [() (cons #f #f)]
+     [(UPPIN YR ID) (cons $3 "UPPIN")]
+     [(NERFIN YR ID) (cons $3 "NERFIN")])
+
+    (loop-cond-opt
+     [() (cons #f #f)]
+     [(TIL expr) (cons "TIL" $2)]
+     [(WILE expr) (cons "WILE" $2)])
 
     (case-list
      [(case) (list $1)]
@@ -309,10 +414,14 @@
     (simple-expr
      [(NUMBER) (expr-number $1)]
      [(STRING) (expr-string $1)]
-     [(ID) (expr-ident $1)]
+     [(ID) (id->expr $1)]
      [(SRS expr) (expr-srs $2)]
+     [(NOT expr) (expr-unary "NOT" $2)]
+     [(MAEK expr A ID) (expr-cast $2 $4)]
+     [(MAEK expr ID) (expr-cast $2 $3)]
      [(I IZ ID call-args MKAY) (expr-call $3 $4)]
      [(bin-expr) $1]
+     [(logic-variadic-expr) $1]
      [(smoosh-expr) $1])
 
     (call-args
@@ -335,8 +444,19 @@
      [(MOD OF expr an-opt expr) (expr-binary "MOD OF" $3 $5)]
      [(BIGGR OF expr an-opt expr) (expr-binary "BIGGR OF" $3 $5)]
      [(SMALLR OF expr an-opt expr) (expr-binary "SMALLR OF" $3 $5)]
+     [(BOTH OF expr an-opt expr) (expr-binary "BOTH OF" $3 $5)]
+     [(EITHER OF expr an-opt expr) (expr-binary "EITHER OF" $3 $5)]
+     [(WON OF expr an-opt expr) (expr-binary "WON OF" $3 $5)]
      [(BOTH SAEM expr an-opt expr) (expr-binary "BOTH SAEM" $3 $5)]
      [(DIFFRINT expr an-opt expr) (expr-binary "DIFFRINT" $2 $4)])
+
+    (logic-variadic-expr
+     [(ALL OF expr logic-tail MKAY) (expr-variadic "ALL OF" (cons $3 $4))]
+     [(ANY OF expr logic-tail MKAY) (expr-variadic "ANY OF" (cons $3 $4))])
+
+    (logic-tail
+     [() '()]
+     [(AN expr logic-tail) (cons $2 $3)])
 
     (smoosh-expr
      [(SMOOSH expr smoosh-tail maybe-mkay) (expr-variadic "SMOOSH" (cons $2 $3))])
@@ -352,7 +472,9 @@
 (define (parse-source source)
   (unless (string? source)
     (raise-argument-error 'parse-source "string?" source))
-  (define toks (map raw->position-token (lex-source source)))
+  (define toks
+    (map raw->position-token
+         (collapse-phrase-tokens (lex-source source))))
   (define idx 0)
   (define n (length toks))
   (define (next-token)

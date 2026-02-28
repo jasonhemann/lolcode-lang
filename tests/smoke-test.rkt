@@ -4,7 +4,7 @@
          "../src/lolcode/main.rkt")
 
 (module+ test
-  (check-eq? implementation-phase 'core-subset-v0)
+  (check-eq? implementation-phase 'core-subset-v2)
 
   (define parsed
     (parse-program "HAI 1.2\nVISIBLE \"OH HAI\"\nKTHXBYE\n"))
@@ -12,7 +12,7 @@
 
   (define result (run-program parsed))
   (check-eq? (hash-ref result 'status) 'ok)
-  (check-eq? (hash-ref result 'phase) 'core-subset-v0)
+  (check-eq? (hash-ref result 'phase) 'core-subset-v2)
   (check-equal? (hash-ref result 'stdout) "OH HAI\n")
 
   (check-exn exn:fail:contract?

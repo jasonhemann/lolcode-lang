@@ -79,5 +79,67 @@
     (expected-stdout . "pikachu\n")
     (source-ref . "v1.3:716-723,731-733")
     (tags . ("bukkit" "objects")))
-)
 
+  #hasheq(
+    (id . "v1_2_loop_uppin_til")
+    (spec-version . "1.2")
+    (title . "IM IN YR loop with UPPIN and TIL")
+    (source-file . "programs/v1_2_loop_uppin_til.lol")
+    (expected-stdout . "10\n")
+    (source-ref . "v1.2:loop-construct")
+    (tags . ("control-flow" "loop")))
+
+  #hasheq(
+    (id . "v1_2_logic_variadics")
+    (spec-version . "1.2")
+    (title . "NOT, ALL OF, and ANY OF operators")
+    (source-file . "programs/v1_2_logic_variadics.lol")
+    (expected-stdout . "WIN\nWIN\n")
+    (source-ref . "v1.2:logic-operators")
+    (tags . ("operators" "logic")))
+
+  #hasheq(
+    (id . "v1_2_literals_comments")
+    (spec-version . "1.2")
+    (title . "WIN/FAIL/NOOB literals and OBTW comments")
+    (source-file . "programs/v1_2_literals_comments.lol")
+    (expected-stdout . "WIN\nNOOB\n")
+    (source-ref . "v1.2:literals-comments")
+    (tags . ("literals" "comments")))
+
+  #hasheq(
+    (id . "v1_2_line_continuation")
+    (spec-version . "1.2")
+    (title . "Line continuation with ellipsis")
+    (source-file . "programs/v1_2_line_continuation.lol")
+    (expected-stdout . "AB\n")
+    (source-ref . "v1.2:line-continuation")
+    (tags . ("syntax" "continuation")))
+
+  #hasheq(
+    (id . "v1_2_nested_loops")
+    (spec-version . "1.2")
+    (title . "Nested IM IN YR loops")
+    (source-file . "programs/v1_2_nested_loops.lol")
+    (expected-stdout . "6\n")
+    (source-ref . "v1.2:loop-nesting")
+    (tags . ("control-flow" "loop")))
+
+  #hasheq(
+    (id . "v1_3_slot_cast")
+    (spec-version . "1.3")
+    (title . "IS NOW A cast on BUKKIT slot")
+    (source-file . "programs/v1_3_slot_cast.lol")
+    (expected-stdout . "42\n")
+    (source-ref . "v1.3:casting-slots")
+    (tags . ("bukkit" "types" "cast")))
+
+  #hasheq(
+    (id . "v1_3_object_method_call")
+    (spec-version . "1.3")
+    (title . "Object method definition and call")
+    (source-file . "programs/v1_3_object_method_call.lol")
+    (expected-stdout . "3\n6\n6\n")
+    (source-ref . "v1.3:object-method-call")
+    (tags . ("bukkit" "objects" "functions")))
+)

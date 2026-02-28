@@ -15,7 +15,7 @@
          run-file)
 
 ;; Phase marker so tests can assert the current implementation slice.
-(define implementation-phase 'core-subset-v0)
+(define implementation-phase 'core-subset-v2)
 
 (define (parse-program source)
   (unless (string? source)

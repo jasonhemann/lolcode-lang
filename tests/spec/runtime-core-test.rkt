@@ -3,8 +3,9 @@
 (require rackunit
          "../../src/lolcode/main.rkt")
 
-(define (run-source source)
-  (run-program (parse-program source)))
+(define (run-source source #:input [input ""])
+  (parameterize ([current-input-port (open-input-string input)])
+    (run-program (parse-program source))))
 
 (module+ test
   (define declare-assign-src
@@ -67,12 +68,103 @@
   (define unsupported-src
     "HAI 1.3\nI HAS A obj ITZ A BUKKIT\nI HAS A res ITZ obj IZ call MKAY\nKTHXBYE\n")
   (define unsupported (run-source unsupported-src))
-  (check-eq? (hash-ref unsupported 'status) 'unsupported)
-  (check-true (regexp-match? #px"unsupported AST form"
-                             (hash-ref unsupported 'reason)))
+  (check-eq? (hash-ref unsupported 'status) 'runtime-error)
+  (check-true (regexp-match? #px"unknown method"
+                             (hash-ref unsupported 'error)))
 
   (define inherited-object-src
     "HAI 1.3\nO HAI IM parent\n  I HAS A name ITZ \"pikachu\"\nKTHX\nO HAI IM child IM LIEK parent\nKTHX\nVISIBLE child'Z name\nKTHXBYE\n")
   (define inherited-object (run-source inherited-object-src))
   (check-eq? (hash-ref inherited-object 'status) 'ok)
-  (check-equal? (hash-ref inherited-object 'stdout) "pikachu\n"))
+  (check-equal? (hash-ref inherited-object 'stdout) "pikachu\n")
+
+  (define loop-src
+    "HAI 1.2\nI HAS A idx ITZ 0\nI HAS A acc ITZ 0\nIM IN YR count UPPIN YR idx TIL BOTH SAEM idx AN 5\n  acc R SUM OF acc AN idx\nIM OUTTA YR count\nVISIBLE acc\nKTHXBYE\n")
+  (define loop-result (run-source loop-src))
+  (check-eq? (hash-ref loop-result 'status) 'ok)
+  (check-equal? (hash-ref loop-result 'stdout) "10\n")
+
+  (define nested-loop-src
+    "HAI 1.2\nI HAS A outer ITZ 0\nI HAS A total ITZ 0\nIM IN YR out UPPIN YR outer TIL BOTH SAEM outer AN 3\n  I HAS A inner ITZ 0\n  IM IN YR innerloop UPPIN YR inner TIL BOTH SAEM inner AN 2\n    total R SUM OF total AN 1\n  IM OUTTA YR innerloop\nIM OUTTA YR out\nVISIBLE total\nKTHXBYE\n")
+  (define nested-loop-result (run-source nested-loop-src))
+  (check-eq? (hash-ref nested-loop-result 'status) 'ok)
+  (check-equal? (hash-ref nested-loop-result 'stdout) "6\n")
+
+  (define logic-src
+    "HAI 1.2\nI HAS A n ITZ 42\nVISIBLE BOTH OF DIFFRINT n AN 0 AN DIFFRINT n AN 42\nVISIBLE EITHER OF BOTH SAEM n AN 0 AN BOTH SAEM n AN 42\nVISIBLE WON OF BOTH SAEM n AN 42 AN BOTH SAEM n AN 0\nVISIBLE ALL OF DIFFRINT n AN 0 AN NOT BOTH SAEM n AN 0 MKAY\nVISIBLE ANY OF BOTH SAEM n AN 0 AN BOTH SAEM n AN 42 MKAY\nKTHXBYE\n")
+  (define logic-result (run-source logic-src))
+  (check-eq? (hash-ref logic-result 'status) 'ok)
+  (check-equal? (hash-ref logic-result 'stdout) "FAIL\nWIN\nWIN\nWIN\nWIN\n")
+
+  (define cast-src
+    "HAI 1.3\nI HAS A obj ITZ A BUKKIT\nobj HAS A answer ITZ \"41\"\nobj'Z answer IS NOW A NUMBR\nobj'Z answer R SUM OF obj'Z answer AN 1\nVISIBLE obj'Z answer\nKTHXBYE\n")
+  (define cast-result (run-source cast-src))
+  (check-eq? (hash-ref cast-result 'status) 'ok)
+  (check-equal? (hash-ref cast-result 'stdout) "42\n")
+
+  (define method-src
+    "HAI 1.3\nO HAI IM counter\n  I HAS A val ITZ 1\n  HOW IZ I bump YR delta\n    val R SUM OF val AN delta\n    FOUND YR val\n  IF U SAY SO\nKTHX\nVISIBLE counter IZ bump YR 2 MKAY\nVISIBLE counter IZ bump YR 3 MKAY\nVISIBLE counter'Z val\nKTHXBYE\n")
+  (define method-result (run-source method-src))
+  (check-eq? (hash-ref method-result 'status) 'ok)
+  (check-equal? (hash-ref method-result 'stdout) "3\n6\n6\n")
+
+  (define gimmeh-src
+    "HAI 1.2\nI HAS A name\nGIMMEH name\nVISIBLE name\nKTHXBYE\n")
+  (define gimmeh-result (run-source gimmeh-src #:input "Ada\n"))
+  (check-eq? (hash-ref gimmeh-result 'status) 'ok)
+  (check-equal? (hash-ref gimmeh-result 'stdout) "Ada\n")
+
+  (define gimmeh-eof-src
+    "HAI 1.2\nI HAS A name\nGIMMEH name\nVISIBLE name\nKTHXBYE\n")
+  (define gimmeh-eof-result (run-source gimmeh-eof-src #:input ""))
+  (check-eq? (hash-ref gimmeh-eof-result 'status) 'ok)
+  (check-equal? (hash-ref gimmeh-eof-result 'stdout) "NOOB\n")
+
+  (define literals-src
+    "HAI 1.2\nVISIBLE WIN\nVISIBLE FAIL\nVISIBLE NOOB\nKTHXBYE\n")
+  (define literals-result (run-source literals-src))
+  (check-eq? (hash-ref literals-result 'status) 'ok)
+  (check-equal? (hash-ref literals-result 'stdout) "WIN\nFAIL\nNOOB\n")
+
+  (define line-cont-src
+    "HAI 1.2\nVISIBLE SMOOSH \"A\" AN ...\n\"B\" MKAY\nKTHXBYE\n")
+  (define line-cont-result (run-source line-cont-src))
+  (check-eq? (hash-ref line-cont-result 'status) 'ok)
+  (check-equal? (hash-ref line-cont-result 'stdout) "AB\n")
+
+  (define block-comment-src
+    "HAI 1.2\nVISIBLE \"A\"\nOBTW\nVISIBLE \"B\"\nTLDR\nVISIBLE \"C\"\nKTHXBYE\n")
+  (define block-comment-result (run-source block-comment-src))
+  (check-eq? (hash-ref block-comment-result 'status) 'ok)
+  (check-equal? (hash-ref block-comment-result 'stdout) "A\nC\n")
+
+  (define string-escape-src
+    "HAI 1.2\nVISIBLE \"A::B\"\nVISIBLE \"X:>Y\"\nKTHXBYE\n")
+  (define string-escape-result (run-source string-escape-src))
+  (check-eq? (hash-ref string-escape-result 'status) 'ok)
+  (check-equal? (hash-ref string-escape-result 'stdout) "A:B\nX\tY\n")
+
+  (define loop-scope-src
+    "HAI 1.2\nI HAS A msg ITZ \"outer\"\nIM IN YR loop\n  I HAS A msg ITZ \"inner\"\n  GTFO\nIM OUTTA YR loop\nVISIBLE msg\nKTHXBYE\n")
+  (define loop-scope-result (run-source loop-scope-src))
+  (check-eq? (hash-ref loop-scope-result 'status) 'ok)
+  (check-equal? (hash-ref loop-scope-result 'stdout) "outer\n")
+
+  (define return-scope-src
+    "HAI 1.3\nI HAS A x ITZ \"outer\"\nHOW IZ I pick\n  I HAS A x ITZ \"inner\"\n  FOUND YR x\nIF U SAY SO\nVISIBLE I IZ pick MKAY\nVISIBLE x\nKTHXBYE\n")
+  (define return-scope-result (run-source return-scope-src))
+  (check-eq? (hash-ref return-scope-result 'status) 'ok)
+  (check-equal? (hash-ref return-scope-result 'stdout) "inner\nouter\n")
+
+  (define method-shadow-src
+    "HAI 1.3\nO HAI IM sample\n  I HAS A val ITZ 10\n  HOW IZ I adjust YR val\n    val R SUM OF val AN 1\n    FOUND YR val\n  IF U SAY SO\nKTHX\nVISIBLE sample IZ adjust YR 5 MKAY\nVISIBLE sample'Z val\nKTHXBYE\n")
+  (define method-shadow-result (run-source method-shadow-src))
+  (check-eq? (hash-ref method-shadow-result 'status) 'ok)
+  (check-equal? (hash-ref method-shadow-result 'stdout) "6\n10\n")
+
+  (define bad-object-break-src
+    "HAI 1.3\nO HAI IM badobj\n  GTFO\nKTHX\nKTHXBYE\n")
+  (define bad-object-break (run-source bad-object-break-src))
+  (check-eq? (hash-ref bad-object-break 'status) 'runtime-error)
+  (check-true (regexp-match? #px"GTFO used inside object definition badobj"
+                             (hash-ref bad-object-break 'error))))
