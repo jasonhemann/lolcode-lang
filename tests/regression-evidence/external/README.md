@@ -1,0 +1,61 @@
+# External Regression Evidence Suite
+
+This directory holds provenance-tracked external bug/PR/commit evidence.
+
+## Scope
+
+- Evidence-only, non-authoritative, non-gating.
+- Core 1.2/1.3 spec conformance remains the hard pass/fail gate.
+- External outcomes are confidence signals, not truth claims.
+
+## Files
+
+- `manifest.rktd`: canonical provenance and hypothesis metadata.
+- `run-evidence.rkt`: schema validator + evidence runner.
+- `fixtures/<project>/wave_<NN>/<kind>_<id>/repro.lol`: per-case fixture layout.
+
+## Required Manifest Fields
+
+Each entry is a `#hasheq` with:
+
+- `id`
+- `wave`
+- `source-file`
+- `source-project`
+- `source-repo`
+- `source-kind` (`issue` | `pr` | `commit`)
+- `source-id`
+- `source-url`
+- `source-origin` (`issue-body` | `issue-comment` | `pr-description` | `pr-diff` | `commit-message` | `commit-diff`)
+- `spec-scope` (`("1.2")` | `("1.3")` | `("1.2" "1.3")` | `("unknown")`)
+- `spec-refs`
+- `oracle-class` (must be `external-evidence`)
+- `triage-status` (`candidate` | `reproducer-ready` | `spec-ambiguous` | `known-divergence` | `out-of-spec-1.4` | `promoted-conformance`)
+- `hypothesis` (`unknown` | `expects-pass` | `expects-parse-error` | `expects-runtime-error`)
+- `notes`
+
+Optional:
+
+- `expected-stdout`
+- `expected-error-regex`
+- `added-on` (`YYYY-MM-DD`)
+
+## Commands
+
+Run all evidence:
+
+```bash
+./scripts/test_external_evidence.sh
+```
+
+Run by wave:
+
+```bash
+./scripts/test_external_evidence.sh --wave 1
+```
+
+Run one case:
+
+```bash
+./scripts/test_external_evidence.sh --id ext_lci_issue_0013
+```

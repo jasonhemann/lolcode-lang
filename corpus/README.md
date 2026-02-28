@@ -75,6 +75,12 @@ Outputs:
 - `corpus/research/external_issues/candidate_repros.tsv`
 - `corpus/research/external_issues/candidate_repros_ranked.json`
 
+Seed one wave into the non-gating evidence suite:
+
+```bash
+./scripts/import_external_wave.sh 1
+```
+
 ## 1.4 Extension Status
 
 Current project position and tracked evidence for the unofficial "1.4" extension line:

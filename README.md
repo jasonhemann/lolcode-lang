@@ -63,6 +63,18 @@ or:
 raco test tests
 ```
 
+Run external regression evidence (non-gating):
+
+```bash
+./scripts/test_external_evidence.sh
+```
+
+Import one external regression wave into evidence fixtures/manifest:
+
+```bash
+./scripts/import_external_wave.sh 1
+```
+
 # Running the lolchez REPL
 We currently lack a boot file, so the repl can be started by loading `repl.scm`
 in your chez scheme repl and running `(lol-repl)`. ^D exits.
