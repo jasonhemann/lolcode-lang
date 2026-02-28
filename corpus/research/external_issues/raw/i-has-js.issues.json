@@ -1,0 +1,14 @@
+[
+  {
+    "item_type": "issue",
+    "number": 3,
+    "title": "Allow CLI to be installed globally",
+    "state": "open",
+    "created_at": "2021-05-19T20:56:09Z",
+    "updated_at": "2021-05-19T20:56:09Z",
+    "closed_at": null,
+    "comments": 0,
+    "labels": [],
+    "url": "https://github.com/NullDev/I-HAS-JS/issues/3"
+  }
+]

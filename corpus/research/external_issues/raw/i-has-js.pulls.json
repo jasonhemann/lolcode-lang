@@ -1,0 +1,50 @@
+[
+  {
+    "item_type": "pr",
+    "number": 1,
+    "title": "Bump minimist from 1.2.0 to 1.2.2",
+    "state": "closed",
+    "created_at": "2020-03-15T08:53:10Z",
+    "updated_at": "2020-03-16T17:41:26Z",
+    "closed_at": "2020-03-16T17:41:22Z",
+    "merged_at": "2020-03-16T17:41:22Z",
+    "draft": false,
+    "comments": null,
+    "labels": [
+      "dependencies"
+    ],
+    "url": "https://github.com/NullDev/I-HAS-JS/pull/1"
+  },
+  {
+    "item_type": "pr",
+    "number": 2,
+    "title": "Bump minimist from 1.2.2 to 1.2.3",
+    "state": "closed",
+    "created_at": "2020-04-04T06:04:10Z",
+    "updated_at": "2020-04-05T20:17:01Z",
+    "closed_at": "2020-04-05T20:16:57Z",
+    "merged_at": "2020-04-05T20:16:57Z",
+    "draft": false,
+    "comments": null,
+    "labels": [
+      "dependencies"
+    ],
+    "url": "https://github.com/NullDev/I-HAS-JS/pull/2"
+  },
+  {
+    "item_type": "pr",
+    "number": 4,
+    "title": "Bump minimist from 1.2.3 to 1.2.6",
+    "state": "closed",
+    "created_at": "2022-04-09T10:27:15Z",
+    "updated_at": "2023-03-01T11:06:05Z",
+    "closed_at": "2023-03-01T11:05:57Z",
+    "merged_at": "2023-03-01T11:05:57Z",
+    "draft": false,
+    "comments": null,
+    "labels": [
+      "dependencies"
+    ],
+    "url": "https://github.com/NullDev/I-HAS-JS/pull/4"
+  }
+]
