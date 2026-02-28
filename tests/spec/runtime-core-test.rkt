@@ -1,6 +1,7 @@
 #lang racket/base
 
 (require rackunit
+         "../../src/lolcode/ast.rkt"
          "../../src/lolcode/main.rkt")
 
 (define (run-source source #:input [input ""])
@@ -167,4 +168,18 @@
   (define bad-object-break (run-source bad-object-break-src))
   (check-eq? (hash-ref bad-object-break 'status) 'runtime-error)
   (check-true (regexp-match? #px"GTFO used inside object definition badobj"
-                             (hash-ref bad-object-break 'error))))
+                             (hash-ref bad-object-break 'error)))
+
+  ;; Unsupported operators should be rejected at compile step and surfaced.
+  (define unsupported-op-program
+    (program "1.2"
+             (list
+              (stmt-expr
+               (expr-binary "NOPE OF"
+                            (expr-number "1")
+                            (expr-number "2"))))))
+  (define unsupported-op-result
+    (run-program unsupported-op-program))
+  (check-eq? (hash-ref unsupported-op-result 'status) 'unsupported)
+  (check-true (regexp-match? #px"unsupported binary operator"
+                             (hash-ref unsupported-op-result 'reason))))

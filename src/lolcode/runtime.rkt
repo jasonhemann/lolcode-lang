@@ -29,6 +29,13 @@
     (current-continuation-marks)
     where)))
 
+(define (raise-unsupported-op kind op where)
+  (raise
+   (exn:fail:unsupported
+    (format "unsupported ~a operator: ~a" kind op)
+    (current-continuation-marks)
+    where)))
+
 (define (make-root-env)
   (env (make-hash) #f))
 
@@ -40,14 +47,15 @@
 
 (define (env-lookup-box e name)
   (let loop ([cur e])
-    (cond
-      [(not cur) #f]
-      [else
-       (define maybe-box
-         (hash-ref (env-table cur) name #f))
-       (if (box? maybe-box)
-           maybe-box
-           (loop (env-parent cur)))])))
+    (and cur
+         (cond
+           [(hash-ref (env-table cur) name #f)
+            => (lambda (maybe-box)
+                 (if (box? maybe-box)
+                     maybe-box
+                     (loop (env-parent cur))))]
+           [else
+            (loop (env-parent cur))]))))
 
 (define (env-define! e name value)
   (hash-set! (env-table e) name (box value)))
@@ -350,35 +358,37 @@
     [(expr-binary op left right)
      (define left-proc (compile-expr left))
      (define right-proc (compile-expr right))
-     (lambda (e)
-       (define lv (left-proc e))
-       (define rv (right-proc e))
+     (define op-fn
        (case op
-         [("SUM OF") (+ (coerce-number 'SUM lv) (coerce-number 'SUM rv))]
-         [("DIFF OF") (- (coerce-number 'DIFF lv) (coerce-number 'DIFF rv))]
-         [("PRODUKT OF") (* (coerce-number 'PRODUKT lv) (coerce-number 'PRODUKT rv))]
-         [("QUOSHUNT OF") (/ (coerce-number 'QUOSHUNT lv) (coerce-number 'QUOSHUNT rv))]
-         [("MOD OF") (remainder (coerce-number 'MOD lv) (coerce-number 'MOD rv))]
-         [("BIGGR OF") (max (coerce-number 'BIGGR lv) (coerce-number 'BIGGR rv))]
-         [("SMALLR OF") (min (coerce-number 'SMALLR lv) (coerce-number 'SMALLR rv))]
-         [("BOTH OF") (and (lol-truthy? lv) (lol-truthy? rv))]
-         [("EITHER OF") (or (lol-truthy? lv) (lol-truthy? rv))]
+         [("SUM OF") (lambda (lv rv) (+ (coerce-number 'SUM lv) (coerce-number 'SUM rv)))]
+         [("DIFF OF") (lambda (lv rv) (- (coerce-number 'DIFF lv) (coerce-number 'DIFF rv)))]
+         [("PRODUKT OF") (lambda (lv rv) (* (coerce-number 'PRODUKT lv) (coerce-number 'PRODUKT rv)))]
+         [("QUOSHUNT OF") (lambda (lv rv) (/ (coerce-number 'QUOSHUNT lv) (coerce-number 'QUOSHUNT rv)))]
+         [("MOD OF") (lambda (lv rv) (remainder (coerce-number 'MOD lv) (coerce-number 'MOD rv)))]
+         [("BIGGR OF") (lambda (lv rv) (max (coerce-number 'BIGGR lv) (coerce-number 'BIGGR rv)))]
+         [("SMALLR OF") (lambda (lv rv) (min (coerce-number 'SMALLR lv) (coerce-number 'SMALLR rv)))]
+         [("BOTH OF") (lambda (lv rv) (and (lol-truthy? lv) (lol-truthy? rv)))]
+         [("EITHER OF") (lambda (lv rv) (or (lol-truthy? lv) (lol-truthy? rv)))]
          [("WON OF")
-          (define lb (lol-truthy? lv))
-          (define rb (lol-truthy? rv))
-          (or (and lb (not rb))
-              (and (not lb) rb))]
-         [("BOTH SAEM") (equal? lv rv)]
-         [("DIFFRINT") (not (equal? lv rv))]
-         [else (raise-unsupported expr)]))]
+          (lambda (lv rv)
+            (define lb (lol-truthy? lv))
+            (define rb (lol-truthy? rv))
+            (or (and lb (not rb))
+                (and (not lb) rb)))]
+         [("BOTH SAEM") (lambda (lv rv) (equal? lv rv))]
+         [("DIFFRINT") (lambda (lv rv) (not (equal? lv rv)))]
+         [else (raise-unsupported-op 'binary op expr)]))
+     (lambda (e)
+       (op-fn (left-proc e) (right-proc e)))]
 
     [(expr-unary op arg)
      (define arg-proc (compile-expr arg))
-     (lambda (e)
-       (define v (arg-proc e))
+     (define op-fn
        (case op
-         [("NOT") (not (lol-truthy? v))]
-         [else (raise-unsupported expr)]))]
+         [("NOT") (lambda (v) (not (lol-truthy? v)))]
+         [else (raise-unsupported-op 'unary op expr)]))
+     (lambda (e)
+       (op-fn (arg-proc e)))]
 
     [(expr-variadic op args)
      (define arg-procs (map compile-expr args))
@@ -393,7 +403,7 @@
        [("ANY OF")
         (lambda (e)
           (ormap (lambda (a) (lol-truthy? (a e))) arg-procs))]
-       [else (raise-unsupported expr)])]
+       [else (raise-unsupported-op 'variadic op expr)])]
 
     [(expr-call name args)
      (define arg-procs (map compile-expr args))
@@ -698,8 +708,6 @@
 (define (compile-program parsed)
   (unless (program? parsed)
     (raise-argument-error 'compile-program "program?" parsed))
-  (define program-proc
-    (compile-block (program-statements parsed)))
   (lambda ()
     (define globals (make-root-env))
     (define functions (make-hash))
@@ -727,6 +735,8 @@
                      [current-break-k #f]
                      [current-object-name #f]
                      [current-def-object #f])
+        (define program-proc
+          (compile-block (program-statements parsed)))
         (program-proc globals)
         (hash 'status 'ok
               'phase (runstate-phase st)

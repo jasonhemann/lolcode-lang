@@ -1,151 +1,36 @@
 #lang racket/base
 
-(provide program
-         program?
-         program-version
-         program-statements
+(provide (struct-out program)
 
-         stmt-declare
-         stmt-declare?
-         stmt-declare-target
-         stmt-declare-init
+         (struct-out stmt-declare)
+         (struct-out stmt-assign)
+         (struct-out stmt-cast)
+         (struct-out stmt-input)
+         (struct-out stmt-visible)
+         (struct-out stmt-loop)
+         (struct-out stmt-if)
+         (struct-out stmt-switch)
+         (struct-out switch-case)
+         (struct-out mebbe-branch)
+         (struct-out stmt-function-def)
+         (struct-out stmt-return)
+         (struct-out stmt-break)
+         (struct-out stmt-object-def)
+         (struct-out stmt-slot-set)
+         (struct-out stmt-expr)
 
-         stmt-assign
-         stmt-assign?
-         stmt-assign-target
-         stmt-assign-expr
-
-         stmt-cast
-         stmt-cast?
-         stmt-cast-target
-         stmt-cast-type-name
-
-         stmt-input
-         stmt-input?
-         stmt-input-target
-
-         stmt-visible
-         stmt-visible?
-         stmt-visible-exprs
-         stmt-visible-suppress-newline?
-
-         stmt-loop
-         stmt-loop?
-         stmt-loop-label
-         stmt-loop-update-var
-         stmt-loop-update-op
-         stmt-loop-cond-kind
-         stmt-loop-cond-expr
-         stmt-loop-body
-
-         stmt-if
-         stmt-if?
-         stmt-if-condition
-         stmt-if-then-branch
-         stmt-if-mebbe-branches
-         stmt-if-else-branch
-
-         stmt-switch
-         stmt-switch?
-         stmt-switch-subject
-         stmt-switch-cases
-         stmt-switch-default
-
-         switch-case
-         switch-case?
-         switch-case-match
-         switch-case-body
-
-         mebbe-branch
-         mebbe-branch?
-         mebbe-branch-condition
-         mebbe-branch-body
-
-         stmt-function-def
-         stmt-function-def?
-         stmt-function-def-name
-         stmt-function-def-args
-         stmt-function-def-body
-
-         stmt-return
-         stmt-return?
-         stmt-return-expr
-
-         stmt-break
-         stmt-break?
-
-         stmt-object-def
-         stmt-object-def?
-         stmt-object-def-name
-         stmt-object-def-parent
-         stmt-object-def-body
-
-         stmt-slot-set
-         stmt-slot-set?
-         stmt-slot-set-object
-         stmt-slot-set-slot
-         stmt-slot-set-expr
-
-         stmt-expr
-         stmt-expr?
-         stmt-expr-expr
-
-         expr-ident
-         expr-ident?
-         expr-ident-name
-
-         expr-number
-         expr-number?
-         expr-number-text
-
-         expr-string
-         expr-string?
-         expr-string-text
-
-         expr-literal
-         expr-literal?
-         expr-literal-value
-
-         expr-binary
-         expr-binary?
-         expr-binary-op
-         expr-binary-left
-         expr-binary-right
-
-         expr-unary
-         expr-unary?
-         expr-unary-op
-         expr-unary-arg
-
-         expr-variadic
-         expr-variadic?
-         expr-variadic-op
-         expr-variadic-args
-
-         expr-call
-         expr-call?
-         expr-call-name
-         expr-call-args
-
-         expr-method-call
-         expr-method-call?
-         expr-method-call-receiver
-         expr-method-call-name
-         expr-method-call-args
-
-         expr-slot
-         expr-slot?
-         expr-slot-object
-         expr-slot-slot
-
-         expr-srs
-         expr-srs?
-         expr-srs-expr
-
-         expr-cast
-         expr-cast?
-         expr-cast-expr
-         expr-cast-type-name)
+         (struct-out expr-ident)
+         (struct-out expr-number)
+         (struct-out expr-string)
+         (struct-out expr-literal)
+         (struct-out expr-binary)
+         (struct-out expr-unary)
+         (struct-out expr-variadic)
+         (struct-out expr-call)
+         (struct-out expr-method-call)
+         (struct-out expr-slot)
+         (struct-out expr-srs)
+         (struct-out expr-cast))
 
 (struct program (version statements) #:transparent)
 
