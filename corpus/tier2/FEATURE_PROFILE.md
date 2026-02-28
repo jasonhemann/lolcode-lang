@@ -1,6 +1,6 @@
 # Tier-2 Feature Profile
 
-Generated: `2026-02-27T21:47:39Z`
+Generated: `2026-02-28T18:00:17Z`
 
 ## httpd.lol
 
@@ -106,3 +106,44 @@ Generated: `2026-02-27T21:47:39Z`
 | `EITHER OF` | 1 |
 | `NOT` | 5 |
 
+## lokalise-lol-post
+
+- Repo: `bodrovis-learning/Lokalise-source`
+- LOLCODE files: `15`
+- Total LOLCODE lines: `254`
+
+| Construct | Count |
+| --- | ---: |
+| `HAI [0-9]+\.[0-9]+` | 15 |
+| `HOW IZ I` | 3 |
+| `IF U SAY SO` | 3 |
+| `FOUND YR` | 4 |
+| `IM IN YR` | 4 |
+| `IM OUTTA YR` | 4 |
+| `UPPIN YR` | 2 |
+| `TIL` | 2 |
+| `WILE` | 2 |
+| `O RLY\?` | 3 |
+| `YA RLY` | 3 |
+| `MEBBE` | 1 |
+| `NO WAI` | 2 |
+| `OIC` | 4 |
+| `WTF\?` | 1 |
+| `OMGWTF` | 1 |
+| `OMG ` | 3 |
+| `SMOOSH` | 1 |
+| `MAEK` | 1 |
+| `IS NOW A` | 5 |
+| `I IZ` | 4 |
+| `I HAS A` | 15 |
+| `HAS A` | 15 |
+| `GIMMEH` | 4 |
+| `VISIBLE` | 18 |
+| `BOTH SAEM` | 7 |
+| `DIFFRINT` | 3 |
+| `BOTH OF` | 1 |
+| `EITHER OF` | 1 |
+| `WON OF` | 1 |
+| `ALL OF` | 1 |
+| `ANY OF` | 1 |
+| `NOT` | 2 |

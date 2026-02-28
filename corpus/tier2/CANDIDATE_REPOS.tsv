@@ -11,4 +11,5 @@ tier2	lolcode-py-cmsc124	DvaeFroot/cmsc124-lolcode-interpreter	interpreter	P2	P2
 tier2	httpd-lol	justinmeza/httpd.lol	corpus	P3	P1	manual	seeded
 tier2	loleuler	LeartS/loleuler	corpus	P3	P1	manual	seeded
 tier2	eulol	markjreed/eulol	corpus	P3	P1	manual	seeded
+tier2	lokalise-lol-post	bodrovis-learning/Lokalise-source	corpus	P3	P2	manual	seeded
 tier3	pllolcode	eggyknap/pllolcode	extension	P3	P3	implementations.pdf	unverified

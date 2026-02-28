@@ -50,6 +50,10 @@ These are likely useful for historical behavior notes, but may not be easy to au
 - `justinmeza/lollm`: [https://github.com/justinmeza/lollm](https://github.com/justinmeza/lollm)
   - Contains `lolspeak.txt` training data that mixes real LOLCODE and plain lolspeak prose.
   - Useful for robustness tooling, but not a normative conformance corpus.
+- `bodrovis-learning/Lokalise-source` (`lolcode-fun-post`):
+  [https://github.com/bodrovis-learning/Lokalise-source/tree/master/lolcode-fun-post](https://github.com/bodrovis-learning/Lokalise-source/tree/master/lolcode-fun-post)
+  - Small tutorial-oriented LOLCODE sample corpus (operators, loops, recursion, functions, conditionals, casting, I/O).
+  - Useful as non-normative style/idiom diversity input.
 
 ## Recommended next harvest order
 

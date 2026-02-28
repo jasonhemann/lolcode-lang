@@ -14,6 +14,7 @@ Current sources:
 - `justinmeza/httpd.lol`
 - `LeartS/loleuler`
 - `markjreed/eulol`
+- `bodrovis-learning/Lokalise-source` (`lolcode-fun-post` tutorial examples)
 
 Implementation and corpus candidates discovered from the top-level PDF survey are tracked in:
 
