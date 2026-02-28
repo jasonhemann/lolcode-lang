@@ -61,6 +61,20 @@ Outputs:
 - `corpus/research/availability/availability.json`
 - `corpus/research/availability/AVAILABILITY_REPORT.md`
 
+## External Regression Queue
+
+Build an all-items external issue/PR queue and wave-based candidate repro backlog:
+
+```bash
+./scripts/build_external_regression_queue.sh
+```
+
+Outputs:
+
+- `corpus/research/external_issues/QUEUE.md`
+- `corpus/research/external_issues/candidate_repros.tsv`
+- `corpus/research/external_issues/candidate_repros_ranked.json`
+
 ## 1.4 Extension Status
 
 Current project position and tracked evidence for the unofficial "1.4" extension line:

@@ -1,0 +1,46 @@
+1	1	justinmeza/lci	lci	issue	43	open	runtime-safety	120	SIGSEV	https://github.com/justinmeza/lci/issues/43
+2	1	justinmeza/lci	lci	issue	47	open	runtime-safety	120	segfault or abort with IT in small programs	https://github.com/justinmeza/lci/issues/47
+3	1	justinmeza/lci	lci	issue	49	open	runtime-safety	120	SegFault when using STDIO Library	https://github.com/justinmeza/lci/issues/49
+4	1	justinmeza/lci	lci	issue	54	open	runtime-safety	120	Shebang without trailing newline causes buffer overflow (segfault)	https://github.com/justinmeza/lci/issues/54
+5	1	justinmeza/lci	lci	issue	55	open	runtime-safety	120	Failed realloc during program buffering causes segfault	https://github.com/justinmeza/lci/issues/55
+6	1	justinmeza/lci	lci	issue	79	open	runtime-safety	120	Out of Bounds Read and Null Pointer Dereference in LCI Version 0.10.5	https://github.com/justinmeza/lci/issues/79
+7	1	justinmeza/lci	lci	pr	50	open	runtime-safety	120	Fix a double free of the implicit variable	https://github.com/justinmeza/lci/pull/50
+8	1	justinmeza/lci	lci	issue	33	closed	runtime-safety	110	segfault	https://github.com/justinmeza/lci/issues/33
+9	1	justinmeza/lci	lci	pr	24	closed	runtime-safety	110	Defensive strategy that prevents a range of possible null pointer errors...	https://github.com/justinmeza/lci/pull/24
+10	1	justinmeza/lci	lci	issue	13	open	language	100	unexpected error message with undefined variable interpolation	https://github.com/justinmeza/lci/issues/13
+11	2	justinmeza/lci	lci	issue	23	open	language	100	String and colon	https://github.com/justinmeza/lci/issues/23
+12	2	justinmeza/lci	lci	issue	39	open	language	100	Invalid Unicode code points are accepted	https://github.com/justinmeza/lci/issues/39
+13	2	justinmeza/lci	lci	issue	56	open	language	100	Colon and quotation mark conflict in strings	https://github.com/justinmeza/lci/issues/56
+14	2	justinmeza/lci	lci	issue	57	open	language	100	Octal NUMBR works when negative, but not positive	https://github.com/justinmeza/lci/issues/57
+15	2	justinmeza/lci	lci	issue	58	open	language	100	NUMBAR doesn't always work with line continuation	https://github.com/justinmeza/lci/issues/58
+16	2	justinmeza/lci	lci	issue	59	open	language	100	EOL doesn't replace MKAY when calling a variadic function	https://github.com/justinmeza/lci/issues/59
+17	2	justinmeza/lci	lci	issue	60	open	language	100	Function can read and modify variables in outside scope	https://github.com/justinmeza/lci/issues/60
+18	2	justinmeza/lci	lci	issue	62	open	language	100	BTW may not appear on the same line as TLDR	https://github.com/justinmeza/lci/issues/62
+19	2	justinmeza/lci	lci	issue	71	open	language	100	Loops always create a loop-scope variable and initialize it to 0	https://github.com/justinmeza/lci/issues/71
+20	2	justinmeza/lci	lci	issue	78	open	language	100	Functions of NOOB very limited	https://github.com/justinmeza/lci/issues/78
+21	3	justinmeza/lci	lci	pr	52	open	language	100	Fixed loop creation of variable even when present	https://github.com/justinmeza/lci/pull/52
+22	3	JasonBock/LOLCode.net	lolcode-net	issue	7	open	language	90	Try Removing Different Parser Types	https://github.com/JasonBock/LOLCode.net/issues/7
+23	3	justinmeza/httpd.lol	httpd-lol	pr	3	open	language	90	Added doctype and head to HTML document	https://github.com/justinmeza/httpd.lol/pull/3
+24	3	justinmeza/lci	lci	issue	4	closed	language	90	Duplicate literals in Switch statment don't produce error message	https://github.com/justinmeza/lci/issues/4
+25	3	justinmeza/lci	lci	issue	7	closed	language	90	BOTH SAEM not working in loops	https://github.com/justinmeza/lci/issues/7
+26	3	justinmeza/lci	lci	issue	15	closed	language	90	string interpolation ignored in library calls	https://github.com/justinmeza/lci/issues/15
+27	3	justinmeza/lci	lci	issue	18	closed	language	90	Chained slot access on BUKKITS does not work sometimes, with no error message.	https://github.com/justinmeza/lci/issues/18
+28	3	justinmeza/lci	lci	pr	29	closed	language	90	relax numeric conversions from string	https://github.com/justinmeza/lci/pull/29
+29	3	justinmeza/lci	lci	pr	46	closed	language	90	add constraint for missing TLDR terminator fix #43	https://github.com/justinmeza/lci/pull/46
+30	3	DvaeFroot/cmsc124-lolcode-interpreter	lolcode-py-cmsc124	pr	3	closed	language	80	refactor: move rules inside the lexer	https://github.com/DvaeFroot/cmsc124-lolcode-interpreter/pull/3
+31	4	DvaeFroot/cmsc124-lolcode-interpreter	lolcode-py-cmsc124	pr	9	closed	language	80	fix: include lexeme OBTW	https://github.com/DvaeFroot/cmsc124-lolcode-interpreter/pull/9
+32	4	DvaeFroot/cmsc124-lolcode-interpreter	lolcode-py-cmsc124	pr	11	closed	language	80	feat: add more node types	https://github.com/DvaeFroot/cmsc124-lolcode-interpreter/pull/11
+33	4	DvaeFroot/cmsc124-lolcode-interpreter	lolcode-py-cmsc124	pr	14	closed	language	80	feat: partial typecast statements	https://github.com/DvaeFroot/cmsc124-lolcode-interpreter/pull/14
+34	4	DvaeFroot/cmsc124-lolcode-interpreter	lolcode-py-cmsc124	pr	21	closed	language	80	feat: biggr, smallr, chain arithmetic, comparison, comments test cases	https://github.com/DvaeFroot/cmsc124-lolcode-interpreter/pull/21
+35	4	DvaeFroot/cmsc124-lolcode-interpreter	lolcode-py-cmsc124	pr	25	closed	language	80	feat: put the output of the parser to the console	https://github.com/DvaeFroot/cmsc124-lolcode-interpreter/pull/25
+36	4	DvaeFroot/cmsc124-lolcode-interpreter	lolcode-py-cmsc124	pr	42	closed	language	80	feat: add value attributes for some literal nodes	https://github.com/DvaeFroot/cmsc124-lolcode-interpreter/pull/42
+37	4	DvaeFroot/cmsc124-lolcode-interpreter	lolcode-py-cmsc124	pr	43	closed	language	80	feat: implement type casting	https://github.com/DvaeFroot/cmsc124-lolcode-interpreter/pull/43
+38	4	DvaeFroot/cmsc124-lolcode-interpreter	lolcode-py-cmsc124	pr	44	closed	language	80	refactor: simplify casting to a general funciton	https://github.com/DvaeFroot/cmsc124-lolcode-interpreter/pull/44
+39	4	DvaeFroot/cmsc124-lolcode-interpreter	lolcode-py-cmsc124	pr	48	closed	language	80	fix: use proper type for output of the arithmeticNode	https://github.com/DvaeFroot/cmsc124-lolcode-interpreter/pull/48
+40	4	DvaeFroot/cmsc124-lolcode-interpreter	lolcode-py-cmsc124	pr	50	closed	language	80	fix: eval must be string values	https://github.com/DvaeFroot/cmsc124-lolcode-interpreter/pull/50
+41	5	DvaeFroot/cmsc124-lolcode-interpreter	lolcode-py-cmsc124	pr	54	closed	language	80	refactor: create function for checking next token	https://github.com/DvaeFroot/cmsc124-lolcode-interpreter/pull/54
+42	5	DvaeFroot/cmsc124-lolcode-interpreter	lolcode-py-cmsc124	pr	55	closed	language	80	fix: catch in switch if there is no gtfo	https://github.com/DvaeFroot/cmsc124-lolcode-interpreter/pull/55
+43	5	DvaeFroot/cmsc124-lolcode-interpreter	lolcode-py-cmsc124	pr	57	closed	language	80	Refactor lexer and implement missing features	https://github.com/DvaeFroot/cmsc124-lolcode-interpreter/pull/57
+44	5	DvaeFroot/cmsc124-lolcode-interpreter	lolcode-py-cmsc124	pr	61	closed	language	80	fix: skip newlines before hai	https://github.com/DvaeFroot/cmsc124-lolcode-interpreter/pull/61
+45	5	DvaeFroot/cmsc124-lolcode-interpreter	lolcode-py-cmsc124	pr	62	closed	language	80	refactor: refactor loops	https://github.com/DvaeFroot/cmsc124-lolcode-interpreter/pull/62
+46	5	DvaeFroot/cmsc124-lolcode-interpreter	lolcode-py-cmsc124	pr	63	closed	language	80	refactor loops	https://github.com/DvaeFroot/cmsc124-lolcode-interpreter/pull/63
