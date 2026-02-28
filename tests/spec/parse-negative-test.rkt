@@ -4,17 +4,30 @@
          "../../src/lolcode/main.rkt")
 
 (module+ test
+  (define (capture-message thunk)
+    (with-handlers ([exn:fail? exn-message])
+      (thunk)
+      #f))
+
   (define missing-kthxbye
     "HAI 1.2\nVISIBLE \"OH HAI\"\n")
-  (check-exn exn:fail?
-             (lambda () (parse-program missing-kthxbye)))
+  (define missing-kthxbye-msg
+    (capture-message (lambda () (parse-program missing-kthxbye))))
+  (check-true (string? missing-kthxbye-msg))
+  (check-true (regexp-match? #px"syntax error: unexpected EOF" missing-kthxbye-msg))
+  (check-true (regexp-match? #px"line 3, col 1" missing-kthxbye-msg))
+  (check-true (regexp-match? #px"\\^" missing-kthxbye-msg))
+  (check-true (regexp-match? #px"hint: input ended early" missing-kthxbye-msg))
 
   (define missing-version
     "HAI\nVISIBLE \"OH HAI\"\nKTHXBYE\n")
-  (check-exn exn:fail?
-             (lambda () (parse-program missing-version)))
+  (define missing-version-msg
+    (capture-message (lambda () (parse-program missing-version))))
+  (check-true (string? missing-version-msg))
+  (check-true (regexp-match? #px"syntax error: unexpected NEWLINE" missing-version-msg))
+  (check-true (regexp-match? #px"line 1, col 4" missing-version-msg))
 
   (define unterminated-string
     "HAI 1.2\nVISIBLE \"oops\nKTHXBYE\n")
-  (check-exn exn:fail?
+  (check-exn #px"unterminated string literal at line 2, col 9"
              (lambda () (parse-program unterminated-string))))

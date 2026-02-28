@@ -77,6 +77,57 @@
         "LIEK" token-LIEK
         "'Z" token-SLOT))
 
+(define current-source-lines (make-parameter #()))
+
+(define (token-label tok-name tok-value)
+  (cond
+    [(eq? tok-name 'EOF) "EOF"]
+    [(and tok-name tok-value) (format "~a (~v)" tok-name tok-value)]
+    [tok-name (format "~a" tok-name)]
+    [else "unknown token"]))
+
+(define (source-line-text line)
+  (define lines (current-source-lines))
+  (if (and (vector? lines)
+           (<= 1 line)
+           (<= line (vector-length lines)))
+      (vector-ref lines (- line 1))
+      #f))
+
+(define (source-caret col line-text)
+  (define line-len (string-length line-text))
+  (define caret-col (min (max 1 col) (+ line-len 1)))
+  (string-append (make-string (max 0 (- caret-col 1)) #\space) "^"))
+
+(define (raise-parse-error tok-name tok-value start-pos)
+  (define line (if start-pos (position-line start-pos) 0))
+  (define col (if start-pos (position-col start-pos) 0))
+  (define unexpected (token-label tok-name tok-value))
+  (define raw-line-text (source-line-text line))
+  (define line-text
+    (cond
+      [(and raw-line-text (not (string=? raw-line-text "")))
+       raw-line-text]
+      [(eq? tok-name 'EOF)
+       "<end of input>"]
+      [else
+       #f]))
+  (define context-fragment
+    (if line-text
+        (format "\n  ~a\n  ~a" line-text (source-caret col line-text))
+        ""))
+  (define hint-fragment
+    (if (eq? tok-name 'EOF)
+        "\n  hint: input ended early; check for a missing KTHXBYE or closing clause."
+        ""))
+  (error 'parse-source
+         "syntax error: unexpected ~a at line ~a, col ~a~a~a"
+         unexpected
+         line
+         col
+         context-fragment
+         hint-fragment))
+
 (define (raw->token raw)
   (define ttype (token-type raw))
   (define lex (token-lexeme raw))
@@ -111,11 +162,7 @@
    (expected-RR-conflicts 0)
    (error
     (lambda (tok-ok? tok-name tok-value start-pos end-pos)
-      (define line (if start-pos (position-line start-pos) 0))
-      (define col (if start-pos (position-col start-pos) 0))
-      (error 'parse-source
-             "syntax error near ~a (~a) at line ~a, col ~a"
-             tok-name tok-value line col)))
+      (raise-parse-error tok-name tok-value start-pos)))
    (grammar
     (program
      [(HAI version nlopt statement-list-opt nlopt KTHXBYE nlopt)
@@ -313,4 +360,6 @@
     (when (< idx (- n 1))
       (set! idx (+ idx 1)))
     t)
-  (parse/internal next-token))
+  (parameterize ([current-source-lines
+                  (list->vector (string-split source "\n" #:trim? #f))])
+    (parse/internal next-token)))
