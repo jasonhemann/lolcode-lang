@@ -1,7 +1,9 @@
 #lang racket/base
 
-(require racket/string)
-(require racket/port)
+(require racket/port
+         racket/string
+         parser-tools/lex
+         (prefix-in : parser-tools/lex-sre))
 
 (provide token
          token?
@@ -40,70 +42,98 @@
            (token 'WORD text line col)))
      (values 'ok (list t))]))
 
-(define (scan-string line i line-no col)
-  (define n (string-length line))
-  (define out (open-output-string))
-  (let loop ([j (+ i 1)] [escaped? #f])
-    (when (>= j n)
-      (lex-error 'lex-source "unterminated string literal" line-no col))
-    (define ch (string-ref line j))
+(define (skip-comment-tail! in)
+  (let loop ()
+    (define ch (peek-char in))
     (cond
+      [(eof-object? ch) (void)]
+      [(or (char=? ch #\newline) (char=? ch #\return)) (void)]
+      [else
+       (read-char in)
+       (loop)])))
+
+(define (scan-string-tail! in line col)
+  (define out (open-output-string))
+  (let loop ([escaped? #f])
+    (define ch (read-char in))
+    (cond
+      [(eof-object? ch)
+       (lex-error 'lex-source "unterminated string literal" line col)]
+      [(or (char=? ch #\newline) (char=? ch #\return))
+       (lex-error 'lex-source "unterminated string literal" line col)]
       [escaped?
        (write-char ch out)
-       (loop (+ j 1) #f)]
+       (loop #f)]
       [(char=? ch #\:)
        (write-char ch out)
-       (loop (+ j 1) #t)]
+       (loop #t)]
       [(char=? ch #\")
-       (values (get-output-string out) (+ j 1))]
+       (get-output-string out)]
       [else
        (write-char ch out)
-       (loop (+ j 1) #f)])))
+       (loop #f)])))
 
-(define (lex-line line line-no)
-  (define n (string-length line))
-  (let loop ([i 0] [col 1] [acc '()])
+(define-lex-abbrevs
+  [ws (:or #\space #\tab)]
+  [word (:+ (:~ #\space #\tab #\, #\newline #\return #\"))])
+
+(define (make-token type lexeme start-pos)
+  (token type lexeme
+         (position-line start-pos)
+         (+ 1 (position-col start-pos))))
+
+(define (make-next-token in)
+  (define pending '())
+  (define scanner
+    (lexer-src-pos
+     [ws (return-without-pos (scanner in))]
+     [(:: #\return #\newline)
+      (return-without-pos (make-token 'NEWLINE "\n" start-pos))]
+     [#\newline
+      (return-without-pos (make-token 'NEWLINE "\n" start-pos))]
+     [#\return
+      (return-without-pos (make-token 'NEWLINE "\n" start-pos))]
+     [#\,
+      (return-without-pos (make-token 'NEWLINE "," start-pos))]
+     [#\"
+      (return-without-pos
+       (make-token
+        'STRING
+        (scan-string-tail! in
+                           (position-line start-pos)
+                           (+ 1 (position-col start-pos)))
+        start-pos))]
+     [word
+      (let-values ([(status toks)
+                    (word->tokens lexeme
+                                  (position-line start-pos)
+                                  (+ 1 (position-col start-pos)))])
+        (cond
+          [(eq? status 'comment)
+           (skip-comment-tail! in)
+           (return-without-pos (scanner in))]
+          [else
+           (set! pending (append pending (cdr toks)))
+           (return-without-pos (car toks))]))]
+     [(eof)
+      (return-without-pos (make-token 'EOF "" start-pos))]))
+  (lambda ()
     (cond
-      [(>= i n) (reverse acc)]
+      [(pair? pending)
+       (define t (car pending))
+       (set! pending (cdr pending))
+       t]
       [else
-       (define ch (string-ref line i))
-       (cond
-         [(or (char=? ch #\space) (char=? ch #\tab))
-          (loop (+ i 1) (+ col 1) acc)]
-         [(char=? ch #\,)
-          (loop (+ i 1) (+ col 1) (cons (token 'NEWLINE "," line-no col) acc))]
-         [(char=? ch #\")
-          (define-values (text next-i) (scan-string line i line-no col))
-          (define consumed (- next-i i))
-          (loop next-i (+ col consumed) (cons (token 'STRING text line-no col) acc))]
-         [else
-          (define j
-            (let walk ([k i])
-              (cond
-                [(>= k n) k]
-                [else
-                 (define c (string-ref line k))
-                 (if (or (char=? c #\space) (char=? c #\tab) (char=? c #\,))
-                     k
-                     (walk (+ k 1)))])))
-          (define text (substring line i j))
-          (define-values (status toks) (word->tokens text line-no col))
-          (cond
-            [(eq? status 'comment)
-             (reverse acc)]
-            [else
-             (loop j (+ col (- j i)) (append (reverse toks) acc))])])])))
+       (scanner in)])))
 
 (define (lex-source source)
   (unless (string? source)
     (raise-argument-error 'lex-source "string?" source))
-  (define tokens '())
-  (with-input-from-string source
-    (lambda ()
-      (let loop ([line-no 1])
-        (define line (read-line (current-input-port) 'any))
-        (unless (eof-object? line)
-          (set! tokens (append tokens (lex-line line line-no)))
-          (set! tokens (append tokens (list (token 'NEWLINE "\\n" line-no (+ (string-length line) 1)))))
-          (loop (+ line-no 1))))))
-  (append tokens (list (token 'EOF "" (+ (length (string-split source "\n" #:trim? #f)) 1) 1))))
+  (define in (open-input-string source))
+  (port-count-lines! in)
+  (define next-token (make-next-token in))
+  (let loop ([acc '()])
+    (define tok (next-token))
+    (if (eq? (token-type tok) 'EOF)
+        (reverse (cons tok acc))
+        (loop (cons tok acc)))))
