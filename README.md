@@ -17,6 +17,16 @@ Tier2-only compatibility wrapper:
 ./scripts/sync_tier2_corpus.sh
 ```
 
+Issue/PR sync for `lci` divergence triage:
+
+```bash
+./scripts/sync_lci_issue_backlog.sh
+```
+
+Tracked triage notes live at:
+
+- `corpus/research/lci_issues/TRIAGE.md`
+
 ## Racket Bootstrap
 
 Step-1 Racket scaffold is under:
