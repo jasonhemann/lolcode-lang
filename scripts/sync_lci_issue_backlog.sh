@@ -69,11 +69,11 @@ jq '
   echo "## Counts"
   echo
   echo "- Issues total: $(jq 'length' "$OUT_DIR/issues.json")"
-  echo "- Issues open: $(jq '[.[] | select(.state==\"open\")] | length' "$OUT_DIR/issues.json")"
-  echo "- Issues closed: $(jq '[.[] | select(.state==\"closed\")] | length' "$OUT_DIR/issues.json")"
+  echo "- Issues open: $(jq '[.[] | select(.state=="open")] | length' "$OUT_DIR/issues.json")"
+  echo "- Issues closed: $(jq '[.[] | select(.state=="closed")] | length' "$OUT_DIR/issues.json")"
   echo "- PRs total: $(jq 'length' "$OUT_DIR/pulls.json")"
-  echo "- PRs open: $(jq '[.[] | select(.state==\"open\")] | length' "$OUT_DIR/pulls.json")"
-  echo "- PRs closed: $(jq '[.[] | select(.state==\"closed\")] | length' "$OUT_DIR/pulls.json")"
+  echo "- PRs open: $(jq '[.[] | select(.state=="open")] | length' "$OUT_DIR/pulls.json")"
+  echo "- PRs closed: $(jq '[.[] | select(.state=="closed")] | length' "$OUT_DIR/pulls.json")"
   echo
   echo "## Open Issues (Newest 20)"
   echo
