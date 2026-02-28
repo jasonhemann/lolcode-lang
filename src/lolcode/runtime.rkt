@@ -10,6 +10,12 @@
 (define noob 'NOOB)
 
 (struct exn:fail:unsupported exn:fail (where) #:transparent)
+(struct ctrl-normal () #:transparent)
+(struct ctrl-return (value) #:transparent)
+(struct ctrl-break () #:transparent)
+(struct runtime-function (name args body) #:transparent)
+
+(define normal-control (ctrl-normal))
 
 (define (raise-unsupported where)
   (raise
@@ -40,14 +46,14 @@
     [(number? v) v]
     [else (error who "expected numeric operand, got ~e" v)]))
 
-(define (type-default name)
-  (case (string-upcase name)
-    [("NUMBR" "NUMBAR") 0]
-    [("YARN") ""]
-    [("TROOF") #f]
-    [("BUKKIT") (make-hash)]
-    [("NOOB") noob]
-    [else #f]))
+(define (type-default type-name)
+  (case (string-upcase type-name)
+    [("NUMBR" "NUMBAR") (values #t 0)]
+    [("YARN") (values #t "")]
+    [("TROOF") (values #t #f)]
+    [("BUKKIT") (values #t (make-hash))]
+    [("NOOB") (values #t noob)]
+    [else (values #f #f)]))
 
 (define (resolve-ident-name env name)
   (if (hash-has-key? env name)
@@ -58,7 +64,7 @@
   (match target
     [(expr-ident name) name]
     [(expr-srs inner)
-     (define dynamic (eval-expr inner))
+     (define dynamic (eval-expr env inner))
      (cond
        [(string? dynamic) dynamic]
        [(symbol? dynamic) (symbol->string dynamic)]
@@ -72,7 +78,7 @@
   (match slot
     [(expr-ident name) name]
     [(expr-srs inner)
-     (define dynamic (eval-expr inner))
+     (define dynamic (eval-expr env inner))
      (cond
        [(string? dynamic) dynamic]
        [(symbol? dynamic) (symbol->string dynamic)]
@@ -83,14 +89,36 @@
     [_ (raise-unsupported slot)]))
 
 (define (execute-program parsed phase)
-  (define env (make-hash))
+  (define globals (make-hash))
+  (define functions (make-hash))
   (define stdout (open-output-string))
-  (hash-set! env "IT" noob)
+  (hash-set! globals "IT" noob)
 
-  (define (set-it! v)
+  (define (set-it! env v)
     (hash-set! env "IT" v))
 
-  (define (eval-expr expr)
+  (define (call-function caller-env fn arg-values)
+    (define name (runtime-function-name fn))
+    (define params (runtime-function-args fn))
+    (unless (= (length params) (length arg-values))
+      (error 'run-program
+             "function ~a expected ~a args, got ~a"
+             name
+             (length params)
+             (length arg-values)))
+    (define local-env (hash-copy caller-env))
+    (for ([param (in-list params)]
+          [arg (in-list arg-values)])
+      (hash-set! local-env param arg))
+    (hash-set! local-env "IT" noob)
+    (define control (execute-statements local-env (runtime-function-body fn)))
+    (cond
+      [(ctrl-return? control) (ctrl-return-value control)]
+      [(ctrl-break? control)
+       (error 'run-program "GTFO used outside switch/loop in function ~a" name)]
+      [else noob]))
+
+  (define (eval-expr env expr)
     (match expr
       [(expr-number text)
        (define parsed-number (string->number text))
@@ -99,10 +127,10 @@
            (error 'run-program "invalid number literal: ~a" text))]
       [(expr-string text) text]
       [(expr-ident name) (resolve-ident-name env name)]
-      [(expr-srs inner) (eval-expr inner)]
+      [(expr-srs inner) (eval-expr env inner)]
       [(expr-binary op left right)
-       (define lv (eval-expr left))
-       (define rv (eval-expr right))
+       (define lv (eval-expr env left))
+       (define rv (eval-expr env right))
        (case op
          [("SUM OF") (+ (coerce-number 'SUM lv) (coerce-number 'SUM rv))]
          [("DIFF OF") (- (coerce-number 'DIFF lv) (coerce-number 'DIFF rv))]
@@ -117,68 +145,127 @@
       [(expr-variadic op args)
        (case op
          [("SMOOSH")
-          (apply string-append (map (lambda (a) (lol-string (eval-expr a))) args))]
+          (apply string-append (map (lambda (a) (lol-string (eval-expr env a))) args))]
          [else (raise-unsupported expr)])]
+      [(expr-call name args)
+       (define fn
+         (hash-ref functions name #f))
+       (unless fn
+         (error 'run-program "unknown function: ~a" name))
+       (call-function env fn (map (lambda (a) (eval-expr env a)) args))]
       [(expr-slot object slot)
-       (define obj (eval-expr object))
+       (define obj (eval-expr env object))
        (unless (hash? obj)
          (error 'run-program "slot lookup requires BUKKIT, got ~e" obj))
        (hash-ref obj (slot-name env slot eval-expr) noob)]
       [_ (raise-unsupported expr)]))
 
-  (define (eval-declare-init init)
+  (define (eval-declare-init env init)
     (cond
       [(not init) noob]
-      [(and (expr-ident? init)
-            (type-default (expr-ident-name init)))
-       => (lambda (v) v)]
-      [else (eval-expr init)]))
+      [(expr-ident? init)
+       (define-values (known? default-value)
+         (type-default (expr-ident-name init)))
+       (if known?
+           default-value
+           (eval-expr env init))]
+      [else (eval-expr env init)]))
 
-  (define (execute-statements statements)
+  (define (execute-statements env statements)
     (let loop ([remaining statements])
-      (when (pair? remaining)
-        (execute-statement (car remaining))
-        (loop (cdr remaining)))))
+      (cond
+        [(null? remaining) normal-control]
+        [else
+         (define control (execute-statement env (car remaining)))
+         (if (ctrl-normal? control)
+             (loop (cdr remaining))
+             control)])))
 
-  (define (execute-statement stmt)
+  (define (find-first-matching-case env subject-value cases)
+    (let loop ([remaining cases] [idx 0])
+      (cond
+        [(null? remaining) #f]
+        [else
+         (define c (car remaining))
+         (if (equal? subject-value (eval-expr env (switch-case-match c)))
+             idx
+             (loop (cdr remaining) (+ idx 1)))])))
+
+  (define (execute-case-sequence env cases)
+    (let loop ([remaining cases])
+      (cond
+        [(null? remaining) normal-control]
+        [else
+         (define control (execute-statements env (switch-case-body (car remaining))))
+         (cond
+           [(ctrl-normal? control) (loop (cdr remaining))]
+           [(ctrl-break? control) normal-control]
+           [else control])])))
+
+  (define (execute-statement env stmt)
     (match stmt
       [(stmt-declare target init)
        (define name (target-name env target eval-expr))
-       (define value (eval-declare-init init))
+       (define value (eval-declare-init env init))
        (hash-set! env name value)
-       (set-it! value)]
+       (set-it! env value)
+       normal-control]
       [(stmt-assign target expr)
        (define name (target-name env target eval-expr))
-       (define value (eval-expr expr))
+       (define value (eval-expr env expr))
        (hash-set! env name value)
-       (set-it! value)]
+       (set-it! env value)
+       normal-control]
       [(stmt-slot-set object slot expr)
-       (define obj (eval-expr object))
+       (define obj (eval-expr env object))
        (unless (hash? obj)
          (error 'run-program "slot assignment requires BUKKIT, got ~e" obj))
-       (define value (eval-expr expr))
+       (define value (eval-expr env expr))
        (hash-set! obj (slot-name env slot eval-expr) value)
-       (set-it! value)]
+       (set-it! env value)
+       normal-control]
       [(stmt-visible exprs suppress-newline?)
-       (define values (map eval-expr exprs))
+       (define values (map (lambda (e) (eval-expr env e)) exprs))
        (for ([v (in-list values)])
          (display (lol-string v) stdout))
        (unless suppress-newline?
          (newline stdout))
        (when (pair? values)
-         (set-it! (last values)))]
+         (set-it! env (last values)))
+       normal-control]
       [(stmt-if condition then-branch mebbe-branches else-branch)
-       (define cv (eval-expr condition))
-       (cond
-         [(lol-truthy? cv) (execute-statements then-branch)]
-         [else
-          (let mebbe-loop ([remaining mebbe-branches])
-            (if (null? remaining)
-                (execute-statements else-branch)
-                (let ([mb (car remaining)])
-                  (if (lol-truthy? (eval-expr (mebbe-branch-condition mb)))
-                      (execute-statements (mebbe-branch-body mb))
-                      (mebbe-loop (cdr remaining))))))])]
+       (if (lol-truthy? (eval-expr env condition))
+           (execute-statements env then-branch)
+           (let mebbe-loop ([remaining mebbe-branches])
+             (cond
+               [(null? remaining) (execute-statements env else-branch)]
+               [else
+                (define mb (car remaining))
+                (if (lol-truthy? (eval-expr env (mebbe-branch-condition mb)))
+                    (execute-statements env (mebbe-branch-body mb))
+                    (mebbe-loop (cdr remaining)))])))]
+      [(stmt-switch subject cases default)
+       (define subject-value (eval-expr env subject))
+       (define first-match (find-first-matching-case env subject-value cases))
+       (if first-match
+           (execute-case-sequence env (drop cases first-match))
+           (let ([control (execute-statements env default)])
+             (if (ctrl-break? control)
+                 normal-control
+                 control)))]
+      [(stmt-function-def name args body)
+       (hash-set! functions name (runtime-function name args body))
+       normal-control]
+      [(stmt-return expr)
+       (define value (eval-expr env expr))
+       (set-it! env value)
+       (ctrl-return value)]
+      [(stmt-break)
+       (ctrl-break)]
+      [(stmt-expr expr)
+       (define value (eval-expr env expr))
+       (set-it! env value)
+       normal-control]
       [_ (raise-unsupported stmt)]))
 
   (with-handlers ([exn:fail:unsupported?
@@ -186,7 +273,7 @@
                      (hash 'status 'unsupported
                            'phase phase
                            'stdout (get-output-string stdout)
-                           'last-value (hash-ref env "IT")
+                           'last-value (hash-ref globals "IT")
                            'reason (exn-message e)
                            'where (exn:fail:unsupported-where e)))]
                   [exn:fail?
@@ -194,10 +281,19 @@
                      (hash 'status 'runtime-error
                            'phase phase
                            'stdout (get-output-string stdout)
-                           'last-value (hash-ref env "IT")
+                           'last-value (hash-ref globals "IT")
                            'error (exn-message e)))])
-    (execute-statements (program-statements parsed))
-    (hash 'status 'ok
-          'phase phase
-          'stdout (get-output-string stdout)
-          'last-value (hash-ref env "IT"))))
+    (define terminal-control
+      (execute-statements globals (program-statements parsed)))
+    (cond
+      [(ctrl-normal? terminal-control)
+       (hash 'status 'ok
+             'phase phase
+             'stdout (get-output-string stdout)
+             'last-value (hash-ref globals "IT"))]
+      [(ctrl-return? terminal-control)
+       (error 'run-program "FOUND YR used outside function")]
+      [(ctrl-break? terminal-control)
+       (error 'run-program "GTFO used outside switch/loop")]
+      [else
+       (error 'run-program "invalid control transfer state: ~e" terminal-control)])))
