@@ -2,7 +2,8 @@
 
 (require racket/file
          "ast.rkt"
-         "parser.rkt")
+         "parser.rkt"
+         "runtime.rkt")
 
 (provide implementation-phase
          program
@@ -13,8 +14,8 @@
          run-program
          run-file)
 
-;; Step 1 bootstrap marker so tests can assert the current project phase.
-(define implementation-phase 'bootstrap)
+;; Phase marker so tests can assert the current implementation slice.
+(define implementation-phase 'core-subset-v0)
 
 (define (parse-program source)
   (unless (string? source)
@@ -24,8 +25,7 @@
 (define (run-program parsed)
   (unless (program? parsed)
     (raise-argument-error 'run-program "program?" parsed))
-  (hash 'status 'not-implemented
-        'phase implementation-phase))
+  (execute-program parsed implementation-phase))
 
 (define (run-file path)
   (unless (path-string? path)
