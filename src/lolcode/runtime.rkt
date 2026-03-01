@@ -60,21 +60,20 @@
 (define (env-lookup-box e name)
   (cond
     [(not e) #f]
+    [(hash-ref (env-table e) name #f)
+     => (lambda (maybe-box)
+          (if (box? maybe-box)
+              maybe-box
+              (env-lookup-box (env-parent e) name)))]
     [else
-     (define maybe-box
-       (hash-ref (env-table e) name #f))
-     (if (box? maybe-box)
-         maybe-box
-         (env-lookup-box (env-parent e) name))]))
+     (env-lookup-box (env-parent e) name)]))
 
 (define (env-define! e name value)
   (hash-set! (env-table e) name (box value)))
 
 (define (env-ref e name)
   (cond
-    [(env-lookup-box e name)
-     => (lambda (b)
-          (unbox b))]
+    [(env-lookup-box e name) => unbox]
     [else
      (error 'run-program "unknown identifier: ~a" name)]))
 
@@ -99,8 +98,7 @@
     [(env-lookup-box e "IT")
      => (lambda (maybe-it)
           (set-box! maybe-it value))]
-    [else
-     (env-define! e "IT" value)]))
+    [else (env-define! e "IT" value)]))
 
 (define lol-object%
   (class object%
@@ -123,18 +121,18 @@
       (hash-has-key? slots name))
 
     (define/public (get-slot name [default noob])
-      (define maybe-box
-        (hash-ref slots name #f))
-      (if (box? maybe-box)
-          (unbox maybe-box)
-          default))
+      (cond
+        [(hash-ref slots name #f) => unbox]
+        [else default]))
 
     (define/public (set-slot! name value)
-      (define maybe-box
-        (hash-ref slots name #f))
-      (if (box? maybe-box)
-          (set-box! maybe-box value)
-          (hash-set! slots name (box value))))
+      (cond
+        [(hash-ref slots name #f)
+         => (lambda (maybe-box)
+              (if (box? maybe-box)
+                  (set-box! maybe-box value)
+                  (hash-set! slots name (box value))))]
+        [else (hash-set! slots name (box value))]))
 
     (define/public (remove-slot! name)
       (hash-remove! slots name))
@@ -182,12 +180,9 @@
     [(boolean? v) (if v 1 0)]
     [(eq? v noob) 0]
     [(string? v)
-     (define n (string->number (string-trim v)))
-     (if n
-         n
+     (or (string->number (string-trim v))
          (error who "cannot cast YARN to numeric value: ~e" v))]
-    [else
-     (error who "cannot cast ~e to numeric value" v)]))
+    [else (error who "cannot cast ~e to numeric value" v)]))
 
 (define (cast-value who v type-name)
   (case (string-upcase type-name)
@@ -309,10 +304,10 @@
      (define name-proc (compile-target-name target))
      (lambda (e value ctx)
        (define name (name-proc e ctx))
-       (define maybe-box (env-lookup-box e name))
        (cond
-         [maybe-box
-          (set-box! maybe-box value)]
+         [(env-lookup-box e name)
+          => (lambda (b)
+               (set-box! b value))]
          [define-missing?
           (env-define! e name value)]
          [else
@@ -362,9 +357,9 @@
 (define (apply-loop-update! e update-var update-op)
   (when (and update-var update-op)
     (define current
-      (if (env-lookup-box e update-var)
-          (env-ref e update-var)
-          0))
+      (cond
+        [(env-lookup-box e update-var) => unbox]
+        [else 0]))
     (define current-num (coerce-number 'LOOP current))
     (define delta
       (if (string=? update-op "UPPIN") 1 -1))
@@ -398,9 +393,7 @@
   (match expr
     [(expr-number text)
      (lambda (_e _ctx)
-       (define parsed-number (string->number text))
-       (if parsed-number
-           parsed-number
+       (or (string->number text)
            (error 'run-program "invalid number literal: ~a" text)))]
 
     [(expr-string text)
