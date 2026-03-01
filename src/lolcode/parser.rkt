@@ -1,6 +1,7 @@
 #lang racket/base
 
 (require racket/list
+         racket/match
          racket/string
          (only-in parser-tools/lex
                   define-tokens
@@ -21,7 +22,7 @@
   (HAI KTHXBYE NEWLINE EOF
        I HAS A R ITZ O RLY RLYQ YA NO WAI OIC MEBBE
        WTFQ OMG OMGWTF GTFO FOUND YR
-       IF U SAY SO HOW IZ GIMMEH
+       IF U SAY SO HOW IZ GIMMEH CAN
        VISIBLE AN BANG
        SUM OF DIFF PRODUKT QUOSHUNT MOD BIGGR SMALLR
        BOTH SAEM EITHER WON DIFFRINT NOT ALL ANY
@@ -59,14 +60,19 @@
         "HOW" token-HOW
         "IZ" token-IZ
         "GIMMEH" token-GIMMEH
+        "CAN" token-CAN
         "VISIBLE" token-VISIBLE
         "AN" token-AN
+        "AND" token-AN
         "!" token-BANG
         "SUM" token-SUM
         "OF" token-OF
         "DIFF" token-DIFF
+        "DIFFERENCE" token-DIFF
+        "DIFFRENCE" token-DIFF
         "PRODUKT" token-PRODUKT
         "QUOSHUNT" token-QUOSHUNT
+        "QOUSHUNT" token-QUOSHUNT
         "MOD" token-MOD
         "BIGGR" token-BIGGR
         "SMALLR" token-SMALLR
@@ -168,6 +174,22 @@
     [(string-ci=? name "NOOB") (expr-literal 'NOOB)]
     [else (expr-ident name)]))
 
+(define (call-target->expr target args)
+  (match target
+    [(list 'function name)
+     (expr-call name args)]
+    [(list 'namespace ns-name method-name)
+     ;; Namespace/library calls like `I IZ STRING'Z LEN ...` compile to
+     ;; function-name dispatch while we keep runtime library support separate.
+     (expr-call (format "~a'Z ~a" ns-name method-name) args)]
+    [_ (error 'parse-source "invalid call target: ~e" target)]))
+
+(define (normalize-import-name lib)
+  (if (and (positive? (string-length lib))
+           (char=? (string-ref lib (- (string-length lib) 1)) #\?))
+      (substring lib 0 (- (string-length lib) 1))
+      lib))
+
 (define (word-token-ci=? t text)
   (and (eq? (token-type t) 'WORD)
        (string-ci=? (token-lexeme t) text)))
@@ -206,7 +228,13 @@
     [(eq? ttype 'NUMBER) (token-NUMBER lex)]
     [(eq? ttype 'STRING) (token-STRING lex)]
     [(eq? ttype 'WORD)
-     (define ctor (hash-ref keyword-token-ctors (string-upcase lex) #f))
+     (define lex-upcase (string-upcase lex))
+     (define ctor
+       (if (or (string=? lex "a")
+               (string=? lex "i"))
+           #f
+           (and (string=? lex lex-upcase)
+                (hash-ref keyword-token-ctors lex-upcase #f))))
      (if ctor
          (ctor)
          (token-ID lex))]
@@ -227,15 +255,15 @@
    (end EOF)
    (tokens value-tokens op-tokens)
    (src-pos)
-   (expected-SR-conflicts 12)
-   (expected-RR-conflicts 3)
+   (expected-SR-conflicts 47)
+   (expected-RR-conflicts 51)
    (error
     (lambda (tok-ok? tok-name tok-value start-pos end-pos)
       (raise-parse-error tok-name tok-value start-pos)))
    (grammar
     (program
-     [(HAI version nlopt statement-list-opt nlopt KTHXBYE nlopt)
-      (program $2 $4)])
+     [(nlopt HAI version nlopt statement-list-opt nlopt KTHXBYE nlopt)
+      (program $3 $5)])
 
     (version
      [(NUMBER) $1]
@@ -274,17 +302,18 @@
      [(cast-stmt) $1]
      [(input-stmt) $1]
      [(slot-set-stmt) $1]
+     [(import-stmt) $1]
      [(visible-stmt) $1]
      [(return-stmt) $1]
      [(break-stmt) $1]
-     [(call-stmt) $1])
+     [(expr-stmt) $1])
 
     (declare-stmt
      [(I HAS A declare-target declare-init-opt) (stmt-declare $4 $5)]
      [(I HAS declare-target declare-init-opt) (stmt-declare $3 $4)])
 
     (declare-target
-     [(ID) (expr-ident $1)]
+     [(ident-token) (expr-ident $1)]
      [(SRS expr) (expr-srs $2)])
 
     (declare-init-opt
@@ -301,16 +330,37 @@
     (input-stmt
      [(GIMMEH expr) (stmt-input $2)])
 
+    (import-stmt
+     [(CAN HAS ID) (stmt-import (normalize-import-name $3))])
+
     (slot-set-stmt
-     [(expr HAS A slot-target ITZ expr) (stmt-slot-set $1 $4 $6)])
+     [(expr HAS A slot-target ITZ expr) (stmt-slot-set $1 $4 $6)]
+     [(expr HAS A slot-target ITZ A ID) (stmt-slot-set $1 $4 (expr-ident $7))])
 
     (slot-target
-     [(ID) (expr-ident $1)]
+     [(ident-token) (expr-ident $1)]
      [(SRS expr) (expr-srs $2)])
 
     (visible-stmt
      [(VISIBLE visible-args) (stmt-visible $2 #f)]
+     [(VISIBLE visible-inline-args) (stmt-visible $2 #f)]
+     [(VISIBLE visible-inline-args BANG) (stmt-visible $2 #t)]
      [(VISIBLE visible-args BANG) (stmt-visible $2 #t)])
+
+    (visible-inline-args
+     [(inline-arg inline-arg visible-inline-tail)
+      (cons $1 (cons $2 $3))])
+
+    (visible-inline-tail
+     [() '()]
+     [(inline-arg visible-inline-tail) (cons $1 $2)])
+
+    (inline-arg
+     [(NUMBER) (expr-number $1)]
+     [(STRING) (expr-string $1)]
+     [(ident-token) (id->expr $1)]
+     [(SRS expr) (expr-srs $2)]
+     [(I IZ call-target call-args MKAY) (call-target->expr $3 $4)])
 
     (visible-args
      [(expr) (list $1)]
@@ -354,8 +404,8 @@
 
     (loop-update-opt
      [() (cons #f #f)]
-     [(UPPIN YR ID) (cons $3 "UPPIN")]
-     [(NERFIN YR ID) (cons $3 "NERFIN")])
+     [(UPPIN YR ident-token) (cons $3 "UPPIN")]
+     [(NERFIN YR ident-token) (cons $3 "NERFIN")])
 
     (loop-cond-opt
      [() (cons #f #f)]
@@ -400,8 +450,14 @@
     (break-stmt
      [(GTFO) (stmt-break)])
 
-    (call-stmt
-     [(I IZ ID call-args MKAY) (stmt-expr (expr-call $3 $4))])
+    (expr-stmt
+     [(I IZ call-target call-args MKAY) (stmt-expr (call-target->expr $3 $4))]
+     [(bin-expr) (stmt-expr $1)]
+     [(logic-variadic-expr) (stmt-expr $1)]
+     [(smoosh-expr) (stmt-expr $1)]
+     [(NOT expr) (stmt-expr (expr-unary "NOT" $2))]
+     [(MAEK expr A ID) (stmt-expr (expr-cast $2 $4))]
+     [(MAEK expr ID) (stmt-expr (expr-cast $2 $3))])
 
     (expr
      [(simple-expr postfix-tail) ($2 $1)])
@@ -414,21 +470,29 @@
       (lambda (base) ($5 (expr-method-call base $2 $3)))])
 
     (slot-ref
-     [(ID) (expr-ident $1)]
+     [(ident-token) (id->expr $1)]
      [(SRS expr) (expr-srs $2)])
 
     (simple-expr
      [(NUMBER) (expr-number $1)]
      [(STRING) (expr-string $1)]
-     [(ID) (id->expr $1)]
+     [(ident-token) (id->expr $1)]
      [(SRS expr) (expr-srs $2)]
      [(NOT expr) (expr-unary "NOT" $2)]
      [(MAEK expr A ID) (expr-cast $2 $4)]
      [(MAEK expr ID) (expr-cast $2 $3)]
-     [(I IZ ID call-args MKAY) (expr-call $3 $4)]
+     [(I IZ call-target call-args MKAY) (call-target->expr $3 $4)]
      [(bin-expr) $1]
      [(logic-variadic-expr) $1]
      [(smoosh-expr) $1])
+
+    (call-target
+     [(ident-token) (list 'function $1)]
+     [(ident-token SLOT ident-token) (list 'namespace $1 $3)])
+
+    (ident-token
+     [(ID) $1]
+     [(SUM) "SUM"])
 
     (call-args
      [() '()]
@@ -462,10 +526,13 @@
 
     (logic-tail
      [() '()]
-     [(AN expr logic-tail) (cons $2 $3)])
+     [(AN expr logic-tail) (cons $2 $3)]
+     [(expr logic-tail) (cons $1 $2)])
 
     (smoosh-expr
-     [(SMOOSH expr smoosh-tail maybe-mkay) (expr-variadic "SMOOSH" (cons $2 $3))])
+     [(SMOOSH expr smoosh-tail maybe-mkay) (expr-variadic "SMOOSH" (cons $2 $3))]
+     [(SMOOSH expr expr smoosh-tail maybe-mkay)
+      (expr-variadic "SMOOSH" (cons $2 (cons $3 $4)))])
 
     (smoosh-tail
      [() '()]

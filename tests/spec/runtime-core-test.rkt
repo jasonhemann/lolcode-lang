@@ -145,6 +145,30 @@
   (check-eq? (hash-ref visible-bang-result 'status) 'ok)
   (check-equal? (hash-ref visible-bang-result 'stdout) "AB\n")
 
+  (define can-has-src
+    "HAI 1.4\nCAN HAS STRING?\nVISIBLE \"OK\"\nKTHXBYE\n")
+  (define can-has-result (run-source can-has-src))
+  (check-eq? (hash-ref can-has-result 'status) 'ok)
+  (check-equal? (hash-ref can-has-result 'stdout) "OK\n")
+
+  (define visible-inline-src
+    "HAI 1.2\nVISIBLE \"A\" \"B\" 3\nKTHXBYE\n")
+  (define visible-inline-result (run-source visible-inline-src))
+  (check-eq? (hash-ref visible-inline-result 'status) 'ok)
+  (check-equal? (hash-ref visible-inline-result 'stdout) "AB3\n")
+
+  (define string-namespace-src
+    "HAI 1.4\nCAN HAS STRING?\nVISIBLE I IZ STRING'Z LEN YR \"cats\" MKAY\nVISIBLE I IZ STRING'Z AT YR \"cats\" AN YR 2 MKAY\nKTHXBYE\n")
+  (define string-namespace-result (run-source string-namespace-src))
+  (check-eq? (hash-ref string-namespace-result 'status) 'ok)
+  (check-equal? (hash-ref string-namespace-result 'stdout) "4\nt\n")
+
+  (define leading-btw-src
+    "BTW top preamble comment\nHAI 1.2\nVISIBLE \"OK\"\nKTHXBYE\n")
+  (define leading-btw-result (run-source leading-btw-src))
+  (check-eq? (hash-ref leading-btw-result 'status) 'ok)
+  (check-equal? (hash-ref leading-btw-result 'stdout) "OK\n")
+
   (define literals-src
     "HAI 1.2\nVISIBLE WIN\nVISIBLE FAIL\nVISIBLE NOOB\nKTHXBYE\n")
   (define literals-result (run-source literals-src))
@@ -168,6 +192,12 @@
   (define string-escape-result (run-source string-escape-src))
   (check-eq? (hash-ref string-escape-result 'status) 'ok)
   (check-equal? (hash-ref string-escape-result 'stdout) "A:B\nX\tY\n")
+
+  (define string-literal-colon-src
+    "HAI 1.2\nVISIBLE \"GIMME RADIUS:\"\nVISIBLE \":3:)\"\nKTHXBYE\n")
+  (define string-literal-colon-result (run-source string-literal-colon-src))
+  (check-eq? (hash-ref string-literal-colon-result 'status) 'ok)
+  (check-equal? (hash-ref string-literal-colon-result 'stdout) "GIMME RADIUS:\n:3\n\n")
 
   (define format-string-src
     "HAI 1.2\nI HAS A name ITZ \"Ada\"\nI HAS A n ITZ 42\nVISIBLE \"HI :{name}! #:{ n }\"\nKTHXBYE\n")

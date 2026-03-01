@@ -29,6 +29,13 @@
      (values 'block-comment '())]
     [(string=? text "...")
      (values 'line-continuation '())]
+    [(and (> (string-length text) 3)
+          (string-suffix? text "..."))
+     (define stem (substring text 0 (- (string-length text) 3)))
+     (let-values ([(status toks) (word->tokens stem line col)])
+       (if (eq? status 'ok)
+           (values 'ok+line-continuation toks)
+           (values status toks)))]
     [(and (> (string-length text) 2)
           (regexp-match? #px"(?i:^.+\\'Z$)" text))
      (define base (substring text 0 (- (string-length text) 2)))
@@ -119,22 +126,40 @@
       [(or (char=? ch #\newline) (char=? ch #\return))
        (lex-error 'lex-source "unterminated string literal" line col)]
       [escaped?
-       (write-char
-        (cond
-          [(char=? ch #\:) #\:]
-          [(char=? ch #\") #\"]
-          [(char=? ch #\)) #\newline]
-          [(char=? ch #\>) #\tab]
-          [(char-ci=? ch #\o) #\u0007]
-          [(char=? ch #\{)
-           (begin
-             (display ":{"
-                      out)
-             (display (scan-format-placeholder!) out)
-             #\})]
-          [else ch])
-        out)
-       (loop #f)]
+       (cond
+         [(char=? ch #\:)
+          (write-char #\: out)
+          (loop #f)]
+         [(char=? ch #\")
+          (define next (peek-char in))
+          (if (or (eof-object? next)
+                  (char=? next #\newline)
+                  (char=? next #\return))
+              (begin
+                (write-char #\: out)
+                (get-output-string out))
+              (begin
+                (write-char #\" out)
+                (loop #f)))]
+         [(char=? ch #\))
+          (write-char #\newline out)
+          (loop #f)]
+         [(char=? ch #\>)
+          (write-char #\tab out)
+          (loop #f)]
+         [(char-ci=? ch #\o)
+          (write-char #\u0007 out)
+          (loop #f)]
+         [(char=? ch #\{)
+          (display ":{" out)
+          (display (scan-format-placeholder!) out)
+          (write-char #\} out)
+          (loop #f)]
+         [else
+          ;; Unknown escape: keep the colon literally.
+          (write-char #\: out)
+          (write-char ch out)
+          (loop #f)])]
       [(char=? ch #\:)
        (loop #t)]
       [(char=? ch #\")
@@ -188,6 +213,10 @@
           [(eq? status 'line-continuation)
            (skip-line-continuation! in)
            (return-without-pos (scanner in))]
+          [(eq? status 'ok+line-continuation)
+           (skip-line-continuation! in)
+           (set! pending (append pending (cdr toks)))
+           (return-without-pos (car toks))]
           [else
            (set! pending (append pending (cdr toks)))
            (return-without-pos (car toks))]))]

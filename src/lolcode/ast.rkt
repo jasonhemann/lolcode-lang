@@ -17,6 +17,7 @@
          (struct-out stmt-break)
          (struct-out stmt-object-def)
          (struct-out stmt-slot-set)
+         (struct-out stmt-import)
          (struct-out stmt-expr)
 
          (struct-out expr-ident)
@@ -49,6 +50,7 @@
 (struct stmt-break () #:transparent)
 (struct stmt-object-def (name parent body) #:transparent)
 (struct stmt-slot-set (object slot expr) #:transparent)
+(struct stmt-import (library) #:transparent)
 (struct stmt-expr (expr) #:transparent)
 
 (struct expr-ident (name) #:transparent)

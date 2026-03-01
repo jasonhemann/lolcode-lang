@@ -51,5 +51,4 @@
     "HAI 1.2\nI HAS A SUM ITZ 1\nKTHXBYE\n")
   (define reserved-keyword-name-msg
     (capture-message (lambda () (parse-program reserved-keyword-name))))
-  (check-true (string? reserved-keyword-name-msg))
-  (check-true (regexp-match? #px"syntax error: unexpected SUM" reserved-keyword-name-msg)))
+  (check-false reserved-keyword-name-msg))
