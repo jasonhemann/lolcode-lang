@@ -255,7 +255,7 @@
    (end EOF)
    (tokens value-tokens op-tokens)
    (src-pos)
-   (expected-SR-conflicts 47)
+   (expected-SR-conflicts 49)
    (expected-RR-conflicts 51)
    (error
     (lambda (tok-ok? tok-name tok-value start-pos end-pos)
@@ -471,13 +471,29 @@
 
     (slot-ref
      [(ident-token) (id->expr $1)]
-     [(SRS expr) (expr-srs $2)])
+     [(SRS expr-no-postfix) (expr-srs $2)])
 
     (simple-expr
      [(NUMBER) (expr-number $1)]
      [(STRING) (expr-string $1)]
      [(ident-token) (id->expr $1)]
      [(SRS expr) (expr-srs $2)]
+     [(NOT expr) (expr-unary "NOT" $2)]
+     [(MAEK expr A ID) (expr-cast $2 $4)]
+     [(MAEK expr ID) (expr-cast $2 $3)]
+     [(I IZ call-target call-args MKAY) (call-target->expr $3 $4)]
+     [(bin-expr) $1]
+     [(logic-variadic-expr) $1]
+     [(smoosh-expr) $1])
+
+    (expr-no-postfix
+     [(simple-expr) $1])
+
+    (rhs-no-an
+     [(ident-token postfix-tail) ($2 (id->expr $1))]
+     [(NUMBER) (expr-number $1)]
+     [(STRING) (expr-string $1)]
+     [(SRS expr-no-postfix) (expr-srs $2)]
      [(NOT expr) (expr-unary "NOT" $2)]
      [(MAEK expr A ID) (expr-cast $2 $4)]
      [(MAEK expr ID) (expr-cast $2 $3)]
@@ -502,23 +518,31 @@
      [() '()]
      [(AN YR expr call-args-tail) (cons $3 $4)])
 
-    (an-opt
-     [() (void)]
-     [(AN) (void)])
-
     (bin-expr
-     [(SUM OF expr an-opt expr) (expr-binary "SUM OF" $3 $5)]
-     [(DIFF OF expr an-opt expr) (expr-binary "DIFF OF" $3 $5)]
-     [(PRODUKT OF expr an-opt expr) (expr-binary "PRODUKT OF" $3 $5)]
-     [(QUOSHUNT OF expr an-opt expr) (expr-binary "QUOSHUNT OF" $3 $5)]
-     [(MOD OF expr an-opt expr) (expr-binary "MOD OF" $3 $5)]
-     [(BIGGR OF expr an-opt expr) (expr-binary "BIGGR OF" $3 $5)]
-     [(SMALLR OF expr an-opt expr) (expr-binary "SMALLR OF" $3 $5)]
-     [(BOTH OF expr an-opt expr) (expr-binary "BOTH OF" $3 $5)]
-     [(EITHER OF expr an-opt expr) (expr-binary "EITHER OF" $3 $5)]
-     [(WON OF expr an-opt expr) (expr-binary "WON OF" $3 $5)]
-     [(BOTH SAEM expr an-opt expr) (expr-binary "BOTH SAEM" $3 $5)]
-     [(DIFFRINT expr an-opt expr) (expr-binary "DIFFRINT" $2 $4)])
+     [(SUM OF expr AN expr) (expr-binary "SUM OF" $3 $5)]
+     [(SUM OF expr rhs-no-an) (expr-binary "SUM OF" $3 $4)]
+     [(DIFF OF expr AN expr) (expr-binary "DIFF OF" $3 $5)]
+     [(DIFF OF expr rhs-no-an) (expr-binary "DIFF OF" $3 $4)]
+     [(PRODUKT OF expr AN expr) (expr-binary "PRODUKT OF" $3 $5)]
+     [(PRODUKT OF expr rhs-no-an) (expr-binary "PRODUKT OF" $3 $4)]
+     [(QUOSHUNT OF expr AN expr) (expr-binary "QUOSHUNT OF" $3 $5)]
+     [(QUOSHUNT OF expr rhs-no-an) (expr-binary "QUOSHUNT OF" $3 $4)]
+     [(MOD OF expr AN expr) (expr-binary "MOD OF" $3 $5)]
+     [(MOD OF expr rhs-no-an) (expr-binary "MOD OF" $3 $4)]
+     [(BIGGR OF expr AN expr) (expr-binary "BIGGR OF" $3 $5)]
+     [(BIGGR OF expr rhs-no-an) (expr-binary "BIGGR OF" $3 $4)]
+     [(SMALLR OF expr AN expr) (expr-binary "SMALLR OF" $3 $5)]
+     [(SMALLR OF expr rhs-no-an) (expr-binary "SMALLR OF" $3 $4)]
+     [(BOTH OF expr AN expr) (expr-binary "BOTH OF" $3 $5)]
+     [(BOTH OF expr rhs-no-an) (expr-binary "BOTH OF" $3 $4)]
+     [(EITHER OF expr AN expr) (expr-binary "EITHER OF" $3 $5)]
+     [(EITHER OF expr rhs-no-an) (expr-binary "EITHER OF" $3 $4)]
+     [(WON OF expr AN expr) (expr-binary "WON OF" $3 $5)]
+     [(WON OF expr rhs-no-an) (expr-binary "WON OF" $3 $4)]
+     [(BOTH SAEM expr AN expr) (expr-binary "BOTH SAEM" $3 $5)]
+     [(BOTH SAEM expr rhs-no-an) (expr-binary "BOTH SAEM" $3 $4)]
+     [(DIFFRINT expr AN expr) (expr-binary "DIFFRINT" $2 $4)]
+     [(DIFFRINT expr rhs-no-an) (expr-binary "DIFFRINT" $2 $3)])
 
     (logic-variadic-expr
      [(ALL OF expr logic-tail MKAY) (expr-variadic "ALL OF" (cons $3 $4))]
