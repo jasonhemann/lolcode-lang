@@ -205,6 +205,9 @@
   (cond
     [(string? value) value]
     [(symbol? value) (symbol->string value)]
+    [(number? value) (number->string value)]
+    [(boolean? value) (if value "WIN" "FAIL")]
+    [(eq? value noob) "NOOB"]
     [else (error 'run-program "~a, got ~e" who value)]))
 
 (define (runtime-functions)

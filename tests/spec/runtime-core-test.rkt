@@ -28,11 +28,23 @@
   (check-eq? (hash-ref srs-target 'status) 'ok)
   (check-equal? (hash-ref srs-target 'stdout) "0\n")
 
+  (define srs-numeric-target-src
+    "HAI 1.3\nI HAS A idx ITZ 0\nI HAS A SRS idx ITZ 9\nKTHXBYE\n")
+  (define srs-numeric-target (run-source srs-numeric-target-src))
+  (check-eq? (hash-ref srs-numeric-target 'status) 'ok)
+  (check-equal? (hash-ref srs-numeric-target 'last-value) 9)
+
   (define bukkit-slot-src
     "HAI 1.3\nI HAS A obj ITZ A BUKKIT\nobj HAS A answer ITZ 42\nVISIBLE obj'Z answer\nKTHXBYE\n")
   (define bukkit-slot (run-source bukkit-slot-src))
   (check-eq? (hash-ref bukkit-slot 'status) 'ok)
   (check-equal? (hash-ref bukkit-slot 'stdout) "42\n")
+
+  (define bukkit-srs-numeric-slot-src
+    "HAI 1.3\nI HAS A obj ITZ A BUKKIT\nobj HAS A SRS 0 ITZ 41\nobj'Z SRS 0 R SUM OF obj'Z SRS 0 AN 1\nVISIBLE obj'Z SRS 0\nKTHXBYE\n")
+  (define bukkit-srs-numeric-slot (run-source bukkit-srs-numeric-slot-src))
+  (check-eq? (hash-ref bukkit-srs-numeric-slot 'status) 'ok)
+  (check-equal? (hash-ref bukkit-srs-numeric-slot 'stdout) "42\n")
 
   (define switch-src
     "HAI 1.2\nI HAS A color ITZ \"G\"\ncolor, WTF?\n  OMG \"R\"\n    VISIBLE \"RED FISH\"\n    GTFO\n  OMG \"Y\"\n    VISIBLE \"YELLOW FISH\"\n  OMG \"G\"\n  OMG \"B\"\n    VISIBLE \"FISH HAS A FLAVOR\"\n    GTFO\n  OMGWTF\n    VISIBLE \"FISH IS TRANSPARENT\"\nOIC\nKTHXBYE\n")
