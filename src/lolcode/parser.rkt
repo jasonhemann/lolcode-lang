@@ -105,6 +105,8 @@
 
 (define current-source-lines (make-parameter #()))
 
+(define supported-language-version "1.3")
+
 (define (token-label tok-name tok-value)
   (cond
     [(eq? tok-name 'EOF) "EOF"]
@@ -174,6 +176,14 @@
     [(string-ci=? name "NOOB") (expr-literal 'NOOB)]
     [else (expr-ident name)]))
 
+(define (switch-id->literal name)
+  (define v (id->expr name))
+  (if (expr-ident? v)
+      (error 'parse-source
+             "WTF? case literal must be NUMBER, STRING, WIN, FAIL, or NOOB; got ~a"
+             name)
+      v))
+
 (define (call-target->expr target args)
   (match target
     [(list 'function name)
@@ -194,40 +204,94 @@
   (and (eq? (token-type t) 'WORD)
        (string-ci=? (token-lexeme t) text)))
 
-(define (collapse-phrase-tokens raws)
-  (let loop ([remaining raws] [acc '()])
-    (cond
-      [(null? remaining) (reverse acc)]
-      [(and (pair? (cdr remaining))
-            (word-token-ci=? (car remaining) "IM")
-            (word-token-ci=? (cadr remaining) "IN")
-            (= (token-line (car remaining))
-               (token-line (cadr remaining))))
-       (define t (car remaining))
-       (loop (cddr remaining)
-             (cons (token 'WORD "IMIN" (token-line t) (token-col t))
-                   acc))]
-      [(and (pair? (cdr remaining))
-            (word-token-ci=? (car remaining) "IM")
-            (word-token-ci=? (cadr remaining) "OUTTA")
-            (= (token-line (car remaining))
-               (token-line (cadr remaining))))
-       (define t (car remaining))
-       (loop (cddr remaining)
-             (cons (token 'WORD "IMOUTTA" (token-line t) (token-col t))
-                   acc))]
-      [else
-       (loop (cdr remaining) (cons (car remaining) acc))])))
+(define (collapse-phrase-tokens raws [acc '()])
+  (cond
+    [(null? raws) (reverse acc)]
+    [(and (pair? (cdr raws))
+          (word-token-ci=? (car raws) "IM")
+          (word-token-ci=? (cadr raws) "IN")
+          (= (token-line (car raws))
+             (token-line (cadr raws))))
+     (define t (car raws))
+     (collapse-phrase-tokens
+      (cddr raws)
+      (cons (token 'WORD "IMIN" (token-line t) (token-col t))
+            acc))]
+    [(and (pair? (cdr raws))
+          (word-token-ci=? (car raws) "IM")
+          (word-token-ci=? (cadr raws) "OUTTA")
+          (= (token-line (car raws))
+             (token-line (cadr raws))))
+     (define t (car raws))
+     (collapse-phrase-tokens
+      (cddr raws)
+      (cons (token 'WORD "IMOUTTA" (token-line t) (token-col t))
+            acc))]
+    [else
+     (collapse-phrase-tokens
+      (cdr raws)
+      (cons (car raws) acc))]))
+
+(define (line-has-legacy-variadic? line-toks)
+  (cond
+    [(or (null? line-toks) (null? (cdr line-toks))) #f]
+    [(and (word-token-ci=? (car line-toks) "ALL")
+          (word-token-ci=? (cadr line-toks) "OF"))
+     #t]
+    [(and (word-token-ci=? (car line-toks) "ANY")
+          (word-token-ci=? (cadr line-toks) "OF"))
+     #t]
+    [else
+     (line-has-legacy-variadic? (cdr line-toks))]))
+
+(define (line-has-mkay? line-toks)
+  (for/or ([t (in-list line-toks)])
+    (word-token-ci=? t "MKAY")))
+
+(define (inject-line-mkay line-toks)
+  (if (and (pair? line-toks)
+           (line-has-legacy-variadic? line-toks)
+           (not (line-has-mkay? line-toks)))
+      (let* ([last-tok (last line-toks)]
+             [inserted
+              (token 'WORD
+                     "MKAY"
+                     (token-line last-tok)
+                     (+ (token-col last-tok)
+                        (string-length (token-lexeme last-tok))
+                        1))])
+        (append line-toks (list inserted)))
+      line-toks))
+
+(define (insert-missing-mkay-tokens raws [line '()] [out '()])
+  (cond
+    [(null? raws)
+     (append out (inject-line-mkay line))]
+    [else
+     (define t (car raws))
+     (if (eq? (token-type t) 'NEWLINE)
+         (insert-missing-mkay-tokens
+          (cdr raws)
+          '()
+          (append out (inject-line-mkay line) (list t)))
+         (insert-missing-mkay-tokens
+          (cdr raws)
+          (append line (list t))
+          out))]))
 
 (define (raw->token raw)
   (define ttype (token-type raw))
   (define lex (token-lexeme raw))
-  (cond
-    [(eq? ttype 'NEWLINE) (token-NEWLINE)]
-    [(eq? ttype 'EOF) (token-EOF)]
-    [(eq? ttype 'NUMBER) (token-NUMBER lex)]
-    [(eq? ttype 'STRING) (token-STRING lex)]
-    [(eq? ttype 'WORD)
+  (case ttype
+    [(NEWLINE)
+     (token-NEWLINE)]
+    [(EOF)
+     (token-EOF)]
+    [(NUMBER)
+     (token-NUMBER lex)]
+    [(STRING)
+     (token-STRING lex)]
+    [(WORD)
      (define lex-upcase (string-upcase lex))
      (define ctor
        (if (or (string=? lex "a")
@@ -417,8 +481,13 @@
      [(case-list case) (append $1 (list $2))])
 
     (case
-     [(OMG expr nlopt statement-list-opt)
+     [(OMG case-literal nlopt statement-list-opt)
       (switch-case $2 $4)])
+
+    (case-literal
+     [(NUMBER) (expr-number $1)]
+     [(STRING) (expr-string $1)]
+     [(ID) (switch-id->literal $1)])
 
     (default-opt
      [() '()]
@@ -569,9 +638,11 @@
 (define (parse-source source)
   (unless (string? source)
     (raise-argument-error 'parse-source "string?" source))
+  (define normalized-raws
+    (insert-missing-mkay-tokens
+     (collapse-phrase-tokens (lex-source source))))
   (define toks
-    (map raw->position-token
-         (collapse-phrase-tokens (lex-source source))))
+    (map raw->position-token normalized-raws))
   (define idx 0)
   (define n (length toks))
   (define (next-token)
@@ -579,6 +650,13 @@
     (when (< idx (- n 1))
       (set! idx (+ idx 1)))
     t)
-  (parameterize ([current-source-lines
-                  (list->vector (string-split source "\n" #:trim? #f))])
-    (parse/internal next-token)))
+  (define parsed
+    (parameterize ([current-source-lines
+                    (list->vector (string-split source "\n" #:trim? #f))])
+      (parse/internal next-token)))
+  (unless (string=? (program-version parsed) supported-language-version)
+    (error 'parse-source
+           "unsupported version: ~a (this implementation only accepts HAI ~a)"
+           (program-version parsed)
+           supported-language-version))
+  parsed)

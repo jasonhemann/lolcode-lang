@@ -1,7 +1,7 @@
 (
   #hasheq(
     (id . "v1_2_declare_assign")
-    (spec-version . "1.2")
+    (spec-version . "1.3")
     (title . "Declaration and assignment")
     (source-file . "programs/v1_2_declare_assign.lol")
     (expected-stdout . #f)
@@ -10,7 +10,7 @@
 
   #hasheq(
     (id . "v1_2_orly_inline")
-    (spec-version . "1.2")
+    (spec-version . "1.3")
     (title . "Inline O RLY example")
     (source-file . "programs/v1_2_orly_inline.lol")
     (expected-stdout . "J00 HAV A CAT\n")
@@ -19,7 +19,7 @@
 
   #hasheq(
     (id . "v1_2_orly_mebbe")
-    (spec-version . "1.2")
+    (spec-version . "1.3")
     (title . "O RLY with MEBBE branch")
     (source-file . "programs/v1_2_orly_mebbe.lol")
     (expected-stdout . "NOM NOM NOM. I EATED IT.\n")
@@ -28,7 +28,7 @@
 
   #hasheq(
     (id . "v1_2_wtf_case")
-    (spec-version . "1.2")
+    (spec-version . "1.3")
     (title . "WTF case/fallthrough example")
     (source-file . "programs/v1_2_wtf_case.lol")
     (expected-stdout . "FISH HAS A FLAVOR\n")
@@ -82,7 +82,7 @@
 
   #hasheq(
     (id . "v1_2_loop_uppin_til")
-    (spec-version . "1.2")
+    (spec-version . "1.3")
     (title . "IM IN YR loop with UPPIN and TIL")
     (source-file . "programs/v1_2_loop_uppin_til.lol")
     (expected-stdout . "10\n")
@@ -91,7 +91,7 @@
 
   #hasheq(
     (id . "v1_2_logic_variadics")
-    (spec-version . "1.2")
+    (spec-version . "1.3")
     (title . "NOT, ALL OF, and ANY OF operators")
     (source-file . "programs/v1_2_logic_variadics.lol")
     (expected-stdout . "WIN\nWIN\n")
@@ -100,7 +100,7 @@
 
   #hasheq(
     (id . "v1_2_literals_comments")
-    (spec-version . "1.2")
+    (spec-version . "1.3")
     (title . "WIN/FAIL/NOOB literals and OBTW comments")
     (source-file . "programs/v1_2_literals_comments.lol")
     (expected-stdout . "WIN\nNOOB\n")
@@ -109,7 +109,7 @@
 
   #hasheq(
     (id . "v1_2_line_continuation")
-    (spec-version . "1.2")
+    (spec-version . "1.3")
     (title . "Line continuation with ellipsis")
     (source-file . "programs/v1_2_line_continuation.lol")
     (expected-stdout . "AB\n")
@@ -118,7 +118,7 @@
 
   #hasheq(
     (id . "v1_2_nested_loops")
-    (spec-version . "1.2")
+    (spec-version . "1.3")
     (title . "Nested IM IN YR loops")
     (source-file . "programs/v1_2_nested_loops.lol")
     (expected-stdout . "6\n")

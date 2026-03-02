@@ -30,8 +30,8 @@
 
   (define versions
     (remove-duplicates (map (lambda (c) (hash-ref c 'spec-version)) cases)))
-  (check-not-false (member "1.2" versions))
   (check-not-false (member "1.3" versions))
+  (check-equal? versions '("1.3"))
 
   (for ([c (in-list cases)])
     (define id (hash-ref c 'id))
@@ -40,8 +40,8 @@
 
     (define source (file->string source-path))
     (check-true (string? source))
-    (check-true (regexp-match? #px"(?m:^HAI\\s+1\\.[23])" source)
-                (format "fixture starts with HAI version in ~a" id))
+    (check-true (regexp-match? #px"(?m:^HAI\\s+1\\.3)" source)
+                (format "fixture starts with HAI 1.3 in ~a" id))
     (check-true (regexp-match? #px"(?m:^KTHXBYE\\s*$)" source)
                 (format "fixture ends with KTHXBYE in ~a" id))
 

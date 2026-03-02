@@ -1,6 +1,7 @@
 #lang racket/base
 
 (require racket/class
+         racket/bool
          racket/list
          racket/match
          racket/string
@@ -349,45 +350,73 @@
        [else
         (error 'run-program "unknown loop condition mode: ~a" cond-kind)])]))
 
-(define (maybe-init-loop-counter! e update-var)
+(define (make-loop-env e update-var)
+  (define loop-env (extend-env e))
   (when update-var
-    (unless (env-lookup-box e update-var)
-      (env-define! e update-var 0))))
+    (define initial
+      (cond
+        [(env-lookup-box e update-var) => unbox]
+        [else 0]))
+    ;; Iteration variable is temporary and local to this loop.
+    (env-define! loop-env update-var initial))
+  loop-env)
 
 (define (apply-loop-update! e update-var update-op)
   (when (and update-var update-op)
     (define current
       (cond
         [(env-lookup-box e update-var) => unbox]
-        [else 0]))
+        [else
+         (error 'run-program
+                "loop variable missing during update: ~a"
+                update-var)]))
     (define current-num (coerce-number 'LOOP current))
     (define delta
       (if (string=? update-op "UPPIN") 1 -1))
     (define updated (+ current-num delta))
-    (env-set-or-define! e update-var updated)
+    (env-set! e update-var updated)
     (set-it! e updated)))
 
 (define (expand-format-placeholders e text)
   (define out (open-output-string))
   (define pattern #px":\\{([^\\}]*)\\}")
-  (let loop ([start 0])
-    (define m (regexp-match-positions pattern text start))
-    (cond
-      [(not m)
+  (define (loop start)
+    (match (regexp-match-positions pattern text start)
+      [#f
        (display (substring text start) out)
        (get-output-string out)]
-      [else
-       (define whole (car m))
-       (define name-pos (cadr m))
-       (define match-start (car whole))
-       (define match-end (cdr whole))
-       (define raw-name (substring text (car name-pos) (cdr name-pos)))
+      [(list (cons match-start match-end)
+             (cons name-start name-end))
+       (define raw-name (substring text name-start name-end))
        (define name (string-trim raw-name))
        (when (string=? name "")
          (error 'run-program "empty :{...} placeholder in YARN literal"))
        (display (substring text start match-start) out)
        (display (lol-string (env-ref e name)) out)
-       (loop match-end)])))
+       (loop match-end)]))
+  (loop 0))
+
+(define (switch-literal-key expr)
+  (match expr
+    [(expr-number text)
+     (list 'NUM (or (string->number text) text))]
+    [(expr-string text)
+     (list 'YARN text)]
+    [(expr-literal value)
+     (list 'LIT value)]
+    [_ #f]))
+
+(define (validate-switch-cases! cases)
+  (define seen (make-hash))
+  (for ([c (in-list cases)])
+    (match-define (switch-case case-match _case-body) c)
+    (define key (switch-literal-key case-match))
+    (when key
+      (when (hash-has-key? seen key)
+        (error 'run-program
+               "duplicate OMG literal in WTF?: ~e"
+               case-match))
+      (hash-set! seen key #t))))
 
 (define (compile-expr expr)
   (match expr
@@ -429,10 +458,8 @@
          [("EITHER OF") (lambda (lv rv) (or (lol-truthy? lv) (lol-truthy? rv)))]
          [("WON OF")
           (lambda (lv rv)
-            (define lb (lol-truthy? lv))
-            (define rb (lol-truthy? rv))
-            (or (and lb (not rb))
-                (and (not lb) rb)))]
+            (xor (lol-truthy? lv)
+                 (lol-truthy? rv)))]
          [("BOTH SAEM") (lambda (lv rv) (equal? lv rv))]
          [("DIFFRINT") (lambda (lv rv) (not (equal? lv rv)))]
          [else (raise-unsupported-op 'binary op expr)]))
@@ -515,312 +542,346 @@
   (define stmt-procs
     (map compile-stmt statements))
   (lambda (e ctx)
-    (let loop ([remaining stmt-procs])
-      (cond
-        [(null? remaining) ctrl-normal]
-        [else
-         (define control ((car remaining) e ctx))
+    (define (loop remaining env exec-ctx)
+      (match remaining
+        ['() ctrl-normal]
+        [(cons stmt-proc rest)
+         (define control (stmt-proc env exec-ctx))
          (if (control-normal? control)
-             (loop (cdr remaining))
-             control)]))))
+             (loop rest env exec-ctx)
+             control)]))
+    (loop stmt-procs e ctx)))
+
+(define (compile-stmt-declare target init)
+  (define name-proc (compile-target-name target))
+  (define init-proc (compile-declare-init init))
+  (lambda (e ctx)
+    (define value (init-proc e ctx))
+    (env-define! e (name-proc e ctx) value)
+    ctrl-normal))
+
+(define (compile-stmt-assign target expr)
+  (define target-set-proc
+    (compile-target-set target #:define-missing? #t))
+  (define expr-proc (compile-expr expr))
+  (lambda (e ctx)
+    (define value (expr-proc e ctx))
+    (target-set-proc e value ctx)
+    ctrl-normal))
+
+(define (compile-stmt-cast target type-name)
+  (define target-get-proc (compile-target-get target))
+  (define target-set-proc
+    (compile-target-set target #:define-missing? #f))
+  (lambda (e ctx)
+    (define value
+      (cast-value 'IS-NOW-A
+                  (target-get-proc e ctx)
+                  type-name))
+    (target-set-proc e value ctx)
+    (set-it! e value)
+    ctrl-normal))
+
+(define (compile-stmt-input target)
+  (define target-set-proc
+    (compile-target-set target #:define-missing? #t))
+  (lambda (e ctx)
+    (define line (read-line (current-input-port) 'any))
+    (define value
+      (if (eof-object? line) noob line))
+    (target-set-proc e value ctx)
+    (set-it! e value)
+    ctrl-normal))
+
+(define (compile-stmt-slot-set object slot expr)
+  (define object-proc (compile-expr object))
+  (define slot-name-proc (compile-slot-name slot))
+  (define expr-proc (compile-declare-init expr))
+  (lambda (e ctx)
+    (define obj (object-proc e ctx))
+    (unless (lol-object? obj)
+      (error 'run-program "slot assignment requires BUKKIT, got ~e" obj))
+    (define value (expr-proc e ctx))
+    (send obj set-slot! (slot-name-proc e ctx) value)
+    (set-it! e value)
+    ctrl-normal))
+
+(define (compile-stmt-visible exprs suppress-newline?)
+  (define expr-procs (map compile-expr exprs))
+  (lambda (e ctx)
+    (define values
+      (map (lambda (ep) (ep e ctx)) expr-procs))
+    (for ([v (in-list values)])
+      (display (lol-string v) (runtime-stdout ctx)))
+    (unless suppress-newline?
+      (newline (runtime-stdout ctx)))
+    (when (pair? values)
+      (set-it! e (last values)))
+    ctrl-normal))
+
+(define (compile-stmt-if condition then-branch mebbe-branches else-branch)
+  (define cond-proc (compile-expr condition))
+  (define then-proc (compile-block then-branch))
+  (define mebbe-procs
+    (for/list ([mb (in-list mebbe-branches)])
+      (match-define (mebbe-branch mebbe-condition mebbe-body) mb)
+      (cons (compile-expr mebbe-condition)
+            (compile-block mebbe-body))))
+  (define else-proc (compile-block else-branch))
+  (lambda (e ctx)
+    (cond
+      [(lol-truthy? (cond-proc e ctx))
+       (then-proc (extend-env e) ctx)]
+      [else
+       (define (mebbe-loop remaining)
+         (match remaining
+           ['()
+            (else-proc (extend-env e) ctx)]
+           [(cons (cons mb-cond mb-body) rest)
+            (if (lol-truthy? (mb-cond e ctx))
+                (mb-body (extend-env e) ctx)
+                (mebbe-loop rest))]))
+       (mebbe-loop mebbe-procs)])))
+
+(define (compile-stmt-switch subject cases default)
+  (validate-switch-cases! cases)
+  (define subject-proc (compile-expr subject))
+  (define case-procs
+    (for/list ([c (in-list cases)])
+      (match-define (switch-case case-match case-body) c)
+      (cons (compile-expr case-match)
+            (compile-block case-body))))
+  (define default-proc (compile-block default))
+  (lambda (e ctx)
+    (define subject-value (subject-proc e ctx))
+    (define switch-ctx
+      (ctx-derive ctx #:allow-break? #t))
+    (define (find-first remaining idx)
+      (match remaining
+        ['() #f]
+        [`((,case-match-proc . ,_case-body-proc) . ,rest)
+         (if (equal? subject-value (case-match-proc e ctx))
+             idx
+             (find-first rest (+ idx 1)))]))
+    (define (run-cases remaining)
+      (match remaining
+        ['() ctrl-normal]
+        [`((,_case-match-proc . ,case-body-proc) . ,rest)
+         (define control
+           (case-body-proc (extend-env e) switch-ctx))
+         (match control
+           [(? control-normal?) (run-cases rest)]
+           [(? ctrl-break?) ctrl-normal]
+           [_ control])]))
+    (match (find-first case-procs 0)
+      [(? number? idx)
+       (run-cases (drop case-procs idx))]
+      [_
+       (define control
+         (default-proc (extend-env e) switch-ctx))
+       (if (ctrl-break? control)
+           ctrl-normal
+           control)])))
+
+(define (compile-stmt-loop _label update-var update-op cond-kind cond-expr body)
+  (define cond-proc (and cond-expr (compile-expr cond-expr)))
+  (define body-proc (compile-block body))
+  (lambda (e ctx)
+    (define loop-ctx
+      (ctx-derive ctx #:allow-break? #t))
+    (define loop-env
+      (make-loop-env e update-var))
+    (define (loop)
+      (if (loop-continue? loop-env cond-kind cond-proc loop-ctx)
+          (let ([control (body-proc (extend-env loop-env) loop-ctx)])
+            (cond
+              [(control-normal? control)
+               (apply-loop-update! loop-env update-var update-op)
+               (loop)]
+              [(ctrl-break? control)
+               ctrl-normal]
+              [else
+               control]))
+          ctrl-normal))
+    (loop)))
+
+(define (compile-stmt-function-def name params body)
+  (define body-proc (compile-block body))
+  (lambda (e ctx)
+    (define def-env e)
+    (define method-lexical-parent
+      (if (exec-ctx-def-object ctx)
+          (env-parent def-env)
+          def-env))
+    (define (make-global-fn)
+      (lambda (_caller-env arg-values caller-ctx)
+        (unless (= (length params) (length arg-values))
+          (error 'run-program
+                 "function ~a expected ~a args, got ~a"
+                 name
+                 (length params)
+                 (length arg-values)))
+        ;; LOLCODE functions run in their own variable scope and do not
+        ;; capture variables from surrounding blocks.
+        (define call-env (make-root-env))
+        (for ([param (in-list params)]
+              [arg (in-list arg-values)])
+          (env-define! call-env param arg))
+        (env-define! call-env "IT" noob)
+        (define fn-ctx
+          (ctx-derive caller-ctx
+                      #:allow-return? #t
+                      #:allow-break? #f
+                      #:object-name #f
+                      #:def-object #f))
+        (define control
+          (body-proc call-env fn-ctx))
+        (cond
+          [(ctrl-return? control)
+           (ctrl-return-value control)]
+          [(control-normal? control)
+           (env-ref call-env "IT")]
+          [else
+           (error 'run-program "internal control escape in function ~a" name)])))
+    (define (make-method-fn)
+      (lambda (receiver arg-values caller-ctx)
+        (unless (= (length params) (length arg-values))
+          (error 'run-program
+                 "method ~a expected ~a args, got ~a"
+                 name
+                 (length params)
+                 (length arg-values)))
+        (define receiver-env
+          (env-with-table (send receiver slot-table)
+                          method-lexical-parent))
+        (define call-env (extend-env receiver-env))
+        (for ([param (in-list params)]
+              [arg (in-list arg-values)])
+          (env-define! call-env param arg))
+        (env-define! call-env "IT" noob)
+        (define fn-ctx
+          (ctx-derive caller-ctx
+                      #:allow-return? #t
+                      #:allow-break? #f
+                      #:object-name #f
+                      #:def-object #f))
+        (define control
+          (body-proc call-env fn-ctx))
+        (cond
+          [(ctrl-return? control)
+           (ctrl-return-value control)]
+          [(control-normal? control)
+           (env-ref call-env "IT")]
+          [else
+           (error 'run-program "internal control escape in method ~a" name)])))
+    (cond
+      [(exec-ctx-def-object ctx)
+       (send (exec-ctx-def-object ctx) define-method! name (make-method-fn))]
+      [(eq? e (runtime-globals ctx))
+       (hash-set! (runtime-functions ctx) name (make-global-fn))]
+      [else
+       (env-set-or-define! e name (make-global-fn))])
+    ctrl-normal))
+
+(define (compile-stmt-object-def name parent body)
+  (define body-proc (compile-block body))
+  (lambda (e ctx)
+    (define obj
+      (if parent
+          (let ([p (env-ref e parent)])
+            (unless (lol-object? p)
+              (error 'run-program "object parent must be BUKKIT, got ~e" p))
+            (send p clone))
+          (new lol-object%)))
+    (send obj set-slot! "IT" noob)
+    (define object-ctx
+      (ctx-derive ctx
+                  #:object-name name
+                  #:def-object obj))
+    (define control
+      (body-proc (env-with-table (send obj slot-table) e)
+                 object-ctx))
+    (when (send obj has-slot? "IT")
+      (send obj remove-slot! "IT"))
+    (if (control-normal? control)
+        (begin
+          (env-set-or-define! e name obj)
+          (set-it! e obj)
+          ctrl-normal)
+        control)))
+
+(define (compile-stmt-return expr)
+  (define expr-proc (compile-expr expr))
+  (lambda (e ctx)
+    (define value (expr-proc e ctx))
+    (set-it! e value)
+    (cond
+      [(exec-ctx-allow-return? ctx)
+       (ctrl-return value)]
+      [(exec-ctx-object-name ctx)
+       (error 'run-program
+              "FOUND YR used inside object definition ~a"
+              (exec-ctx-object-name ctx))]
+      [else
+       (error 'run-program "FOUND YR used outside function")])))
+
+(define (compile-stmt-break)
+  (lambda (_e ctx)
+    (cond
+      [(exec-ctx-allow-break? ctx)
+       (ctrl-break)]
+      [(exec-ctx-allow-return? ctx)
+       (ctrl-return noob)]
+      [(exec-ctx-object-name ctx)
+       (error 'run-program
+              "GTFO used inside object definition ~a"
+              (exec-ctx-object-name ctx))]
+      [else
+       (error 'run-program "GTFO used outside switch/loop")])))
+
+(define (compile-stmt-import _library)
+  (lambda (_e _ctx)
+    ctrl-normal))
+
+(define (compile-stmt-expr expr)
+  (define expr-proc (compile-expr expr))
+  (lambda (e ctx)
+    (define value (expr-proc e ctx))
+    (set-it! e value)
+    ctrl-normal))
 
 (define (compile-stmt stmt)
   (match stmt
     [(stmt-declare target init)
-     (define name-proc (compile-target-name target))
-     (define init-proc (compile-declare-init init))
-     (lambda (e ctx)
-       (define value (init-proc e ctx))
-       (env-define! e (name-proc e ctx) value)
-       (set-it! e value)
-       ctrl-normal)]
-
+     (compile-stmt-declare target init)]
     [(stmt-assign target expr)
-     (define target-set-proc
-       (compile-target-set target #:define-missing? #t))
-     (define expr-proc (compile-expr expr))
-     (lambda (e ctx)
-       (define value (expr-proc e ctx))
-       (target-set-proc e value ctx)
-       (set-it! e value)
-       ctrl-normal)]
-
+     (compile-stmt-assign target expr)]
     [(stmt-cast target type-name)
-     (define target-get-proc (compile-target-get target))
-     (define target-set-proc
-       (compile-target-set target #:define-missing? #f))
-     (lambda (e ctx)
-       (define value
-         (cast-value 'IS-NOW-A
-                     (target-get-proc e ctx)
-                     type-name))
-       (target-set-proc e value ctx)
-       (set-it! e value)
-       ctrl-normal)]
-
+     (compile-stmt-cast target type-name)]
     [(stmt-input target)
-     (define target-set-proc
-       (compile-target-set target #:define-missing? #t))
-     (lambda (e ctx)
-       (define line (read-line (current-input-port) 'any))
-       (define value
-         (if (eof-object? line) noob line))
-       (target-set-proc e value ctx)
-       (set-it! e value)
-       ctrl-normal)]
-
+     (compile-stmt-input target)]
     [(stmt-slot-set object slot expr)
-     (define object-proc (compile-expr object))
-     (define slot-name-proc (compile-slot-name slot))
-     (define expr-proc (compile-declare-init expr))
-     (lambda (e ctx)
-       (define obj (object-proc e ctx))
-       (unless (lol-object? obj)
-         (error 'run-program "slot assignment requires BUKKIT, got ~e" obj))
-       (define value (expr-proc e ctx))
-       (send obj set-slot! (slot-name-proc e ctx) value)
-       (set-it! e value)
-       ctrl-normal)]
-
+     (compile-stmt-slot-set object slot expr)]
     [(stmt-visible exprs suppress-newline?)
-     (define expr-procs (map compile-expr exprs))
-     (lambda (e ctx)
-       (define values
-         (map (lambda (ep) (ep e ctx)) expr-procs))
-       (for ([v (in-list values)])
-         (display (lol-string v) (runtime-stdout ctx)))
-       (unless suppress-newline?
-         (newline (runtime-stdout ctx)))
-       (when (pair? values)
-         (set-it! e (last values)))
-       ctrl-normal)]
-
+     (compile-stmt-visible exprs suppress-newline?)]
     [(stmt-if condition then-branch mebbe-branches else-branch)
-     (define cond-proc (compile-expr condition))
-     (define then-proc (compile-block then-branch))
-     (define mebbe-procs
-       (for/list ([mb (in-list mebbe-branches)])
-         (cons (compile-expr (mebbe-branch-condition mb))
-               (compile-block (mebbe-branch-body mb)))))
-     (define else-proc (compile-block else-branch))
-     (lambda (e ctx)
-       (cond
-         [(lol-truthy? (cond-proc e ctx))
-          (then-proc (extend-env e) ctx)]
-         [else
-          (let mebbe-loop ([remaining mebbe-procs])
-            (cond
-              [(null? remaining)
-               (else-proc (extend-env e) ctx)]
-              [else
-               (define mb (car remaining))
-               (if (lol-truthy? ((car mb) e ctx))
-                   ((cdr mb) (extend-env e) ctx)
-                   (mebbe-loop (cdr remaining)))]))]))]
-
+     (compile-stmt-if condition then-branch mebbe-branches else-branch)]
     [(stmt-switch subject cases default)
-     (define subject-proc (compile-expr subject))
-     (define case-procs
-       (for/list ([c (in-list cases)])
-         (cons (compile-expr (switch-case-match c))
-               (compile-block (switch-case-body c)))))
-     (define default-proc (compile-block default))
-     (lambda (e ctx)
-       (define subject-value (subject-proc e ctx))
-       (define first-match
-         (let find-first ([remaining case-procs] [idx 0])
-           (cond
-             [(null? remaining) #f]
-             [else
-              (define c (car remaining))
-              (if (equal? subject-value ((car c) e ctx))
-                  idx
-                  (find-first (cdr remaining) (+ idx 1)))])))
-       (define switch-ctx
-         (ctx-derive ctx #:allow-break? #t))
-       (if (number? first-match)
-           (let run-cases ([remaining (drop case-procs first-match)])
-             (cond
-               [(null? remaining) ctrl-normal]
-               [else
-                (define control
-                  ((cdr (car remaining)) (extend-env e) switch-ctx))
-                (cond
-                  [(control-normal? control)
-                   (run-cases (cdr remaining))]
-                  [(ctrl-break? control)
-                   ctrl-normal]
-                  [else
-                   control])]))
-           (let ([control (default-proc (extend-env e) switch-ctx)])
-             (if (ctrl-break? control)
-                 ctrl-normal
-                 control))))]
-
-    [(stmt-loop _label update-var update-op cond-kind cond-expr body)
-     (define cond-proc
-       (if cond-expr
-           (compile-expr cond-expr)
-           #f))
-     (define body-proc (compile-block body))
-     (lambda (e ctx)
-       (define loop-ctx
-         (ctx-derive ctx #:allow-break? #t))
-       (maybe-init-loop-counter! e update-var)
-       (let loop ()
-         (if (loop-continue? e cond-kind cond-proc loop-ctx)
-             (let ([control (body-proc (extend-env e) loop-ctx)])
-               (cond
-                 [(control-normal? control)
-                  (apply-loop-update! e update-var update-op)
-                  (loop)]
-                 [(ctrl-break? control)
-                  ctrl-normal]
-                 [else
-                  control]))
-             ctrl-normal)))]
-
+     (compile-stmt-switch subject cases default)]
+    [(stmt-loop label update-var update-op cond-kind cond-expr body)
+     (compile-stmt-loop label update-var update-op cond-kind cond-expr body)]
     [(stmt-function-def name params body)
-     (define body-proc (compile-block body))
-     (lambda (e ctx)
-       (define def-env e)
-       (define method-lexical-parent
-         (if (exec-ctx-def-object ctx)
-             (env-parent def-env)
-             def-env))
-       (define (make-global-fn)
-         (lambda (_caller-env arg-values caller-ctx)
-           (unless (= (length params) (length arg-values))
-             (error 'run-program
-                    "function ~a expected ~a args, got ~a"
-                    name
-                    (length params)
-                    (length arg-values)))
-           (define call-env (extend-env def-env))
-           (for ([param (in-list params)]
-                 [arg (in-list arg-values)])
-             (env-define! call-env param arg))
-           (env-define! call-env "IT" noob)
-           (define fn-ctx
-             (ctx-derive caller-ctx
-                         #:allow-return? #t
-                         #:allow-break? #f
-                         #:object-name #f
-                         #:def-object #f))
-           (define control
-             (body-proc call-env fn-ctx))
-           (cond
-             [(ctrl-return? control)
-              (ctrl-return-value control)]
-             [(control-normal? control)
-              noob]
-             [else
-              (error 'run-program "internal control escape in function ~a" name)])))
-       (define (make-method-fn)
-         (lambda (receiver arg-values caller-ctx)
-           (unless (= (length params) (length arg-values))
-             (error 'run-program
-                    "method ~a expected ~a args, got ~a"
-                    name
-                    (length params)
-                    (length arg-values)))
-           (define receiver-env
-             (env-with-table (send receiver slot-table)
-                             method-lexical-parent))
-           (define call-env (extend-env receiver-env))
-           (for ([param (in-list params)]
-                 [arg (in-list arg-values)])
-             (env-define! call-env param arg))
-           (env-define! call-env "IT" noob)
-           (define fn-ctx
-             (ctx-derive caller-ctx
-                         #:allow-return? #t
-                         #:allow-break? #f
-                         #:object-name #f
-                         #:def-object #f))
-           (define control
-             (body-proc call-env fn-ctx))
-           (cond
-             [(ctrl-return? control)
-              (ctrl-return-value control)]
-             [(control-normal? control)
-              noob]
-             [else
-              (error 'run-program "internal control escape in method ~a" name)])))
-       (cond
-         [(exec-ctx-def-object ctx)
-          (send (exec-ctx-def-object ctx) define-method! name (make-method-fn))]
-         [(eq? e (runtime-globals ctx))
-          (hash-set! (runtime-functions ctx) name (make-global-fn))]
-         [else
-          (env-set-or-define! e name (make-global-fn))])
-       ctrl-normal)]
-
+     (compile-stmt-function-def name params body)]
     [(stmt-object-def name parent body)
-     (define body-proc (compile-block body))
-     (lambda (e ctx)
-       (define obj
-         (if parent
-             (let ([p (env-ref e parent)])
-               (unless (lol-object? p)
-                 (error 'run-program "object parent must be BUKKIT, got ~e" p))
-               (send p clone))
-             (new lol-object%)))
-       (send obj set-slot! "IT" noob)
-       (define object-ctx
-         (ctx-derive ctx
-                     #:object-name name
-                     #:def-object obj))
-       (define control
-         (body-proc (env-with-table (send obj slot-table) e)
-                    object-ctx))
-       (when (send obj has-slot? "IT")
-         (send obj remove-slot! "IT"))
-       (if (control-normal? control)
-           (begin
-             (env-set-or-define! e name obj)
-             (set-it! e obj)
-             ctrl-normal)
-           control))]
-
+     (compile-stmt-object-def name parent body)]
     [(stmt-return expr)
-     (define expr-proc (compile-expr expr))
-     (lambda (e ctx)
-       (define value (expr-proc e ctx))
-       (set-it! e value)
-       (cond
-         [(exec-ctx-allow-return? ctx)
-          (ctrl-return value)]
-         [(exec-ctx-object-name ctx)
-          (error 'run-program
-                 "FOUND YR used inside object definition ~a"
-                 (exec-ctx-object-name ctx))]
-         [else
-          (error 'run-program "FOUND YR used outside function")]))]
-
+     (compile-stmt-return expr)]
     [(stmt-break)
-     (lambda (_e ctx)
-       (cond
-         [(exec-ctx-allow-break? ctx)
-          (ctrl-break)]
-         [(exec-ctx-object-name ctx)
-          (error 'run-program
-                 "GTFO used inside object definition ~a"
-                 (exec-ctx-object-name ctx))]
-         [else
-          (error 'run-program "GTFO used outside switch/loop")]))]
-
-    [(stmt-import _library)
-     (lambda (_e _ctx)
-       ctrl-normal)]
-
+     (compile-stmt-break)]
+    [(stmt-import library)
+     (compile-stmt-import library)]
     [(stmt-expr expr)
-     (define expr-proc (compile-expr expr))
-     (lambda (e ctx)
-       (define value (expr-proc e ctx))
-       (set-it! e value)
-       ctrl-normal)]
-
+     (compile-stmt-expr expr)]
     [_ (raise-unsupported stmt)]))
 
 (define (compile-program parsed [phase 'unknown])

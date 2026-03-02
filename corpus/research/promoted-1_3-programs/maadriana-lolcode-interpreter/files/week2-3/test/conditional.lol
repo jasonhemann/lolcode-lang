@@ -1,0 +1,35 @@
+BTW AUTO-PROMOTE: inserted HAI 1.3 header for strict-1.3 triage
+HAI 1.3
+VISIBLE "ENTER A NUMBR:"
+I HAS A num
+GIMMEH num
+
+num R SUM OF num AN 0
+
+I HAS A result
+result R BIGGR OF num AN 10
+
+I HAS A isGreater
+isGreater R BOTH SAEM result AN num
+ITZ isGreater
+O RLY?
+YA RLY
+    VISIBLE "UR NUMBR IZ BIGR THAN OR EQUL TO 10!"
+NO WAI
+    VISIBLE "UR NUMBR IZ LESS THAN 10!"
+OIC
+
+I HAS A remainder
+remainder R MOD OF num AN 2
+
+I HAS A isEven
+isEven R BOTH SAEM remainder AN 0
+ITZ isEven
+O RLY?
+YA RLY
+    VISIBLE "UR NUMBR IZ EVEN!"
+NO WAI
+    VISIBLE "UR NUMBR IZ ODD!"
+OIC
+
+KTHXBYE

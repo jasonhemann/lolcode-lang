@@ -81,6 +81,39 @@ Seed one wave into the non-gating evidence suite:
 ./scripts/import_external_wave.sh 1
 ```
 
+## Classified Tier2 Eval (Step 1)
+
+Classify tier2 `.lol` files into likely programs vs non-programs before lex/parse/eval:
+
+```bash
+./scripts/eval_tier2_corpus.sh
+```
+
+Options:
+
+- `--corpus-root <dir>`
+- `--timeout-seconds <seconds>`
+- `--json-out <path>`
+- `--md-out <path>`
+
+Default outputs:
+
+- `corpus/research/tier2-eval-classified.json`
+- `corpus/research/tier2-eval-classified.md`
+
+## Strict 1.3 Gap Analysis
+
+Analyze deficiencies and feature/branch-shape coverage for strict `HAI 1.3` programs:
+
+```bash
+./scripts/analyze_corpus_gaps.sh
+```
+
+Default outputs:
+
+- `corpus/research/language-gaps-report.json`
+- `corpus/research/LANGUAGE_GAPS_REPORT_2026-03-02.md`
+
 ## 1.4 Extension Status
 
 Current project position and tracked evidence for the unofficial "1.4" extension line:

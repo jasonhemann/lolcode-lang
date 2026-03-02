@@ -7,7 +7,7 @@
   (check-eq? implementation-phase 'core-subset-v2)
 
   (define parsed
-    (parse-program "HAI 1.2\nVISIBLE \"OH HAI\"\nKTHXBYE\n"))
+    (parse-program "HAI 1.3\nVISIBLE \"OH HAI\"\nKTHXBYE\n"))
   (check-true (program? parsed))
 
   (define result (run-program parsed))

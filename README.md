@@ -1,7 +1,7 @@
-lolchez
-=======
+lolcode-lang
+===========
 
-A Scheme REPL & interpreter for [LOLCODE](http://lolcode.com).
+A Racket-based [LOLCODE](http://lolcode.com) implementation project targeting the 1.2 and 1.3 specs.
 
 ## Corpus Sync
 
@@ -74,7 +74,3 @@ Import one external regression wave into evidence fixtures/manifest:
 ```bash
 ./scripts/import_external_wave.sh 1
 ```
-
-# Running the lolchez REPL
-We currently lack a boot file, so the repl can be started by loading `repl.scm`
-in your chez scheme repl and running `(lol-repl)`. ^D exits.

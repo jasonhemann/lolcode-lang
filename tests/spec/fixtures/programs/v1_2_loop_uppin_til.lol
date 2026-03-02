@@ -1,4 +1,4 @@
-HAI 1.2
+HAI 1.3
 I HAS A idx ITZ 0
 I HAS A acc ITZ 0
 IM IN YR count UPPIN YR idx TIL BOTH SAEM idx AN 5

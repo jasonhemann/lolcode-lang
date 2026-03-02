@@ -1,0 +1,15 @@
+{
+  "generated_at": "2026-03-02T17:31:11Z",
+  "policy": "strict-1.3",
+  "rejection_reason": "non-compliant YARN colon escaping (uses unescaped : in string literals)",
+  "action": "reverted auto-promotion marker comment and HAI 1.3 header back to original HAI",
+  "rejected_files": [
+    "corpus/research/promoted-1_3-programs/bernardjezua-lolcode-interpreter/files/testcases/final/05_bool.lol",
+    "corpus/research/promoted-1_3-programs/coleenagsao-python-lolcode-interpreter/files/lolcode-imports/05_bool.lol",
+    "corpus/research/promoted-1_3-programs/garthendrich-lolcode-interpreter/files/sample_codes/05_bool.lol",
+    "corpus/research/promoted-1_3-programs/lolcode-py-cmsc124/files/project-examples/05_bool.lol",
+    "corpus/research/promoted-1_3-programs/lolcode-py-sada/files/CMSC_124_testcases/05_bool.lol",
+    "corpus/research/promoted-1_3-programs/nicodecastro-lolcode-interpreter/files/tests/05_bool.lol",
+    "corpus/research/promoted-1_3-programs/sallysanban-lolcode-interpreter/files/Project 3/EZR_B-4L/source code/Test Files/05_bool.lol"
+  ]
+}

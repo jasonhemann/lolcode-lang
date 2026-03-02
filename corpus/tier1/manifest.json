@@ -1,0 +1,170 @@
+{
+  "generated_at": "2026-03-02T15:51:22Z",
+  "tier": "tier1",
+  "entries": [
+    {
+      "tier": "tier1",
+      "label": "lci",
+      "repo": "justinmeza/lci",
+      "kind": "interpreter",
+      "oracle_priority": "P1",
+      "corpus_priority": "P2",
+      "source": "implementations.pdf",
+      "status": "unverified",
+      "sync_state": "failed",
+      "sync_note": "failed:metadata-fetch",
+      "recovery_tracking": {
+        "initially_missing": false,
+        "recovered_from_initially_missing": false,
+        "recovery_state": "not-applicable",
+        "recovery_source": "implementations.pdf",
+        "recovery_basis": "none"
+      },
+      "corpus_capture": {
+        "repo_kind": "interpreter",
+        "total_files": 0,
+        "sample_lol_files": 0,
+        "implementation_files": 0,
+        "capture_type": "none"
+      },
+      "extraction_progress": {
+        "external_items_total": 86,
+        "external_issues_total": 59,
+        "external_prs_total": 27,
+        "candidate_repros_total": 27,
+        "candidate_runtime_safety_total": 9,
+        "candidate_language_total": 18,
+        "imported_test_cases_total": 27,
+        "triage_status_counts": {
+          "candidate": 27
+        },
+        "known_divergences_total": 0,
+        "known_failures_total": 0,
+        "fixed_here_total": 0,
+        "candidate_triage_total": 27
+      }
+    },
+    {
+      "tier": "tier1",
+      "label": "rust-lci",
+      "repo": "jD91mZM2/rust-lci",
+      "kind": "interpreter",
+      "oracle_priority": "P1",
+      "corpus_priority": "P1",
+      "source": "implementations.pdf",
+      "status": "unverified",
+      "sync_state": "failed",
+      "sync_note": "failed:metadata-fetch",
+      "recovery_tracking": {
+        "initially_missing": false,
+        "recovered_from_initially_missing": false,
+        "recovery_state": "not-applicable",
+        "recovery_source": "implementations.pdf",
+        "recovery_basis": "none"
+      },
+      "corpus_capture": {
+        "repo_kind": "interpreter",
+        "total_files": 0,
+        "sample_lol_files": 0,
+        "implementation_files": 0,
+        "capture_type": "none"
+      },
+      "extraction_progress": {
+        "external_items_total": 0,
+        "external_issues_total": 0,
+        "external_prs_total": 0,
+        "candidate_repros_total": 0,
+        "candidate_runtime_safety_total": 0,
+        "candidate_language_total": 0,
+        "imported_test_cases_total": 0,
+        "triage_status_counts": {},
+        "known_divergences_total": 0,
+        "known_failures_total": 0,
+        "fixed_here_total": 0,
+        "candidate_triage_total": 0
+      }
+    },
+    {
+      "tier": "tier1",
+      "label": "i-has-js",
+      "repo": "NullDev/I-HAS-JS",
+      "kind": "interpreter",
+      "oracle_priority": "P1",
+      "corpus_priority": "P1",
+      "source": "implementations.pdf",
+      "status": "unverified",
+      "sync_state": "failed",
+      "sync_note": "failed:metadata-fetch",
+      "recovery_tracking": {
+        "initially_missing": false,
+        "recovered_from_initially_missing": false,
+        "recovery_state": "not-applicable",
+        "recovery_source": "implementations.pdf",
+        "recovery_basis": "none"
+      },
+      "corpus_capture": {
+        "repo_kind": "interpreter",
+        "total_files": 0,
+        "sample_lol_files": 0,
+        "implementation_files": 0,
+        "capture_type": "none"
+      },
+      "extraction_progress": {
+        "external_items_total": 4,
+        "external_issues_total": 1,
+        "external_prs_total": 3,
+        "candidate_repros_total": 0,
+        "candidate_runtime_safety_total": 0,
+        "candidate_language_total": 0,
+        "imported_test_cases_total": 0,
+        "triage_status_counts": {},
+        "known_divergences_total": 0,
+        "known_failures_total": 0,
+        "fixed_here_total": 0,
+        "candidate_triage_total": 0
+      }
+    },
+    {
+      "tier": "tier1",
+      "label": "lolcode-net",
+      "repo": "JasonBock/LOLCode.net",
+      "kind": "compiler",
+      "oracle_priority": "P1",
+      "corpus_priority": "P2",
+      "source": "implementations.pdf",
+      "status": "unverified",
+      "sync_state": "failed",
+      "sync_note": "failed:metadata-fetch",
+      "recovery_tracking": {
+        "initially_missing": false,
+        "recovered_from_initially_missing": false,
+        "recovery_state": "not-applicable",
+        "recovery_source": "implementations.pdf",
+        "recovery_basis": "none"
+      },
+      "corpus_capture": {
+        "repo_kind": "compiler",
+        "total_files": 0,
+        "sample_lol_files": 0,
+        "implementation_files": 0,
+        "capture_type": "none"
+      },
+      "extraction_progress": {
+        "external_items_total": 9,
+        "external_issues_total": 9,
+        "external_prs_total": 0,
+        "candidate_repros_total": 1,
+        "candidate_runtime_safety_total": 0,
+        "candidate_language_total": 1,
+        "imported_test_cases_total": 1,
+        "triage_status_counts": {
+          "candidate": 1
+        },
+        "known_divergences_total": 0,
+        "known_failures_total": 0,
+        "fixed_here_total": 0,
+        "candidate_triage_total": 1
+      }
+    }
+  ]
+}
