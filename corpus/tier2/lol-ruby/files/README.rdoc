@@ -1,0 +1,15 @@
+= LOL
+
+LOL is a simple LOLCODE interpreter written in Ruby, using Racc and StringScanner.
+
+== Usage
+
+To execute program hello.lol type:
+  lol hello.lol
+
+To show the abstract syntax tree of program type:
+  lol -t hello.lol
+
+= License
+
+Copyright (c) 2009 Jakub Kuźma, Szymon Kunc, released under the MIT license

@@ -1,0 +1,6 @@
+HAI
+
+I HAS A result ITZ SUM OF 1 AN PRODUKT OF 2 AN 3
+VISIBLE result
+
+KTHXBYE

@@ -1,0 +1,1410 @@
+{
+  "generated_at": "2026-03-02T15:57:32Z",
+  "catalog": "corpus/tier2/CANDIDATE_REPOS.tsv",
+  "entries": [
+    {
+      "tier": "tier2",
+      "label": "hlci",
+      "repo": "YS-L/hlci",
+      "kind": "interpreter",
+      "oracle_priority": "P2",
+      "corpus_priority": "P2",
+      "source": "implementations.pdf",
+      "status": "unverified",
+      "sync_state": "ok",
+      "sync_note": "ok:git-fallback",
+      "recovery_tracking": {
+        "initially_missing": false,
+        "recovered_from_initially_missing": false,
+        "recovery_state": "not-applicable",
+        "recovery_source": "implementations.pdf",
+        "recovery_basis": "none"
+      },
+      "corpus_capture": {
+        "repo_kind": "interpreter",
+        "total_files": 11,
+        "sample_lol_files": 0,
+        "implementation_files": 10,
+        "capture_type": "implementation-only"
+      },
+      "extraction_progress": {
+        "external_items_total": 0,
+        "external_issues_total": 0,
+        "external_prs_total": 0,
+        "candidate_repros_total": 0,
+        "candidate_runtime_safety_total": 0,
+        "candidate_language_total": 0,
+        "imported_test_cases_total": 0,
+        "triage_status_counts": {},
+        "known_divergences_total": 0,
+        "known_failures_total": 0,
+        "fixed_here_total": 0,
+        "candidate_triage_total": 0
+      }
+    },
+    {
+      "tier": "tier2",
+      "label": "loco",
+      "repo": "jpcarreon/loco",
+      "kind": "interpreter",
+      "oracle_priority": "P2",
+      "corpus_priority": "P2",
+      "source": "implementations.pdf",
+      "status": "unverified",
+      "sync_state": "ok",
+      "sync_note": "ok:git-fallback",
+      "recovery_tracking": {
+        "initially_missing": false,
+        "recovered_from_initially_missing": false,
+        "recovery_state": "not-applicable",
+        "recovery_source": "implementations.pdf",
+        "recovery_basis": "none"
+      },
+      "corpus_capture": {
+        "repo_kind": "interpreter",
+        "total_files": 41,
+        "sample_lol_files": 15,
+        "implementation_files": 25,
+        "capture_type": "implementation+sample-code"
+      },
+      "extraction_progress": {
+        "external_items_total": 0,
+        "external_issues_total": 0,
+        "external_prs_total": 0,
+        "candidate_repros_total": 0,
+        "candidate_runtime_safety_total": 0,
+        "candidate_language_total": 0,
+        "imported_test_cases_total": 0,
+        "triage_status_counts": {},
+        "known_divergences_total": 0,
+        "known_failures_total": 0,
+        "fixed_here_total": 0,
+        "candidate_triage_total": 0
+      }
+    },
+    {
+      "tier": "tier2",
+      "label": "lol-ruby",
+      "repo": "qoobaa/lol",
+      "kind": "interpreter",
+      "oracle_priority": "P2",
+      "corpus_priority": "P2",
+      "source": "implementations.pdf",
+      "status": "unverified",
+      "sync_state": "ok",
+      "sync_note": "ok:git-fallback",
+      "recovery_tracking": {
+        "initially_missing": false,
+        "recovered_from_initially_missing": false,
+        "recovery_state": "not-applicable",
+        "recovery_source": "implementations.pdf",
+        "recovery_basis": "none"
+      },
+      "corpus_capture": {
+        "repo_kind": "interpreter",
+        "total_files": 7,
+        "sample_lol_files": 3,
+        "implementation_files": 3,
+        "capture_type": "implementation+sample-code"
+      },
+      "extraction_progress": {
+        "external_items_total": 0,
+        "external_issues_total": 0,
+        "external_prs_total": 0,
+        "candidate_repros_total": 0,
+        "candidate_runtime_safety_total": 0,
+        "candidate_language_total": 0,
+        "imported_test_cases_total": 0,
+        "triage_status_counts": {},
+        "known_divergences_total": 0,
+        "known_failures_total": 0,
+        "fixed_here_total": 0,
+        "candidate_triage_total": 0
+      }
+    },
+    {
+      "tier": "tier2",
+      "label": "lolcode-py-sada",
+      "repo": "SADAsuncion/LOLCodeInterpreter",
+      "kind": "interpreter",
+      "oracle_priority": "P2",
+      "corpus_priority": "P2",
+      "source": "implementations.pdf",
+      "status": "unverified",
+      "sync_state": "ok",
+      "sync_note": "ok:git-fallback",
+      "recovery_tracking": {
+        "initially_missing": false,
+        "recovered_from_initially_missing": false,
+        "recovery_state": "not-applicable",
+        "recovery_source": "implementations.pdf",
+        "recovery_basis": "none"
+      },
+      "corpus_capture": {
+        "repo_kind": "interpreter",
+        "total_files": 16,
+        "sample_lol_files": 10,
+        "implementation_files": 5,
+        "capture_type": "implementation+sample-code"
+      },
+      "extraction_progress": {
+        "external_items_total": 0,
+        "external_issues_total": 0,
+        "external_prs_total": 0,
+        "candidate_repros_total": 0,
+        "candidate_runtime_safety_total": 0,
+        "candidate_language_total": 0,
+        "imported_test_cases_total": 0,
+        "triage_status_counts": {},
+        "known_divergences_total": 0,
+        "known_failures_total": 0,
+        "fixed_here_total": 0,
+        "candidate_triage_total": 0
+      }
+    },
+    {
+      "tier": "tier2",
+      "label": "lolcode-py-cmsc124",
+      "repo": "DvaeFroot/cmsc124-lolcode-interpreter",
+      "kind": "interpreter",
+      "oracle_priority": "P2",
+      "corpus_priority": "P2",
+      "source": "implementations.pdf",
+      "status": "unverified",
+      "sync_state": "ok",
+      "sync_note": "ok:git-fallback",
+      "recovery_tracking": {
+        "initially_missing": false,
+        "recovered_from_initially_missing": false,
+        "recovery_state": "not-applicable",
+        "recovery_source": "implementations.pdf",
+        "recovery_basis": "none"
+      },
+      "corpus_capture": {
+        "repo_kind": "interpreter",
+        "total_files": 26,
+        "sample_lol_files": 17,
+        "implementation_files": 8,
+        "capture_type": "implementation+sample-code"
+      },
+      "extraction_progress": {
+        "external_items_total": 74,
+        "external_issues_total": 0,
+        "external_prs_total": 74,
+        "candidate_repros_total": 17,
+        "candidate_runtime_safety_total": 0,
+        "candidate_language_total": 17,
+        "imported_test_cases_total": 1,
+        "triage_status_counts": {
+          "candidate": 1
+        },
+        "known_divergences_total": 0,
+        "known_failures_total": 0,
+        "fixed_here_total": 0,
+        "candidate_triage_total": 1
+      }
+    },
+    {
+      "tier": "tier2",
+      "label": "httpd-lol",
+      "repo": "justinmeza/httpd.lol",
+      "kind": "corpus",
+      "oracle_priority": "P3",
+      "corpus_priority": "P1",
+      "source": "manual",
+      "status": "seeded",
+      "sync_state": "ok",
+      "sync_note": "ok:git-fallback",
+      "recovery_tracking": {
+        "initially_missing": false,
+        "recovered_from_initially_missing": false,
+        "recovery_state": "not-applicable",
+        "recovery_source": "manual",
+        "recovery_basis": "none"
+      },
+      "corpus_capture": {
+        "repo_kind": "corpus",
+        "total_files": 2,
+        "sample_lol_files": 1,
+        "implementation_files": 0,
+        "capture_type": "sample-only"
+      },
+      "extraction_progress": {
+        "external_items_total": 3,
+        "external_issues_total": 2,
+        "external_prs_total": 1,
+        "candidate_repros_total": 1,
+        "candidate_runtime_safety_total": 0,
+        "candidate_language_total": 1,
+        "imported_test_cases_total": 1,
+        "triage_status_counts": {
+          "candidate": 1
+        },
+        "known_divergences_total": 0,
+        "known_failures_total": 0,
+        "fixed_here_total": 0,
+        "candidate_triage_total": 1
+      }
+    },
+    {
+      "tier": "tier2",
+      "label": "loleuler",
+      "repo": "LeartS/loleuler",
+      "kind": "corpus",
+      "oracle_priority": "P3",
+      "corpus_priority": "P1",
+      "source": "manual",
+      "status": "seeded",
+      "sync_state": "ok",
+      "sync_note": "ok:git-fallback",
+      "recovery_tracking": {
+        "initially_missing": false,
+        "recovered_from_initially_missing": false,
+        "recovery_state": "not-applicable",
+        "recovery_source": "manual",
+        "recovery_basis": "none"
+      },
+      "corpus_capture": {
+        "repo_kind": "corpus",
+        "total_files": 21,
+        "sample_lol_files": 18,
+        "implementation_files": 0,
+        "capture_type": "sample-only"
+      },
+      "extraction_progress": {
+        "external_items_total": 2,
+        "external_issues_total": 2,
+        "external_prs_total": 0,
+        "candidate_repros_total": 0,
+        "candidate_runtime_safety_total": 0,
+        "candidate_language_total": 0,
+        "imported_test_cases_total": 0,
+        "triage_status_counts": {},
+        "known_divergences_total": 0,
+        "known_failures_total": 0,
+        "fixed_here_total": 0,
+        "candidate_triage_total": 0
+      }
+    },
+    {
+      "tier": "tier2",
+      "label": "eulol",
+      "repo": "markjreed/eulol",
+      "kind": "corpus",
+      "oracle_priority": "P3",
+      "corpus_priority": "P1",
+      "source": "manual",
+      "status": "seeded",
+      "sync_state": "ok",
+      "sync_note": "ok:git-fallback",
+      "recovery_tracking": {
+        "initially_missing": false,
+        "recovered_from_initially_missing": false,
+        "recovery_state": "not-applicable",
+        "recovery_source": "manual",
+        "recovery_basis": "none"
+      },
+      "corpus_capture": {
+        "repo_kind": "corpus",
+        "total_files": 10,
+        "sample_lol_files": 8,
+        "implementation_files": 0,
+        "capture_type": "sample-only"
+      },
+      "extraction_progress": {
+        "external_items_total": 0,
+        "external_issues_total": 0,
+        "external_prs_total": 0,
+        "candidate_repros_total": 0,
+        "candidate_runtime_safety_total": 0,
+        "candidate_language_total": 0,
+        "imported_test_cases_total": 0,
+        "triage_status_counts": {},
+        "known_divergences_total": 0,
+        "known_failures_total": 0,
+        "fixed_here_total": 0,
+        "candidate_triage_total": 0
+      }
+    },
+    {
+      "tier": "tier2",
+      "label": "lokalise-lol-post",
+      "repo": "bodrovis-learning/Lokalise-source",
+      "kind": "corpus",
+      "oracle_priority": "P3",
+      "corpus_priority": "P2",
+      "source": "manual",
+      "status": "seeded",
+      "sync_state": "ok",
+      "sync_note": "ok:git-fallback",
+      "recovery_tracking": {
+        "initially_missing": false,
+        "recovered_from_initially_missing": false,
+        "recovery_state": "not-applicable",
+        "recovery_source": "manual",
+        "recovery_basis": "none"
+      },
+      "corpus_capture": {
+        "repo_kind": "corpus",
+        "total_files": 21,
+        "sample_lol_files": 15,
+        "implementation_files": 0,
+        "capture_type": "sample-only"
+      },
+      "extraction_progress": {
+        "external_items_total": 0,
+        "external_issues_total": 0,
+        "external_prs_total": 0,
+        "candidate_repros_total": 0,
+        "candidate_runtime_safety_total": 0,
+        "candidate_language_total": 0,
+        "imported_test_cases_total": 0,
+        "triage_status_counts": {},
+        "known_divergences_total": 0,
+        "known_failures_total": 0,
+        "fixed_here_total": 0,
+        "candidate_triage_total": 0
+      }
+    },
+    {
+      "tier": "tier2",
+      "label": "lolcode-simple-algorithms",
+      "repo": "shaunlgs/lolcode-simple-algorithms",
+      "kind": "corpus",
+      "oracle_priority": "P3",
+      "corpus_priority": "P1",
+      "source": "ecosyste.ms-topic-lolcode-2026-03-02",
+      "status": "unverified",
+      "sync_state": "ok",
+      "sync_note": "ok:git-fallback",
+      "recovery_tracking": {
+        "initially_missing": false,
+        "recovered_from_initially_missing": false,
+        "recovery_state": "not-applicable",
+        "recovery_source": "ecosyste.ms-topic-lolcode-2026-03-02",
+        "recovery_basis": "none"
+      },
+      "corpus_capture": {
+        "repo_kind": "corpus",
+        "total_files": 9,
+        "sample_lol_files": 8,
+        "implementation_files": 0,
+        "capture_type": "sample-only"
+      },
+      "extraction_progress": {
+        "external_items_total": 0,
+        "external_issues_total": 0,
+        "external_prs_total": 0,
+        "candidate_repros_total": 0,
+        "candidate_runtime_safety_total": 0,
+        "candidate_language_total": 0,
+        "imported_test_cases_total": 0,
+        "triage_status_counts": {},
+        "known_divergences_total": 0,
+        "known_failures_total": 0,
+        "fixed_here_total": 0,
+        "candidate_triage_total": 0
+      }
+    },
+    {
+      "tier": "tier2",
+      "label": "lolcode-experiments",
+      "repo": "theDrake/lolcode-experiments",
+      "kind": "corpus",
+      "oracle_priority": "P3",
+      "corpus_priority": "P1",
+      "source": "ecosyste.ms-topic-lolcode-2026-03-02",
+      "status": "unverified",
+      "sync_state": "ok",
+      "sync_note": "ok:git-fallback",
+      "recovery_tracking": {
+        "initially_missing": false,
+        "recovered_from_initially_missing": false,
+        "recovery_state": "not-applicable",
+        "recovery_source": "ecosyste.ms-topic-lolcode-2026-03-02",
+        "recovery_basis": "none"
+      },
+      "corpus_capture": {
+        "repo_kind": "corpus",
+        "total_files": 4,
+        "sample_lol_files": 3,
+        "implementation_files": 0,
+        "capture_type": "sample-only"
+      },
+      "extraction_progress": {
+        "external_items_total": 0,
+        "external_issues_total": 0,
+        "external_prs_total": 0,
+        "candidate_repros_total": 0,
+        "candidate_runtime_safety_total": 0,
+        "candidate_language_total": 0,
+        "imported_test_cases_total": 0,
+        "triage_status_counts": {},
+        "known_divergences_total": 0,
+        "known_failures_total": 0,
+        "fixed_here_total": 0,
+        "candidate_triage_total": 0
+      }
+    },
+    {
+      "tier": "tier2",
+      "label": "lolcode-game-of-life",
+      "repo": "superkrzysio/lolcode-game-of-life",
+      "kind": "corpus",
+      "oracle_priority": "P3",
+      "corpus_priority": "P2",
+      "source": "ecosyste.ms-topic-lolcode-2026-03-02",
+      "status": "unverified",
+      "sync_state": "ok",
+      "sync_note": "ok:git-fallback",
+      "recovery_tracking": {
+        "initially_missing": false,
+        "recovered_from_initially_missing": false,
+        "recovery_state": "not-applicable",
+        "recovery_source": "ecosyste.ms-topic-lolcode-2026-03-02",
+        "recovery_basis": "none"
+      },
+      "corpus_capture": {
+        "repo_kind": "corpus",
+        "total_files": 5,
+        "sample_lol_files": 4,
+        "implementation_files": 0,
+        "capture_type": "sample-only"
+      },
+      "extraction_progress": {
+        "external_items_total": 0,
+        "external_issues_total": 0,
+        "external_prs_total": 0,
+        "candidate_repros_total": 0,
+        "candidate_runtime_safety_total": 0,
+        "candidate_language_total": 0,
+        "imported_test_cases_total": 0,
+        "triage_status_counts": {},
+        "known_divergences_total": 0,
+        "known_failures_total": 0,
+        "fixed_here_total": 0,
+        "candidate_triage_total": 0
+      }
+    },
+    {
+      "tier": "tier2",
+      "label": "flag-wars-3-lolcode",
+      "repo": "SomeUnusualGames/Flag-Wars-3-LOLCODE",
+      "kind": "corpus",
+      "oracle_priority": "P3",
+      "corpus_priority": "P1",
+      "source": "ecosyste.ms-topic-lolcode-2026-03-02",
+      "status": "unverified",
+      "sync_state": "ok",
+      "sync_note": "ok:git-fallback",
+      "recovery_tracking": {
+        "initially_missing": false,
+        "recovered_from_initially_missing": false,
+        "recovery_state": "not-applicable",
+        "recovery_source": "ecosyste.ms-topic-lolcode-2026-03-02",
+        "recovery_basis": "none"
+      },
+      "corpus_capture": {
+        "repo_kind": "corpus",
+        "total_files": 8,
+        "sample_lol_files": 7,
+        "implementation_files": 0,
+        "capture_type": "sample-only"
+      },
+      "extraction_progress": {
+        "external_items_total": 0,
+        "external_issues_total": 0,
+        "external_prs_total": 0,
+        "candidate_repros_total": 0,
+        "candidate_runtime_safety_total": 0,
+        "candidate_language_total": 0,
+        "imported_test_cases_total": 0,
+        "triage_status_counts": {},
+        "known_divergences_total": 0,
+        "known_failures_total": 0,
+        "fixed_here_total": 0,
+        "candidate_triage_total": 0
+      }
+    },
+    {
+      "tier": "tier2",
+      "label": "learn-lolcode",
+      "repo": "seanpm2001/Learn-LOLCODE",
+      "kind": "corpus",
+      "oracle_priority": "P3",
+      "corpus_priority": "P1",
+      "source": "ecosyste.ms-topic-lolcode-2026-03-02",
+      "status": "unverified",
+      "sync_state": "ok",
+      "sync_note": "ok:git-fallback",
+      "recovery_tracking": {
+        "initially_missing": false,
+        "recovered_from_initially_missing": false,
+        "recovery_state": "not-applicable",
+        "recovery_source": "ecosyste.ms-topic-lolcode-2026-03-02",
+        "recovery_basis": "none"
+      },
+      "corpus_capture": {
+        "repo_kind": "corpus",
+        "total_files": 37,
+        "sample_lol_files": 28,
+        "implementation_files": 0,
+        "capture_type": "sample-only"
+      },
+      "extraction_progress": {
+        "external_items_total": 0,
+        "external_issues_total": 0,
+        "external_prs_total": 0,
+        "candidate_repros_total": 0,
+        "candidate_runtime_safety_total": 0,
+        "candidate_language_total": 0,
+        "imported_test_cases_total": 0,
+        "triage_status_counts": {},
+        "known_divergences_total": 0,
+        "known_failures_total": 0,
+        "fixed_here_total": 0,
+        "candidate_triage_total": 0
+      }
+    },
+    {
+      "tier": "tier2",
+      "label": "ai2001-sc-lolcode",
+      "repo": "seanpm2001/AI2001_Category-Source_Code-SC-LOLCODE",
+      "kind": "corpus",
+      "oracle_priority": "P3",
+      "corpus_priority": "P1",
+      "source": "ecosyste.ms-topic-lolcode-2026-03-02",
+      "status": "unverified",
+      "sync_state": "ok",
+      "sync_note": "ok:git-fallback",
+      "recovery_tracking": {
+        "initially_missing": false,
+        "recovered_from_initially_missing": false,
+        "recovery_state": "not-applicable",
+        "recovery_source": "ecosyste.ms-topic-lolcode-2026-03-02",
+        "recovery_basis": "none"
+      },
+      "corpus_capture": {
+        "repo_kind": "corpus",
+        "total_files": 43,
+        "sample_lol_files": 6,
+        "implementation_files": 0,
+        "capture_type": "sample-only"
+      },
+      "extraction_progress": {
+        "external_items_total": 0,
+        "external_issues_total": 0,
+        "external_prs_total": 0,
+        "candidate_repros_total": 0,
+        "candidate_runtime_safety_total": 0,
+        "candidate_language_total": 0,
+        "imported_test_cases_total": 0,
+        "triage_status_counts": {},
+        "known_divergences_total": 0,
+        "known_failures_total": 0,
+        "fixed_here_total": 0,
+        "candidate_triage_total": 0
+      }
+    },
+    {
+      "tier": "tier2",
+      "label": "mkkellogg-lolcode",
+      "repo": "mkkellogg/lolcode",
+      "kind": "corpus",
+      "oracle_priority": "P3",
+      "corpus_priority": "P2",
+      "source": "ecosyste.ms-topic-lolcode-2026-03-02",
+      "status": "archive",
+      "sync_state": "skipped",
+      "sync_note": "archive-entry",
+      "recovery_tracking": {
+        "initially_missing": true,
+        "recovered_from_initially_missing": false,
+        "recovery_state": "initially-missing-unrecovered",
+        "recovery_source": "ecosyste.ms-topic-lolcode-2026-03-02",
+        "recovery_basis": "archived-candidate"
+      },
+      "corpus_capture": {
+        "repo_kind": "corpus",
+        "total_files": 0,
+        "sample_lol_files": 0,
+        "implementation_files": 0,
+        "capture_type": "none"
+      },
+      "extraction_progress": {
+        "external_items_total": 0,
+        "external_issues_total": 0,
+        "external_prs_total": 0,
+        "candidate_repros_total": 0,
+        "candidate_runtime_safety_total": 0,
+        "candidate_language_total": 0,
+        "imported_test_cases_total": 0,
+        "triage_status_counts": {},
+        "known_divergences_total": 0,
+        "known_failures_total": 0,
+        "fixed_here_total": 0,
+        "candidate_triage_total": 0
+      }
+    },
+    {
+      "tier": "tier2",
+      "label": "wpollock-lolcode",
+      "repo": "wpollock/lolcode",
+      "kind": "corpus",
+      "oracle_priority": "P3",
+      "corpus_priority": "P1",
+      "source": "ecosyste.ms-topic-lolcode-2026-03-02",
+      "status": "archive",
+      "sync_state": "skipped",
+      "sync_note": "archive-entry",
+      "recovery_tracking": {
+        "initially_missing": true,
+        "recovered_from_initially_missing": false,
+        "recovery_state": "initially-missing-unrecovered",
+        "recovery_source": "ecosyste.ms-topic-lolcode-2026-03-02",
+        "recovery_basis": "archived-candidate"
+      },
+      "corpus_capture": {
+        "repo_kind": "corpus",
+        "total_files": 0,
+        "sample_lol_files": 0,
+        "implementation_files": 0,
+        "capture_type": "none"
+      },
+      "extraction_progress": {
+        "external_items_total": 0,
+        "external_issues_total": 0,
+        "external_prs_total": 0,
+        "candidate_repros_total": 0,
+        "candidate_runtime_safety_total": 0,
+        "candidate_language_total": 0,
+        "imported_test_cases_total": 0,
+        "triage_status_counts": {},
+        "known_divergences_total": 0,
+        "known_failures_total": 0,
+        "fixed_here_total": 0,
+        "candidate_triage_total": 0
+      }
+    },
+    {
+      "tier": "tier2",
+      "label": "jasondelponte-lolcode",
+      "repo": "jasondelponte/lolcode",
+      "kind": "corpus",
+      "oracle_priority": "P3",
+      "corpus_priority": "P2",
+      "source": "ecosyste.ms-topic-lolcode-2026-03-02",
+      "status": "archive",
+      "sync_state": "skipped",
+      "sync_note": "archive-entry",
+      "recovery_tracking": {
+        "initially_missing": true,
+        "recovered_from_initially_missing": false,
+        "recovery_state": "initially-missing-unrecovered",
+        "recovery_source": "ecosyste.ms-topic-lolcode-2026-03-02",
+        "recovery_basis": "archived-candidate"
+      },
+      "corpus_capture": {
+        "repo_kind": "corpus",
+        "total_files": 0,
+        "sample_lol_files": 0,
+        "implementation_files": 0,
+        "capture_type": "none"
+      },
+      "extraction_progress": {
+        "external_items_total": 0,
+        "external_issues_total": 0,
+        "external_prs_total": 0,
+        "candidate_repros_total": 0,
+        "candidate_runtime_safety_total": 0,
+        "candidate_language_total": 0,
+        "imported_test_cases_total": 0,
+        "triage_status_counts": {},
+        "known_divergences_total": 0,
+        "known_failures_total": 0,
+        "fixed_here_total": 0,
+        "candidate_triage_total": 0
+      }
+    },
+    {
+      "tier": "tier2",
+      "label": "subcity9000-lolcode",
+      "repo": "subcity9000/lolcode",
+      "kind": "corpus",
+      "oracle_priority": "P3",
+      "corpus_priority": "P2",
+      "source": "ecosyste.ms-language-lolcode-2026-03-02",
+      "status": "archive",
+      "sync_state": "skipped",
+      "sync_note": "archive-entry",
+      "recovery_tracking": {
+        "initially_missing": true,
+        "recovered_from_initially_missing": false,
+        "recovery_state": "initially-missing-unrecovered",
+        "recovery_source": "ecosyste.ms-language-lolcode-2026-03-02",
+        "recovery_basis": "archived-candidate"
+      },
+      "corpus_capture": {
+        "repo_kind": "corpus",
+        "total_files": 0,
+        "sample_lol_files": 0,
+        "implementation_files": 0,
+        "capture_type": "none"
+      },
+      "extraction_progress": {
+        "external_items_total": 0,
+        "external_issues_total": 0,
+        "external_prs_total": 0,
+        "candidate_repros_total": 0,
+        "candidate_runtime_safety_total": 0,
+        "candidate_language_total": 0,
+        "imported_test_cases_total": 0,
+        "triage_status_counts": {},
+        "known_divergences_total": 0,
+        "known_failures_total": 0,
+        "fixed_here_total": 0,
+        "candidate_triage_total": 0
+      }
+    },
+    {
+      "tier": "tier2",
+      "label": "2ionx-lolcode",
+      "repo": "2IONX/LOLCODE",
+      "kind": "corpus",
+      "oracle_priority": "P3",
+      "corpus_priority": "P1",
+      "source": "ecosyste.ms-language-lolcode-2026-03-02",
+      "status": "archive",
+      "sync_state": "skipped",
+      "sync_note": "archive-entry",
+      "recovery_tracking": {
+        "initially_missing": true,
+        "recovered_from_initially_missing": false,
+        "recovery_state": "initially-missing-unrecovered",
+        "recovery_source": "ecosyste.ms-language-lolcode-2026-03-02",
+        "recovery_basis": "archived-candidate"
+      },
+      "corpus_capture": {
+        "repo_kind": "corpus",
+        "total_files": 0,
+        "sample_lol_files": 0,
+        "implementation_files": 0,
+        "capture_type": "none"
+      },
+      "extraction_progress": {
+        "external_items_total": 0,
+        "external_issues_total": 0,
+        "external_prs_total": 0,
+        "candidate_repros_total": 0,
+        "candidate_runtime_safety_total": 0,
+        "candidate_language_total": 0,
+        "imported_test_cases_total": 0,
+        "triage_status_counts": {},
+        "known_divergences_total": 0,
+        "known_failures_total": 0,
+        "fixed_here_total": 0,
+        "candidate_triage_total": 0
+      }
+    },
+    {
+      "tier": "tier2",
+      "label": "kartiknair-lolcode-interpreter",
+      "repo": "kartiknair/lolcode-interpreter",
+      "kind": "interpreter",
+      "oracle_priority": "P2",
+      "corpus_priority": "P2",
+      "source": "ecosyste.ms-language-lolcode-2026-03-02",
+      "status": "archive",
+      "sync_state": "skipped",
+      "sync_note": "archive-entry",
+      "recovery_tracking": {
+        "initially_missing": true,
+        "recovered_from_initially_missing": false,
+        "recovery_state": "initially-missing-unrecovered",
+        "recovery_source": "ecosyste.ms-language-lolcode-2026-03-02",
+        "recovery_basis": "archived-candidate"
+      },
+      "corpus_capture": {
+        "repo_kind": "interpreter",
+        "total_files": 0,
+        "sample_lol_files": 0,
+        "implementation_files": 0,
+        "capture_type": "none"
+      },
+      "extraction_progress": {
+        "external_items_total": 0,
+        "external_issues_total": 0,
+        "external_prs_total": 0,
+        "candidate_repros_total": 0,
+        "candidate_runtime_safety_total": 0,
+        "candidate_language_total": 0,
+        "imported_test_cases_total": 0,
+        "triage_status_counts": {},
+        "known_divergences_total": 0,
+        "known_failures_total": 0,
+        "fixed_here_total": 0,
+        "candidate_triage_total": 0
+      }
+    },
+    {
+      "tier": "tier2",
+      "label": "shi2015-lolcode-interpreter",
+      "repo": "SHI2015/Lolcode-Interpreter",
+      "kind": "interpreter",
+      "oracle_priority": "P2",
+      "corpus_priority": "P2",
+      "source": "ecosyste.ms-language-lolcode-2026-03-02",
+      "status": "archive",
+      "sync_state": "skipped",
+      "sync_note": "archive-entry",
+      "recovery_tracking": {
+        "initially_missing": true,
+        "recovered_from_initially_missing": false,
+        "recovery_state": "initially-missing-unrecovered",
+        "recovery_source": "ecosyste.ms-language-lolcode-2026-03-02",
+        "recovery_basis": "archived-candidate"
+      },
+      "corpus_capture": {
+        "repo_kind": "interpreter",
+        "total_files": 0,
+        "sample_lol_files": 0,
+        "implementation_files": 0,
+        "capture_type": "none"
+      },
+      "extraction_progress": {
+        "external_items_total": 0,
+        "external_issues_total": 0,
+        "external_prs_total": 0,
+        "candidate_repros_total": 0,
+        "candidate_runtime_safety_total": 0,
+        "candidate_language_total": 0,
+        "imported_test_cases_total": 0,
+        "triage_status_counts": {},
+        "known_divergences_total": 0,
+        "known_failures_total": 0,
+        "fixed_here_total": 0,
+        "candidate_triage_total": 0
+      }
+    },
+    {
+      "tier": "tier2",
+      "label": "lorenzoperi17-lolcode-interpreter",
+      "repo": "LorenzoPeri17/lolcode-interpreter",
+      "kind": "interpreter",
+      "oracle_priority": "P2",
+      "corpus_priority": "P2",
+      "source": "ecosyste.ms-language-lolcode-2026-03-02",
+      "status": "archive",
+      "sync_state": "skipped",
+      "sync_note": "archive-entry",
+      "recovery_tracking": {
+        "initially_missing": true,
+        "recovered_from_initially_missing": false,
+        "recovery_state": "initially-missing-unrecovered",
+        "recovery_source": "ecosyste.ms-language-lolcode-2026-03-02",
+        "recovery_basis": "archived-candidate"
+      },
+      "corpus_capture": {
+        "repo_kind": "interpreter",
+        "total_files": 0,
+        "sample_lol_files": 0,
+        "implementation_files": 0,
+        "capture_type": "none"
+      },
+      "extraction_progress": {
+        "external_items_total": 0,
+        "external_issues_total": 0,
+        "external_prs_total": 0,
+        "candidate_repros_total": 0,
+        "candidate_runtime_safety_total": 0,
+        "candidate_language_total": 0,
+        "imported_test_cases_total": 0,
+        "triage_status_counts": {},
+        "known_divergences_total": 0,
+        "known_failures_total": 0,
+        "fixed_here_total": 0,
+        "candidate_triage_total": 0
+      }
+    },
+    {
+      "tier": "tier2",
+      "label": "rileyjshaw-loljs",
+      "repo": "rileyjshaw/loljs",
+      "kind": "interpreter",
+      "oracle_priority": "P2",
+      "corpus_priority": "P2",
+      "source": "ecosyste.ms-search-2026-03-02",
+      "status": "archive",
+      "sync_state": "skipped",
+      "sync_note": "archive-entry",
+      "recovery_tracking": {
+        "initially_missing": true,
+        "recovered_from_initially_missing": false,
+        "recovery_state": "initially-missing-unrecovered",
+        "recovery_source": "ecosyste.ms-search-2026-03-02",
+        "recovery_basis": "archived-candidate"
+      },
+      "corpus_capture": {
+        "repo_kind": "interpreter",
+        "total_files": 0,
+        "sample_lol_files": 0,
+        "implementation_files": 0,
+        "capture_type": "none"
+      },
+      "extraction_progress": {
+        "external_items_total": 0,
+        "external_issues_total": 0,
+        "external_prs_total": 0,
+        "candidate_repros_total": 0,
+        "candidate_runtime_safety_total": 0,
+        "candidate_language_total": 0,
+        "imported_test_cases_total": 0,
+        "triage_status_counts": {},
+        "known_divergences_total": 0,
+        "known_failures_total": 0,
+        "fixed_here_total": 0,
+        "candidate_triage_total": 0
+      }
+    },
+    {
+      "tier": "tier2",
+      "label": "aurasphere-ftpd-lol",
+      "repo": "aurasphere/ftpd.lol",
+      "kind": "corpus",
+      "oracle_priority": "P3",
+      "corpus_priority": "P1",
+      "source": "ecosyste.ms-search-2026-03-02",
+      "status": "unverified",
+      "sync_state": "ok",
+      "sync_note": "ok:git-fallback",
+      "recovery_tracking": {
+        "initially_missing": false,
+        "recovered_from_initially_missing": false,
+        "recovery_state": "not-applicable",
+        "recovery_source": "ecosyste.ms-search-2026-03-02",
+        "recovery_basis": "none"
+      },
+      "corpus_capture": {
+        "repo_kind": "corpus",
+        "total_files": 3,
+        "sample_lol_files": 1,
+        "implementation_files": 0,
+        "capture_type": "sample-only"
+      },
+      "extraction_progress": {
+        "external_items_total": 0,
+        "external_issues_total": 0,
+        "external_prs_total": 0,
+        "candidate_repros_total": 0,
+        "candidate_runtime_safety_total": 0,
+        "candidate_language_total": 0,
+        "imported_test_cases_total": 0,
+        "triage_status_counts": {},
+        "known_divergences_total": 0,
+        "known_failures_total": 0,
+        "fixed_here_total": 0,
+        "candidate_triage_total": 0
+      }
+    },
+    {
+      "tier": "tier2",
+      "label": "nicodecastro-lolcode-interpreter",
+      "repo": "nicodecastro/lolcode-interpreter",
+      "kind": "interpreter",
+      "oracle_priority": "P2",
+      "corpus_priority": "P2",
+      "source": "ecosyste.ms-search-2026-03-02",
+      "status": "unverified",
+      "sync_state": "ok",
+      "sync_note": "ok:git-fallback",
+      "recovery_tracking": {
+        "initially_missing": false,
+        "recovered_from_initially_missing": false,
+        "recovery_state": "not-applicable",
+        "recovery_source": "ecosyste.ms-search-2026-03-02",
+        "recovery_basis": "none"
+      },
+      "corpus_capture": {
+        "repo_kind": "interpreter",
+        "total_files": 16,
+        "sample_lol_files": 11,
+        "implementation_files": 4,
+        "capture_type": "implementation+sample-code"
+      },
+      "extraction_progress": {
+        "external_items_total": 0,
+        "external_issues_total": 0,
+        "external_prs_total": 0,
+        "candidate_repros_total": 0,
+        "candidate_runtime_safety_total": 0,
+        "candidate_language_total": 0,
+        "imported_test_cases_total": 0,
+        "triage_status_counts": {},
+        "known_divergences_total": 0,
+        "known_failures_total": 0,
+        "fixed_here_total": 0,
+        "candidate_triage_total": 0
+      }
+    },
+    {
+      "tier": "tier2",
+      "label": "bernardjezua-lolcode-interpreter",
+      "repo": "bernardjezua/LOLCODE-Interpreter",
+      "kind": "interpreter",
+      "oracle_priority": "P2",
+      "corpus_priority": "P2",
+      "source": "ecosyste.ms-search-2026-03-02",
+      "status": "unverified",
+      "sync_state": "ok",
+      "sync_note": "ok:git-fallback",
+      "recovery_tracking": {
+        "initially_missing": false,
+        "recovered_from_initially_missing": false,
+        "recovery_state": "not-applicable",
+        "recovery_source": "ecosyste.ms-search-2026-03-02",
+        "recovery_basis": "none"
+      },
+      "corpus_capture": {
+        "repo_kind": "interpreter",
+        "total_files": 34,
+        "sample_lol_files": 11,
+        "implementation_files": 22,
+        "capture_type": "implementation+sample-code"
+      },
+      "extraction_progress": {
+        "external_items_total": 0,
+        "external_issues_total": 0,
+        "external_prs_total": 0,
+        "candidate_repros_total": 0,
+        "candidate_runtime_safety_total": 0,
+        "candidate_language_total": 0,
+        "imported_test_cases_total": 0,
+        "triage_status_counts": {},
+        "known_divergences_total": 0,
+        "known_failures_total": 0,
+        "fixed_here_total": 0,
+        "candidate_triage_total": 0
+      }
+    },
+    {
+      "tier": "tier2",
+      "label": "coleenagsao-python-lolcode-interpreter",
+      "repo": "coleenagsao/python-lolcode-interpreter",
+      "kind": "interpreter",
+      "oracle_priority": "P2",
+      "corpus_priority": "P2",
+      "source": "ecosyste.ms-search-2026-03-02",
+      "status": "unverified",
+      "sync_state": "ok",
+      "sync_note": "ok:git-fallback",
+      "recovery_tracking": {
+        "initially_missing": false,
+        "recovered_from_initially_missing": false,
+        "recovery_state": "not-applicable",
+        "recovery_source": "ecosyste.ms-search-2026-03-02",
+        "recovery_basis": "none"
+      },
+      "corpus_capture": {
+        "repo_kind": "interpreter",
+        "total_files": 13,
+        "sample_lol_files": 9,
+        "implementation_files": 4,
+        "capture_type": "implementation+sample-code"
+      },
+      "extraction_progress": {
+        "external_items_total": 0,
+        "external_issues_total": 0,
+        "external_prs_total": 0,
+        "candidate_repros_total": 0,
+        "candidate_runtime_safety_total": 0,
+        "candidate_language_total": 0,
+        "imported_test_cases_total": 0,
+        "triage_status_counts": {},
+        "known_divergences_total": 0,
+        "known_failures_total": 0,
+        "fixed_here_total": 0,
+        "candidate_triage_total": 0
+      }
+    },
+    {
+      "tier": "tier2",
+      "label": "markwatkinson-loljs",
+      "repo": "markwatkinson/loljs",
+      "kind": "interpreter",
+      "oracle_priority": "P2",
+      "corpus_priority": "P2",
+      "source": "shadow-mirror-search-2026-03-02",
+      "status": "unverified",
+      "sync_state": "ok",
+      "sync_note": "ok:git-fallback",
+      "recovery_tracking": {
+        "initially_missing": true,
+        "recovered_from_initially_missing": true,
+        "recovery_state": "recovered-replacement-candidate",
+        "recovery_source": "shadow-mirror-search-2026-03-02",
+        "recovery_basis": "shadow-mirror-search"
+      },
+      "corpus_capture": {
+        "repo_kind": "interpreter",
+        "total_files": 11,
+        "sample_lol_files": 2,
+        "implementation_files": 8,
+        "capture_type": "implementation+sample-code"
+      },
+      "extraction_progress": {
+        "external_items_total": 0,
+        "external_issues_total": 0,
+        "external_prs_total": 0,
+        "candidate_repros_total": 0,
+        "candidate_runtime_safety_total": 0,
+        "candidate_language_total": 0,
+        "imported_test_cases_total": 0,
+        "triage_status_counts": {},
+        "known_divergences_total": 0,
+        "known_failures_total": 0,
+        "fixed_here_total": 0,
+        "candidate_triage_total": 0
+      }
+    },
+    {
+      "tier": "tier2",
+      "label": "maadriana-lolcode-interpreter",
+      "repo": "maadriana/lolcode-interpreter",
+      "kind": "interpreter",
+      "oracle_priority": "P2",
+      "corpus_priority": "P2",
+      "source": "shadow-mirror-search-2026-03-02",
+      "status": "unverified",
+      "sync_state": "ok",
+      "sync_note": "ok:git-fallback",
+      "recovery_tracking": {
+        "initially_missing": true,
+        "recovered_from_initially_missing": true,
+        "recovery_state": "recovered-replacement-candidate",
+        "recovery_source": "shadow-mirror-search-2026-03-02",
+        "recovery_basis": "shadow-mirror-search"
+      },
+      "corpus_capture": {
+        "repo_kind": "interpreter",
+        "total_files": 19,
+        "sample_lol_files": 8,
+        "implementation_files": 8,
+        "capture_type": "implementation+sample-code"
+      },
+      "extraction_progress": {
+        "external_items_total": 0,
+        "external_issues_total": 0,
+        "external_prs_total": 0,
+        "candidate_repros_total": 0,
+        "candidate_runtime_safety_total": 0,
+        "candidate_language_total": 0,
+        "imported_test_cases_total": 0,
+        "triage_status_counts": {},
+        "known_divergences_total": 0,
+        "known_failures_total": 0,
+        "fixed_here_total": 0,
+        "candidate_triage_total": 0
+      }
+    },
+    {
+      "tier": "tier2",
+      "label": "garthendrich-lolcode-interpreter",
+      "repo": "garthendrich/lolcode-interpreter",
+      "kind": "interpreter",
+      "oracle_priority": "P2",
+      "corpus_priority": "P2",
+      "source": "shadow-mirror-search-2026-03-02",
+      "status": "unverified",
+      "sync_state": "ok",
+      "sync_note": "ok:git-fallback",
+      "recovery_tracking": {
+        "initially_missing": true,
+        "recovered_from_initially_missing": true,
+        "recovery_state": "recovered-replacement-candidate",
+        "recovery_source": "shadow-mirror-search-2026-03-02",
+        "recovery_basis": "shadow-mirror-search"
+      },
+      "corpus_capture": {
+        "repo_kind": "interpreter",
+        "total_files": 19,
+        "sample_lol_files": 9,
+        "implementation_files": 8,
+        "capture_type": "implementation+sample-code"
+      },
+      "extraction_progress": {
+        "external_items_total": 0,
+        "external_issues_total": 0,
+        "external_prs_total": 0,
+        "candidate_repros_total": 0,
+        "candidate_runtime_safety_total": 0,
+        "candidate_language_total": 0,
+        "imported_test_cases_total": 0,
+        "triage_status_counts": {},
+        "known_divergences_total": 0,
+        "known_failures_total": 0,
+        "fixed_here_total": 0,
+        "candidate_triage_total": 0
+      }
+    },
+    {
+      "tier": "tier2",
+      "label": "nfenciso1-lolcode-interpreter",
+      "repo": "nfenciso1/lolcode-interpreter",
+      "kind": "interpreter",
+      "oracle_priority": "P2",
+      "corpus_priority": "P2",
+      "source": "shadow-mirror-search-2026-03-02",
+      "status": "unverified",
+      "sync_state": "ok",
+      "sync_note": "ok:git-fallback",
+      "recovery_tracking": {
+        "initially_missing": true,
+        "recovered_from_initially_missing": true,
+        "recovery_state": "recovered-replacement-candidate",
+        "recovery_source": "shadow-mirror-search-2026-03-02",
+        "recovery_basis": "shadow-mirror-search"
+      },
+      "corpus_capture": {
+        "repo_kind": "interpreter",
+        "total_files": 29,
+        "sample_lol_files": 19,
+        "implementation_files": 10,
+        "capture_type": "implementation+sample-code"
+      },
+      "extraction_progress": {
+        "external_items_total": 0,
+        "external_issues_total": 0,
+        "external_prs_total": 0,
+        "candidate_repros_total": 0,
+        "candidate_runtime_safety_total": 0,
+        "candidate_language_total": 0,
+        "imported_test_cases_total": 0,
+        "triage_status_counts": {},
+        "known_divergences_total": 0,
+        "known_failures_total": 0,
+        "fixed_here_total": 0,
+        "candidate_triage_total": 0
+      }
+    },
+    {
+      "tier": "tier2",
+      "label": "sallysanban-lolcode-interpreter",
+      "repo": "SallySanban/LOLCODE-Interpreter",
+      "kind": "interpreter",
+      "oracle_priority": "P2",
+      "corpus_priority": "P2",
+      "source": "shadow-mirror-search-2026-03-02",
+      "status": "unverified",
+      "sync_state": "ok",
+      "sync_note": "ok:git-fallback",
+      "recovery_tracking": {
+        "initially_missing": true,
+        "recovered_from_initially_missing": true,
+        "recovery_state": "recovered-replacement-candidate",
+        "recovery_source": "shadow-mirror-search-2026-03-02",
+        "recovery_basis": "shadow-mirror-search"
+      },
+      "corpus_capture": {
+        "repo_kind": "interpreter",
+        "total_files": 14,
+        "sample_lol_files": 9,
+        "implementation_files": 4,
+        "capture_type": "implementation+sample-code"
+      },
+      "extraction_progress": {
+        "external_items_total": 0,
+        "external_issues_total": 0,
+        "external_prs_total": 0,
+        "candidate_repros_total": 0,
+        "candidate_runtime_safety_total": 0,
+        "candidate_language_total": 0,
+        "imported_test_cases_total": 0,
+        "triage_status_counts": {},
+        "known_divergences_total": 0,
+        "known_failures_total": 0,
+        "fixed_here_total": 0,
+        "candidate_triage_total": 0
+      }
+    },
+    {
+      "tier": "tier2",
+      "label": "kjdeluna-lolcode-interpreter",
+      "repo": "kjdeluna/Lolcode-Interpreter",
+      "kind": "interpreter",
+      "oracle_priority": "P3",
+      "corpus_priority": "P3",
+      "source": "shadow-mirror-search-2026-03-02",
+      "status": "unverified",
+      "sync_state": "ok",
+      "sync_note": "ok:git-fallback",
+      "recovery_tracking": {
+        "initially_missing": true,
+        "recovered_from_initially_missing": true,
+        "recovery_state": "recovered-replacement-candidate",
+        "recovery_source": "shadow-mirror-search-2026-03-02",
+        "recovery_basis": "shadow-mirror-search"
+      },
+      "corpus_capture": {
+        "repo_kind": "interpreter",
+        "total_files": 35,
+        "sample_lol_files": 0,
+        "implementation_files": 34,
+        "capture_type": "implementation-only"
+      },
+      "extraction_progress": {
+        "external_items_total": 0,
+        "external_issues_total": 0,
+        "external_prs_total": 0,
+        "candidate_repros_total": 0,
+        "candidate_runtime_safety_total": 0,
+        "candidate_language_total": 0,
+        "imported_test_cases_total": 0,
+        "triage_status_counts": {},
+        "known_divergences_total": 0,
+        "known_failures_total": 0,
+        "fixed_here_total": 0,
+        "candidate_triage_total": 0
+      }
+    },
+    {
+      "tier": "tier2",
+      "label": "yngve-lci",
+      "repo": "yngve/lci",
+      "kind": "interpreter",
+      "oracle_priority": "P2",
+      "corpus_priority": "P2",
+      "source": "ecosyste.ms-search-2026-03-02",
+      "status": "archive",
+      "sync_state": "skipped",
+      "sync_note": "archive-entry",
+      "recovery_tracking": {
+        "initially_missing": true,
+        "recovered_from_initially_missing": false,
+        "recovery_state": "initially-missing-unrecovered",
+        "recovery_source": "ecosyste.ms-search-2026-03-02",
+        "recovery_basis": "archived-candidate"
+      },
+      "corpus_capture": {
+        "repo_kind": "interpreter",
+        "total_files": 0,
+        "sample_lol_files": 0,
+        "implementation_files": 0,
+        "capture_type": "none"
+      },
+      "extraction_progress": {
+        "external_items_total": 0,
+        "external_issues_total": 0,
+        "external_prs_total": 0,
+        "candidate_repros_total": 0,
+        "candidate_runtime_safety_total": 0,
+        "candidate_language_total": 0,
+        "imported_test_cases_total": 0,
+        "triage_status_counts": {},
+        "known_divergences_total": 0,
+        "known_failures_total": 0,
+        "fixed_here_total": 0,
+        "candidate_triage_total": 0
+      }
+    }
+  ]
+}

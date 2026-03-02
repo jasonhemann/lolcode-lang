@@ -1,0 +1,2 @@
+import gui as startInterpreter
+startInterpreter
