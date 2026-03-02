@@ -1,7 +1,6 @@
 #lang racket/base
 
 (require racket/class
-         racket/bool
          racket/list
          racket/match
          racket/string
@@ -171,6 +170,10 @@
     [(number? v) (not (zero? v))]
     [(string? v) (not (string=? v ""))]
     [else #t]))
+
+(define (bool-xor a b)
+  (or (and a (not b))
+      (and (not a) b)))
 
 (define (coerce-number who v)
   (coerce-cast-number who v))
@@ -458,8 +461,8 @@
          [("EITHER OF") (lambda (lv rv) (or (lol-truthy? lv) (lol-truthy? rv)))]
          [("WON OF")
           (lambda (lv rv)
-            (xor (lol-truthy? lv)
-                 (lol-truthy? rv)))]
+            (bool-xor (lol-truthy? lv)
+                      (lol-truthy? rv)))]
          [("BOTH SAEM") (lambda (lv rv) (equal? lv rv))]
          [("DIFFRINT") (lambda (lv rv) (not (equal? lv rv)))]
          [else (raise-unsupported-op 'binary op expr)]))

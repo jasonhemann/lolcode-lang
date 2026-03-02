@@ -1,0 +1,46 @@
+{
+  "generated_at": "2026-03-02T20:00:40Z",
+  "tier": "tier3",
+  "entries": [
+    {
+      "tier": "tier3",
+      "label": "pllolcode",
+      "repo": "eggyknap/pllolcode",
+      "kind": "extension",
+      "oracle_priority": "P3",
+      "corpus_priority": "P3",
+      "source": "implementations.pdf",
+      "status": "unverified",
+      "sync_state": "ok",
+      "sync_note": "ok",
+      "recovery_tracking": {
+        "initially_missing": false,
+        "recovered_from_initially_missing": false,
+        "recovery_state": "not-applicable",
+        "recovery_source": "implementations.pdf",
+        "recovery_basis": "none"
+      },
+      "corpus_capture": {
+        "repo_kind": "extension",
+        "total_files": 2,
+        "sample_lol_files": 0,
+        "implementation_files": 0,
+        "capture_type": "metadata-only"
+      },
+      "extraction_progress": {
+        "external_items_total": 1,
+        "external_issues_total": 1,
+        "external_prs_total": 0,
+        "candidate_repros_total": 0,
+        "candidate_runtime_safety_total": 0,
+        "candidate_language_total": 0,
+        "imported_test_cases_total": 0,
+        "triage_status_counts": {},
+        "known_divergences_total": 0,
+        "known_failures_total": 0,
+        "fixed_here_total": 0,
+        "candidate_triage_total": 0
+      }
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "name": "lolcode",
+  "version": "0.1.2",
+  "description": "Parse LOLCODE to JavaScript",
+  "main": "app.js",
+  "dependencies": {
+    "minimist": "^1.2.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NullDev/I-HAS-JS.git"
+  },
+  "maintainers": [
+    {
+      "name": "NullDev",
+      "email": "admin@nulldev.org",
+      "web": "nulldev.org"
+    }
+  ],
+  "keywords": [
+    "LOLCODE",
+    "parser",
+    "interpreter",
+    "esolang",
+    "esoteric",
+    "language",
+    "lol"
+  ],
+  "author": "NullDev",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/NullDev/I-HAS-JS/issues"
+  },
+  "homepage": "https://github.com/NullDev/I-HAS-JS#readme"
+}

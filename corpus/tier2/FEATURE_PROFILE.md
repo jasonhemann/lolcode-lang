@@ -1,6 +1,6 @@
 # tier2 Feature Profile
 
-Generated: `2026-03-02T15:57:32Z`
+Generated: `2026-03-02T19:57:07Z`
 
 ## Recovery + Extraction Summary
 
@@ -1180,7 +1180,7 @@ Generated: `2026-03-02T15:57:32Z`
 - Capture type: `implementation+sample-code`
 - Captured implementation files: `4`
 - LOLCODE files: `9`
-- Total LOLCODE lines: `262`
+- Total LOLCODE lines: `0`
 - Bugs extracted (candidate repro items): `0`
 - Test cases extracted (imported fixtures): `0`
 - Known failures (triaged unresolved): `0`
@@ -1188,35 +1188,6 @@ Generated: `2026-03-02T15:57:32Z`
 
 | Construct | Count |
 | --- | ---: |
-| `IM IN YR` | 2 |
-| `IM OUTTA YR` | 2 |
-| `UPPIN YR` | 1 |
-| `NERFIN YR` | 1 |
-| `TIL` | 1 |
-| `WILE` | 1 |
-| `O RLY\?` | 2 |
-| `YA RLY` | 2 |
-| `MEBBE` | 6 |
-| `NO WAI` | 1 |
-| `OIC` | 3 |
-| `WTF\?` | 1 |
-| `OMGWTF` | 1 |
-| `OMG ` | 4 |
-| `SMOOSH` | 3 |
-| `MAEK` | 1 |
-| `IS NOW A` | 1 |
-| `I HAS A` | 25 |
-| `HAS A` | 25 |
-| `GIMMEH` | 18 |
-| `VISIBLE` | 100 |
-| `BOTH SAEM` | 9 |
-| `DIFFRINT` | 4 |
-| `BOTH OF` | 9 |
-| `EITHER OF` | 9 |
-| `WON OF` | 3 |
-| `ALL OF` | 3 |
-| `ANY OF` | 6 |
-| `NOT` | 12 |
 
 ## kjdeluna-lolcode-interpreter
 

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-02T15:57:32Z",
+  "generated_at": "2026-03-02T19:57:07Z",
   "tier": "tier2",
   "entries": [
     {
@@ -12,7 +12,7 @@
       "source": "implementations.pdf",
       "status": "unverified",
       "sync_state": "ok",
-      "sync_note": "ok:git-fallback",
+      "sync_note": "ok",
       "recovery_tracking": {
         "initially_missing": false,
         "recovered_from_initially_missing": false,
@@ -52,7 +52,7 @@
       "source": "implementations.pdf",
       "status": "unverified",
       "sync_state": "ok",
-      "sync_note": "ok:git-fallback",
+      "sync_note": "ok",
       "recovery_tracking": {
         "initially_missing": false,
         "recovered_from_initially_missing": false,
@@ -92,7 +92,7 @@
       "source": "implementations.pdf",
       "status": "unverified",
       "sync_state": "ok",
-      "sync_note": "ok:git-fallback",
+      "sync_note": "ok",
       "recovery_tracking": {
         "initially_missing": false,
         "recovered_from_initially_missing": false,
@@ -132,7 +132,7 @@
       "source": "implementations.pdf",
       "status": "unverified",
       "sync_state": "ok",
-      "sync_note": "ok:git-fallback",
+      "sync_note": "ok",
       "recovery_tracking": {
         "initially_missing": false,
         "recovered_from_initially_missing": false,
@@ -172,7 +172,7 @@
       "source": "implementations.pdf",
       "status": "unverified",
       "sync_state": "ok",
-      "sync_note": "ok:git-fallback",
+      "sync_note": "ok:partial:8",
       "recovery_tracking": {
         "initially_missing": false,
         "recovered_from_initially_missing": false,
@@ -214,7 +214,7 @@
       "source": "manual",
       "status": "seeded",
       "sync_state": "ok",
-      "sync_note": "ok:git-fallback",
+      "sync_note": "ok",
       "recovery_tracking": {
         "initially_missing": false,
         "recovered_from_initially_missing": false,
@@ -256,7 +256,7 @@
       "source": "manual",
       "status": "seeded",
       "sync_state": "ok",
-      "sync_note": "ok:git-fallback",
+      "sync_note": "ok",
       "recovery_tracking": {
         "initially_missing": false,
         "recovered_from_initially_missing": false,
@@ -296,7 +296,7 @@
       "source": "manual",
       "status": "seeded",
       "sync_state": "ok",
-      "sync_note": "ok:git-fallback",
+      "sync_note": "ok",
       "recovery_tracking": {
         "initially_missing": false,
         "recovered_from_initially_missing": false,
@@ -336,7 +336,7 @@
       "source": "manual",
       "status": "seeded",
       "sync_state": "ok",
-      "sync_note": "ok:git-fallback",
+      "sync_note": "ok",
       "recovery_tracking": {
         "initially_missing": false,
         "recovered_from_initially_missing": false,
@@ -376,7 +376,7 @@
       "source": "ecosyste.ms-topic-lolcode-2026-03-02",
       "status": "unverified",
       "sync_state": "ok",
-      "sync_note": "ok:git-fallback",
+      "sync_note": "ok",
       "recovery_tracking": {
         "initially_missing": false,
         "recovered_from_initially_missing": false,
@@ -416,7 +416,7 @@
       "source": "ecosyste.ms-topic-lolcode-2026-03-02",
       "status": "unverified",
       "sync_state": "ok",
-      "sync_note": "ok:git-fallback",
+      "sync_note": "ok",
       "recovery_tracking": {
         "initially_missing": false,
         "recovered_from_initially_missing": false,
@@ -456,7 +456,7 @@
       "source": "ecosyste.ms-topic-lolcode-2026-03-02",
       "status": "unverified",
       "sync_state": "ok",
-      "sync_note": "ok:git-fallback",
+      "sync_note": "ok",
       "recovery_tracking": {
         "initially_missing": false,
         "recovered_from_initially_missing": false,
@@ -496,7 +496,7 @@
       "source": "ecosyste.ms-topic-lolcode-2026-03-02",
       "status": "unverified",
       "sync_state": "ok",
-      "sync_note": "ok:git-fallback",
+      "sync_note": "ok",
       "recovery_tracking": {
         "initially_missing": false,
         "recovered_from_initially_missing": false,
@@ -536,7 +536,7 @@
       "source": "ecosyste.ms-topic-lolcode-2026-03-02",
       "status": "unverified",
       "sync_state": "ok",
-      "sync_note": "ok:git-fallback",
+      "sync_note": "ok",
       "recovery_tracking": {
         "initially_missing": false,
         "recovered_from_initially_missing": false,
@@ -576,7 +576,7 @@
       "source": "ecosyste.ms-topic-lolcode-2026-03-02",
       "status": "unverified",
       "sync_state": "ok",
-      "sync_note": "ok:git-fallback",
+      "sync_note": "ok",
       "recovery_tracking": {
         "initially_missing": false,
         "recovered_from_initially_missing": false,
@@ -976,7 +976,7 @@
       "source": "ecosyste.ms-search-2026-03-02",
       "status": "unverified",
       "sync_state": "ok",
-      "sync_note": "ok:git-fallback",
+      "sync_note": "ok",
       "recovery_tracking": {
         "initially_missing": false,
         "recovered_from_initially_missing": false,
@@ -1016,7 +1016,7 @@
       "source": "ecosyste.ms-search-2026-03-02",
       "status": "unverified",
       "sync_state": "ok",
-      "sync_note": "ok:git-fallback",
+      "sync_note": "ok:partial:4",
       "recovery_tracking": {
         "initially_missing": false,
         "recovered_from_initially_missing": false,
@@ -1056,7 +1056,7 @@
       "source": "ecosyste.ms-search-2026-03-02",
       "status": "unverified",
       "sync_state": "ok",
-      "sync_note": "ok:git-fallback",
+      "sync_note": "ok",
       "recovery_tracking": {
         "initially_missing": false,
         "recovered_from_initially_missing": false,
@@ -1096,7 +1096,7 @@
       "source": "ecosyste.ms-search-2026-03-02",
       "status": "unverified",
       "sync_state": "ok",
-      "sync_note": "ok:git-fallback",
+      "sync_note": "ok",
       "recovery_tracking": {
         "initially_missing": false,
         "recovered_from_initially_missing": false,
@@ -1136,7 +1136,7 @@
       "source": "shadow-mirror-search-2026-03-02",
       "status": "unverified",
       "sync_state": "ok",
-      "sync_note": "ok:git-fallback",
+      "sync_note": "ok",
       "recovery_tracking": {
         "initially_missing": true,
         "recovered_from_initially_missing": true,
@@ -1176,7 +1176,7 @@
       "source": "shadow-mirror-search-2026-03-02",
       "status": "unverified",
       "sync_state": "ok",
-      "sync_note": "ok:git-fallback",
+      "sync_note": "ok",
       "recovery_tracking": {
         "initially_missing": true,
         "recovered_from_initially_missing": true,
@@ -1216,7 +1216,7 @@
       "source": "shadow-mirror-search-2026-03-02",
       "status": "unverified",
       "sync_state": "ok",
-      "sync_note": "ok:git-fallback",
+      "sync_note": "ok",
       "recovery_tracking": {
         "initially_missing": true,
         "recovered_from_initially_missing": true,
@@ -1256,7 +1256,7 @@
       "source": "shadow-mirror-search-2026-03-02",
       "status": "unverified",
       "sync_state": "ok",
-      "sync_note": "ok:git-fallback",
+      "sync_note": "ok",
       "recovery_tracking": {
         "initially_missing": true,
         "recovered_from_initially_missing": true,
@@ -1296,7 +1296,7 @@
       "source": "shadow-mirror-search-2026-03-02",
       "status": "unverified",
       "sync_state": "ok",
-      "sync_note": "ok:git-fallback",
+      "sync_note": "ok:partial:14",
       "recovery_tracking": {
         "initially_missing": true,
         "recovered_from_initially_missing": true,
@@ -1336,7 +1336,7 @@
       "source": "shadow-mirror-search-2026-03-02",
       "status": "unverified",
       "sync_state": "ok",
-      "sync_note": "ok:git-fallback",
+      "sync_note": "ok",
       "recovery_tracking": {
         "initially_missing": true,
         "recovered_from_initially_missing": true,

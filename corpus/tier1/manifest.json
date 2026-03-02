@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-02T15:51:22Z",
+  "generated_at": "2026-03-02T20:00:40Z",
   "tier": "tier1",
   "entries": [
     {
@@ -11,8 +11,8 @@
       "corpus_priority": "P2",
       "source": "implementations.pdf",
       "status": "unverified",
-      "sync_state": "failed",
-      "sync_note": "failed:metadata-fetch",
+      "sync_state": "ok",
+      "sync_note": "ok",
       "recovery_tracking": {
         "initially_missing": false,
         "recovered_from_initially_missing": false,
@@ -22,10 +22,10 @@
       },
       "corpus_capture": {
         "repo_kind": "interpreter",
-        "total_files": 0,
-        "sample_lol_files": 0,
-        "implementation_files": 0,
-        "capture_type": "none"
+        "total_files": 332,
+        "sample_lol_files": 328,
+        "implementation_files": 2,
+        "capture_type": "implementation+sample-code"
       },
       "extraction_progress": {
         "external_items_total": 86,
@@ -53,8 +53,8 @@
       "corpus_priority": "P1",
       "source": "implementations.pdf",
       "status": "unverified",
-      "sync_state": "failed",
-      "sync_note": "failed:metadata-fetch",
+      "sync_state": "ok",
+      "sync_note": "ok",
       "recovery_tracking": {
         "initially_missing": false,
         "recovered_from_initially_missing": false,
@@ -64,10 +64,10 @@
       },
       "corpus_capture": {
         "repo_kind": "interpreter",
-        "total_files": 0,
-        "sample_lol_files": 0,
-        "implementation_files": 0,
-        "capture_type": "none"
+        "total_files": 19,
+        "sample_lol_files": 10,
+        "implementation_files": 7,
+        "capture_type": "implementation+sample-code"
       },
       "extraction_progress": {
         "external_items_total": 0,
@@ -93,8 +93,8 @@
       "corpus_priority": "P1",
       "source": "implementations.pdf",
       "status": "unverified",
-      "sync_state": "failed",
-      "sync_note": "failed:metadata-fetch",
+      "sync_state": "ok",
+      "sync_note": "ok",
       "recovery_tracking": {
         "initially_missing": false,
         "recovered_from_initially_missing": false,
@@ -104,10 +104,10 @@
       },
       "corpus_capture": {
         "repo_kind": "interpreter",
-        "total_files": 0,
-        "sample_lol_files": 0,
-        "implementation_files": 0,
-        "capture_type": "none"
+        "total_files": 9,
+        "sample_lol_files": 2,
+        "implementation_files": 5,
+        "capture_type": "implementation+sample-code"
       },
       "extraction_progress": {
         "external_items_total": 4,
@@ -133,8 +133,8 @@
       "corpus_priority": "P2",
       "source": "implementations.pdf",
       "status": "unverified",
-      "sync_state": "failed",
-      "sync_note": "failed:metadata-fetch",
+      "sync_state": "ok",
+      "sync_note": "ok",
       "recovery_tracking": {
         "initially_missing": false,
         "recovered_from_initially_missing": false,
@@ -144,10 +144,10 @@
       },
       "corpus_capture": {
         "repo_kind": "compiler",
-        "total_files": 0,
-        "sample_lol_files": 0,
-        "implementation_files": 0,
-        "capture_type": "none"
+        "total_files": 103,
+        "sample_lol_files": 12,
+        "implementation_files": 89,
+        "capture_type": "implementation+sample-code"
       },
       "extraction_progress": {
         "external_items_total": 9,
