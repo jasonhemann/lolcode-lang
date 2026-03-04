@@ -116,11 +116,10 @@
 
 (define (source-line-text line)
   (define lines (current-source-lines))
-  (if (and (vector? lines)
-           (<= 1 line)
-           (<= line (vector-length lines)))
-      (vector-ref lines (- line 1))
-      #f))
+    (and (vector? lines)
+		 (<= 1 line)
+         (<= line (vector-length lines))
+		 (vector-ref lines (- line 1))))
 
 (define (source-caret col line-text)
   (define line-len (string-length line-text))
@@ -188,11 +187,37 @@
   (match target
     [(list 'function name)
      (expr-call name args)]
-    [(list 'namespace ns-name method-name)
-     ;; Namespace/library calls like `I IZ STRING'Z LEN ...` compile to
-     ;; function-name dispatch while we keep runtime library support separate.
-     (expr-call (format "~a'Z ~a" ns-name method-name) args)]
+    [(list 'method receiver method-name)
+     ;; Namespace-style calls dispatch as method calls first and fall back to
+     ;; runtime namespace functions when receiver binding is absent.
+     (expr-method-call receiver method-name args)]
     [_ (error 'parse-source "invalid call target: ~e" target)]))
+
+(define (build-static-slot-chain base names)
+  (for/fold ([obj base]) ([name (in-list names)])
+    (expr-slot obj (expr-ident name))))
+
+(define (call-slot-chain->target base names)
+  (define n (length names))
+  (when (< n 1)
+    (error 'parse-source "invalid call slot chain"))
+  (define receiver
+    (build-static-slot-chain base (take names (sub1 n))))
+  (define method-name (last names))
+  (list 'method receiver method-name))
+
+(define (call-target-from-ident name maybe-slots)
+  (if maybe-slots
+      (call-slot-chain->target (id->expr name) maybe-slots)
+      (list 'function name)))
+
+(define (loop-update->spec target var-name)
+  (match target
+    [(list 'function fn-name)
+     (cons var-name (list 'FUNC fn-name))]
+    [_ (error 'parse-source
+              "loop updater call must target a function name, got ~e"
+              target)]))
 
 (define (normalize-import-name lib)
   (if (and (positive? (string-length lib))
@@ -205,32 +230,26 @@
        (string-ci=? (token-lexeme t) text)))
 
 (define (collapse-phrase-tokens raws [acc '()])
-  (cond
-    [(null? raws) (reverse acc)]
-    [(and (pair? (cdr raws))
-          (word-token-ci=? (car raws) "IM")
-          (word-token-ci=? (cadr raws) "IN")
-          (= (token-line (car raws))
-             (token-line (cadr raws))))
-     (define t (car raws))
+  (match raws
+    ['() (reverse acc)]
+    [`(,t1 ,t2 ., rest)
+     #:when (and (word-token-ci=? t1 "IM")
+                 (word-token-ci=? t2 "IN")
+                 (= (token-line t1) (token-line t2)))
      (collapse-phrase-tokens
-      (cddr raws)
-      (cons (token 'WORD "IMIN" (token-line t) (token-col t))
+      rest
+      (cons (token 'WORD "IMIN" (token-line t1) (token-col t1))
             acc))]
-    [(and (pair? (cdr raws))
-          (word-token-ci=? (car raws) "IM")
-          (word-token-ci=? (cadr raws) "OUTTA")
-          (= (token-line (car raws))
-             (token-line (cadr raws))))
-     (define t (car raws))
+    [`(,t1 ,t2 . ,rest)
+     #:when (and (word-token-ci=? t1 "IM")
+                 (word-token-ci=? t2 "OUTTA")
+                 (= (token-line t1) (token-line t2)))
      (collapse-phrase-tokens
-      (cddr raws)
-      (cons (token 'WORD "IMOUTTA" (token-line t) (token-col t))
+      rest
+      (cons (token 'WORD "IMOUTTA" (token-line t1) (token-col t1))
             acc))]
-    [else
-     (collapse-phrase-tokens
-      (cdr raws)
-      (cons (car raws) acc))]))
+    [`(,t . ,rest)
+     (collapse-phrase-tokens rest (cons t acc))]))
 
 (define (line-has-legacy-variadic? line-toks)
   (cond
@@ -275,6 +294,138 @@
           '()
           (append out (inject-line-mkay line) (list t)))
          (insert-missing-mkay-tokens
+         (cdr raws)
+         (append line (list t))
+         out))]))
+
+(define (raw-atom-token? t)
+  (case (token-type t)
+    [(NUMBER STRING) #t]
+    [(WORD)
+     (not (hash-ref keyword-token-ctors
+                    (string-upcase (token-lexeme t))
+                    #f))]
+    [else #f]))
+
+(define (rewrite-smoosh-line line-toks)
+  (let loop ([prefix '()] [rest line-toks])
+    (cond
+      [(null? rest)
+       (append (reverse prefix) rest)]
+      [(word-token-ci=? (car rest) "SMOOSH")
+       (define sm (car rest))
+       (define suffix (cdr rest))
+       (define-values (args tail)
+         (let gather ([remaining suffix] [acc '()])
+           (cond
+             [(null? remaining)
+              (values (reverse acc) '())]
+             [(word-token-ci=? (car remaining) "MKAY")
+              (values (reverse acc) remaining)]
+             [else
+              (gather (cdr remaining) (cons (car remaining) acc))])))
+       (define rewritten-rest
+         (if (and (>= (length args) 3)
+                  (not (for/or ([a (in-list args)])
+                         (word-token-ci=? a "AN")))
+                  (andmap raw-atom-token? args))
+             (let build ([remaining args] [idx 0] [out '()])
+               (cond
+                 [(null? remaining) (reverse out)]
+                 [else
+                  (define arg (car remaining))
+                  (if (>= idx 2)
+                      (build (cdr remaining)
+                             (+ idx 1)
+                             (cons arg
+                                   (cons (token 'WORD
+                                                "AN"
+                                                (token-line arg)
+                                                (max 1 (- (token-col arg) 3)))
+                                         out)))
+                      (build (cdr remaining)
+                             (+ idx 1)
+                             (cons arg out)))]))
+             args))
+       (append (reverse prefix) (list sm) rewritten-rest tail)]
+      [else
+       (loop (cons (car rest) prefix) (cdr rest))])))
+
+(define (rewrite-smoosh-no-an-raws raws [line '()] [out '()])
+  (cond
+    [(null? raws)
+     (append out (rewrite-smoosh-line line))]
+    [else
+     (define t (car raws))
+     (if (eq? (token-type t) 'NEWLINE)
+         (rewrite-smoosh-no-an-raws
+          (cdr raws)
+          '()
+          (append out (rewrite-smoosh-line line) (list t)))
+         (rewrite-smoosh-no-an-raws
+          (cdr raws)
+          (append line (list t))
+          out))]))
+
+(define (insert-optional-an-separators args)
+  (let loop ([remaining args] [idx 0] [out '()])
+    (cond
+      [(null? remaining) (reverse out)]
+      [else
+       (define arg (car remaining))
+       (if (zero? idx)
+           (loop (cdr remaining)
+                 (add1 idx)
+                 (cons arg out))
+           (loop (cdr remaining)
+                 (add1 idx)
+                 (cons arg
+                       (cons (token 'WORD
+                                    "AN"
+                                    (token-line arg)
+                                    (max 1 (- (token-col arg) 3)))
+                             out))))])))
+
+(define (rewrite-visible-line line-toks)
+  (cond
+    [(or (null? line-toks)
+         (not (word-token-ci=? (car line-toks) "VISIBLE")))
+     line-toks]
+    [else
+     (define visible-tok (car line-toks))
+     (define body (cdr line-toks))
+     (define has-trailing-bang?
+       (and (pair? body)
+            (word-token-ci=? (last body) "!")))
+     (define args
+       (if has-trailing-bang?
+           (drop-right body 1)
+           body))
+     (define trailing
+       (if has-trailing-bang?
+           (list (last body))
+           '()))
+     (if (and (>= (length args) 2)
+              (not (for/or ([a (in-list args)])
+                     (word-token-ci=? a "AN")))
+              (andmap raw-atom-token? args))
+         (append (list visible-tok)
+                 (insert-optional-an-separators args)
+                 trailing)
+         line-toks)]))
+
+(define (rewrite-visible-no-an-raws raws [line '()] [out '()])
+  (cond
+    [(null? raws)
+     (append out (rewrite-visible-line line))]
+    [else
+     (define t (car raws))
+     (if (eq? (token-type t) 'NEWLINE)
+         (rewrite-visible-no-an-raws
+          (cdr raws)
+          '()
+          (append out (rewrite-visible-line line) (list t)))
+         (rewrite-visible-no-an-raws
           (cdr raws)
           (append line (list t))
           out))]))
@@ -294,11 +445,10 @@
     [(WORD)
      (define lex-upcase (string-upcase lex))
      (define ctor
-       (if (or (string=? lex "a")
-               (string=? lex "i"))
-           #f
-           (and (string=? lex lex-upcase)
-                (hash-ref keyword-token-ctors lex-upcase #f))))
+       (and (not (string=? lex "a"))
+			(not (string=? lex "i"))
+			(string=? lex lex-upcase)
+            (hash-ref keyword-token-ctors lex-upcase #f)))
      (if ctor
          (ctor)
          (token-ID lex))]
@@ -319,8 +469,8 @@
    (end EOF)
    (tokens value-tokens op-tokens)
    (src-pos)
-   (expected-SR-conflicts 49)
-   (expected-RR-conflicts 51)
+   (expected-SR-conflicts 40)
+   (expected-RR-conflicts 30)
    (error
     (lambda (tok-ok? tok-name tok-value start-pos end-pos)
       (raise-parse-error tok-name tok-value start-pos)))
@@ -360,6 +510,7 @@
      [(if-stmt) $1]
      [(switch-stmt) $1]
      [(function-stmt) $1]
+     [(method-stmt) $1]
      [(object-stmt) $1]
      [(declare-stmt) $1]
      [(assign-stmt) $1]
@@ -374,6 +525,7 @@
 
     (declare-stmt
      [(I HAS A declare-target declare-init-opt) (stmt-declare $4 $5)]
+     [(I HAS AN declare-target declare-init-opt) (stmt-declare $4 $5)]
      [(I HAS declare-target declare-init-opt) (stmt-declare $3 $4)])
 
     (declare-target
@@ -398,7 +550,10 @@
      [(CAN HAS ID) (stmt-import (normalize-import-name $3))])
 
     (slot-set-stmt
+     [(expr HAS A slot-target) (stmt-slot-set $1 $4 #f)]
+     [(expr HAS AN slot-target) (stmt-slot-set $1 $4 #f)]
      [(expr HAS A slot-target ITZ expr) (stmt-slot-set $1 $4 $6)]
+     [(expr HAS AN slot-target ITZ expr) (stmt-slot-set $1 $4 $6)]
      [(expr HAS A slot-target ITZ A ID) (stmt-slot-set $1 $4 (expr-ident $7))])
 
     (slot-target
@@ -407,24 +562,7 @@
 
     (visible-stmt
      [(VISIBLE visible-args) (stmt-visible $2 #f)]
-     [(VISIBLE visible-inline-args) (stmt-visible $2 #f)]
-     [(VISIBLE visible-inline-args BANG) (stmt-visible $2 #t)]
      [(VISIBLE visible-args BANG) (stmt-visible $2 #t)])
-
-    (visible-inline-args
-     [(inline-arg inline-arg visible-inline-tail)
-      (cons $1 (cons $2 $3))])
-
-    (visible-inline-tail
-     [() '()]
-     [(inline-arg visible-inline-tail) (cons $1 $2)])
-
-    (inline-arg
-     [(NUMBER) (expr-number $1)]
-     [(STRING) (expr-string $1)]
-     [(ident-token) (id->expr $1)]
-     [(SRS expr) (expr-srs $2)]
-     [(I IZ call-target call-args MKAY) (call-target->expr $3 $4)])
 
     (visible-args
      [(expr) (list $1)]
@@ -469,7 +607,8 @@
     (loop-update-opt
      [() (cons #f #f)]
      [(UPPIN YR ident-token) (cons $3 "UPPIN")]
-     [(NERFIN YR ident-token) (cons $3 "NERFIN")])
+     [(NERFIN YR ident-token) (cons $3 "NERFIN")]
+     [(I IZ call-target YR ident-token MKAY) (loop-update->spec $3 $5)])
 
     (loop-cond-opt
      [() (cons #f #f)]
@@ -494,16 +633,33 @@
      [(OMGWTF nlopt statement-list-opt) $3])
 
     (function-stmt
-     [(HOW IZ I ID arg-def-opt nlopt statement-list-opt IF U SAY SO)
+     [(HOW IZ I name-spec arg-def-opt nlopt statement-list-opt IF U SAY SO)
       (stmt-function-def $4 $5 $7)])
+
+    (method-stmt
+     [(HOW IZ method-receiver name-spec arg-def-opt nlopt statement-list-opt IF U SAY SO)
+      (stmt-method-def $3 $4 $5 $7)])
 
     (arg-def-opt
      [() '()]
-     [(YR ID arg-def-more) (cons $2 $3)])
+     [(YR name-spec arg-def-more) (cons $2 $3)])
 
     (arg-def-more
      [() '()]
-     [(AN YR ID arg-def-more) (cons $3 $4)])
+     [(AN YR name-spec arg-def-more) (cons $3 $4)])
+
+    (name-spec
+     [(ident-token) $1]
+     [(SRS expr) (expr-srs $2)])
+
+    (method-receiver
+     [(ident-token receiver-slot-tail) ($2 (id->expr $1))]
+     [(SRS expr-no-postfix receiver-slot-tail) ($3 (expr-srs $2))])
+
+    (receiver-slot-tail
+     [() (lambda (base) base)]
+     [(SLOT slot-ref receiver-slot-tail)
+      (lambda (base) ($3 (expr-slot base $2)))])
 
     (object-stmt
      [(O HAI IM ID object-parent-opt nlopt statement-list-opt KTHX)
@@ -521,6 +677,11 @@
 
     (expr-stmt
      [(I IZ call-target call-args MKAY) (stmt-expr (call-target->expr $3 $4))]
+     [(ident-token IZ ID call-args MKAY)
+      (stmt-expr (expr-method-call (id->expr $1) $3 $4))]
+     [(NUMBER) (stmt-expr (expr-number $1))]
+     [(STRING) (stmt-expr (expr-string $1))]
+     [(ident-token) (stmt-expr (id->expr $1))]
      [(bin-expr) (stmt-expr $1)]
      [(logic-variadic-expr) (stmt-expr $1)]
      [(smoosh-expr) (stmt-expr $1)]
@@ -547,6 +708,7 @@
      [(STRING) (expr-string $1)]
      [(ident-token) (id->expr $1)]
      [(SRS expr) (expr-srs $2)]
+     [(LIEK A expr) (expr-clone $3)]
      [(NOT expr) (expr-unary "NOT" $2)]
      [(MAEK expr A ID) (expr-cast $2 $4)]
      [(MAEK expr ID) (expr-cast $2 $3)]
@@ -563,6 +725,7 @@
      [(NUMBER) (expr-number $1)]
      [(STRING) (expr-string $1)]
      [(SRS expr-no-postfix) (expr-srs $2)]
+     [(LIEK A expr) (expr-clone $3)]
      [(NOT expr) (expr-unary "NOT" $2)]
      [(MAEK expr A ID) (expr-cast $2 $4)]
      [(MAEK expr ID) (expr-cast $2 $3)]
@@ -572,8 +735,18 @@
      [(smoosh-expr) $1])
 
     (call-target
-     [(ident-token) (list 'function $1)]
-     [(ident-token SLOT ident-token) (list 'namespace $1 $3)])
+     [(ident-token call-target-tail)
+      (call-target-from-ident $1 $2)]
+     [(SRS expr) (list 'function (expr-srs $2))]
+     )
+
+    (call-target-tail
+     [() #f]
+     [(call-slot-chain) $1])
+
+    (call-slot-chain
+     [(SLOT ident-token) (list $2)]
+     [(SLOT ident-token call-slot-chain) (cons $2 $3)])
 
     (ident-token
      [(ID) $1]
@@ -640,7 +813,9 @@
     (raise-argument-error 'parse-source "string?" source))
   (define normalized-raws
     (insert-missing-mkay-tokens
-     (collapse-phrase-tokens (lex-source source))))
+     (rewrite-visible-no-an-raws
+      (rewrite-smoosh-no-an-raws
+       (collapse-phrase-tokens (lex-source source))))))
   (define toks
     (map raw->position-token normalized-raws))
   (define idx 0)
