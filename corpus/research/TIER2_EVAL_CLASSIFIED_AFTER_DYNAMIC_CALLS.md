@@ -1,6 +1,6 @@
 # Tier2 Classified Eval Snapshot
 
-Generated: `Monday, March 2nd, 2026 6:31:58pm`
+Generated: `Monday, March 2nd, 2026 5:55:59pm`
 
 - Corpus root: `corpus/tier2`
 - Timeout seconds: `2.0`
@@ -19,23 +19,23 @@ Generated: `Monday, March 2nd, 2026 6:31:58pm`
 
 ### Outcome Counts (All Files)
 
-- `parse-error`: `165`
+- `parse-error`: `168`
 - `non-program`: `39`
-- `ok`: `11`
+- `ok`: `8`
 - `lex-error`: `6`
 - `runtime-error`: `2`
 
 ### Outcome Counts (Likely Programs)
 
-- `parse-error`: `165`
-- `ok`: `11`
+- `parse-error`: `168`
+- `ok`: `8`
 - `lex-error`: `6`
 - `runtime-error`: `2`
 
 ### Top Messages (Likely Programs)
 
 - `parse-source: syntax error: unexpected NEWLINE at line 1, col 4`: `95`
-- `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)`: `42`
+- `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)`: `41`
 - `parse-source: syntax error: unexpected NEWLINE at line 2, col 4`: `9`
 - `parse-source: unsupported version: 1.4 (this implementation only accepts HAI 1.3)`: `4`
 - `lex-source: unterminated string literal at line 6, col 27`: `3`
@@ -51,10 +51,14 @@ Generated: `Monday, March 2nd, 2026 6:31:58pm`
 - `parse-source: syntax error: unexpected IZ at line 8, col 3`: `1`
 - `parse-source: syntax error: unexpected ID ("NOES") at line 6, col 5`: `1`
 - `parse-source: syntax error: unexpected STRING ("Dear reader") at line 1, col 5`: `1`
+- `parse-source: syntax error: unexpected HAS at line 18, col 30`: `1`
+- `parse-source: syntax error: unexpected HAS at line 8, col 32`: `1`
 - `parse-source: syntax error: unexpected STRING ("This iz teh test") at line 1, col 5`: `1`
 - `parse-source: syntax error: unexpected NEWLINE at line 1, col 5`: `1`
 - `parse-source: syntax error: unexpected NEWLINE at line 167, col 37`: `1`
+- `parse-source: syntax error: unexpected HAS at line 30, col 36`: `1`
 - `run-program: unknown identifier: MEMLIMIT`: `1`
+- `parse-source: syntax error: unexpected HAS at line 14, col 28`: `1`
 
 ## Sample Error Rows
 

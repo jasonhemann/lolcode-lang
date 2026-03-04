@@ -38,7 +38,7 @@ Last updated: 2026-03-02
 
 | Area                             | Status  | Notes                                                                                                                                                                                    |
 |----------------------------------|---------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Standalone expression statements | Partial | Only direct function-call statement form (`I IZ ... MKAY`) is accepted as a statement. Generic bare expressions and bare method-call statements are not fully opened as statement forms. |
+| Standalone expression statements | Implemented | Statement-position expressions now compile via full `expr` grammar, including postfix slot/method forms that feed `IT` for subsequent `O RLY?` usage. |
 | Parser conflict profile          | Partial | Grammar currently runs with expected reduce/reduce conflicts (`3`). Functional behavior is tested, but grammar shape still has technical debt.                                           |
 | YARN escape surface              | Partial | Implemented escapes include `::`, `:\"`, `:)`, `:>`, `:o`. More advanced string template semantics are not fully implemented (see next section).                                         |
 
@@ -49,7 +49,17 @@ Last updated: 2026-03-02
 | Full YARN interpolation semantics (for example `:{name}`)                   | Not implemented         | Patterns appear in tier-2 corpus examples, but current lexer/runtime do not evaluate interpolation placeholders. |
 | Extended YARN codepoint/escape variants beyond current set                  | Not implemented         | Current lexer escape handling is limited to a core subset.                                                       |
 | `WAZZUP` / `BUHBYE` variable-block delimiters                               | Out of spec             | Not present in archived 1.1 nor official 1.2/1.3 specs; treat as non-normative dialect syntax from third-party implementations. |
+| Relaxed YARN-to-number casts (`"123x"`, `" 123"`, octal/hex prefixes)      | Out of spec             | Strict 1.2/1.3 cast rules require numeric strings to be valid numeric literals; partial/relaxed parsing is intentionally rejected. See `corpus/research/RELAXED_CAST_SPEC_NOTE_2026-03-02.md`. |
 | 1.4 library/import model (`CAN HAS ...?`, library-qualified extension APIs) | Deferred / Out of scope | See `corpus/research/SPEC_1_4_EXTENSION_STATUS.md`.                                                              |
+
+## Intentional strict-1.3 corpus rejects
+
+- LCI integer relaxed cast sample:
+  `corpus/tier1/lci/files/test/1.3-Tests/7-Operators/17-ExplicitCast/3-ToInteger/5-FromString/4-RelaxedNumbers/test.lol`
+- LCI float relaxed cast sample:
+  `corpus/tier1/lci/files/test/1.3-Tests/7-Operators/17-ExplicitCast/4-ToFloat/5-FromString/4-RelaxedNumbers/test.lol`
+- Both are tracked as non-normative test expectations; see
+  `corpus/research/RELAXED_CAST_SPEC_NOTE_2026-03-02.md`.
 
 ## Why this snapshot is reliable
 
