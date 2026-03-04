@@ -58,6 +58,13 @@
    'scan-string-tail!/codepoint/invalid-hex
    'scan-string-tail!/codepoint/invalid-range
    'scan-string-tail!/codepoint/char
+   'scan-string-tail!/normative/eof
+   'scan-string-tail!/normative/newline
+   'scan-string-tail!/normative/end
+   'scan-string-tail!/normative/char
+   'scan-string-tail!/normative/empty
+   'scan-string-tail!/normative/invalid-char
+   'scan-string-tail!/normative/unknown-name
    'scan-string-tail!/eof
    'scan-string-tail!/newline
    'scan-string-tail!/escaped-colon
@@ -67,6 +74,7 @@
    'scan-string-tail!/escaped-tab
    'scan-string-tail!/escaped-bell
    'scan-string-tail!/escaped-codepoint
+   'scan-string-tail!/escaped-normative
    'scan-string-tail!/escaped-placeholder
    'scan-string-tail!/escaped-unknown
    'scan-string-tail!/start-escape
@@ -119,15 +127,21 @@
     [(string-ci=? text "OBTW")
      (lexer-cover! 'word->tokens/block-comment)
      (values 'block-comment '())]
-    [(string=? text "...")
+    [(or (string=? text "...")
+         (string=? text "…"))
      (lexer-cover! 'word->tokens/line-continuation)
      (values 'line-continuation '())]
     [else
      (define len (string-length text))
      (cond
-       [(and (> len 3)
-             (string-suffix? text "..."))
-        (define stem (substring text 0 (- len 3)))
+       [(or (and (> len 3)
+                 (string-suffix? text "..."))
+            (and (> len 1)
+                 (string-suffix? text "…")))
+        (define stem
+          (if (string-suffix? text "…")
+              (substring text 0 (- len 1))
+              (substring text 0 (- len 3))))
         (let-values ([(status toks) (word->tokens stem line col)])
           (if (eq? status 'ok)
               (begin
@@ -268,6 +282,53 @@
        (loop (read-char in))]))
   (loop (read-char in)))
 
+(define unicode-normative-name->codepoint
+  (hash "DOLLAR SIGN" #x0024
+        "CENT SIGN" #x00A2
+        "EURO SIGN" #x20AC))
+
+(define (normalize-unicode-normative-name text)
+  (regexp-replace* #px"[ \t]+" (string-upcase (string-trim text)) " "))
+
+(define (normative-name-char? ch)
+  (or (char-alphabetic? ch)
+      (char-numeric? ch)
+      (char-whitespace? ch)
+      (char=? ch #\-)))
+
+(define (scan-string-normative-name-escape! in line col)
+  (define name-out (open-output-string))
+  (define (loop pch)
+    (cond
+      [(eof-object? pch)
+       (lexer-cover! 'scan-string-tail!/normative/eof)
+       (lex-error 'lex-source "unterminated :[...] Unicode escape in string literal" line col)]
+      [(newline-or-return? pch)
+       (lexer-cover! 'scan-string-tail!/normative/newline)
+       (lex-error 'lex-source "unterminated :[...] Unicode escape in string literal" line col)]
+      [(char=? pch #\])
+       (lexer-cover! 'scan-string-tail!/normative/end)
+       (define normalized
+         (normalize-unicode-normative-name (get-output-string name-out)))
+       (when (string=? normalized "")
+         (lexer-cover! 'scan-string-tail!/normative/empty)
+         (lex-error 'lex-source "invalid Unicode normative name in string literal" line col))
+       (unless (for/and ([ch (in-string normalized)])
+                 (normative-name-char? ch))
+         (lexer-cover! 'scan-string-tail!/normative/invalid-char)
+         (lex-error 'lex-source "invalid Unicode normative name in string literal" line col))
+       (define cp
+         (hash-ref unicode-normative-name->codepoint normalized #f))
+       (unless cp
+         (lexer-cover! 'scan-string-tail!/normative/unknown-name)
+         (lex-error 'lex-source "invalid Unicode normative name in string literal" line col))
+       (integer->char cp)]
+      [else
+       (lexer-cover! 'scan-string-tail!/normative/char)
+       (write-char pch name-out)
+       (loop (read-char in))]))
+  (loop (read-char in)))
+
 (define (scan-string-handle-escape! in line col out ch)
   (cond
     [(char=? ch #\:)
@@ -301,6 +362,10 @@
     [(char=? ch #\()
      (lexer-cover! 'scan-string-tail!/escaped-codepoint)
      (write-char (scan-string-codepoint-escape! in line col) out)
+     #f]
+    [(char=? ch #\[)
+     (lexer-cover! 'scan-string-tail!/escaped-normative)
+     (write-char (scan-string-normative-name-escape! in line col) out)
      #f]
     [(char=? ch #\{)
      (lexer-cover! 'scan-string-tail!/escaped-placeholder)
