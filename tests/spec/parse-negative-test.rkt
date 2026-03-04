@@ -55,6 +55,11 @@
   (check-exn #px"invalid Unicode code point in string literal"
              (lambda () (parse-program invalid-unicode-codepoint)))
 
+  (define invalid-unicode-normative-name
+    "HAI 1.3\nVISIBLE \":[:{var}]\"\nKTHXBYE\n")
+  (check-exn #px"invalid Unicode normative name in string literal"
+             (lambda () (parse-program invalid-unicode-normative-name)))
+
   (define unterminated-block-comment
     "HAI 1.3\nOBTW\nVISIBLE \"oops\"\nKTHXBYE\n")
   (check-exn #px"unterminated OBTW block comment"

@@ -46,6 +46,18 @@
   (check-eq? (hash-ref bukkit-srs-numeric-slot 'status) 'ok)
   (check-equal? (hash-ref bukkit-srs-numeric-slot 'stdout) "42\n")
 
+  (define alt-article-slot-src
+    "HAI 1.3\nI HAS AN obj ITZ A BUKKIT\nobj HAS AN elem ITZ \"catmium\"\nobj HAS AN empty\nVISIBLE obj'Z elem\nVISIBLE obj'Z empty\nKTHXBYE\n")
+  (define alt-article-slot (run-source alt-article-slot-src))
+  (check-eq? (hash-ref alt-article-slot 'status) 'ok)
+  (check-equal? (hash-ref alt-article-slot 'stdout) "catmium\nNOOB\n")
+
+  (define clone-like-src
+    "HAI 1.3\nI HAS A parent ITZ A BUKKIT\nparent HAS A val ITZ 1\nI HAS A child ITZ LIEK A parent\nchild'Z val R 2\nVISIBLE parent'Z val\nVISIBLE child'Z val\nKTHXBYE\n")
+  (define clone-like (run-source clone-like-src))
+  (check-eq? (hash-ref clone-like 'status) 'ok)
+  (check-equal? (hash-ref clone-like 'stdout) "1\n2\n")
+
   (define switch-src
     "HAI 1.3\nI HAS A color ITZ \"G\"\ncolor, WTF?\n  OMG \"R\"\n    VISIBLE \"RED FISH\"\n    GTFO\n  OMG \"Y\"\n    VISIBLE \"YELLOW FISH\"\n  OMG \"G\"\n  OMG \"B\"\n    VISIBLE \"FISH HAS A FLAVOR\"\n    GTFO\n  OMGWTF\n    VISIBLE \"FISH IS TRANSPARENT\"\nOIC\nKTHXBYE\n")
   (define switch-result (run-source switch-src))
@@ -71,6 +83,12 @@
   (check-eq? (hash-ref function-implicit-it-return 'status) 'ok)
   (check-equal? (hash-ref function-implicit-it-return 'stdout) "5\n")
 
+  (define function-void-return-src
+    "HAI 1.3\nHOW IZ I fun1\n  \"a\"\nIF U SAY SO\nHOW IZ I fun2 YR arg\n  arg\nIF U SAY SO\nVISIBLE I IZ fun1 MKAY\nVISIBLE I IZ fun2 YR \"b\" MKAY\nKTHXBYE\n")
+  (define function-void-return (run-source function-void-return-src))
+  (check-eq? (hash-ref function-void-return 'status) 'ok)
+  (check-equal? (hash-ref function-void-return 'stdout) "a\nb\n")
+
   (define function-gtfo-return-src
     "HAI 1.3\nHOW IZ I quitfast\n  GTFO\nIF U SAY SO\nVISIBLE I IZ quitfast MKAY\nKTHXBYE\n")
   (define function-gtfo-return (run-source function-gtfo-return-src))
@@ -89,6 +107,20 @@
   (define expr-stmt-result (run-source expr-stmt-src))
   (check-eq? (hash-ref expr-stmt-result 'status) 'ok)
   (check-equal? (hash-ref expr-stmt-result 'stdout) "P\n")
+
+  (define expr-slot-to-it-orly-src
+    "HAI 1.3\nI HAS A obj ITZ A BUKKIT\nobj HAS A alive ITZ WIN\nobj'Z alive\nO RLY?\n  YA RLY\n    VISIBLE \"Y\"\n  NO WAI\n    VISIBLE \"N\"\nOIC\nKTHXBYE\n")
+  (define expr-slot-to-it-orly-result
+    (run-source expr-slot-to-it-orly-src))
+  (check-eq? (hash-ref expr-slot-to-it-orly-result 'status) 'ok)
+  (check-equal? (hash-ref expr-slot-to-it-orly-result 'stdout) "Y\n")
+
+  (define expr-slot-to-it-orly-inline-src
+    "HAI 1.3\nI HAS A obj ITZ A BUKKIT\nobj HAS A alive ITZ WIN\nobj'Z alive, O RLY?, YA RLY, VISIBLE \"Y\", NO WAI, VISIBLE \"N\", OIC\nKTHXBYE\n")
+  (define expr-slot-to-it-orly-inline-result
+    (run-source expr-slot-to-it-orly-inline-src))
+  (check-eq? (hash-ref expr-slot-to-it-orly-inline-result 'status) 'ok)
+  (check-equal? (hash-ref expr-slot-to-it-orly-inline-result 'stdout) "Y\n")
 
   (define bad-return-src
     "HAI 1.3\nFOUND YR 3\nKTHXBYE\n")
@@ -149,6 +181,12 @@
   (check-eq? (hash-ref nested-loop-result 'status) 'ok)
   (check-equal? (hash-ref nested-loop-result 'stdout) "6\n")
 
+  (define loop-unary-updater-src
+    "HAI 1.3\nHOW IZ I plustwoin YR var\n  FOUND YR SUM OF var AN 2\nIF U SAY SO\nIM IN YR loop I IZ plustwoin YR var MKAY\n  VISIBLE var\n  BOTH SAEM var AN 10\n  O RLY?\n    YA RLY\n      GTFO\n  OIC\nIM OUTTA YR loop\nKTHXBYE\n")
+  (define loop-unary-updater (run-source loop-unary-updater-src))
+  (check-eq? (hash-ref loop-unary-updater 'status) 'ok)
+  (check-equal? (hash-ref loop-unary-updater 'stdout) "0\n2\n4\n6\n8\n10\n")
+
   (define logic-src
     "HAI 1.3\nI HAS A n ITZ 42\nVISIBLE BOTH OF DIFFRINT n AN 0 AN DIFFRINT n AN 42\nVISIBLE EITHER OF BOTH SAEM n AN 0 AN BOTH SAEM n AN 42\nVISIBLE WON OF BOTH SAEM n AN 42 AN BOTH SAEM n AN 0\nVISIBLE ALL OF DIFFRINT n AN 0 AN NOT BOTH SAEM n AN 0 MKAY\nVISIBLE ANY OF BOTH SAEM n AN 0 AN BOTH SAEM n AN 42 MKAY\nKTHXBYE\n")
   (define logic-result (run-source logic-src))
@@ -172,6 +210,37 @@
   (define method-result (run-source method-src))
   (check-eq? (hash-ref method-result 'status) 'ok)
   (check-equal? (hash-ref method-result 'stdout) "3\n6\n6\n")
+
+  (define method-alt-def-src
+    "HAI 1.3\nI HAS A foo ITZ A BUKKIT\nfoo HAS A bar ITZ 123\nHOW IZ foo fun1\n  FOUND YR ME'Z bar\nIF U SAY SO\nVISIBLE I IZ foo'Z fun1 MKAY\nKTHXBYE\n")
+  (define method-alt-def (run-source method-alt-def-src))
+  (check-eq? (hash-ref method-alt-def 'status) 'ok)
+  (check-equal? (hash-ref method-alt-def 'stdout) "123\n")
+
+  (define method-nested-receiver-def-src
+    "HAI 1.3\nI HAS A foo ITZ A BUKKIT\nfoo HAS A var1 ITZ A BUKKIT\nHOW IZ foo'Z var1 fun1\n  VISIBLE \"i\"\nIF U SAY SO\nI IZ foo'Z var1'Z fun1 MKAY\nKTHXBYE\n")
+  (define method-nested-receiver-def
+    (run-source method-nested-receiver-def-src))
+  (check-eq? (hash-ref method-nested-receiver-def 'status) 'ok)
+  (check-equal? (hash-ref method-nested-receiver-def 'stdout) "i\n")
+
+  (define method-alt-call-syntax-src
+    "HAI 1.3\nI HAS A foo ITZ A BUKKIT\nfoo HAS A bar ITZ 10\nHOW IZ foo inc\n  ME'Z bar R SUM OF ME'Z bar AN 1\nIF U SAY SO\nfoo IZ inc MKAY\nVISIBLE foo'Z bar\nKTHXBYE\n")
+  (define method-alt-call-syntax (run-source method-alt-call-syntax-src))
+  (check-eq? (hash-ref method-alt-call-syntax 'status) 'ok)
+  (check-equal? (hash-ref method-alt-call-syntax 'stdout) "11\n")
+
+  (define function-storage-src
+    "HAI 1.3\nHOW IZ I fun1\n  FOUND YR \"a\"\nIF U SAY SO\nI HAS A foo ITZ A BUKKIT\nfoo HAS A var1 ITZ fun1\nVISIBLE I IZ foo'Z var1 MKAY\nKTHXBYE\n")
+  (define function-storage (run-source function-storage-src))
+  (check-eq? (hash-ref function-storage 'status) 'ok)
+  (check-equal? (hash-ref function-storage 'stdout) "a\n")
+
+  (define dynamic-function-name-src
+    "HAI 1.3\nI HAS A name1 ITZ \"fun\"\nI HAS A name2 ITZ \"arg\"\nHOW IZ I SRS SMOOSH name1 AN 1 MKAY\n  VISIBLE \"a\"\nIF U SAY SO\nHOW IZ I SRS SMOOSH name1 AN 2 MKAY YR SRS name2\n  VISIBLE arg\nIF U SAY SO\nI IZ SRS SMOOSH name1 AN 1 MKAY MKAY\nI IZ SRS SMOOSH name1 AN 2 MKAY YR \"b\" MKAY\nKTHXBYE\n")
+  (define dynamic-function-name (run-source dynamic-function-name-src))
+  (check-eq? (hash-ref dynamic-function-name 'status) 'ok)
+  (check-equal? (hash-ref dynamic-function-name 'stdout) "a\nb\n")
 
   (define gimmeh-src
     "HAI 1.3\nI HAS A name\nGIMMEH name\nVISIBLE name\nKTHXBYE\n")
@@ -227,6 +296,18 @@
   (check-eq? (hash-ref line-cont-result 'status) 'ok)
   (check-equal? (hash-ref line-cont-result 'stdout) "AB\n")
 
+  (define line-cont-unicode-ellipsis-src
+    "HAI 1.3\nVISIBLE \"A\"…\n\"B\"\nKTHXBYE\n")
+  (define line-cont-unicode-ellipsis (run-source line-cont-unicode-ellipsis-src))
+  (check-eq? (hash-ref line-cont-unicode-ellipsis 'status) 'ok)
+  (check-equal? (hash-ref line-cont-unicode-ellipsis 'stdout) "AB\n")
+
+  (define smoosh-optional-an-src
+    "HAI 1.3\nVISIBLE SMOOSH \"a\" \"b\" \"c\" MKAY\nKTHXBYE\n")
+  (define smoosh-optional-an (run-source smoosh-optional-an-src))
+  (check-eq? (hash-ref smoosh-optional-an 'status) 'ok)
+  (check-equal? (hash-ref smoosh-optional-an 'stdout) "abc\n")
+
   (define block-comment-src
     "HAI 1.3\nVISIBLE \"A\"\nOBTW\nVISIBLE \"B\"\nTLDR\nVISIBLE \"C\"\nKTHXBYE\n")
   (define block-comment-result (run-source block-comment-src))
@@ -245,6 +326,19 @@
   (check-eq? (hash-ref string-codepoint-escape-result 'status) 'ok)
   (check-equal? (hash-ref string-codepoint-escape-result 'stdout)
                 (string-append "A" (string (integer->char #x263A)) "Z\n"))
+
+  (define string-normative-escape-src
+    "HAI 1.3\nVISIBLE \"A:[DOLLAR SIGN]B:[CENT SIGN]C:[EURO SIGN]\"\nKTHXBYE\n")
+  (define string-normative-escape-result (run-source string-normative-escape-src))
+  (check-eq? (hash-ref string-normative-escape-result 'status) 'ok)
+  (check-equal? (hash-ref string-normative-escape-result 'stdout)
+                (string-append "A"
+                               (string (integer->char #x0024))
+                               "B"
+                               (string (integer->char #x00A2))
+                               "C"
+                               (string (integer->char #x20AC))
+                               "\n"))
 
   (define string-literal-colon-src
     "HAI 1.3\nVISIBLE \"GIMME RADIUS:\"\nVISIBLE \":3:)\"\nKTHXBYE\n")
