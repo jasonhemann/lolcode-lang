@@ -329,6 +329,14 @@
   (check-eq? (hash-ref logic-result 'status) 'ok)
   (check-equal? (hash-ref logic-result 'stdout) "FAIL\nWIN\nWIN\nWIN\nWIN\n")
 
+  (define binary-ops-optional-an-src
+    "HAI 1.3\nVISIBLE SUM OF 1 2\nVISIBLE DIFF OF 5 2\nVISIBLE PRODUKT OF 3 4\nVISIBLE QUOSHUNT OF 6 2\nVISIBLE MOD OF 7 4\nVISIBLE BIGGR OF 5 2\nVISIBLE SMALLR OF 5 2\nVISIBLE BOTH OF WIN FAIL\nVISIBLE EITHER OF FAIL WIN\nVISIBLE WON OF WIN FAIL\nVISIBLE BOTH SAEM 3 3\nVISIBLE DIFFRINT 3 4\nKTHXBYE\n")
+  (define binary-ops-optional-an
+    (run-source binary-ops-optional-an-src))
+  (check-eq? (hash-ref binary-ops-optional-an 'status) 'ok)
+  (check-equal? (hash-ref binary-ops-optional-an 'stdout)
+                "3\n3\n12\n3\n3\n5\n2\nFAIL\nWIN\nWIN\nWIN\nWIN\n")
+
   (define logic-all-of-src
     "HAI 1.3\nI HAS A flag ITZ WIN\nI HAS A anotherflag ITZ FAIL\nI HAS A flag3 ITZ WIN\nI HAS A flag4 ITZ WIN\nI HAS A flag5\nflag5 R ALL OF flag AN anotherflag AN flag3 AN flag4 MKAY\nVISIBLE flag5\nKTHXBYE\n")
   (define logic-all-of-result (run-source logic-all-of-src))

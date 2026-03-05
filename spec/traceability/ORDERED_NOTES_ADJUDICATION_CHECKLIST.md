@@ -79,9 +79,9 @@ Legend:
   Spec: lines 269, 286 (line 269 currently `unmapped`, 286 mapped as `op.mkay-variadic-form`).  
   Done: added runtime regression covering nested variadics with EOL closure, partial MKAY closure, continuation-line closure, and comma-delimited closure behavior.
 
-- [ ] `17` (notes 127) Optional `AN` for binary operators.
+- [x] `17` (notes 127) Optional `AN` for binary operators.
   Spec: line 277 (mapped `op.an-optional-binary`).  
-  To check: ensure full operator family covered in positive+negative tests.
+  Done: added full-operator-family positive regression for omitted-`AN` binary forms and negative regressions rejecting `AND` separator across the same family.
 
 - [ ] `18` (notes 129-141) Equality semantics and no implicit cast for non-numeric equality.
   Spec: comparison section around lines 326+ (currently not represented by dedicated matrix row).  

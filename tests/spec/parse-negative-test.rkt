@@ -176,6 +176,23 @@
   (check-exn #px"syntax error: unexpected NUMBER"
              (lambda () (parse-program and-as-identifier-when-an-omitted)))
 
+  (for ([src (in-list
+              (list
+               "HAI 1.3\nVISIBLE SUM OF 1 AND 2\nKTHXBYE\n"
+               "HAI 1.3\nVISIBLE DIFF OF 5 AND 2\nKTHXBYE\n"
+               "HAI 1.3\nVISIBLE PRODUKT OF 3 AND 4\nKTHXBYE\n"
+               "HAI 1.3\nVISIBLE QUOSHUNT OF 6 AND 2\nKTHXBYE\n"
+               "HAI 1.3\nVISIBLE MOD OF 7 AND 4\nKTHXBYE\n"
+               "HAI 1.3\nVISIBLE BIGGR OF 5 AND 2\nKTHXBYE\n"
+               "HAI 1.3\nVISIBLE SMALLR OF 5 AND 2\nKTHXBYE\n"
+               "HAI 1.3\nVISIBLE BOTH OF WIN AND FAIL\nKTHXBYE\n"
+               "HAI 1.3\nVISIBLE EITHER OF FAIL AND WIN\nKTHXBYE\n"
+               "HAI 1.3\nVISIBLE WON OF WIN AND FAIL\nKTHXBYE\n"
+               "HAI 1.3\nVISIBLE BOTH SAEM 3 AND 3\nKTHXBYE\n"
+               "HAI 1.3\nVISIBLE DIFFRINT 3 AND 4\nKTHXBYE\n"))])
+    (check-exn #px"syntax error:"
+               (lambda () (parse-program src))))
+
   (define and-as-identifier-with-explicit-an
     "HAI 1.3\nI HAS A AND ITZ 2\nVISIBLE SUM OF 1 AN AND\nKTHXBYE\n")
   (check-not-exn
