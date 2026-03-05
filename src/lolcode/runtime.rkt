@@ -720,10 +720,8 @@
              define-method!
              resolved-name
              (make-method-fn resolved-name resolved-params))]
-      [(eq? e (runtime-globals ctx))
-       (env-set-or-define! e resolved-name global-fn)]
       [else
-       (env-set-or-define! e resolved-name global-fn)])))
+       (env-define! e resolved-name global-fn)])))
 
 (define (compile-stmt-method-def receiver name params body)
   (define receiver-proc (compile-expr receiver))

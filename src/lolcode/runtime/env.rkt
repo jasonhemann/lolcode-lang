@@ -83,6 +83,8 @@
      (env-lookup-box (env-parent e) name)]))
 
 (define (env-define! e name value)
+  (when (hash-has-key? (env-table e) name)
+    (error 'run-program "identifier already declared in this scope: ~a" name))
   (hash-set! (env-table e) name (box value)))
 
 (define (env-ref e name)

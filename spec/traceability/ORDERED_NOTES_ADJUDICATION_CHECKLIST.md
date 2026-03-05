@@ -31,14 +31,13 @@ Legend:
 
 ## Phase 2: Scope / Names / Vars / Types / Ops (in notes order)
 
-- [ ] `05` (notes 24-34) “No global scope” text vs later object-function scope rules.
+- [x] `05` (notes 24-34) “No global scope” text vs later object-function scope rules.
   Spec: line 105 (`unmapped`) vs line 672 (`mapped`).  
-  To check: adjudication note required in matrix: global namespace exists in bukkit function section; document precedence/interpretation.
+  Done: added matrix adjudication row for line 105 (`var.scope-adjudication-main-vs-object`) documenting lexical main/function scope plus explicit object-function override at line 672 for IT lookup.
 
-- [ ] `06` (notes 35-64) Function and variable same namespace; duplicate declaration behavior.
+- [x] `06` (notes 35-64) Function and variable same namespace; duplicate declaration behavior.
   Spec: line 145 (`unmapped`), declaration lines 117/205.  
-  Current risk: runtime `env-define!` currently overwrites existing binding on redeclare.  
-  To check: decide strict behavior (error on duplicate declaration in same scope), then add positive/negative tests and patch runtime env define semantics.
+  Done: `env-define!` now errors on same-frame redeclaration; function definitions use `env-define!` (not set-or-define). Added regressions for duplicate vars, duplicate functions, function/var namespace collision, and assignment-overwrites-function behavior.
 
 - [ ] `07` (notes 67-77) `R NOOB` and GC expectations.
   Spec: deallocation prose (not explicit runtime requirement beyond unbinding semantics). Matrix: no dedicated row.  

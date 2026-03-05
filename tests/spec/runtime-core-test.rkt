@@ -15,6 +15,40 @@
   (check-eq? (hash-ref one-line-minimal 'status) 'ok)
   (check-equal? (hash-ref one-line-minimal 'stdout) "")
 
+  (define duplicate-variable-declare-src
+    "HAI 1.3\nI HAS A var ITZ 1\nI HAS A var ITZ 2\nKTHXBYE\n")
+  (define duplicate-variable-declare
+    (run-source duplicate-variable-declare-src))
+  (check-eq? (hash-ref duplicate-variable-declare 'status) 'runtime-error)
+  (check-true
+   (regexp-match? #px"identifier already declared in this scope: var"
+                  (hash-ref duplicate-variable-declare 'error)))
+
+  (define duplicate-function-def-src
+    "HAI 1.3\nHOW IZ I f\n  FOUND YR 1\nIF U SAY SO\nHOW IZ I f\n  FOUND YR 2\nIF U SAY SO\nKTHXBYE\n")
+  (define duplicate-function-def
+    (run-source duplicate-function-def-src))
+  (check-eq? (hash-ref duplicate-function-def 'status) 'runtime-error)
+  (check-true
+   (regexp-match? #px"identifier already declared in this scope: f"
+                  (hash-ref duplicate-function-def 'error)))
+
+  (define function-var-namespace-collision-src
+    "HAI 1.3\nHOW IZ I var YR stuff\n  FOUND YR stuff\nIF U SAY SO\nI HAS A var ITZ 0\nKTHXBYE\n")
+  (define function-var-namespace-collision
+    (run-source function-var-namespace-collision-src))
+  (check-eq? (hash-ref function-var-namespace-collision 'status) 'runtime-error)
+  (check-true
+   (regexp-match? #px"identifier already declared in this scope: var"
+                  (hash-ref function-var-namespace-collision 'error)))
+
+  (define function-rebound-as-number-src
+    "HAI 1.3\nHOW IZ I var YR stuff\n  FOUND YR stuff\nIF U SAY SO\nvar R 0\nVISIBLE var\nKTHXBYE\n")
+  (define function-rebound-as-number
+    (run-source function-rebound-as-number-src))
+  (check-eq? (hash-ref function-rebound-as-number 'status) 'ok)
+  (check-equal? (hash-ref function-rebound-as-number 'stdout) "0\n")
+
   (define declare-assign-src
     "HAI 1.3\nI HAS A var\nvar R 3\nVISIBLE var\nKTHXBYE\n")
   (define declare-assign (run-source declare-assign-src))
