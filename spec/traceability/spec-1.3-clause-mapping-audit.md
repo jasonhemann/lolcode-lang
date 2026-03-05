@@ -11,45 +11,43 @@ Date: 2026-03-05
 
 ## Summary
 
-- Matrix entries: 60
-- Unique matrix source lines: 59
+- Matrix entries: 61
+- Unique matrix source lines: 60
 - Extracted 1.3 clause rows: 573
 - Extracted 1.3 normative rows: 65
-- Normative rows mapped by matrix source line: 35
-- Normative rows not mapped by matrix source line: 30
+- Normative rows mapped by matrix source line: 45
+- Normative rows not mapped by matrix source line: 20
 
-## Unmapped 1.3 Normative Clauses (line -> text)
+## Unmapped 1.3 Normative Clauses: Adjudication Ledger
 
-- 50: All of these are valid single line comments:
-- 67: These are valid multi-line comments:
-- 105: All variable scope, as of this version, is local to the enclosing function or to the main program block. Variables are only accessible after declaration, and there is no global scope.
-- 123: This instantiates and initializes a variable. If the value is a literal, the variable is initialized to the appropriate object type (YARN, TROOF, NOOB, NUMBR, NUMBAR). If the value is an identifier or expression, the variable is initialized to the resulting expression.
-- 145: Function types are declared/initialized using the HOW DUZ I / IF U SAY SO blocks, however they behave the same as variables. For example:
-- 219: The variable types that LOLCODE currently recognizes are: strings (YARN), integers (NUMBR), floats (NUMBAR), and booleans (TROOF) (Arrays (BUKKIT) are reserved for future expansion.) Typing is handled dynamically. Until a variable is given an initial value, it is untyped (NOOB). ~~Casting operations operate on TYPE types, as well.~~
-- 241: String literals (YARN) are demarked with double quotation marks ("). Line continuation and soft-command-breaks are ignored inside quoted strings. An unterminated string literal (no closing quote) will cause an error.
-- 269: Mathematical operators and functions in general rely on prefix notation. By doing this, it is possible to call and compose operations with a minimum of explicit grouping. When all operators and functions have known arity, no grouping markers are necessary. In cases where operators have variable arity, the operation is closed with `MKAY`. An `MKAY` may be omitted if it coincides with the end of the line/statement, in which case the EOL stands in for as many `MKAYs` as there are open variadic functions.
-- 271: Calling unary operators then has the following syntax:
-- 283: An expression containing an operator with infinite arity can then be expressed with the following syntax:
-- 324: `<x>` and `<y>` in the expression syntaxes above are automatically cast as TROOF values if they are not already so.
-- 346: If `<x>` in the above formulations is too verbose or difficult to compute, don't forget the automatically created IT temporary variable. A further idiom could then be:
-- 391: To accept input from the user, the keyword is
-- 407: A bare expression (e.g. a function call or math operation), without any assignment, is a legal statement in LOLCODE. Aside from any side-effects from the expression when evaluated, the final value is placed in the temporary variable `IT`. `IT`'s value remains in local scope and exists until the next time it is replaced with a bare expression.
-- 411: Assignment statements have no side effects with `IT`. They are generally of the form:
-- 433: `O RLY?` branches to the block begun with `YA RLY` if `IT` can be cast to WIN, and branches to the `NO WAI` block if `IT` is FAIL. The code block introduced with `YA RLY` is implicitly closed when `NO WAI` is reached. The `NO WAI` block is closed with `OIC`. The general form is then as follows:
-- 582: Currently, the number of arguments in a function can only be defined as a fixed number. The `<argument>`s are single-word identifiers that act as variables within the scope of the function's code. The calling parameters' values are then the initial values for the variables within the function's code block when the function is called.
-- 588: Return from the function is accomplished in one of the following ways:
-- 596: A function of given arity is called with:
-- 604: The I parameter is used to distingish a function call on the current namespace vs. a function call on a bukkit (defined below).
-- 612: BUKKITs are the container type. They may hold NUMBRs, NUMBARs, TROOFs, YARNs, functions (FUNKSHUN), and other BUKKITS. Each entity within a BUKKIT may be indexed by a NUMBR or a YARN. These indices, whether NUMBRs or YARNs, referring to functions, variables, or other BUKKITS, are generically called “slots”.
-- 616: To create an empty object within the current object's scope:
-- 678: BTW bar is on function namespace
-- 680: BTW bar2 is on the function namespace
-- 741: Slot access is very important to function calls. To call a function on an object:
-- 770: `izmakin` refers to a method that will be run after a bukkit is fully prototyped but before the prototyping method returns. This allows a bukkit creator to perform some logic every time that bukkit is prototyped, and guarantees a “well-formed” bukkit.
-- 774: To create an object based upon an existing object:
-- 782: To define inheritance using alternate syntax, do the following.
-- 804: No matter where a FUNKSHUN is stored in a slot, during a Slot-Access Function call, the Function obtains variables from the object it was accessed from.
-- 810: In this case, the function will pull variables from <object>.
+All currently unmapped normative lines are now adjudicated as exactly one of:
+- `new row` (explicit matrix row added)
+- `merged` (line is semantically covered by one or more existing rows)
+- `example-only` (syntax-introducer/example line with no independent semantic requirement)
+
+| Line | Disposition | Resolution |
+|---|---|---|
+| 50 | merged | Covered by `comment.single-line-btw` (`source-line` 48) + lexer tests in `tests/spec/runtime-core-test.rkt`. |
+| 67 | merged | Covered by `comment.block-obtw-tldr` (`source-line` 65) + unterminated block-comment negative test. |
+| 241 | merged | Covered by `string.ignore-line-control-inside-yarn` (`source-line` 42) plus unterminated-string lexer failure tests in `tests/spec/parse-negative-test.rkt`. |
+| 269 | merged | Covered by `op.prefix-nesting-composition` (`303`) + `op.mkay-variadic-form` (`286`). |
+| 271 | example-only | Introduces unary syntax block; independent unary semantics are already covered by operator rows and tests. |
+| 283 | example-only | Introduces variadic syntax block; independent closure semantics covered by `op.mkay-variadic-form`. |
+| 324 | merged | Covered by `cast.implicit-operator-cast-errors` (`360`) and logic/comparison runtime regressions in `tests/spec/runtime-core-test.rkt`. |
+| 346 | example-only | IT idiom prose; semantic rule is captured by `flow.expr-stmt-it-local-scope` (`407`). |
+| 391 | merged | Syntax introducer for `GIMMEH`; semantics covered by `io.gimmeh` (`394`). |
+| 582 | merged | Fixed-arity/single-word argument behavior covered by `fn.definition-call` (`574`) + parser arg-shape restrictions in tests. |
+| 588 | merged | Return-introducer prose covered by `fn.return-semantics` (`590`). |
+| 596 | merged | Call-syntax introducer prose covered by `fn.definition-call` (`574`) + `fn.call-i-namespace-marker` (`604`). |
+| 612 | merged | Container/slot domain prose covered by `bukkit.declaration` (`619`) + `bukkit.slot-access` (`738`). |
+| 616 | merged | Empty-object creation introducer covered by `bukkit.declaration` (`619`). |
+| 678 | example-only | Inline explanatory comment in spec example; no separate normative rule. |
+| 680 | example-only | Inline explanatory comment in spec example; no separate normative rule. |
+| 741 | merged | Method call syntax introducer covered by `bukkit.slot-access` (`738`) and call regressions. |
+| 770 | new row | Added `bukkit.special-slot-izmakin-hook` (`source-line` 770) with runtime regression in `tests/spec/runtime-core-test.rkt`. |
+| 774 | merged | Prototype-object creation syntax introducer covered by `bukkit.parent-slot-prototype-link` (`790`). |
+| 782 | merged | Alternate inheritance syntax introducer covered by `bukkit.alt-syntax` (`709`) + inheritance rows (`790`/`798`). |
+| 810 | merged | Restatement/example line for receiver-based slot-function lookup, covered by `bukkit.slot-function-receiver-lookup` (`804`). |
 
 ## 1.2 \ 1.3 Normative Delta (text-normalized)
 
@@ -65,8 +63,6 @@ Both 1.2-only normative lines are semantically represented in the current 1.3 ma
 
 ## Notes
 
-- The 30 unmapped 1.3 normative lines include a mixture of:
-  - real semantic clauses not yet modeled as distinct traceability rows,
-  - syntax-introduction prose that overlaps existing rows,
-  - and example/illustrative lines currently tagged `normative` by heuristic extraction.
+- The 20 unmapped 1.3 normative lines are now fully adjudicated in the table above.
+- Remaining unmapped lines are intentionally `merged` or `example-only`; no unresolved normative clause is left unclassified.
 - This audit is intended to drive matrix refinement; it is stricter and broader than the previous clause-index extraction.

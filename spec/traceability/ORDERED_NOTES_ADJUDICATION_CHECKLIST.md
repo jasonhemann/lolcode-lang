@@ -196,14 +196,17 @@ Cross-cutting adjudications:
 
 ## Phase 5: Matrix and Test Harness Integrity (ordered follow-through)
 
-- [ ] `44` Convert each `unmapped` normative clause in `spec-1.3-clause-mapping-audit.md` into either:
+- [x] `44` Convert each `unmapped` normative clause in `spec-1.3-clause-mapping-audit.md` into either:
   `new matrix row`, `explicitly merged with existing row (with note)`, or `example-only clause (with rationale)`.
+  Done: updated `spec/traceability/spec-1.3-clause-mapping-audit.md` with a full adjudication ledger for all currently unmapped normative lines and added matrix row `bukkit.special-slot-izmakin-hook` (line 770) with runtime regression coverage.
 
-- [ ] `45` For each checklist item above, add:
+- [x] `45` For each checklist item above, add:
   one positive test and one negative test unless clause is explicitly non-erroring.
+  Done: completed coverage audit in `spec/traceability/checklist-test-and-ergonomics-audit.md` itemizing paired vs non-erroring clauses and evidence anchors.
 
-- [ ] `46` AST/runtime ergonomics check:
+- [x] `46` AST/runtime ergonomics check:
   document whether each new test required parser hacks vs compositional AST support; file follow-up refactors where pain is highest.
+  Done: added ergonomics findings + follow-up refactor queue in `spec/traceability/checklist-test-and-ergonomics-audit.md`.
 
 ## Phase 6: Corpus / Harvest Check (run in order and recorded)
 
@@ -221,7 +224,15 @@ Latest checklist-batch delta (`2026-03-05`, post items `30/32/39-43`):
 - Re-ran all three scripts in sequence; snapshot counts are unchanged from the prior recorded run.
 - No new strict-1.3 corpus regressions surfaced from this tranche.
 
+Latest checklist-batch delta (`2026-03-05`, post items `44-48`):
+- Re-ran all three scripts in sequence after process-only tranche completion.
+- Tier2 totals remain unchanged (`223` files, `184` likely programs; `167 parse-error`, `9 ok`, `7 lex-error`, `1 runtime-error`).
+- External evidence observed-status split remains `301 parse-error`, `1 ok`.
+- No new strict-1.3 implementation regressions surfaced by corpus/evidence reruns.
+
 Next corpus/harvest actions tied to this checklist:
-- [ ] `47` Partition parse-errors into `strict-non-1.3`, `spec-divergence`, `program-bug`.
-- [ ] `48` Promote any checklist-related external fixtures into stable positive/negative regressions.
+- [x] `47` Partition parse-errors into `strict-non-1.3`, `spec-divergence`, `program-bug`.
+  Done: produced `corpus/research/PARSE_ERROR_PARTITION_2026-03-05.md` (tier2 likely-program parse failures: strict-non-1.3 `149`, program-bug `18`, spec-divergence `0`).
+- [x] `48` Promote any checklist-related external fixtures into stable positive/negative regressions.
+  Done: promoted external positive fixture `lci issue #47` into `tests/spec/fixtures/programs/v1_3_external_lci_issue_0047_it_expr.lol` (+ manifest entry), and added strict negative parse regression from external `lci issue #49` in `tests/spec/parse-negative-test.rkt`.
 - [x] `49` Re-run all three scripts after each checklist batch and append deltas to this file.

@@ -1,8 +1,13 @@
 #lang racket/base
 
 (require rackunit
+         racket/file
          "../../src/lolcode/lexer.rkt"
          "../../src/lolcode/main.rkt")
+
+(define here
+  (or (current-load-relative-directory)
+      (current-directory)))
 
 (module+ test
   (define (capture-message thunk)
@@ -33,6 +38,24 @@
     (capture-message (lambda () (parse-program unsupported-v12))))
   (check-true (string? unsupported-v12-msg))
   (check-true (regexp-match? #px"unsupported version: 1\\.2" unsupported-v12-msg))
+
+  (define external-lci-issue-0049-path
+    (build-path here
+                ".."
+                "regression-evidence"
+                "external"
+                "fixtures"
+                "lci"
+                "wave_01"
+                "issue_0049"
+                "repro.lol"))
+  (define external-lci-issue-0049
+    (file->string external-lci-issue-0049-path))
+  (define external-lci-issue-0049-msg
+    (capture-message (lambda () (parse-program external-lci-issue-0049))))
+  (check-true (string? external-lci-issue-0049-msg))
+  (check-true (regexp-match? #px"unsupported version: 1\\.2"
+                             external-lci-issue-0049-msg))
 
   (define unsupported-v14
     "HAI 1.4\nVISIBLE \"future\"\nKTHXBYE\n")

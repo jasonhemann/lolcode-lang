@@ -1,6 +1,6 @@
 # Language Gap Report (Strict 1.3)
 
-Generated: `Thursday, March 5th, 2026 5:08:15pm`
+Generated: `Thursday, March 5th, 2026 5:27:25pm`
 
 ## Totals
 
@@ -9,8 +9,8 @@ Generated: `Thursday, March 5th, 2026 5:08:15pm`
 - In-scope parse-ok files: `10`
 - In-scope eval-ok files: `9`
 - Promoted missing-version files: `0`
-- Fixture files: `16`
-- Fixture parse-ok files: `16`
+- Fixture files: `17`
+- Fixture parse-ok files: `17`
 
 ### Corpus Header Classes (Original)
 

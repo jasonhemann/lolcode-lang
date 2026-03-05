@@ -142,4 +142,13 @@
     (expected-stdout . "3\n6\n6\n")
     (source-ref . "v1.3:object-method-call")
     (tags . ("bukkit" "objects" "functions")))
+
+  #hasheq(
+    (id . "v1_3_external_lci_issue_0047_it_expr")
+    (spec-version . "1.3")
+    (title . "Promoted external fixture: bare expression updates IT")
+    (source-file . "programs/v1_3_external_lci_issue_0047_it_expr.lol")
+    (expected-stdout . "3\n")
+    (source-ref . "external:lci-issue-47 + v1.3:407")
+    (tags . ("it" "external-promotion")))
 )

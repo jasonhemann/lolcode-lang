@@ -606,6 +606,14 @@
   (check-equal? (hash-ref custom-omgwtf-on-missing-slot 'stdout)
                 "made-nope\nmade-nope\n")
 
+  (define izmakin-special-slot-runs-on-prototype-src
+    "HAI 1.3\nO HAI IM Maker\n  I HAS A seed ITZ 1\n  HOW IZ I izmakin\n    seed R SUM OF seed AN 1\n  IF U SAY SO\nKTHX\nI HAS A first ITZ LIEK A Maker\nI HAS A second ITZ LIEK A Maker\nVISIBLE first'Z seed\nVISIBLE second'Z seed\nKTHXBYE\n")
+  (define izmakin-special-slot-runs-on-prototype
+    (run-source izmakin-special-slot-runs-on-prototype-src))
+  (check-eq? (hash-ref izmakin-special-slot-runs-on-prototype 'status) 'ok)
+  (check-equal? (hash-ref izmakin-special-slot-runs-on-prototype 'stdout)
+                "3\n3\n")
+
   (define method-global-capture-src
     "HAI 1.3\nI HAS A suffix ITZ \"!\"\nO HAI IM speaker\n  HOW IZ I say YR x\n    FOUND YR SMOOSH x AN suffix MKAY\n  IF U SAY SO\nKTHX\nVISIBLE speaker IZ say YR \"A\" MKAY\nsuffix R \"?\"\nVISIBLE speaker IZ say YR \"A\" MKAY\nKTHXBYE\n")
   (define method-global-capture
