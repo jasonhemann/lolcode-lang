@@ -1,6 +1,7 @@
 #lang racket/base
 
 (require rackunit
+         "../../src/lolcode/lexer.rkt"
          "../../src/lolcode/main.rkt")
 
 (module+ test
@@ -83,6 +84,25 @@
   (check-not-exn
    (lambda () (parse-program unicode-ellipsis-continuation)))
 
+  (define comma-plus-continuation-lex
+    "VISIBLE \"A\",...\nVISIBLE \"B\"\n")
+  (define comma-plus-continuation-toks
+    (lex-source comma-plus-continuation-lex))
+  (check-equal? (map token-type comma-plus-continuation-toks)
+                '(WORD STRING NEWLINE WORD STRING NEWLINE EOF))
+  (check-equal? (token-lexeme (list-ref comma-plus-continuation-toks 2))
+                ",")
+
+  (define comma-plus-continuation-program
+    "HAI 1.3\nVISIBLE \"A\",...\nVISIBLE \"B\"\nKTHXBYE\n")
+  (check-not-exn
+   (lambda () (parse-program comma-plus-continuation-program)))
+
+  (define continuation-then-comma
+    "HAI 1.3\nVISIBLE \"A\"...,\nVISIBLE \"B\"\nKTHXBYE\n")
+  (check-exn #px"line continuation marker must be at end of line"
+             (lambda () (parse-program continuation-then-comma)))
+
   (define continuation-followed-by-empty-line
     "HAI 1.3\nVISIBLE \"A\"...\n\n\"B\"\nKTHXBYE\n")
   (check-exn #px"line continuation may not be followed by an empty line"
@@ -92,6 +112,34 @@
     "HAI 1.3\nVISIBLE \"A\"...\n...\n\n\"B\"\nKTHXBYE\n")
   (check-not-exn
    (lambda () (parse-program continuation-only-line-may-include-empty-line)))
+
+  (define continuation-with-trailing-comment
+    "HAI 1.3\nVISIBLE \"A\"... BTW comment\nVISIBLE \"B\"\nKTHXBYE\n")
+  (check-exn #px"line continuation marker must be at end of line"
+             (lambda () (parse-program continuation-with-trailing-comment)))
+
+  (define ellipsis-in-comment-is-ignored
+    "HAI 1.3\nVISIBLE \"A\" BTW ...\nVISIBLE \"B\"\nKTHXBYE\n")
+  (check-not-exn
+   (lambda () (parse-program ellipsis-in-comment-is-ignored)))
+
+  (define one-line-minimal-program
+    "HAI 1.3, KTHXBYE\n")
+  (check-not-exn
+   (lambda () (parse-program one-line-minimal-program)))
+
+  (define one-line-missing-close
+    "HAI 1.3\n")
+  (define one-line-missing-close-msg
+    (capture-message (lambda () (parse-program one-line-missing-close))))
+  (check-true (string? one-line-missing-close-msg))
+  (check-true (regexp-match? #px"syntax error: unexpected EOF"
+                             one-line-missing-close-msg))
+
+  (define one-line-extra-after-close
+    "HAI 1.3, KTHXBYE, VISIBLE \"x\"\n")
+  (check-exn #px"syntax error: unexpected VISIBLE"
+             (lambda () (parse-program one-line-extra-after-close)))
 
   (define malformed-number-spaced-sign
     "HAI 1.3\nI HAS A x ITZ - 123\nKTHXBYE\n")
@@ -148,6 +196,19 @@
     "HAI 1.3\nVISIBLE SUM OF 1 AN 2\nVISIBLE DIFF OF 5 AN 2\nVISIBLE QUOSHUNT OF 6 AN 2\nKTHXBYE\n")
   (check-not-exn
    (lambda () (parse-program corrected-operators)))
+
+  (define as-cast-typo
+    "HAI 1.3\nVISIBLE MAEK 2 AS NUMBR\nKTHXBYE\n")
+  (define as-cast-typo-msg
+    (capture-message (lambda () (parse-program as-cast-typo))))
+  (check-true (string? as-cast-typo-msg))
+  (check-true (regexp-match? #px"syntax error: unexpected ID \\(\"NUMBR\"\\)"
+                             as-cast-typo-msg))
+
+  (define as-as-identifier
+    "HAI 1.3\nI HAS A AS ITZ 2\nVISIBLE AS\nKTHXBYE\n")
+  (check-not-exn
+   (lambda () (parse-program as-as-identifier)))
 
   (define all-of-missing-mkay
     "HAI 1.3\nVISIBLE ALL OF WIN AN FAIL\nKTHXBYE\n")

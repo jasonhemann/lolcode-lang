@@ -9,6 +9,12 @@
     (run-program (parse-program source))))
 
 (module+ test
+  (define one-line-minimal-src
+    "HAI 1.3, KTHXBYE\n")
+  (define one-line-minimal (run-source one-line-minimal-src))
+  (check-eq? (hash-ref one-line-minimal 'status) 'ok)
+  (check-equal? (hash-ref one-line-minimal 'stdout) "")
+
   (define declare-assign-src
     "HAI 1.3\nI HAS A var\nvar R 3\nVISIBLE var\nKTHXBYE\n")
   (define declare-assign (run-source declare-assign-src))
@@ -436,6 +442,34 @@
   (define unicode-line-cont-result (run-source unicode-line-cont-src))
   (check-eq? (hash-ref unicode-line-cont-result 'status) 'ok)
   (check-equal? (hash-ref unicode-line-cont-result 'stdout) "AB\n")
+
+  (define line-cont-comma-soft-break-src
+    "HAI 1.3\nVISIBLE \"A\",...\nVISIBLE \"B\"\nKTHXBYE\n")
+  (define line-cont-comma-soft-break-result
+    (run-source line-cont-comma-soft-break-src))
+  (check-eq? (hash-ref line-cont-comma-soft-break-result 'status) 'ok)
+  (check-equal? (hash-ref line-cont-comma-soft-break-result 'stdout) "A\nB\n")
+
+  (define line-cont-chain-ending-comma-src
+    "HAI 1.3\nVISIBLE SMOOSH \"A\" AN ...\n\"B\" MKAY, VISIBLE \"C\"\nKTHXBYE\n")
+  (define line-cont-chain-ending-comma-result
+    (run-source line-cont-chain-ending-comma-src))
+  (check-eq? (hash-ref line-cont-chain-ending-comma-result 'status) 'ok)
+  (check-equal? (hash-ref line-cont-chain-ending-comma-result 'stdout) "AB\nC\n")
+
+  (define line-cont-standalone-ellipsis-src
+    "HAI 1.3\nVISIBLE \"A\"...\n...\n\n\"B\"\nKTHXBYE\n")
+  (define line-cont-standalone-ellipsis-result
+    (run-source line-cont-standalone-ellipsis-src))
+  (check-eq? (hash-ref line-cont-standalone-ellipsis-result 'status) 'ok)
+  (check-equal? (hash-ref line-cont-standalone-ellipsis-result 'stdout) "AB\n")
+
+  (define line-cont-ellipsis-in-comment-src
+    "HAI 1.3\nVISIBLE \"A\" BTW ...\nVISIBLE \"B\"\nKTHXBYE\n")
+  (define line-cont-ellipsis-in-comment-result
+    (run-source line-cont-ellipsis-in-comment-src))
+  (check-eq? (hash-ref line-cont-ellipsis-in-comment-result 'status) 'ok)
+  (check-equal? (hash-ref line-cont-ellipsis-in-comment-result 'stdout) "A\nB\n")
 
   (define smoosh-optional-an-src
     "HAI 1.3\nVISIBLE SMOOSH \"a\" \"b\" \"c\" MKAY\nKTHXBYE\n")
