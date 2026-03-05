@@ -1,13 +1,10 @@
 #lang racket/base
 
 (require racket/class
-         racket/file
          racket/list
          racket/match
-         racket/path
          racket/string
          "ast.rkt"
-         "parser.rkt"
          "runtime/env.rkt"
          "runtime/value.rkt"
          "runtime/operators.rkt")
@@ -843,77 +840,6 @@
   (lambda (_e ctx)
     (ctx-break! ctx)))
 
-(define (compile-stmt-import target kind)
-  (lambda (e ctx)
-    (define globals
-      (runtime-globals ctx))
-    (define imports
-      (let ([raw (env-ref globals "#%loaded-runtime-imports")])
-        (if (hash? raw)
-            raw
-            (error 'run-program
-                   "internal error: invalid runtime import registry state: ~e"
-                   raw))))
-    (case kind
-      [(library)
-       (define lib-name
-         (string-upcase target))
-       (define import-key
-         (list 'library lib-name))
-       (unless (hash-has-key? imports import-key)
-         (unless (install-runtime-library! globals lib-name)
-           (raise
-            (exn:fail:unsupported
-             (format "unsupported CAN HAS library: ~a" target)
-             (current-continuation-marks)
-             (stmt-import target kind))))
-         (hash-set! imports import-key #t))]
-      [(file)
-       (define include-base-raw
-         (env-ref globals "#%include-base-dir"))
-       (unless (path-string? include-base-raw)
-         (error 'run-program
-                "internal error: invalid include base directory: ~e"
-                include-base-raw))
-       (define include-base
-         (string->path include-base-raw))
-       (define rel
-         (string->path target))
-       (define include-path
-         (simplify-path
-          (if (relative-path? rel)
-              (build-path include-base rel)
-              rel)))
-       (define include-key
-         (list 'file (path->string include-path)))
-       (unless (hash-has-key? imports include-key)
-         (hash-set! imports include-key #t)
-         (unless (file-exists? include-path)
-           (error 'run-program
-                  "CAN HAS include not found: ~a"
-                  (path->string include-path)))
-         (define include-source
-           (file->string include-path))
-         (define include-program
-           (parse-source include-source))
-         (define include-proc
-           (compile-block (program-statements include-program)))
-         (define prev-include-base
-           (env-ref globals "#%include-base-dir"))
-         (define include-dir
-           (or (path-only include-path) include-base))
-         (dynamic-wind
-           void
-           (lambda ()
-             (env-set! globals
-                       "#%include-base-dir"
-                       (path->string (simplify-path include-dir)))
-             (include-proc e ctx))
-           (lambda ()
-             (env-set! globals "#%include-base-dir" prev-include-base))))]
-      [else
-       (error 'run-program "unknown CAN HAS target kind: ~e" kind)])))
-
 (define (compile-stmt-expr expr)
   (define expr-proc (compile-expr expr))
   (lambda (e ctx)
@@ -950,8 +876,6 @@
      (compile-stmt-return expr)]
     [(stmt-break)
      (compile-stmt-break)]
-    [(stmt-import target kind)
-     (compile-stmt-import target kind)]
     [(stmt-expr expr)
      (compile-stmt-expr expr)]
     [_ (raise-unsupported stmt)]))
@@ -962,10 +886,6 @@
   (lambda ()
     (define globals (make-root-env))
     (install-runtime-builtins! globals)
-    (env-define! globals "#%loaded-runtime-imports" (make-hash))
-    (env-define! globals
-                 "#%include-base-dir"
-                 (path->string (simplify-path (current-directory))))
     (define stdout (open-output-string))
     (env-define! globals "IT" noob)
     (define st

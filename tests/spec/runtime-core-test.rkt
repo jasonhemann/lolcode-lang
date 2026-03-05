@@ -1,7 +1,6 @@
 #lang racket/base
 
-(require racket/file
-         rackunit
+(require rackunit
          "../../src/lolcode/ast.rkt"
          "../../src/lolcode/main.rkt")
 
@@ -384,81 +383,6 @@
   (check-eq? (hash-ref visible-bang-result 'status) 'ok)
   (check-equal? (hash-ref visible-bang-result 'stdout) "AB\n")
 
-  (define can-has-src
-    "HAI 1.3\nCAN HAS STRING?\nVISIBLE \"OK\"\nKTHXBYE\n")
-  (define can-has-result (run-source can-has-src))
-  (check-eq? (hash-ref can-has-result 'status) 'ok)
-  (check-equal? (hash-ref can-has-result 'stdout) "OK\n")
-
-  (define can-has-stdio-src
-    "HAI 1.3\nCAN HAS STDIO?\nVISIBLE \"IO\"\nKTHXBYE\n")
-  (define can-has-stdio-result (run-source can-has-stdio-src))
-  (check-eq? (hash-ref can-has-stdio-result 'status) 'ok)
-  (check-equal? (hash-ref can-has-stdio-result 'stdout) "IO\n")
-
-  (define can-has-unknown-src
-    "HAI 1.3\nCAN HAS BOGUS?\nKTHXBYE\n")
-  (define can-has-unknown-result (run-source can-has-unknown-src))
-  (check-eq? (hash-ref can-has-unknown-result 'status) 'unsupported)
-  (check-true (regexp-match? #px"unsupported CAN HAS library"
-                             (hash-ref can-has-unknown-result 'reason)))
-
-  (define include-temp-dir
-    (make-temporary-file "lolcode-include-~a" 'directory))
-  (define include-main-path
-    (build-path include-temp-dir "main.lol"))
-  (define include-lib-path
-    (build-path include-temp-dir "included.lol"))
-  (call-with-output-file include-lib-path
-    (lambda (out)
-      (display
-       "HAI 1.3\nI HAS A frominc ITZ 41\nHOW IZ I bumpin YR x\n  FOUND YR SUM OF x AN 1\nIF U SAY SO\nKTHXBYE\n"
-       out))
-    #:exists 'truncate/replace)
-  (call-with-output-file include-main-path
-    (lambda (out)
-      (display
-       "HAI 1.3\nCAN HAS \"included.lol\"?\nVISIBLE frominc\nVISIBLE I IZ bumpin YR frominc MKAY\nKTHXBYE\n"
-       out))
-    #:exists 'truncate/replace)
-  (define include-result (run-file include-main-path))
-  (check-eq? (hash-ref include-result 'status) 'ok)
-  (check-equal? (hash-ref include-result 'stdout) "41\n42\n")
-
-  (define include-once-lib-path
-    (build-path include-temp-dir "once.lol"))
-  (define include-once-main-path
-    (build-path include-temp-dir "once-main.lol"))
-  (call-with-output-file include-once-lib-path
-    (lambda (out)
-      (display
-       "HAI 1.3\nI HAS A once ITZ 0\nonce R SUM OF once AN 1\nKTHXBYE\n"
-       out))
-    #:exists 'truncate/replace)
-  (call-with-output-file include-once-main-path
-    (lambda (out)
-      (display
-       "HAI 1.3\nCAN HAS \"once.lol\"?\nCAN HAS \"once.lol\"?\nVISIBLE once\nKTHXBYE\n"
-       out))
-    #:exists 'truncate/replace)
-  (define include-once-result (run-file include-once-main-path))
-  (check-eq? (hash-ref include-once-result 'status) 'ok)
-  (check-equal? (hash-ref include-once-result 'stdout) "1\n")
-
-  (define include-missing-main-path
-    (build-path include-temp-dir "missing-main.lol"))
-  (call-with-output-file include-missing-main-path
-    (lambda (out)
-      (display
-       "HAI 1.3\nCAN HAS \"missing-file.lol\"?\nKTHXBYE\n"
-       out))
-    #:exists 'truncate/replace)
-  (define include-missing-result (run-file include-missing-main-path))
-  (check-eq? (hash-ref include-missing-result 'status) 'runtime-error)
-  (check-true (regexp-match? #px"CAN HAS include not found"
-                             (hash-ref include-missing-result 'error)))
-  (delete-directory/files include-temp-dir)
-
   (define visible-inline-src
     "HAI 1.3\nVISIBLE \"A\" \"B\" 3\nKTHXBYE\n")
   (define visible-inline-result (run-source visible-inline-src))
@@ -466,19 +390,11 @@
   (check-equal? (hash-ref visible-inline-result 'stdout) "AB3\n")
 
   (define string-namespace-src
-    "HAI 1.3\nVISIBLE I IZ STRING'Z LEN YR \"cats\" MKAY\nVISIBLE I IZ STRING'Z AT YR \"cats\" AN YR 2 MKAY\nKTHXBYE\n")
+    "HAI 1.3\nVISIBLE I IZ STRING'Z LEN YR \"cats\" MKAY\nKTHXBYE\n")
   (define string-namespace-result (run-source string-namespace-src))
-  (check-eq? (hash-ref string-namespace-result 'status) 'ok)
-  (check-equal? (hash-ref string-namespace-result 'stdout) "4\nt\n")
-
-  (define string-namespace-shadow-src
-    "HAI 1.3\nI HAS A fname ITZ \"STRING'Z LEN\"\nHOW IZ I SRS fname YR x\n  FOUND YR 999\nIF U SAY SO\nVISIBLE I IZ STRING'Z LEN YR \"cats\" MKAY\nKTHXBYE\n")
-  (define string-namespace-shadow-result
-    (run-source string-namespace-shadow-src))
-  (check-eq? (hash-ref string-namespace-shadow-result 'status) 'ok)
-  ;; Regression: this must resolve through the environment and allow
-  ;; user redefinition of non-keyword primitive callables.
-  (check-equal? (hash-ref string-namespace-shadow-result 'stdout) "999\n")
+  (check-eq? (hash-ref string-namespace-result 'status) 'runtime-error)
+  (check-true (regexp-match? #px"unknown identifier: STRING"
+                             (hash-ref string-namespace-result 'error)))
 
   (define leading-btw-src
     "BTW top preamble comment\nHAI 1.3\nVISIBLE \"OK\"\nKTHXBYE\n")

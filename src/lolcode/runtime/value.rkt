@@ -16,8 +16,7 @@
          type-default-value
          identifier-text
          require-arity
-         install-runtime-builtins!
-         install-runtime-library!)
+         install-runtime-builtins!)
 
 (define lol-object%
   (class object%
@@ -260,45 +259,5 @@
   (unless (= (length arg-values) n)
     (error 'run-program "~a expected ~a args, got ~a" who n (length arg-values))))
 
-(define (install-string-library! builtins-env)
-  (env-define!
-   builtins-env
-   "STRING'Z LEN"
-   (lambda (_caller-env arg-values _ctx)
-     (require-arity "STRING'Z LEN" arg-values 1)
-     (string-length
-      (lol-string (first arg-values)))))
-  (env-define!
-   builtins-env
-   "STRING'Z AT"
-   (lambda (_caller-env arg-values _ctx)
-     (require-arity "STRING'Z AT" arg-values 2)
-     (define text
-       (lol-string (first arg-values)))
-     (define idx
-       (inexact->exact
-        (truncate
-         (coerce-cast-number "STRING'Z AT index" (second arg-values)))))
-     (if (or (< idx 0) (>= idx (string-length text)))
-         noob
-         (string (string-ref text idx))))))
-
-(define (install-stdio-library! _builtins-env)
-  ;; Current strict-1.3 runtime has no extra STDIO functions beyond core VISIBLE/GIMMEH.
+(define (install-runtime-builtins! _builtins-env)
   (void))
-
-(define runtime-library-installers
-  (hash "STRING" install-string-library!
-        "STDIO" install-stdio-library!))
-
-(define (install-runtime-library! builtins-env library-name)
-  (define installer
-    (hash-ref runtime-library-installers (string-upcase library-name) #f))
-  (if installer
-      (begin
-        (installer builtins-env)
-        #t)
-      #f))
-
-(define (install-runtime-builtins! builtins-env)
-  (install-string-library! builtins-env))

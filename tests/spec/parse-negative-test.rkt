@@ -40,6 +40,14 @@
   (check-true (string? unsupported-v14-msg))
   (check-true (regexp-match? #px"unsupported version: 1\\.4" unsupported-v14-msg))
 
+  (define can-has-extension
+    "HAI 1.3\nCAN HAS STRING?\nKTHXBYE\n")
+  (define can-has-extension-msg
+    (capture-message (lambda () (parse-program can-has-extension))))
+  (check-true (string? can-has-extension-msg))
+  (check-true (regexp-match? #px"(syntax error:|invalid identifier syntax:)"
+                             can-has-extension-msg))
+
   (define mixin-inheritance
     "HAI 1.3\nO HAI IM Parent\nKTHX\nO HAI IM Mix\nKTHX\nO HAI IM Child IM LIEK Parent SMOOSH Mix\nKTHX\nKTHXBYE\n")
   (check-not-exn

@@ -182,7 +182,6 @@
     stmt-break
     stmt-object-def
     stmt-slot-set
-    stmt-import
     stmt-expr))
 
 (define expr-universe
@@ -385,8 +384,6 @@
      (visit-expr! cov (stmt-slot-set-object s))
      (visit-expr! cov (stmt-slot-set-slot s))
      (visit-expr! cov (stmt-slot-set-expr s))]
-    [(stmt-import? s)
-     (cov-add-stmt! cov 'stmt-import)]
     [(stmt-expr? s)
      (cov-add-stmt! cov 'stmt-expr)
      (visit-expr! cov (stmt-expr-expr s))]

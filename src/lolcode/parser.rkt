@@ -22,9 +22,8 @@
   (HAI KTHXBYE NEWLINE EOF
        I HAS A R ITZ O RLY RLYQ YA NO WAI OIC MEBBE
        WTFQ OMG OMGWTF GTFO FOUND YR
-       IF U SAY SO HOW IZ GIMMEH CAN
+       IF U SAY SO HOW IZ GIMMEH
        VISIBLE AN BANG
-       QMARK
        SUM OF DIFF PRODUKT QUOSHUNT MOD BIGGR SMALLR
        BOTH SAEM EITHER WON DIFFRINT NOT ALL ANY
        SMOOSH SRS MKAY
@@ -42,7 +41,6 @@
         "ANY" token-ANY
         "BIGGR" token-BIGGR
         "BOTH" token-BOTH
-        "CAN" token-CAN
         "DIFF" token-DIFF
         "DIFFRINT" token-DIFFRINT
         "EITHER" token-EITHER
@@ -79,7 +77,6 @@
         "OMGWTF" token-OMGWTF
         "OUTTA" token-OUTTA
         "PRODUKT" token-PRODUKT
-        "?" token-QMARK
         "QUOSHUNT" token-QUOSHUNT
         "R" token-R
         "RLY" token-RLY
@@ -254,17 +251,6 @@
     [_ (error 'parse-source
               "loop updater call must target a function name, got ~e"
               target)]))
-
-(define (normalize-import-name lib)
-  (if (and (positive? (string-length lib))
-           (char=? (string-ref lib (- (string-length lib) 1)) #\?))
-      (substring lib 0 (- (string-length lib) 1))
-      lib))
-
-(define (ensure-import-qmark id-text)
-  (unless (string=? id-text "?")
-    (error 'parse-source "expected '?' after CAN HAS target, got ~v" id-text))
-  (void))
 
 (define switch-interpolation-rx
   #px":\\{[^\\}]*\\}")
@@ -590,7 +576,6 @@
      [(cast-stmt) $1]
      [(input-stmt) $1]
      [(slot-set-stmt) $1]
-     [(import-stmt) $1]
      [(visible-stmt) $1]
      [(return-stmt) $1]
      [(break-stmt) $1]
@@ -625,16 +610,6 @@
 
     (input-stmt
      [(GIMMEH expr) (stmt-input $2)])
-
-    (import-stmt
-     [(CAN HAS ID)
-      (stmt-import (normalize-import-name $3) 'library)]
-     [(CAN HAS ID QMARK)
-      (stmt-import (normalize-import-name $3) 'library)]
-     [(CAN HAS STRING)
-      (stmt-import $3 'file)]
-     [(CAN HAS STRING QMARK)
-      (stmt-import $3 'file)])
 
     (slot-set-stmt
      [(expr HAS article-opt slot-target slot-init-opt) (stmt-slot-set $1 $4 $5)])
