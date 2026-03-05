@@ -69,12 +69,6 @@
         (inner-proc e ctx)))]
     [_ (error 'run-program "invalid name spec: ~e" name-spec)]))
 
-(define (dynamic-alias-binding name-spec resolved-name)
-  (and (expr-srs? name-spec)
-       (expr-ident? (expr-srs-expr name-spec))
-       (cons (expr-ident-name (expr-srs-expr name-spec))
-             resolved-name)))
-
 (define (compile-lvalue target
                         #:define-missing? [define-missing? #f])
   (match target
@@ -646,19 +640,12 @@
       (map (lambda (param-name-proc)
              (param-name-proc e ctx))
            param-name-procs))
-    (define dynamic-aliases
-      (filter values
-              (append
-               (list (dynamic-alias-binding name resolved-name))
-               (for/list ([param-spec (in-list params)]
-                          [resolved-param (in-list resolved-params)])
-                 (dynamic-alias-binding param-spec resolved-param)))))
     (define def-env e)
     (define method-lexical-parent
       (if (exec-ctx-def-object ctx)
           (env-parent def-env)
           def-env))
-    (define (make-global-fn fn-name param-names aliases)
+    (define (make-global-fn fn-name param-names)
       (lambda (_caller-env arg-values caller-ctx)
         (unless (= (length param-names) (length arg-values))
           (error 'run-program
@@ -673,11 +660,6 @@
         (for ([param (in-list param-names)]
               [arg (in-list arg-values)])
           (env-define! call-env param arg))
-        (for ([alias (in-list aliases)])
-          (define alias-name (car alias))
-          (define alias-value (cdr alias))
-          (unless (env-lookup-box call-env alias-name)
-            (env-define! call-env alias-name alias-value)))
         (env-define! call-env "IT" noob)
         (let/ec return-k
           (define fn-ctx
@@ -726,7 +708,7 @@
                own-slot-names
                inherited-before))))))
     (define global-fn
-      (make-global-fn resolved-name resolved-params dynamic-aliases))
+      (make-global-fn resolved-name resolved-params))
     (cond
       [(exec-ctx-def-object ctx)
        (send (exec-ctx-def-object ctx)

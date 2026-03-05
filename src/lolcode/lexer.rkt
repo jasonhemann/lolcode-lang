@@ -48,6 +48,9 @@
    'skip-line-continuation!/cr
    'skip-line-continuation!/lf
    'skip-line-continuation!/other
+   'skip-line-continuation!/blank-line
+   'skip-line-continuation!/blank-line-allowed
+   'skip-line-continuation!/blank-line-error
    'scan-string-tail!/format-placeholder/eof
    'scan-string-tail!/format-placeholder/newline
    'scan-string-tail!/format-placeholder/end
@@ -114,6 +117,10 @@
 (define (numeric-token? text)
   (regexp-match? #px"^-?[0-9]+(?:\\.[0-9]+)?$" text))
 
+(define (malformed-number-token? text)
+  (and (regexp-match? #px"^-?[0-9][0-9.]*$" text)
+       (not (numeric-token? text))))
+
 (define (newline-or-return? ch)
   (and (char? ch)
        (or (char=? ch #\newline)
@@ -134,14 +141,18 @@
     [else
      (define len (string-length text))
      (cond
-       [(or (and (> len 3)
-                 (string-suffix? text "..."))
-            (and (> len 1)
-                 (string-suffix? text "…")))
-        (define stem
-          (if (string-suffix? text "…")
-              (substring text 0 (- len 1))
-              (substring text 0 (- len 3))))
+       [(and (> len 3)
+             (string-suffix? text "..."))
+        (define stem (substring text 0 (- len 3)))
+        (let-values ([(status toks) (word->tokens stem line col)])
+          (if (eq? status 'ok)
+              (begin
+                (lexer-cover! 'word->tokens/ok+line-continuation)
+                (values 'ok+line-continuation toks))
+              (values status toks)))]
+       [(and (> len 1)
+             (string-suffix? text "…"))
+        (define stem (substring text 0 (- len 1)))
         (let-values ([(status toks) (word->tokens stem line col)])
           (if (eq? status 'ok)
               (begin
@@ -162,6 +173,11 @@
        [(numeric-token? text)
         (lexer-cover! 'word->tokens/number)
         (values 'ok (list (token 'NUMBER text line col)))]
+       [(malformed-number-token? text)
+        (lex-error 'lex-source
+                   "invalid numeric literal"
+                   line
+                   col)]
        [else
         (lexer-cover! 'word->tokens/word)
         (values 'ok (list (token 'WORD text line col)))])]))
@@ -207,32 +223,75 @@
              (read-char in))]))
   (loop "" (read-char in)))
 
-(define (skip-line-continuation! in)
-  (define (loop ch)
+(define (skip-line-continuation! in line col allow-empty-line?)
+  (define (consume-horizontal-space!)
+    (let loop ()
+      (define ch (peek-char in))
+      (when (and (char? ch)
+                 (or (char=? ch #\space)
+                     (char=? ch #\tab)))
+        (lexer-cover! 'skip-line-continuation!/space-or-tab)
+        (read-char in)
+        (loop))))
+  (define (consume-newline!)
+    (define ch (peek-char in))
     (cond
       [(eof-object? ch)
        (lexer-cover! 'skip-line-continuation!/eof)
-       (void)]
-      [(or (char=? ch #\space) (char=? ch #\tab))
-       (lexer-cover! 'skip-line-continuation!/space-or-tab)
-       (read-char in)
-       (loop (peek-char in))]
+       'eof]
       [(char=? ch #\return)
        (lexer-cover! 'skip-line-continuation!/cr)
        (read-char in)
        (define next (peek-char in))
-       (when (and (char? next) (char=? next #\newline))
+       (when (and (char? next)
+                  (char=? next #\newline))
          (lexer-cover! 'skip-line-continuation!/crlf)
          (read-char in))
-       (void)]
+       'newline]
       [(char=? ch #\newline)
        (lexer-cover! 'skip-line-continuation!/lf)
        (read-char in)
-       (void)]
+       'newline]
       [else
        (lexer-cover! 'skip-line-continuation!/other)
-       (void)]))
-  (loop (peek-char in)))
+       'other]))
+  (consume-horizontal-space!)
+  (case (consume-newline!)
+    [(eof)
+     (lex-error 'lex-source
+                "line continuation must be followed by another line"
+                line
+                col)]
+    [(other)
+     (lex-error 'lex-source
+                "line continuation marker must be at end of line"
+                line
+                col)]
+    [else
+     (void)])
+  (consume-horizontal-space!)
+  (define next (peek-char in))
+  (cond
+    [(eof-object? next)
+     (lex-error 'lex-source
+                "line continuation must be followed by another line"
+                line
+                col)]
+    [(newline-or-return? next)
+     (lexer-cover! 'skip-line-continuation!/blank-line)
+     (if allow-empty-line?
+         (begin
+           (lexer-cover! 'skip-line-continuation!/blank-line-allowed)
+           (consume-newline!)
+           (void))
+         (begin
+           (lexer-cover! 'skip-line-continuation!/blank-line-error)
+           (lex-error 'lex-source
+                      "line continuation may not be followed by an empty line"
+                      line
+                      col)))]
+    [else
+     (void)]))
 
 (define (scan-string-format-placeholder! in line col)
   (define placeholder-out (open-output-string))
@@ -282,10 +341,7 @@
        (loop (read-char in))]))
   (loop (read-char in)))
 
-(define unicode-normative-name->codepoint
-  (hash "DOLLAR SIGN" #x0024
-        "CENT SIGN" #x00A2
-        "EURO SIGN" #x20AC))
+(define unicode-normative-name->codepoint-cache #f)
 
 (define (normalize-unicode-normative-name text)
   (regexp-replace* #px"[ \t]+" (string-upcase (string-trim text)) " "))
@@ -295,6 +351,44 @@
       (char-numeric? ch)
       (char-whitespace? ch)
       (char=? ch #\-)))
+
+(define (valid-normalized-normative-name? text)
+  (and (not (string=? text ""))
+       (for/and ([ch (in-string text)])
+         (normative-name-char? ch))))
+
+(define (load-codepoint-package-normative-name->codepoint)
+  (with-handlers ([exn:fail?
+                   (lambda (e)
+                     (error 'lex-source
+                            (string-append
+                             "Unicode normative-name escapes require Racket's codepoint data: "
+                             (exn-message e))))])
+    (define name-table-path
+      (collection-file-path "generated/name.rkt-src" "codepoint"))
+    (define cp->name
+      (call-with-input-file name-table-path read))
+    (unless (hash? cp->name)
+      (error 'lex-source "invalid codepoint name table format"))
+    (define table (make-hash))
+    (for ([(cp raw-name) (in-hash cp->name)])
+      (when (and (exact-nonnegative-integer? cp)
+                 (string? raw-name))
+        (define normalized
+          (normalize-unicode-normative-name raw-name))
+        (when (and (valid-normalized-normative-name? normalized)
+                   (not (hash-has-key? table normalized)))
+          (hash-set! table normalized cp))))
+    table))
+
+(define (load-unicode-normative-name->codepoint)
+  (load-codepoint-package-normative-name->codepoint))
+
+(define (unicode-normative-name->codepoint normalized-name)
+  (unless (hash? unicode-normative-name->codepoint-cache)
+    (set! unicode-normative-name->codepoint-cache
+          (load-unicode-normative-name->codepoint)))
+  (hash-ref unicode-normative-name->codepoint-cache normalized-name #f))
 
 (define (scan-string-normative-name-escape! in line col)
   (define name-out (open-output-string))
@@ -318,7 +412,7 @@
          (lexer-cover! 'scan-string-tail!/normative/invalid-char)
          (lex-error 'lex-source "invalid Unicode normative name in string literal" line col))
        (define cp
-         (hash-ref unicode-normative-name->codepoint normalized #f))
+         (unicode-normative-name->codepoint normalized))
        (unless cp
          (lexer-cover! 'scan-string-tail!/normative/unknown-name)
          (lex-error 'lex-source "invalid Unicode normative name in string literal" line col))
@@ -419,6 +513,10 @@
 
 (define (make-next-token in)
   (define pending '())
+  (define line-has-token? #f)
+  ;; Tokens returned from an `ok+line-continuation` lexeme were parsed before
+  ;; the consumed newline. Do not let them affect the next physical line state.
+  (define suppress-line-state-updates 0)
   (define scanner
      (lexer-src-pos
      [ws
@@ -467,11 +565,21 @@
            (return-without-pos (scanner in))]
           [(eq? status 'line-continuation)
            (lexer-cover! 'scanner/word/line-continuation)
-           (skip-line-continuation! in)
+           (skip-line-continuation! in
+                                    (position-line start-pos)
+                                    (+ 1 (position-col start-pos))
+                                    (not line-has-token?))
+           (set! line-has-token? #f)
            (return-without-pos (scanner in))]
           [(eq? status 'ok+line-continuation)
            (lexer-cover! 'scanner/word/ok+line-continuation)
-           (skip-line-continuation! in)
+           (skip-line-continuation! in
+                                    (position-line start-pos)
+                                    (+ 1 (position-col start-pos))
+                                    #f)
+           (set! line-has-token? #f)
+           (set! suppress-line-state-updates
+                 (+ suppress-line-state-updates (length toks)))
            (set! pending (append pending (cdr toks)))
            (return-without-pos (car toks))]
           [else
@@ -483,14 +591,23 @@
         (lexer-cover! 'scanner/eof)
         (return-without-pos (make-token 'EOF "" start-pos)))]))
   (lambda ()
-    (cond
-      [(pair? pending)
-       (lexer-cover! 'scanner/pending)
-       (define t (car pending))
-       (set! pending (cdr pending))
-       t]
-      [else
-       (scanner in)])))
+    (define t
+      (cond
+        [(pair? pending)
+         (lexer-cover! 'scanner/pending)
+         (define next (car pending))
+         (set! pending (cdr pending))
+         next]
+        [else
+         (scanner in)]))
+    (if (> suppress-line-state-updates 0)
+        (set! suppress-line-state-updates (- suppress-line-state-updates 1))
+        (cond
+          [(eq? (token-type t) 'NEWLINE)
+           (set! line-has-token? #f)]
+          [(not (eq? (token-type t) 'EOF))
+           (set! line-has-token? #t)]))
+    t))
 
 (define (lex-source source)
   (unless (string? source)

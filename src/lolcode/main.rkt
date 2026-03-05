@@ -1,6 +1,7 @@
 #lang racket/base
 
 (require racket/file
+         racket/path
          "ast.rkt"
          "parser.rkt"
          "runtime.rkt")
@@ -30,4 +31,10 @@
 (define (run-file path)
   (unless (path-string? path)
     (raise-argument-error 'run-file "path-string?" path))
-  (run-program (parse-program (file->string path))))
+  (define full-path
+    (simplify-path (path->complete-path path)))
+  (define base-dir
+    (or (path-only full-path)
+        (current-directory)))
+  (parameterize ([current-directory base-dir])
+    (run-program (parse-program (file->string full-path)))))

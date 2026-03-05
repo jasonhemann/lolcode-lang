@@ -47,6 +47,12 @@ Step-3 lexer/parser implementation is under:
 - `src/lolcode/ast.rkt`
 - `tests/spec/parse-negative-test.rkt`
 
+Install Unicode lookup dependency (used for `:[<char name>]` escapes):
+
+```bash
+raco pkg install --auto codepoint
+```
+
 Parser implementation note:
 
 - `src/lolcode/parser.rkt` now uses Racket `parser-tools/yacc` with source-positioned syntax errors.
@@ -61,6 +67,18 @@ or:
 
 ```bash
 raco test tests
+```
+
+Run spec traceability audit:
+
+```bash
+./scripts/check_spec_traceability.sh
+```
+
+Regenerate the 1.3 clause index (line-numbered headings + normative lines):
+
+```bash
+./scripts/extract_spec_clauses.sh
 ```
 
 Run external regression evidence (non-gating):

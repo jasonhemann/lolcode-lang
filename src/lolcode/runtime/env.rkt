@@ -16,14 +16,13 @@
          env-set!
          env-set-or-define!
          set-it!
-         runtime-functions
          runtime-globals
          runtime-stdout)
 
 (define noob 'NOOB)
 
 (struct env (table parent) #:transparent)
-(struct runstate (globals functions stdout phase) #:transparent)
+(struct runstate (globals stdout phase) #:transparent)
 (struct exec-ctx (state return-k break-k object-name def-object) #:transparent)
 
 (define (ctx-derive ctx
@@ -114,10 +113,6 @@
      => (lambda (maybe-it)
           (set-box! maybe-it value))]
     [else (env-define! e "IT" value)]))
-
-(define (runtime-functions ctx)
-  (runstate-functions
-   (exec-ctx-state ctx)))
 
 (define (runtime-globals ctx)
   (runstate-globals

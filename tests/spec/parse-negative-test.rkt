@@ -112,8 +112,13 @@
 
   (define and-as-identifier-when-an-omitted
     "HAI 1.3\nVISIBLE SUM OF 1 AND 2\nKTHXBYE\n")
+  (check-exn #px"syntax error: unexpected NUMBER"
+             (lambda () (parse-program and-as-identifier-when-an-omitted)))
+
+  (define and-as-identifier-with-explicit-an
+    "HAI 1.3\nI HAS A AND ITZ 2\nVISIBLE SUM OF 1 AN AND\nKTHXBYE\n")
   (check-not-exn
-   (lambda () (parse-program and-as-identifier-when-an-omitted)))
+   (lambda () (parse-program and-as-identifier-with-explicit-an)))
 
   (define misspelled-difference-op
     "HAI 1.3\nVISIBLE DIFFERENCE OF 5 AN 2\nKTHXBYE\n")

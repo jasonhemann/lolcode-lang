@@ -546,7 +546,7 @@
    (end EOF)
    (tokens value-tokens op-tokens)
    (src-pos)
-   (expected-SR-conflicts 22)
+   (expected-SR-conflicts 21)
    (expected-RR-conflicts 0)
    (error
     (lambda (tok-ok? tok-name tok-value start-pos end-pos)
@@ -573,7 +573,7 @@
      [(statement-item statement-items) (cons $1 $2)])
 
     (statement-item
-     [(statement nlopt) $1])
+     [(statement NEWLINE nlopt) $1])
 
     (statement
      [(loop-stmt) $1]
@@ -596,10 +596,13 @@
      [(break-stmt) $1]
      [(expr-stmt) $1])
 
+    (article-opt
+     [() (void)]
+     [(A) (void)]
+     [(AN) (void)])
+
     (declare-stmt
-     [(I HAS A declare-target declare-init-opt) (stmt-declare $4 $5)]
-     [(I HAS AN declare-target declare-init-opt) (stmt-declare $4 $5)]
-     [(I HAS declare-target declare-init-opt) (stmt-declare $3 $4)])
+     [(I HAS article-opt declare-target declare-init-opt) (stmt-declare $4 $5)])
 
     (declare-target
      [(ident-token) (expr-ident $1)]
@@ -634,18 +637,16 @@
       (stmt-import $3 'file)])
 
     (slot-set-stmt
-     [(expr HAS slot-target) (stmt-slot-set $1 $3 #f)]
-     [(expr HAS A slot-target) (stmt-slot-set $1 $4 #f)]
-     [(expr HAS AN slot-target) (stmt-slot-set $1 $4 #f)]
-     [(expr HAS slot-target ITZ expr) (stmt-slot-set $1 $3 $5)]
-     [(expr HAS A slot-target ITZ expr) (stmt-slot-set $1 $4 $6)]
-     [(expr HAS AN slot-target ITZ expr) (stmt-slot-set $1 $4 $6)]
-     [(expr HAS slot-target ITZ A ID) (stmt-slot-set $1 $3 (expr-ident $6))]
-     [(expr HAS A slot-target ITZ A ID) (stmt-slot-set $1 $4 (expr-ident $7))])
+     [(expr HAS article-opt slot-target slot-init-opt) (stmt-slot-set $1 $4 $5)])
 
     (slot-target
      [(ident-token) (expr-ident $1)]
      [(SRS expr) (expr-srs $2)])
+
+    (slot-init-opt
+     [() #f]
+     [(ITZ expr) $2]
+     [(ITZ A ID) (expr-ident $3)])
 
     (visible-stmt
      [(VISIBLE visible-args) (stmt-visible $2 #f)]
@@ -691,7 +692,7 @@
      [(loop-body-item loop-body-items) (cons $1 $2)])
 
     (loop-body-item
-     [(statement nlopt) $1])
+     [(statement NEWLINE nlopt) $1])
 
     (loop-update-opt
      [() (cons #f #f)]

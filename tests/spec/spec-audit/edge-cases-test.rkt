@@ -38,17 +38,22 @@
   (check-exn #px"syntax error:"
              (lambda () (parse-program bad-qoushunt)))
 
-  (define and-unbound-runtime
+  (define and-as-second-arg-without-an
     "HAI 1.3\nVISIBLE SUM OF 1 AND 2\nKTHXBYE\n")
+  (check-exn #px"syntax error: unexpected NUMBER"
+             (lambda () (parse-program and-as-second-arg-without-an)))
+
+  (define and-unbound-runtime
+    "HAI 1.3\nVISIBLE SUM OF 1 AN AND\nKTHXBYE\n")
   (define and-unbound-runtime-result
     (run-source and-unbound-runtime))
   (check-eq? (hash-ref and-unbound-runtime-result 'status) 'runtime-error)
   (check-true (regexp-match? #px"unknown identifier: AND"
                              (hash-ref and-unbound-runtime-result 'error)))
 
-  (define and-bound-runtime
-    "HAI 1.3\nI HAS A AND ITZ 2\nVISIBLE SUM OF 1 AND 2\nKTHXBYE\n")
+  (define and-bound-parse
+    "HAI 1.3\nI HAS A AND ITZ 2\nVISIBLE SUM OF 1 AN AND\nKTHXBYE\n")
   (define and-bound-runtime-result
-    (run-source and-bound-runtime))
+    (run-source and-bound-parse))
   (check-eq? (hash-ref and-bound-runtime-result 'status) 'ok)
   (check-equal? (hash-ref and-bound-runtime-result 'stdout) "3\n"))
