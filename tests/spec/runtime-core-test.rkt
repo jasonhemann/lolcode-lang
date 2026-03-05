@@ -607,6 +607,20 @@
   (check-eq? (hash-ref line-cont-chain-ending-comma-result 'status) 'ok)
   (check-equal? (hash-ref line-cont-chain-ending-comma-result 'stdout) "AB\nC\n")
 
+  (define visible-continuation-comma-boundary-src
+    "HAI 1.3\nVISIBLE \"A\" ...\n\"B\", VISIBLE \"C\" ...\n\"D\"\nKTHXBYE\n")
+  (define visible-continuation-comma-boundary
+    (run-source visible-continuation-comma-boundary-src))
+  (check-eq? (hash-ref visible-continuation-comma-boundary 'status) 'ok)
+  (check-equal? (hash-ref visible-continuation-comma-boundary 'stdout) "AB\nCD\n")
+
+  (define visible-continuation-bang-src
+    "HAI 1.3\nVISIBLE \"A\" ...\n\"B\" !\nVISIBLE \"C\"\nKTHXBYE\n")
+  (define visible-continuation-bang
+    (run-source visible-continuation-bang-src))
+  (check-eq? (hash-ref visible-continuation-bang 'status) 'ok)
+  (check-equal? (hash-ref visible-continuation-bang 'stdout) "ABC\n")
+
   (define line-cont-standalone-ellipsis-src
     "HAI 1.3\nVISIBLE \"A\"...\n...\n\n\"B\"\nKTHXBYE\n")
   (define line-cont-standalone-ellipsis-result

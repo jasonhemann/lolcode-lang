@@ -295,7 +295,7 @@
        (status . implemented)
        (code-refs . ("src/lolcode/parser.rkt" "src/lolcode/runtime.rkt"))
        (test-refs . ("tests/spec/runtime-core-test.rkt" "tests/spec/conformance-test.rkt"))
-       (notes . "VISIBLE supports multi-arg output and newline suppression."))
+       (notes . "VISIBLE supports multi-arg output and newline suppression, including continued-line argument lists and comma soft-break command boundaries."))
  #hash((id . "io.gimmeh")
        (spec-version . "1.3")
        (source-file . "spec/upstream/lolcode-spec-v1.3.md")

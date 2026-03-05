@@ -95,9 +95,9 @@ Legend:
   Spec: line 123 (`unmapped`).  
   Done: added matrix row `var.declare-literal-type-inference` and runtime regression proving literal initializers map directly to their primitive domains while expression initializers use the resulting expression value.
 
-- [ ] `21` (notes 165-167) `VISIBLE` delimiter semantics vs continuation.
+- [x] `21` (notes 165-167) `VISIBLE` delimiter semantics vs continuation.
   Spec: line 383 (mapped), formatting lines 33/35 (mapped).  
-  To check: add tests where `VISIBLE` spans continued lines and comma-separated command boundaries.
+  Done: added regressions for `VISIBLE` arguments split by continuation across comma command boundaries and for newline suppression (`!`) on a continued `VISIBLE` statement.
 
 ## Phase 3: IT / Control / Functions (in notes order)
 
