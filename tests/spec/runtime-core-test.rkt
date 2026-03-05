@@ -1,6 +1,7 @@
 #lang racket/base
 
-(require rackunit
+(require racket/file
+         rackunit
          "../../src/lolcode/ast.rkt"
          "../../src/lolcode/main.rkt")
 
@@ -40,6 +41,12 @@
   (check-eq? (hash-ref bukkit-slot 'status) 'ok)
   (check-equal? (hash-ref bukkit-slot 'stdout) "42\n")
 
+  (define bukkit-slot-no-article-src
+    "HAI 1.3\nI HAS A obj ITZ A BUKKIT\nobj HAS answer ITZ 41\nobj'Z answer R SUM OF obj'Z answer AN 1\nVISIBLE obj'Z answer\nKTHXBYE\n")
+  (define bukkit-slot-no-article (run-source bukkit-slot-no-article-src))
+  (check-eq? (hash-ref bukkit-slot-no-article 'status) 'ok)
+  (check-equal? (hash-ref bukkit-slot-no-article 'stdout) "42\n")
+
   (define bukkit-srs-numeric-slot-src
     "HAI 1.3\nI HAS A obj ITZ A BUKKIT\nobj HAS A SRS 0 ITZ 41\nobj'Z SRS 0 R SUM OF obj'Z SRS 0 AN 1\nVISIBLE obj'Z SRS 0\nKTHXBYE\n")
   (define bukkit-srs-numeric-slot (run-source bukkit-srs-numeric-slot-src))
@@ -66,10 +73,8 @@
 
   (define switch-duplicate-src
     "HAI 1.3\nI HAS A x ITZ 1\nx, WTF?\n  OMG 1\n    VISIBLE \"A\"\n  OMG 1\n    VISIBLE \"B\"\nOIC\nKTHXBYE\n")
-  (define switch-duplicate-result (run-source switch-duplicate-src))
-  (check-eq? (hash-ref switch-duplicate-result 'status) 'runtime-error)
-  (check-true (regexp-match? #px"duplicate OMG literal in WTF\\?"
-                             (hash-ref switch-duplicate-result 'error "")))
+  (check-exn #px"duplicate OMG literal in WTF\\?"
+             (lambda () (parse-program switch-duplicate-src)))
 
   (define function-src
     "HAI 1.3\nHOW IZ I addin YR x AN YR y\n  FOUND YR SUM OF x AN y\nIF U SAY SO\nI HAS A result ITZ I IZ addin YR 2 AN YR 3 MKAY\nVISIBLE result\nKTHXBYE\n")
@@ -95,12 +100,34 @@
   (check-eq? (hash-ref function-gtfo-return 'status) 'ok)
   (check-equal? (hash-ref function-gtfo-return 'stdout) "NOOB\n")
 
+  (define function-switch-gtfo-scope-src
+    "HAI 1.3\nHOW IZ I choose\n  I HAS A out ITZ \"ok\"\n  1, WTF?\n    OMG 1\n      GTFO\n    OMGWTF\n      out R \"bad\"\n  OIC\n  FOUND YR out\nIF U SAY SO\nVISIBLE I IZ choose MKAY\nKTHXBYE\n")
+  (define function-switch-gtfo-scope
+    (run-source function-switch-gtfo-scope-src))
+  (check-eq? (hash-ref function-switch-gtfo-scope 'status) 'ok)
+  ;; Regression: GTFO in switch must break switch, not return from function.
+  (check-equal? (hash-ref function-switch-gtfo-scope 'stdout) "ok\n")
+
+  (define function-switch-found-return-src
+    "HAI 1.3\nHOW IZ I classify YR x\n  x, WTF?\n    OMG 2\n      FOUND YR \"two\"\n    OMGWTF\n      FOUND YR \"other\"\n  OIC\n  FOUND YR \"bad\"\nIF U SAY SO\nVISIBLE I IZ classify YR 2 MKAY\nVISIBLE I IZ classify YR 9 MKAY\nKTHXBYE\n")
+  (define function-switch-found-return
+    (run-source function-switch-found-return-src))
+  (check-eq? (hash-ref function-switch-found-return 'status) 'ok)
+  ;; Regression: FOUND YR inside nested switch must escape whole function.
+  (check-equal? (hash-ref function-switch-found-return 'stdout) "two\nother\n")
+
   (define function-outer-scope-src
     "HAI 1.3\nI HAS A outside ITZ 9\nHOW IZ I reach\n  FOUND YR outside\nIF U SAY SO\nVISIBLE I IZ reach MKAY\nKTHXBYE\n")
   (define function-outer-scope (run-source function-outer-scope-src))
-  (check-eq? (hash-ref function-outer-scope 'status) 'runtime-error)
-  (check-true (regexp-match? #px"unknown identifier: outside"
-                             (hash-ref function-outer-scope 'error)))
+  (check-eq? (hash-ref function-outer-scope 'status) 'ok)
+  (check-equal? (hash-ref function-outer-scope 'stdout) "9\n")
+
+  (define function-it-reset-src
+    "HAI 1.3\nHOW IZ I peek\n  FOUND YR IT\nIF U SAY SO\nVISIBLE I IZ peek MKAY\nSUM OF 1 AN 2\nVISIBLE I IZ peek MKAY\nKTHXBYE\n")
+  (define function-it-reset (run-source function-it-reset-src))
+  (check-eq? (hash-ref function-it-reset 'status) 'ok)
+  ;; Regression: function call frames must initialize IT independently.
+  (check-equal? (hash-ref function-it-reset 'stdout) "NOOB\nNOOB\n")
 
   (define expr-stmt-src
     "HAI 1.3\nHOW IZ I ping\n  VISIBLE \"P\"\nIF U SAY SO\nI IZ ping MKAY\nKTHXBYE\n")
@@ -142,6 +169,12 @@
   (check-eq? (hash-ref object-alt 'status) 'ok)
   (check-equal? (hash-ref object-alt 'stdout) "pikachu\n")
 
+  (define object-alt-dynamic-name-src
+    "HAI 1.3\nI HAS A objname ITZ \"pokeman\"\nO HAI IM SRS objname\n  I HAS A name ITZ \"pikachu\"\nKTHX\nVISIBLE pokeman'Z name\nKTHXBYE\n")
+  (define object-alt-dynamic-name (run-source object-alt-dynamic-name-src))
+  (check-eq? (hash-ref object-alt-dynamic-name 'status) 'ok)
+  (check-equal? (hash-ref object-alt-dynamic-name 'stdout) "pikachu\n")
+
   (define unsupported-src
     "HAI 1.3\nI HAS A obj ITZ A BUKKIT\nI HAS A res ITZ obj IZ call MKAY\nKTHXBYE\n")
   (define unsupported (run-source unsupported-src))
@@ -155,17 +188,45 @@
   (check-eq? (hash-ref inherited-object 'status) 'ok)
   (check-equal? (hash-ref inherited-object 'stdout) "pikachu\n")
 
+  (define inherited-object-dynamic-parent-src
+    "HAI 1.3\nI HAS A pname ITZ \"parent\"\nI HAS A cname ITZ \"child\"\nO HAI IM SRS pname\n  I HAS A name ITZ \"pikachu\"\nKTHX\nO HAI IM SRS cname IM LIEK SRS pname\nKTHX\nVISIBLE child'Z name\nKTHXBYE\n")
+  (define inherited-object-dynamic-parent
+    (run-source inherited-object-dynamic-parent-src))
+  (check-eq? (hash-ref inherited-object-dynamic-parent 'status) 'ok)
+  (check-equal? (hash-ref inherited-object-dynamic-parent 'stdout) "pikachu\n")
+
   (define loop-src
     "HAI 1.3\nI HAS A idx ITZ 0\nI HAS A acc ITZ 0\nIM IN YR count UPPIN YR idx TIL BOTH SAEM idx AN 5\n  acc R SUM OF acc AN idx\nIM OUTTA YR count\nVISIBLE acc\nKTHXBYE\n")
   (define loop-result (run-source loop-src))
   (check-eq? (hash-ref loop-result 'status) 'ok)
   (check-equal? (hash-ref loop-result 'stdout) "10\n")
 
+  (define loop-dynamic-label-src
+    "HAI 1.3\nI HAS A loopname ITZ \"lp\"\nI HAS A i ITZ 0\nIM IN YR SRS loopname UPPIN YR i TIL BOTH SAEM i AN 3\n  VISIBLE i\nIM OUTTA YR SRS loopname\nKTHXBYE\n")
+  (define loop-dynamic-label (run-source loop-dynamic-label-src))
+  (check-eq? (hash-ref loop-dynamic-label 'status) 'ok)
+  (check-equal? (hash-ref loop-dynamic-label 'stdout) "0\n1\n2\n")
+
+  (define loop-dynamic-label-mismatch-src
+    "HAI 1.3\nI HAS A open ITZ \"lp\"\nI HAS A close ITZ \"oops\"\nIM IN YR SRS open\n  GTFO\nIM OUTTA YR SRS close\nKTHXBYE\n")
+  (define loop-dynamic-label-mismatch
+    (run-source loop-dynamic-label-mismatch-src))
+  (check-eq? (hash-ref loop-dynamic-label-mismatch 'status) 'runtime-error)
+  (check-true (regexp-match? #px"loop label mismatch"
+                             (hash-ref loop-dynamic-label-mismatch 'error)))
+
   (define loop-counter-scope-src
     "HAI 1.3\nI HAS A ctr ITZ 5\nIM IN YR lp UPPIN YR ctr WILE DIFFRINT ctr AN 10\n  VISIBLE ctr\nIM OUTTA YR lp\nVISIBLE ctr\nKTHXBYE\n")
   (define loop-counter-scope-result (run-source loop-counter-scope-src))
   (check-eq? (hash-ref loop-counter-scope-result 'status) 'ok)
   (check-equal? (hash-ref loop-counter-scope-result 'stdout) "5\n6\n7\n8\n9\n5\n")
+
+  (define loop-counter-dynamic-name-src
+    "HAI 1.3\nI HAS A vname ITZ \"ctr\"\nI HAS A ctr ITZ 5\nIM IN YR lp UPPIN YR SRS vname WILE DIFFRINT ctr AN 10\n  VISIBLE ctr\nIM OUTTA YR lp\nVISIBLE ctr\nKTHXBYE\n")
+  (define loop-counter-dynamic-name-result
+    (run-source loop-counter-dynamic-name-src))
+  (check-eq? (hash-ref loop-counter-dynamic-name-result 'status) 'ok)
+  (check-equal? (hash-ref loop-counter-dynamic-name-result 'stdout) "5\n6\n7\n8\n9\n5\n")
 
   (define loop-counter-no-leak-src
     "HAI 1.3\nIM IN YR lp UPPIN YR idx TIL BOTH SAEM idx AN 3\n  VISIBLE idx\nIM OUTTA YR lp\nVISIBLE idx\nKTHXBYE\n")
@@ -181,6 +242,14 @@
   (check-eq? (hash-ref nested-loop-result 'status) 'ok)
   (check-equal? (hash-ref nested-loop-result 'stdout) "6\n")
 
+  (define switch-break-inside-loop-src
+    "HAI 1.3\nI HAS A i ITZ 0\nI HAS A out ITZ \"\"\nIM IN YR lp UPPIN YR i TIL BOTH SAEM i AN 3\n  i, WTF?\n    OMG 1\n      out R SMOOSH out AN \"A\" MKAY\n      GTFO\n    OMGWTF\n      out R SMOOSH out AN \"B\" MKAY\n  OIC\nIM OUTTA YR lp\nVISIBLE out\nKTHXBYE\n")
+  (define switch-break-inside-loop
+    (run-source switch-break-inside-loop-src))
+  (check-eq? (hash-ref switch-break-inside-loop 'status) 'ok)
+  ;; Regression: GTFO from switch must not break enclosing loop.
+  (check-equal? (hash-ref switch-break-inside-loop 'stdout) "BAB\n")
+
   (define loop-unary-updater-src
     "HAI 1.3\nHOW IZ I plustwoin YR var\n  FOUND YR SUM OF var AN 2\nIF U SAY SO\nIM IN YR loop I IZ plustwoin YR var MKAY\n  VISIBLE var\n  BOTH SAEM var AN 10\n  O RLY?\n    YA RLY\n      GTFO\n  OIC\nIM OUTTA YR loop\nKTHXBYE\n")
   (define loop-unary-updater (run-source loop-unary-updater-src))
@@ -193,17 +262,33 @@
   (check-eq? (hash-ref logic-result 'status) 'ok)
   (check-equal? (hash-ref logic-result 'stdout) "FAIL\nWIN\nWIN\nWIN\nWIN\n")
 
-  (define logic-no-mkay-src
-    "HAI 1.3\nI HAS A flag ITZ WIN\nI HAS A anotherflag ITZ FAIL\nI HAS A flag3 ITZ WIN\nI HAS A flag4 ITZ WIN\nI HAS A flag5\nflag5 R ALL OF flag AN anotherflag AN flag3 AN flag4\nVISIBLE flag5\nKTHXBYE\n")
-  (define logic-no-mkay-result (run-source logic-no-mkay-src))
-  (check-eq? (hash-ref logic-no-mkay-result 'status) 'ok)
-  (check-equal? (hash-ref logic-no-mkay-result 'stdout) "FAIL\n")
+  (define logic-all-of-src
+    "HAI 1.3\nI HAS A flag ITZ WIN\nI HAS A anotherflag ITZ FAIL\nI HAS A flag3 ITZ WIN\nI HAS A flag4 ITZ WIN\nI HAS A flag5\nflag5 R ALL OF flag AN anotherflag AN flag3 AN flag4 MKAY\nVISIBLE flag5\nKTHXBYE\n")
+  (define logic-all-of-result (run-source logic-all-of-src))
+  (check-eq? (hash-ref logic-all-of-result 'status) 'ok)
+  (check-equal? (hash-ref logic-all-of-result 'stdout) "FAIL\n")
 
   (define cast-src
     "HAI 1.3\nI HAS A obj ITZ A BUKKIT\nobj HAS A answer ITZ \"41\"\nobj'Z answer IS NOW A NUMBR\nobj'Z answer R SUM OF obj'Z answer AN 1\nVISIBLE obj'Z answer\nKTHXBYE\n")
   (define cast-result (run-source cast-src))
   (check-eq? (hash-ref cast-result 'status) 'ok)
   (check-equal? (hash-ref cast-result 'stdout) "42\n")
+
+  (define cast-relaxed-number-yarn-src
+    "HAI 1.3\nVISIBLE MAEK \" 123\" A NUMBR\nKTHXBYE\n")
+  (define cast-relaxed-number-yarn
+    (run-source cast-relaxed-number-yarn-src))
+  (check-eq? (hash-ref cast-relaxed-number-yarn 'status) 'runtime-error)
+  (check-true (regexp-match? #px"cannot cast YARN to numeric value"
+                             (hash-ref cast-relaxed-number-yarn 'error)))
+
+  (define cast-scientific-number-yarn-src
+    "HAI 1.3\nVISIBLE MAEK \"1e2\" A NUMBAR\nKTHXBYE\n")
+  (define cast-scientific-number-yarn
+    (run-source cast-scientific-number-yarn-src))
+  (check-eq? (hash-ref cast-scientific-number-yarn 'status) 'runtime-error)
+  (check-true (regexp-match? #px"cannot cast YARN to numeric value"
+                             (hash-ref cast-scientific-number-yarn 'error)))
 
   (define method-src
     "HAI 1.3\nO HAI IM counter\n  I HAS A val ITZ 1\n  HOW IZ I bump YR delta\n    val R SUM OF val AN delta\n    FOUND YR val\n  IF U SAY SO\nKTHX\nVISIBLE counter IZ bump YR 2 MKAY\nVISIBLE counter IZ bump YR 3 MKAY\nVISIBLE counter'Z val\nKTHXBYE\n")
@@ -230,6 +315,38 @@
   (check-eq? (hash-ref method-alt-call-syntax 'status) 'ok)
   (check-equal? (hash-ref method-alt-call-syntax 'stdout) "11\n")
 
+  (define method-alt-call-dynamic-name-src
+    "HAI 1.3\nI HAS A foo ITZ A BUKKIT\nfoo HAS A bar ITZ 10\nHOW IZ foo inc\n  ME'Z bar R SUM OF ME'Z bar AN 1\nIF U SAY SO\nI HAS A m ITZ \"inc\"\nfoo IZ SRS m MKAY\nVISIBLE foo'Z bar\nKTHXBYE\n")
+  (define method-alt-call-dynamic-name
+    (run-source method-alt-call-dynamic-name-src))
+  (check-eq? (hash-ref method-alt-call-dynamic-name 'status) 'ok)
+  (check-equal? (hash-ref method-alt-call-dynamic-name 'stdout) "11\n")
+
+  (define method-global-capture-src
+    "HAI 1.3\nI HAS A suffix ITZ \"!\"\nO HAI IM speaker\n  HOW IZ I say YR x\n    FOUND YR SMOOSH x AN suffix MKAY\n  IF U SAY SO\nKTHX\nVISIBLE speaker IZ say YR \"A\" MKAY\nsuffix R \"?\"\nVISIBLE speaker IZ say YR \"A\" MKAY\nKTHXBYE\n")
+  (define method-global-capture
+    (run-source method-global-capture-src))
+  (check-eq? (hash-ref method-global-capture 'status) 'ok)
+  ;; Regression: method closures should observe shared lexical boxes.
+  (check-equal? (hash-ref method-global-capture 'stdout) "A!\nA?\n")
+
+  (define method-dynamic-slot-srs-src
+    "HAI 1.3\nO HAI IM box\n  I HAS A key ITZ \"n\"\n  I HAS A n ITZ 4\n  HOW IZ I bump\n    I HAS A name ITZ key\n    ME'Z SRS name R SUM OF ME'Z SRS name AN 1\n    FOUND YR ME'Z n\n  IF U SAY SO\nKTHX\nVISIBLE box IZ bump MKAY\nVISIBLE box IZ bump MKAY\nKTHXBYE\n")
+  (define method-dynamic-slot-srs
+    (run-source method-dynamic-slot-srs-src))
+  (check-eq? (hash-ref method-dynamic-slot-srs 'status) 'ok)
+  ;; Regression: dynamic slot names must compose with ME receiver writes.
+  (check-equal? (hash-ref method-dynamic-slot-srs 'stdout) "5\n6\n")
+
+  (define inherited-method-slot-independence-src
+    "HAI 1.3\nO HAI IM parent\n  I HAS A val ITZ 1\n  HOW IZ I bump\n    val R SUM OF val AN 1\n    FOUND YR val\n  IF U SAY SO\nKTHX\nO HAI IM child IM LIEK parent\nKTHX\nVISIBLE parent IZ bump MKAY\nVISIBLE child IZ bump MKAY\nVISIBLE parent'Z val\nVISIBLE child'Z val\nKTHXBYE\n")
+  (define inherited-method-slot-independence
+    (run-source inherited-method-slot-independence-src))
+  (check-eq? (hash-ref inherited-method-slot-independence 'status) 'ok)
+  ;; Parent-chain lookup plus copy-on-write assignment should not alias parent slots.
+  (check-equal? (hash-ref inherited-method-slot-independence 'stdout)
+                "2\n3\n2\n3\n")
+
   (define function-storage-src
     "HAI 1.3\nHOW IZ I fun1\n  FOUND YR \"a\"\nIF U SAY SO\nI HAS A foo ITZ A BUKKIT\nfoo HAS A var1 ITZ fun1\nVISIBLE I IZ foo'Z var1 MKAY\nKTHXBYE\n")
   (define function-storage (run-source function-storage-src))
@@ -241,6 +358,13 @@
   (define dynamic-function-name (run-source dynamic-function-name-src))
   (check-eq? (hash-ref dynamic-function-name 'status) 'ok)
   (check-equal? (hash-ref dynamic-function-name 'stdout) "a\nb\n")
+
+  (define mixin-object-src
+    "HAI 1.3\nO HAI IM parent\n  I HAS A p ITZ 1\nKTHX\nO HAI IM mix1\n  I HAS A a ITZ 10\nKTHX\nO HAI IM mix2\n  I HAS A a ITZ 20\n  I HAS A b ITZ 30\nKTHX\nO HAI IM child IM LIEK parent SMOOSH mix1 AN mix2\nKTHX\nVISIBLE child'Z p\nVISIBLE child'Z a\nVISIBLE child'Z b\nKTHXBYE\n")
+  (define mixin-object (run-source mixin-object-src))
+  (check-eq? (hash-ref mixin-object 'status) 'ok)
+  ;; Reverse-order copy means mix1 overrides mix2 for duplicate slots.
+  (check-equal? (hash-ref mixin-object 'stdout) "1\n10\n30\n")
 
   (define gimmeh-src
     "HAI 1.3\nI HAS A name\nGIMMEH name\nVISIBLE name\nKTHXBYE\n")
@@ -266,6 +390,75 @@
   (check-eq? (hash-ref can-has-result 'status) 'ok)
   (check-equal? (hash-ref can-has-result 'stdout) "OK\n")
 
+  (define can-has-stdio-src
+    "HAI 1.3\nCAN HAS STDIO?\nVISIBLE \"IO\"\nKTHXBYE\n")
+  (define can-has-stdio-result (run-source can-has-stdio-src))
+  (check-eq? (hash-ref can-has-stdio-result 'status) 'ok)
+  (check-equal? (hash-ref can-has-stdio-result 'stdout) "IO\n")
+
+  (define can-has-unknown-src
+    "HAI 1.3\nCAN HAS BOGUS?\nKTHXBYE\n")
+  (define can-has-unknown-result (run-source can-has-unknown-src))
+  (check-eq? (hash-ref can-has-unknown-result 'status) 'unsupported)
+  (check-true (regexp-match? #px"unsupported CAN HAS library"
+                             (hash-ref can-has-unknown-result 'reason)))
+
+  (define include-temp-dir
+    (make-temporary-file "lolcode-include-~a" 'directory))
+  (define include-main-path
+    (build-path include-temp-dir "main.lol"))
+  (define include-lib-path
+    (build-path include-temp-dir "included.lol"))
+  (call-with-output-file include-lib-path
+    (lambda (out)
+      (display
+       "HAI 1.3\nI HAS A frominc ITZ 41\nHOW IZ I bumpin YR x\n  FOUND YR SUM OF x AN 1\nIF U SAY SO\nKTHXBYE\n"
+       out))
+    #:exists 'truncate/replace)
+  (call-with-output-file include-main-path
+    (lambda (out)
+      (display
+       "HAI 1.3\nCAN HAS \"included.lol\"?\nVISIBLE frominc\nVISIBLE I IZ bumpin YR frominc MKAY\nKTHXBYE\n"
+       out))
+    #:exists 'truncate/replace)
+  (define include-result (run-file include-main-path))
+  (check-eq? (hash-ref include-result 'status) 'ok)
+  (check-equal? (hash-ref include-result 'stdout) "41\n42\n")
+
+  (define include-once-lib-path
+    (build-path include-temp-dir "once.lol"))
+  (define include-once-main-path
+    (build-path include-temp-dir "once-main.lol"))
+  (call-with-output-file include-once-lib-path
+    (lambda (out)
+      (display
+       "HAI 1.3\nI HAS A once ITZ 0\nonce R SUM OF once AN 1\nKTHXBYE\n"
+       out))
+    #:exists 'truncate/replace)
+  (call-with-output-file include-once-main-path
+    (lambda (out)
+      (display
+       "HAI 1.3\nCAN HAS \"once.lol\"?\nCAN HAS \"once.lol\"?\nVISIBLE once\nKTHXBYE\n"
+       out))
+    #:exists 'truncate/replace)
+  (define include-once-result (run-file include-once-main-path))
+  (check-eq? (hash-ref include-once-result 'status) 'ok)
+  (check-equal? (hash-ref include-once-result 'stdout) "1\n")
+
+  (define include-missing-main-path
+    (build-path include-temp-dir "missing-main.lol"))
+  (call-with-output-file include-missing-main-path
+    (lambda (out)
+      (display
+       "HAI 1.3\nCAN HAS \"missing-file.lol\"?\nKTHXBYE\n"
+       out))
+    #:exists 'truncate/replace)
+  (define include-missing-result (run-file include-missing-main-path))
+  (check-eq? (hash-ref include-missing-result 'status) 'runtime-error)
+  (check-true (regexp-match? #px"CAN HAS include not found"
+                             (hash-ref include-missing-result 'error)))
+  (delete-directory/files include-temp-dir)
+
   (define visible-inline-src
     "HAI 1.3\nVISIBLE \"A\" \"B\" 3\nKTHXBYE\n")
   (define visible-inline-result (run-source visible-inline-src))
@@ -273,10 +466,19 @@
   (check-equal? (hash-ref visible-inline-result 'stdout) "AB3\n")
 
   (define string-namespace-src
-    "HAI 1.3\nCAN HAS STRING?\nVISIBLE I IZ STRING'Z LEN YR \"cats\" MKAY\nVISIBLE I IZ STRING'Z AT YR \"cats\" AN YR 2 MKAY\nKTHXBYE\n")
+    "HAI 1.3\nVISIBLE I IZ STRING'Z LEN YR \"cats\" MKAY\nVISIBLE I IZ STRING'Z AT YR \"cats\" AN YR 2 MKAY\nKTHXBYE\n")
   (define string-namespace-result (run-source string-namespace-src))
   (check-eq? (hash-ref string-namespace-result 'status) 'ok)
   (check-equal? (hash-ref string-namespace-result 'stdout) "4\nt\n")
+
+  (define string-namespace-shadow-src
+    "HAI 1.3\nI HAS A fname ITZ \"STRING'Z LEN\"\nHOW IZ I SRS fname YR x\n  FOUND YR 999\nIF U SAY SO\nVISIBLE I IZ STRING'Z LEN YR \"cats\" MKAY\nKTHXBYE\n")
+  (define string-namespace-shadow-result
+    (run-source string-namespace-shadow-src))
+  (check-eq? (hash-ref string-namespace-shadow-result 'status) 'ok)
+  ;; Regression: this must resolve through the environment and allow
+  ;; user redefinition of non-keyword primitive callables.
+  (check-equal? (hash-ref string-namespace-shadow-result 'stdout) "999\n")
 
   (define leading-btw-src
     "BTW top preamble comment\nHAI 1.3\nVISIBLE \"OK\"\nKTHXBYE\n")
@@ -296,11 +498,11 @@
   (check-eq? (hash-ref line-cont-result 'status) 'ok)
   (check-equal? (hash-ref line-cont-result 'stdout) "AB\n")
 
-  (define line-cont-unicode-ellipsis-src
-    "HAI 1.3\nVISIBLE \"A\"…\n\"B\"\nKTHXBYE\n")
-  (define line-cont-unicode-ellipsis (run-source line-cont-unicode-ellipsis-src))
-  (check-eq? (hash-ref line-cont-unicode-ellipsis 'status) 'ok)
-  (check-equal? (hash-ref line-cont-unicode-ellipsis 'stdout) "AB\n")
+  (define unicode-line-cont-src
+    "HAI 1.3\nVISIBLE SMOOSH \"A\" AN …\n\"B\" MKAY\nKTHXBYE\n")
+  (define unicode-line-cont-result (run-source unicode-line-cont-src))
+  (check-eq? (hash-ref unicode-line-cont-result 'status) 'ok)
+  (check-equal? (hash-ref unicode-line-cont-result 'stdout) "AB\n")
 
   (define smoosh-optional-an-src
     "HAI 1.3\nVISIBLE SMOOSH \"a\" \"b\" \"c\" MKAY\nKTHXBYE\n")
@@ -328,7 +530,7 @@
                 (string-append "A" (string (integer->char #x263A)) "Z\n"))
 
   (define string-normative-escape-src
-    "HAI 1.3\nVISIBLE \"A:[DOLLAR SIGN]B:[CENT SIGN]C:[EURO SIGN]\"\nKTHXBYE\n")
+    "HAI 1.3\nVISIBLE \"A:[DOLLAR SIGN]B:[CENT SIGN]C:[EURO SIGN]D:[SNOWMAN]E:[GREEK SMALL LETTER PI]\"\nKTHXBYE\n")
   (define string-normative-escape-result (run-source string-normative-escape-src))
   (check-eq? (hash-ref string-normative-escape-result 'status) 'ok)
   (check-equal? (hash-ref string-normative-escape-result 'stdout)
@@ -338,6 +540,10 @@
                                (string (integer->char #x00A2))
                                "C"
                                (string (integer->char #x20AC))
+                               "D"
+                               (string (integer->char #x2603))
+                               "E"
+                               (string (integer->char #x03C0))
                                "\n"))
 
   (define string-literal-colon-src

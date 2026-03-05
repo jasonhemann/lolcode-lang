@@ -24,6 +24,7 @@
        WTFQ OMG OMGWTF GTFO FOUND YR
        IF U SAY SO HOW IZ GIMMEH CAN
        VISIBLE AN BANG
+       QMARK
        SUM OF DIFF PRODUKT QUOSHUNT MOD BIGGR SMALLR
        BOTH SAEM EITHER WON DIFFRINT NOT ALL ANY
        SMOOSH SRS MKAY
@@ -32,80 +33,90 @@
        SLOT))
 
 (define keyword-token-ctors
-  (hash "HAI" token-HAI
-        "KTHXBYE" token-KTHXBYE
-        "I" token-I
-        "HAS" token-HAS
-        "A" token-A
-        "R" token-R
-        "ITZ" token-ITZ
-        "O" token-O
-        "RLY" token-RLY
-        "RLY?" token-RLYQ
-        "YA" token-YA
-        "NO" token-NO
-        "WAI" token-WAI
-        "OIC" token-OIC
-        "MEBBE" token-MEBBE
-        "WTF?" token-WTFQ
-        "OMG" token-OMG
-        "OMGWTF" token-OMGWTF
-        "GTFO" token-GTFO
-        "FOUND" token-FOUND
-        "YR" token-YR
-        "IF" token-IF
-        "U" token-U
-        "SAY" token-SAY
-        "SO" token-SO
-        "HOW" token-HOW
-        "IZ" token-IZ
-        "GIMMEH" token-GIMMEH
-        "CAN" token-CAN
-        "VISIBLE" token-VISIBLE
-        "AN" token-AN
-        "AND" token-AN
+  (hash
         "!" token-BANG
-        "SUM" token-SUM
-        "OF" token-OF
-        "DIFF" token-DIFF
-        "DIFFERENCE" token-DIFF
-        "DIFFRENCE" token-DIFF
-        "PRODUKT" token-PRODUKT
-        "QUOSHUNT" token-QUOSHUNT
-        "QOUSHUNT" token-QUOSHUNT
-        "MOD" token-MOD
-        "BIGGR" token-BIGGR
-        "SMALLR" token-SMALLR
-        "BOTH" token-BOTH
-        "SAEM" token-SAEM
-        "EITHER" token-EITHER
-        "WON" token-WON
-        "DIFFRINT" token-DIFFRINT
-        "NOT" token-NOT
+        "'Z" token-SLOT
+        "A" token-A
         "ALL" token-ALL
+        "AN" token-AN
         "ANY" token-ANY
-        "SMOOSH" token-SMOOSH
-        "SRS" token-SRS
-        "MKAY" token-MKAY
-        "MAEK" token-MAEK
-        "IS" token-IS
-        "NOW" token-NOW
-        "KTHX" token-KTHX
+        "BIGGR" token-BIGGR
+        "BOTH" token-BOTH
+        "CAN" token-CAN
+        "DIFF" token-DIFF
+        "DIFFRINT" token-DIFFRINT
+        "EITHER" token-EITHER
+        "FOUND" token-FOUND
+        "GIMMEH" token-GIMMEH
+        "GTFO" token-GTFO
+        "HAI" token-HAI
+        "HAS" token-HAS
+        "HOW" token-HOW
+        "I" token-I
+        "IF" token-IF
         "IM" token-IM
-        "LIEK" token-LIEK
-        "IN" token-IN
-        "OUTTA" token-OUTTA
         "IMIN" token-IMIN
         "IMOUTTA" token-IMOUTTA
-        "UPPIN" token-UPPIN
+        "IN" token-IN
+        "IS" token-IS
+        "ITZ" token-ITZ
+        "IZ" token-IZ
+        "KTHX" token-KTHX
+        "KTHXBYE" token-KTHXBYE
+        "LIEK" token-LIEK
+        "MAEK" token-MAEK
+        "MEBBE" token-MEBBE
+        "MKAY" token-MKAY
+        "MOD" token-MOD
         "NERFIN" token-NERFIN
+        "NO" token-NO
+        "NOT" token-NOT
+        "NOW" token-NOW
+        "O" token-O
+        "OF" token-OF
+        "OIC" token-OIC
+        "OMG" token-OMG
+        "OMGWTF" token-OMGWTF
+        "OUTTA" token-OUTTA
+        "PRODUKT" token-PRODUKT
+        "?" token-QMARK
+        "QUOSHUNT" token-QUOSHUNT
+        "R" token-R
+        "RLY" token-RLY
+        "RLY?" token-RLYQ
+        "SAEM" token-SAEM
+        "SAY" token-SAY
+        "SMALLR" token-SMALLR
+        "SMOOSH" token-SMOOSH
+        "SO" token-SO
+        "SRS" token-SRS
+        "SUM" token-SUM
         "TIL" token-TIL
+        "U" token-U
+        "UPPIN" token-UPPIN
+        "VISIBLE" token-VISIBLE
+        "WAI" token-WAI
         "WILE" token-WILE
-        "'Z" token-SLOT))
+        "WON" token-WON
+        "WTF?" token-WTFQ
+        "YA" token-YA
+        "YR" token-YR
+))
 
 (define current-source-lines (make-parameter #()))
 
 (define supported-language-version "1.3")
+
+(define identifier-token-rx
+  #px"^[A-Za-z][A-Za-z0-9_]*$")
+
+(define (valid-identifier-token? text)
+  (regexp-match? identifier-token-rx text))
+
+(define (ensure-identifier-token who text)
+  (unless (valid-identifier-token? text)
+    (error who "invalid identifier syntax: ~v" text))
+  text)
 
 (define (token-label tok-name tok-value)
   (cond
@@ -143,25 +154,31 @@
     (if line-text
         (format "\n  ~a\n  ~a" line-text (source-caret col line-text))
         ""))
-  (define hint-fragment
-    (if (eq? tok-name 'EOF)
-        "\n  hint: input ended early; check for a missing KTHXBYE or closing clause."
-        ""))
   (error 'parse-source
-         "syntax error: unexpected ~a at line ~a, col ~a~a~a"
+         "syntax error: unexpected ~a at line ~a, col ~a~a"
          unexpected
          line
          col
-         context-fragment
-         hint-fragment))
+         context-fragment))
 
 (define (make-loop-stmt label-open label-close update cond body)
-  (unless (string-ci=? label-open label-close)
+  (define open-static
+    (match label-open
+      [(expr-literal (? string? s)) s]
+      [_ #f]))
+  (define close-static
+    (match label-close
+      [(expr-literal (? string? s)) s]
+      [_ #f]))
+  (when (and open-static
+             close-static
+             (not (string-ci=? open-static close-static)))
     (error 'parse-source
            "loop label mismatch: ~a closed by ~a"
-           label-open
-           label-close))
+           open-static
+           close-static))
   (stmt-loop label-open
+             label-close
              (car update)
              (cdr update)
              (car cond)
@@ -174,6 +191,9 @@
     [(string-ci=? name "FAIL") (expr-literal #f)]
     [(string-ci=? name "NOOB") (expr-literal 'NOOB)]
     [else (expr-ident name)]))
+
+(define (static-name-spec name)
+  (expr-literal name))
 
 (define (switch-id->literal name)
   (define v (id->expr name))
@@ -193,28 +213,44 @@
      (expr-method-call receiver method-name args)]
     [_ (error 'parse-source "invalid call target: ~e" target)]))
 
-(define (build-static-slot-chain base names)
-  (for/fold ([obj base]) ([name (in-list names)])
-    (expr-slot obj (expr-ident name))))
+(define (slot-name-spec->expr spec)
+  (cond
+    [(expr-literal? spec)
+     (define maybe-name
+       (expr-literal-value spec))
+     (unless (string? maybe-name)
+       (error 'parse-source "invalid slot name spec literal: ~e" spec))
+     (expr-ident maybe-name)]
+    [(string? spec)
+     (expr-ident spec)]
+    [(expr-srs? spec)
+     spec]
+    [else
+     (error 'parse-source "invalid slot name spec: ~e" spec)]))
 
-(define (call-slot-chain->target base names)
-  (define n (length names))
+(define (build-slot-chain base slot-name-specs)
+  (for/fold ([obj base]) ([slot-spec (in-list slot-name-specs)])
+    (expr-slot obj (slot-name-spec->expr slot-spec))))
+
+(define (call-slot-chain->target base slot-name-specs)
+  (define n (length slot-name-specs))
   (when (< n 1)
     (error 'parse-source "invalid call slot chain"))
   (define receiver
-    (build-static-slot-chain base (take names (sub1 n))))
-  (define method-name (last names))
-  (list 'method receiver method-name))
+    (build-slot-chain base (take slot-name-specs (sub1 n))))
+  (define method-name-spec
+    (last slot-name-specs))
+  (list 'method receiver method-name-spec))
 
 (define (call-target-from-ident name maybe-slots)
   (if maybe-slots
       (call-slot-chain->target (id->expr name) maybe-slots)
-      (list 'function name)))
+      (list 'function (static-name-spec name))))
 
 (define (loop-update->spec target var-name)
   (match target
     [(list 'function fn-name)
-     (cons var-name (list 'FUNC fn-name))]
+     (cons var-name (list 'call fn-name))]
     [_ (error 'parse-source
               "loop updater call must target a function name, got ~e"
               target)]))
@@ -224,6 +260,42 @@
            (char=? (string-ref lib (- (string-length lib) 1)) #\?))
       (substring lib 0 (- (string-length lib) 1))
       lib))
+
+(define (ensure-import-qmark id-text)
+  (unless (string=? id-text "?")
+    (error 'parse-source "expected '?' after CAN HAS target, got ~v" id-text))
+  (void))
+
+(define switch-interpolation-rx
+  #px":\\{[^\\}]*\\}")
+
+(define (switch-string->literal text)
+  (when (regexp-match? switch-interpolation-rx text)
+    (error 'parse-source
+           "WTF? case literal cannot contain YARN interpolation (:{...})"))
+  (expr-string text))
+
+(define (switch-literal-key expr)
+  (match expr
+    [(expr-number text)
+     (list 'NUM (or (string->number text) text))]
+    [(expr-string text)
+     (list 'YARN text)]
+    [(expr-literal value)
+     (list 'LIT value)]
+    [_ #f]))
+
+(define (validate-switch-case-literals! cases)
+  (define seen (make-hash))
+  (for ([c (in-list cases)])
+    (match-define (switch-case case-match _case-body) c)
+    (define key (switch-literal-key case-match))
+    (when key
+      (when (hash-has-key? seen key)
+        (error 'parse-source
+               "duplicate OMG literal in WTF?: ~e"
+               case-match))
+      (hash-set! seen key #t))))
 
 (define (word-token-ci=? t text)
   (and (eq? (token-type t) 'WORD)
@@ -250,53 +322,6 @@
             acc))]
     [`(,t . ,rest)
      (collapse-phrase-tokens rest (cons t acc))]))
-
-(define (line-has-legacy-variadic? line-toks)
-  (cond
-    [(or (null? line-toks) (null? (cdr line-toks))) #f]
-    [(and (word-token-ci=? (car line-toks) "ALL")
-          (word-token-ci=? (cadr line-toks) "OF"))
-     #t]
-    [(and (word-token-ci=? (car line-toks) "ANY")
-          (word-token-ci=? (cadr line-toks) "OF"))
-     #t]
-    [else
-     (line-has-legacy-variadic? (cdr line-toks))]))
-
-(define (line-has-mkay? line-toks)
-  (for/or ([t (in-list line-toks)])
-    (word-token-ci=? t "MKAY")))
-
-(define (inject-line-mkay line-toks)
-  (if (and (pair? line-toks)
-           (line-has-legacy-variadic? line-toks)
-           (not (line-has-mkay? line-toks)))
-      (let* ([last-tok (last line-toks)]
-             [inserted
-              (token 'WORD
-                     "MKAY"
-                     (token-line last-tok)
-                     (+ (token-col last-tok)
-                        (string-length (token-lexeme last-tok))
-                        1))])
-        (append line-toks (list inserted)))
-      line-toks))
-
-(define (insert-missing-mkay-tokens raws [line '()] [out '()])
-  (cond
-    [(null? raws)
-     (append out (inject-line-mkay line))]
-    [else
-     (define t (car raws))
-     (if (eq? (token-type t) 'NEWLINE)
-         (insert-missing-mkay-tokens
-          (cdr raws)
-          '()
-          (append out (inject-line-mkay line) (list t)))
-         (insert-missing-mkay-tokens
-         (cdr raws)
-         (append line (list t))
-         out))]))
 
 (define (raw-atom-token? t)
   (case (token-type t)
@@ -325,7 +350,7 @@
              [else
               (gather (cdr remaining) (cons (car remaining) acc))])))
        (define rewritten-rest
-         (if (and (>= (length args) 3)
+         (if (and (>= (length args) 2)
                   (not (for/or ([a (in-list args)])
                          (word-token-ci=? a "AN")))
                   (andmap raw-atom-token? args))
@@ -334,7 +359,7 @@
                  [(null? remaining) (reverse out)]
                  [else
                   (define arg (car remaining))
-                  (if (>= idx 2)
+                  (if (>= idx 1)
                       (build (cdr remaining)
                              (+ idx 1)
                              (cons arg
@@ -363,6 +388,58 @@
           '()
           (append out (rewrite-smoosh-line line) (list t)))
          (rewrite-smoosh-no-an-raws
+          (cdr raws)
+          (append line (list t))
+          out))]))
+
+(define (logic-head-token? t)
+  (and (eq? (token-type t) 'WORD)
+       (or (string-ci=? (token-lexeme t) "ALL")
+           (string-ci=? (token-lexeme t) "ANY"))))
+
+(define (rewrite-logic-line line-toks)
+  (let loop ([prefix '()] [rest line-toks])
+    (cond
+      [(null? rest)
+       (append (reverse prefix) rest)]
+      [(and (pair? (cdr rest))
+            (logic-head-token? (car rest))
+            (word-token-ci=? (cadr rest) "OF"))
+       (define head1 (car rest))
+       (define head2 (cadr rest))
+       (define suffix (cddr rest))
+       (define-values (args tail)
+         (let gather ([remaining suffix] [acc '()])
+           (cond
+             [(null? remaining)
+              (values (reverse acc) '())]
+             [(word-token-ci=? (car remaining) "MKAY")
+              (values (reverse acc) remaining)]
+             [else
+              (gather (cdr remaining) (cons (car remaining) acc))])))
+       (define rewritten-args
+         (if (and (>= (length args) 2)
+                  (not (for/or ([a (in-list args)])
+                         (word-token-ci=? a "AN")))
+                  (andmap raw-atom-token? args))
+             (insert-optional-an-separators args)
+             args))
+       (append (reverse prefix) (list head1 head2) rewritten-args tail)]
+      [else
+       (loop (cons (car rest) prefix) (cdr rest))])))
+
+(define (rewrite-logic-no-an-raws raws [line '()] [out '()])
+  (cond
+    [(null? raws)
+     (append out (rewrite-logic-line line))]
+    [else
+     (define t (car raws))
+     (if (eq? (token-type t) 'NEWLINE)
+         (rewrite-logic-no-an-raws
+          (cdr raws)
+          '()
+          (append out (rewrite-logic-line line) (list t)))
+         (rewrite-logic-no-an-raws
           (cdr raws)
           (append line (list t))
           out))]))
@@ -469,8 +546,8 @@
    (end EOF)
    (tokens value-tokens op-tokens)
    (src-pos)
-   (expected-SR-conflicts 40)
-   (expected-RR-conflicts 30)
+   (expected-SR-conflicts 22)
+   (expected-RR-conflicts 0)
    (error
     (lambda (tok-ok? tok-name tok-value start-pos end-pos)
       (raise-parse-error tok-name tok-value start-pos)))
@@ -485,11 +562,7 @@
 
     (nlopt
      [() (void)]
-     [(nls) (void)])
-
-    (nls
-     [(NEWLINE) (void)]
-     [(NEWLINE nls) (void)])
+     [(NEWLINE nlopt) (void)])
 
     (statement-list-opt
      [() '()]
@@ -535,7 +608,11 @@
     (declare-init-opt
      [() #f]
      [(ITZ expr) $2]
-     [(ITZ A ID) (expr-ident $3)])
+     [(ITZ A ID) (expr-ident $3)]
+     [(ITZ A ID SMOOSH name-spec mixin-list-tail)
+      (expr-prototype (static-name-spec $3) (cons $5 $6))]
+     [(ITZ A SRS expr SMOOSH name-spec mixin-list-tail)
+      (expr-prototype (expr-srs $4) (cons $6 $7))])
 
     (assign-stmt
      [(expr R expr) (stmt-assign $1 $3)])
@@ -547,13 +624,23 @@
      [(GIMMEH expr) (stmt-input $2)])
 
     (import-stmt
-     [(CAN HAS ID) (stmt-import (normalize-import-name $3))])
+     [(CAN HAS ID)
+      (stmt-import (normalize-import-name $3) 'library)]
+     [(CAN HAS ID QMARK)
+      (stmt-import (normalize-import-name $3) 'library)]
+     [(CAN HAS STRING)
+      (stmt-import $3 'file)]
+     [(CAN HAS STRING QMARK)
+      (stmt-import $3 'file)])
 
     (slot-set-stmt
+     [(expr HAS slot-target) (stmt-slot-set $1 $3 #f)]
      [(expr HAS A slot-target) (stmt-slot-set $1 $4 #f)]
      [(expr HAS AN slot-target) (stmt-slot-set $1 $4 #f)]
+     [(expr HAS slot-target ITZ expr) (stmt-slot-set $1 $3 $5)]
      [(expr HAS A slot-target ITZ expr) (stmt-slot-set $1 $4 $6)]
      [(expr HAS AN slot-target ITZ expr) (stmt-slot-set $1 $4 $6)]
+     [(expr HAS slot-target ITZ A ID) (stmt-slot-set $1 $3 (expr-ident $6))]
      [(expr HAS A slot-target ITZ A ID) (stmt-slot-set $1 $4 (expr-ident $7))])
 
     (slot-target
@@ -569,8 +656,6 @@
      [(expr AN visible-args) (cons $1 $3)])
 
     (if-stmt
-     [(expr nlopt O RLYQ nlopt YA RLY nlopt statement-list-opt mebbe-list else-opt OIC)
-      (stmt-if $1 $9 $10 $11)]
      [(O RLYQ nlopt YA RLY nlopt statement-list-opt mebbe-list else-opt OIC)
       (stmt-if (expr-ident "IT") $7 $8 $9)])
 
@@ -584,14 +669,18 @@
      [(NO WAI nlopt statement-list-opt) $4])
 
     (switch-stmt
-     [(expr nlopt WTFQ nlopt case-list default-opt OIC)
-      (stmt-switch $1 $5 $6)]
      [(WTFQ nlopt case-list default-opt OIC)
-      (stmt-switch (expr-ident "IT") $3 $4)])
+      (begin
+        (validate-switch-case-literals! $3)
+        (stmt-switch (expr-ident "IT") $3 $4))])
 
     (loop-stmt
-     [(IMIN YR ID loop-update-opt loop-cond-opt nlopt loop-body-opt IMOUTTA YR ID)
+     [(IMIN YR loop-label loop-update-opt loop-cond-opt nlopt loop-body-opt IMOUTTA YR loop-label)
       (make-loop-stmt $3 $10 $4 $5 $7)])
+
+    (loop-label
+     [(ident-token) (static-name-spec $1)]
+     [(SRS expr) (expr-srs $2)])
 
     (loop-body-opt
      [() '()]
@@ -606,9 +695,9 @@
 
     (loop-update-opt
      [() (cons #f #f)]
-     [(UPPIN YR ident-token) (cons $3 "UPPIN")]
-     [(NERFIN YR ident-token) (cons $3 "NERFIN")]
-     [(I IZ call-target YR ident-token MKAY) (loop-update->spec $3 $5)])
+     [(UPPIN YR name-spec) (cons $3 '(delta 1))]
+     [(NERFIN YR name-spec) (cons $3 '(delta -1))]
+     [(I IZ call-target YR name-spec MKAY) (loop-update->spec $3 $5)])
 
     (loop-cond-opt
      [() (cons #f #f)]
@@ -625,7 +714,7 @@
 
     (case-literal
      [(NUMBER) (expr-number $1)]
-     [(STRING) (expr-string $1)]
+     [(STRING) (switch-string->literal $1)]
      [(ID) (switch-id->literal $1)])
 
     (default-opt
@@ -649,7 +738,7 @@
      [(AN YR name-spec arg-def-more) (cons $3 $4)])
 
     (name-spec
-     [(ident-token) $1]
+     [(ident-token) (static-name-spec $1)]
      [(SRS expr) (expr-srs $2)])
 
     (method-receiver
@@ -662,12 +751,21 @@
       (lambda (base) ($3 (expr-slot base $2)))])
 
     (object-stmt
-     [(O HAI IM ID object-parent-opt nlopt statement-list-opt KTHX)
-      (stmt-object-def $4 $5 $7)])
+     [(O HAI IM name-spec object-parent-opt nlopt statement-list-opt KTHX)
+      (stmt-object-def $4 (car $5) (cdr $5) $7)])
 
     (object-parent-opt
-     [() #f]
-     [(IM LIEK ID) $3])
+     [() (cons #f '())]
+     [(IM LIEK name-spec object-mixins-opt)
+      (cons $3 $4)])
+
+    (object-mixins-opt
+     [() '()]
+     [(SMOOSH name-spec mixin-list-tail) (cons $2 $3)])
+
+    (mixin-list-tail
+     [() '()]
+     [(AN name-spec mixin-list-tail) (cons $2 $3)])
 
     (return-stmt
      [(FOUND YR expr) (stmt-return $3)])
@@ -676,18 +774,7 @@
      [(GTFO) (stmt-break)])
 
     (expr-stmt
-     [(I IZ call-target call-args MKAY) (stmt-expr (call-target->expr $3 $4))]
-     [(ident-token IZ ID call-args MKAY)
-      (stmt-expr (expr-method-call (id->expr $1) $3 $4))]
-     [(NUMBER) (stmt-expr (expr-number $1))]
-     [(STRING) (stmt-expr (expr-string $1))]
-     [(ident-token) (stmt-expr (id->expr $1))]
-     [(bin-expr) (stmt-expr $1)]
-     [(logic-variadic-expr) (stmt-expr $1)]
-     [(smoosh-expr) (stmt-expr $1)]
-     [(NOT expr) (stmt-expr (expr-unary "NOT" $2))]
-     [(MAEK expr A ID) (stmt-expr (expr-cast $2 $4))]
-     [(MAEK expr ID) (stmt-expr (expr-cast $2 $3))])
+     [(expr) (stmt-expr $1)])
 
     (expr
      [(simple-expr postfix-tail) ($2 $1)])
@@ -696,7 +783,7 @@
      [() (lambda (base) base)]
      [(SLOT slot-ref postfix-tail)
       (lambda (base) ($3 (expr-slot base $2)))]
-     [(IZ ID call-args MKAY postfix-tail)
+     [(IZ name-spec call-args MKAY postfix-tail)
       (lambda (base) ($5 (expr-method-call base $2 $3)))])
 
     (slot-ref
@@ -745,11 +832,15 @@
      [(call-slot-chain) $1])
 
     (call-slot-chain
-     [(SLOT ident-token) (list $2)]
-     [(SLOT ident-token call-slot-chain) (cons $2 $3)])
+     [(SLOT call-slot-name-spec) (list $2)]
+     [(SLOT call-slot-name-spec call-slot-chain) (cons $2 $3)])
+
+    (call-slot-name-spec
+     [(ident-token) (static-name-spec $1)]
+     [(SRS expr-no-postfix) (expr-srs $2)])
 
     (ident-token
-     [(ID) $1]
+     [(ID) (ensure-identifier-token 'parse-source $1)]
      [(SUM) "SUM"])
 
     (call-args
@@ -787,18 +878,15 @@
      [(DIFFRINT expr rhs-no-an) (expr-binary "DIFFRINT" $2 $3)])
 
     (logic-variadic-expr
-     [(ALL OF expr logic-tail MKAY) (expr-variadic "ALL OF" (cons $3 $4))]
-     [(ANY OF expr logic-tail MKAY) (expr-variadic "ANY OF" (cons $3 $4))])
+     [(ALL OF expr logic-tail maybe-mkay) (expr-variadic "ALL OF" (cons $3 $4))]
+     [(ANY OF expr logic-tail maybe-mkay) (expr-variadic "ANY OF" (cons $3 $4))])
 
     (logic-tail
      [() '()]
-     [(AN expr logic-tail) (cons $2 $3)]
-     [(expr logic-tail) (cons $1 $2)])
+     [(AN expr logic-tail) (cons $2 $3)])
 
     (smoosh-expr
-     [(SMOOSH expr smoosh-tail maybe-mkay) (expr-variadic "SMOOSH" (cons $2 $3))]
-     [(SMOOSH expr expr smoosh-tail maybe-mkay)
-      (expr-variadic "SMOOSH" (cons $2 (cons $3 $4)))])
+     [(SMOOSH expr smoosh-tail maybe-mkay) (expr-variadic "SMOOSH" (cons $2 $3))])
 
     (smoosh-tail
      [() '()]
@@ -808,14 +896,61 @@
      [() (void)]
      [(MKAY) (void)]))))
 
+(define (validate-raw-token-stream! raws)
+  (define (loop remaining)
+    (match remaining
+      [`(,t1 ,t2 . ,rest)
+       (when (and (eq? (token-type t1) 'WORD)
+                  (string=? (token-lexeme t1) "-")
+                  (eq? (token-type t2) 'NUMBER)
+                  (= (token-line t1) (token-line t2)))
+         (error 'parse-source
+                "invalid numeric literal: '-' must be adjacent to digits at line ~a, col ~a"
+                (token-line t1)
+                (token-col t1)))
+       (loop (cons t2 rest))]
+      [_ (void)]))
+  (loop raws))
+
+(define (validate-function-def-placement! parsed)
+  (define (walk-block stmts allow-function-def?)
+    (for ([stmt (in-list stmts)])
+      (walk-stmt stmt allow-function-def?)))
+  (define (walk-stmt stmt allow-function-def?)
+    (match stmt
+      [(stmt-function-def _ _ body)
+       (unless allow-function-def?
+         (error 'parse-source
+                "nested HOW IZ I definitions are not allowed in strict 1.3"))
+       (walk-block body #f)]
+      [(stmt-method-def _ _ _ body)
+       (walk-block body #f)]
+      [(stmt-object-def _ _ _ body)
+       ;; Object bodies may declare methods with HOW IZ I.
+       (walk-block body #t)]
+      [(stmt-if _ then-branch mebbe-branches else-branch)
+       (walk-block then-branch #f)
+       (for ([mb (in-list mebbe-branches)])
+         (walk-block (mebbe-branch-body mb) #f))
+       (walk-block else-branch #f)]
+      [(stmt-switch _ cases default)
+       (for ([c (in-list cases)])
+         (walk-block (switch-case-body c) #f))
+       (walk-block default #f)]
+      [(stmt-loop _ _ _ _ _ _ body)
+       (walk-block body #f)]
+      [_ (void)]))
+  (walk-block (program-statements parsed) #t))
+
 (define (parse-source source)
   (unless (string? source)
     (raise-argument-error 'parse-source "string?" source))
   (define normalized-raws
-    (insert-missing-mkay-tokens
-     (rewrite-visible-no-an-raws
+    (rewrite-visible-no-an-raws
+     (rewrite-logic-no-an-raws
       (rewrite-smoosh-no-an-raws
        (collapse-phrase-tokens (lex-source source))))))
+  (validate-raw-token-stream! normalized-raws)
   (define toks
     (map raw->position-token normalized-raws))
   (define idx 0)
@@ -834,4 +969,5 @@
            "unsupported version: ~a (this implementation only accepts HAI ~a)"
            (program-version parsed)
            supported-language-version))
+  (validate-function-def-placement! parsed)
   parsed)

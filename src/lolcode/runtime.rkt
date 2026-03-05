@@ -1,10 +1,13 @@
 #lang racket/base
 
 (require racket/class
+         racket/file
          racket/list
          racket/match
+         racket/path
          racket/string
          "ast.rkt"
+         "parser.rkt"
          "runtime/env.rkt"
          "runtime/value.rkt"
          "runtime/operators.rkt")
@@ -53,22 +56,18 @@
 (struct lvalue (read write) #:transparent)
 
 (define (compile-name-resolver who name-spec)
-  (cond
-    [(string? name-spec)
-     (lambda (_e _ctx) name-spec)]
-    [(expr-srs? name-spec)
+  (match name-spec
+    [(expr-literal value)
+     (lambda (_e _ctx)
+       (identifier-text who value))]
+    [(expr-srs inner)
      (define inner-proc
-       (compile-expr (expr-srs-expr name-spec)))
+       (compile-expr inner))
      (lambda (e ctx)
        (identifier-text
         who
         (inner-proc e ctx)))]
-    [else
-     (define name-proc (compile-expr name-spec))
-     (lambda (e ctx)
-       (identifier-text
-        who
-        (name-proc e ctx)))]))
+    [_ (error 'run-program "invalid name spec: ~e" name-spec)]))
 
 (define (dynamic-alias-binding name-spec resolved-name)
   (and (expr-srs? name-spec)
@@ -101,20 +100,19 @@
        (define obj (object-proc e ctx))
        (unless (lol-object? obj)
          (error 'run-program "slot lookup requires BUKKIT, got ~e" obj))
-       (send obj get-slot (slot-name-proc e ctx) noob))
+       (send obj get-slot (slot-name-proc e ctx) noob ctx))
      (define (lv-write e value ctx)
        (define obj (object-proc e ctx))
        (unless (lol-object? obj)
          (error 'run-program "slot assignment requires BUKKIT, got ~e" obj))
-       (send obj set-slot! (slot-name-proc e ctx) value))
+       (send obj assign-slot! (slot-name-proc e ctx) value))
      (lvalue lv-read lv-write)]
     [_ (raise-unsupported target)]))
 
 (define (resolve-callable e ctx name who)
   (define maybe-callable
-    (or (hash-ref (runtime-functions ctx) name #f)
-        (let ([maybe-box (env-lookup-box e name)])
-          (and maybe-box (unbox maybe-box)))))
+    (let ([maybe-box (env-lookup-box e name)])
+      (and maybe-box (unbox maybe-box))))
   (if (procedure? maybe-callable)
       maybe-callable
       (error 'run-program "unknown ~a: ~a" who name)))
@@ -169,26 +167,7 @@
                 "loop variable missing during update: ~a"
                 update-var)]))
     (define updated
-      (cond
-        [(and (string? update-op)
-              (or (string=? update-op "UPPIN")
-                  (string=? update-op "NERFIN")))
-         (define current-num (coerce-number 'LOOP current))
-         (define delta
-           (if (string=? update-op "UPPIN") 1 -1))
-         (+ current-num delta)]
-        [(and (pair? update-op)
-              (eq? (car update-op) 'FUNC)
-              (pair? (cdr update-op))
-              (string? (cadr update-op)))
-         (define fn-name (cadr update-op))
-         (define fn
-           (hash-ref (runtime-functions ctx) fn-name #f))
-         (unless (procedure? fn)
-           (error 'run-program "unknown function: ~a" fn-name))
-         (fn e (list current) ctx)]
-        [else
-         (error 'run-program "unsupported loop updater: ~e" update-op)]))
+      (update-op e ctx current))
     (env-set! e update-var updated)
     (set-it! e updated)))
 
@@ -211,27 +190,76 @@
        (loop match-end)]))
   (loop 0))
 
-(define (switch-literal-key expr)
-  (match expr
-    [(expr-number text)
-     (list 'NUM (or (string->number text) text))]
-    [(expr-string text)
-     (list 'YARN text)]
-    [(expr-literal value)
-     (list 'LIT value)]
-    [_ #f]))
+(define (resolve-bukkit who value)
+  (unless (lol-object? value)
+    (error 'run-program "~a requires BUKKIT, got ~e" who value))
+  value)
 
-(define (validate-switch-cases! cases)
-  (define seen (make-hash))
-  (for ([c (in-list cases)])
-    (match-define (switch-case case-match _case-body) c)
-    (define key (switch-literal-key case-match))
-    (when key
-      (when (hash-has-key? seen key)
-        (error 'run-program
-               "duplicate OMG literal in WTF?: ~e"
-               case-match))
-      (hash-set! seen key #t))))
+(define (apply-mixins! target mixins)
+  ;; Spec says mixins are applied in reverse declaration order.
+  (for ([mix (in-list (reverse mixins))])
+    (send mix copy-own-into! target)))
+
+(define (run-izmakin-hook! obj e ctx)
+  (send obj
+        invoke-method
+        "izmakin"
+        '()
+        ctx
+        (lambda ()
+          (define maybe-slot-hook
+            (send obj lookup-slot "izmakin" noob))
+          (when (procedure? maybe-slot-hook)
+            (maybe-slot-hook e '() ctx))
+          (void))))
+
+(define (project-receiver-slot-frame receiver)
+  (define own-table
+    (send receiver slot-table))
+  (define projected-table
+    (make-hash))
+  (define own-slot-names
+    (make-hash))
+  (for ([(name b) (in-hash own-table)])
+    (hash-set! projected-table name b)
+    (hash-set! own-slot-names name #t))
+  (define inherited-before
+    (make-hash))
+  (for ([name (in-list (send receiver slot-names))])
+    (unless (hash-has-key? projected-table name)
+      (define v
+        (send receiver lookup-slot name noob))
+      (hash-set! projected-table name (box v))
+      (hash-set! inherited-before name v)))
+  (values projected-table own-slot-names inherited-before))
+
+(define (sync-receiver-slot-frame! receiver projected-table own-slot-names inherited-before)
+  (for ([(name b) (in-hash projected-table)])
+    (define value
+      (unbox b))
+    (cond
+      [(hash-has-key? own-slot-names name)
+       (send receiver declare-slot! name value)]
+      [(hash-has-key? inherited-before name)
+       (define prior
+         (hash-ref inherited-before name))
+       (unless (equal? value prior)
+         (send receiver assign-slot! name value))]
+      [else
+       (void)])))
+
+(define (make-prototype-object parent-obj mixin-objs)
+  (define child (send parent-obj prototype))
+  (apply-mixins! child mixin-objs)
+  ;; Mixins may overwrite parent; restore inheritance parent per spec.
+  (send child declare-slot! "parent" parent-obj)
+  child)
+
+(define (construct-prototype parent-obj mixin-objs e ctx)
+  (define child
+    (make-prototype-object parent-obj mixin-objs))
+  (run-izmakin-hook! child e ctx)
+  child)
 
 (define (compile-expr expr)
   (match expr
@@ -271,10 +299,37 @@
     [(expr-clone inner)
      (define inner-proc (compile-expr inner))
      (lambda (e ctx)
-       (define value (inner-proc e ctx))
-       (unless (lol-object? value)
-         (error 'run-program "LIEK initializer requires BUKKIT value, got ~e" value))
-       (send value clone))]
+       (construct-prototype
+        (resolve-bukkit "LIEK initializer" (inner-proc e ctx))
+        '()
+        e
+        ctx))]
+
+    [(expr-prototype parent-spec mixins)
+     (define parent-name-proc
+       (compile-name-resolver
+        "prototype parent name must evaluate to identifier text"
+        parent-spec))
+     (define mixin-name-procs
+       (map (lambda (m)
+              (compile-name-resolver
+               "mixin name must evaluate to identifier text"
+               m))
+            mixins))
+     (lambda (e ctx)
+       (define parent-name
+         (parent-name-proc e ctx))
+       (define parent-obj
+         (resolve-bukkit
+          "prototype parent"
+          (env-ref e parent-name)))
+       (define mixin-objs
+         (for/list ([mix-proc (in-list mixin-name-procs)])
+           (define mix-name (mix-proc e ctx))
+           (resolve-bukkit
+            "mixin"
+            (env-ref e mix-name))))
+       (construct-prototype parent-obj mixin-objs e ctx))]
 
     [(expr-binary op left right)
      (define left-proc (compile-expr left))
@@ -313,31 +368,37 @@
            (map (lambda (a) (a e ctx)) arg-procs)
            ctx))]
 
-    [(expr-method-call receiver name args)
+    [(expr-method-call receiver name-spec args)
      (define recv-proc
        (and (not (expr-ident? receiver))
             (compile-expr receiver)))
      (define receiver-ident
        (and (expr-ident? receiver)
             (expr-ident-name receiver)))
+     (define name-proc
+       (compile-name-resolver
+        "method name must evaluate to identifier text"
+        name-spec))
      (define arg-procs (map compile-expr args))
      (lambda (e ctx)
+       (define method-name
+         (name-proc e ctx))
        (define arg-values
          (map (lambda (a) (a e ctx)) arg-procs))
        (define (invoke-on-object obj)
          (send obj
                invoke-method
-               name
+               method-name
                arg-values
                ctx
                (lambda ()
                  (define maybe-slot-callable
-                   (send obj get-slot name #f))
+                  (send obj lookup-slot method-name #f))
                  (cond
                    [(procedure? maybe-slot-callable)
                     (maybe-slot-callable e arg-values ctx)]
                    [else
-                    ((resolve-callable e ctx name "method")
+                    ((resolve-callable e ctx method-name "method")
                      e
                      arg-values
                      ctx)]))))
@@ -345,13 +406,14 @@
          [receiver-ident
           (define maybe-box
             (env-lookup-box e receiver-ident))
-             (if maybe-box
+         (if maybe-box
               (let ([recv-val (unbox maybe-box)])
                 (unless (lol-object? recv-val)
                   (error 'run-program "method call requires BUKKIT receiver, got ~e" recv-val))
                 (invoke-on-object recv-val))
-              (let* ([ns-fn-name (format "~a'Z ~a" receiver-ident name)]
-                     [ns-fn (hash-ref (runtime-functions ctx) ns-fn-name #f)])
+              (let* ([ns-fn-name (format "~a'Z ~a" receiver-ident method-name)]
+                     [ns-fn-box (env-lookup-box e ns-fn-name)]
+                     [ns-fn (and ns-fn-box (unbox ns-fn-box))])
                 (if (procedure? ns-fn)
                     (ns-fn e arg-values ctx)
                     (error 'run-program "unknown identifier: ~a" receiver-ident))))]
@@ -425,7 +487,7 @@
     (unless (lol-object? obj)
       (error 'run-program "slot assignment requires BUKKIT, got ~e" obj))
     (define value (expr-proc e ctx))
-    (send obj set-slot! (slot-name-proc e ctx) value)
+    (send obj declare-slot! (slot-name-proc e ctx) value)
     (set-it! e value)))
 
 (define (compile-stmt-visible exprs suppress-newline?)
@@ -465,7 +527,6 @@
        (mebbe-loop mebbe-procs)])))
 
 (define (compile-stmt-switch subject cases default)
-  (validate-switch-cases! cases)
   (define subject-proc (compile-expr subject))
   (define case-procs
     (for/list ([c (in-list cases)])
@@ -497,19 +558,72 @@
         [_
          (default-proc (extend-env e) switch-ctx)]))))
 
-(define (compile-stmt-loop _label update-var update-op cond-kind cond-expr body)
+(define (compile-stmt-loop label-open label-close update-var-spec update-op cond-kind cond-expr body)
+  (define open-label-proc
+    (compile-name-resolver
+     "loop label must evaluate to identifier text"
+     label-open))
+  (define close-label-proc
+    (compile-name-resolver
+     "loop label must evaluate to identifier text"
+     label-close))
+  (define update-var-proc
+    (and update-var-spec
+         (compile-name-resolver
+          "loop variable name must evaluate to identifier text"
+          update-var-spec)))
+  (define update-op-proc
+    (cond
+      [(not update-op)
+       (lambda (_e _ctx) #f)]
+      [(and (list? update-op)
+            (= (length update-op) 2)
+            (eq? (first update-op) 'delta)
+            (number? (second update-op)))
+       (define delta (second update-op))
+       (lambda (_e _ctx)
+         (lambda (_loop-env _loop-ctx current)
+           (+ (coerce-number 'LOOP current) delta)))]
+      [(and (list? update-op)
+            (= (length update-op) 2)
+            (eq? (first update-op) 'call))
+       (define updater-name-proc
+         (compile-name-resolver
+          "loop updater function name must evaluate to identifier text"
+          (second update-op)))
+       (lambda (e ctx)
+         (define fn-name (updater-name-proc e ctx))
+         (lambda (loop-env loop-ctx current)
+           (define fn (resolve-callable loop-env loop-ctx fn-name "function"))
+           (fn loop-env (list current) loop-ctx)))]
+      [else
+       (error 'run-program "unsupported loop updater specification: ~e" update-op)]))
   (define cond-proc (and cond-expr (compile-expr cond-expr)))
   (define body-proc (compile-block body))
   (lambda (e ctx)
+    (define resolved-open
+      (open-label-proc e ctx))
+    (define resolved-close
+      (close-label-proc e ctx))
+    (unless (string-ci=? resolved-open resolved-close)
+      (error 'run-program
+             "loop label mismatch: ~a closed by ~a"
+             resolved-open
+             resolved-close))
+    (define resolved-update-var
+      (and update-var-proc
+           (update-var-proc e ctx)))
+    (define resolved-update-op
+      (update-op-proc e ctx))
     (define loop-env
-      (make-loop-env e update-var))
+      (make-loop-env e resolved-update-var))
     (let/ec break-k
       (define loop-ctx
         (ctx-derive ctx #:break-k break-k))
       (define (loop)
         (when (loop-continue? loop-env cond-kind cond-proc loop-ctx)
           (body-proc (extend-env loop-env) loop-ctx)
-          (apply-loop-update! loop-env update-var update-op loop-ctx)
+          (apply-loop-update! loop-env resolved-update-var resolved-update-op loop-ctx)
           (loop)))
       (loop))))
 
@@ -552,9 +666,10 @@
                  fn-name
                  (length param-names)
                  (length arg-values)))
-        ;; LOLCODE functions run in their own variable scope and do not
-        ;; capture variables from surrounding blocks.
-        (define call-env (make-root-env))
+        ;; LOLCODE functions use a fresh local frame over globals.
+        ;; This prevents capture of surrounding local scopes while
+        ;; keeping global callables and declarations visible.
+        (define call-env (extend-env (runtime-globals caller-ctx)))
         (for ([param (in-list param-names)]
               [arg (in-list arg-values)])
           (env-define! call-env param arg))
@@ -581,8 +696,10 @@
                  fn-name
                  (length param-names)
                  (length arg-values)))
+        (define-values (projected-table own-slot-names inherited-before)
+          (project-receiver-slot-frame receiver))
         (define receiver-env
-          (env-with-table (send receiver slot-table)
+          (env-with-table projected-table
                           method-lexical-parent))
         (define call-env (extend-env receiver-env))
         (for ([param (in-list param-names)]
@@ -597,8 +714,17 @@
                         #:break-k #f
                         #:object-name #f
                         #:def-object #f))
-          (body-proc call-env fn-ctx)
-          (env-ref call-env "IT"))))
+          (dynamic-wind
+            void
+            (lambda ()
+              (body-proc call-env fn-ctx)
+              (env-ref call-env "IT"))
+            (lambda ()
+              (sync-receiver-slot-frame!
+               receiver
+               projected-table
+               own-slot-names
+               inherited-before))))))
     (define global-fn
       (make-global-fn resolved-name resolved-params dynamic-aliases))
     (cond
@@ -608,7 +734,6 @@
              resolved-name
              (make-method-fn resolved-name resolved-params))]
       [(eq? e (runtime-globals ctx))
-       (hash-set! (runtime-functions ctx) resolved-name global-fn)
        (env-set-or-define! e resolved-name global-fn)]
       [else
        (env-set-or-define! e resolved-name global-fn)])))
@@ -646,8 +771,10 @@
                resolved-name
                (length resolved-params)
                (length arg-values)))
+      (define-values (projected-table own-slot-names inherited-before)
+        (project-receiver-slot-frame receiver-value))
       (define receiver-env
-        (env-with-table (send receiver-value slot-table)
+        (env-with-table projected-table
                         lexical-parent))
       (define call-env (extend-env receiver-env))
       (for ([param (in-list resolved-params)]
@@ -662,30 +789,65 @@
                       #:break-k #f
                       #:object-name #f
                       #:def-object #f))
-        (body-proc call-env fn-ctx)
-        (env-ref call-env "IT")))
+        (dynamic-wind
+          void
+          (lambda ()
+            (body-proc call-env fn-ctx)
+            (env-ref call-env "IT"))
+          (lambda ()
+            (sync-receiver-slot-frame!
+             receiver-value
+             projected-table
+             own-slot-names
+             inherited-before)))))
     (send target define-method! resolved-name method-fn)))
 
-(define (compile-stmt-object-def name parent body)
+(define (compile-stmt-object-def name-spec parent-spec mixins body)
+  (define name-proc
+    (compile-name-resolver
+     "object name must evaluate to identifier text"
+     name-spec))
+  (define parent-proc
+    (and parent-spec
+         (compile-name-resolver
+          "object parent name must evaluate to identifier text"
+          parent-spec)))
+  (define mixin-name-procs
+    (map (lambda (m)
+           (compile-name-resolver
+            "mixin name must evaluate to identifier text"
+            m))
+         mixins))
   (define body-proc (compile-block body))
   (lambda (e ctx)
+    (define resolved-name
+      (name-proc e ctx))
     (define obj
-      (if parent
-          (let ([p (env-ref e parent)])
-            (unless (lol-object? p)
-              (error 'run-program "object parent must be BUKKIT, got ~e" p))
-            (send p clone))
+      (if parent-proc
+          (let* ([resolved-parent-name
+                  (parent-proc e ctx)]
+                 [resolved-parent
+                  (resolve-bukkit
+                   "object parent"
+                   (env-ref e resolved-parent-name))]
+                 [resolved-mixins
+                  (for/list ([mixin-name-proc (in-list mixin-name-procs)])
+                    (resolve-bukkit
+                     "mixin"
+                     (env-ref e (mixin-name-proc e ctx))))])
+            (make-prototype-object resolved-parent resolved-mixins))
           (new lol-object%)))
     (send obj set-slot! "IT" noob)
     (define object-ctx
       (ctx-derive ctx
-                  #:object-name name
+                  #:object-name resolved-name
                   #:def-object obj))
     (body-proc (env-with-table (send obj slot-table) e)
                object-ctx)
     (when (send obj has-slot? "IT")
       (send obj remove-slot! "IT"))
-    (env-set-or-define! e name obj)
+    (run-izmakin-hook! obj e object-ctx)
+    (env-set-or-define! e resolved-name obj)
     (set-it! e obj)))
 
 (define (compile-stmt-return expr)
@@ -699,9 +861,76 @@
   (lambda (_e ctx)
     (ctx-break! ctx)))
 
-(define (compile-stmt-import _library)
-  (lambda (_e _ctx)
-    (void)))
+(define (compile-stmt-import target kind)
+  (lambda (e ctx)
+    (define globals
+      (runtime-globals ctx))
+    (define imports
+      (let ([raw (env-ref globals "#%loaded-runtime-imports")])
+        (if (hash? raw)
+            raw
+            (error 'run-program
+                   "internal error: invalid runtime import registry state: ~e"
+                   raw))))
+    (case kind
+      [(library)
+       (define lib-name
+         (string-upcase target))
+       (define import-key
+         (list 'library lib-name))
+       (unless (hash-has-key? imports import-key)
+         (unless (install-runtime-library! globals lib-name)
+           (raise
+            (exn:fail:unsupported
+             (format "unsupported CAN HAS library: ~a" target)
+             (current-continuation-marks)
+             (stmt-import target kind))))
+         (hash-set! imports import-key #t))]
+      [(file)
+       (define include-base-raw
+         (env-ref globals "#%include-base-dir"))
+       (unless (path-string? include-base-raw)
+         (error 'run-program
+                "internal error: invalid include base directory: ~e"
+                include-base-raw))
+       (define include-base
+         (string->path include-base-raw))
+       (define rel
+         (string->path target))
+       (define include-path
+         (simplify-path
+          (if (relative-path? rel)
+              (build-path include-base rel)
+              rel)))
+       (define include-key
+         (list 'file (path->string include-path)))
+       (unless (hash-has-key? imports include-key)
+         (hash-set! imports include-key #t)
+         (unless (file-exists? include-path)
+           (error 'run-program
+                  "CAN HAS include not found: ~a"
+                  (path->string include-path)))
+         (define include-source
+           (file->string include-path))
+         (define include-program
+           (parse-source include-source))
+         (define include-proc
+           (compile-block (program-statements include-program)))
+         (define prev-include-base
+           (env-ref globals "#%include-base-dir"))
+         (define include-dir
+           (or (path-only include-path) include-base))
+         (dynamic-wind
+           void
+           (lambda ()
+             (env-set! globals
+                       "#%include-base-dir"
+                       (path->string (simplify-path include-dir)))
+             (include-proc e ctx))
+           (lambda ()
+             (env-set! globals "#%include-base-dir" prev-include-base))))]
+      [else
+       (error 'run-program "unknown CAN HAS target kind: ~e" kind)])))
 
 (define (compile-stmt-expr expr)
   (define expr-proc (compile-expr expr))
@@ -727,20 +956,20 @@
      (compile-stmt-if condition then-branch mebbe-branches else-branch)]
     [(stmt-switch subject cases default)
      (compile-stmt-switch subject cases default)]
-    [(stmt-loop label update-var update-op cond-kind cond-expr body)
-     (compile-stmt-loop label update-var update-op cond-kind cond-expr body)]
+    [(stmt-loop label-open label-close update-var update-op cond-kind cond-expr body)
+     (compile-stmt-loop label-open label-close update-var update-op cond-kind cond-expr body)]
     [(stmt-function-def name params body)
      (compile-stmt-function-def name params body)]
     [(stmt-method-def receiver name params body)
      (compile-stmt-method-def receiver name params body)]
-    [(stmt-object-def name parent body)
-     (compile-stmt-object-def name parent body)]
+    [(stmt-object-def name parent mixins body)
+     (compile-stmt-object-def name parent mixins body)]
     [(stmt-return expr)
      (compile-stmt-return expr)]
     [(stmt-break)
      (compile-stmt-break)]
-    [(stmt-import library)
-     (compile-stmt-import library)]
+    [(stmt-import target kind)
+     (compile-stmt-import target kind)]
     [(stmt-expr expr)
      (compile-stmt-expr expr)]
     [_ (raise-unsupported stmt)]))
@@ -750,12 +979,15 @@
     (raise-argument-error 'compile-program "program?" parsed))
   (lambda ()
     (define globals (make-root-env))
-    (define functions (make-hash))
-    (install-runtime-builtins! functions)
+    (install-runtime-builtins! globals)
+    (env-define! globals "#%loaded-runtime-imports" (make-hash))
+    (env-define! globals
+                 "#%include-base-dir"
+                 (path->string (simplify-path (current-directory))))
     (define stdout (open-output-string))
     (env-define! globals "IT" noob)
     (define st
-      (runstate globals functions stdout phase))
+      (runstate globals stdout phase))
     (define root-ctx
       (exec-ctx st #f #f #f #f))
     (with-handlers ([exn:fail:unsupported?
