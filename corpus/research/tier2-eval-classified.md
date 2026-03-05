@@ -1,6 +1,6 @@
 # Tier2 Classified Eval Snapshot
 
-Generated: `Thursday, March 5th, 2026 12:27:23pm`
+Generated: `Thursday, March 5th, 2026 5:08:15pm`
 
 - Corpus root: `corpus/tier2`
 - Timeout seconds: `2.0`
@@ -35,18 +35,19 @@ Generated: `Thursday, March 5th, 2026 12:27:23pm`
 ### Top Messages (Likely Programs)
 
 - `parse-source: syntax error: unexpected NEWLINE at line 1, col 4`: `94`
-- `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)`: `29`
-- `parse-source: invalid identifier syntax: "STDIO?"`: `10`
+- `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)`: `28`
 - `parse-source: syntax error: unexpected NEWLINE at line 2, col 4`: `9`
+- `parse-source: syntax error: unexpected ID ("STDIO?") at line 2, col 9`: `6`
 - `lex-source: unterminated string literal at line 6, col 27`: `3`
 - `lex-source: unterminated string literal at line 8, col 31`: `2`
+- `parse-source: syntax error: unexpected ID ("STDIO?") at line 11, col 13`: `2`
 - `parse-source: syntax error: unexpected ID ("VAR!!1") at line 3, col 8`: `2`
 - `parse-source: syntax error: unexpected STRING ("Dear curious test reader") at line 1, col 5`: `2`
-- `parse-source: invalid identifier syntax: "RAYLIB?"`: `2`
+- `parse-source: syntax error: unexpected ID ("RAYLIB?") at line 2, col 9`: `2`
 - `parse-source: syntax error: unexpected MOD at line 13, col 42`: `1`
 - `parse-source: syntax error: unexpected I at line 24, col 25`: `1`
-- `parse-source: invalid identifier syntax: "STRING?"`: `1`
 - `parse-source: syntax error: unexpected NEWLINE at line 4, col 4`: `1`
+- `parse-source: syntax error: unexpected ID ("STDIO?") at line 26, col 17`: `1`
 - `lex-source: unterminated string literal at line 8, col 27`: `1`
 - `run-program: unknown slot: 7288`: `1`
 - `parse-source: syntax error: unexpected OF at line 30, col 23`: `1`
@@ -55,6 +56,9 @@ Generated: `Thursday, March 5th, 2026 12:27:23pm`
 - `parse-source: syntax error: unexpected NEWLINE at line 1, col 47`: `1`
 - `parse-source: syntax error: unexpected OF at line 30, col 33`: `1`
 - `parse-source: invalid identifier syntax: "//"`: `1`
+- `parse-source: syntax error: unexpected OF at line 12, col 19`: `1`
+- `parse-source: syntax error: unexpected SUM at line 3, col 13`: `1`
+- `parse-source: syntax error: unexpected ID ("STRING?") at line 2, col 9`: `1`
 - `parse-source: syntax error: unexpected STRING ("Dear reader") at line 1, col 5`: `1`
 - `parse-source: syntax error: unexpected STRING (" years old") at line 34, col 34`: `1`
 - `parse-source: syntax error: unexpected STRING (" and ") at line 5, col 16`: `1`
@@ -64,11 +68,11 @@ Generated: `Thursday, March 5th, 2026 12:27:23pm`
 - `parse-source: syntax error: unexpected DIFFRINT at line 22, col 13`: `1`
 - `lex-source: line continuation marker must be at end of line at line 19, col 48`: `1`
 - `parse-source: syntax error: unexpected OF at line 49, col 37`: `1`
-- `parse-source: syntax error: unexpected OF at line 12, col 19`: `1`
+- `parse-source: syntax error: unexpected ID ("STDIO?") at line 2, col 11`: `1`
 
 ## Sample Error Rows
 
-- `corpus/tier2/aurasphere-ftpd-lol/files/ftpd.lol` => `parse-error` (`parse-source: invalid identifier syntax: "STDIO?"`)
+- `corpus/tier2/aurasphere-ftpd-lol/files/ftpd.lol` => `parse-error` (`parse-source: syntax error: unexpected ID ("STDIO?") at line 26, col 17`)
 - `corpus/tier2/bernardjezua-lolcode-interpreter/files/testcases/checkerboard/bonus_features.lol` => `parse-error` (`parse-source: syntax error: unexpected NEWLINE at line 1, col 4`)
 - `corpus/tier2/bernardjezua-lolcode-interpreter/files/testcases/final/01_variables.lol` => `parse-error` (`parse-source: syntax error: unexpected NEWLINE at line 2, col 4`)
 - `corpus/tier2/bernardjezua-lolcode-interpreter/files/testcases/final/02_gimmeh.lol` => `parse-error` (`parse-source: syntax error: unexpected NEWLINE at line 1, col 4`)
