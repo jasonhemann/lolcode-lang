@@ -151,6 +151,11 @@
   (check-exn #px"invalid numeric literal"
              (lambda () (parse-program malformed-number-multi-dot)))
 
+  (define malformed-number-trailing-dot
+    "HAI 1.3\nI HAS A x ITZ 2.\nKTHXBYE\n")
+  (check-exn #px"invalid numeric literal"
+             (lambda () (parse-program malformed-number-trailing-dot)))
+
   (define invalid-ident-leading-underscore
     "HAI 1.3\nI HAS A _x ITZ 1\nKTHXBYE\n")
   (check-exn #px"invalid identifier syntax"
@@ -210,6 +215,26 @@
   (check-not-exn
    (lambda () (parse-program as-as-identifier)))
 
+  (define declaration-article-optional
+    "HAI 1.3\nI HAS x ITZ 1\nVISIBLE x\nKTHXBYE\n")
+  (check-not-exn
+   (lambda () (parse-program declaration-article-optional)))
+
+  (define maek-article-optional
+    "HAI 1.3\nVISIBLE MAEK 2 NUMBAR\nKTHXBYE\n")
+  (check-not-exn
+   (lambda () (parse-program maek-article-optional)))
+
+  (define cast-assignment-missing-a
+    "HAI 1.3\nI HAS A x ITZ 1\nx IS NOW NUMBR\nKTHXBYE\n")
+  (check-exn #px"syntax error:"
+             (lambda () (parse-program cast-assignment-missing-a)))
+
+  (define clone-missing-a
+    "HAI 1.3\nI HAS A parent ITZ A BUKKIT\nI HAS A child ITZ LIEK parent\nKTHXBYE\n")
+  (check-exn #px"syntax error:"
+             (lambda () (parse-program clone-missing-a)))
+
   (define all-of-missing-mkay
     "HAI 1.3\nVISIBLE ALL OF WIN AN FAIL\nKTHXBYE\n")
   (check-not-exn
@@ -224,6 +249,11 @@
     "HAI 1.3\nI HAS A obj ITZ A BUKKIT\nobj HAS foo ITZ 1\nKTHXBYE\n")
   (check-exn #px"syntax error:"
              (lambda () (parse-program slot-set-without-article)))
+
+  (define slot-set-with-an-article
+    "HAI 1.3\nI HAS A obj ITZ A BUKKIT\nobj HAS AN foo ITZ 1\nKTHXBYE\n")
+  (check-exn #px"syntax error:"
+             (lambda () (parse-program slot-set-with-an-article)))
 
   (define unterminated-block-comment
     "HAI 1.3\nOBTW\nVISIBLE \"oops\"\nKTHXBYE\n")

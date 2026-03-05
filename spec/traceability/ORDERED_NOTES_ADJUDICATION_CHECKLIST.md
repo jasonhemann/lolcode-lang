@@ -47,38 +47,37 @@ Legend:
   Spec: type prose around primitive behavior. Matrix: partially implicit via cast/op rows.  
   Done: added dedicated matrix row `type.primitives-immutable` and regression showing arithmetic/SMOOSH produce new values while original bindings remain unchanged until explicit assignment.
 
-- [ ] `09` (notes 80) Optional article `A` usage boundaries.
+- [x] `09` (notes 80) Optional article `A` usage boundaries.
   Spec: line 189 (mapped), MAEK grammar line 362 (mapped).  
-  Progress: tightened slot-creation grammar to require `HAS A/AN` and added parse-negative coverage rejecting bare `HAS`.
-  To check: finish full grammar-site enumeration for all optional-article positions and add remaining negative tests.
+  Done: completed grammar-site sweep and tests. Optional only at variable declaration (`I HAS ...`) and `MAEK <expr> [A] <type>`; required article at slot create (`HAS A` only), cast assignment (`IS NOW A <type>`), and clone/prototype forms (`LIEK A`, `ITZ A ...`). Note: `ITZ NUMBR` remains legal because TYPE literals are first-class expression values, distinct from typed-default `ITZ A <type>`.
 
-- [ ] `10` (notes 82) Assignment to undeclared identifiers in core scope.
+- [x] `10` (notes 82) Assignment to undeclared identifiers in core scope.
   Spec: line 205 (mapped) but explicit undeclared-assignment behavior is not clearly stated.  
-  To check: adjudicate policy from spec examples; add explicit tests and matrix note.
+  Done: adjudicated with strict declaration-before-use interpretation (line 105 scope text + assignment form). Runtime assignment now requires existing binding and errors for undeclared identifiers; regression and matrix note added.
 
-- [ ] `11` (notes 84-101) BUKKIT “reserved” wording vs full bukkit section later.
+- [x] `11` (notes 84-101) BUKKIT “reserved” wording vs full bukkit section later.
   Spec: line 219 (`unmapped`) vs bukkit section lines 612+ (`unmapped/mapped mix`).  
-  To check: add traceability clarification note: treat later bukkit section as authoritative for 1.3.
+  Done: added matrix adjudication row for line 219 clarifying that later BUKKIT section (612+) is authoritative strict-1.3 behavior; legacy “reserved” prose is treated as stale wording.
 
-- [ ] `12` (notes 88-101) Struck-through TYPE cast sentence + NOOB/TROOF truthiness questions.
+- [x] `12` (notes 88-101) Struck-through TYPE cast sentence + NOOB/TROOF truthiness questions.
   Spec: line 219 (`unmapped`), line 223 (`mapped`), line 259 (`mapped`).  
-  To check: confirm strict behavior for NOOB and TYPE literals; add tests for `MAEK TYPE A TROOF`, `MAEK NOOB A TROOF`.
+  Done: added explicit regressions for `MAEK TYPE A TROOF` => `WIN` and `MAEK NOOB A TROOF` => `FAIL`; matrix TYPE-domain row now references core runtime tests.
 
-- [ ] `13` (notes 103-108) NUMBR/NUMBAR lexical shape and truncation edge cases.
+- [x] `13` (notes 103-108) NUMBR/NUMBAR lexical shape and truncation edge cases.
   Spec: lines 233, 235, 237 (mapped).  
-  To check: add tests for `2.` reject, `-0.567` NUMBAR->NUMBR truncation behavior, and lexical strictness documentation.
+  Done: added strict lexing test rejecting `2.` and runtime truncation regressions for NUMBAR->NUMBR (`-0.567 -> 0`, `-1.239 -> -1`, `1.999 -> 1`), with matrix note updates.
 
-- [ ] `14` (notes 109-112) Hex escape correctness.
+- [x] `14` (notes 109-112) Hex escape correctness.
   Spec: line 251 (mapped).  
-  To check: add round-trip tests for representative code points (BMP + boundary invalid cases).
+  Done: existing tests cover round-trip BMP escape (`:(263A)`) and invalid boundary rejection (`:(110000)`), plus strict escape validation.
 
-- [ ] `15` (notes 115-117) TYPE bare-word domain and cast behavior.
+- [x] `15` (notes 115-117) TYPE bare-word domain and cast behavior.
   Spec: line 259 (mapped).  
-  To check: extend positive tests for all TYPE literals (`TROOF NOOB NUMBR NUMBAR YARN TYPE`) cast to TROOF/YARN.
+  Done: added full-domain cast regression for all TYPE literals (`TROOF NOOB NUMBR NUMBAR YARN TYPE`) to both YARN and TROOF.
 
-- [ ] `16` (notes 119-126) Variadic closure with MKAY/EOL and nested variadics with comma/continuation.
+- [x] `16` (notes 119-126) Variadic closure with MKAY/EOL and nested variadics with comma/continuation.
   Spec: lines 269, 286 (line 269 currently `unmapped`, 286 mapped as `op.mkay-variadic-form`).  
-  To check: add explicit parser+runtime tests for nested variadics, stack-like MKAY closure order, comma terminators, and continued lines.
+  Done: added runtime regression covering nested variadics with EOL closure, partial MKAY closure, continuation-line closure, and comma-delimited closure behavior.
 
 - [ ] `17` (notes 127) Optional `AN` for binary operators.
   Spec: line 277 (mapped `op.an-optional-binary`).  

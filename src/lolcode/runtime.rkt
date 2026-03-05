@@ -450,7 +450,7 @@
 
 (define (compile-stmt-assign target expr)
   (define lv
-    (compile-lvalue target #:define-missing? #t))
+    (compile-lvalue target #:define-missing? #f))
   (define expr-proc (compile-expr expr))
   (lambda (e ctx)
     (define value (expr-proc e ctx))

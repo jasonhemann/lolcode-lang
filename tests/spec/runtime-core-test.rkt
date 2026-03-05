@@ -77,6 +77,13 @@
   (check-equal? (hash-ref declare-assign 'stdout) "3\n")
   (check-equal? (hash-ref declare-assign 'last-value) 3)
 
+  (define declare-without-article-src
+    "HAI 1.3\nI HAS var ITZ 9\nVISIBLE var\nKTHXBYE\n")
+  (define declare-without-article
+    (run-source declare-without-article-src))
+  (check-eq? (hash-ref declare-without-article 'status) 'ok)
+  (check-equal? (hash-ref declare-without-article 'stdout) "9\n")
+
   (define typed-decl-src
     "HAI 1.3\nI HAS A count ITZ A NUMBR\nVISIBLE count\nKTHXBYE\n")
   (define typed-decl (run-source typed-decl-src))
@@ -113,11 +120,11 @@
   (check-eq? (hash-ref bukkit-srs-numeric-slot 'status) 'ok)
   (check-equal? (hash-ref bukkit-srs-numeric-slot 'stdout) "42\n")
 
-  (define alt-article-slot-src
-    "HAI 1.3\nI HAS AN obj ITZ A BUKKIT\nobj HAS AN elem ITZ \"catmium\"\nobj HAS AN empty\nVISIBLE obj'Z elem\nVISIBLE obj'Z empty\nKTHXBYE\n")
-  (define alt-article-slot (run-source alt-article-slot-src))
-  (check-eq? (hash-ref alt-article-slot 'status) 'ok)
-  (check-equal? (hash-ref alt-article-slot 'stdout) "catmium\nNOOB\n")
+  (define slot-declare-a-only-src
+    "HAI 1.3\nI HAS AN obj ITZ A BUKKIT\nobj HAS A elem ITZ \"catmium\"\nobj HAS A empty\nVISIBLE obj'Z elem\nVISIBLE obj'Z empty\nKTHXBYE\n")
+  (define slot-declare-a-only (run-source slot-declare-a-only-src))
+  (check-eq? (hash-ref slot-declare-a-only 'status) 'ok)
+  (check-equal? (hash-ref slot-declare-a-only 'stdout) "catmium\nNOOB\n")
 
   (define clone-like-src
     "HAI 1.3\nI HAS A parent ITZ A BUKKIT\nparent HAS A val ITZ 1\nI HAS A child ITZ LIEK A parent\nchild'Z val R 2\nVISIBLE parent'Z val\nVISIBLE child'Z val\nKTHXBYE\n")
@@ -328,6 +335,15 @@
   (check-eq? (hash-ref logic-all-of-result 'status) 'ok)
   (check-equal? (hash-ref logic-all-of-result 'stdout) "FAIL\n")
 
+  (define nested-variadic-closure-src
+    "HAI 1.3\nVISIBLE ALL OF WIN AN ANY OF FAIL AN WIN\nVISIBLE ALL OF WIN AN ANY OF FAIL AN WIN MKAY\nVISIBLE ALL OF WIN AN ...\nANY OF FAIL AN WIN MKAY\nVISIBLE ALL OF WIN AN ANY OF FAIL AN WIN MKAY, VISIBLE \"X\"\nKTHXBYE\n")
+  (define nested-variadic-closure-result
+    (run-source nested-variadic-closure-src))
+  (check-eq? (hash-ref nested-variadic-closure-result 'status) 'ok)
+  ;; EOL/comma must close any remaining open variadics (stack order).
+  (check-equal? (hash-ref nested-variadic-closure-result 'stdout)
+                "WIN\nWIN\nWIN\nWIN\nX\n")
+
   (define cast-src
     "HAI 1.3\nI HAS A obj ITZ A BUKKIT\nobj HAS A answer ITZ \"41\"\nobj'Z answer IS NOW A NUMBR\nobj'Z answer R SUM OF obj'Z answer AN 1\nVISIBLE obj'Z answer\nKTHXBYE\n")
   (define cast-result (run-source cast-src))
@@ -350,6 +366,13 @@
   (check-true (regexp-match? #px"cannot cast YARN to numeric value"
                              (hash-ref cast-scientific-number-yarn 'error)))
 
+  (define maek-without-article-src
+    "HAI 1.3\nVISIBLE MAEK 2 NUMBAR\nKTHXBYE\n")
+  (define maek-without-article
+    (run-source maek-without-article-src))
+  (check-eq? (hash-ref maek-without-article 'status) 'ok)
+  (check-equal? (hash-ref maek-without-article 'stdout) "2.00\n")
+
   (define noob-arithmetic-src
     "HAI 1.3\nVISIBLE SUM OF NOOB AN 1\nKTHXBYE\n")
   (define noob-arithmetic-result
@@ -357,6 +380,21 @@
   (check-eq? (hash-ref noob-arithmetic-result 'status) 'runtime-error)
   (check-true (regexp-match? #px"cannot cast NOOB to numeric value"
                              (hash-ref noob-arithmetic-result 'error)))
+
+  (define type-literals-cast-to-troof-src
+    "HAI 1.3\nVISIBLE MAEK TYPE A TROOF\nVISIBLE MAEK NOOB A TROOF\nKTHXBYE\n")
+  (define type-literals-cast-to-troof
+    (run-source type-literals-cast-to-troof-src))
+  (check-eq? (hash-ref type-literals-cast-to-troof 'status) 'ok)
+  (check-equal? (hash-ref type-literals-cast-to-troof 'stdout) "WIN\nFAIL\n")
+
+  (define type-literal-domain-casts-src
+    "HAI 1.3\nVISIBLE MAEK TROOF A YARN\nVISIBLE MAEK NOOB A YARN\nVISIBLE MAEK NUMBR A YARN\nVISIBLE MAEK NUMBAR A YARN\nVISIBLE MAEK YARN A YARN\nVISIBLE MAEK TYPE A YARN\nVISIBLE MAEK TROOF A TROOF\nVISIBLE MAEK NOOB A TROOF\nVISIBLE MAEK NUMBR A TROOF\nVISIBLE MAEK NUMBAR A TROOF\nVISIBLE MAEK YARN A TROOF\nVISIBLE MAEK TYPE A TROOF\nKTHXBYE\n")
+  (define type-literal-domain-casts
+    (run-source type-literal-domain-casts-src))
+  (check-eq? (hash-ref type-literal-domain-casts 'status) 'ok)
+  (check-equal? (hash-ref type-literal-domain-casts 'stdout)
+                "TROOF\nNOOB\nNUMBR\nNUMBAR\nYARN\nTYPE\nWIN\nFAIL\nWIN\nWIN\nWIN\nWIN\n")
 
   (define numbar-visible-format-src
     "HAI 1.3\nVISIBLE MAEK \"3.14159\" A NUMBAR\nVISIBLE MAEK 2 A NUMBAR\nVISIBLE MAEK \"-1.239\" A NUMBAR\nKTHXBYE\n")
@@ -366,6 +404,15 @@
   ;; Spec: NUMBAR printed as YARN defaults to two decimal places (truncated).
   (check-equal? (hash-ref numbar-visible-format-result 'stdout)
                 "3.14\n2.00\n-1.23\n")
+
+  (define numbar-to-numbr-truncate-src
+    "HAI 1.3\nVISIBLE MAEK \"-0.567\" A NUMBR\nVISIBLE MAEK \"-1.239\" A NUMBR\nVISIBLE MAEK \"1.999\" A NUMBR\nKTHXBYE\n")
+  (define numbar-to-numbr-truncate-result
+    (run-source numbar-to-numbr-truncate-src))
+  (check-eq? (hash-ref numbar-to-numbr-truncate-result 'status) 'ok)
+  ;; Spec truncation is toward zero for both positive and negative values.
+  (check-equal? (hash-ref numbar-to-numbr-truncate-result 'stdout)
+                "0\n-1\n1\n")
 
   (define method-src
     "HAI 1.3\nO HAI IM counter\n  I HAS A val ITZ 1\n  HOW IZ I bump YR delta\n    val R SUM OF val AN delta\n    FOUND YR val\n  IF U SAY SO\nKTHX\nVISIBLE counter IZ bump YR 2 MKAY\nVISIBLE counter IZ bump YR 3 MKAY\nVISIBLE counter'Z val\nKTHXBYE\n")
@@ -592,6 +639,14 @@
   (define no-it-side-effect (run-source no-it-side-effect-src))
   (check-eq? (hash-ref no-it-side-effect 'status) 'ok)
   (check-equal? (hash-ref no-it-side-effect 'last-value) 'NOOB)
+
+  (define assign-undeclared-runtime-error-src
+    "HAI 1.3\nx R 4\nKTHXBYE\n")
+  (define assign-undeclared-runtime-error
+    (run-source assign-undeclared-runtime-error-src))
+  (check-eq? (hash-ref assign-undeclared-runtime-error 'status) 'runtime-error)
+  (check-true (regexp-match? #px"unknown identifier: x"
+                             (hash-ref assign-undeclared-runtime-error 'error)))
 
   (define loop-scope-src
     "HAI 1.3\nI HAS A msg ITZ \"outer\"\nIM IN YR loop\n  I HAS A msg ITZ \"inner\"\n  GTFO\nIM OUTTA YR loop\nVISIBLE msg\nKTHXBYE\n")
