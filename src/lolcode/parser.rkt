@@ -732,11 +732,12 @@
 
     (arg-def-opt
      [() '()]
-     [(YR name-spec arg-def-more) (cons $2 $3)])
+     [(YR ident-token arg-def-more) (cons (static-name-spec $2) $3)])
 
     (arg-def-more
      [() '()]
-     [(AN YR name-spec arg-def-more) (cons $3 $4)])
+     [(AN YR ident-token arg-def-more)
+      (cons (static-name-spec $3) $4)])
 
     (name-spec
      [(ident-token) (static-name-spec $1)]

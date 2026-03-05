@@ -136,6 +136,13 @@
   (check-eq? (hash-ref bukkit-srs-numeric-slot 'status) 'ok)
   (check-equal? (hash-ref bukkit-srs-numeric-slot 'stdout) "42\n")
 
+  (define bukkit-slot-redeclare-overwrite-src
+    "HAI 1.3\nI HAS A obj ITZ A BUKKIT\nobj HAS A answer ITZ 1\nobj HAS A answer ITZ 2\nVISIBLE obj'Z answer\nKTHXBYE\n")
+  (define bukkit-slot-redeclare-overwrite
+    (run-source bukkit-slot-redeclare-overwrite-src))
+  (check-eq? (hash-ref bukkit-slot-redeclare-overwrite 'status) 'ok)
+  (check-equal? (hash-ref bukkit-slot-redeclare-overwrite 'stdout) "2\n")
+
   (define slot-declare-a-only-src
     "HAI 1.3\nI HAS AN obj ITZ A BUKKIT\nobj HAS A elem ITZ \"catmium\"\nobj HAS A empty\nVISIBLE obj'Z elem\nVISIBLE obj'Z empty\nKTHXBYE\n")
   (define slot-declare-a-only (run-source slot-declare-a-only-src))
@@ -583,6 +590,29 @@
   ;; Regression: dynamic slot names must compose with ME receiver writes.
   (check-equal? (hash-ref method-dynamic-slot-srs 'stdout) "5\n6\n")
 
+  (define method-me-has-a-slot-src
+    "HAI 1.3\nO HAI IM box\n  HOW IZ I addslot\n    ME HAS A made ITZ 9\n    FOUND YR ME'Z made\n  IF U SAY SO\nKTHX\nVISIBLE box IZ addslot MKAY\nVISIBLE box'Z made\nKTHXBYE\n")
+  (define method-me-has-a-slot
+    (run-source method-me-has-a-slot-src))
+  (check-eq? (hash-ref method-me-has-a-slot 'status) 'ok)
+  (check-equal? (hash-ref method-me-has-a-slot 'stdout) "9\n9\n")
+
+  (define me-outside-method-src
+    "HAI 1.3\nHOW IZ I bad\n  FOUND YR ME\nIF U SAY SO\nVISIBLE I IZ bad MKAY\nKTHXBYE\n")
+  (define me-outside-method
+    (run-source me-outside-method-src))
+  (check-eq? (hash-ref me-outside-method 'status) 'runtime-error)
+  (check-true (regexp-match? #px"unknown identifier: ME"
+                             (hash-ref me-outside-method 'error)))
+
+  (define method-lookup-order-src
+    "HAI 1.3\nI HAS A g ITZ \"GLOBAL\"\nI HAS A h ITZ \"GLOBAL-H\"\nO HAI IM obj\n  I HAS A g ITZ \"SLOT\"\n  HOW IZ I pick YR g\n    FOUND YR g\n  IF U SAY SO\n  HOW IZ I pickslot\n    FOUND YR g\n  IF U SAY SO\n  HOW IZ I pickglobal\n    FOUND YR h\n  IF U SAY SO\nKTHX\nVISIBLE obj IZ pick YR \"ARG\" MKAY\nVISIBLE obj IZ pickslot MKAY\nVISIBLE obj IZ pickglobal MKAY\nKTHXBYE\n")
+  (define method-lookup-order
+    (run-source method-lookup-order-src))
+  (check-eq? (hash-ref method-lookup-order 'status) 'ok)
+  (check-equal? (hash-ref method-lookup-order 'stdout)
+                "ARG\nSLOT\nGLOBAL-H\n")
+
   (define inherited-method-slot-independence-src
     "HAI 1.3\nO HAI IM parent\n  I HAS A val ITZ 1\n  HOW IZ I bump\n    val R SUM OF val AN 1\n    FOUND YR val\n  IF U SAY SO\nKTHX\nO HAI IM child IM LIEK parent\nKTHX\nVISIBLE parent IZ bump MKAY\nVISIBLE child IZ bump MKAY\nVISIBLE parent'Z val\nVISIBLE child'Z val\nKTHXBYE\n")
   (define inherited-method-slot-independence
@@ -599,7 +629,7 @@
   (check-equal? (hash-ref function-storage 'stdout) "a\n")
 
   (define dynamic-function-name-src
-    "HAI 1.3\nI HAS A name1 ITZ \"fun\"\nI HAS A name2 ITZ \"arg\"\nHOW IZ I SRS SMOOSH name1 AN 1 MKAY\n  VISIBLE \"a\"\nIF U SAY SO\nHOW IZ I SRS SMOOSH name1 AN 2 MKAY YR SRS name2\n  VISIBLE arg\nIF U SAY SO\nI IZ SRS SMOOSH name1 AN 1 MKAY MKAY\nI IZ SRS SMOOSH name1 AN 2 MKAY YR \"b\" MKAY\nKTHXBYE\n")
+    "HAI 1.3\nI HAS A name1 ITZ \"fun\"\nHOW IZ I SRS SMOOSH name1 AN 1 MKAY\n  VISIBLE \"a\"\nIF U SAY SO\nHOW IZ I SRS SMOOSH name1 AN 2 MKAY YR arg\n  VISIBLE arg\nIF U SAY SO\nI IZ SRS SMOOSH name1 AN 1 MKAY MKAY\nI IZ SRS SMOOSH name1 AN 2 MKAY YR \"b\" MKAY\nKTHXBYE\n")
   (define dynamic-function-name (run-source dynamic-function-name-src))
   (check-eq? (hash-ref dynamic-function-name 'status) 'ok)
   (check-equal? (hash-ref dynamic-function-name 'stdout) "a\nb\n")

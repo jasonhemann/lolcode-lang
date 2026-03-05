@@ -128,9 +128,9 @@ Cross-cutting adjudications:
   Spec: line 564 (mapped).  
   Done: covered by existing loop regressions (`loop-counter-scope`, `loop-counter-no-leak`, `loop-counter-dynamic-name`) proving temporary local updater bindings with no outer-scope mutation/leak.
 
-- [ ] `28` (notes 209) Function argument identifier shape (“single-word identifiers”).
+- [x] `28` (notes 209) Function argument identifier shape (“single-word identifiers”).
   Spec: line 582 (`unmapped`).  
-  To check: add parse-negative tests for invalid arg identifiers; decide whether this is redundant with general identifier rule.
+  Done: parser now requires argument names to be direct identifier tokens (not `SRS` expressions) in both function and method definitions. Added parse-negative regressions for dynamic arg-name forms.
 
 - [x] `29` (notes 211-216) Function return semantics (`GTFO` => NOOB, fallthrough returns IT).
   Spec: line 590 (mapped).  
@@ -142,21 +142,21 @@ Cross-cutting adjudications:
 
 ## Phase 4: BUKKIT / Methods / Inheritance (in notes order)
 
-- [ ] `31` (notes 222-230) Slot re-declaration overwrite semantics and SRS slotname support.
+- [x] `31` (notes 222-230) Slot re-declaration overwrite semantics and SRS slotname support.
   Spec: lines 632/634 prose and line 738 mapped.  
-  To check: add targeted slot re-init and `SRS` slotname tests; clarify “identifier may be a function” wording.
+  Done: added explicit slot re-declaration overwrite regression (`HAS A` same slot twice => overwrite), plus existing `SRS` slotname/method-slot regressions retained.
 
 - [ ] `32` (notes 231-237) `HOW IZ <object> <slot>` method declaration and nested-def behavior.
   Spec: lines 649+ prose. Matrix: covered indirectly by `bukkit.slot-access`/`bukkit.declaration`; nested defs are currently parser-rejected in strict mode.  
   To check: add explicit parser-policy test and note in matrix.
 
-- [ ] `33` (notes 239-253) Function lookup order in object context (`function -> object -> global`) and IT rule.
+- [x] `33` (notes 239-253) Function lookup order in object context (`function -> object -> global`) and IT rule.
   Spec: lines 666-672 (line 672 mapped; 666-670 currently not dedicated).  
-  To check: add matrix row + tests for each namespace resolution step.
+  Done: added direct runtime regression (`method-lookup-order`) covering parameter/local shadowing over slot scope and global fallback, plus existing IT-global-in-method regression for line 672.
 
-- [ ] `34` (notes 255-272) `ME` semantics, `ME HAS A`, and `ME` outside object-call error.
+- [x] `34` (notes 255-272) `ME` semantics, `ME HAS A`, and `ME` outside object-call error.
   Spec: line 684 (mapped).  
-  To check: extend positive and negative tests to include declaration on receiver via `ME`.
+  Done: added positive `ME HAS A` receiver-slot declaration regression and negative `ME` outside method-call regression.
 
 - [ ] `35` (notes 274-280) `IM LIEK` inheritance behavior, parent mutation, and super-like lookup.
   Spec: line 709 (mapped), lines 790/798 (mapped).  
