@@ -1,0 +1,9 @@
+BTW AUTO-NORMALIZE: strict-1.3 triage variant (HAI/version/comment/operator min-fixes)
+HAI 1.3
+	I HAS A var1 ITZ ""
+	I HAS A var2 ITZ "a"
+	var1 IS NOW A NOOB
+	var2 IS NOW A NOOB
+	VISIBLE SUM OF 0 AN NOT var1
+	VISIBLE SUM OF 0 AN NOT var2
+KTHXBYE

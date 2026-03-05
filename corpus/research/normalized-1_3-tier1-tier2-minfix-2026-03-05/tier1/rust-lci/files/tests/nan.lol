@@ -1,0 +1,9 @@
+BTW AUTO-NORMALIZE: strict-1.3 triage variant (HAI/version/comment/operator min-fixes)
+HAI 1.3
+
+I HAS A NAN ITZ QUOSHUNT OF 0.0 AN 0.0
+
+VISIBLE NOT BOTH SAEM NAN AN NAN
+VISIBLE DIFFRINT NAN AN NAN
+
+KTHXBYE

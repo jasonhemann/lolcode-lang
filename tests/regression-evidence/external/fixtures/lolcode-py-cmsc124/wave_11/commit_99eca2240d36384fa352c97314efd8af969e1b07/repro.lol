@@ -1,0 +1,5 @@
+HAI 1.2
+BTW External evidence fixture scaffold.
+BTW Source: https://github.com/DvaeFroot/cmsc124-lolcode-interpreter/commit/99eca2240d36384fa352c97314efd8af969e1b07
+BTW Title: 85	fix: reorder typecast inheritance
+KTHXBYE

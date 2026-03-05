@@ -1,0 +1,6 @@
+BTW AUTO-NORMALIZE: strict-1.3 triage variant (HAI/version/comment/operator min-fixes)
+HAI 1.3
+	VISIBLE MAEK "" A YARN
+	VISIBLE MAEK "0" A YARN
+	VISIBLE MAEK "2.345" A YARN
+KTHXBYE

@@ -1,0 +1,10 @@
+BTW AUTO-NORMALIZE: strict-1.3 triage variant (HAI/version/comment/operator min-fixes)
+HAI 1.3
+	I HAS A var1 ITZ 1
+	I HAS A var2 ITZ 2.345
+	I HAS A var3 ITZ "67890"
+	I HAS A name ITZ "var"
+	VISIBLE SRS "var1"
+	VISIBLE SRS SMOOSH name AN SUM OF 1 AN 1 MKAY
+	VISIBLE SRS ":{name}3"
+KTHXBYE

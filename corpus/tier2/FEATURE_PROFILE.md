@@ -1,13 +1,16 @@
 # tier2 Feature Profile
 
-Generated: `2026-03-04T23:21:05Z`
+Generated: `2026-03-05T12:35:11Z`
 
 ## Recovery + Extraction Summary
 
 - Recovered from initially-missing set: `6`
 - Recovered with implementation+sample code: `5`
 - Recovered with sample-only capture: `0`
-- Bugs extracted (candidate repro items): `423`
+- Bugs extracted (candidate repro items): `422`
+- Candidate core-1.2/1.3 repro items: `422`
+- Candidate extension repro items: `0`
+- Candidate unknown-scope repro items: `0`
 - Test cases extracted (imported external fixtures): `5`
 - Known failures (triaged unresolved): `0`
 - Known divergences: `0`
@@ -24,6 +27,9 @@ Generated: `2026-03-04T23:21:05Z`
 - LOLCODE files: `0`
 - Total LOLCODE lines: `0`
 - Bugs extracted (candidate repro items): `31`
+- Candidate core-1.2/1.3 repro items: `31`
+- Candidate extension repro items: `0`
+- Candidate unknown-scope repro items: `0`
 - Test cases extracted (imported fixtures): `0`
 - Known failures (triaged unresolved): `0`
 - Known divergences: `0`
@@ -42,7 +48,10 @@ Generated: `2026-03-04T23:21:05Z`
 - Captured implementation files: `25`
 - LOLCODE files: `15`
 - Total LOLCODE lines: `503`
-- Bugs extracted (candidate repro items): `47`
+- Bugs extracted (candidate repro items): `46`
+- Candidate core-1.2/1.3 repro items: `46`
+- Candidate extension repro items: `0`
+- Candidate unknown-scope repro items: `0`
 - Test cases extracted (imported fixtures): `3`
 - Known failures (triaged unresolved): `0`
 - Known divergences: `0`
@@ -91,6 +100,9 @@ Generated: `2026-03-04T23:21:05Z`
 - LOLCODE files: `3`
 - Total LOLCODE lines: `49`
 - Bugs extracted (candidate repro items): `0`
+- Candidate core-1.2/1.3 repro items: `0`
+- Candidate extension repro items: `0`
+- Candidate unknown-scope repro items: `0`
 - Test cases extracted (imported fixtures): `0`
 - Known failures (triaged unresolved): `0`
 - Known divergences: `0`
@@ -117,6 +129,9 @@ Generated: `2026-03-04T23:21:05Z`
 - LOLCODE files: `10`
 - Total LOLCODE lines: `315`
 - Bugs extracted (candidate repro items): `37`
+- Candidate core-1.2/1.3 repro items: `37`
+- Candidate extension repro items: `0`
+- Candidate unknown-scope repro items: `0`
 - Test cases extracted (imported fixtures): `0`
 - Known failures (triaged unresolved): `0`
 - Known divergences: `0`
@@ -169,6 +184,9 @@ Generated: `2026-03-04T23:21:05Z`
 - LOLCODE files: `17`
 - Total LOLCODE lines: `438`
 - Bugs extracted (candidate repro items): `101`
+- Candidate core-1.2/1.3 repro items: `101`
+- Candidate extension repro items: `0`
+- Candidate unknown-scope repro items: `0`
 - Test cases extracted (imported fixtures): `1`
 - Known failures (triaged unresolved): `0`
 - Known divergences: `0`
@@ -218,6 +236,9 @@ Generated: `2026-03-04T23:21:05Z`
 - LOLCODE files: `1`
 - Total LOLCODE lines: `82`
 - Bugs extracted (candidate repro items): `1`
+- Candidate core-1.2/1.3 repro items: `1`
+- Candidate extension repro items: `0`
+- Candidate unknown-scope repro items: `0`
 - Test cases extracted (imported fixtures): `1`
 - Known failures (triaged unresolved): `0`
 - Known divergences: `0`
@@ -259,6 +280,9 @@ Generated: `2026-03-04T23:21:05Z`
 - LOLCODE files: `18`
 - Total LOLCODE lines: `584`
 - Bugs extracted (candidate repro items): `2`
+- Candidate core-1.2/1.3 repro items: `2`
+- Candidate extension repro items: `0`
+- Candidate unknown-scope repro items: `0`
 - Test cases extracted (imported fixtures): `0`
 - Known failures (triaged unresolved): `0`
 - Known divergences: `0`
@@ -307,6 +331,9 @@ Generated: `2026-03-04T23:21:05Z`
 - LOLCODE files: `8`
 - Total LOLCODE lines: `321`
 - Bugs extracted (candidate repro items): `0`
+- Candidate core-1.2/1.3 repro items: `0`
+- Candidate extension repro items: `0`
+- Candidate unknown-scope repro items: `0`
 - Test cases extracted (imported fixtures): `0`
 - Known failures (triaged unresolved): `0`
 - Known divergences: `0`
@@ -352,6 +379,9 @@ Generated: `2026-03-04T23:21:05Z`
 - LOLCODE files: `15`
 - Total LOLCODE lines: `254`
 - Bugs extracted (candidate repro items): `0`
+- Candidate core-1.2/1.3 repro items: `0`
+- Candidate extension repro items: `0`
+- Candidate unknown-scope repro items: `0`
 - Test cases extracted (imported fixtures): `0`
 - Known failures (triaged unresolved): `0`
 - Known divergences: `0`
@@ -404,6 +434,9 @@ Generated: `2026-03-04T23:21:05Z`
 - LOLCODE files: `8`
 - Total LOLCODE lines: `405`
 - Bugs extracted (candidate repro items): `1`
+- Candidate core-1.2/1.3 repro items: `1`
+- Candidate extension repro items: `0`
+- Candidate unknown-scope repro items: `0`
 - Test cases extracted (imported fixtures): `0`
 - Known failures (triaged unresolved): `0`
 - Known divergences: `0`
@@ -454,6 +487,9 @@ Generated: `2026-03-04T23:21:05Z`
 - LOLCODE files: `3`
 - Total LOLCODE lines: `77`
 - Bugs extracted (candidate repro items): `0`
+- Candidate core-1.2/1.3 repro items: `0`
+- Candidate extension repro items: `0`
+- Candidate unknown-scope repro items: `0`
 - Test cases extracted (imported fixtures): `0`
 - Known failures (triaged unresolved): `0`
 - Known divergences: `0`
@@ -494,6 +530,9 @@ Generated: `2026-03-04T23:21:05Z`
 - LOLCODE files: `4`
 - Total LOLCODE lines: `995`
 - Bugs extracted (candidate repro items): `0`
+- Candidate core-1.2/1.3 repro items: `0`
+- Candidate extension repro items: `0`
+- Candidate unknown-scope repro items: `0`
 - Test cases extracted (imported fixtures): `0`
 - Known failures (triaged unresolved): `0`
 - Known divergences: `0`
@@ -538,6 +577,9 @@ Generated: `2026-03-04T23:21:05Z`
 - LOLCODE files: `7`
 - Total LOLCODE lines: `1481`
 - Bugs extracted (candidate repro items): `0`
+- Candidate core-1.2/1.3 repro items: `0`
+- Candidate extension repro items: `0`
+- Candidate unknown-scope repro items: `0`
 - Test cases extracted (imported fixtures): `0`
 - Known failures (triaged unresolved): `0`
 - Known divergences: `0`
@@ -589,6 +631,9 @@ Generated: `2026-03-04T23:21:05Z`
 - LOLCODE files: `28`
 - Total LOLCODE lines: `4146`
 - Bugs extracted (candidate repro items): `0`
+- Candidate core-1.2/1.3 repro items: `0`
+- Candidate extension repro items: `0`
+- Candidate unknown-scope repro items: `0`
 - Test cases extracted (imported fixtures): `0`
 - Known failures (triaged unresolved): `0`
 - Known divergences: `0`
@@ -620,6 +665,9 @@ Generated: `2026-03-04T23:21:05Z`
 - LOLCODE files: `6`
 - Total LOLCODE lines: `4044`
 - Bugs extracted (candidate repro items): `0`
+- Candidate core-1.2/1.3 repro items: `0`
+- Candidate extension repro items: `0`
+- Candidate unknown-scope repro items: `0`
 - Test cases extracted (imported fixtures): `0`
 - Known failures (triaged unresolved): `0`
 - Known divergences: `0`
@@ -640,6 +688,9 @@ Generated: `2026-03-04T23:21:05Z`
 - LOLCODE files: `0`
 - Total LOLCODE lines: `0`
 - Bugs extracted (candidate repro items): `0`
+- Candidate core-1.2/1.3 repro items: `0`
+- Candidate extension repro items: `0`
+- Candidate unknown-scope repro items: `0`
 - Test cases extracted (imported fixtures): `0`
 - Known failures (triaged unresolved): `0`
 - Known divergences: `0`
@@ -659,6 +710,9 @@ Generated: `2026-03-04T23:21:05Z`
 - LOLCODE files: `0`
 - Total LOLCODE lines: `0`
 - Bugs extracted (candidate repro items): `0`
+- Candidate core-1.2/1.3 repro items: `0`
+- Candidate extension repro items: `0`
+- Candidate unknown-scope repro items: `0`
 - Test cases extracted (imported fixtures): `0`
 - Known failures (triaged unresolved): `0`
 - Known divergences: `0`
@@ -678,6 +732,9 @@ Generated: `2026-03-04T23:21:05Z`
 - LOLCODE files: `0`
 - Total LOLCODE lines: `0`
 - Bugs extracted (candidate repro items): `0`
+- Candidate core-1.2/1.3 repro items: `0`
+- Candidate extension repro items: `0`
+- Candidate unknown-scope repro items: `0`
 - Test cases extracted (imported fixtures): `0`
 - Known failures (triaged unresolved): `0`
 - Known divergences: `0`
@@ -697,6 +754,9 @@ Generated: `2026-03-04T23:21:05Z`
 - LOLCODE files: `0`
 - Total LOLCODE lines: `0`
 - Bugs extracted (candidate repro items): `0`
+- Candidate core-1.2/1.3 repro items: `0`
+- Candidate extension repro items: `0`
+- Candidate unknown-scope repro items: `0`
 - Test cases extracted (imported fixtures): `0`
 - Known failures (triaged unresolved): `0`
 - Known divergences: `0`
@@ -716,6 +776,9 @@ Generated: `2026-03-04T23:21:05Z`
 - LOLCODE files: `0`
 - Total LOLCODE lines: `0`
 - Bugs extracted (candidate repro items): `0`
+- Candidate core-1.2/1.3 repro items: `0`
+- Candidate extension repro items: `0`
+- Candidate unknown-scope repro items: `0`
 - Test cases extracted (imported fixtures): `0`
 - Known failures (triaged unresolved): `0`
 - Known divergences: `0`
@@ -735,6 +798,9 @@ Generated: `2026-03-04T23:21:05Z`
 - LOLCODE files: `0`
 - Total LOLCODE lines: `0`
 - Bugs extracted (candidate repro items): `0`
+- Candidate core-1.2/1.3 repro items: `0`
+- Candidate extension repro items: `0`
+- Candidate unknown-scope repro items: `0`
 - Test cases extracted (imported fixtures): `0`
 - Known failures (triaged unresolved): `0`
 - Known divergences: `0`
@@ -754,6 +820,9 @@ Generated: `2026-03-04T23:21:05Z`
 - LOLCODE files: `0`
 - Total LOLCODE lines: `0`
 - Bugs extracted (candidate repro items): `0`
+- Candidate core-1.2/1.3 repro items: `0`
+- Candidate extension repro items: `0`
+- Candidate unknown-scope repro items: `0`
 - Test cases extracted (imported fixtures): `0`
 - Known failures (triaged unresolved): `0`
 - Known divergences: `0`
@@ -773,6 +842,9 @@ Generated: `2026-03-04T23:21:05Z`
 - LOLCODE files: `0`
 - Total LOLCODE lines: `0`
 - Bugs extracted (candidate repro items): `0`
+- Candidate core-1.2/1.3 repro items: `0`
+- Candidate extension repro items: `0`
+- Candidate unknown-scope repro items: `0`
 - Test cases extracted (imported fixtures): `0`
 - Known failures (triaged unresolved): `0`
 - Known divergences: `0`
@@ -792,6 +864,9 @@ Generated: `2026-03-04T23:21:05Z`
 - LOLCODE files: `0`
 - Total LOLCODE lines: `0`
 - Bugs extracted (candidate repro items): `0`
+- Candidate core-1.2/1.3 repro items: `0`
+- Candidate extension repro items: `0`
+- Candidate unknown-scope repro items: `0`
 - Test cases extracted (imported fixtures): `0`
 - Known failures (triaged unresolved): `0`
 - Known divergences: `0`
@@ -811,6 +886,9 @@ Generated: `2026-03-04T23:21:05Z`
 - LOLCODE files: `1`
 - Total LOLCODE lines: `456`
 - Bugs extracted (candidate repro items): `1`
+- Candidate core-1.2/1.3 repro items: `1`
+- Candidate extension repro items: `0`
+- Candidate unknown-scope repro items: `0`
 - Test cases extracted (imported fixtures): `0`
 - Known failures (triaged unresolved): `0`
 - Known divergences: `0`
@@ -859,6 +937,9 @@ Generated: `2026-03-04T23:21:05Z`
 - LOLCODE files: `11`
 - Total LOLCODE lines: `323`
 - Bugs extracted (candidate repro items): `8`
+- Candidate core-1.2/1.3 repro items: `8`
+- Candidate extension repro items: `0`
+- Candidate unknown-scope repro items: `0`
 - Test cases extracted (imported fixtures): `0`
 - Known failures (triaged unresolved): `0`
 - Known divergences: `0`
@@ -911,6 +992,9 @@ Generated: `2026-03-04T23:21:05Z`
 - LOLCODE files: `11`
 - Total LOLCODE lines: `497`
 - Bugs extracted (candidate repro items): `0`
+- Candidate core-1.2/1.3 repro items: `0`
+- Candidate extension repro items: `0`
+- Candidate unknown-scope repro items: `0`
 - Test cases extracted (imported fixtures): `0`
 - Known failures (triaged unresolved): `0`
 - Known divergences: `0`
@@ -963,6 +1047,9 @@ Generated: `2026-03-04T23:21:05Z`
 - LOLCODE files: `9`
 - Total LOLCODE lines: `262`
 - Bugs extracted (candidate repro items): `20`
+- Candidate core-1.2/1.3 repro items: `20`
+- Candidate extension repro items: `0`
+- Candidate unknown-scope repro items: `0`
 - Test cases extracted (imported fixtures): `0`
 - Known failures (triaged unresolved): `0`
 - Known divergences: `0`
@@ -1011,6 +1098,9 @@ Generated: `2026-03-04T23:21:05Z`
 - LOLCODE files: `2`
 - Total LOLCODE lines: `115`
 - Bugs extracted (candidate repro items): `5`
+- Candidate core-1.2/1.3 repro items: `5`
+- Candidate extension repro items: `0`
+- Candidate unknown-scope repro items: `0`
 - Test cases extracted (imported fixtures): `0`
 - Known failures (triaged unresolved): `0`
 - Known divergences: `0`
@@ -1053,6 +1143,9 @@ Generated: `2026-03-04T23:21:05Z`
 - LOLCODE files: `8`
 - Total LOLCODE lines: `200`
 - Bugs extracted (candidate repro items): `0`
+- Candidate core-1.2/1.3 repro items: `0`
+- Candidate extension repro items: `0`
+- Candidate unknown-scope repro items: `0`
 - Test cases extracted (imported fixtures): `0`
 - Known failures (triaged unresolved): `0`
 - Known divergences: `0`
@@ -1086,6 +1179,9 @@ Generated: `2026-03-04T23:21:05Z`
 - LOLCODE files: `9`
 - Total LOLCODE lines: `262`
 - Bugs extracted (candidate repro items): `55`
+- Candidate core-1.2/1.3 repro items: `55`
+- Candidate extension repro items: `0`
+- Candidate unknown-scope repro items: `0`
 - Test cases extracted (imported fixtures): `0`
 - Known failures (triaged unresolved): `0`
 - Known divergences: `0`
@@ -1134,6 +1230,9 @@ Generated: `2026-03-04T23:21:05Z`
 - LOLCODE files: `19`
 - Total LOLCODE lines: `467`
 - Bugs extracted (candidate repro items): `45`
+- Candidate core-1.2/1.3 repro items: `45`
+- Candidate extension repro items: `0`
+- Candidate unknown-scope repro items: `0`
 - Test cases extracted (imported fixtures): `0`
 - Known failures (triaged unresolved): `0`
 - Known divergences: `0`
@@ -1182,6 +1281,9 @@ Generated: `2026-03-04T23:21:05Z`
 - LOLCODE files: `9`
 - Total LOLCODE lines: `0`
 - Bugs extracted (candidate repro items): `69`
+- Candidate core-1.2/1.3 repro items: `69`
+- Candidate extension repro items: `0`
+- Candidate unknown-scope repro items: `0`
 - Test cases extracted (imported fixtures): `0`
 - Known failures (triaged unresolved): `0`
 - Known divergences: `0`
@@ -1201,6 +1303,9 @@ Generated: `2026-03-04T23:21:05Z`
 - LOLCODE files: `0`
 - Total LOLCODE lines: `0`
 - Bugs extracted (candidate repro items): `0`
+- Candidate core-1.2/1.3 repro items: `0`
+- Candidate extension repro items: `0`
+- Candidate unknown-scope repro items: `0`
 - Test cases extracted (imported fixtures): `0`
 - Known failures (triaged unresolved): `0`
 - Known divergences: `0`
@@ -1220,6 +1325,9 @@ Generated: `2026-03-04T23:21:05Z`
 - LOLCODE files: `0`
 - Total LOLCODE lines: `0`
 - Bugs extracted (candidate repro items): `0`
+- Candidate core-1.2/1.3 repro items: `0`
+- Candidate extension repro items: `0`
+- Candidate unknown-scope repro items: `0`
 - Test cases extracted (imported fixtures): `0`
 - Known failures (triaged unresolved): `0`
 - Known divergences: `0`

@@ -1,0 +1,13 @@
+BTW AUTO-NORMALIZE: strict-1.3 triage variant (HAI/version/comment/operator min-fixes)
+HAI 1.3
+
+HOW IZ I FAC YR N
+    BOTH SAEM N AN 0, O RLY?
+        YA RLY, FOUND YR 1
+        NO WAI, FOUND YR PRODUKT OF N AN I IZ FAC YR DIFF OF N AN 1 MKAY
+    OIC
+IF U SAY SO
+
+VISIBLE I IZ FAC YR 5 MKAY
+
+KTHXBYE

@@ -1,13 +1,13 @@
 # LOLCODE "1.4" Ersatz Spec Status
 
-Last updated: 2026-02-27
+Last updated: 2026-03-05
 
 ## Decision
 
 - Treat "1.4" as an implementation-specific extension set, not a normative language spec.
 - Do not target 1.4 for current compliance work.
-- Current normative target remains strict 1.2 + 1.3 behavior.
-- Keep 1.4 parity as an explicit future compatibility track.
+- Current normative target remains strict 1.3 behavior only.
+- Extension behavior is not enabled in the main interpreter path.
 
 ## Why (from collected evidence)
 
@@ -27,6 +27,12 @@ The evidence points to a library/module style extension model:
 
 These should be treated as extension APIs with unstable naming/semantics across references.
 
+## Current Runtime/Parser Posture
+
+- `CAN HAS ...` is intentionally unsupported in strict core mode.
+- `STRING'Z`/`STDIO` extension registration paths were removed from runtime.
+- Corpus examples using these features are labeled extension/out-of-scope, not core regressions.
+
 ## Non-Goals For Current Phase
 
 - No parser or runtime requirements are derived from 1.4 for baseline milestone acceptance.
@@ -39,7 +45,7 @@ These should be treated as extension APIs with unstable naming/semantics across 
 - Keep extensions namespaced as implementation-profile behavior, separate from normative semantics.
 - Build separate tests for extension mode; do not merge into core conformance suite.
 - Prefer differential tests against `lci` `future` branch and preserve expected known divergences.
-- Default implementation strategy for `CAN HAS` in this codebase: a Racket-native runtime library registry (host-backed LOLCODE library objects/functions), not C FFI by default.
+- If this mode is ever added, keep it behind an explicit opt-in profile and separate AST/runtime hooks.
 
 ## Primary Source Pointers
 

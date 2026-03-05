@@ -168,6 +168,24 @@
       (car (string-split (string-trim msg) "\n"))
       #f))
 
+(define (classify-issue stage msg)
+  (define m (or msg ""))
+  (cond
+    [(regexp-match? #px"unsupported version:" m)
+     "out-of-scope-version"]
+    [(regexp-match? #px"invalid identifier syntax: \".*\\?\"" m)
+     "extension-import-like-identifier"]
+    [(regexp-match? #px"invalid identifier syntax: \"//\"" m)
+     "non-spec-line-comment-style"]
+    [(regexp-match? #px"syntax error: unexpected OF" m)
+     "likely-operator-spelling-drift"]
+    [(regexp-match? #px"unknown slot:" m)
+     "program-runtime-slot-miss"]
+    [else
+     (if (string=? stage "eval")
+         "runtime-core-suspect"
+         "parse-core-suspect")]))
+
 (define statement-universe
   '(stmt-declare
     stmt-assign
@@ -414,6 +432,7 @@
   (define parse-error-counts (hash))
   (define lex-error-counts (hash))
   (define runtime-error-counts (hash))
+  (define issue-triage-counts (hash))
   (define status-counts (hash))
   (define in-scope-cov (make-coverage))
   (define in-scope-ok-cov (make-coverage))
@@ -454,20 +473,24 @@
        (set! in-scope-files (cons rel in-scope-files))
        (with-handlers ([exn:fail?
                         (lambda (e)
-                          (define msg (normalize-message (exn-message e)))
+                         (define msg (normalize-message (exn-message e)))
+                         (define triage (classify-issue "lex" msg))
                           (set! lex-error-counts (hash-inc lex-error-counts msg))
+                         (set! issue-triage-counts (hash-inc issue-triage-counts triage))
                           (set! status-counts (hash-inc status-counts "lex-error"))
                           (set! sample-issues
-                                (cons (hash 'path rel 'stage "lex" 'message msg) sample-issues)))])
+                                (cons (hash 'path rel 'stage "lex" 'message msg 'triage triage) sample-issues)))])
          (lex-source effective-source)
          (define parsed
            (with-handlers ([exn:fail?
                             (lambda (e)
                               (define msg (normalize-message (exn-message e)))
+                              (define triage (classify-issue "parse" msg))
                               (set! parse-error-counts (hash-inc parse-error-counts msg))
+                              (set! issue-triage-counts (hash-inc issue-triage-counts triage))
                               (set! status-counts (hash-inc status-counts "parse-error"))
                               (set! sample-issues
-                                    (cons (hash 'path rel 'stage "parse" 'message msg) sample-issues))
+                                    (cons (hash 'path rel 'stage "parse" 'message msg 'triage triage) sample-issues))
                               #f)])
              (parse-program effective-source)))
          (when parsed
@@ -485,9 +508,11 @@
                 (normalize-message
                  (hash-ref result 'error
                            (hash-ref result 'reason ""))))
+              (define triage (classify-issue "eval" msg))
               (set! runtime-error-counts (hash-inc runtime-error-counts msg))
+              (set! issue-triage-counts (hash-inc issue-triage-counts triage))
               (set! sample-issues
-                    (cons (hash 'path rel 'stage "eval" 'message msg) sample-issues))]
+                    (cons (hash 'path rel 'stage "eval" 'message msg 'triage triage) sample-issues))]
              [else
               (void)])
            (set! status-counts (hash-inc status-counts st))))]))
@@ -498,6 +523,7 @@
         'lex-error-counts lex-error-counts
         'parse-error-counts parse-error-counts
         'runtime-error-counts runtime-error-counts
+        'issue-triage-counts issue-triage-counts
         'in-scope-files (reverse in-scope-files)
         'in-scope-parse-ok-files (reverse in-scope-parse-ok-files)
         'in-scope-ok-files (reverse in-scope-ok-files)
@@ -602,6 +628,7 @@
    'lex-error-counts (counts->rows (hash-ref corpus-scan 'lex-error-counts))
    'parse-error-counts (counts->rows (hash-ref corpus-scan 'parse-error-counts))
    'runtime-error-counts (counts->rows (hash-ref corpus-scan 'runtime-error-counts))
+   'issue-triage-counts (counts->rows (hash-ref corpus-scan 'issue-triage-counts))
    'coverage
    (hash
     'in-scope-statements (symbol-list->string-list
@@ -672,6 +699,7 @@
     (write-count-section out "In-Scope Lex Errors" (hash-ref report 'lex-error-counts))
     (write-count-section out "In-Scope Parse Errors" (hash-ref report 'parse-error-counts))
     (write-count-section out "In-Scope Runtime Errors" (hash-ref report 'runtime-error-counts))
+    (write-count-section out "In-Scope Issue Triage" (hash-ref report 'issue-triage-counts))
 
     (define cov (hash-ref report 'coverage))
     (write-list-section out "Missing Statement Forms In In-Scope Corpus"
@@ -695,9 +723,10 @@
 
     (fprintf out "### Sample Issues\n\n")
     (for ([row (in-list (hash-ref report 'sample-issues))])
-      (fprintf out "- `~a` (`~a`): `~a`\n"
+      (fprintf out "- `~a` (`~a`, triage=`~a`): `~a`\n"
                (hash-ref row 'path)
                (hash-ref row 'stage)
+               (hash-ref row 'triage "n/a")
                (hash-ref row 'message)))
     (newline out))
   #:exists 'replace)

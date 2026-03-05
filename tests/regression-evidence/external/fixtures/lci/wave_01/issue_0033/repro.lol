@@ -1,5 +1,5 @@
 HAI 1.2
-BTW External evidence fixture scaffold.
-BTW Source: https://github.com/justinmeza/lci/issues/33
-BTW Title: segfault
+I HAS A VAR ITZ 1
+VAR R ":{VAR}"
+VISIBLE VAR
 KTHXBYE

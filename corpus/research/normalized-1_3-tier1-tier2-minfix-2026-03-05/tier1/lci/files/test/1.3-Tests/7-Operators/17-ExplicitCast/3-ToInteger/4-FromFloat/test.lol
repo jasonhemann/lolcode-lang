@@ -1,0 +1,7 @@
+BTW AUTO-NORMALIZE: strict-1.3 triage variant (HAI/version/comment/operator min-fixes)
+HAI 1.3
+	VISIBLE MAEK 0.0 A NUMBR
+	VISIBLE MAEK 1.0 A NUMBR
+	VISIBLE MAEK 4.567 A NUMBR
+	VISIBLE MAEK -4.567 A NUMBR
+KTHXBYE

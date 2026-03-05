@@ -1,0 +1,40 @@
+BTW AUTO-NORMALIZE: strict-1.3 triage variant (HAI/version/comment/operator min-fixes)
+HAI 1.3
+	WAZZUP
+		I HAS A choice
+		I HAS A input
+	BUHBYE
+	
+	BTW if w/o MEBBE, 1 only, everything else is invalid
+	VISIBLE "1. Compute age"
+	VISIBLE "2. Compute tip"
+	VISIBLE "3. Compute square area"
+	VISIBLE "0. Exit"
+
+	VISIBLE "Choice: "
+	GIMMEH choice
+
+	choice IS NOW A NUMBAR		BTW added since choice YARN and no auto typecast
+	WTF?
+		OMG 1
+			VISIBLE "Enter birth year: "
+			GIMMEH input
+			VISIBLE DIFF OF 2022 AN input
+			GTFO
+		OMG 2
+			VISIBLE "Enter bill cost: "
+			GIMMEH input
+			VISIBLE "Tip: " AN PRODUKT OF input AN 0.1
+			GTFO
+		OMG 3
+			VISIBLE "Enter width: "
+			GIMMEH input
+			VISIBLE "Square Area: "  AN PRODUKT OF input AN input
+			GTFO
+		OMG 0
+			VISIBLE "Goodbye"
+		OMGWTF
+			VISIBLE "Invalid Input!"
+	OIC
+
+KTHXBYE

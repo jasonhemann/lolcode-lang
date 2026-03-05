@@ -16,7 +16,8 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "runtime-safety",
-    "score": 120,
+    "spec_scope": "core-1.2-1.3",
+    "score": 125,
     "candidate_repro": true,
     "rank": 1,
     "wave": 1
@@ -38,31 +39,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "runtime-safety",
-    "score": 120,
+    "spec_scope": "core-1.2-1.3",
+    "score": 125,
     "candidate_repro": true,
     "rank": 2,
-    "wave": 1
-  },
-  {
-    "item_type": "issue",
-    "number": 49,
-    "title": "SegFault when using STDIO Library",
-    "state": "open",
-    "created_at": "2018-04-21T17:41:39Z",
-    "updated_at": "2018-07-03T00:06:20Z",
-    "closed_at": null,
-    "comments": 1,
-    "labels": [],
-    "url": "https://github.com/justinmeza/lci/issues/49",
-    "repo": "justinmeza/lci",
-    "label": "lci",
-    "tier": "tier1",
-    "repo_kind": "interpreter",
-    "source": "github",
-    "category": "runtime-safety",
-    "score": 120,
-    "candidate_repro": true,
-    "rank": 3,
     "wave": 1
   },
   {
@@ -82,9 +62,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "runtime-safety",
-    "score": 120,
+    "spec_scope": "core-1.2-1.3",
+    "score": 125,
     "candidate_repro": true,
-    "rank": 4,
+    "rank": 3,
     "wave": 1
   },
   {
@@ -104,9 +85,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "runtime-safety",
-    "score": 120,
+    "spec_scope": "core-1.2-1.3",
+    "score": 125,
     "candidate_repro": true,
-    "rank": 5,
+    "rank": 4,
     "wave": 1
   },
   {
@@ -126,9 +108,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "runtime-safety",
-    "score": 120,
+    "spec_scope": "core-1.2-1.3",
+    "score": 125,
     "candidate_repro": true,
-    "rank": 6,
+    "rank": 5,
     "wave": 1
   },
   {
@@ -150,9 +133,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "runtime-safety",
-    "score": 120,
+    "spec_scope": "core-1.2-1.3",
+    "score": 125,
     "candidate_repro": true,
-    "rank": 7,
+    "rank": 6,
     "wave": 1
   },
   {
@@ -172,9 +156,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "runtime-safety",
-    "score": 110,
+    "spec_scope": "core-1.2-1.3",
+    "score": 115,
     "candidate_repro": true,
-    "rank": 8,
+    "rank": 7,
     "wave": 1
   },
   {
@@ -194,9 +179,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "runtime-safety",
-    "score": 110,
+    "spec_scope": "core-1.2-1.3",
+    "score": 115,
     "candidate_repro": true,
-    "rank": 9,
+    "rank": 8,
     "wave": 1
   },
   {
@@ -218,9 +204,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "runtime-safety",
-    "score": 110,
+    "spec_scope": "core-1.2-1.3",
+    "score": 115,
     "candidate_repro": true,
-    "rank": 10,
+    "rank": 9,
     "wave": 1
   },
   {
@@ -240,10 +227,11 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "runtime-safety",
-    "score": 100,
+    "spec_scope": "core-1.2-1.3",
+    "score": 105,
     "candidate_repro": true,
-    "rank": 11,
-    "wave": 2
+    "rank": 10,
+    "wave": 1
   },
   {
     "item_type": "commit",
@@ -262,9 +250,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "runtime-safety",
-    "score": 100,
+    "spec_scope": "core-1.2-1.3",
+    "score": 105,
     "candidate_repro": true,
-    "rank": 12,
+    "rank": 11,
     "wave": 2
   },
   {
@@ -284,9 +273,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "runtime-safety",
-    "score": 100,
+    "spec_scope": "core-1.2-1.3",
+    "score": 105,
     "candidate_repro": true,
-    "rank": 13,
+    "rank": 12,
     "wave": 2
   },
   {
@@ -306,9 +296,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "runtime-safety",
-    "score": 100,
+    "spec_scope": "core-1.2-1.3",
+    "score": 105,
     "candidate_repro": true,
-    "rank": 14,
+    "rank": 13,
     "wave": 2
   },
   {
@@ -328,9 +319,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 100,
+    "spec_scope": "core-1.2-1.3",
+    "score": 105,
     "candidate_repro": true,
-    "rank": 15,
+    "rank": 14,
     "wave": 2
   },
   {
@@ -350,9 +342,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 100,
+    "spec_scope": "core-1.2-1.3",
+    "score": 105,
     "candidate_repro": true,
-    "rank": 16,
+    "rank": 15,
     "wave": 2
   },
   {
@@ -372,9 +365,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 100,
+    "spec_scope": "core-1.2-1.3",
+    "score": 105,
     "candidate_repro": true,
-    "rank": 17,
+    "rank": 16,
     "wave": 2
   },
   {
@@ -394,9 +388,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 100,
+    "spec_scope": "core-1.2-1.3",
+    "score": 105,
     "candidate_repro": true,
-    "rank": 18,
+    "rank": 17,
     "wave": 2
   },
   {
@@ -416,9 +411,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 100,
+    "spec_scope": "core-1.2-1.3",
+    "score": 105,
     "candidate_repro": true,
-    "rank": 19,
+    "rank": 18,
     "wave": 2
   },
   {
@@ -438,9 +434,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 100,
+    "spec_scope": "core-1.2-1.3",
+    "score": 105,
     "candidate_repro": true,
-    "rank": 20,
+    "rank": 19,
     "wave": 2
   },
   {
@@ -460,10 +457,11 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 100,
+    "spec_scope": "core-1.2-1.3",
+    "score": 105,
     "candidate_repro": true,
-    "rank": 21,
-    "wave": 3
+    "rank": 20,
+    "wave": 2
   },
   {
     "item_type": "issue",
@@ -482,9 +480,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 100,
+    "spec_scope": "core-1.2-1.3",
+    "score": 105,
     "candidate_repro": true,
-    "rank": 22,
+    "rank": 21,
     "wave": 3
   },
   {
@@ -504,9 +503,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 100,
+    "spec_scope": "core-1.2-1.3",
+    "score": 105,
     "candidate_repro": true,
-    "rank": 23,
+    "rank": 22,
     "wave": 3
   },
   {
@@ -526,9 +526,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 100,
+    "spec_scope": "core-1.2-1.3",
+    "score": 105,
     "candidate_repro": true,
-    "rank": 24,
+    "rank": 23,
     "wave": 3
   },
   {
@@ -548,9 +549,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 100,
+    "spec_scope": "core-1.2-1.3",
+    "score": 105,
     "candidate_repro": true,
-    "rank": 25,
+    "rank": 24,
     "wave": 3
   },
   {
@@ -572,9 +574,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 100,
+    "spec_scope": "core-1.2-1.3",
+    "score": 105,
     "candidate_repro": true,
-    "rank": 26,
+    "rank": 25,
     "wave": 3
   },
   {
@@ -596,9 +599,10 @@
     "repo_kind": "compiler",
     "source": "github",
     "category": "language",
-    "score": 90,
+    "spec_scope": "core-1.2-1.3",
+    "score": 95,
     "candidate_repro": true,
-    "rank": 27,
+    "rank": 26,
     "wave": 3
   },
   {
@@ -620,9 +624,10 @@
     "repo_kind": "corpus",
     "source": "github",
     "category": "language",
-    "score": 90,
+    "spec_scope": "core-1.2-1.3",
+    "score": 95,
     "candidate_repro": true,
-    "rank": 28,
+    "rank": 27,
     "wave": 3
   },
   {
@@ -642,9 +647,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 90,
+    "spec_scope": "core-1.2-1.3",
+    "score": 95,
     "candidate_repro": true,
-    "rank": 29,
+    "rank": 28,
     "wave": 3
   },
   {
@@ -664,9 +670,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 90,
+    "spec_scope": "core-1.2-1.3",
+    "score": 95,
     "candidate_repro": true,
-    "rank": 30,
+    "rank": 29,
     "wave": 3
   },
   {
@@ -686,10 +693,11 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 90,
+    "spec_scope": "core-1.2-1.3",
+    "score": 95,
     "candidate_repro": true,
-    "rank": 31,
-    "wave": 4
+    "rank": 30,
+    "wave": 3
   },
   {
     "item_type": "commit",
@@ -708,9 +716,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 90,
+    "spec_scope": "core-1.2-1.3",
+    "score": 95,
     "candidate_repro": true,
-    "rank": 32,
+    "rank": 31,
     "wave": 4
   },
   {
@@ -730,9 +739,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 90,
+    "spec_scope": "core-1.2-1.3",
+    "score": 95,
     "candidate_repro": true,
-    "rank": 33,
+    "rank": 32,
     "wave": 4
   },
   {
@@ -752,9 +762,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 90,
+    "spec_scope": "core-1.2-1.3",
+    "score": 95,
     "candidate_repro": true,
-    "rank": 34,
+    "rank": 33,
     "wave": 4
   },
   {
@@ -774,9 +785,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 90,
+    "spec_scope": "core-1.2-1.3",
+    "score": 95,
     "candidate_repro": true,
-    "rank": 35,
+    "rank": 34,
     "wave": 4
   },
   {
@@ -796,9 +808,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 90,
+    "spec_scope": "core-1.2-1.3",
+    "score": 95,
     "candidate_repro": true,
-    "rank": 36,
+    "rank": 35,
     "wave": 4
   },
   {
@@ -818,9 +831,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 90,
+    "spec_scope": "core-1.2-1.3",
+    "score": 95,
     "candidate_repro": true,
-    "rank": 37,
+    "rank": 36,
     "wave": 4
   },
   {
@@ -840,9 +854,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 90,
+    "spec_scope": "core-1.2-1.3",
+    "score": 95,
     "candidate_repro": true,
-    "rank": 38,
+    "rank": 37,
     "wave": 4
   },
   {
@@ -862,9 +877,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 90,
+    "spec_scope": "core-1.2-1.3",
+    "score": 95,
     "candidate_repro": true,
-    "rank": 39,
+    "rank": 38,
     "wave": 4
   },
   {
@@ -884,9 +900,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 90,
+    "spec_scope": "core-1.2-1.3",
+    "score": 95,
     "candidate_repro": true,
-    "rank": 40,
+    "rank": 39,
     "wave": 4
   },
   {
@@ -906,10 +923,11 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 90,
+    "spec_scope": "core-1.2-1.3",
+    "score": 95,
     "candidate_repro": true,
-    "rank": 41,
-    "wave": 5
+    "rank": 40,
+    "wave": 4
   },
   {
     "item_type": "commit",
@@ -928,9 +946,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 90,
+    "spec_scope": "core-1.2-1.3",
+    "score": 95,
     "candidate_repro": true,
-    "rank": 42,
+    "rank": 41,
     "wave": 5
   },
   {
@@ -950,9 +969,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 90,
+    "spec_scope": "core-1.2-1.3",
+    "score": 95,
     "candidate_repro": true,
-    "rank": 43,
+    "rank": 42,
     "wave": 5
   },
   {
@@ -972,31 +992,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 90,
+    "spec_scope": "core-1.2-1.3",
+    "score": 95,
     "candidate_repro": true,
-    "rank": 44,
-    "wave": 5
-  },
-  {
-    "item_type": "commit",
-    "number": "e8dd671a2719e2a62f7cbed111ffe2006f436e7e",
-    "title": "adding some stdlib randomizaton functions",
-    "state": "closed",
-    "created_at": "2014-08-31T22:40:21Z",
-    "updated_at": "2014-08-31T22:40:21Z",
-    "closed_at": "2014-08-31T22:40:21Z",
-    "comments": 0,
-    "labels": [],
-    "url": "https://github.com/justinmeza/lci/commit/e8dd671a2719e2a62f7cbed111ffe2006f436e7e",
-    "repo": "justinmeza/lci",
-    "label": "lci",
-    "tier": "tier1",
-    "repo_kind": "interpreter",
-    "source": "github",
-    "category": "language",
-    "score": 90,
-    "candidate_repro": true,
-    "rank": 45,
+    "rank": 43,
     "wave": 5
   },
   {
@@ -1016,9 +1015,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 90,
+    "spec_scope": "core-1.2-1.3",
+    "score": 95,
     "candidate_repro": true,
-    "rank": 46,
+    "rank": 44,
     "wave": 5
   },
   {
@@ -1038,9 +1038,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 90,
+    "spec_scope": "core-1.2-1.3",
+    "score": 95,
     "candidate_repro": true,
-    "rank": 47,
+    "rank": 45,
     "wave": 5
   },
   {
@@ -1060,9 +1061,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 90,
+    "spec_scope": "core-1.2-1.3",
+    "score": 95,
     "candidate_repro": true,
-    "rank": 48,
+    "rank": 46,
     "wave": 5
   },
   {
@@ -1082,9 +1084,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 90,
+    "spec_scope": "core-1.2-1.3",
+    "score": 95,
     "candidate_repro": true,
-    "rank": 49,
+    "rank": 47,
     "wave": 5
   },
   {
@@ -1104,9 +1107,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 90,
+    "spec_scope": "core-1.2-1.3",
+    "score": 95,
     "candidate_repro": true,
-    "rank": 50,
+    "rank": 48,
     "wave": 5
   },
   {
@@ -1126,10 +1130,11 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 90,
+    "spec_scope": "core-1.2-1.3",
+    "score": 95,
     "candidate_repro": true,
-    "rank": 51,
-    "wave": 6
+    "rank": 49,
+    "wave": 5
   },
   {
     "item_type": "issue",
@@ -1148,10 +1153,11 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 90,
+    "spec_scope": "core-1.2-1.3",
+    "score": 95,
     "candidate_repro": true,
-    "rank": 52,
-    "wave": 6
+    "rank": 50,
+    "wave": 5
   },
   {
     "item_type": "issue",
@@ -1170,9 +1176,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 90,
+    "spec_scope": "core-1.2-1.3",
+    "score": 95,
     "candidate_repro": true,
-    "rank": 53,
+    "rank": 51,
     "wave": 6
   },
   {
@@ -1194,9 +1201,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 90,
+    "spec_scope": "core-1.2-1.3",
+    "score": 95,
     "candidate_repro": true,
-    "rank": 54,
+    "rank": 52,
     "wave": 6
   },
   {
@@ -1218,9 +1226,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 90,
+    "spec_scope": "core-1.2-1.3",
+    "score": 95,
     "candidate_repro": true,
-    "rank": 55,
+    "rank": 53,
     "wave": 6
   },
   {
@@ -1240,9 +1249,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 56,
+    "rank": 54,
     "wave": 6
   },
   {
@@ -1262,9 +1272,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 57,
+    "rank": 55,
     "wave": 6
   },
   {
@@ -1284,9 +1295,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 58,
+    "rank": 56,
     "wave": 6
   },
   {
@@ -1306,9 +1318,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 59,
+    "rank": 57,
     "wave": 6
   },
   {
@@ -1328,9 +1341,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 60,
+    "rank": 58,
     "wave": 6
   },
   {
@@ -1350,10 +1364,11 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 61,
-    "wave": 7
+    "rank": 59,
+    "wave": 6
   },
   {
     "item_type": "commit",
@@ -1372,10 +1387,11 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 62,
-    "wave": 7
+    "rank": 60,
+    "wave": 6
   },
   {
     "item_type": "commit",
@@ -1394,9 +1410,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 63,
+    "rank": 61,
     "wave": 7
   },
   {
@@ -1416,9 +1433,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 64,
+    "rank": 62,
     "wave": 7
   },
   {
@@ -1438,9 +1456,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 65,
+    "rank": 63,
     "wave": 7
   },
   {
@@ -1460,9 +1479,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 66,
+    "rank": 64,
     "wave": 7
   },
   {
@@ -1482,9 +1502,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 67,
+    "rank": 65,
     "wave": 7
   },
   {
@@ -1504,9 +1525,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 68,
+    "rank": 66,
     "wave": 7
   },
   {
@@ -1526,9 +1548,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 69,
+    "rank": 67,
     "wave": 7
   },
   {
@@ -1548,9 +1571,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 70,
+    "rank": 68,
     "wave": 7
   },
   {
@@ -1570,10 +1594,11 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 71,
-    "wave": 8
+    "rank": 69,
+    "wave": 7
   },
   {
     "item_type": "commit",
@@ -1592,10 +1617,11 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 72,
-    "wave": 8
+    "rank": 70,
+    "wave": 7
   },
   {
     "item_type": "commit",
@@ -1614,9 +1640,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 73,
+    "rank": 71,
     "wave": 8
   },
   {
@@ -1636,9 +1663,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 74,
+    "rank": 72,
     "wave": 8
   },
   {
@@ -1658,9 +1686,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 75,
+    "rank": 73,
     "wave": 8
   },
   {
@@ -1680,9 +1709,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 76,
+    "rank": 74,
     "wave": 8
   },
   {
@@ -1702,9 +1732,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 77,
+    "rank": 75,
     "wave": 8
   },
   {
@@ -1724,9 +1755,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 78,
+    "rank": 76,
     "wave": 8
   },
   {
@@ -1746,9 +1778,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 79,
+    "rank": 77,
     "wave": 8
   },
   {
@@ -1768,9 +1801,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 80,
+    "rank": 78,
     "wave": 8
   },
   {
@@ -1790,10 +1824,11 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 81,
-    "wave": 9
+    "rank": 79,
+    "wave": 8
   },
   {
     "item_type": "commit",
@@ -1812,10 +1847,11 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 82,
-    "wave": 9
+    "rank": 80,
+    "wave": 8
   },
   {
     "item_type": "commit",
@@ -1834,9 +1870,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 83,
+    "rank": 81,
     "wave": 9
   },
   {
@@ -1856,9 +1893,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 84,
+    "rank": 82,
     "wave": 9
   },
   {
@@ -1878,9 +1916,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 85,
+    "rank": 83,
     "wave": 9
   },
   {
@@ -1900,9 +1939,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 86,
+    "rank": 84,
     "wave": 9
   },
   {
@@ -1922,9 +1962,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 87,
+    "rank": 85,
     "wave": 9
   },
   {
@@ -1944,9 +1985,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 88,
+    "rank": 86,
     "wave": 9
   },
   {
@@ -1966,9 +2008,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 89,
+    "rank": 87,
     "wave": 9
   },
   {
@@ -1988,9 +2031,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 90,
+    "rank": 88,
     "wave": 9
   },
   {
@@ -2010,10 +2054,11 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 91,
-    "wave": 10
+    "rank": 89,
+    "wave": 9
   },
   {
     "item_type": "commit",
@@ -2032,10 +2077,11 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 92,
-    "wave": 10
+    "rank": 90,
+    "wave": 9
   },
   {
     "item_type": "commit",
@@ -2054,9 +2100,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 93,
+    "rank": 91,
     "wave": 10
   },
   {
@@ -2076,9 +2123,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 94,
+    "rank": 92,
     "wave": 10
   },
   {
@@ -2098,9 +2146,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 95,
+    "rank": 93,
     "wave": 10
   },
   {
@@ -2120,9 +2169,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 96,
+    "rank": 94,
     "wave": 10
   },
   {
@@ -2142,9 +2192,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 97,
+    "rank": 95,
     "wave": 10
   },
   {
@@ -2164,9 +2215,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 98,
+    "rank": 96,
     "wave": 10
   },
   {
@@ -2186,9 +2238,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 99,
+    "rank": 97,
     "wave": 10
   },
   {
@@ -2208,9 +2261,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 100,
+    "rank": 98,
     "wave": 10
   },
   {
@@ -2230,10 +2284,11 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 101,
-    "wave": 11
+    "rank": 99,
+    "wave": 10
   },
   {
     "item_type": "commit",
@@ -2252,10 +2307,11 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 102,
-    "wave": 11
+    "rank": 100,
+    "wave": 10
   },
   {
     "item_type": "commit",
@@ -2274,9 +2330,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 103,
+    "rank": 101,
     "wave": 11
   },
   {
@@ -2296,9 +2353,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 104,
+    "rank": 102,
     "wave": 11
   },
   {
@@ -2318,9 +2376,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 105,
+    "rank": 103,
     "wave": 11
   },
   {
@@ -2340,9 +2399,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 106,
+    "rank": 104,
     "wave": 11
   },
   {
@@ -2362,9 +2422,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 107,
+    "rank": 105,
     "wave": 11
   },
   {
@@ -2384,9 +2445,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 108,
+    "rank": 106,
     "wave": 11
   },
   {
@@ -2406,9 +2468,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 109,
+    "rank": 107,
     "wave": 11
   },
   {
@@ -2428,9 +2491,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 110,
+    "rank": 108,
     "wave": 11
   },
   {
@@ -2450,10 +2514,11 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 111,
-    "wave": 12
+    "rank": 109,
+    "wave": 11
   },
   {
     "item_type": "commit",
@@ -2472,10 +2537,11 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 112,
-    "wave": 12
+    "rank": 110,
+    "wave": 11
   },
   {
     "item_type": "commit",
@@ -2494,9 +2560,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 113,
+    "rank": 111,
     "wave": 12
   },
   {
@@ -2516,9 +2583,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 114,
+    "rank": 112,
     "wave": 12
   },
   {
@@ -2538,9 +2606,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 115,
+    "rank": 113,
     "wave": 12
   },
   {
@@ -2560,9 +2629,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 116,
+    "rank": 114,
     "wave": 12
   },
   {
@@ -2582,9 +2652,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 117,
+    "rank": 115,
     "wave": 12
   },
   {
@@ -2604,9 +2675,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 118,
+    "rank": 116,
     "wave": 12
   },
   {
@@ -2626,9 +2698,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 119,
+    "rank": 117,
     "wave": 12
   },
   {
@@ -2648,9 +2721,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 120,
+    "rank": 118,
     "wave": 12
   },
   {
@@ -2670,10 +2744,11 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 121,
-    "wave": 13
+    "rank": 119,
+    "wave": 12
   },
   {
     "item_type": "commit",
@@ -2692,10 +2767,11 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 122,
-    "wave": 13
+    "rank": 120,
+    "wave": 12
   },
   {
     "item_type": "commit",
@@ -2714,9 +2790,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 123,
+    "rank": 121,
     "wave": 13
   },
   {
@@ -2736,9 +2813,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 124,
+    "rank": 122,
     "wave": 13
   },
   {
@@ -2758,9 +2836,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 125,
+    "rank": 123,
     "wave": 13
   },
   {
@@ -2780,9 +2859,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 126,
+    "rank": 124,
     "wave": 13
   },
   {
@@ -2802,9 +2882,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 127,
+    "rank": 125,
     "wave": 13
   },
   {
@@ -2824,9 +2905,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 128,
+    "rank": 126,
     "wave": 13
   },
   {
@@ -2846,9 +2928,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 129,
+    "rank": 127,
     "wave": 13
   },
   {
@@ -2868,9 +2951,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 130,
+    "rank": 128,
     "wave": 13
   },
   {
@@ -2890,10 +2974,11 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 131,
-    "wave": 14
+    "rank": 129,
+    "wave": 13
   },
   {
     "item_type": "commit",
@@ -2912,10 +2997,11 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 132,
-    "wave": 14
+    "rank": 130,
+    "wave": 13
   },
   {
     "item_type": "commit",
@@ -2934,9 +3020,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 133,
+    "rank": 131,
     "wave": 14
   },
   {
@@ -2956,9 +3043,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 134,
+    "rank": 132,
     "wave": 14
   },
   {
@@ -2978,9 +3066,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 135,
+    "rank": 133,
     "wave": 14
   },
   {
@@ -3000,9 +3089,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 136,
+    "rank": 134,
     "wave": 14
   },
   {
@@ -3022,9 +3112,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 137,
+    "rank": 135,
     "wave": 14
   },
   {
@@ -3044,9 +3135,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 138,
+    "rank": 136,
     "wave": 14
   },
   {
@@ -3066,9 +3158,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 139,
+    "rank": 137,
     "wave": 14
   },
   {
@@ -3090,9 +3183,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 140,
+    "rank": 138,
     "wave": 14
   },
   {
@@ -3114,10 +3208,11 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 141,
-    "wave": 15
+    "rank": 139,
+    "wave": 14
   },
   {
     "item_type": "pr",
@@ -3138,10 +3233,11 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 142,
-    "wave": 15
+    "rank": 140,
+    "wave": 14
   },
   {
     "item_type": "pr",
@@ -3162,9 +3258,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 143,
+    "rank": 141,
     "wave": 15
   },
   {
@@ -3186,9 +3283,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 144,
+    "rank": 142,
     "wave": 15
   },
   {
@@ -3210,9 +3308,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 145,
+    "rank": 143,
     "wave": 15
   },
   {
@@ -3234,9 +3333,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 146,
+    "rank": 144,
     "wave": 15
   },
   {
@@ -3258,9 +3358,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 147,
+    "rank": 145,
     "wave": 15
   },
   {
@@ -3282,9 +3383,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 148,
+    "rank": 146,
     "wave": 15
   },
   {
@@ -3306,9 +3408,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 149,
+    "rank": 147,
     "wave": 15
   },
   {
@@ -3330,9 +3433,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 150,
+    "rank": 148,
     "wave": 15
   },
   {
@@ -3354,10 +3458,11 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 151,
-    "wave": 16
+    "rank": 149,
+    "wave": 15
   },
   {
     "item_type": "pr",
@@ -3378,10 +3483,11 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 152,
-    "wave": 16
+    "rank": 150,
+    "wave": 15
   },
   {
     "item_type": "pr",
@@ -3402,9 +3508,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 153,
+    "rank": 151,
     "wave": 16
   },
   {
@@ -3426,9 +3533,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 154,
+    "rank": 152,
     "wave": 16
   },
   {
@@ -3450,9 +3558,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 155,
+    "rank": 153,
     "wave": 16
   },
   {
@@ -3474,9 +3583,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 156,
+    "rank": 154,
     "wave": 16
   },
   {
@@ -3496,9 +3606,10 @@
     "repo_kind": "compiler",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 157,
+    "rank": 155,
     "wave": 16
   },
   {
@@ -3518,9 +3629,10 @@
     "repo_kind": "compiler",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 158,
+    "rank": 156,
     "wave": 16
   },
   {
@@ -3540,9 +3652,10 @@
     "repo_kind": "compiler",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 159,
+    "rank": 157,
     "wave": 16
   },
   {
@@ -3562,9 +3675,10 @@
     "repo_kind": "compiler",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 160,
+    "rank": 158,
     "wave": 16
   },
   {
@@ -3584,10 +3698,11 @@
     "repo_kind": "compiler",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 161,
-    "wave": 17
+    "rank": 159,
+    "wave": 16
   },
   {
     "item_type": "commit",
@@ -3606,10 +3721,11 @@
     "repo_kind": "compiler",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 162,
-    "wave": 17
+    "rank": 160,
+    "wave": 16
   },
   {
     "item_type": "commit",
@@ -3628,9 +3744,10 @@
     "repo_kind": "compiler",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 163,
+    "rank": 161,
     "wave": 17
   },
   {
@@ -3650,9 +3767,10 @@
     "repo_kind": "compiler",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 164,
+    "rank": 162,
     "wave": 17
   },
   {
@@ -3672,9 +3790,10 @@
     "repo_kind": "compiler",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 165,
+    "rank": 163,
     "wave": 17
   },
   {
@@ -3694,9 +3813,10 @@
     "repo_kind": "corpus",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 166,
+    "rank": 164,
     "wave": 17
   },
   {
@@ -3716,9 +3836,10 @@
     "repo_kind": "corpus",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 167,
+    "rank": 165,
     "wave": 17
   },
   {
@@ -3738,9 +3859,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 168,
+    "rank": 166,
     "wave": 17
   },
   {
@@ -3760,9 +3882,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 169,
+    "rank": 167,
     "wave": 17
   },
   {
@@ -3782,9 +3905,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 170,
+    "rank": 168,
     "wave": 17
   },
   {
@@ -3804,10 +3928,11 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 171,
-    "wave": 18
+    "rank": 169,
+    "wave": 17
   },
   {
     "item_type": "commit",
@@ -3826,10 +3951,11 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 172,
-    "wave": 18
+    "rank": 170,
+    "wave": 17
   },
   {
     "item_type": "commit",
@@ -3848,9 +3974,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 173,
+    "rank": 171,
     "wave": 18
   },
   {
@@ -3870,9 +3997,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 174,
+    "rank": 172,
     "wave": 18
   },
   {
@@ -3892,9 +4020,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 175,
+    "rank": 173,
     "wave": 18
   },
   {
@@ -3914,9 +4043,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 176,
+    "rank": 174,
     "wave": 18
   },
   {
@@ -3936,9 +4066,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 177,
+    "rank": 175,
     "wave": 18
   },
   {
@@ -3958,9 +4089,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 178,
+    "rank": 176,
     "wave": 18
   },
   {
@@ -3980,9 +4112,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 179,
+    "rank": 177,
     "wave": 18
   },
   {
@@ -4002,9 +4135,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 180,
+    "rank": 178,
     "wave": 18
   },
   {
@@ -4024,10 +4158,11 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 181,
-    "wave": 19
+    "rank": 179,
+    "wave": 18
   },
   {
     "item_type": "commit",
@@ -4046,10 +4181,11 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 182,
-    "wave": 19
+    "rank": 180,
+    "wave": 18
   },
   {
     "item_type": "commit",
@@ -4068,9 +4204,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 183,
+    "rank": 181,
     "wave": 19
   },
   {
@@ -4090,9 +4227,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 184,
+    "rank": 182,
     "wave": 19
   },
   {
@@ -4112,9 +4250,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 185,
+    "rank": 183,
     "wave": 19
   },
   {
@@ -4134,9 +4273,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 186,
+    "rank": 184,
     "wave": 19
   },
   {
@@ -4156,9 +4296,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 187,
+    "rank": 185,
     "wave": 19
   },
   {
@@ -4178,9 +4319,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 188,
+    "rank": 186,
     "wave": 19
   },
   {
@@ -4200,9 +4342,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 189,
+    "rank": 187,
     "wave": 19
   },
   {
@@ -4222,9 +4365,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 190,
+    "rank": 188,
     "wave": 19
   },
   {
@@ -4244,10 +4388,11 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 191,
-    "wave": 20
+    "rank": 189,
+    "wave": 19
   },
   {
     "item_type": "commit",
@@ -4266,10 +4411,11 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 192,
-    "wave": 20
+    "rank": 190,
+    "wave": 19
   },
   {
     "item_type": "commit",
@@ -4288,9 +4434,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 193,
+    "rank": 191,
     "wave": 20
   },
   {
@@ -4310,9 +4457,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 194,
+    "rank": 192,
     "wave": 20
   },
   {
@@ -4332,9 +4480,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 195,
+    "rank": 193,
     "wave": 20
   },
   {
@@ -4354,9 +4503,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 196,
+    "rank": 194,
     "wave": 20
   },
   {
@@ -4376,9 +4526,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 197,
+    "rank": 195,
     "wave": 20
   },
   {
@@ -4398,9 +4549,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 198,
+    "rank": 196,
     "wave": 20
   },
   {
@@ -4420,9 +4572,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 199,
+    "rank": 197,
     "wave": 20
   },
   {
@@ -4442,9 +4595,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 200,
+    "rank": 198,
     "wave": 20
   },
   {
@@ -4464,10 +4618,11 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 201,
-    "wave": 21
+    "rank": 199,
+    "wave": 20
   },
   {
     "item_type": "commit",
@@ -4486,10 +4641,11 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 202,
-    "wave": 21
+    "rank": 200,
+    "wave": 20
   },
   {
     "item_type": "commit",
@@ -4508,9 +4664,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 203,
+    "rank": 201,
     "wave": 21
   },
   {
@@ -4530,9 +4687,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 204,
+    "rank": 202,
     "wave": 21
   },
   {
@@ -4552,9 +4710,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 205,
+    "rank": 203,
     "wave": 21
   },
   {
@@ -4574,9 +4733,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 206,
+    "rank": 204,
     "wave": 21
   },
   {
@@ -4596,9 +4756,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 207,
+    "rank": 205,
     "wave": 21
   },
   {
@@ -4618,9 +4779,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 208,
+    "rank": 206,
     "wave": 21
   },
   {
@@ -4640,9 +4802,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 209,
+    "rank": 207,
     "wave": 21
   },
   {
@@ -4662,9 +4825,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 210,
+    "rank": 208,
     "wave": 21
   },
   {
@@ -4684,10 +4848,11 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 211,
-    "wave": 22
+    "rank": 209,
+    "wave": 21
   },
   {
     "item_type": "commit",
@@ -4706,10 +4871,11 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 212,
-    "wave": 22
+    "rank": 210,
+    "wave": 21
   },
   {
     "item_type": "commit",
@@ -4728,9 +4894,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 213,
+    "rank": 211,
     "wave": 22
   },
   {
@@ -4750,9 +4917,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 214,
+    "rank": 212,
     "wave": 22
   },
   {
@@ -4772,9 +4940,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 215,
+    "rank": 213,
     "wave": 22
   },
   {
@@ -4794,9 +4963,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 216,
+    "rank": 214,
     "wave": 22
   },
   {
@@ -4816,9 +4986,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 217,
+    "rank": 215,
     "wave": 22
   },
   {
@@ -4838,9 +5009,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 218,
+    "rank": 216,
     "wave": 22
   },
   {
@@ -4860,9 +5032,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 219,
+    "rank": 217,
     "wave": 22
   },
   {
@@ -4882,9 +5055,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 220,
+    "rank": 218,
     "wave": 22
   },
   {
@@ -4904,10 +5078,11 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 221,
-    "wave": 23
+    "rank": 219,
+    "wave": 22
   },
   {
     "item_type": "commit",
@@ -4926,10 +5101,11 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 222,
-    "wave": 23
+    "rank": 220,
+    "wave": 22
   },
   {
     "item_type": "commit",
@@ -4948,9 +5124,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 223,
+    "rank": 221,
     "wave": 23
   },
   {
@@ -4970,9 +5147,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 224,
+    "rank": 222,
     "wave": 23
   },
   {
@@ -4992,9 +5170,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 225,
+    "rank": 223,
     "wave": 23
   },
   {
@@ -5014,9 +5193,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 226,
+    "rank": 224,
     "wave": 23
   },
   {
@@ -5036,9 +5216,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 227,
+    "rank": 225,
     "wave": 23
   },
   {
@@ -5058,9 +5239,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 228,
+    "rank": 226,
     "wave": 23
   },
   {
@@ -5080,9 +5262,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 229,
+    "rank": 227,
     "wave": 23
   },
   {
@@ -5102,9 +5285,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 230,
+    "rank": 228,
     "wave": 23
   },
   {
@@ -5124,10 +5308,11 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 231,
-    "wave": 24
+    "rank": 229,
+    "wave": 23
   },
   {
     "item_type": "commit",
@@ -5146,10 +5331,11 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 232,
-    "wave": 24
+    "rank": 230,
+    "wave": 23
   },
   {
     "item_type": "commit",
@@ -5168,9 +5354,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 233,
+    "rank": 231,
     "wave": 24
   },
   {
@@ -5190,9 +5377,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 234,
+    "rank": 232,
     "wave": 24
   },
   {
@@ -5212,9 +5400,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 235,
+    "rank": 233,
     "wave": 24
   },
   {
@@ -5234,9 +5423,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 236,
+    "rank": 234,
     "wave": 24
   },
   {
@@ -5256,9 +5446,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 237,
+    "rank": 235,
     "wave": 24
   },
   {
@@ -5278,9 +5469,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 238,
+    "rank": 236,
     "wave": 24
   },
   {
@@ -5300,9 +5492,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 239,
+    "rank": 237,
     "wave": 24
   },
   {
@@ -5322,9 +5515,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 240,
+    "rank": 238,
     "wave": 24
   },
   {
@@ -5344,10 +5538,11 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 241,
-    "wave": 25
+    "rank": 239,
+    "wave": 24
   },
   {
     "item_type": "commit",
@@ -5366,10 +5561,11 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 242,
-    "wave": 25
+    "rank": 240,
+    "wave": 24
   },
   {
     "item_type": "commit",
@@ -5388,9 +5584,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 243,
+    "rank": 241,
     "wave": 25
   },
   {
@@ -5410,9 +5607,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 244,
+    "rank": 242,
     "wave": 25
   },
   {
@@ -5432,9 +5630,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 245,
+    "rank": 243,
     "wave": 25
   },
   {
@@ -5454,9 +5653,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 246,
+    "rank": 244,
     "wave": 25
   },
   {
@@ -5476,9 +5676,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 247,
+    "rank": 245,
     "wave": 25
   },
   {
@@ -5498,9 +5699,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 248,
+    "rank": 246,
     "wave": 25
   },
   {
@@ -5520,9 +5722,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 249,
+    "rank": 247,
     "wave": 25
   },
   {
@@ -5542,9 +5745,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 250,
+    "rank": 248,
     "wave": 25
   },
   {
@@ -5564,10 +5768,11 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 251,
-    "wave": 26
+    "rank": 249,
+    "wave": 25
   },
   {
     "item_type": "commit",
@@ -5586,10 +5791,11 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 252,
-    "wave": 26
+    "rank": 250,
+    "wave": 25
   },
   {
     "item_type": "commit",
@@ -5608,9 +5814,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 253,
+    "rank": 251,
     "wave": 26
   },
   {
@@ -5630,9 +5837,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 254,
+    "rank": 252,
     "wave": 26
   },
   {
@@ -5652,9 +5860,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 255,
+    "rank": 253,
     "wave": 26
   },
   {
@@ -5674,9 +5883,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 256,
+    "rank": 254,
     "wave": 26
   },
   {
@@ -5696,9 +5906,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 257,
+    "rank": 255,
     "wave": 26
   },
   {
@@ -5718,9 +5929,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 258,
+    "rank": 256,
     "wave": 26
   },
   {
@@ -5742,9 +5954,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 259,
+    "rank": 257,
     "wave": 26
   },
   {
@@ -5766,9 +5979,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 260,
+    "rank": 258,
     "wave": 26
   },
   {
@@ -5790,10 +6004,11 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 261,
-    "wave": 27
+    "rank": 259,
+    "wave": 26
   },
   {
     "item_type": "pr",
@@ -5814,10 +6029,11 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 262,
-    "wave": 27
+    "rank": 260,
+    "wave": 26
   },
   {
     "item_type": "pr",
@@ -5838,9 +6054,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 263,
+    "rank": 261,
     "wave": 27
   },
   {
@@ -5862,9 +6079,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 264,
+    "rank": 262,
     "wave": 27
   },
   {
@@ -5886,9 +6104,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 265,
+    "rank": 263,
     "wave": 27
   },
   {
@@ -5910,9 +6129,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 266,
+    "rank": 264,
     "wave": 27
   },
   {
@@ -5934,9 +6154,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 267,
+    "rank": 265,
     "wave": 27
   },
   {
@@ -5958,9 +6179,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 268,
+    "rank": 266,
     "wave": 27
   },
   {
@@ -5982,9 +6204,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 269,
+    "rank": 267,
     "wave": 27
   },
   {
@@ -6006,9 +6229,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 270,
+    "rank": 268,
     "wave": 27
   },
   {
@@ -6030,10 +6254,11 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 271,
-    "wave": 28
+    "rank": 269,
+    "wave": 27
   },
   {
     "item_type": "pr",
@@ -6054,10 +6279,11 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 272,
-    "wave": 28
+    "rank": 270,
+    "wave": 27
   },
   {
     "item_type": "pr",
@@ -6078,9 +6304,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 273,
+    "rank": 271,
     "wave": 28
   },
   {
@@ -6102,9 +6329,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 274,
+    "rank": 272,
     "wave": 28
   },
   {
@@ -6124,9 +6352,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 275,
+    "rank": 273,
     "wave": 28
   },
   {
@@ -6146,9 +6375,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 276,
+    "rank": 274,
     "wave": 28
   },
   {
@@ -6168,9 +6398,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 277,
+    "rank": 275,
     "wave": 28
   },
   {
@@ -6190,9 +6421,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 278,
+    "rank": 276,
     "wave": 28
   },
   {
@@ -6212,9 +6444,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 279,
+    "rank": 277,
     "wave": 28
   },
   {
@@ -6234,9 +6467,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 280,
+    "rank": 278,
     "wave": 28
   },
   {
@@ -6256,10 +6490,11 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 281,
-    "wave": 29
+    "rank": 279,
+    "wave": 28
   },
   {
     "item_type": "commit",
@@ -6278,10 +6513,11 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 282,
-    "wave": 29
+    "rank": 280,
+    "wave": 28
   },
   {
     "item_type": "commit",
@@ -6300,9 +6536,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 283,
+    "rank": 281,
     "wave": 29
   },
   {
@@ -6322,9 +6559,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 284,
+    "rank": 282,
     "wave": 29
   },
   {
@@ -6344,9 +6582,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 285,
+    "rank": 283,
     "wave": 29
   },
   {
@@ -6366,9 +6605,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 286,
+    "rank": 284,
     "wave": 29
   },
   {
@@ -6388,9 +6628,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 287,
+    "rank": 285,
     "wave": 29
   },
   {
@@ -6410,9 +6651,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 288,
+    "rank": 286,
     "wave": 29
   },
   {
@@ -6432,9 +6674,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 289,
+    "rank": 287,
     "wave": 29
   },
   {
@@ -6454,9 +6697,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 290,
+    "rank": 288,
     "wave": 29
   },
   {
@@ -6476,10 +6720,11 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 291,
-    "wave": 30
+    "rank": 289,
+    "wave": 29
   },
   {
     "item_type": "commit",
@@ -6498,10 +6743,11 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 292,
-    "wave": 30
+    "rank": 290,
+    "wave": 29
   },
   {
     "item_type": "commit",
@@ -6520,9 +6766,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 293,
+    "rank": 291,
     "wave": 30
   },
   {
@@ -6542,9 +6789,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 294,
+    "rank": 292,
     "wave": 30
   },
   {
@@ -6564,9 +6812,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 295,
+    "rank": 293,
     "wave": 30
   },
   {
@@ -6586,9 +6835,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 296,
+    "rank": 294,
     "wave": 30
   },
   {
@@ -6608,9 +6858,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 297,
+    "rank": 295,
     "wave": 30
   },
   {
@@ -6630,9 +6881,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 298,
+    "rank": 296,
     "wave": 30
   },
   {
@@ -6652,9 +6904,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 299,
+    "rank": 297,
     "wave": 30
   },
   {
@@ -6674,9 +6927,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 300,
+    "rank": 298,
     "wave": 30
   },
   {
@@ -6696,10 +6950,11 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 301,
-    "wave": 31
+    "rank": 299,
+    "wave": 30
   },
   {
     "item_type": "commit",
@@ -6718,10 +6973,11 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 302,
-    "wave": 31
+    "rank": 300,
+    "wave": 30
   },
   {
     "item_type": "commit",
@@ -6740,9 +6996,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 303,
+    "rank": 301,
     "wave": 31
   },
   {
@@ -6762,9 +7019,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 304,
+    "rank": 302,
     "wave": 31
   },
   {
@@ -6784,9 +7042,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 305,
+    "rank": 303,
     "wave": 31
   },
   {
@@ -6806,9 +7065,10 @@
     "repo_kind": "corpus",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 306,
+    "rank": 304,
     "wave": 31
   },
   {
@@ -6828,9 +7088,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 307,
+    "rank": 305,
     "wave": 31
   },
   {
@@ -6850,9 +7111,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 308,
+    "rank": 306,
     "wave": 31
   },
   {
@@ -6872,9 +7134,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 309,
+    "rank": 307,
     "wave": 31
   },
   {
@@ -6894,9 +7157,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 310,
+    "rank": 308,
     "wave": 31
   },
   {
@@ -6916,10 +7180,11 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 311,
-    "wave": 32
+    "rank": 309,
+    "wave": 31
   },
   {
     "item_type": "commit",
@@ -6938,10 +7203,11 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 312,
-    "wave": 32
+    "rank": 310,
+    "wave": 31
   },
   {
     "item_type": "commit",
@@ -6960,9 +7226,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 313,
+    "rank": 311,
     "wave": 32
   },
   {
@@ -6982,9 +7249,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 314,
+    "rank": 312,
     "wave": 32
   },
   {
@@ -7004,9 +7272,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 315,
+    "rank": 313,
     "wave": 32
   },
   {
@@ -7026,9 +7295,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 316,
+    "rank": 314,
     "wave": 32
   },
   {
@@ -7048,9 +7318,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 317,
+    "rank": 315,
     "wave": 32
   },
   {
@@ -7070,9 +7341,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 318,
+    "rank": 316,
     "wave": 32
   },
   {
@@ -7092,9 +7364,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 319,
+    "rank": 317,
     "wave": 32
   },
   {
@@ -7114,9 +7387,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 320,
+    "rank": 318,
     "wave": 32
   },
   {
@@ -7136,10 +7410,11 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 321,
-    "wave": 33
+    "rank": 319,
+    "wave": 32
   },
   {
     "item_type": "commit",
@@ -7158,10 +7433,11 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 322,
-    "wave": 33
+    "rank": 320,
+    "wave": 32
   },
   {
     "item_type": "commit",
@@ -7180,9 +7456,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 323,
+    "rank": 321,
     "wave": 33
   },
   {
@@ -7202,9 +7479,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 324,
+    "rank": 322,
     "wave": 33
   },
   {
@@ -7224,9 +7502,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 325,
+    "rank": 323,
     "wave": 33
   },
   {
@@ -7246,9 +7525,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 326,
+    "rank": 324,
     "wave": 33
   },
   {
@@ -7268,9 +7548,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 327,
+    "rank": 325,
     "wave": 33
   },
   {
@@ -7290,9 +7571,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 328,
+    "rank": 326,
     "wave": 33
   },
   {
@@ -7312,9 +7594,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 329,
+    "rank": 327,
     "wave": 33
   },
   {
@@ -7334,9 +7617,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 330,
+    "rank": 328,
     "wave": 33
   },
   {
@@ -7356,10 +7640,11 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 331,
-    "wave": 34
+    "rank": 329,
+    "wave": 33
   },
   {
     "item_type": "commit",
@@ -7378,10 +7663,11 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 332,
-    "wave": 34
+    "rank": 330,
+    "wave": 33
   },
   {
     "item_type": "commit",
@@ -7400,9 +7686,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 333,
+    "rank": 331,
     "wave": 34
   },
   {
@@ -7422,9 +7709,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 334,
+    "rank": 332,
     "wave": 34
   },
   {
@@ -7444,9 +7732,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 335,
+    "rank": 333,
     "wave": 34
   },
   {
@@ -7466,9 +7755,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 336,
+    "rank": 334,
     "wave": 34
   },
   {
@@ -7488,9 +7778,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 337,
+    "rank": 335,
     "wave": 34
   },
   {
@@ -7510,9 +7801,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 338,
+    "rank": 336,
     "wave": 34
   },
   {
@@ -7532,9 +7824,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 339,
+    "rank": 337,
     "wave": 34
   },
   {
@@ -7554,9 +7847,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 340,
+    "rank": 338,
     "wave": 34
   },
   {
@@ -7576,10 +7870,11 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 341,
-    "wave": 35
+    "rank": 339,
+    "wave": 34
   },
   {
     "item_type": "commit",
@@ -7598,10 +7893,11 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 342,
-    "wave": 35
+    "rank": 340,
+    "wave": 34
   },
   {
     "item_type": "commit",
@@ -7620,9 +7916,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 343,
+    "rank": 341,
     "wave": 35
   },
   {
@@ -7642,9 +7939,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 344,
+    "rank": 342,
     "wave": 35
   },
   {
@@ -7664,9 +7962,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 345,
+    "rank": 343,
     "wave": 35
   },
   {
@@ -7686,9 +7985,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 346,
+    "rank": 344,
     "wave": 35
   },
   {
@@ -7708,9 +8008,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 347,
+    "rank": 345,
     "wave": 35
   },
   {
@@ -7730,9 +8031,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 348,
+    "rank": 346,
     "wave": 35
   },
   {
@@ -7752,9 +8054,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 349,
+    "rank": 347,
     "wave": 35
   },
   {
@@ -7774,9 +8077,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 350,
+    "rank": 348,
     "wave": 35
   },
   {
@@ -7796,10 +8100,11 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 351,
-    "wave": 36
+    "rank": 349,
+    "wave": 35
   },
   {
     "item_type": "commit",
@@ -7818,10 +8123,11 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 352,
-    "wave": 36
+    "rank": 350,
+    "wave": 35
   },
   {
     "item_type": "commit",
@@ -7840,9 +8146,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 353,
+    "rank": 351,
     "wave": 36
   },
   {
@@ -7862,9 +8169,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 354,
+    "rank": 352,
     "wave": 36
   },
   {
@@ -7884,9 +8192,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 355,
+    "rank": 353,
     "wave": 36
   },
   {
@@ -7906,9 +8215,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 356,
+    "rank": 354,
     "wave": 36
   },
   {
@@ -7928,9 +8238,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 357,
+    "rank": 355,
     "wave": 36
   },
   {
@@ -7950,9 +8261,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 358,
+    "rank": 356,
     "wave": 36
   },
   {
@@ -7972,9 +8284,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 359,
+    "rank": 357,
     "wave": 36
   },
   {
@@ -7994,9 +8307,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 360,
+    "rank": 358,
     "wave": 36
   },
   {
@@ -8016,10 +8330,11 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 361,
-    "wave": 37
+    "rank": 359,
+    "wave": 36
   },
   {
     "item_type": "commit",
@@ -8038,10 +8353,11 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 362,
-    "wave": 37
+    "rank": 360,
+    "wave": 36
   },
   {
     "item_type": "commit",
@@ -8060,9 +8376,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 363,
+    "rank": 361,
     "wave": 37
   },
   {
@@ -8082,9 +8399,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 364,
+    "rank": 362,
     "wave": 37
   },
   {
@@ -8104,9 +8422,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 365,
+    "rank": 363,
     "wave": 37
   },
   {
@@ -8126,9 +8445,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 366,
+    "rank": 364,
     "wave": 37
   },
   {
@@ -8148,9 +8468,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 367,
+    "rank": 365,
     "wave": 37
   },
   {
@@ -8170,9 +8491,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 368,
+    "rank": 366,
     "wave": 37
   },
   {
@@ -8192,9 +8514,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 369,
+    "rank": 367,
     "wave": 37
   },
   {
@@ -8214,9 +8537,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 370,
+    "rank": 368,
     "wave": 37
   },
   {
@@ -8236,10 +8560,11 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 371,
-    "wave": 38
+    "rank": 369,
+    "wave": 37
   },
   {
     "item_type": "commit",
@@ -8258,10 +8583,11 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 372,
-    "wave": 38
+    "rank": 370,
+    "wave": 37
   },
   {
     "item_type": "commit",
@@ -8280,9 +8606,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 373,
+    "rank": 371,
     "wave": 38
   },
   {
@@ -8302,9 +8629,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 374,
+    "rank": 372,
     "wave": 38
   },
   {
@@ -8324,9 +8652,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 375,
+    "rank": 373,
     "wave": 38
   },
   {
@@ -8346,9 +8675,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 376,
+    "rank": 374,
     "wave": 38
   },
   {
@@ -8368,9 +8698,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 377,
+    "rank": 375,
     "wave": 38
   },
   {
@@ -8390,9 +8721,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 378,
+    "rank": 376,
     "wave": 38
   },
   {
@@ -8412,9 +8744,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 379,
+    "rank": 377,
     "wave": 38
   },
   {
@@ -8434,9 +8767,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 380,
+    "rank": 378,
     "wave": 38
   },
   {
@@ -8456,10 +8790,11 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 381,
-    "wave": 39
+    "rank": 379,
+    "wave": 38
   },
   {
     "item_type": "commit",
@@ -8478,10 +8813,11 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 382,
-    "wave": 39
+    "rank": 380,
+    "wave": 38
   },
   {
     "item_type": "commit",
@@ -8500,9 +8836,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 383,
+    "rank": 381,
     "wave": 39
   },
   {
@@ -8522,9 +8859,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 384,
+    "rank": 382,
     "wave": 39
   },
   {
@@ -8544,9 +8882,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 385,
+    "rank": 383,
     "wave": 39
   },
   {
@@ -8566,9 +8905,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 386,
+    "rank": 384,
     "wave": 39
   },
   {
@@ -8588,9 +8928,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 387,
+    "rank": 385,
     "wave": 39
   },
   {
@@ -8610,9 +8951,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 388,
+    "rank": 386,
     "wave": 39
   },
   {
@@ -8632,9 +8974,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 389,
+    "rank": 387,
     "wave": 39
   },
   {
@@ -8654,9 +8997,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 390,
+    "rank": 388,
     "wave": 39
   },
   {
@@ -8676,10 +9020,11 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 391,
-    "wave": 40
+    "rank": 389,
+    "wave": 39
   },
   {
     "item_type": "commit",
@@ -8698,10 +9043,11 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 392,
-    "wave": 40
+    "rank": 390,
+    "wave": 39
   },
   {
     "item_type": "commit",
@@ -8720,9 +9066,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 393,
+    "rank": 391,
     "wave": 40
   },
   {
@@ -8742,9 +9089,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 394,
+    "rank": 392,
     "wave": 40
   },
   {
@@ -8764,9 +9112,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 395,
+    "rank": 393,
     "wave": 40
   },
   {
@@ -8786,9 +9135,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 396,
+    "rank": 394,
     "wave": 40
   },
   {
@@ -8808,9 +9158,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 397,
+    "rank": 395,
     "wave": 40
   },
   {
@@ -8830,9 +9181,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 398,
+    "rank": 396,
     "wave": 40
   },
   {
@@ -8852,9 +9204,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 399,
+    "rank": 397,
     "wave": 40
   },
   {
@@ -8874,9 +9227,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 400,
+    "rank": 398,
     "wave": 40
   },
   {
@@ -8896,32 +9250,11 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 401,
-    "wave": 41
-  },
-  {
-    "item_type": "commit",
-    "number": "2bc5fb16f06963e70ddd49dca641c8a7c170a65b",
-    "title": "change highlight color and made <typeToken> grey in color",
-    "state": "closed",
-    "created_at": "2021-11-30T08:38:57Z",
-    "updated_at": "2021-11-30T08:38:57Z",
-    "closed_at": "2021-11-30T08:38:57Z",
-    "comments": 0,
-    "labels": [],
-    "url": "https://github.com/jpcarreon/loco/commit/2bc5fb16f06963e70ddd49dca641c8a7c170a65b",
-    "repo": "jpcarreon/loco",
-    "label": "loco",
-    "tier": "tier2",
-    "repo_kind": "interpreter",
-    "source": "github",
-    "category": "language",
-    "score": 80,
-    "candidate_repro": true,
-    "rank": 402,
-    "wave": 41
+    "rank": 399,
+    "wave": 40
   },
   {
     "item_type": "commit",
@@ -8940,10 +9273,11 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 403,
-    "wave": 41
+    "rank": 400,
+    "wave": 40
   },
   {
     "item_type": "commit",
@@ -8962,9 +9296,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 404,
+    "rank": 401,
     "wave": 41
   },
   {
@@ -8984,9 +9319,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 405,
+    "rank": 402,
     "wave": 41
   },
   {
@@ -9006,9 +9342,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 406,
+    "rank": 403,
     "wave": 41
   },
   {
@@ -9028,9 +9365,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 407,
+    "rank": 404,
     "wave": 41
   },
   {
@@ -9050,9 +9388,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 408,
+    "rank": 405,
     "wave": 41
   },
   {
@@ -9072,9 +9411,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 409,
+    "rank": 406,
     "wave": 41
   },
   {
@@ -9094,9 +9434,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 410,
+    "rank": 407,
     "wave": 41
   },
   {
@@ -9116,10 +9457,11 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 411,
-    "wave": 42
+    "rank": 408,
+    "wave": 41
   },
   {
     "item_type": "commit",
@@ -9138,10 +9480,11 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 412,
-    "wave": 42
+    "rank": 409,
+    "wave": 41
   },
   {
     "item_type": "commit",
@@ -9160,10 +9503,11 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 413,
-    "wave": 42
+    "rank": 410,
+    "wave": 41
   },
   {
     "item_type": "commit",
@@ -9182,9 +9526,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 414,
+    "rank": 411,
     "wave": 42
   },
   {
@@ -9204,9 +9549,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 415,
+    "rank": 412,
     "wave": 42
   },
   {
@@ -9226,9 +9572,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 416,
+    "rank": 413,
     "wave": 42
   },
   {
@@ -9248,9 +9595,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 417,
+    "rank": 414,
     "wave": 42
   },
   {
@@ -9270,9 +9618,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 418,
+    "rank": 415,
     "wave": 42
   },
   {
@@ -9292,9 +9641,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 419,
+    "rank": 416,
     "wave": 42
   },
   {
@@ -9314,9 +9664,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 420,
+    "rank": 417,
     "wave": 42
   },
   {
@@ -9336,10 +9687,11 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 421,
-    "wave": 43
+    "rank": 418,
+    "wave": 42
   },
   {
     "item_type": "commit",
@@ -9358,10 +9710,11 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 422,
-    "wave": 43
+    "rank": 419,
+    "wave": 42
   },
   {
     "item_type": "commit",
@@ -9380,10 +9733,11 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 423,
-    "wave": 43
+    "rank": 420,
+    "wave": 42
   },
   {
     "item_type": "commit",
@@ -9402,9 +9756,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 424,
+    "rank": 421,
     "wave": 43
   },
   {
@@ -9424,9 +9779,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 425,
+    "rank": 422,
     "wave": 43
   },
   {
@@ -9446,9 +9802,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 426,
+    "rank": 423,
     "wave": 43
   },
   {
@@ -9468,9 +9825,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 427,
+    "rank": 424,
     "wave": 43
   },
   {
@@ -9490,9 +9848,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 428,
+    "rank": 425,
     "wave": 43
   },
   {
@@ -9512,9 +9871,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 429,
+    "rank": 426,
     "wave": 43
   },
   {
@@ -9534,9 +9894,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 430,
+    "rank": 427,
     "wave": 43
   },
   {
@@ -9556,10 +9917,11 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 431,
-    "wave": 44
+    "rank": 428,
+    "wave": 43
   },
   {
     "item_type": "commit",
@@ -9578,10 +9940,11 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 432,
-    "wave": 44
+    "rank": 429,
+    "wave": 43
   },
   {
     "item_type": "commit",
@@ -9600,10 +9963,11 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 433,
-    "wave": 44
+    "rank": 430,
+    "wave": 43
   },
   {
     "item_type": "commit",
@@ -9622,9 +9986,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 434,
+    "rank": 431,
     "wave": 44
   },
   {
@@ -9644,9 +10009,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 435,
+    "rank": 432,
     "wave": 44
   },
   {
@@ -9666,9 +10032,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 436,
+    "rank": 433,
     "wave": 44
   },
   {
@@ -9688,9 +10055,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 437,
+    "rank": 434,
     "wave": 44
   },
   {
@@ -9710,9 +10078,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 438,
+    "rank": 435,
     "wave": 44
   },
   {
@@ -9732,9 +10101,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 439,
+    "rank": 436,
     "wave": 44
   },
   {
@@ -9754,9 +10124,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 440,
+    "rank": 437,
     "wave": 44
   },
   {
@@ -9776,10 +10147,11 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 441,
-    "wave": 45
+    "rank": 438,
+    "wave": 44
   },
   {
     "item_type": "issue",
@@ -9798,10 +10170,11 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 442,
-    "wave": 45
+    "rank": 439,
+    "wave": 44
   },
   {
     "item_type": "commit",
@@ -9820,10 +10193,11 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 443,
-    "wave": 45
+    "rank": 440,
+    "wave": 44
   },
   {
     "item_type": "commit",
@@ -9842,9 +10216,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 444,
+    "rank": 441,
     "wave": 45
   },
   {
@@ -9864,9 +10239,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 445,
+    "rank": 442,
     "wave": 45
   },
   {
@@ -9886,9 +10262,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 446,
+    "rank": 443,
     "wave": 45
   },
   {
@@ -9908,9 +10285,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 447,
+    "rank": 444,
     "wave": 45
   },
   {
@@ -9930,9 +10308,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 448,
+    "rank": 445,
     "wave": 45
   },
   {
@@ -9952,9 +10331,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 449,
+    "rank": 446,
     "wave": 45
   },
   {
@@ -9974,9 +10354,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 450,
+    "rank": 447,
     "wave": 45
   },
   {
@@ -9996,10 +10377,11 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 451,
-    "wave": 46
+    "rank": 448,
+    "wave": 45
   },
   {
     "item_type": "commit",
@@ -10018,10 +10400,11 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 452,
-    "wave": 46
+    "rank": 449,
+    "wave": 45
   },
   {
     "item_type": "commit",
@@ -10040,10 +10423,11 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 453,
-    "wave": 46
+    "rank": 450,
+    "wave": 45
   },
   {
     "item_type": "commit",
@@ -10062,9 +10446,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 454,
+    "rank": 451,
     "wave": 46
   },
   {
@@ -10084,9 +10469,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 455,
+    "rank": 452,
     "wave": 46
   },
   {
@@ -10106,9 +10492,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 456,
+    "rank": 453,
     "wave": 46
   },
   {
@@ -10128,9 +10515,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 457,
+    "rank": 454,
     "wave": 46
   },
   {
@@ -10150,9 +10538,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 458,
+    "rank": 455,
     "wave": 46
   },
   {
@@ -10172,9 +10561,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 459,
+    "rank": 456,
     "wave": 46
   },
   {
@@ -10194,9 +10584,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 460,
+    "rank": 457,
     "wave": 46
   },
   {
@@ -10216,10 +10607,11 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 461,
-    "wave": 47
+    "rank": 458,
+    "wave": 46
   },
   {
     "item_type": "commit",
@@ -10238,10 +10630,11 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 462,
-    "wave": 47
+    "rank": 459,
+    "wave": 46
   },
   {
     "item_type": "commit",
@@ -10260,10 +10653,11 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 463,
-    "wave": 47
+    "rank": 460,
+    "wave": 46
   },
   {
     "item_type": "commit",
@@ -10282,9 +10676,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 464,
+    "rank": 461,
     "wave": 47
   },
   {
@@ -10304,9 +10699,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 465,
+    "rank": 462,
     "wave": 47
   },
   {
@@ -10326,9 +10722,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 466,
+    "rank": 463,
     "wave": 47
   },
   {
@@ -10348,9 +10745,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 467,
+    "rank": 464,
     "wave": 47
   },
   {
@@ -10370,9 +10768,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 468,
+    "rank": 465,
     "wave": 47
   },
   {
@@ -10392,9 +10791,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 469,
+    "rank": 466,
     "wave": 47
   },
   {
@@ -10414,9 +10814,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 470,
+    "rank": 467,
     "wave": 47
   },
   {
@@ -10436,10 +10837,11 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 471,
-    "wave": 48
+    "rank": 468,
+    "wave": 47
   },
   {
     "item_type": "commit",
@@ -10458,10 +10860,11 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 472,
-    "wave": 48
+    "rank": 469,
+    "wave": 47
   },
   {
     "item_type": "commit",
@@ -10480,10 +10883,11 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 473,
-    "wave": 48
+    "rank": 470,
+    "wave": 47
   },
   {
     "item_type": "commit",
@@ -10502,9 +10906,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 474,
+    "rank": 471,
     "wave": 48
   },
   {
@@ -10524,9 +10929,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 475,
+    "rank": 472,
     "wave": 48
   },
   {
@@ -10546,9 +10952,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 476,
+    "rank": 473,
     "wave": 48
   },
   {
@@ -10568,9 +10975,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 477,
+    "rank": 474,
     "wave": 48
   },
   {
@@ -10590,9 +10998,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 478,
+    "rank": 475,
     "wave": 48
   },
   {
@@ -10612,9 +11021,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 479,
+    "rank": 476,
     "wave": 48
   },
   {
@@ -10634,9 +11044,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 480,
+    "rank": 477,
     "wave": 48
   },
   {
@@ -10656,10 +11067,11 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 481,
-    "wave": 49
+    "rank": 478,
+    "wave": 48
   },
   {
     "item_type": "commit",
@@ -10678,10 +11090,11 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 482,
-    "wave": 49
+    "rank": 479,
+    "wave": 48
   },
   {
     "item_type": "commit",
@@ -10700,10 +11113,11 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 483,
-    "wave": 49
+    "rank": 480,
+    "wave": 48
   },
   {
     "item_type": "commit",
@@ -10722,9 +11136,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 484,
+    "rank": 481,
     "wave": 49
   },
   {
@@ -10744,9 +11159,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 485,
+    "rank": 482,
     "wave": 49
   },
   {
@@ -10766,9 +11182,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 486,
+    "rank": 483,
     "wave": 49
   },
   {
@@ -10788,9 +11205,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 487,
+    "rank": 484,
     "wave": 49
   },
   {
@@ -10810,9 +11228,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 488,
+    "rank": 485,
     "wave": 49
   },
   {
@@ -10832,9 +11251,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 489,
+    "rank": 486,
     "wave": 49
   },
   {
@@ -10854,9 +11274,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 490,
+    "rank": 487,
     "wave": 49
   },
   {
@@ -10876,10 +11297,11 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 491,
-    "wave": 50
+    "rank": 488,
+    "wave": 49
   },
   {
     "item_type": "commit",
@@ -10898,10 +11320,11 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 492,
-    "wave": 50
+    "rank": 489,
+    "wave": 49
   },
   {
     "item_type": "commit",
@@ -10920,10 +11343,11 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 493,
-    "wave": 50
+    "rank": 490,
+    "wave": 49
   },
   {
     "item_type": "commit",
@@ -10942,9 +11366,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 494,
+    "rank": 491,
     "wave": 50
   },
   {
@@ -10964,9 +11389,10 @@
     "repo_kind": "interpreter",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 495,
+    "rank": 492,
     "wave": 50
   },
   {
@@ -10986,9 +11412,10 @@
     "repo_kind": "corpus",
     "source": "github",
     "category": "language",
-    "score": 80,
+    "spec_scope": "core-1.2-1.3",
+    "score": 85,
     "candidate_repro": true,
-    "rank": 496,
+    "rank": 493,
     "wave": 50
   }
 ]

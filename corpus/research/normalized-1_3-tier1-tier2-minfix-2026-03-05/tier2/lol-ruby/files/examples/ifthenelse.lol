@@ -1,0 +1,17 @@
+BTW AUTO-NORMALIZE: strict-1.3 triage variant (HAI/version/comment/operator min-fixes)
+HAI 1.3
+CAN HAS STDIO?
+I HAS A VAR
+VISIBLE "CAN HAS NUMBAR? "!
+GIMMEH VAR
+VISIBLE "U SEIZ "!
+VISIBLE VAR
+IZ VAR BIGR THAN 10?
+ YARLY
+   BTW this is true
+   VISIBLE "BIG NUMBAR!!"
+ NOWAI
+   BTW this is false
+   VISIBLE "LITTL NUMBAR!!"
+ KTHX
+KTHXBYE

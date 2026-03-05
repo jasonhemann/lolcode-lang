@@ -1,0 +1,16 @@
+BTW AUTO-NORMALIZE: strict-1.3 triage variant (HAI/version/comment/operator min-fixes)
+HAI 1.3
+
+  I HAS A VAR_A ITZ 5
+  I HAS A VAR_B ITZ 10
+
+  VAR_A R SUM OF VAR_A AN VAR_B   BTW 15
+
+  VAR_B R DIFF OF VAR_A AN VAR_B    BTW 5
+
+  VAR_A R DIFF OF VAR_A AN VAR_B    BTW 10
+
+  VISIBLE "VAR_A: " VAR_A
+  VISIBLE "VAR_B: " VAR_B
+
+KTHXBYE

@@ -1,0 +1,16 @@
+BTW AUTO-NORMALIZE: strict-1.3 triage variant (HAI/version/comment/operator min-fixes)
+HAI 1.3
+	I HAS A name1 ITZ "fun"
+	I HAS A name2 ITZ "arg"
+
+	HOW IZ I SRS SMOOSH name1 AN 1 MKAY
+		VISIBLE "a"
+	IF U SAY SO
+
+	HOW IZ I SRS SMOOSH name1 AN 2 MKAY YR SRS name2
+		VISIBLE SRS name2
+	IF U SAY SO
+
+	I IZ SRS SMOOSH name1 AN 1 MKAY MKAY
+	I IZ SRS SMOOSH name1 AN 2 MKAY YR "b" MKAY
+KTHXBYE

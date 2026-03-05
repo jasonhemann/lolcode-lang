@@ -1,0 +1,9 @@
+BTW AUTO-NORMALIZE: strict-1.3 triage variant (HAI/version/comment/operator min-fixes)
+HAI 1.4
+    CAN HAS SOCKS?
+    I HAS A sock
+    I HAS A conn
+    sock R I IZ SOCKS'Z BIND YR "127.0.0.1" AN YR 13337 MKAY
+    I IZ SOCKS'Z CLOSE YR sock MKAY
+    VISIBLE "done"
+KTHXBYE

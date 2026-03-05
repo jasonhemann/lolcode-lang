@@ -125,7 +125,10 @@ build_external_progress_index() {
           value: {
             candidate_repros_total: length,
             candidate_runtime_safety_total: (map(select(.category == "runtime-safety")) | length),
-            candidate_language_total: (map(select(.category == "language")) | length)
+            candidate_language_total: (map(select(.category == "language")) | length),
+            candidate_core_1_2_1_3_total: (map(select(.spec_scope == "core-1.2-1.3")) | length),
+            candidate_extension_total: (map(select(.spec_scope == "extension")) | length),
+            candidate_unknown_scope_total: (map(select(.spec_scope == "unknown")) | length)
           }
         })
       | from_entries
@@ -548,6 +551,9 @@ append_entry_json() {
         | .candidate_repros_total = (.candidate_repros_total // 0)
         | .candidate_runtime_safety_total = (.candidate_runtime_safety_total // 0)
         | .candidate_language_total = (.candidate_language_total // 0)
+        | .candidate_core_1_2_1_3_total = (.candidate_core_1_2_1_3_total // 0)
+        | .candidate_extension_total = (.candidate_extension_total // 0)
+        | .candidate_unknown_scope_total = (.candidate_unknown_scope_total // 0)
         | .imported_test_cases_total = (.imported_test_cases_total // 0)
         | .triage_status_counts = (.triage_status_counts // {})
         | .known_divergences_total = (.triage_status_counts["known-divergence"] // 0)
@@ -656,6 +662,9 @@ generate_feature_profile() {
   local recovered_impl_sample_total=0
   local recovered_sample_only_total=0
   local candidate_repros_total=0
+  local candidate_core_total=0
+  local candidate_extension_total=0
+  local candidate_unknown_scope_total=0
   local imported_test_cases_total=0
   local known_failures_total=0
   local known_divergences_total=0
@@ -671,6 +680,9 @@ generate_feature_profile() {
         recovered_impl_sample_total: ([.entries[] | select(.tier == $tier and (.recovery_tracking.recovered_from_initially_missing // false) and ((.corpus_capture.capture_type // "") == "implementation+sample-code"))] | length),
         recovered_sample_only_total: ([.entries[] | select(.tier == $tier and (.recovery_tracking.recovered_from_initially_missing // false) and ((.corpus_capture.capture_type // "") == "sample-only"))] | length),
         candidate_repros_total: ([.entries[] | select(.tier == $tier) | (.extraction_progress.candidate_repros_total // 0)] | add // 0),
+        candidate_core_total: ([.entries[] | select(.tier == $tier) | (.extraction_progress.candidate_core_1_2_1_3_total // 0)] | add // 0),
+        candidate_extension_total: ([.entries[] | select(.tier == $tier) | (.extraction_progress.candidate_extension_total // 0)] | add // 0),
+        candidate_unknown_scope_total: ([.entries[] | select(.tier == $tier) | (.extraction_progress.candidate_unknown_scope_total // 0)] | add // 0),
         imported_test_cases_total: ([.entries[] | select(.tier == $tier) | (.extraction_progress.imported_test_cases_total // 0)] | add // 0),
         known_failures_total: ([.entries[] | select(.tier == $tier) | (.extraction_progress.known_failures_total // 0)] | add // 0),
         known_divergences_total: ([.entries[] | select(.tier == $tier) | (.extraction_progress.known_divergences_total // 0)] | add // 0)
@@ -683,6 +695,9 @@ generate_feature_profile() {
   recovered_impl_sample_total="$(printf '%s' "$summary_json" | jq -r '.recovered_impl_sample_total // 0')"
   recovered_sample_only_total="$(printf '%s' "$summary_json" | jq -r '.recovered_sample_only_total // 0')"
   candidate_repros_total="$(printf '%s' "$summary_json" | jq -r '.candidate_repros_total // 0')"
+  candidate_core_total="$(printf '%s' "$summary_json" | jq -r '.candidate_core_total // 0')"
+  candidate_extension_total="$(printf '%s' "$summary_json" | jq -r '.candidate_extension_total // 0')"
+  candidate_unknown_scope_total="$(printf '%s' "$summary_json" | jq -r '.candidate_unknown_scope_total // 0')"
   imported_test_cases_total="$(printf '%s' "$summary_json" | jq -r '.imported_test_cases_total // 0')"
   known_failures_total="$(printf '%s' "$summary_json" | jq -r '.known_failures_total // 0')"
   known_divergences_total="$(printf '%s' "$summary_json" | jq -r '.known_divergences_total // 0')"
@@ -698,6 +713,9 @@ generate_feature_profile() {
     echo "- Recovered with implementation+sample code: \`$recovered_impl_sample_total\`"
     echo "- Recovered with sample-only capture: \`$recovered_sample_only_total\`"
     echo "- Bugs extracted (candidate repro items): \`$candidate_repros_total\`"
+    echo "- Candidate core-1.2/1.3 repro items: \`$candidate_core_total\`"
+    echo "- Candidate extension repro items: \`$candidate_extension_total\`"
+    echo "- Candidate unknown-scope repro items: \`$candidate_unknown_scope_total\`"
     echo "- Test cases extracted (imported external fixtures): \`$imported_test_cases_total\`"
     echo "- Known failures (triaged unresolved): \`$known_failures_total\`"
     echo "- Known divergences: \`$known_divergences_total\`"
@@ -717,6 +735,9 @@ generate_feature_profile() {
     local capture_type="none"
     local implementation_files=0
     local candidate_repros=0
+    local candidate_core=0
+    local candidate_extension=0
+    local candidate_unknown_scope=0
     local imported_test_cases=0
     local known_failures=0
     local known_divergences=0
@@ -743,6 +764,9 @@ generate_feature_profile() {
       capture_type="$(printf '%s' "$entry_json" | jq -r '.corpus_capture.capture_type // "none"')"
       implementation_files="$(printf '%s' "$entry_json" | jq -r '.corpus_capture.implementation_files // 0')"
       candidate_repros="$(printf '%s' "$entry_json" | jq -r '.extraction_progress.candidate_repros_total // 0')"
+      candidate_core="$(printf '%s' "$entry_json" | jq -r '.extraction_progress.candidate_core_1_2_1_3_total // 0')"
+      candidate_extension="$(printf '%s' "$entry_json" | jq -r '.extraction_progress.candidate_extension_total // 0')"
+      candidate_unknown_scope="$(printf '%s' "$entry_json" | jq -r '.extraction_progress.candidate_unknown_scope_total // 0')"
       imported_test_cases="$(printf '%s' "$entry_json" | jq -r '.extraction_progress.imported_test_cases_total // 0')"
       known_failures="$(printf '%s' "$entry_json" | jq -r '.extraction_progress.known_failures_total // 0')"
       known_divergences="$(printf '%s' "$entry_json" | jq -r '.extraction_progress.known_divergences_total // 0')"
@@ -761,6 +785,9 @@ generate_feature_profile() {
       echo "- LOLCODE files: \`$lol_count\`"
       echo "- Total LOLCODE lines: \`$line_count\`"
       echo "- Bugs extracted (candidate repro items): \`$candidate_repros\`"
+      echo "- Candidate core-1.2/1.3 repro items: \`$candidate_core\`"
+      echo "- Candidate extension repro items: \`$candidate_extension\`"
+      echo "- Candidate unknown-scope repro items: \`$candidate_unknown_scope\`"
       echo "- Test cases extracted (imported fixtures): \`$imported_test_cases\`"
       echo "- Known failures (triaged unresolved): \`$known_failures\`"
       echo "- Known divergences: \`$known_divergences\`"

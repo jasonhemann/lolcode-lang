@@ -1,0 +1,6 @@
+BTW AUTO-NORMALIZE: strict-1.3 triage variant (HAI/version/comment/operator min-fixes)
+CAN HAS STDIO?
+IM IN YR LOOP UPPIN YR VAR TIL BOTH SAEM VAR AN 10
+    VISIBLE SUM OF VAR AN 1
+IM OUTTA YR LOOP
+KTHXBYE
