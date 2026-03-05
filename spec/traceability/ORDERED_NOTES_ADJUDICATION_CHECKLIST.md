@@ -39,13 +39,13 @@ Legend:
   Spec: line 145 (`unmapped`), declaration lines 117/205.  
   Done: `env-define!` now errors on same-frame redeclaration; function definitions use `env-define!` (not set-or-define). Added regressions for duplicate vars, duplicate functions, function/var namespace collision, and assignment-overwrites-function behavior.
 
-- [ ] `07` (notes 67-77) `R NOOB` and GC expectations.
+- [x] `07` (notes 67-77) `R NOOB` and GC expectations.
   Spec: deallocation prose (not explicit runtime requirement beyond unbinding semantics). Matrix: no dedicated row.  
-  To check: document “host GC handles reclamation”; ensure semantic test only checks value/reference behavior, not physical GC.
+  Done: added matrix row `var.deallocation-r-noob`; documented host-GC responsibility and added runtime regressions that verify semantic binding/reference behavior only.
 
-- [ ] `08` (notes 78) Primitive immutability interpretation.
+- [x] `08` (notes 78) Primitive immutability interpretation.
   Spec: type prose around primitive behavior. Matrix: partially implicit via cast/op rows.  
-  To check: add targeted regression that arithmetic/string ops do not mutate source bindings.
+  Done: added dedicated matrix row `type.primitives-immutable` and regression showing arithmetic/SMOOSH produce new values while original bindings remain unchanged until explicit assignment.
 
 - [ ] `09` (notes 80) Optional article `A` usage boundaries.
   Spec: line 189 (mapped), MAEK grammar line 362 (mapped).  

@@ -49,6 +49,27 @@
   (check-eq? (hash-ref function-rebound-as-number 'status) 'ok)
   (check-equal? (hash-ref function-rebound-as-number 'stdout) "0\n")
 
+  (define r-noob-retains-binding-src
+    "HAI 1.3\nI HAS A x ITZ 7\nx R NOOB\nVISIBLE x\nKTHXBYE\n")
+  (define r-noob-retains-binding
+    (run-source r-noob-retains-binding-src))
+  (check-eq? (hash-ref r-noob-retains-binding 'status) 'ok)
+  (check-equal? (hash-ref r-noob-retains-binding 'stdout) "NOOB\n")
+
+  (define r-noob-does-not-invalidate-other-reference-src
+    "HAI 1.3\nI HAS A one ITZ A BUKKIT\none HAS A val ITZ 42\nI HAS A two ITZ one\none R NOOB\nVISIBLE two'Z val\nKTHXBYE\n")
+  (define r-noob-does-not-invalidate-other-reference
+    (run-source r-noob-does-not-invalidate-other-reference-src))
+  (check-eq? (hash-ref r-noob-does-not-invalidate-other-reference 'status) 'ok)
+  (check-equal? (hash-ref r-noob-does-not-invalidate-other-reference 'stdout) "42\n")
+
+  (define primitive-ops-immutable-src
+    "HAI 1.3\nI HAS A n ITZ 5\nI HAS A y ITZ \"A\"\nVISIBLE SUM OF n AN 1\nVISIBLE n\nVISIBLE SMOOSH y AN \"B\" MKAY\nVISIBLE y\nKTHXBYE\n")
+  (define primitive-ops-immutable
+    (run-source primitive-ops-immutable-src))
+  (check-eq? (hash-ref primitive-ops-immutable 'status) 'ok)
+  (check-equal? (hash-ref primitive-ops-immutable 'stdout) "6\n5\nAB\nA\n")
+
   (define declare-assign-src
     "HAI 1.3\nI HAS A var\nvar R 3\nVISIBLE var\nKTHXBYE\n")
   (define declare-assign (run-source declare-assign-src))
