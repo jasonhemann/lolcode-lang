@@ -83,9 +83,9 @@ Legend:
   Spec: line 277 (mapped `op.an-optional-binary`).  
   Done: added full-operator-family positive regression for omitted-`AN` binary forms and negative regressions rejecting `AND` separator across the same family.
 
-- [ ] `18` (notes 129-141) Equality semantics and no implicit cast for non-numeric equality.
+- [x] `18` (notes 129-141) Equality semantics and no implicit cast for non-numeric equality.
   Spec: comparison section around lines 326+ (currently not represented by dedicated matrix row).  
-  To check: add dedicated matrix clause + tests (`BOTH SAEM "3" AN 3` == FAIL, NUMBR/NUMBAR numeric mode).
+  Done: added dedicated matrix row (`op.comparison-equality-semantics`) and regressions for `"3"` vs `3` (`FAIL`), explicit cast equality (`WIN`), and NUMBR/NUMBAR numeric-mode comparisons.
 
 - [ ] `19` (notes 143-161) `MAEK` is local cast only; underlying variable unchanged.
   Spec: line 362 (mapped `cast.maek`).  

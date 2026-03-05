@@ -337,6 +337,22 @@
   (check-equal? (hash-ref binary-ops-optional-an 'stdout)
                 "3\n3\n12\n3\n3\n5\n2\nFAIL\nWIN\nWIN\nWIN\nWIN\n")
 
+  (define equality-no-implicit-cast-src
+    "HAI 1.3\nVISIBLE BOTH SAEM \"3\" AN 3\nVISIBLE DIFFRINT \"3\" AN 3\nVISIBLE BOTH SAEM MAEK \"3\" A NUMBR AN 3\nKTHXBYE\n")
+  (define equality-no-implicit-cast
+    (run-source equality-no-implicit-cast-src))
+  (check-eq? (hash-ref equality-no-implicit-cast 'status) 'ok)
+  (check-equal? (hash-ref equality-no-implicit-cast 'stdout)
+                "FAIL\nWIN\nWIN\n")
+
+  (define equality-numbr-numbar-numeric-mode-src
+    "HAI 1.3\nI HAS A i ITZ 3\nI HAS A f ITZ MAEK 3 A NUMBAR\nVISIBLE BOTH SAEM i AN f\nVISIBLE DIFFRINT i AN MAEK \"3.1\" A NUMBAR\nKTHXBYE\n")
+  (define equality-numbr-numbar-numeric-mode
+    (run-source equality-numbr-numbar-numeric-mode-src))
+  (check-eq? (hash-ref equality-numbr-numbar-numeric-mode 'status) 'ok)
+  (check-equal? (hash-ref equality-numbr-numbar-numeric-mode 'stdout)
+                "WIN\nWIN\n")
+
   (define logic-all-of-src
     "HAI 1.3\nI HAS A flag ITZ WIN\nI HAS A anotherflag ITZ FAIL\nI HAS A flag3 ITZ WIN\nI HAS A flag4 ITZ WIN\nI HAS A flag5\nflag5 R ALL OF flag AN anotherflag AN flag3 AN flag4 MKAY\nVISIBLE flag5\nKTHXBYE\n")
   (define logic-all-of-result (run-source logic-all-of-src))

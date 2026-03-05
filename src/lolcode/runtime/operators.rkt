@@ -22,8 +22,8 @@
    "EITHER OF" (lambda (lv rv) (or (lol-truthy? lv) (lol-truthy? rv)))
    "WON OF" (lambda (lv rv) (bool-xor (lol-truthy? lv)
                                        (lol-truthy? rv)))
-   "BOTH SAEM" (lambda (lv rv) (equal? lv rv))
-   "DIFFRINT" (lambda (lv rv) (not (equal? lv rv)))))
+   "BOTH SAEM" (lambda (lv rv) (lol-equal? lv rv))
+   "DIFFRINT" (lambda (lv rv) (not (lol-equal? lv rv)))))
 
 (define unary-operator-table
   (hash

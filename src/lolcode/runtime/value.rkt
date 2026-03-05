@@ -10,6 +10,7 @@
          lol-object?
          lol-string
          lol-truthy?
+         lol-equal?
          bool-xor
          coerce-number
          coerce-cast-number
@@ -214,6 +215,13 @@
 (define (bool-xor a b)
   (or (and a (not b))
       (and (not a) b)))
+
+(define (lol-equal? lv rv)
+  ;; Spec 1.3 comparison: numeric comparison only when both operands are numeric;
+  ;; otherwise no implicit casting is performed.
+  (if (and (number? lv) (number? rv))
+      (= lv rv)
+      (equal? lv rv)))
 
 (define (coerce-number who v)
   (cond
