@@ -1,85 +1,80 @@
-# Tranche 1 Adjudication (Kickoff)
+# Tranche 1 Adjudication (Restart Pass 2)
 
 Date: 2026-03-06
-Source list: `NEXT-BOTTOM-UP-SPEC-CONCERNS-2026-03-05.md`
+Source list:
+- `NEXT-BOTTOM-UP-SPEC-CONCERNS-2026-03-05.md`
+- `third-tier-of-40-issues.md`
+
 Policy: `spec/traceability/SPEC_ADJUDICATION_POLICY.md`
 
-Tranche 1 targets: `N02`, `N10`-`N15`, `N20`-`N24`, `N27`, `N34`.
+Pass-2 tranche-1 targets:
+- Carry-forward: `N02`, `N10`-`N15`, `N20`-`N24`, `N27`, `N34`
+- Added from third-tier integration: `N44`, `N51`, `N53`, `N54`, `N56`, `N60`, `N61`
 
-## Decisions Started
+## Carry-Forward Results
 
-1. `N02` (Call-form AST split)
-Status: `adjudicated`
-Decision: Keep distinct AST/runtime paths for `I IZ` and `<object> IZ`; no desugaring collapse.
-Reason: receiver semantics and `ME` access differ by call form.
+| ID | Status | Summary |
+| --- | --- | --- |
+| `N02` | adjudicated | Distinct AST/runtime call paths for `I IZ` vs `<object> IZ`. |
+| `N10` | adjudicated | Object-function lookup clauses interpreted as specific override to broad scope prose. |
+| `N11` | adjudicated | Ordinary functions do not capture lexical outer locals; method/slot-call path is object-aware. |
+| `N12` | adjudicated | `IT` local in ordinary scopes; method-context `IT` resolves through global lookup rule. |
+| `N13` | adjudicated | `O HAI IM` body uses slot-first then global lookup (`object-block-slot-first-over-global-src`). |
+| `N14` | adjudicated | Function and variable declarations share one namespace with duplicate declaration rejection. |
+| `N15` | adjudicated | Slot-call receiver projection controls callable name lookup scope. |
+| `N20` | adjudicated | `omgwtf` missing-slot path memoizes synthesized value to the missing slot. |
+| `N21` | adjudicated | Parent-chain traversal is cycle-safe across lookup/assignment/method paths. |
+| `N22` | adjudicated | Copy-on-write assignment for inherited slots; ancestor slot is not mutated by child assignment. |
+| `N23` | adjudicated | Special-slot policy table fixed and tested (`parent`, `omgwtf`, `izmakin`). |
+| `N24` | adjudicated | Mixin source-set fixed to own members only (inherited members not copied). |
+| `N27` | adjudicated | `GTFO` uses nearest valid control target semantics. |
+| `N34` | adjudicated | Variadic implicit closure runs over logical statements after formatting preprocess. |
 
-2. `N10` (Scope contradiction)
-Status: `adjudicated`
-Decision: Treat object-function lookup clauses as feature-specific override to broad early scope prose.
-Reason: dedicated function-in-bukkit section is more specific and operational.
+## Pass-2 Additions Started
 
-3. `N11` (No-closure vs object/global fallback)
-Status: `adjudicated`
-Decision: Ordinary functions do not capture lexical outer locals; method/slot-call path follows object-aware lookup.
-Reason: keeps both clauses coherent with minimal extra machinery.
+| ID | Status | Decision / Action |
+| --- | --- | --- |
+| `N44` | needs-change | Document exact preprocessing order as executable policy + add parser/lexer tests for ordering-sensitive cases. |
+| `N51` | needs-change | Keep longest-match keyword tokenization policy; add explicit regressions for phrase collisions and punctuation suffix tokens. |
+| `N53` | adjudicated | `O RLY?` binds to current `IT`; statement delimiter behavior remains expression-driven (`stmt-if` uses `IT` directly). |
+| `N54` | adjudicated | `MEBBE` uses TROOF-cast truthiness semantics; pinned by regression `orly-mebbe-truthy-cast-src`. |
+| `N56` | adjudicated | `WTF?` binds to current `IT`; parser encodes `stmt-switch` with subject `(expr-ident \"IT\")`. |
+| `N60` | needs-change | Create closed list of `IT`-updating forms and verify no accidental updates from non-expression statements. |
+| `N61` | adjudicated | `VISIBLE` remains statement-special variadic with delimiter closure and `!` suffix newline suppression. |
 
-4. `N12` (`IT` local vs global-in-method)
-Status: `adjudicated`
-Decision: `IT` is local in ordinary scopes but method lookup of `IT` resolves via global namespace rule in bukkit function mode.
-Reason: explicit method-scope clause is specific and already testable.
+## N23 Policy Table: Special Slots
 
-5. `N13` (`O HAI IM` lookup regime)
-Status: `adjudicated`
-Decision: keep slot-first then global lookup behavior.
-Evidence: runtime regression `object-block-slot-first-over-global-src` in `tests/spec/runtime-core-test.rkt`.
+| Special slot | Prototype inheritance path | Mixin-copy path | Override precedence | Effective policy |
+| --- | --- | --- | --- | --- |
+| `parent` | created on object/prototype and inherited by parent-chain lookup | may be copied from mixin own slots, but then replaced | declared `IM LIEK` parent wins after mixin application | force `child'Z parent` to the declared parent object at construction |
+| `omgwtf` | inherited via parent-chain lookup like any slot/method behavior | copied when present as own mixin slot/method | child own definition > copied mixin > inherited parent > default throw | missing-slot lookup invokes effective `omgwtf`; synthesized value is memoized into missing slot |
+| `izmakin` | inherited via parent-chain slot lookup | copied when present as own mixin slot/method | child own definition > copied mixin > inherited parent > default `NOOB` | run callable effective `izmakin` after prototype build and before constructor return |
 
-6. `N14` (Function/variable namespace)
-Status: `adjudicated`
-Decision: single shared namespace with duplicate declaration errors in same frame.
-Reason: direct prose statement and existing runtime behavior align.
+## N24 Policy Table: Mixin Source Set
 
-7. `N15` (Receiver-projected slot-call semantics)
-Status: `adjudicated`
-Decision: callable in slot-call position executes with receiver-projected lookup, regardless of original storage source.
-Reason: explicit slot-access function prose and existing receiver tests.
-
-8. `N20` (`omgwtf` boundaries)
-Status: `adjudicated`
-Decision: missing-slot path routes through `omgwtf` and memoizes synthesized value to the slot.
-Evidence: runtime regression `omgwtf-memoizes-missing-slot-src` in `tests/spec/runtime-core-test.rkt`.
-
-9. `N21` (Parent-cycle safety)
-Status: `adjudicated`
-Decision: all parent-chain traversals are treated as cycle-safe.
-Evidence: runtime regressions `parent-cycle-assignment-terminates-src` and `parent-cycle-method-call-terminates-src` in `tests/spec/runtime-core-test.rkt`, in addition to existing lookup-cycle test.
-
-10. `N22` (Copy-on-write inherited assignment)
-Status: `adjudicated`
-Decision: child assignment to inherited name creates/updates child slot, never mutates ancestor slot.
-Reason: explicit copy-on-write prose and current behavior.
-
-11. `N23` (Special slot inheritance/shadowing)
-Status: `spec-underdetermined`
-Decision: keep explicit project policy table for `parent`, `omgwtf`, `izmakin` inheritance/copy behavior.
-Action: write policy table + tests; mark as policy-governed until spec text narrows.
-
-12. `N24` (Mixin source-set ambiguity)
-Status: `spec-underdetermined`
-Decision: keep own-slot copy as baseline pending policy table and cross-implementation evidence note.
-Action: add tests for own-only vs inherited-on-mixin source and document chosen strict policy.
-
-13. `N27` (`GTFO` nearest target)
-Status: `adjudicated`
-Decision: nearest enclosing valid control target wins (`loop`/`switch` break; function return-noob only in function context).
-Reason: only coherent interpretation across nested contexts.
-
-14. `N34` (Variadic closure on logical statements)
-Status: `adjudicated`
-Decision: implicit closure computed over logical statements after format preprocessing, not raw physical lines.
-Reason: required to satisfy comma + continuation semantics together.
+| Source member on mixin object | Copied to target? | Policy |
+| --- | --- | --- |
+| Own slot | yes | copied statically at mixin time |
+| Own method | yes | copied statically at mixin time |
+| Inherited slot from mixin parent | no | not part of mixin source-set |
+| Inherited method from mixin parent | no | not part of mixin source-set |
 
 ## Immediate Next Steps
 
-1. Completed: targeted tests for `N13`, `N20`, `N21` were added and pass in `tests/spec/runtime-core-test.rkt`.
-2. Write explicit policy tables/tests for `N23`, `N24`.
-3. Re-run spec and corpus scripts after tranche-1 changes.
+1. Completed: added `N54` regression (`orly-mebbe-truthy-cast-src`).
+2. Add explicit regressions for `N51` (longest-match collisions) and `N44` (ordering-sensitive preprocessing).
+3. Write and check in an `IT` mutation matrix for `N60`.
+4. Carry out-of-tranche early result: `N62` now has regression coverage (`gimmeh-implicit-target-declare-src`) pinning implicit target declaration behavior.
+5. Re-run tranche scripts after these pass-2 additions:
+   - `./scripts/analyze_corpus_gaps.sh`
+   - `./scripts/eval_tier2_corpus.sh`
+   - `./scripts/test_external_evidence.sh`
+
+## Pass-2 Script Snapshot
+
+Latest rerun (2026-03-05 local snapshot generation time):
+
+- Tier2 totals unchanged: files `223`, likely programs `184`.
+- Tier2 likely outcomes unchanged: parse-error `167`, ok `9`, lex-error `7`, runtime-error `1`.
+- Strict in-scope 1.3 unchanged: parse-ok `10`, eval-ok `9`, parse-error `3`, runtime-error `1`.
+- External evidence observed-status unchanged: ok `1`, parse-error `301`.

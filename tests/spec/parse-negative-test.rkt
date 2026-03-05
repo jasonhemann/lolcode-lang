@@ -64,6 +64,16 @@
   (check-true (string? unsupported-v14-msg))
   (check-true (regexp-match? #px"unsupported version: 1\\.4" unsupported-v14-msg))
 
+  (define lowercase-keywords-program
+    "hai 1.3\nvisible \"nope\"\nkthxbye\n")
+  (check-exn #px"syntax error:"
+             (lambda () (parse-program lowercase-keywords-program)))
+
+  (define editorial-how-duz-i-form
+    "HAI 1.3\nHOW DUZ I addin YR x\n  FOUND YR x\nIF U SAY SO\nKTHXBYE\n")
+  (check-exn #px"syntax error:"
+             (lambda () (parse-program editorial-how-duz-i-form)))
+
   (define can-has-extension
     "HAI 1.3\nCAN HAS STRING?\nKTHXBYE\n")
   (define can-has-extension-msg
@@ -377,6 +387,11 @@
     "HAI 1.3\nWIN\nO RLY?\n  NO WAI\n    VISIBLE \"N\"\nOIC\nKTHXBYE\n")
   (check-exn #px"syntax error:"
              (lambda () (parse-program orly-missing-ya-rly)))
+
+  (define orphan-mebbe-without-ya-rly
+    "HAI 1.3\nWIN\nO RLY?\n  MEBBE WIN\n    VISIBLE \"x\"\nOIC\nKTHXBYE\n")
+  (check-exn #px"syntax error:"
+             (lambda () (parse-program orphan-mebbe-without-ya-rly)))
 
   (define orly-mebbe-after-no-wai
     "HAI 1.3\nFAIL\nO RLY?\n  YA RLY\n    VISIBLE \"Y\"\n  NO WAI\n    VISIBLE \"N\"\n  MEBBE WIN\n    VISIBLE \"M\"\nOIC\nKTHXBYE\n")

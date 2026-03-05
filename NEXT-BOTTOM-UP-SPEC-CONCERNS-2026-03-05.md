@@ -1,27 +1,35 @@
-# Next Bottom-Up Spec Concerns (Normalized)
+# Next Bottom-Up Spec Concerns (Integrated + Renumbered)
 
 Date: 2026-03-06
-Source: consolidated and deduplicated from the original bottom-up list and the appended follow-up notes.
+Sources:
+- Original bottom-up concern list
+- Prior normalized concern pass
+- `third-tier-of-40-issues.md` (newly integrated)
+
 Target: strict LOLCODE 1.3 only.
 
 Policy reference: `spec/traceability/SPEC_ADJUDICATION_POLICY.md`.
 
-## Adjudication Order
+## Adjudication Order (Restart Pass 2)
 
-The user-prioritized order is preserved first:
+Primary tranche (carry-forward priority + new parser/IT control additions):
 
 1. `N02`
 2. `N10`-`N15`
 3. `N20`-`N24`
 4. `N27`
 5. `N34`
+6. `N44`, `N51`, `N53`, `N54`, `N56`, `N60`, `N61`
 
-Then continue by tranche:
+Secondary tranche:
 
-- Tranche 2: `N01`, `N03`-`N09`, `N16`-`N19`
-- Tranche 3: `N25`, `N26`, `N28`-`N33`, `N35`-`N42`
+- `N01`, `N03`-`N09`, `N16`-`N19`, `N38`, `N42`, `N43`, `N45`-`N50`, `N52`, `N55`, `N57`-`N59`, `N63`, `N64`, `N67`, `N68`
 
-## Normalized Concern List
+Tertiary tranche:
+
+- `N25`, `N26`, `N28`-`N33`, `N35`-`N37`, `N39`-`N41`, `N62`, `N65`, `N66`, `N69`
+
+## Unified Concern List
 
 1. `N01` Method-definition AST split (`HOW IZ I` vs `HOW IZ <object> <slot>`).
 2. `N02` Call-form AST split (`I IZ` vs `<object> IZ`) and receiver semantics.
@@ -65,6 +73,40 @@ Then continue by tranche:
 40. `N40` Argument evaluation order determinism under side effects.
 41. `N41` Dynamic labels (`SRS`) admissibility and parse/runtime constraints.
 42. `N42` Method argument grammar mismatch (`<variable>` wording vs expression-friendly call prose).
+43. `N43` Keyword case-sensitivity policy (keywords vs identifiers).
+44. `N44` Fixed preprocessing pipeline order (newline normalization, comments, continuation, comma, shielding).
+45. `N45` Continuation marker normalization (`...` and `…`) including trailing-whitespace boundary policy.
+46. `N46` Inline block-comment permissiveness and `TLDR` immediate handoff behavior.
+47. `N47` NUMBAR lexical edge grammar (`.5`, `2.`, `-.5`, `-0.`) strictness policy.
+48. `N48` String-to-number cast grammar strictness for sign/dot placement multiplicity.
+49. `N49` Malformed escape failure semantics (hex, Unicode normative name, surrogate, out-of-range).
+50. `N50` Interpolation scanner precedence (`::` escape before `:{...}` placeholder start).
+51. `N51` Longest-match tokenization for multiword/punctuated keywords.
+52. `N52` Assignment grammar normalization (`<variable> R <expression>` canonical form).
+53. `N53` `O RLY?` predecessor-`IT` binding and comma/newline delimitation boundaries.
+54. `N54` `MEBBE` truthiness semantics (`WIN` literal test vs TROOF-cast semantics).
+55. `N55` Rejection behavior for orphan `MEBBE` / `NO WAI` forms.
+56. `N56` `WTF?` predecessor-`IT` binding and delimitation boundaries.
+57. `N57` Loop-label case-sensitivity and duplicate-label policy.
+58. `N58` `HOW DUZ I` vs `HOW IZ I` canonical grammar policy.
+59. `N59` Undefined phrase `SRS BIZNUS cast` mapped to concrete parser/runtime behavior.
+60. `N60` Closed list of syntactic forms that update `IT`.
+61. `N61` `VISIBLE` as statement-special variadic (delimiter closure + suffix `!` behavior).
+62. `N62` `GIMMEH` undeclared-target policy (implicit declaration vs declaration-required).
+63. `N63` TYPE-word dual role (TYPE literal values vs type designators).
+64. `N64` Context-sensitive parsing of type designators in `MAEK` and `IS NOW A`.
+65. `N65` Equality policy for non-numeric complex values (`BUKKIT`, `FUNKSHUN`, `TYPE`).
+66. `N66` Built-in immutability statement vs observable object identity policy.
+67. `N67` `ME` parse acceptance and runtime-only failure when no receiver exists.
+68. `N68` `HOW IZ <object> <slot>` receiver existence/type check stage (parse, definition time, call time).
+69. `N69` Receiver late-binding invariant for mixin-copied function values.
+
+## Third-Tier Crosswalk
+
+Integrated from `third-tier-of-40-issues.md`:
+
+- New IDs: `N43`-`N69`.
+- Mapped to existing IDs (not renumbered as new): `N06`, `N07`, `N09`, `N12`, `N35`, `N38`, `N41`.
 
 ## Status Keys
 
@@ -73,6 +115,6 @@ Then continue by tranche:
 - `needs-change`: policy decision made, implementation not yet aligned.
 - `spec-underdetermined`: no single implied behavior; explicit project policy required.
 
-## Kickoff Tracking
+## Tracking
 
-Initial execution starts with tranche 1 in `spec/traceability/NEXT-BOTTOM-UP-TRANCHE-1-ADJUDICATION.md`.
+Restart-pass adjudication tracking is in `spec/traceability/NEXT-BOTTOM-UP-TRANCHE-1-ADJUDICATION.md`.

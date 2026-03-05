@@ -297,6 +297,14 @@
   (check-eq? (hash-ref orly-mebbe-first-match-wins 'status) 'ok)
   (check-equal? (hash-ref orly-mebbe-first-match-wins 'stdout) "A\n")
 
+  (define orly-mebbe-truthy-cast-src
+    "HAI 1.3\nFAIL\nO RLY?\n  YA RLY\n    VISIBLE \"Y\"\n  MEBBE 3\n    VISIBLE \"M\"\n  NO WAI\n    VISIBLE \"N\"\nOIC\nKTHXBYE\n")
+  (define orly-mebbe-truthy-cast
+    (run-source orly-mebbe-truthy-cast-src))
+  (check-eq? (hash-ref orly-mebbe-truthy-cast 'status) 'ok)
+  ;; Regression/policy: MEBBE condition is evaluated with TROOF truthiness semantics.
+  (check-equal? (hash-ref orly-mebbe-truthy-cast 'stdout) "M\n")
+
   (define orly-no-wai-optional-src
     "HAI 1.3\nFAIL\nO RLY?\n  YA RLY\n    VISIBLE \"Y\"\nOIC\nVISIBLE \"Z\"\nKTHXBYE\n")
   (define orly-no-wai-optional
@@ -780,6 +788,48 @@
   (check-eq? (hash-ref mixin-parent-child-combo 'status) 'ok)
   (check-equal? (hash-ref mixin-parent-child-combo 'stdout) "mix\nmix\n")
 
+  (define mixin-special-parent-restored-src
+    "HAI 1.3\nO HAI IM base1\n  I HAS A tag ITZ \"BASE1\"\nKTHX\nO HAI IM base2\n  I HAS A tag ITZ \"BASE2\"\nKTHX\nO HAI IM mix IM LIEK base1\nKTHX\nO HAI IM child IM LIEK base2 SMOOSH mix\nKTHX\nVISIBLE child'Z tag\nKTHXBYE\n")
+  (define mixin-special-parent-restored
+    (run-source mixin-special-parent-restored-src))
+  (check-eq? (hash-ref mixin-special-parent-restored 'status) 'ok)
+  ;; Regression: mixin parent slot copy must not replace declared IM LIEK parent.
+  (check-equal? (hash-ref mixin-special-parent-restored 'stdout) "BASE2\n")
+
+  (define mixin-special-omgwtf-copied-src
+    "HAI 1.3\nO HAI IM parent\nKTHX\nO HAI IM mix\n  HOW IZ I omgwtf YR slotname\n    FOUND YR SMOOSH \"mix-\" AN slotname MKAY\n  IF U SAY SO\nKTHX\nO HAI IM child IM LIEK parent SMOOSH mix\nKTHX\nVISIBLE child'Z ghost\nKTHXBYE\n")
+  (define mixin-special-omgwtf-copied
+    (run-source mixin-special-omgwtf-copied-src))
+  (check-eq? (hash-ref mixin-special-omgwtf-copied 'status) 'ok)
+  ;; Regression: mixin-provided omgwtf special slot behavior is copied to child.
+  (check-equal? (hash-ref mixin-special-omgwtf-copied 'stdout) "mix-ghost\n")
+
+  (define mixin-special-izmakin-copied-src
+    "HAI 1.3\nO HAI IM parent\nKTHX\nO HAI IM mix\n  HOW IZ I izmakin\n    ME HAS A built ITZ \"YES\"\n  IF U SAY SO\nKTHX\nO HAI IM child IM LIEK parent SMOOSH mix\nKTHX\nVISIBLE child'Z built\nKTHXBYE\n")
+  (define mixin-special-izmakin-copied
+    (run-source mixin-special-izmakin-copied-src))
+  (check-eq? (hash-ref mixin-special-izmakin-copied 'status) 'ok)
+  ;; Regression: mixin-provided izmakin runs during child construction.
+  (check-equal? (hash-ref mixin-special-izmakin-copied 'stdout) "YES\n")
+
+  (define mixin-source-own-only-slots-src
+    "HAI 1.3\nO HAI IM mixbase\n  I HAS A inherited ITZ \"INHERITED\"\nKTHX\nO HAI IM mix IM LIEK mixbase\n  I HAS A own ITZ \"OWN\"\nKTHX\nO HAI IM parent\nKTHX\nO HAI IM child IM LIEK parent SMOOSH mix\nKTHX\nVISIBLE child'Z own\nVISIBLE child'Z inherited\nKTHXBYE\n")
+  (define mixin-source-own-only-slots
+    (run-source mixin-source-own-only-slots-src))
+  (check-eq? (hash-ref mixin-source-own-only-slots 'status) 'runtime-error)
+  ;; Regression: mixin copy source set is own slots/methods, not inherited ones.
+  (check-equal? (hash-ref mixin-source-own-only-slots 'stdout) "OWN\n")
+  (check-true (regexp-match? #px"unknown slot: inherited"
+                             (hash-ref mixin-source-own-only-slots 'error)))
+
+  (define mixin-source-own-only-methods-src
+    "HAI 1.3\nO HAI IM mixbase\n  HOW IZ I inheritedmeth\n    FOUND YR \"INHERITED\"\n  IF U SAY SO\nKTHX\nO HAI IM mix IM LIEK mixbase\nKTHX\nO HAI IM parent\nKTHX\nO HAI IM child IM LIEK parent SMOOSH mix\nKTHX\nchild IZ inheritedmeth MKAY\nKTHXBYE\n")
+  (define mixin-source-own-only-methods
+    (run-source mixin-source-own-only-methods-src))
+  (check-eq? (hash-ref mixin-source-own-only-methods 'status) 'runtime-error)
+  (check-true (regexp-match? #px"unknown method: inheritedmeth"
+                             (hash-ref mixin-source-own-only-methods 'error)))
+
   (define gimmeh-src
     "HAI 1.3\nI HAS A name\nGIMMEH name\nVISIBLE name\nKTHXBYE\n")
   (define gimmeh-result (run-source gimmeh-src #:input "Ada\n"))
@@ -791,6 +841,14 @@
   (define gimmeh-eof-result (run-source gimmeh-eof-src #:input ""))
   (check-eq? (hash-ref gimmeh-eof-result 'status) 'ok)
   (check-equal? (hash-ref gimmeh-eof-result 'stdout) "NOOB\n")
+
+  (define gimmeh-implicit-target-declare-src
+    "HAI 1.3\nGIMMEH fresh\nVISIBLE fresh\nKTHXBYE\n")
+  (define gimmeh-implicit-target-declare
+    (run-source gimmeh-implicit-target-declare-src #:input "Zed\n"))
+  (check-eq? (hash-ref gimmeh-implicit-target-declare 'status) 'ok)
+  ;; Regression/policy: GIMMEH creates missing target binding when undeclared.
+  (check-equal? (hash-ref gimmeh-implicit-target-declare 'stdout) "Zed\n")
 
   (define visible-bang-src
     "HAI 1.3\nVISIBLE \"A\"!\nVISIBLE \"B\"\nKTHXBYE\n")
