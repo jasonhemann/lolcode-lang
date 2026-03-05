@@ -374,6 +374,22 @@
   (check-eq? (hash-ref cast-result 'status) 'ok)
   (check-equal? (hash-ref cast-result 'stdout) "42\n")
 
+  (define maek-local-cast-does-not-mutate-var-src
+    "HAI 1.3\nI HAS A foo ITZ MAEK \"2.5\" A NUMBAR\nI HAS A bar ITZ MAEK foo A NUMBR\nVISIBLE foo\nVISIBLE bar\nKTHXBYE\n")
+  (define maek-local-cast-does-not-mutate-var
+    (run-source maek-local-cast-does-not-mutate-var-src))
+  (check-eq? (hash-ref maek-local-cast-does-not-mutate-var 'status) 'ok)
+  (check-equal? (hash-ref maek-local-cast-does-not-mutate-var 'stdout)
+                "2.50\n2\n")
+
+  (define maek-local-cast-does-not-mutate-slot-src
+    "HAI 1.3\nI HAS A obj ITZ A BUKKIT\nobj HAS A raw ITZ \"41\"\nI HAS A casted ITZ MAEK obj'Z raw A NUMBR\nVISIBLE obj'Z raw\nVISIBLE casted\nKTHXBYE\n")
+  (define maek-local-cast-does-not-mutate-slot
+    (run-source maek-local-cast-does-not-mutate-slot-src))
+  (check-eq? (hash-ref maek-local-cast-does-not-mutate-slot 'status) 'ok)
+  (check-equal? (hash-ref maek-local-cast-does-not-mutate-slot 'stdout)
+                "41\n41\n")
+
   (define cast-relaxed-number-yarn-src
     "HAI 1.3\nVISIBLE MAEK \" 123\" A NUMBR\nKTHXBYE\n")
   (define cast-relaxed-number-yarn

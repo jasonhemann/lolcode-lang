@@ -87,9 +87,9 @@ Legend:
   Spec: comparison section around lines 326+ (currently not represented by dedicated matrix row).  
   Done: added dedicated matrix row (`op.comparison-equality-semantics`) and regressions for `"3"` vs `3` (`FAIL`), explicit cast equality (`WIN`), and NUMBR/NUMBAR numeric-mode comparisons.
 
-- [ ] `19` (notes 143-161) `MAEK` is local cast only; underlying variable unchanged.
+- [x] `19` (notes 143-161) `MAEK` is local cast only; underlying variable unchanged.
   Spec: line 362 (mapped `cast.maek`).  
-  To check: add explicit regression showing source binding type/value unaffected after `MAEK`.
+  Done: added explicit runtime regressions for both variable and slot sources showing `MAEK` returns a converted value without mutating the original binding/slot.
 
 - [ ] `20` (notes 161) Initialization type choice for literals (`I HAS A foo ITZ 2`).
   Spec: line 123 (`unmapped`).  

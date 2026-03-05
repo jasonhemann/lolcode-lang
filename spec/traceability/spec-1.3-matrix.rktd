@@ -268,7 +268,7 @@
        (status . implemented)
        (code-refs . ("src/lolcode/parser.rkt" "src/lolcode/runtime.rkt" "src/lolcode/runtime/value.rkt"))
        (test-refs . ("tests/spec/runtime-core-test.rkt"))
-       (notes . "MAEK compiles through cast-value with explicit conversion semantics; optional [A] token is supported only for MAEK forms."))
+       (notes . "MAEK compiles through cast-value with explicit conversion semantics; optional [A] token is supported only for MAEK forms; MAEK is non-mutating and leaves source bindings/slots unchanged."))
  #hash((id . "cast.is-now-a")
        (spec-version . "1.3")
        (source-file . "spec/upstream/lolcode-spec-v1.3.md")
