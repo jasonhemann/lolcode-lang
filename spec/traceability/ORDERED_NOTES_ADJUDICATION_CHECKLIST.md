@@ -116,25 +116,25 @@ Cross-cutting adjudications:
   Spec: lines 431, 433, 454 (line 433 currently `unmapped`, 431/454 mapped).  
   Done: added explicit runtime/parse tests confirming implicit IT source, branch selection semantics, assignment non-effect on IT before branching, ordered first-match `MEBBE` evaluation, required `YA RLY`, and optional `NO WAI`. Added matrix row `flow.orly-branching-semantics` for line 433.
 
-- [ ] `25` (notes 192-199) `WTF?` literal interpolation exclusion and escaped-colon edge cases.
+- [x] `25` (notes 192-199) `WTF?` literal interpolation exclusion and escaped-colon edge cases.
   Spec: line 486 (mapped).  
-  To check: add tests for `:{var}` rejection and `::` escape non-interpolation behavior.
+  Done: placeholders are now preserved through lexing with internal markers, so `OMG ":{x}"` is rejected as interpolation while `OMG "::{x}"` is accepted as a literal string. Added parse-negative and runtime regressions.
 
-- [ ] `26` (notes 201-205) Runtime error propagation inside `WTF?` and empty `OMG` blocks.
+- [x] `26` (notes 201-205) Runtime error propagation inside `WTF?` and empty `OMG` blocks.
   Spec: line 486 (mapped).  
-  To check: add tests confirming runtime exceptions stop execution and blank case blocks parse/execute correctly.
+  Done: added runtime regressions confirming errors in matched `OMG` bodies halt execution immediately and that blank `OMG` blocks parse/execute with expected fallthrough behavior.
 
-- [ ] `27` (notes 207) Loop updater variable is temporary/local.
+- [x] `27` (notes 207) Loop updater variable is temporary/local.
   Spec: line 564 (mapped).  
-  To check: add explicit shadowing regression demonstrating no outer-scope mutation.
+  Done: covered by existing loop regressions (`loop-counter-scope`, `loop-counter-no-leak`, `loop-counter-dynamic-name`) proving temporary local updater bindings with no outer-scope mutation/leak.
 
 - [ ] `28` (notes 209) Function argument identifier shape (“single-word identifiers”).
   Spec: line 582 (`unmapped`).  
   To check: add parse-negative tests for invalid arg identifiers; decide whether this is redundant with general identifier rule.
 
-- [ ] `29` (notes 211-216) Function return semantics (`GTFO` => NOOB, fallthrough returns IT).
+- [x] `29` (notes 211-216) Function return semantics (`GTFO` => NOOB, fallthrough returns IT).
   Spec: line 590 (mapped).  
-  To check: add explicit positive tests for both return paths in same fixture.
+  Done: covered by existing runtime regressions (`function-gtfo-return`, `function-implicit-it-return`) that assert both return paths.
 
 - [ ] `30` (notes 218-220) Clarify “I parameter” in call syntax.
   Spec: line 604 (`unmapped`).  

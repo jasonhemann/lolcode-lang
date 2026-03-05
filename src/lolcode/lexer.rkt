@@ -3,7 +3,8 @@
 (require racket/port
          racket/string
          parser-tools/lex
-         (prefix-in : parser-tools/lex-sre))
+         (prefix-in : parser-tools/lex-sre)
+         "format-placeholder.rkt")
 
 (provide token
          token?
@@ -463,9 +464,9 @@
      #f]
     [(char=? ch #\{)
      (lexer-cover! 'scan-string-tail!/escaped-placeholder)
-     (display ":{" out)
+     (write-char placeholder-start-char out)
      (display (scan-string-format-placeholder! in line col) out)
-     (write-char #\} out)
+     (write-char placeholder-end-char out)
      #f]
     [else
      ;; Unknown escape: keep the colon literally.

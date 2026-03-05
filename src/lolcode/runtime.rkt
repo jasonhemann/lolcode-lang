@@ -5,6 +5,7 @@
          racket/match
          racket/string
          "ast.rkt"
+         "format-placeholder.rkt"
          "runtime/env.rkt"
          "runtime/value.rkt"
          "runtime/operators.rkt")
@@ -172,21 +173,33 @@
 
 (define (expand-format-placeholders e text)
   (define out (open-output-string))
-  (define pattern #px":\\{([^\\}]*)\\}")
-  (define (loop start)
-    (match (regexp-match-positions pattern text start)
-      [#f
-       (display (substring text start) out)
-       (get-output-string out)]
-      [(list (cons match-start match-end)
-             (cons name-start name-end))
-       (define raw-name (substring text name-start name-end))
-       (define name (string-trim raw-name))
-       (when (string=? name "")
-         (error 'run-program "empty :{...} placeholder in YARN literal"))
-       (display (substring text start match-start) out)
-       (display (lol-string (env-ref e name)) out)
-       (loop match-end)]))
+  (define len (string-length text))
+  (define (find-placeholder-end from)
+    (let loop ([i from])
+      (cond
+        [(>= i len) #f]
+        [(placeholder-end? (string-ref text i)) i]
+        [else (loop (add1 i))])))
+  (define (loop i)
+    (cond
+      [(>= i len) (get-output-string out)]
+      [else
+       (define ch (string-ref text i))
+       (cond
+         [(placeholder-start? ch)
+          (define end-i (find-placeholder-end (add1 i)))
+          (unless end-i
+            (error 'run-program "unterminated :{...} placeholder in YARN literal"))
+          (define raw-name
+            (substring text (add1 i) end-i))
+          (define name (string-trim raw-name))
+          (when (string=? name "")
+            (error 'run-program "empty :{...} placeholder in YARN literal"))
+          (display (lol-string (env-ref e name)) out)
+          (loop (add1 end-i))]
+         [else
+          (write-char ch out)
+          (loop (add1 i))])]))
   (loop 0))
 
 (define (resolve-bukkit who value)

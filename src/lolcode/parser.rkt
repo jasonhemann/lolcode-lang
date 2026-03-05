@@ -12,6 +12,7 @@
                   position-col)
          parser-tools/yacc
          "ast.rkt"
+         "format-placeholder.rkt"
          "lexer.rkt")
 
 (provide parse-source)
@@ -258,11 +259,8 @@
               "loop updater call must target a function name, got ~e"
               target)]))
 
-(define switch-interpolation-rx
-  #px":\\{[^\\}]*\\}")
-
 (define (switch-string->literal text)
-  (when (regexp-match? switch-interpolation-rx text)
+  (when (contains-placeholder-marker? text)
     (error 'parse-source
            "WTF? case literal cannot contain YARN interpolation (:{...})"))
   (expr-string text))

@@ -345,6 +345,11 @@
   (check-exn #px"WTF\\? case literal cannot contain YARN interpolation"
              (lambda () (parse-program interpolated-wtf-string-case)))
 
+  (define escaped-interpolation-wtf-string-case
+    "HAI 1.3\nI HAS A n ITZ \"x\"\nn, WTF?\n  OMG \"::{n}\"\n    VISIBLE \"ok\"\nOIC\nKTHXBYE\n")
+  (check-not-exn
+   (lambda () (parse-program escaped-interpolation-wtf-string-case)))
+
   (define orly-missing-ya-rly
     "HAI 1.3\nWIN\nO RLY?\n  NO WAI\n    VISIBLE \"N\"\nOIC\nKTHXBYE\n")
   (check-exn #px"syntax error:"

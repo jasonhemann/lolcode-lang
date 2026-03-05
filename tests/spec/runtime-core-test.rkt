@@ -159,6 +159,29 @@
   (check-exn #px"duplicate OMG literal in WTF\\?"
              (lambda () (parse-program switch-duplicate-src)))
 
+  (define switch-literal-escaped-placeholder-src
+    "HAI 1.3\nI HAS A n ITZ \"n\"\nI HAS A probe ITZ \"::{n}\"\nprobe, WTF?\n  OMG \"::{n}\"\n    VISIBLE \"LIT\"\n    GTFO\n  OMGWTF\n    VISIBLE \"MISS\"\nOIC\nKTHXBYE\n")
+  (define switch-literal-escaped-placeholder
+    (run-source switch-literal-escaped-placeholder-src))
+  (check-eq? (hash-ref switch-literal-escaped-placeholder 'status) 'ok)
+  (check-equal? (hash-ref switch-literal-escaped-placeholder 'stdout) "LIT\n")
+
+  (define switch-runtime-error-propagates-src
+    "HAI 1.3\n1, WTF?\n  OMG 1\n    SUM OF NOOB AN 1\n  OMGWTF\n    VISIBLE \"BAD\"\nOIC\nVISIBLE \"AFTER\"\nKTHXBYE\n")
+  (define switch-runtime-error-propagates
+    (run-source switch-runtime-error-propagates-src))
+  (check-eq? (hash-ref switch-runtime-error-propagates 'status) 'runtime-error)
+  (check-equal? (hash-ref switch-runtime-error-propagates 'stdout) "")
+  (check-true (regexp-match? #px"cannot cast NOOB to numeric value"
+                             (hash-ref switch-runtime-error-propagates 'error)))
+
+  (define switch-empty-omg-fallthrough-src
+    "HAI 1.3\n1, WTF?\n  OMG 1\n  OMG 2\n    VISIBLE \"FALL\"\n    GTFO\n  OMGWTF\n    VISIBLE \"BAD\"\nOIC\nKTHXBYE\n")
+  (define switch-empty-omg-fallthrough
+    (run-source switch-empty-omg-fallthrough-src))
+  (check-eq? (hash-ref switch-empty-omg-fallthrough 'status) 'ok)
+  (check-equal? (hash-ref switch-empty-omg-fallthrough 'stdout) "FALL\n")
+
   (define function-src
     "HAI 1.3\nHOW IZ I addin YR x AN YR y\n  FOUND YR SUM OF x AN y\nIF U SAY SO\nI HAS A result ITZ I IZ addin YR 2 AN YR 3 MKAY\nVISIBLE result\nKTHXBYE\n")
   (define function-result (run-source function-src))
@@ -738,6 +761,14 @@
   (define format-string-result (run-source format-string-src))
   (check-eq? (hash-ref format-string-result 'status) 'ok)
   (check-equal? (hash-ref format-string-result 'stdout) "HI Ada! #42\n")
+
+  (define format-string-escaped-placeholder-src
+    "HAI 1.3\nI HAS A name ITZ \"Ada\"\nVISIBLE \"::{name}\"\nKTHXBYE\n")
+  (define format-string-escaped-placeholder
+    (run-source format-string-escaped-placeholder-src))
+  (check-eq? (hash-ref format-string-escaped-placeholder 'status) 'ok)
+  (check-equal? (hash-ref format-string-escaped-placeholder 'stdout)
+                ":{name}\n")
 
   (define format-string-missing-src
     "HAI 1.3\nVISIBLE \"HI :{missing}\"\nKTHXBYE\n")
