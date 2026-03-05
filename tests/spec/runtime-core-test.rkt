@@ -645,6 +645,22 @@
   (check-equal? (hash-ref method-lookup-order 'stdout)
                 "ARG\nSLOT\nGLOBAL-H\n")
 
+  (define slot-function-receiver-namespace-src
+    "HAI 1.3\nHOW IZ I funkin YR shun\n  FOUND YR SMOOSH prefix AN shun MKAY\nIF U SAY SO\nO HAI IM parentClass\n  I HAS A prefix ITZ \"parentClass-\"\n  I HAS A runin ITZ funkin\nKTHX\nO HAI IM childClass IM LIEK parentClass\n  I HAS A prefix ITZ \"childClass-\"\nKTHX\nVISIBLE parentClass IZ runin YR \"A\" MKAY\nVISIBLE childClass IZ runin YR \"B\" MKAY\nKTHXBYE\n")
+  (define slot-function-receiver-namespace
+    (run-source slot-function-receiver-namespace-src))
+  (check-eq? (hash-ref slot-function-receiver-namespace 'status) 'ok)
+  (check-equal? (hash-ref slot-function-receiver-namespace 'stdout)
+                "parentClass-A\nchildClass-B\n")
+
+  (define slot-function-receiver-assignment-src
+    "HAI 1.3\nHOW IZ I setprefix YR p\n  prefix R p\n  FOUND YR prefix\nIF U SAY SO\nO HAI IM parentClass\n  I HAS A prefix ITZ \"parentClass-\"\n  I HAS A runin ITZ setprefix\nKTHX\nO HAI IM childClass IM LIEK parentClass\n  I HAS A prefix ITZ \"childClass-\"\nKTHX\nVISIBLE childClass IZ runin YR \"childClass+\" MKAY\nVISIBLE childClass'Z prefix\nVISIBLE parentClass'Z prefix\nKTHXBYE\n")
+  (define slot-function-receiver-assignment
+    (run-source slot-function-receiver-assignment-src))
+  (check-eq? (hash-ref slot-function-receiver-assignment 'status) 'ok)
+  (check-equal? (hash-ref slot-function-receiver-assignment 'stdout)
+                "childClass+\nchildClass+\nparentClass-\n")
+
   (define inherited-method-slot-independence-src
     "HAI 1.3\nO HAI IM parent\n  I HAS A val ITZ 1\n  HOW IZ I bump\n    val R SUM OF val AN 1\n    FOUND YR val\n  IF U SAY SO\nKTHX\nO HAI IM child IM LIEK parent\nKTHX\nVISIBLE parent IZ bump MKAY\nVISIBLE child IZ bump MKAY\nVISIBLE parent'Z val\nVISIBLE child'Z val\nKTHXBYE\n")
   (define inherited-method-slot-independence
@@ -661,6 +677,31 @@
   (check-eq? (hash-ref inherited-parent-mutation-visibility 'status) 'ok)
   (check-equal? (hash-ref inherited-parent-mutation-visibility 'stdout)
                 "5\n5\n7\n")
+
+  (define parent-slot-reparenting-src
+    "HAI 1.3\nO HAI IM a\n  I HAS A val ITZ \"A\"\nKTHX\nO HAI IM b\n  I HAS A val ITZ \"B\"\nKTHX\nO HAI IM c IM LIEK a\nKTHX\nVISIBLE c'Z val\nc'Z parent R b\nVISIBLE c'Z val\nKTHXBYE\n")
+  (define parent-slot-reparenting
+    (run-source parent-slot-reparenting-src))
+  (check-eq? (hash-ref parent-slot-reparenting 'status) 'ok)
+  (check-equal? (hash-ref parent-slot-reparenting 'stdout)
+                "A\nB\n")
+
+  (define parent-cycle-lookup-terminates-src
+    "HAI 1.3\nO HAI IM a\n  I HAS A keep ITZ 1\nKTHX\nO HAI IM b IM LIEK a\nKTHX\na'Z parent R b\nVISIBLE b'Z keep\nVISIBLE b'Z missing\nKTHXBYE\n")
+  (define parent-cycle-lookup-terminates
+    (run-source parent-cycle-lookup-terminates-src))
+  (check-eq? (hash-ref parent-cycle-lookup-terminates 'status) 'runtime-error)
+  (check-equal? (hash-ref parent-cycle-lookup-terminates 'stdout) "1\n")
+  (check-true (regexp-match? #px"unknown slot: missing"
+                             (hash-ref parent-cycle-lookup-terminates 'error)))
+
+  (define inherited-assignment-unknown-name-src
+    "HAI 1.3\nO HAI IM parent\nKTHX\nO HAI IM child IM LIEK parent\nKTHX\nchild'Z ghost R 5\nKTHXBYE\n")
+  (define inherited-assignment-unknown-name
+    (run-source inherited-assignment-unknown-name-src))
+  (check-eq? (hash-ref inherited-assignment-unknown-name 'status) 'runtime-error)
+  (check-true (regexp-match? #px"unknown slot: ghost"
+                             (hash-ref inherited-assignment-unknown-name 'error)))
 
   (define function-storage-src
     "HAI 1.3\nHOW IZ I fun1\n  FOUND YR \"a\"\nIF U SAY SO\nI HAS A foo ITZ A BUKKIT\nfoo HAS A var1 ITZ fun1\nVISIBLE I IZ foo'Z var1 MKAY\nKTHXBYE\n")
@@ -680,6 +721,20 @@
   (check-eq? (hash-ref mixin-object 'status) 'ok)
   ;; Reverse-order copy means mix1 overrides mix2 for duplicate slots.
   (check-equal? (hash-ref mixin-object 'stdout) "1\n10\n30\n")
+
+  (define mixin-static-snapshot-src
+    "HAI 1.3\nO HAI IM parent\nKTHX\nO HAI IM mix\n  I HAS A v ITZ 1\nKTHX\nO HAI IM child IM LIEK parent SMOOSH mix\nKTHX\nmix'Z v R 9\nVISIBLE child'Z v\nKTHXBYE\n")
+  (define mixin-static-snapshot
+    (run-source mixin-static-snapshot-src))
+  (check-eq? (hash-ref mixin-static-snapshot 'status) 'ok)
+  (check-equal? (hash-ref mixin-static-snapshot 'stdout) "1\n")
+
+  (define mixin-parent-child-combo-src
+    "HAI 1.3\nO HAI IM parent\n  I HAS A x ITZ \"parent\"\nKTHX\nO HAI IM mix\n  I HAS A x ITZ \"mix\"\nKTHX\nO HAI IM child IM LIEK parent SMOOSH mix\nKTHX\nVISIBLE child'Z x\nparent'Z x R \"parent2\"\nVISIBLE child'Z x\nKTHXBYE\n")
+  (define mixin-parent-child-combo
+    (run-source mixin-parent-child-combo-src))
+  (check-eq? (hash-ref mixin-parent-child-combo 'status) 'ok)
+  (check-equal? (hash-ref mixin-parent-child-combo 'stdout) "mix\nmix\n")
 
   (define gimmeh-src
     "HAI 1.3\nI HAS A name\nGIMMEH name\nVISIBLE name\nKTHXBYE\n")

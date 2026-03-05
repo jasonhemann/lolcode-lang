@@ -365,6 +365,11 @@
   (check-exn #px"nested HOW IZ I definitions are not allowed in strict 1.3"
              (lambda () (parse-program nested-function-def)))
 
+  (define nested-function-def-in-method
+    "HAI 1.3\nO HAI IM obj\n  HOW IZ I outer\n    HOW IZ I inner\n      FOUND YR 1\n    IF U SAY SO\n    FOUND YR I IZ inner MKAY\n  IF U SAY SO\nKTHX\nKTHXBYE\n")
+  (check-exn #px"nested HOW IZ I definitions are not allowed in strict 1.3"
+             (lambda () (parse-program nested-function-def-in-method)))
+
   (define function-dynamic-arg-name
     "HAI 1.3\nI HAS A n ITZ \"x\"\nHOW IZ I f YR SRS n\n  FOUND YR x\nIF U SAY SO\nKTHXBYE\n")
   (check-exn #px"syntax error:"

@@ -376,7 +376,8 @@
        (define fn-name
          (name-proc e ctx))
        (define fn (resolve-callable e ctx fn-name "function"))
-       (fn e
+       ;; Strict 1.3 function calls use global namespace, not caller-local scope.
+       (fn (runtime-globals ctx)
            (map (lambda (a) (a e ctx)) arg-procs)
            ctx))]
 
@@ -397,6 +398,21 @@
          (name-proc e ctx))
        (define arg-values
          (map (lambda (a) (a e ctx)) arg-procs))
+       (define (invoke-slot-callable obj slot-fn)
+         (define-values (projected-table own-slot-names inherited-before)
+           (project-receiver-slot-frame obj))
+         (define receiver-env
+           (env-with-table projected-table (runtime-globals ctx)))
+         (dynamic-wind
+           void
+           (lambda ()
+             (slot-fn receiver-env arg-values ctx))
+           (lambda ()
+             (sync-receiver-slot-frame!
+              obj
+              projected-table
+              own-slot-names
+              inherited-before))))
        (define (invoke-on-object obj)
          (send obj
                invoke-method
@@ -408,10 +424,10 @@
                   (send obj lookup-slot method-name #f))
                  (cond
                    [(procedure? maybe-slot-callable)
-                    (maybe-slot-callable e arg-values ctx)]
+                    (invoke-slot-callable obj maybe-slot-callable)]
                    [else
                     ((resolve-callable e ctx method-name "method")
-                     e
+                     (runtime-globals ctx)
                      arg-values
                      ctx)]))))
        (cond
@@ -427,7 +443,7 @@
                      [ns-fn-box (env-lookup-box e ns-fn-name)]
                      [ns-fn (and ns-fn-box (unbox ns-fn-box))])
                 (if (procedure? ns-fn)
-                    (ns-fn e arg-values ctx)
+                    (ns-fn (runtime-globals ctx) arg-values ctx)
                     (error 'run-program "unknown identifier: ~a" receiver-ident))))]
          [else
           (define obj (recv-proc e ctx))
@@ -664,17 +680,20 @@
           (env-parent def-env)
           def-env))
     (define (make-global-fn fn-name param-names)
-      (lambda (_caller-env arg-values caller-ctx)
+      (lambda (caller-env arg-values caller-ctx)
         (unless (= (length param-names) (length arg-values))
           (error 'run-program
                  "function ~a expected ~a args, got ~a"
                  fn-name
                  (length param-names)
                  (length arg-values)))
-        ;; LOLCODE functions use a fresh local frame over globals.
-        ;; This prevents capture of surrounding local scopes while
-        ;; keeping global callables and declarations visible.
-        (define call-env (extend-env (runtime-globals caller-ctx)))
+        ;; Caller selects namespace root:
+        ;; - normal I IZ calls pass runtime globals
+        ;; - slot-access function calls pass receiver-projected env
+        (define call-root
+          (or caller-env
+              (runtime-globals caller-ctx)))
+        (define call-env (extend-env call-root))
         (for ([param (in-list param-names)]
               [arg (in-list arg-values)])
           (env-define! call-env param arg))

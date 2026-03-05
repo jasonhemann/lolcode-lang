@@ -136,9 +136,9 @@ Cross-cutting adjudications:
   Spec: line 590 (mapped).  
   Done: covered by existing runtime regressions (`function-gtfo-return`, `function-implicit-it-return`) that assert both return paths.
 
-- [ ] `30` (notes 218-220) Clarify “I parameter” in call syntax.
+- [x] `30` (notes 218-220) Clarify “I parameter” in call syntax.
   Spec: line 604 (`unmapped`).  
-  To check: add docs/matrix note: this is syntactic marker for namespace-style call forms, not an implicit runtime parameter.
+  Done: added matrix row `fn.call-i-namespace-marker`; parser/runtime treat `I` as call-form syntax marker (`I IZ ...`), not as an implicit runtime parameter.
 
 ## Phase 4: BUKKIT / Methods / Inheritance (in notes order)
 
@@ -146,9 +146,9 @@ Cross-cutting adjudications:
   Spec: lines 632/634 prose and line 738 mapped.  
   Done: added explicit slot re-declaration overwrite regression (`HAS A` same slot twice => overwrite), plus existing `SRS` slotname/method-slot regressions retained.
 
-- [ ] `32` (notes 231-237) `HOW IZ <object> <slot>` method declaration and nested-def behavior.
+- [x] `32` (notes 231-237) `HOW IZ <object> <slot>` method declaration and nested-def behavior.
   Spec: lines 649+ prose. Matrix: covered indirectly by `bukkit.slot-access`/`bukkit.declaration`; nested defs are currently parser-rejected in strict mode.  
-  To check: add explicit parser-policy test and note in matrix.
+  Done: added explicit parser-policy regression for nested `HOW IZ I` inside method body (`nested-function-def-in-method`) and retained strict rejection behavior.
 
 - [x] `33` (notes 239-253) Function lookup order in object context (`function -> object -> global`) and IT rule.
   Spec: lines 666-672 (line 672 mapped; 666-670 currently not dedicated).  
@@ -174,25 +174,25 @@ Cross-cutting adjudications:
   Spec: line 768 (mapped).  
   Done: added regressions for default missing-slot read error and custom `omgwtf` override on missing-slot reads (`missing-slot-default-omgwtf`, `custom-omgwtf-on-missing-slot`), plus call-failure tests for missing and non-callable slots.
 
-- [ ] `39` (notes 321-329) Reparenting (`parent` slot mutation), cycle safety, and lookup behavior in cyclic graphs.
+- [x] `39` (notes 321-329) Reparenting (`parent` slot mutation), cycle safety, and lookup behavior in cyclic graphs.
   Spec: line 790 (mapped) + lookup prose around 792+ (partly unmapped).  
-  To check: add cycle-focused tests for slot lookup and assignment traversal.
+  Done: added runtime regressions for explicit reparenting via `parent` slot mutation and cycle traversal safety (`parent-slot-reparenting`, `parent-cycle-lookup-terminates`).
 
-- [ ] `40` (notes 331-337) Inherited-name assignment copy-on-write and declaration error when not found.
+- [x] `40` (notes 331-337) Inherited-name assignment copy-on-write and declaration error when not found.
   Spec: line 798 (mapped).  
-  To check: ensure both positive and negative tests exist; include cycle path safety check.
+  Done: positive copy-on-write coverage remains in inherited independence tests; added explicit missing-name assignment error regression (`inherited-assignment-unknown-name`).
 
-- [ ] `41` (notes 338-343) Slot-Access Function call lexical source object semantics.
+- [x] `41` (notes 338-343) Slot-Access Function call lexical source object semantics.
   Spec: lines 804/810 (`unmapped`).  
-  To check: add dedicated matrix row and regression tests using receiver-dependent variable resolution.
+  Done: runtime now invokes slot-callable functions with receiver-projected scope; added matrix row `bukkit.slot-function-receiver-lookup` and receiver-sensitive regressions.
 
-- [ ] `42` (notes 344-362) “funkin/prefix” receiver-dependent lookup example.
+- [x] `42` (notes 344-362) “funkin/prefix” receiver-dependent lookup example.
   Spec: lines 804/810 (`unmapped`).  
-  To check: add snippet verbatim as strict 1.3 fixture (normalized into full program).
+  Done: added executable fixture mirroring the spec’s `funkin/prefix` behavior (`slot-function-receiver-namespace`) and an assignment variant (`slot-function-receiver-assignment`).
 
-- [ ] `43` (notes 364-372) Mixins reverse order and static snapshot semantics (+ parent/child mixin edge cases).
+- [x] `43` (notes 364-372) Mixins reverse order and static snapshot semantics (+ parent/child mixin edge cases).
   Spec: line 849 (mapped) and static behavior prose nearby (`unmapped`).  
-  To check: add tests for post-mixin source mutation non-propagation and parent/child mixin combinations.
+  Done: added regressions for static snapshot non-propagation and parent+mix edge precedence (`mixin-static-snapshot`, `mixin-parent-child-combo`) in addition to existing reverse-order duplicate coverage.
 
 ## Phase 5: Matrix and Test Harness Integrity (ordered follow-through)
 
@@ -217,7 +217,11 @@ Current snapshots from latest run:
 - Strict in-scope 1.3 (gap report): `13` files, `10 parse-ok`, `9 eval-ok`, `3 parse-error`, `1 runtime-error`.
 - External harvested evidence: `302` fixtures assessed; observed statuses `301 parse-error`, `1 ok`; all currently triaged `unknown` in evidence table.
 
+Latest checklist-batch delta (`2026-03-05`, post items `30/32/39-43`):
+- Re-ran all three scripts in sequence; snapshot counts are unchanged from the prior recorded run.
+- No new strict-1.3 corpus regressions surfaced from this tranche.
+
 Next corpus/harvest actions tied to this checklist:
 - [ ] `47` Partition parse-errors into `strict-non-1.3`, `spec-divergence`, `program-bug`.
 - [ ] `48` Promote any checklist-related external fixtures into stable positive/negative regressions.
-- [ ] `49` Re-run all three scripts after each checklist batch and append deltas to this file.
+- [x] `49` Re-run all three scripts after each checklist batch and append deltas to this file.
