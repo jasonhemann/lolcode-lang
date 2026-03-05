@@ -110,6 +110,14 @@
   (check-eq? (hash-ref srs-numeric-target 'status) 'ok)
   (check-equal? (hash-ref srs-numeric-target 'last-value) 'NOOB)
 
+  (define srs-keyword-name-in-function-arg-src
+    "HAI 1.3\nI HAS A kw ITZ \"MKAY\"\nI HAS A SRS kw ITZ 7\nHOW IZ I echo YR x\n  FOUND YR x\nIF U SAY SO\nVISIBLE I IZ echo YR SRS kw MKAY\nKTHXBYE\n")
+  (define srs-keyword-name-in-function-arg
+    (run-source srs-keyword-name-in-function-arg-src))
+  (check-eq? (hash-ref srs-keyword-name-in-function-arg 'status) 'ok)
+  (check-equal? (hash-ref srs-keyword-name-in-function-arg 'stdout)
+                "7\n")
+
   (define bukkit-slot-src
     "HAI 1.3\nI HAS A obj ITZ A BUKKIT\nobj HAS A answer ITZ 42\nVISIBLE obj'Z answer\nKTHXBYE\n")
   (define bukkit-slot (run-source bukkit-slot-src))

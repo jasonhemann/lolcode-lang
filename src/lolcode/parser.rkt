@@ -825,8 +825,7 @@
      [(SRS expr-no-postfix) (expr-srs $2)])
 
     (ident-token
-     [(ID) (ensure-identifier-token 'parse-source $1)]
-     [(SUM) "SUM"])
+     [(ID) (ensure-identifier-token 'parse-source $1)])
 
     (call-args
      [() '()]

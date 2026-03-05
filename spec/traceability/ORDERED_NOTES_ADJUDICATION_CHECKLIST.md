@@ -11,6 +11,9 @@ Legend:
 - `mapped`: clause has a matrix row in `spec-1.3-matrix.rktd`
 - `unmapped`: clause currently appears in the unmapped normative list
 
+Cross-cutting adjudications:
+- `var.keyword-token-reservation-adjudication`: strict reserved-keyword policy for direct identifier positions. Rationale: avoid unresolved parses where keyword lexemes can be read both as delimiters and as identifiers (for example, `VISIBLE SMOOSH x AN y MKAY` and `VISIBLE SMOOSH "A" MKAY`). Use `SRS` for keyword-shaped names when needed.
+
 ## Phase 1: Formatting / Lex / Parse (in notes order)
 
 - [x] `01` (notes 1-13) Comma soft-break + line continuation interaction; statement boundary semantics.

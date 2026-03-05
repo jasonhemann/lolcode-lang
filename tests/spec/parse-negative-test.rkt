@@ -284,9 +284,23 @@
 
   (define reserved-keyword-name
     "HAI 1.3\nI HAS A SUM ITZ 1\nKTHXBYE\n")
-  (define reserved-keyword-name-msg
-    (capture-message (lambda () (parse-program reserved-keyword-name))))
-  (check-false reserved-keyword-name-msg)
+  (check-exn #px"syntax error:"
+             (lambda () (parse-program reserved-keyword-name)))
+
+  (define reserved-keyword-an-name
+    "HAI 1.3\nI HAS A AN ITZ 1\nKTHXBYE\n")
+  (check-exn #px"syntax error:"
+             (lambda () (parse-program reserved-keyword-an-name)))
+
+  (define reserved-keyword-mkay-name
+    "HAI 1.3\nI HAS A MKAY ITZ 1\nKTHXBYE\n")
+  (check-exn #px"syntax error:"
+             (lambda () (parse-program reserved-keyword-mkay-name)))
+
+  (define reserved-keyword-mkay-arg
+    "HAI 1.3\nHOW IZ I echo YR x\n  FOUND YR x\nIF U SAY SO\nVISIBLE I IZ echo YR MKAY MKAY\nKTHXBYE\n")
+  (check-exn #px"syntax error:"
+             (lambda () (parse-program reserved-keyword-mkay-arg)))
 
   (define nonliteral-wtf-case
     "HAI 1.3\nI HAS A x ITZ 1\nI HAS A y ITZ 1\nx, WTF?\n  OMG y\n    VISIBLE \"bad\"\nOIC\nKTHXBYE\n")
