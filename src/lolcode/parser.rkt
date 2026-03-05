@@ -592,6 +592,10 @@
      [(A) (void)]
      [(AN) (void)])
 
+    (article
+     [(A) (void)]
+     [(AN) (void)])
+
     (declare-stmt
      [(I HAS article-opt declare-target declare-init-opt) (stmt-declare $4 $5)])
 
@@ -618,7 +622,7 @@
      [(GIMMEH expr) (stmt-input $2)])
 
     (slot-set-stmt
-     [(expr HAS article-opt slot-target slot-init-opt) (stmt-slot-set $1 $4 $5)])
+     [(expr HAS article slot-target slot-init-opt) (stmt-slot-set $1 $4 $5)])
 
     (slot-target
      [(ident-token) (expr-ident $1)]

@@ -101,11 +101,11 @@
   (check-eq? (hash-ref bukkit-slot 'status) 'ok)
   (check-equal? (hash-ref bukkit-slot 'stdout) "42\n")
 
-  (define bukkit-slot-no-article-src
-    "HAI 1.3\nI HAS A obj ITZ A BUKKIT\nobj HAS answer ITZ 41\nobj'Z answer R SUM OF obj'Z answer AN 1\nVISIBLE obj'Z answer\nKTHXBYE\n")
-  (define bukkit-slot-no-article (run-source bukkit-slot-no-article-src))
-  (check-eq? (hash-ref bukkit-slot-no-article 'status) 'ok)
-  (check-equal? (hash-ref bukkit-slot-no-article 'stdout) "42\n")
+  (define bukkit-slot-update-src
+    "HAI 1.3\nI HAS A obj ITZ A BUKKIT\nobj HAS A answer ITZ 41\nobj'Z answer R SUM OF obj'Z answer AN 1\nVISIBLE obj'Z answer\nKTHXBYE\n")
+  (define bukkit-slot-update (run-source bukkit-slot-update-src))
+  (check-eq? (hash-ref bukkit-slot-update 'status) 'ok)
+  (check-equal? (hash-ref bukkit-slot-update 'stdout) "42\n")
 
   (define bukkit-srs-numeric-slot-src
     "HAI 1.3\nI HAS A obj ITZ A BUKKIT\nobj HAS A SRS 0 ITZ 41\nobj'Z SRS 0 R SUM OF obj'Z SRS 0 AN 1\nVISIBLE obj'Z SRS 0\nKTHXBYE\n")

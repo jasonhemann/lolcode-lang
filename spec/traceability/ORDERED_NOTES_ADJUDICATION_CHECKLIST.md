@@ -49,7 +49,8 @@ Legend:
 
 - [ ] `09` (notes 80) Optional article `A` usage boundaries.
   Spec: line 189 (mapped), MAEK grammar line 362 (mapped).  
-  To check: enumerate every grammar site where optional article is allowed; add parse-negative tests where omitted article is not legal.
+  Progress: tightened slot-creation grammar to require `HAS A/AN` and added parse-negative coverage rejecting bare `HAS`.
+  To check: finish full grammar-site enumeration for all optional-article positions and add remaining negative tests.
 
 - [ ] `10` (notes 82) Assignment to undeclared identifiers in core scope.
   Spec: line 205 (mapped) but explicit undeclared-assignment behavior is not clearly stated.  

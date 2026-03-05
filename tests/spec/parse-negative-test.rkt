@@ -222,8 +222,8 @@
 
   (define slot-set-without-article
     "HAI 1.3\nI HAS A obj ITZ A BUKKIT\nobj HAS foo ITZ 1\nKTHXBYE\n")
-  (check-not-exn
-   (lambda () (parse-program slot-set-without-article)))
+  (check-exn #px"syntax error:"
+             (lambda () (parse-program slot-set-without-article)))
 
   (define unterminated-block-comment
     "HAI 1.3\nOBTW\nVISIBLE \"oops\"\nKTHXBYE\n")
