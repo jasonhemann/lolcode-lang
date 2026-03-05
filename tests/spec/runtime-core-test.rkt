@@ -204,6 +204,20 @@
   ;; Regression: function call frames must initialize IT independently.
   (check-equal? (hash-ref function-it-reset 'stdout) "NOOB\nNOOB\n")
 
+  (define it-local-main-and-function-src
+    "HAI 1.3\nSUM OF 1 AN 2\nHOW IZ I check\n  VISIBLE IT\n  SUM OF 4 AN 5\n  FOUND YR IT\nIF U SAY SO\nI HAS A r ITZ I IZ check MKAY\nVISIBLE IT\nVISIBLE r\nKTHXBYE\n")
+  (define it-local-main-and-function
+    (run-source it-local-main-and-function-src))
+  (check-eq? (hash-ref it-local-main-and-function 'status) 'ok)
+  (check-equal? (hash-ref it-local-main-and-function 'stdout) "NOOB\n3\n9\n")
+
+  (define method-it-global-lookup-src
+    "HAI 1.3\nSUM OF 1 AN 2\nO HAI IM obj\n  HOW IZ I bump\n    SUM OF IT AN 1\n    FOUND YR IT\n  IF U SAY SO\nKTHX\nSUM OF 1 AN 2\nI HAS A r ITZ obj IZ bump MKAY\nVISIBLE r\nVISIBLE IT\nKTHXBYE\n")
+  (define method-it-global-lookup
+    (run-source method-it-global-lookup-src))
+  (check-eq? (hash-ref method-it-global-lookup 'status) 'ok)
+  (check-equal? (hash-ref method-it-global-lookup 'stdout) "4\n4\n")
+
   (define expr-stmt-src
     "HAI 1.3\nHOW IZ I ping\n  VISIBLE \"P\"\nIF U SAY SO\nI IZ ping MKAY\nKTHXBYE\n")
   (define expr-stmt-result (run-source expr-stmt-src))

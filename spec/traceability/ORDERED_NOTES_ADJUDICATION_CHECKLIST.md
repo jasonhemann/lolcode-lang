@@ -101,9 +101,9 @@ Legend:
 
 ## Phase 3: IT / Control / Functions (in notes order)
 
-- [ ] `22` (notes 169-177) Reconcile “IT local scope” vs object-function “IT global lookup”.
+- [x] `22` (notes 169-177) Reconcile “IT local scope” vs object-function “IT global lookup”.
   Spec: line 407 (`unmapped`), line 672 (`mapped`).  
-  To check: add matrix row for line 407; add tests for local IT in main/function and global IT lookup in object-function context.
+  Done: added matrix row `flow.expr-stmt-it-local-scope` for line 407 and runtime regressions covering local IT behavior in main/function scopes plus global IT aliasing in method context (line 672).
 
 - [ ] `23` (notes 179) Assignment operator identification and strict grammar.
   Spec: line 411 (`unmapped`) + line 205 (`mapped`).  
