@@ -1,6 +1,7 @@
 #lang racket/base
 
 (require racket/class
+         racket/format
          racket/list
          racket/string
          "env.rkt")
@@ -176,10 +177,27 @@
 (define (lol-object? v)
   (is-a? v lol-object%))
 
+(define (truncate-real-decimals n places)
+  (define scale (expt 10 places))
+  (define scaled (* n scale))
+  (define clipped
+    (if (negative? scaled)
+        (ceiling scaled)
+        (floor scaled)))
+  (/ clipped scale))
+
+(define (format-numbar n)
+  (~r (truncate-real-decimals n 2)
+      #:precision '(= 2)))
+
 (define (lol-string v)
   (cond
     [(eq? v noob) "NOOB"]
     [(boolean? v) (if v "WIN" "FAIL")]
+    [(and (number? v)
+          (rational? v)
+          (inexact? v))
+     (format-numbar v)]
     [(number? v) (number->string v)]
     [(string? v) v]
     [(lol-object? v) "<BUKKIT>"]
@@ -198,7 +216,11 @@
       (and (not a) b)))
 
 (define (coerce-number who v)
-  (coerce-cast-number who v))
+  (cond
+    [(eq? v noob)
+     (error who "cannot cast NOOB to numeric value")]
+    [else
+     (coerce-cast-number who v)]))
 
 (define strict-numeric-yarn-rx
   #px"^-?[0-9]+(?:\\.[0-9]+)?$")

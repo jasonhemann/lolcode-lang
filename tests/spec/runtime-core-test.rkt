@@ -289,6 +289,23 @@
   (check-true (regexp-match? #px"cannot cast YARN to numeric value"
                              (hash-ref cast-scientific-number-yarn 'error)))
 
+  (define noob-arithmetic-src
+    "HAI 1.3\nVISIBLE SUM OF NOOB AN 1\nKTHXBYE\n")
+  (define noob-arithmetic-result
+    (run-source noob-arithmetic-src))
+  (check-eq? (hash-ref noob-arithmetic-result 'status) 'runtime-error)
+  (check-true (regexp-match? #px"cannot cast NOOB to numeric value"
+                             (hash-ref noob-arithmetic-result 'error)))
+
+  (define numbar-visible-format-src
+    "HAI 1.3\nVISIBLE MAEK \"3.14159\" A NUMBAR\nVISIBLE MAEK 2 A NUMBAR\nVISIBLE MAEK \"-1.239\" A NUMBAR\nKTHXBYE\n")
+  (define numbar-visible-format-result
+    (run-source numbar-visible-format-src))
+  (check-eq? (hash-ref numbar-visible-format-result 'status) 'ok)
+  ;; Spec: NUMBAR printed as YARN defaults to two decimal places (truncated).
+  (check-equal? (hash-ref numbar-visible-format-result 'stdout)
+                "3.14\n2.00\n-1.23\n")
+
   (define method-src
     "HAI 1.3\nO HAI IM counter\n  I HAS A val ITZ 1\n  HOW IZ I bump YR delta\n    val R SUM OF val AN delta\n    FOUND YR val\n  IF U SAY SO\nKTHX\nVISIBLE counter IZ bump YR 2 MKAY\nVISIBLE counter IZ bump YR 3 MKAY\nVISIBLE counter'Z val\nKTHXBYE\n")
   (define method-result (run-source method-src))
