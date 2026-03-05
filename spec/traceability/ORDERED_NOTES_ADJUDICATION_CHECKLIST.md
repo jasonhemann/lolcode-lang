@@ -91,9 +91,9 @@ Legend:
   Spec: line 362 (mapped `cast.maek`).  
   Done: added explicit runtime regressions for both variable and slot sources showing `MAEK` returns a converted value without mutating the original binding/slot.
 
-- [ ] `20` (notes 161) Initialization type choice for literals (`I HAS A foo ITZ 2`).
+- [x] `20` (notes 161) Initialization type choice for literals (`I HAS A foo ITZ 2`).
   Spec: line 123 (`unmapped`).  
-  To check: document implementation policy (literal determines value type directly); add explicit tests.
+  Done: added matrix row `var.declare-literal-type-inference` and runtime regression proving literal initializers map directly to their primitive domains while expression initializers use the resulting expression value.
 
 - [ ] `21` (notes 165-167) `VISIBLE` delimiter semantics vs continuation.
   Spec: line 383 (mapped), formatting lines 33/35 (mapped).  

@@ -84,6 +84,14 @@
   (check-eq? (hash-ref declare-without-article 'status) 'ok)
   (check-equal? (hash-ref declare-without-article 'stdout) "9\n")
 
+  (define declaration-literal-infers-type-src
+    "HAI 1.3\nI HAS A i ITZ 2\nI HAS A f ITZ 2.5\nI HAS A t ITZ WIN\nI HAS A y ITZ \"cat\"\nI HAS A n ITZ NOOB\nI HAS A from_expr ITZ SUM OF 1 AN 2\nVISIBLE i\nVISIBLE f\nVISIBLE t\nVISIBLE y\nVISIBLE n\nVISIBLE from_expr\nKTHXBYE\n")
+  (define declaration-literal-infers-type
+    (run-source declaration-literal-infers-type-src))
+  (check-eq? (hash-ref declaration-literal-infers-type 'status) 'ok)
+  (check-equal? (hash-ref declaration-literal-infers-type 'stdout)
+                "2\n2.50\nWIN\ncat\nNOOB\n3\n")
+
   (define typed-decl-src
     "HAI 1.3\nI HAS A count ITZ A NUMBR\nVISIBLE count\nKTHXBYE\n")
   (define typed-decl (run-source typed-decl-src))
