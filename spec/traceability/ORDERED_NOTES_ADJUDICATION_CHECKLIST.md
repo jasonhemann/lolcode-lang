@@ -108,9 +108,9 @@ Cross-cutting adjudications:
   Spec: line 407 (`unmapped`), line 672 (`mapped`).  
   Done: added matrix row `flow.expr-stmt-it-local-scope` for line 407 and runtime regressions covering local IT behavior in main/function scopes plus global IT aliasing in method context (line 672).
 
-- [ ] `23` (notes 179) Assignment operator identification and strict grammar.
+- [x] `23` (notes 179) Assignment operator identification and strict grammar.
   Spec: line 411 (`unmapped`) + line 205 (`mapped`).  
-  To check: add parser-focused tests documenting canonical assignment forms.
+  Done: parser now requires assignment/cast-assignment targets to be lvalue forms (identifier/SRS target with optional slot chain), rejecting non-variable LHS expressions at parse time. Added parser-focused positive/negative tests and new matrix row `stmt.assignment-operator-shape`.
 
 - [ ] `24` (notes 181-190) `O RLY?` operates on implicit IT; `MEBBE` ordering and `NO WAI` optionality.
   Spec: lines 431, 433, 454 (line 433 currently `unmapped`, 431/454 mapped).  

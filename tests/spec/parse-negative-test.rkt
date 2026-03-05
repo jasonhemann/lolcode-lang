@@ -247,6 +247,31 @@
   (check-exn #px"syntax error:"
              (lambda () (parse-program cast-assignment-missing-a)))
 
+  (define assignment-nonvariable-lhs
+    "HAI 1.3\nSUM OF 1 AN 2 R 3\nKTHXBYE\n")
+  (check-exn #px"assignment target must be variable or slot access"
+             (lambda () (parse-program assignment-nonvariable-lhs)))
+
+  (define assignment-call-lhs
+    "HAI 1.3\nHOW IZ I f\n  FOUND YR 1\nIF U SAY SO\nI IZ f MKAY R 3\nKTHXBYE\n")
+  (check-exn #px"assignment target must be variable or slot access"
+             (lambda () (parse-program assignment-call-lhs)))
+
+  (define cast-assignment-nonvariable-lhs
+    "HAI 1.3\nSUM OF 1 AN 2 IS NOW A NUMBR\nKTHXBYE\n")
+  (check-exn #px"assignment target must be variable or slot access"
+             (lambda () (parse-program cast-assignment-nonvariable-lhs)))
+
+  (define assignment-canonical-variable-lhs
+    "HAI 1.3\nI HAS A x ITZ 1\nx R SUM OF x AN 1\nKTHXBYE\n")
+  (check-not-exn
+   (lambda () (parse-program assignment-canonical-variable-lhs)))
+
+  (define assignment-canonical-slot-lhs
+    "HAI 1.3\nI HAS A obj ITZ A BUKKIT\nobj HAS A n ITZ 0\nobj'Z n R SUM OF obj'Z n AN 1\nKTHXBYE\n")
+  (check-not-exn
+   (lambda () (parse-program assignment-canonical-slot-lhs)))
+
   (define clone-missing-a
     "HAI 1.3\nI HAS A parent ITZ A BUKKIT\nI HAS A child ITZ LIEK parent\nKTHXBYE\n")
   (check-exn #px"syntax error:"

@@ -115,6 +115,18 @@
     (error who "invalid identifier syntax: ~v" text))
   text)
 
+(define (assign-target-expr? expr)
+  (or (expr-ident? expr)
+      (expr-srs? expr)
+      (expr-slot? expr)))
+
+(define (ensure-assign-target who target)
+  (unless (assign-target-expr? target)
+    (error who
+           "assignment target must be variable or slot access, got ~e"
+           target))
+  target)
+
 (define (token-label tok-name tok-value)
   (cond
     [(eq? tok-name 'EOF) "EOF"]
@@ -612,10 +624,12 @@
       (expr-prototype (expr-srs $4) (cons $6 $7))])
 
     (assign-stmt
-     [(expr R expr) (stmt-assign $1 $3)])
+     [(expr R expr)
+      (stmt-assign (ensure-assign-target 'parse-source $1) $3)])
 
     (cast-stmt
-     [(expr IS NOW A ID) (stmt-cast $1 $5)])
+     [(expr IS NOW A ID)
+      (stmt-cast (ensure-assign-target 'parse-source $1) $5)])
 
     (input-stmt
      [(GIMMEH expr) (stmt-input $2)])
