@@ -249,17 +249,17 @@
 
   (define assignment-nonvariable-lhs
     "HAI 1.3\nSUM OF 1 AN 2 R 3\nKTHXBYE\n")
-  (check-exn #px"assignment target must be variable or slot access"
+  (check-exn #px"syntax error:"
              (lambda () (parse-program assignment-nonvariable-lhs)))
 
   (define assignment-call-lhs
     "HAI 1.3\nHOW IZ I f\n  FOUND YR 1\nIF U SAY SO\nI IZ f MKAY R 3\nKTHXBYE\n")
-  (check-exn #px"assignment target must be variable or slot access"
+  (check-exn #px"syntax error:"
              (lambda () (parse-program assignment-call-lhs)))
 
   (define cast-assignment-nonvariable-lhs
     "HAI 1.3\nSUM OF 1 AN 2 IS NOW A NUMBR\nKTHXBYE\n")
-  (check-exn #px"assignment target must be variable or slot access"
+  (check-exn #px"syntax error:"
              (lambda () (parse-program cast-assignment-nonvariable-lhs)))
 
   (define assignment-canonical-variable-lhs

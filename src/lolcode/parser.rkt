@@ -115,18 +115,6 @@
     (error who "invalid identifier syntax: ~v" text))
   text)
 
-(define (assign-target-expr? expr)
-  (or (expr-ident? expr)
-      (expr-srs? expr)
-      (expr-slot? expr)))
-
-(define (ensure-assign-target who target)
-  (unless (assign-target-expr? target)
-    (error who
-           "assignment target must be variable or slot access, got ~e"
-           target))
-  target)
-
 (define (token-label tok-name tok-value)
   (cond
     [(eq? tok-name 'EOF) "EOF"]
@@ -590,14 +578,13 @@
      [(method-stmt) $1]
      [(object-stmt) $1]
      [(declare-stmt) $1]
-     [(assign-stmt) $1]
-     [(cast-stmt) $1]
+     [(stmt-leading-lvalue) $1]
+     [(nonlvalue-expr-stmt) $1]
      [(input-stmt) $1]
      [(slot-set-stmt) $1]
      [(visible-stmt) $1]
      [(return-stmt) $1]
-     [(break-stmt) $1]
-     [(expr-stmt) $1])
+     [(break-stmt) $1])
 
     (article-opt
      [() (void)]
@@ -623,19 +610,36 @@
      [(ITZ A SRS expr SMOOSH name-spec mixin-list-tail)
       (expr-prototype (expr-srs $4) (cons $6 $7))])
 
-    (assign-stmt
-     [(expr R expr)
-      (stmt-assign (ensure-assign-target 'parse-source $1) $3)])
+    (stmt-leading-lvalue
+     [(lvalue stmt-lvalue-tail) ($2 $1)])
 
-    (cast-stmt
-     [(expr IS NOW A ID)
-      (stmt-cast (ensure-assign-target 'parse-source $1) $5)])
+    (stmt-lvalue-tail
+     [(R expr) (lambda (target) (stmt-assign target $2))]
+     [(IS NOW A ID) (lambda (target) (stmt-cast target $4))]
+     [() (lambda (target) (stmt-expr target))]
+     [(IZ name-spec call-args MKAY postfix-tail)
+      (lambda (target) (stmt-expr ($5 (expr-method-call target $2 $3))))])
+
+    (lvalue
+     [(ident-token lvalue-slot-tail) ($2 (id->expr $1))]
+     [(SRS expr-no-postfix lvalue-slot-tail) ($3 (expr-srs $2))])
+
+    (lvalue-slot-tail
+     [() (lambda (base) base)]
+     [(SLOT slot-ref lvalue-slot-tail)
+      (lambda (base) ($3 (expr-slot base $2)))])
+
+    (nonlvalue-expr-stmt
+     [(nonlvalue-expr) (stmt-expr $1)])
+
+    (nonlvalue-expr
+     [(simple-expr-nonid postfix-tail) ($2 $1)])
 
     (input-stmt
      [(GIMMEH expr) (stmt-input $2)])
 
     (slot-set-stmt
-     [(expr HAS slot-article slot-target slot-init-opt) (stmt-slot-set $1 $4 $5)])
+     [(lvalue HAS slot-article slot-target slot-init-opt) (stmt-slot-set $1 $4 $5)])
 
     (slot-target
      [(ident-token) (expr-ident $1)]
@@ -772,9 +776,6 @@
     (break-stmt
      [(GTFO) (stmt-break)])
 
-    (expr-stmt
-     [(expr) (stmt-expr $1)])
-
     (expr
      [(simple-expr postfix-tail) ($2 $1)])
 
@@ -790,10 +791,16 @@
      [(SRS expr-no-postfix) (expr-srs $2)])
 
     (simple-expr
+     [(simple-expr-leading-id) $1]
+     [(simple-expr-nonid) $1])
+
+    (simple-expr-leading-id
+     [(ident-token) (id->expr $1)]
+     [(SRS expr) (expr-srs $2)])
+
+    (simple-expr-nonid
      [(NUMBER) (expr-number $1)]
      [(STRING) (expr-string $1)]
-     [(ident-token) (id->expr $1)]
-     [(SRS expr) (expr-srs $2)]
      [(LIEK A expr) (expr-clone $3)]
      [(NOT expr) (expr-unary "NOT" $2)]
      [(MAEK expr A ID) (expr-cast $2 $4)]
