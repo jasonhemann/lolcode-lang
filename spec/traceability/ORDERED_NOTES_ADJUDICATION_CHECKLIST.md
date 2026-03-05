@@ -112,9 +112,9 @@ Cross-cutting adjudications:
   Spec: line 411 (`unmapped`) + line 205 (`mapped`).  
   Done: parser now requires assignment/cast-assignment targets to be lvalue forms (identifier/SRS target with optional slot chain), rejecting non-variable LHS expressions at parse time. Added parser-focused positive/negative tests and new matrix row `stmt.assignment-operator-shape`.
 
-- [ ] `24` (notes 181-190) `O RLY?` operates on implicit IT; `MEBBE` ordering and `NO WAI` optionality.
+- [x] `24` (notes 181-190) `O RLY?` operates on implicit IT; `MEBBE` ordering and `NO WAI` optionality.
   Spec: lines 431, 433, 454 (line 433 currently `unmapped`, 431/454 mapped).  
-  To check: add explicit tests for required/optional branch forms and IT source.
+  Done: added explicit runtime/parse tests confirming implicit IT source, branch selection semantics, assignment non-effect on IT before branching, ordered first-match `MEBBE` evaluation, required `YA RLY`, and optional `NO WAI`. Added matrix row `flow.orly-branching-semantics` for line 433.
 
 - [ ] `25` (notes 192-199) `WTF?` literal interpolation exclusion and escaped-colon edge cases.
   Spec: line 486 (mapped).  

@@ -345,6 +345,16 @@
   (check-exn #px"WTF\\? case literal cannot contain YARN interpolation"
              (lambda () (parse-program interpolated-wtf-string-case)))
 
+  (define orly-missing-ya-rly
+    "HAI 1.3\nWIN\nO RLY?\n  NO WAI\n    VISIBLE \"N\"\nOIC\nKTHXBYE\n")
+  (check-exn #px"syntax error:"
+             (lambda () (parse-program orly-missing-ya-rly)))
+
+  (define orly-mebbe-after-no-wai
+    "HAI 1.3\nFAIL\nO RLY?\n  YA RLY\n    VISIBLE \"Y\"\n  NO WAI\n    VISIBLE \"N\"\n  MEBBE WIN\n    VISIBLE \"M\"\nOIC\nKTHXBYE\n")
+  (check-exn #px"syntax error:"
+             (lambda () (parse-program orly-mebbe-after-no-wai)))
+
   (define nested-function-def
     "HAI 1.3\nHOW IZ I outer\n  HOW IZ I inner\n    FOUND YR 1\n  IF U SAY SO\n  FOUND YR I IZ inner MKAY\nIF U SAY SO\nKTHXBYE\n")
   (check-exn #px"nested HOW IZ I definitions are not allowed in strict 1.3"

@@ -246,6 +246,34 @@
   (check-eq? (hash-ref expr-slot-to-it-orly-inline-result 'status) 'ok)
   (check-equal? (hash-ref expr-slot-to-it-orly-inline-result 'stdout) "Y\n")
 
+  (define orly-uses-implicit-it-src
+    "HAI 1.3\nI HAS A itflag ITZ WIN\nBOTH SAEM 1 AN 2\nO RLY?\n  YA RLY\n    VISIBLE \"Y\"\n  NO WAI\n    VISIBLE \"N\"\nOIC\nKTHXBYE\n")
+  (define orly-uses-implicit-it
+    (run-source orly-uses-implicit-it-src))
+  (check-eq? (hash-ref orly-uses-implicit-it 'status) 'ok)
+  (check-equal? (hash-ref orly-uses-implicit-it 'stdout) "N\n")
+
+  (define orly-assignment-does-not-reset-it-src
+    "HAI 1.3\nWIN\nI HAS A x ITZ 0\nx R 1\nO RLY?\n  YA RLY\n    VISIBLE \"Y\"\n  NO WAI\n    VISIBLE \"N\"\nOIC\nKTHXBYE\n")
+  (define orly-assignment-does-not-reset-it
+    (run-source orly-assignment-does-not-reset-it-src))
+  (check-eq? (hash-ref orly-assignment-does-not-reset-it 'status) 'ok)
+  (check-equal? (hash-ref orly-assignment-does-not-reset-it 'stdout) "Y\n")
+
+  (define orly-mebbe-first-match-wins-src
+    "HAI 1.3\nFAIL\nO RLY?\n  YA RLY\n    VISIBLE \"Y\"\n  MEBBE WIN\n    VISIBLE \"A\"\n  MEBBE WIN\n    VISIBLE \"B\"\n  NO WAI\n    VISIBLE \"C\"\nOIC\nKTHXBYE\n")
+  (define orly-mebbe-first-match-wins
+    (run-source orly-mebbe-first-match-wins-src))
+  (check-eq? (hash-ref orly-mebbe-first-match-wins 'status) 'ok)
+  (check-equal? (hash-ref orly-mebbe-first-match-wins 'stdout) "A\n")
+
+  (define orly-no-wai-optional-src
+    "HAI 1.3\nFAIL\nO RLY?\n  YA RLY\n    VISIBLE \"Y\"\nOIC\nVISIBLE \"Z\"\nKTHXBYE\n")
+  (define orly-no-wai-optional
+    (run-source orly-no-wai-optional-src))
+  (check-eq? (hash-ref orly-no-wai-optional 'status) 'ok)
+  (check-equal? (hash-ref orly-no-wai-optional 'stdout) "Z\n")
+
   (define bad-return-src
     "HAI 1.3\nFOUND YR 3\nKTHXBYE\n")
   (define bad-return (run-source bad-return-src))
