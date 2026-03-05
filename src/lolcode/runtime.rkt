@@ -108,6 +108,14 @@
       maybe-callable
       (error 'run-program "unknown ~a: ~a" who name)))
 
+(define (bind-global-it-alias! call-env caller-ctx)
+  (define global-it-box
+    (or (env-lookup-box (runtime-globals caller-ctx) "IT")
+        (error 'run-program
+               "runtime invariant violation: global IT binding missing")))
+  ;; Method-context IT must resolve through the global namespace (spec 1.3).
+  (hash-set! (env-table call-env) "IT" global-it-box))
+
 (define (compile-declare-init init-expr)
   (cond
     [(not init-expr)
@@ -685,7 +693,7 @@
               [arg (in-list arg-values)])
           (env-define! call-env param arg))
         (env-define! call-env "ME" receiver)
-        (env-define! call-env "IT" noob)
+        (bind-global-it-alias! call-env caller-ctx)
         (let/ec return-k
           (define fn-ctx
             (ctx-derive caller-ctx
@@ -760,7 +768,7 @@
             [arg (in-list arg-values)])
         (env-define! call-env param arg))
       (env-define! call-env "ME" receiver-value)
-      (env-define! call-env "IT" noob)
+      (bind-global-it-alias! call-env caller-ctx)
       (let/ec return-k
         (define fn-ctx
           (ctx-derive caller-ctx

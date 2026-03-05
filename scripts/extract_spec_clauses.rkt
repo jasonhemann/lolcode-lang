@@ -29,8 +29,21 @@
 
 (define (normative-line? text)
   (regexp-match?
-   #px"(?i:(must|should|may|optional|cannot|can't|error|requires|terminated|opened|closed|valid))"
+   #px"(?i:(must|should|may|optional|cannot|can't|error|requires|terminated|opened|closed|valid|looked up|returns?|syntax|keyword|scope|temporary|operates?|assignment|declaration|function|identifier|global namespace|implicit))"
    text))
+
+(define (bullet-line? text)
+  (regexp-match? #px"^\\*" (string-trim text)))
+
+(define (syntax-template-line? text)
+  (regexp-match? #px"<[^>]+>" text))
+
+(define (clause-line? text)
+  (define t (sanitize text))
+  (and (positive? (string-length t))
+       (or (bullet-line? t)
+           (normative-line? t)
+           (regexp-match? #px"(?i:^to\\s+)" t))))
 
 (define (extract-rows lines)
   (define rows '())
@@ -39,22 +52,37 @@
         [ln (in-naturals 1)])
     (when (regexp-match? #px"^```" line)
       (set! in-code-block? (not in-code-block?)))
-    (unless in-code-block?
-      (define heading-match
-        (regexp-match #px"^(#{2,6})\\s+(.+)$" line))
-      (when heading-match
-        (define heading-text
-          (sanitize (list-ref heading-match 2)))
-        (set! rows
-              (cons (list ln "heading" heading-text)
-                    rows)))
-      (when (and (not heading-match)
-                 (normative-line? line))
-        (define txt (sanitize line))
-        (when (positive? (string-length txt))
-          (set! rows
-                (cons (list ln "normative" txt)
-                      rows))))))
+    (cond
+      [in-code-block?
+       (define txt (sanitize line))
+       (when (positive? (string-length txt))
+         (define kind
+           (if (syntax-template-line? txt)
+               "syntax"
+               "code"))
+         (set! rows
+               (cons (list ln kind txt)
+                     rows)))]
+      [else
+       (define heading-match
+         (regexp-match #px"^(#{2,6})\\s+(.+)$" line))
+       (when heading-match
+         (define heading-text
+           (sanitize (list-ref heading-match 2)))
+         (set! rows
+               (cons (list ln "heading" heading-text)
+                     rows)))
+       (when (and (not heading-match)
+                  (positive? (string-length (sanitize line))))
+         (define txt (sanitize line))
+         (define kind
+           (cond
+             [(bullet-line? txt) "bullet"]
+             [(clause-line? txt) "normative"]
+             [else "prose"]))
+         (set! rows
+               (cons (list ln kind txt)
+                     rows)))]))
   (reverse rows))
 
 (module+ main

@@ -9,8 +9,17 @@ This directory tracks clause-level conformance status for the strict 1.3 target.
   - Each entry links one spec clause to implementation/test evidence and a status.
 
 - `spec-1.3-clause-index.tsv`
-  - Generated index of headings and normative-looking lines from the vendored 1.3 spec text.
+  - Generated index of non-empty clause candidates from the vendored 1.3 spec text.
+  - Includes line kinds: `heading`, `bullet`, `normative`, `prose`, `syntax`, `code`.
   - Produced by `racket scripts/extract_spec_clauses.rkt`.
+
+- `spec-1.3-clause-mapping-audit.md`
+  - Recalculated mapping audit from extracted 1.3 clauses to matrix source-line references.
+  - Tracks currently unmapped normative clauses and 1.2\\1.3 delta observations.
+
+- `spec-1.3-confluence-matrix.md`
+  - Clause-intersection matrix for cross-feature bug hunting.
+  - Maps high-risk clause pairs to dedicated pass/fail confluence tests.
 
 ## Status Values
 

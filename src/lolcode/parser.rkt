@@ -187,6 +187,12 @@
     [(string-ci=? name "WIN") (expr-literal #t)]
     [(string-ci=? name "FAIL") (expr-literal #f)]
     [(string-ci=? name "NOOB") (expr-literal 'NOOB)]
+    [(or (string-ci=? name "NUMBR")
+         (string-ci=? name "NUMBAR")
+         (string-ci=? name "YARN")
+         (string-ci=? name "TROOF")
+         (string-ci=? name "TYPE"))
+     (expr-literal (string-upcase name))]
     [else (expr-ident name)]))
 
 (define (static-name-spec name)
