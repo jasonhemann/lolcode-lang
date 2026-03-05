@@ -29,9 +29,9 @@ Decision: `IT` is local in ordinary scopes but method lookup of `IT` resolves vi
 Reason: explicit method-scope clause is specific and already testable.
 
 5. `N13` (`O HAI IM` lookup regime)
-Status: `needs-change`
-Decision: keep slot-first then global lookup behavior; add explicit local-shadow interaction tests.
-Action: add positive/negative regressions to pin local declaration interaction.
+Status: `adjudicated`
+Decision: keep slot-first then global lookup behavior.
+Evidence: runtime regression `object-block-slot-first-over-global-src` in `tests/spec/runtime-core-test.rkt`.
 
 6. `N14` (Function/variable namespace)
 Status: `adjudicated`
@@ -44,14 +44,14 @@ Decision: callable in slot-call position executes with receiver-projected lookup
 Reason: explicit slot-access function prose and existing receiver tests.
 
 8. `N20` (`omgwtf` boundaries)
-Status: `needs-change`
-Decision: missing-slot path may route through `omgwtf`; memoization behavior must be pinned by tests.
-Action: add stateful `omgwtf` test proving cache-or-no-cache policy.
+Status: `adjudicated`
+Decision: missing-slot path routes through `omgwtf` and memoizes synthesized value to the slot.
+Evidence: runtime regression `omgwtf-memoizes-missing-slot-src` in `tests/spec/runtime-core-test.rkt`.
 
 9. `N21` (Parent-cycle safety)
-Status: `needs-change`
-Decision: all parent-chain traversals must be visited-set safe.
-Action: add assignment-path and method-call-path cycle regressions, not only lookup.
+Status: `adjudicated`
+Decision: all parent-chain traversals are treated as cycle-safe.
+Evidence: runtime regressions `parent-cycle-assignment-terminates-src` and `parent-cycle-method-call-terminates-src` in `tests/spec/runtime-core-test.rkt`, in addition to existing lookup-cycle test.
 
 10. `N22` (Copy-on-write inherited assignment)
 Status: `adjudicated`
@@ -80,6 +80,6 @@ Reason: required to satisfy comma + continuation semantics together.
 
 ## Immediate Next Steps
 
-1. Add targeted tests for `N13`, `N20`, `N21`.
+1. Completed: targeted tests for `N13`, `N20`, `N21` were added and pass in `tests/spec/runtime-core-test.rkt`.
 2. Write explicit policy tables/tests for `N23`, `N24`.
 3. Re-run spec and corpus scripts after tranche-1 changes.

@@ -606,6 +606,15 @@
   (check-equal? (hash-ref custom-omgwtf-on-missing-slot 'stdout)
                 "made-nope\nmade-nope\n")
 
+  (define omgwtf-memoizes-missing-slot-src
+    "HAI 1.3\nO HAI IM box\n  I HAS A hits ITZ 0\n  HOW IZ I omgwtf YR slotname\n    hits R SUM OF hits AN 1\n    FOUND YR hits\n  IF U SAY SO\nKTHX\nVISIBLE box'Z nope\nVISIBLE box'Z nope\nVISIBLE box'Z hits\nKTHXBYE\n")
+  (define omgwtf-memoizes-missing-slot
+    (run-source omgwtf-memoizes-missing-slot-src))
+  (check-eq? (hash-ref omgwtf-memoizes-missing-slot 'status) 'ok)
+  ;; Regression: missing slot is cached after omgwtf synthesizes a value.
+  (check-equal? (hash-ref omgwtf-memoizes-missing-slot 'stdout)
+                "1\n1\n1\n")
+
   (define izmakin-special-slot-runs-on-prototype-src
     "HAI 1.3\nO HAI IM Maker\n  I HAS A seed ITZ 1\n  HOW IZ I izmakin\n    seed R SUM OF seed AN 1\n  IF U SAY SO\nKTHX\nI HAS A first ITZ LIEK A Maker\nI HAS A second ITZ LIEK A Maker\nVISIBLE first'Z seed\nVISIBLE second'Z seed\nKTHXBYE\n")
   (define izmakin-special-slot-runs-on-prototype
@@ -652,6 +661,15 @@
   (check-eq? (hash-ref method-lookup-order 'status) 'ok)
   (check-equal? (hash-ref method-lookup-order 'stdout)
                 "ARG\nSLOT\nGLOBAL-H\n")
+
+  (define object-block-slot-first-over-global-src
+    "HAI 1.3\nI HAS A x ITZ \"global\"\nO HAI IM obj\n  I HAS A x ITZ \"slot\"\n  VISIBLE x\nKTHX\nVISIBLE x\nKTHXBYE\n")
+  (define object-block-slot-first-over-global
+    (run-source object-block-slot-first-over-global-src))
+  (check-eq? (hash-ref object-block-slot-first-over-global 'status) 'ok)
+  ;; Regression: inside O HAI IM block, lookup is slot-first before global.
+  (check-equal? (hash-ref object-block-slot-first-over-global 'stdout)
+                "slot\nglobal\n")
 
   (define slot-function-receiver-namespace-src
     "HAI 1.3\nHOW IZ I funkin YR shun\n  FOUND YR SMOOSH prefix AN shun MKAY\nIF U SAY SO\nO HAI IM parentClass\n  I HAS A prefix ITZ \"parentClass-\"\n  I HAS A runin ITZ funkin\nKTHX\nO HAI IM childClass IM LIEK parentClass\n  I HAS A prefix ITZ \"childClass-\"\nKTHX\nVISIBLE parentClass IZ runin YR \"A\" MKAY\nVISIBLE childClass IZ runin YR \"B\" MKAY\nKTHXBYE\n")
@@ -702,6 +720,24 @@
   (check-equal? (hash-ref parent-cycle-lookup-terminates 'stdout) "1\n")
   (check-true (regexp-match? #px"unknown slot: missing"
                              (hash-ref parent-cycle-lookup-terminates 'error)))
+
+  (define parent-cycle-assignment-terminates-src
+    "HAI 1.3\nO HAI IM a\n  I HAS A keep ITZ 1\nKTHX\nO HAI IM b IM LIEK a\nKTHX\na'Z parent R b\nb'Z ghost R 3\nKTHXBYE\n")
+  (define parent-cycle-assignment-terminates
+    (run-source parent-cycle-assignment-terminates-src))
+  (check-eq? (hash-ref parent-cycle-assignment-terminates 'status) 'runtime-error)
+  ;; Regression: assignment traversal over parent chain must remain cycle-safe.
+  (check-true (regexp-match? #px"unknown slot: ghost"
+                             (hash-ref parent-cycle-assignment-terminates 'error)))
+
+  (define parent-cycle-method-call-terminates-src
+    "HAI 1.3\nO HAI IM a\n  I HAS A keep ITZ 1\nKTHX\nO HAI IM b IM LIEK a\nKTHX\na'Z parent R b\nb IZ nope MKAY\nKTHXBYE\n")
+  (define parent-cycle-method-call-terminates
+    (run-source parent-cycle-method-call-terminates-src))
+  (check-eq? (hash-ref parent-cycle-method-call-terminates 'status) 'runtime-error)
+  ;; Regression: method lookup traversal over parent chain must remain cycle-safe.
+  (check-true (regexp-match? #px"unknown method: nope"
+                             (hash-ref parent-cycle-method-call-terminates 'error)))
 
   (define inherited-assignment-unknown-name-src
     "HAI 1.3\nO HAI IM parent\nKTHX\nO HAI IM child IM LIEK parent\nKTHX\nchild'Z ghost R 5\nKTHXBYE\n")
