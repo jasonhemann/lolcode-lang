@@ -40,8 +40,10 @@ while IFS=$'\t' read -r tier label repo kind oracle_priority corpus_priority sou
 
   issues_pages="$RAW_DIR/${label}.issues.pages.json"
   pulls_pages="$RAW_DIR/${label}.pulls.pages.json"
+  commits_pages="$RAW_DIR/${label}.commits.pages.json"
   issues_json="$RAW_DIR/${label}.issues.json"
   pulls_json="$RAW_DIR/${label}.pulls.json"
+  commits_json="$RAW_DIR/${label}.commits.json"
 
   echo "  - syncing $repo"
   if ! gh api --paginate --slurp "repos/$repo/issues?state=all&per_page=100" > "$issues_pages" 2>/dev/null; then
@@ -54,8 +56,13 @@ while IFS=$'\t' read -r tier label repo kind oracle_priority corpus_priority sou
     echo "[]" > "$pulls_pages"
   fi
 
+  if ! gh api --paginate --slurp "repos/$repo/commits?per_page=100" > "$commits_pages" 2>/dev/null; then
+    echo "    warning: failed to fetch commits for $repo" >&2
+    echo "[]" > "$commits_pages"
+  fi
+
   jq '
-    add
+    (add // [])
     | map(select(has("pull_request") | not))
     | map({
         item_type: "issue",
@@ -73,7 +80,7 @@ while IFS=$'\t' read -r tier label repo kind oracle_priority corpus_priority sou
   ' "$issues_pages" > "$issues_json"
 
   jq '
-    add
+    (add // [])
     | map({
         item_type: "pr",
         number,
@@ -91,6 +98,23 @@ while IFS=$'\t' read -r tier label repo kind oracle_priority corpus_priority sou
     | sort_by(.number)
   ' "$pulls_pages" > "$pulls_json"
 
+  jq '
+    (add // [])
+    | map({
+        item_type: "commit",
+        number: .sha,
+        title: (.commit.message // "" | split("\n")[0]),
+        state: "closed",
+        created_at: (.commit.author.date // null),
+        updated_at: (.commit.author.date // null),
+        closed_at: (.commit.author.date // null),
+        comments: 0,
+        labels: [],
+        url: .html_url
+      })
+    | sort_by(.created_at)
+  ' "$commits_pages" > "$commits_json"
+
   jq -c \
     --arg repo "$repo" \
     --arg label "$label" \
@@ -106,6 +130,14 @@ while IFS=$'\t' read -r tier label repo kind oracle_priority corpus_priority sou
     --arg kind "$kind" \
     '.[] | . + {repo: $repo, label: $label, tier: $tier, repo_kind: $kind, source: "github"}' \
     "$pulls_json" >> "$all_jsonl"
+
+  jq -c \
+    --arg repo "$repo" \
+    --arg label "$label" \
+    --arg tier "$tier" \
+    --arg kind "$kind" \
+    '.[] | . + {repo: $repo, label: $label, tier: $tier, repo_kind: $kind, source: "github"}' \
+    "$commits_json" >> "$all_jsonl"
 done < "$CANDIDATES_TSV"
 
 all_items_json="$OUT_DIR/all_items.json"

@@ -1,0 +1,38 @@
+[
+  {
+    "item_type": "issue",
+    "number": 1,
+    "title": "Variable interpolation doesn't work",
+    "state": "closed",
+    "created_at": "2014-09-07T20:44:57Z",
+    "updated_at": "2014-09-14T15:48:04Z",
+    "closed_at": "2014-09-14T15:48:04Z",
+    "comments": 0,
+    "labels": [],
+    "url": "https://github.com/markwatkinson/loljs/issues/1"
+  },
+  {
+    "item_type": "issue",
+    "number": 2,
+    "title": "All tests fail with Jison 0.4.15",
+    "state": "open",
+    "created_at": "2014-09-14T11:23:01Z",
+    "updated_at": "2014-09-14T11:29:02Z",
+    "closed_at": null,
+    "comments": 0,
+    "labels": [],
+    "url": "https://github.com/markwatkinson/loljs/issues/2"
+  },
+  {
+    "item_type": "issue",
+    "number": 3,
+    "title": "Breakpoint statements have no effect if they are the last statement in the program",
+    "state": "open",
+    "created_at": "2014-09-14T18:57:29Z",
+    "updated_at": "2014-09-14T18:57:29Z",
+    "closed_at": null,
+    "comments": 0,
+    "labels": [],
+    "url": "https://github.com/markwatkinson/loljs/issues/3"
+  }
+]

@@ -39,6 +39,7 @@ These should be treated as extension APIs with unstable naming/semantics across 
 - Keep extensions namespaced as implementation-profile behavior, separate from normative semantics.
 - Build separate tests for extension mode; do not merge into core conformance suite.
 - Prefer differential tests against `lci` `future` branch and preserve expected known divergences.
+- Default implementation strategy for `CAN HAS` in this codebase: a Racket-native runtime library registry (host-backed LOLCODE library objects/functions), not C FFI by default.
 
 ## Primary Source Pointers
 

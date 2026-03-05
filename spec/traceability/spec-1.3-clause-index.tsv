@@ -1,0 +1,93 @@
+line	kind	text
+15	heading	Formatting
+17	heading	Whitespace
+21	normative	* Spaces are used to demarcate tokens in the language, although some keyword constructs may include spaces.
+29	normative	* A newline will be Carriage Return (/13), a Line Feed (/10) or both (/13/10) depending on the implementing system. This is only in regards to LOLCODE code itself, and does not indicate how these should be treated in strings or files during execution.
+35	normative	* Lines with line continuation can be strung together, many in a row, to allow a single command to stretch over more than one or two lines. As long as each line is ended with three periods, the next line is included, until a line without three periods is reached, at which point, the entire command may be processed.
+37	normative	* A line with line continuation may not be followed by an empty line.
+38	normative	Three periods may be by themselves on a single line, in which case, the empty line is "included" in the command (doing nothing), and the next line is included as well.
+40	normative	* A single-line comment is always terminated by a newline. Line continuation (...) and soft-command-breaks (,) after the comment (`BTW`) are ignored.
+42	normative	* Line continuation and soft-command-breaks are ignored inside quoted strings. An unterminated string literal (no closing quote) will cause an error.
+44	heading	Comments
+48	normative	Single line comments are begun by `BTW`, and may occur either after a line of code, on a separate line, or following a line of code following a line separator (,).
+50	normative	All of these are valid single line comments:
+65	normative	Multi-line comments are begun by `OBTW` and ended with `TLDR`, and should be started on their own lines, or following a line of code after a line separator.
+67	normative	These are valid multi-line comments:
+85	heading	File Creation
+89	normative	All LOLCODE programs must be opened with the command `HAI`. `HAI` should then be followed with the current LOLCODE language version number (1.3, in this case). There is no current standard behavior for implementations to treat the version number, though.
+91	normative	A LOLCODE file is closed by the keyword `KTHXBYE` which closes the `HAI` code-block.
+95	heading	Variables
+97	heading	Memory
+101	heading	Scope
+107	heading	Naming
+111	normative	Variable identifiers may be in all small or lowercase letters (or a mixture of the two). They must begin with a letter and may be followed only by other letters, numbers, and underscores. No spaces, dashes, or other symbols are allowed. Variable identifiers are CASE SENSITIVE – "cheezburger", "CheezBurger" and "CHEEZBURGER" would all be different variables.
+113	heading	Declaration
+156	heading	Deallocation
+189	normative	The A becomes optional in variable declaration so:
+201	heading	Assignment
+215	heading	Types
+221	heading	Untyped
+223	normative	The untyped type (NOOB) cannot be implicitly cast into any type except a TROOF. A cast into TROOF makes the variable FAIL. Any operations on a NOOB that assume another type (e.g., math) results in an error.
+227	heading	Booleans
+231	heading	Numerical Types
+233	normative	A NUMBR is an integer as specified in the host implementation/architecture. Any contiguous sequence of digits outside of a quoted YARN and not containing a decimal point (.) is considered a NUMBR. A NUMBR may have a leading hyphen (-) to signify a negative number.
+235	normative	A NUMBAR is a float as specified in the host implementation/architecture. It is represented as a contiguous string of digits containing exactly one decimal point. Casting a NUMBAR to a NUMBR truncates the decimal portion of the floating point number. Casting a NUMBAR to a YARN (by printing it, for example), truncates the output to a default of two decimal places. A NUMBAR may have a leading hyphen (-) to signify a negative number.
+237	normative	Casting of a string to a numerical type parses the string as if it were not in quotes. If there are any non-numerical, non-hyphen, non-period characters, then it results in an error. Casting WIN to a numerical type results in "1" or "1.0"; casting FAIL results in a numerical zero.
+239	heading	Strings
+241	normative	String literals (YARN) are demarked with double quotation marks ("). Line continuation and soft-command-breaks are ignored inside quoted strings. An unterminated string literal (no closing quote) will cause an error.
+251	normative	The colon may also introduce more verbose escapes enclosed within some form of bracket.
+254	normative	* :{`<var>`} interpolates the current value of the enclosed variable, cast as a string.
+257	heading	Types
+259	normative	The TYPE type only has the values of TROOF, NOOB, NUMBR, NUMBAR, YARN, and TYPE, as bare words. They may be legally cast to TROOF (all true except for NOOB) or YARN.
+265	heading	Operators
+267	heading	Calling Syntax and Precedence
+269	normative	Mathematical operators and functions in general rely on prefix notation. By doing this, it is possible to call and compose operations with a minimum of explicit grouping. When all operators and functions have known arity, no grouping markers are necessary. In cases where operators have variable arity, the operation is closed with `MKAY`. An `MKAY` may be omitted if it coincides with the end of the line/statement, in which case the EOL stands in for as many `MKAYs` as there are open variadic functions.
+277	normative	The `AN` keyword can optionally be used to separate arguments, so a binary operator expression has the following syntax:
+289	heading	Math
+303	normative	`<x>` and `<y>` may each be expressions in the above, so mathematical operators can be nested and grouped indefinitely.
+309	normative	If one or another of the arguments cannot be safely cast to a numerical type, then it fails with an error.
+311	heading	Boolean
+326	heading	Comparison
+354	heading	Concatenation
+356	normative	An indefinite number of YARNs may be explicitly concatenated with the `SMOOSH...MKAY` operator. Arguments may optionally be separated with `AN`. As the `SMOOSH` expects strings as its input arguments, it will implicitly cast all input values of other types to YARNs. The line ending may safely implicitly close the `SMOOSH` operator without needing an `MKAY`.
+358	heading	Casting
+360	normative	Operators that work on specific types implicitly cast parameter values of other types. If the value cannot be safely cast, then it results in an error.
+362	normative	An expression's value may be explicitly cast with the binary `MAEK` operator.
+370	normative	To explicitly re-cast a variable, you may create a normal assignment statement with the `MAEK` operator, or use a casting assignment statement as follows:
+379	heading	Input/Output
+381	heading	Terminal-Based
+383	normative	The print (to STDOUT or the terminal) operator is `VISIBLE`. It has infinite arity and implicitly concatenates all of its arguments after casting them to YARNs. It is terminated by the statement delimiter (line end or comma). The output is automatically terminated with a carriage return (:)), unless the final token is terminated with an exclamation point (!), in which case the carriage return is suppressed.
+399	normative	*`GIMMEH` is defined minimally here as a holdover from 1.0 and because there has not been any detailed discussion of this feature. We count on the liberal casting capabilities of the language and programmer inventiveness to handle input restriction. `GIMMEH` may change in a future version.*
+403	heading	Statements
+405	heading	Expression Statements
+409	heading	Assignment Statements
+417	normative	The variable being assigned may be used in the expression.
+419	heading	Flow Control Statements
+425	heading	Flow Control
+427	heading	Conditionals
+429	heading	If-Then
+433	normative	`O RLY?` branches to the block begun with `YA RLY` if `IT` can be cast to WIN, and branches to the `NO WAI` block if `IT` is FAIL. The code block introduced with `YA RLY` is implicitly closed when `NO WAI` is reached. The `NO WAI` block is closed with `OIC`. The general form is then as follows:
+454	normative	The elseif construction adds a little bit of complexity. Optional `MEBBE <expression>` blocks may appear between the YA RLY and NO WAI blocks. If the `<expression>` following `MEBBE` is WIN, then that block is performed; if not, the block is skipped until the following `MEBBE`, `NO WAI`, or `OIC`. The full expression syntax is then as follows:
+482	heading	Case
+486	normative	The LOLCODE keyword for switches is `WTF?`. The `WTF?` operates on `IT` as being the expression value for comparison. A comparison block is opened by `OMG` and must be a literal, not an expression. (A literal, in this case, excludes any YARN containing variable interpolation (`:{var}`).) Each literal must be unique. The `OMG` block can be followed by any number of statements and may be terminated by a `GTFO`, which breaks to the end of the the `WTF` statement. If an `OMG` block is not terminated by a `GTFO`, then the next `OMG` block is executed as is the next until a `GTFO` or the end of the `WTF` block is reached. The optional default case, if none of the literals evaluate as true, is signified by `OMGWTF`.
+548	heading	Loops
+552	normative	Simple loops are demarcated with `IM IN YR <label>` and `IM OUTTA YR <label>`. Loops defined this way are infinite loops that must be explicitly exited with a GTFO break. Currently, the `<label>` is required, but is unused, except for marking the start and end of the loop.
+564	normative	Where <operation> may be UPPIN (increment by one), NERFIN (decrement by one), or any unary function. That operation/function is applied to the <variable>, which is temporary, and local to the loop. The TIL <expression> evaluates the expression as a TROOF: if it evaluates as FAIL, the loop continues once more, if not, then loop execution stops, and continues after the matching IM OUTTA YR <label>. The WILE <expression> is the converse: if the expression is WIN, execution continues, otherwise the loop exits.
+568	heading	Functions
+572	heading	Definition
+586	heading	Returning
+594	heading	Calling
+602	normative	That is, an expression is formed by the function name followed by any arguments. Those arguments may themselves be expressions. The expressions' values are obtained before the function is called. The arity of the functions is determined in the definition.
+608	heading	Arrays
+612	normative	BUKKITs are the container type. They may hold NUMBRs, NUMBARs, TROOFs, YARNs, functions (FUNKSHUN), and other BUKKITS. Each entity within a BUKKIT may be indexed by a NUMBR or a YARN. These indices, whether NUMBRs or YARNs, referring to functions, variables, or other BUKKITs, are generically called “slots”.
+614	heading	Declaration
+624	heading	Slot Creation / Assignment
+758	heading	Special Slots
+768	normative	`omgwtf` refers to a method that is called when slot access fails. This method should return a variable (that will be placed in the unknown slot) or throw an exception. The default implementation of canhas is to always throw an exception.
+772	heading	Inheritance / Prototyping
+790	normative	Inheritance implies a few things, one of which is inheritance of slots (described below). Another thing inheritance does is automatically create a “parent” slot on the new object. The “parent” slot refers to the object that this object was inherited from, or its prototype. The parent slot is treated specially by the Bukkit. An interesting side effect of this is that a Bukkit may change its “parent”/“prototype” by changing its parent slot. More on this later.
+792	heading	Inheritance of slots
+798	normative	Assigning a variable within the object first searches for it within the current object. If it has been declared within the current object, then it is set. If that fails, it attempts to access it within the parent object. Search continues in up the chain of parents. If the variable name is found up the inheritance chain, then that variable is declared and created within the current object (where the search started), and the value is set. If the variable search fails and the variable was never previously assigned, then it's a declaration error.
+802	heading	Functions and Inheritance
+833	heading	Inheritance
+849	normative	A mixin may be any bukkit type. When declaring a new object using mixins, All slots defined on the mixin are copied into the newly construct bukkit in reverse order of declaration. So

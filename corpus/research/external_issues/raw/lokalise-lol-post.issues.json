@@ -1,0 +1,26 @@
+[
+  {
+    "item_type": "issue",
+    "number": 1,
+    "title": "Navigate with dynamic route",
+    "state": "closed",
+    "created_at": "2021-05-12T18:42:22Z",
+    "updated_at": "2022-09-21T20:54:46Z",
+    "closed_at": "2022-09-21T20:31:28Z",
+    "comments": 5,
+    "labels": [],
+    "url": "https://github.com/bodrovis-learning/Lokalise-source/issues/1"
+  },
+  {
+    "item_type": "issue",
+    "number": 2,
+    "title": "How to hot refresh if key is updated in lokalise",
+    "state": "closed",
+    "created_at": "2022-04-07T17:05:09Z",
+    "updated_at": "2022-04-07T17:50:08Z",
+    "closed_at": "2022-04-07T17:50:07Z",
+    "comments": 1,
+    "labels": [],
+    "url": "https://github.com/bodrovis-learning/Lokalise-source/issues/2"
+  }
+]
