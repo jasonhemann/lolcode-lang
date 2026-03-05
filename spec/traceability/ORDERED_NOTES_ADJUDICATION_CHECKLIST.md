@@ -158,21 +158,21 @@ Cross-cutting adjudications:
   Spec: line 684 (mapped).  
   Done: added positive `ME HAS A` receiver-slot declaration regression and negative `ME` outside method-call regression.
 
-- [ ] `35` (notes 274-280) `IM LIEK` inheritance behavior, parent mutation, and super-like lookup.
+- [x] `35` (notes 274-280) `IM LIEK` inheritance behavior, parent mutation, and super-like lookup.
   Spec: line 709 (mapped), lines 790/798 (mapped).  
-  To check: add explicit tests for parent mutation visibility and child write copy-on-write behavior.
+  Done: explicit runtime regressions now cover parent mutation visibility through inheritance (`inherited-parent-mutation-visibility`) and child copy-on-write independence (`inherited-method-slot-independence`).
 
-- [ ] `36` (notes 282-304) Slot operator syntax, indirect `SRS`, and method-call failure when slot is not callable.
+- [x] `36` (notes 282-304) Slot operator syntax, indirect `SRS`, and method-call failure when slot is not callable.
   Spec: line 738 (mapped), line 741 (`unmapped`).  
-  To check: add runtime-error tests for non-callable slot invocation and parse tests for call syntax variants.
+  Done: added runtime-error regressions for missing-slot method call and non-callable slot invocation (`method-call-missing-slot`, `method-call-noncallable-slot`); indirect `SRS` slot/method call coverage already present.
 
-- [ ] `37` (notes 306-313) Dynamic method name via `SRS` sample program.
+- [x] `37` (notes 306-313) Dynamic method name via `SRS` sample program.
   Spec: line 741 (`unmapped`).  
-  To check: add full snippet as executable fixture.
+  Done: dynamic method-name call via `SRS` is covered by executable runtime fixture (`method-alt-call-dynamic-name`).
 
-- [ ] `38` (notes 314-320) `omgwtf` default/override semantics and definition of “slot access fails”.
+- [x] `38` (notes 314-320) `omgwtf` default/override semantics and definition of “slot access fails”.
   Spec: line 768 (mapped).  
-  To check: add tests for missing-slot read, missing-slot call, and non-function slot value behavior.
+  Done: added regressions for default missing-slot read error and custom `omgwtf` override on missing-slot reads (`missing-slot-default-omgwtf`, `custom-omgwtf-on-missing-slot`), plus call-failure tests for missing and non-callable slots.
 
 - [ ] `39` (notes 321-329) Reparenting (`parent` slot mutation), cycle safety, and lookup behavior in cyclic graphs.
   Spec: line 790 (mapped) + lookup prose around 792+ (partly unmapped).  

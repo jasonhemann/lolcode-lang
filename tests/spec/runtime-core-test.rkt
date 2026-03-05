@@ -574,6 +574,38 @@
   (check-eq? (hash-ref method-alt-call-dynamic-name 'status) 'ok)
   (check-equal? (hash-ref method-alt-call-dynamic-name 'stdout) "11\n")
 
+  (define method-call-missing-slot-src
+    "HAI 1.3\nI HAS A foo ITZ A BUKKIT\nfoo IZ nope MKAY\nKTHXBYE\n")
+  (define method-call-missing-slot
+    (run-source method-call-missing-slot-src))
+  (check-eq? (hash-ref method-call-missing-slot 'status) 'runtime-error)
+  (check-true (regexp-match? #px"unknown method: nope"
+                             (hash-ref method-call-missing-slot 'error)))
+
+  (define method-call-noncallable-slot-src
+    "HAI 1.3\nI HAS A foo ITZ A BUKKIT\nfoo HAS A nope ITZ 42\nfoo IZ nope MKAY\nKTHXBYE\n")
+  (define method-call-noncallable-slot
+    (run-source method-call-noncallable-slot-src))
+  (check-eq? (hash-ref method-call-noncallable-slot 'status) 'runtime-error)
+  (check-true (regexp-match? #px"unknown method: nope"
+                             (hash-ref method-call-noncallable-slot 'error)))
+
+  (define missing-slot-default-omgwtf-src
+    "HAI 1.3\nI HAS A foo ITZ A BUKKIT\nVISIBLE foo'Z nope\nKTHXBYE\n")
+  (define missing-slot-default-omgwtf
+    (run-source missing-slot-default-omgwtf-src))
+  (check-eq? (hash-ref missing-slot-default-omgwtf 'status) 'runtime-error)
+  (check-true (regexp-match? #px"unknown slot: nope"
+                             (hash-ref missing-slot-default-omgwtf 'error)))
+
+  (define custom-omgwtf-on-missing-slot-src
+    "HAI 1.3\nO HAI IM box\n  HOW IZ I omgwtf YR slotname\n    FOUND YR SMOOSH \"made-\" AN slotname MKAY\n  IF U SAY SO\nKTHX\nVISIBLE box'Z nope\nVISIBLE box'Z nope\nKTHXBYE\n")
+  (define custom-omgwtf-on-missing-slot
+    (run-source custom-omgwtf-on-missing-slot-src))
+  (check-eq? (hash-ref custom-omgwtf-on-missing-slot 'status) 'ok)
+  (check-equal? (hash-ref custom-omgwtf-on-missing-slot 'stdout)
+                "made-nope\nmade-nope\n")
+
   (define method-global-capture-src
     "HAI 1.3\nI HAS A suffix ITZ \"!\"\nO HAI IM speaker\n  HOW IZ I say YR x\n    FOUND YR SMOOSH x AN suffix MKAY\n  IF U SAY SO\nKTHX\nVISIBLE speaker IZ say YR \"A\" MKAY\nsuffix R \"?\"\nVISIBLE speaker IZ say YR \"A\" MKAY\nKTHXBYE\n")
   (define method-global-capture
@@ -621,6 +653,14 @@
   ;; Parent-chain lookup plus copy-on-write assignment should not alias parent slots.
   (check-equal? (hash-ref inherited-method-slot-independence 'stdout)
                 "2\n3\n2\n3\n")
+
+  (define inherited-parent-mutation-visibility-src
+    "HAI 1.3\nO HAI IM parent\n  I HAS A val ITZ 1\nKTHX\nO HAI IM child IM LIEK parent\nKTHX\nparent'Z val R 5\nVISIBLE child'Z val\nchild'Z val R 7\nVISIBLE parent'Z val\nVISIBLE child'Z val\nKTHXBYE\n")
+  (define inherited-parent-mutation-visibility
+    (run-source inherited-parent-mutation-visibility-src))
+  (check-eq? (hash-ref inherited-parent-mutation-visibility 'status) 'ok)
+  (check-equal? (hash-ref inherited-parent-mutation-visibility 'stdout)
+                "5\n5\n7\n")
 
   (define function-storage-src
     "HAI 1.3\nHOW IZ I fun1\n  FOUND YR \"a\"\nIF U SAY SO\nI HAS A foo ITZ A BUKKIT\nfoo HAS A var1 ITZ fun1\nVISIBLE I IZ foo'Z var1 MKAY\nKTHXBYE\n")
