@@ -246,6 +246,11 @@ Latest checklist-batch delta (`2026-03-06`, external-evidence hypothesis seeding
 - Applied line-preserving manifest updates for hypothesis metadata (`302` entries changed from `unknown` to observed expectations).
 - External evidence runner now reports `Assessment counts: supports 302` (no `unknown` assessments remain).
 
+Latest checklist-batch delta (`2026-03-06`, external-evidence triage-promotion pass):
+- Added `scripts/promote_external_manifest_triage.rkt` and generated `corpus/research/external-evidence-triage-promotion.json` + `corpus/research/EXTERNAL_EVIDENCE_TRIAGE_PROMOTION.md`.
+- Applied line-preserving manifest updates for triage workflow status (`302` entries moved from `candidate` to `reproducer-ready`).
+- External evidence runner now reports stable supports with explicit non-candidate triage states, reducing future manual triage churn.
+
 Next corpus/harvest actions tied to this checklist:
 - [x] `47` Partition parse-errors into `strict-non-1.3`, `spec-divergence`, `program-bug`.
   Done: produced `corpus/research/PARSE_ERROR_PARTITION_2026-03-05.md` (tier2 likely-program parse failures: strict-non-1.3 `149`, program-bug `18`, spec-divergence `0`).

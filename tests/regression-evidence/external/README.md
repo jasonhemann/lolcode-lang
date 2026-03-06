@@ -71,3 +71,9 @@ Generate external evidence bucket report:
 ```bash
 racket scripts/analyze_external_evidence.rkt
 ```
+
+Promote supported `candidate` triage entries to `reproducer-ready`:
+
+```bash
+racket scripts/promote_external_manifest_triage.rkt --apply
+```
