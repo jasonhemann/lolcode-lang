@@ -39,6 +39,14 @@
       "(none)"
       (string-trim (car (string-split msg "\n")))))
 
+(define (scope-label scope)
+  (cond
+    [(equal? scope '("1.2")) "1.2"]
+    [(equal? scope '("1.3")) "1.3"]
+    [(equal? scope '("1.2" "1.3")) "1.2+1.3"]
+    [(equal? scope '("unknown")) "unknown"]
+    [else (format "~s" scope)]))
+
 (define (bucket-for row)
   (define status
     (~a (hash-ref row 'observed-status "unknown")))
@@ -96,6 +104,9 @@
       (if (string=? (hash-ref r 'normalized-message) "(none)")
           acc
           (hash-inc acc (hash-ref r 'normalized-message)))))
+  (define scope-counts
+    (for/fold ([acc (hash)]) ([r (in-list enriched)])
+      (hash-inc acc (scope-label (hash-ref r 'spec-scope '("unknown"))))))
 
   (define candidates
     (for/list ([r (in-list enriched)]
@@ -111,14 +122,27 @@
             'message (hash-ref r 'normalized-message)
             'triage-status (hash-ref r 'triage-status)
             'hypothesis (hash-ref r 'hypothesis))))
+  (define unknown-scope
+    (for/list ([r (in-list enriched)]
+               #:when (equal? (hash-ref r 'spec-scope '("unknown")) '("unknown")))
+      (hash 'id (hash-ref r 'id)
+            'project (hash-ref r 'project)
+            'source-kind (hash-ref r 'source-kind)
+            'source-id (hash-ref r 'source-id)
+            'source-url (hash-ref r 'source-url)
+            'source-file (hash-ref r 'source-file)
+            'observed-status (hash-ref r 'observed-status)
+            'message (hash-ref r 'normalized-message))))
 
   (hash 'generated-at (date->string (current-date) #t)
         'totals (hash 'cases (length enriched))
         'status-counts (counts->rows status-counts)
         'bucket-counts (counts->rows bucket-counts)
+        'spec-scope-counts (counts->rows scope-counts)
         'project-counts (counts->rows project-counts)
         'top-messages (take (counts->rows message-counts)
                             (min 25 (hash-count message-counts)))
+        'unknown-spec-scope unknown-scope
         'candidates candidates))
 
 (define (write-json-report path report)
@@ -131,7 +155,9 @@
 (define (write-md-report path report json-path)
   (define status-counts (hash-ref report 'status-counts))
   (define bucket-counts (hash-ref report 'bucket-counts))
+  (define scope-counts (hash-ref report 'spec-scope-counts))
   (define top-messages (hash-ref report 'top-messages))
+  (define unknown-scope (hash-ref report 'unknown-spec-scope))
   (define candidates (hash-ref report 'candidates))
 
   (make-directory* (or (path-only path) (current-directory)))
@@ -153,6 +179,22 @@
         (fprintf out "- `~a`: `~a`\n"
                  (hash-ref row 'label)
                  (hash-ref row 'count)))
+
+      (fprintf out "\n## Spec Scope Counts\n\n")
+      (for ([row (in-list scope-counts)])
+        (fprintf out "- `~a`: `~a`\n"
+                 (hash-ref row 'label)
+                 (hash-ref row 'count)))
+
+      (fprintf out "\n## Unknown Spec Scope Cases\n\n")
+      (if (null? unknown-scope)
+          (fprintf out "- None.\n")
+          (for ([c (in-list unknown-scope)])
+            (fprintf out "- `~a` (`~a` / `~a`): `~a`\n"
+                     (hash-ref c 'id)
+                     (hash-ref c 'project)
+                     (hash-ref c 'observed-status)
+                     (hash-ref c 'message))))
 
       (fprintf out "\n## Top Messages\n\n")
       (for ([row (in-list top-messages)])

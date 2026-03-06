@@ -261,6 +261,11 @@ Latest checklist-batch delta (`2026-03-06`, external-evidence unknown-scope audi
 - Classified the remaining `4` unknown-scope entries into explicit reasons: `hai-missing-version` (`2`), `non-lolcode-shell-snippet` (`1`), and `non-program-crash-dump` (`1`).
 - Confirmed all remaining unknown-scope entries should remain `("unknown")` under strict 1.3 policy (no safe automatic promotion to `("1.2")`/`("1.3")`).
 
+Latest checklist-batch delta (`2026-03-06`, external-evidence report scope-enrichment pass):
+- Extended `tests/regression-evidence/external/run-evidence.rkt` output rows to carry `spec-scope`/`spec-refs` metadata for downstream reporting.
+- Updated `scripts/analyze_external_evidence.rkt` to emit `spec-scope-counts` and an `unknown-spec-scope` case list in both JSON and Markdown outputs.
+- Regenerated `corpus/research/external-evidence-report.json` + `corpus/research/EXTERNAL_EVIDENCE_REPORT.md`; current scope distribution is `295` (`1.2`), `3` (`1.3`), `4` (`unknown`).
+
 Next corpus/harvest actions tied to this checklist:
 - [x] `47` Partition parse-errors into `strict-non-1.3`, `spec-divergence`, `program-bug`.
   Done: produced `corpus/research/PARSE_ERROR_PARTITION_2026-03-05.md` (tier2 likely-program parse failures: strict-non-1.3 `149`, program-bug `18`, spec-divergence `0`).

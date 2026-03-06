@@ -302,6 +302,8 @@
         'source-kind (hash-ref c 'source-kind)
         'source-id (hash-ref c 'source-id)
         'source-url (hash-ref c 'source-url)
+        'spec-scope (hash-ref c 'spec-scope)
+        'spec-refs (hash-ref c 'spec-refs)
         'triage-status (hash-ref c 'triage-status)
         'hypothesis (hash-ref c 'hypothesis)
         'observed-status observed-status
