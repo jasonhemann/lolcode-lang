@@ -1719,6 +1719,82 @@
   (check-equal? (hash-ref preprocess-confluence-n09 'stdout)
                 "BTW, OBTW, TLDR, ...\nAB\nC\nD\n")
 
+  (define optional-article-scope-n38-src
+    "HAI 1.3\nI HAS A t ITZ NUMBR\nI HAS A u ITZ A NUMBR\nVISIBLE t\nVISIBLE u\nKTHXBYE\n")
+  (define optional-article-scope-n38
+    (run-source optional-article-scope-n38-src))
+  (check-eq? (hash-ref optional-article-scope-n38 'status) 'ok)
+  ;; N38: article optionality is grammar-site specific:
+  ;; ITZ NUMBR is a TYPE literal expression; ITZ A NUMBR is typed default init.
+  (check-equal? (hash-ref optional-article-scope-n38 'stdout)
+                "NUMBR\n0\n")
+
+  (define continuation-trailing-space-tab-n45-src
+    "HAI 1.3\nVISIBLE SMOOSH \"A\" AN ...   \n\"B\" MKAY\nVISIBLE SMOOSH \"C\" AN …\t\n\"D\" MKAY\nKTHXBYE\n")
+  (define continuation-trailing-space-tab-n45
+    (run-source continuation-trailing-space-tab-n45-src))
+  (check-eq? (hash-ref continuation-trailing-space-tab-n45 'status) 'ok)
+  (check-equal? (hash-ref continuation-trailing-space-tab-n45 'stdout)
+                "AB\nCD\n")
+
+  (define tldr-handoff-space-comma-n46-src
+    "HAI 1.3\nOBTW hidden TLDR   , VISIBLE \"OK\"\nKTHXBYE\n")
+  (define tldr-handoff-space-comma-n46
+    (run-source tldr-handoff-space-comma-n46-src))
+  (check-eq? (hash-ref tldr-handoff-space-comma-n46 'status) 'ok)
+  (check-equal? (hash-ref tldr-handoff-space-comma-n46 'stdout)
+                "OK\n")
+
+  (define cast-invalid-yarn-dotdot-n48-src
+    "HAI 1.3\nVISIBLE MAEK \"1..2\" A NUMBR\nKTHXBYE\n")
+  (define cast-invalid-yarn-dotdot-n48
+    (run-source cast-invalid-yarn-dotdot-n48-src))
+  (check-eq? (hash-ref cast-invalid-yarn-dotdot-n48 'status) 'runtime-error)
+  (check-true (regexp-match? #px"cannot cast YARN to numeric value"
+                             (hash-ref cast-invalid-yarn-dotdot-n48 'error)))
+
+  (define cast-invalid-yarn-double-minus-n48-src
+    "HAI 1.3\nVISIBLE MAEK \"--1\" A NUMBAR\nKTHXBYE\n")
+  (define cast-invalid-yarn-double-minus-n48
+    (run-source cast-invalid-yarn-double-minus-n48-src))
+  (check-eq? (hash-ref cast-invalid-yarn-double-minus-n48 'status) 'runtime-error)
+  (check-true (regexp-match? #px"cannot cast YARN to numeric value"
+                             (hash-ref cast-invalid-yarn-double-minus-n48 'error)))
+
+  (define cast-invalid-yarn-leading-dot-n48-src
+    "HAI 1.3\nVISIBLE MAEK \".5\" A NUMBAR\nKTHXBYE\n")
+  (define cast-invalid-yarn-leading-dot-n48
+    (run-source cast-invalid-yarn-leading-dot-n48-src))
+  (check-eq? (hash-ref cast-invalid-yarn-leading-dot-n48 'status) 'runtime-error)
+  (check-true (regexp-match? #px"cannot cast YARN to numeric value"
+                             (hash-ref cast-invalid-yarn-leading-dot-n48 'error)))
+
+  (define duplicate-loop-labels-n57-src
+    "HAI 1.3\nI HAS A out ITZ \"\"\nIM IN YR lp\n  out R SMOOSH out AN \"A\" MKAY\n  IM IN YR lp\n    out R SMOOSH out AN \"B\" MKAY\n    GTFO\n  IM OUTTA YR lp\n  GTFO\nIM OUTTA YR lp\nVISIBLE out\nKTHXBYE\n")
+  (define duplicate-loop-labels-n57
+    (run-source duplicate-loop-labels-n57-src))
+  (check-eq? (hash-ref duplicate-loop-labels-n57 'status) 'ok)
+  ;; N57 policy: labels are case-sensitive; duplicate names are permitted and
+  ;; matched structurally by each loop's own IM IN/IM OUTTA pair.
+  (check-equal? (hash-ref duplicate-loop-labels-n57 'stdout)
+                "AB\n")
+
+  (define method-def-receiver-missing-n68-src
+    "HAI 1.3\nHOW IZ ghost ping\n  FOUND YR 1\nIF U SAY SO\nKTHXBYE\n")
+  (define method-def-receiver-missing-n68
+    (run-source method-def-receiver-missing-n68-src))
+  (check-eq? (hash-ref method-def-receiver-missing-n68 'status) 'runtime-error)
+  (check-true (regexp-match? #px"unknown identifier: ghost"
+                             (hash-ref method-def-receiver-missing-n68 'error)))
+
+  (define method-def-receiver-nonbukkit-n68-src
+    "HAI 1.3\nI HAS A ghost ITZ 1\nHOW IZ ghost ping\n  FOUND YR 1\nIF U SAY SO\nKTHXBYE\n")
+  (define method-def-receiver-nonbukkit-n68
+    (run-source method-def-receiver-nonbukkit-n68-src))
+  (check-eq? (hash-ref method-def-receiver-nonbukkit-n68 'status) 'runtime-error)
+  (check-true (regexp-match? #px"method declaration requires BUKKIT receiver"
+                             (hash-ref method-def-receiver-nonbukkit-n68 'error)))
+
   ;; Unsupported operators should be rejected at compile step and surfaced.
   (define unsupported-op-program
     (program "1.3"

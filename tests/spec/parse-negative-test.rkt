@@ -107,6 +107,11 @@
   (check-exn #px"invalid Unicode code point in string literal"
              (lambda () (parse-program invalid-unicode-codepoint)))
 
+  (define invalid-unicode-surrogate-codepoint
+    "HAI 1.3\nVISIBLE \":(D800)\"\nKTHXBYE\n")
+  (check-exn #px"invalid Unicode code point in string literal"
+             (lambda () (parse-program invalid-unicode-surrogate-codepoint)))
+
   (define invalid-unicode-normative-name
     "HAI 1.3\nVISIBLE \":[:{var}]\"\nKTHXBYE\n")
   (check-exn #px"invalid Unicode normative name in string literal"
@@ -234,6 +239,21 @@
     "HAI 1.3\nI HAS A x ITZ 2.\nKTHXBYE\n")
   (check-exn #px"invalid numeric literal"
              (lambda () (parse-program malformed-number-trailing-dot)))
+
+  (define malformed-number-leading-dot
+    "HAI 1.3\nI HAS A x ITZ .5\nKTHXBYE\n")
+  (check-exn #px"(invalid numeric literal|invalid identifier syntax)"
+             (lambda () (parse-program malformed-number-leading-dot)))
+
+  (define malformed-number-minus-leading-dot
+    "HAI 1.3\nI HAS A x ITZ -.5\nKTHXBYE\n")
+  (check-exn #px"(invalid numeric literal|invalid identifier syntax)"
+             (lambda () (parse-program malformed-number-minus-leading-dot)))
+
+  (define malformed-number-negative-trailing-dot
+    "HAI 1.3\nI HAS A x ITZ -0.\nKTHXBYE\n")
+  (check-exn #px"(invalid numeric literal|invalid identifier syntax)"
+             (lambda () (parse-program malformed-number-negative-trailing-dot)))
 
   (define malformed-number-leading-plus-int
     "HAI 1.3\nI HAS A x ITZ +123\nKTHXBYE\n")
@@ -512,6 +532,11 @@
     "HAI 1.3\nWIN\nO RLY?\n  MEBBE WIN\n    VISIBLE \"x\"\nOIC\nKTHXBYE\n")
   (check-exn #px"syntax error:"
              (lambda () (parse-program orphan-mebbe-without-ya-rly)))
+
+  (define orphan-no-wai-without-orly
+    "HAI 1.3\nNO WAI\n  VISIBLE \"N\"\nOIC\nKTHXBYE\n")
+  (check-exn #px"syntax error:"
+             (lambda () (parse-program orphan-no-wai-without-orly)))
 
   (define orly-mebbe-after-no-wai
     "HAI 1.3\nFAIL\nO RLY?\n  YA RLY\n    VISIBLE \"Y\"\n  NO WAI\n    VISIBLE \"N\"\n  MEBBE WIN\n    VISIBLE \"M\"\nOIC\nKTHXBYE\n")
