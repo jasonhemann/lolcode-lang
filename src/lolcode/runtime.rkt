@@ -3,6 +3,7 @@
 (require racket/class
          racket/list
          racket/match
+         racket/set
          racket/string
          "ast.rkt"
          "format-placeholder.rkt"
@@ -110,18 +111,18 @@
       (error 'run-program "unknown ~a: ~a" who name)))
 
 (define reserved-binding-names
-  (hash "WIN" #t
-        "FAIL" #t
-        "NOOB" #t
-        "NUMBR" #t
-        "NUMBAR" #t
-        "YARN" #t
-        "TROOF" #t
-        "TYPE" #t
-        "ME" #t))
+  (set "WIN"
+       "FAIL"
+       "NOOB"
+       "NUMBR"
+       "NUMBAR"
+       "YARN"
+       "TROOF"
+       "TYPE"
+       "ME"))
 
 (define (ensure-bindable-name who name)
-  (when (hash-ref reserved-binding-names name #f)
+  (when (set-member? reserved-binding-names name)
     (error 'run-program
            "~a uses reserved identifier name: ~a"
            who
@@ -231,37 +232,42 @@
 (define (project-receiver-slot-frame receiver)
   (define own-table
     (send receiver slot-table))
-  (define projected-table
-    (make-hash))
-  (define own-slot-names
-    (make-hash))
-  (for ([(name b) (in-hash own-table)])
-    (hash-set! projected-table name b)
-    (hash-set! own-slot-names name #t))
-  (define inherited-before
-    (make-hash))
-  (for ([name (in-list (send receiver slot-names))])
-    (unless (hash-has-key? projected-table name)
-      (define v
-        (send receiver lookup-slot name noob))
-      (hash-set! projected-table name (box v))
-      (hash-set! inherited-before name v)))
+  ;; Table keys/shape are built immutably; per-slot values remain boxed and
+  ;; therefore mutable through lexical env operations.
+  (define-values (own-projected own-slot-names)
+    (for/fold ([projected-table (hash)]
+               [own-slot-names (set)])
+              ([(name b) (in-hash own-table)])
+      (values (hash-set projected-table name b)
+              (set-add own-slot-names name))))
+  (define-values (projected-table inherited-before)
+    (for/fold ([projected-table own-projected]
+               [inherited-before (hash)])
+              ([name (in-list (send receiver slot-names))])
+      (if (hash-has-key? projected-table name)
+          (values projected-table inherited-before)
+          (let ([v (send receiver lookup-slot name noob)])
+            (values (hash-set projected-table name (box v))
+                    ;; Snapshot inherited values in boxes as well, so the
+                    ;; projection/sync path has one representation shape.
+                    (hash-set inherited-before name (box v)))))))
   (values projected-table own-slot-names inherited-before))
 
 (define (sync-receiver-slot-frame! receiver projected-table own-slot-names inherited-before)
+  (define missing-inherited-slot
+    (gensym 'missing-inherited-slot))
   (for ([(name b) (in-hash projected-table)])
     (define value
       (unbox b))
     (cond
-      [(hash-has-key? own-slot-names name)
+      [(set-member? own-slot-names name)
        (send receiver declare-slot! name value)]
-      [(hash-has-key? inherited-before name)
-       (define prior
-         (hash-ref inherited-before name))
-       (unless (equal? value prior)
-         (send receiver assign-slot! name value))]
       [else
-       (void)])))
+       (define prior-box
+         (hash-ref inherited-before name missing-inherited-slot))
+       (unless (or (eq? prior-box missing-inherited-slot)
+                   (equal? value (unbox prior-box)))
+         (send receiver assign-slot! name value))])))
 
 (define (make-prototype-object parent-obj mixin-objs)
   (define child (send parent-obj prototype))
@@ -548,15 +554,15 @@
       [(lol-truthy? (cond-proc e ctx))
        (then-proc (extend-env e) ctx)]
       [else
-       (define (mebbe-loop remaining)
-         (match remaining
-           ['()
-            (else-proc (extend-env e) ctx)]
-           [(cons (cons mb-cond mb-body) rest)
-            (if (lol-truthy? (mb-cond e ctx))
-                (mb-body (extend-env e) ctx)
-                (mebbe-loop rest))]))
-       (mebbe-loop mebbe-procs)])))
+       (cond
+         [(for/or ([mb (in-list mebbe-procs)])
+            (match-define (cons mb-cond mb-body) mb)
+            (and (lol-truthy? (mb-cond e ctx))
+                 mb-body))
+          => (lambda (mb-body)
+               (mb-body (extend-env e) ctx))]
+         [else
+          (else-proc (extend-env e) ctx)])])))
 
 (define (compile-stmt-switch subject cases default)
   (define subject-proc (compile-expr subject))
@@ -571,24 +577,18 @@
       (define subject-value (subject-proc e ctx))
       (define switch-ctx
         (ctx-derive ctx #:break-k break-k))
-      (define (find-first remaining idx)
-        (match remaining
-          ['() #f]
-          [`((,case-match-proc . ,_case-body-proc) . ,rest)
-           (if (lol-equal? subject-value (case-match-proc e ctx))
-               idx
-               (find-first rest (+ idx 1)))]))
-      (define (run-cases remaining)
-        (match remaining
-          ['() (void)]
-          [`((,_case-match-proc . ,case-body-proc) . ,rest)
-           (case-body-proc (extend-env e) switch-ctx)
-           (run-cases rest)]))
-      (match (find-first case-procs 0)
-        [(? number? idx)
-         (run-cases (drop case-procs idx))]
-        [_
-         (default-proc (extend-env e) switch-ctx)]))))
+      (define-values (_before matching-and-after)
+        (splitf-at case-procs
+                   (lambda (compiled-case)
+                     (match-define (cons case-match-proc _case-body-proc)
+                       compiled-case)
+                     (not (lol-equal? subject-value (case-match-proc e ctx))))))
+      (if (null? matching-and-after)
+          (default-proc (extend-env e) switch-ctx)
+          (for ([compiled-case (in-list matching-and-after)])
+            (match-define (cons _case-match-proc case-body-proc)
+              compiled-case)
+            (case-body-proc (extend-env e) switch-ctx))))))
 
 (define (compile-stmt-loop label-open label-close update-var-spec update-op cond-kind cond-expr body)
   (define open-label-proc

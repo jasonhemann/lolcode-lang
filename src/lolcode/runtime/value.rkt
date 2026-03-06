@@ -3,6 +3,7 @@
 (require racket/class
          racket/format
          racket/list
+         racket/set
          racket/string
          "env.rkt")
 
@@ -27,7 +28,7 @@
                 [parent noob])
     (super-new)
 
-    (define active-omgwtf-slots (make-hash))
+    (define active-omgwtf-slots (mutable-set))
 
     (define (default-omgwtf receiver arg-values _ctx)
       (require-arity "omgwtf" arg-values 1)
@@ -48,7 +49,7 @@
         (unbox (hash-ref slots "parent" (lambda () (box noob)))))
       (cond
         [(not (lol-object? parent-value)) #f]
-        [(and visited (hash-ref visited parent-value #f)) #f]
+        [(and visited (set-member? visited parent-value)) #f]
         [else parent-value]))
 
     (define/public (lookup-slot-box name visited)
@@ -57,7 +58,7 @@
          => (lambda (maybe-box)
               (and (box? maybe-box) maybe-box))]
         [else
-         (hash-set! visited this #t)
+         (set-add! visited this)
          (define p (parent-object visited))
          (and p (send p lookup-slot-box name visited))]))
 
@@ -67,18 +68,18 @@
          => (lambda (maybe-method)
               (and (procedure? maybe-method) maybe-method))]
         [else
-         (hash-set! visited this #t)
+         (set-add! visited this)
          (define p (parent-object visited))
          (and p (send p lookup-method name visited))]))
 
     (define/private (call-omgwtf! name ctx)
-      (when (hash-ref active-omgwtf-slots name #f)
+      (when (set-member? active-omgwtf-slots name)
         (error 'run-program
                "omgwtf recursion while resolving missing slot: ~a"
                name))
       (dynamic-wind
         (lambda ()
-          (hash-set! active-omgwtf-slots name #t))
+          (set-add! active-omgwtf-slots name))
         (lambda ()
           (define sentinel (gensym 'no-omgwtf))
           (define maybe-method-value
@@ -100,7 +101,7 @@
           (send this declare-slot! name value)
           value)
         (lambda ()
-          (hash-remove! active-omgwtf-slots name))))
+          (set-remove! active-omgwtf-slots name))))
 
     (define/public (clone)
       (define copied-slots (make-hash))
@@ -118,8 +119,8 @@
     (define/public (slot-table)
       slots)
 
-    (define/public (slot-names [visited (make-hasheq)])
-      (hash-set! visited this #t)
+    (define/public (slot-names [visited (mutable-seteq)])
+      (set-add! visited this)
       (define parent-names
         (let ([p (parent-object visited)])
           (if p
@@ -140,12 +141,12 @@
 
     (define/public (lookup-slot name [default #f])
       (cond
-        [(send this lookup-slot-box name (make-hasheq)) => unbox]
+        [(send this lookup-slot-box name (mutable-seteq)) => unbox]
         [else default]))
 
     (define/public (get-slot name [default noob] [ctx #f])
       (cond
-        [(send this lookup-slot-box name (make-hasheq)) => unbox]
+        [(send this lookup-slot-box name (mutable-seteq)) => unbox]
         [else
          (call-omgwtf! name ctx)]))
 
@@ -164,7 +165,7 @@
         [(hash-ref slots name #f)
          => (lambda (b)
               (set-box! b value))]
-        [(send this lookup-slot-box name (make-hasheq))
+        [(send this lookup-slot-box name (mutable-seteq))
          (hash-set! slots name (box value))]
         [else
          (error 'run-program "unknown slot: ~a" name)]))
@@ -179,12 +180,12 @@
       (hash-set! methods name fn))
 
     (define/public (get-method name [default #f])
-      (or (send this lookup-method name (make-hasheq))
+      (or (send this lookup-method name (mutable-seteq))
           default))
 
     (define/public (invoke-method name arg-values ctx fallback-thunk)
       (define method
-        (send this lookup-method name (make-hasheq)))
+        (send this lookup-method name (mutable-seteq)))
       (cond
         [(procedure? method) (method this arg-values ctx)]
         [(procedure? fallback-thunk) (fallback-thunk)]

@@ -21,6 +21,11 @@
 
 (define noob 'NOOB)
 
+;; Runtime model (informal types):
+;;   Val        := any LOLCODE runtime value
+;;   BindingBox := (Boxof Val)
+;;   EnvTable   := (Mutable-HashTable String BindingBox)
+;; Invariant: every binding stored in an `env` table is a box.
 (struct env (table parent) #:transparent)
 (struct runstate (globals stdout phase) #:transparent)
 (struct exec-ctx (state return-k break-k object-name def-object) #:transparent)
@@ -72,15 +77,20 @@
   (env table parent))
 
 (define (env-lookup-box e name)
-  (cond
-    [(not e) #f]
-    [(hash-ref (env-table e) name #f)
-     => (lambda (maybe-box)
-          (if (box? maybe-box)
-              maybe-box
-              (env-lookup-box (env-parent e) name)))]
-    [else
-     (env-lookup-box (env-parent e) name)]))
+  (let loop ([cur e])
+    (cond
+      [(not cur) #f]
+      [(hash-has-key? (env-table cur) name)
+       (define maybe-box
+         (hash-ref (env-table cur) name))
+       (unless (box? maybe-box)
+         (error 'run-program
+                "runtime invariant violation: non-box binding in env table for identifier ~a: ~e"
+                name
+                maybe-box))
+       maybe-box]
+      [else
+       (loop (env-parent cur))])))
 
 (define (env-define! e name value)
   (when (hash-has-key? (env-table e) name)

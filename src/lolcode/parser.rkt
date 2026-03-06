@@ -2,6 +2,7 @@
 
 (require racket/list
          racket/match
+         racket/set
          racket/string
          (only-in parser-tools/lex
                   define-tokens
@@ -117,14 +118,14 @@
   text)
 
 (define cast-target-types
-  (hash "TROOF" #t
-        "YARN" #t
-        "NUMBR" #t
-        "NUMBAR" #t
-        "NOOB" #t))
+  (set "TROOF"
+       "YARN"
+       "NUMBR"
+       "NUMBAR"
+       "NOOB"))
 
 (define (ensure-cast-target-type who text)
-  (unless (hash-ref cast-target-types text #f)
+  (unless (set-member? cast-target-types text)
     (error who
            "invalid cast target type: ~a (expected TROOF, YARN, NUMBR, NUMBAR, or NOOB)"
            text))
@@ -300,7 +301,7 @@
     [(_ _)
      (equal? a b)]))
 
-(define (validate-switch-case-literals! cases)
+(define (validate-switch-case-literals cases)
   (void
    (for/fold ([seen '()])
              ([c (in-list cases)])
@@ -316,151 +317,31 @@
            (cons key seen))]
        [else seen]))))
 
-(define (word-token-ci=? t text)
+(define (word-token=? text t)
   (and (eq? (token-type t) 'WORD)
        (string=? (token-lexeme t) text)))
 
 (define (collapse-phrase-tokens raws [acc '()])
   (match raws
     ['() (reverse acc)]
-    [`(,t1 ,t2 ., rest)
-     #:when (and (word-token-ci=? t1 "IM")
-                 (word-token-ci=? t2 "IN")
+    [`(,t1 ,t2 ., rst)
+     #:when (and (word-token=? "IM" t1)
+                 (word-token=? "IN" t2)
                  (= (token-line t1) (token-line t2)))
      (collapse-phrase-tokens
-      rest
+      rst
       (cons (token 'WORD "IMIN" (token-line t1) (token-col t1))
             acc))]
-    [`(,t1 ,t2 . ,rest)
-     #:when (and (word-token-ci=? t1 "IM")
-                 (word-token-ci=? t2 "OUTTA")
+    [`(,t1 ,t2 . ,rst)
+     #:when (and (word-token=? "IM" t1)
+                 (word-token=? "OUTTA" t2)
                  (= (token-line t1) (token-line t2)))
      (collapse-phrase-tokens
-      rest
+      rst
       (cons (token 'WORD "IMOUTTA" (token-line t1) (token-col t1))
             acc))]
     [`(,t . ,rst)
      (collapse-phrase-tokens rst (cons t acc))]))
-
-(define (raw-atom-token? t)
-  (case (token-type t)
-    [(NUMBER STRING) #t]
-    [(WORD)
-     (not (hash-ref keyword-token-ctors
-                    (token-lexeme t)
-                    #f))]
-    [else #f]))
-
-(define (split-until-mkay toks)
-  (splitf-at toks
-             (lambda (t)
-               (not (word-token-ci=? t "MKAY")))))
-
-(define (rewrite-smoosh-line line-toks)
-  (let loop ([prefix '()] [rest line-toks])
-    (match rest
-      ['()
-       (append (reverse prefix) rest)]
-      [(cons sm suffix)
-       #:when (word-token-ci=? sm "SMOOSH")
-       (define-values (args tail)
-         (split-until-mkay suffix))
-       (define rewritten-rest
-         (if (and (>= (length args) 2)
-                  (not (for/or ([a (in-list args)])
-                         (word-token-ci=? a "AN")))
-                  (andmap raw-atom-token? args))
-             (insert-optional-an-separators args)
-             args))
-       (append (reverse prefix) (list sm) rewritten-rest tail)]
-      [(cons t rst)
-       (loop (cons t prefix) rst)])))
-
-(define (rewrite-no-an-raws raws rewrite-line)
-  (define (emit-line out-rev line-rev)
-    (foldl cons
-           out-rev
-           (rewrite-line (reverse line-rev))))
-  (define-values (line-rev out-rev)
-    (for/fold ([line-rev '()] [out-rev '()])
-              ([t (in-list raws)])
-      (if (eq? (token-type t) 'NEWLINE)
-          (values '()
-                  (cons t (emit-line out-rev line-rev)))
-          (values (cons t line-rev)
-                  out-rev))))
-  (reverse (emit-line out-rev line-rev)))
-
-(define (rewrite-smoosh-no-an-raws raws)
-  (rewrite-no-an-raws raws rewrite-smoosh-line))
-
-(define (logic-head-token? t)
-  (and (eq? (token-type t) 'WORD)
-       (or (string=? (token-lexeme t) "ALL")
-           (string=? (token-lexeme t) "ANY"))))
-
-(define (rewrite-logic-line line-toks)
-  (let loop ([prefix '()] [rest line-toks])
-    (match rest
-      ['()
-       (append (reverse prefix) rest)]
-      [(cons head1 (cons head2 suffix))
-       #:when (and (logic-head-token? head1)
-                   (word-token-ci=? head2 "OF"))
-       (define-values (args tail)
-         (split-until-mkay suffix))
-       (define rewritten-args
-         (if (and (>= (length args) 2)
-                  (not (for/or ([a (in-list args)])
-                         (word-token-ci=? a "AN")))
-                  (andmap raw-atom-token? args))
-             (insert-optional-an-separators args)
-             args))
-       (append (reverse prefix) (list head1 head2) rewritten-args tail)]
-      [(cons t rst)
-       (loop (cons t prefix) rst)])))
-
-(define (rewrite-logic-no-an-raws raws)
-  (rewrite-no-an-raws raws rewrite-logic-line))
-
-(define (insert-optional-an-separators args)
-  (match args
-    ['() '()]
-    [(cons first rest)
-     (cons first
-           (for/foldr ([out '()])
-                      ([arg (in-list rest)])
-             (list* (token 'WORD
-                           "AN"
-                           (token-line arg)
-                           (max 1 (- (token-col arg) 3)))
-                    arg
-                    out)))]))
-
-(define (rewrite-visible-line line-toks)
-  (match line-toks
-    [(cons visible-tok body)
-     #:when (word-token-ci=? visible-tok "VISIBLE")
-     (define-values (args trailing)
-       (if (pair? body)
-           (let-values ([(candidate-args candidate-trailing)
-                         (split-at-right body 1)])
-             (if (word-token-ci=? (car candidate-trailing) "!")
-                 (values candidate-args candidate-trailing)
-                 (values body '())))
-           (values body '())))
-     (if (and (>= (length args) 2)
-              (not (for/or ([a (in-list args)])
-                     (word-token-ci=? a "AN")))
-              (andmap raw-atom-token? args))
-         (cons visible-tok
-               (append (insert-optional-an-separators args)
-                       trailing))
-         line-toks)]
-    [_ line-toks]))
-
-(define (rewrite-visible-no-an-raws raws)
-  (rewrite-no-an-raws raws rewrite-visible-line))
 
 (define (raw->token raw)
   (define ttype (token-type raw))
@@ -626,7 +507,8 @@
 
     (visible-args
      [(expr) (list $1)]
-     [(expr AN visible-args) (cons $1 $3)])
+     [(expr AN visible-args) (cons $1 $3)]
+     [(raw-atom-expr raw-atom-expr-list+) (cons $1 $2)])
 
     (if-stmt
      [(O RLYQ nlopt YA RLY nlopt statement-list-opt mebbe-list else-opt OIC)
@@ -634,8 +516,8 @@
 
     (mebbe-list
      [() '()]
-     [(mebbe-list MEBBE expr nlopt statement-list-opt)
-      (append $1 (list (mebbe-branch $3 $5)))])
+     [(MEBBE expr nlopt statement-list-opt mebbe-list)
+      (cons (mebbe-branch $2 $4) $5)])
 
     (else-opt
      [() '()]
@@ -644,7 +526,7 @@
     (switch-stmt
      [(WTFQ nlopt case-list default-opt OIC)
       (begin
-        (validate-switch-case-literals! $3)
+        (validate-switch-case-literals $3)
         (stmt-switch (expr-ident "IT") $3 $4))])
 
     (loop-stmt
@@ -678,8 +560,11 @@
      [(WILE expr) (cons "WILE" $2)])
 
     (case-list
-     [(case) (list $1)]
-     [(case-list case) (append $1 (list $2))])
+     [(case case-list-tail) (cons $1 $2)])
+
+    (case-list-tail
+     [() '()]
+     [(case case-list-tail) (cons $1 $2)])
 
     (case
      [(OMG case-literal nlopt statement-list-opt)
@@ -824,6 +709,15 @@
     (ident-token
      [(ID) (ensure-identifier-token 'parse-source $1)])
 
+    (raw-atom-expr
+     [(ident-token) (id->expr $1)]
+     [(NUMBER) (expr-number $1)]
+     [(STRING) (expr-string $1)])
+
+    (raw-atom-expr-list+
+     [(raw-atom-expr) (list $1)]
+     [(raw-atom-expr raw-atom-expr-list+) (cons $1 $2)])
+
     (call-args
      [() '()]
      [(YR expr call-args-tail) (cons $2 $3)])
@@ -859,15 +753,24 @@
      [(DIFFRINT expr rhs-no-an) (expr-binary "DIFFRINT" $2 $3)])
 
     (logic-variadic-expr
-     [(ALL OF expr logic-tail maybe-mkay) (expr-variadic "ALL OF" (cons $3 $4))]
-     [(ANY OF expr logic-tail maybe-mkay) (expr-variadic "ANY OF" (cons $3 $4))])
+     [(ALL OF expr AN expr logic-tail maybe-mkay)
+      (expr-variadic "ALL OF" (cons $3 (cons $5 $6)))]
+     [(ANY OF expr AN expr logic-tail maybe-mkay)
+      (expr-variadic "ANY OF" (cons $3 (cons $5 $6)))]
+     [(ALL OF raw-atom-expr raw-atom-expr-list+ MKAY)
+      (expr-variadic "ALL OF" (cons $3 $4))]
+     [(ANY OF raw-atom-expr raw-atom-expr-list+ MKAY)
+      (expr-variadic "ANY OF" (cons $3 $4))])
 
     (logic-tail
      [() '()]
      [(AN expr logic-tail) (cons $2 $3)])
 
     (smoosh-expr
-     [(SMOOSH expr smoosh-tail maybe-mkay) (expr-variadic "SMOOSH" (cons $2 $3))])
+     [(SMOOSH expr AN expr smoosh-tail maybe-mkay)
+      (expr-variadic "SMOOSH" (cons $2 (cons $4 $5)))]
+     [(SMOOSH raw-atom-expr raw-atom-expr-list+ MKAY)
+      (expr-variadic "SMOOSH" (cons $2 $3))])
 
     (smoosh-tail
      [() '()]
@@ -877,7 +780,7 @@
      [() (void)]
      [(MKAY) (void)]))))
 
-(define (validate-raw-token-stream! raws)
+(define (validate-raw-token-stream raws)
   (define (loop remaining)
     (match remaining
       [`(,t1 ,t2 . ,rest)
@@ -893,7 +796,7 @@
       [_ (void)]))
   (loop raws))
 
-(define (validate-function-def-placement! parsed)
+(define (validate-function-def-placement parsed)
   (define (walk-block stmts allow-function-def?)
     (for ([stmt (in-list stmts)])
       (walk-stmt stmt allow-function-def?)))
@@ -927,20 +830,18 @@
   (unless (string? source)
     (raise-argument-error 'parse-source "string?" source))
   (define normalized-raws
-    (rewrite-visible-no-an-raws
-     (rewrite-logic-no-an-raws
-      (rewrite-smoosh-no-an-raws
-       (collapse-phrase-tokens (lex-source source))))))
-  (validate-raw-token-stream! normalized-raws)
+    (collapse-phrase-tokens (lex-source source)))
+  (validate-raw-token-stream normalized-raws)
   (define toks
     (map raw->position-token normalized-raws))
-  (define idx 0)
-  (define n (length toks))
+  (define eof-token
+    (last toks))
+  (define-values (more-token? advance-token)
+    (sequence-generate (in-list toks)))
   (define (next-token)
-    (define t (list-ref toks idx))
-    (when (< idx (- n 1))
-      (set! idx (+ idx 1)))
-    t)
+    (if (more-token?)
+        (advance-token)
+        eof-token))
   (define parsed
     (parameterize ([current-source-lines
                     (list->vector (string-split source "\n" #:trim? #f))])
@@ -950,5 +851,5 @@
            "unsupported version: ~a (this implementation only accepts HAI ~a)"
            (program-version parsed)
            supported-language-version))
-  (validate-function-def-placement! parsed)
+  (validate-function-def-placement parsed)
   parsed)

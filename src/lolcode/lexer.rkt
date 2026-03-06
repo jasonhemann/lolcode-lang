@@ -546,7 +546,22 @@
          (+ 1 (position-col start-pos))))
 
 (define (make-next-token in)
-  (define pending '())
+  ;; Pending token queue, represented as two lists (front/back) for
+  ;; amortized O(1) enqueue/dequeue.
+  (define pending-front '())
+  (define pending-back '())
+  (define (pending-empty?)
+    (and (null? pending-front)
+         (null? pending-back)))
+  (define (pending-enqueue-all back toks)
+    (foldl cons back toks))
+  (define (pending-dequeue!)
+    (when (null? pending-front)
+      (set! pending-front (reverse pending-back))
+      (set! pending-back '()))
+    (define next (car pending-front))
+    (set! pending-front (cdr pending-front))
+    next)
   (define line-has-token? #f)
   ;; Tokens returned from an `ok+line-continuation` lexeme were parsed before
   ;; the consumed newline. Do not let them affect the next physical line state.
@@ -614,11 +629,13 @@
            (set! line-has-token? #f)
            (set! suppress-line-state-updates
                  (+ suppress-line-state-updates (length toks)))
-           (set! pending (append pending (cdr toks)))
+           (set! pending-back
+                 (pending-enqueue-all pending-back (cdr toks)))
            (return-without-pos (car toks))]
           [else
            (lexer-cover! 'scanner/word/ok)
-           (set! pending (append pending (cdr toks)))
+           (set! pending-back
+                 (pending-enqueue-all pending-back (cdr toks)))
            (return-without-pos (car toks))]))]
      [(eof)
       (begin
@@ -627,11 +644,9 @@
   (lambda ()
     (define t
       (cond
-        [(pair? pending)
+        [(not (pending-empty?))
          (lexer-cover! 'scanner/pending)
-         (define next (car pending))
-         (set! pending (cdr pending))
-         next]
+         (pending-dequeue!)]
         [else
          (scanner in)]))
     (if (> suppress-line-state-updates 0)
