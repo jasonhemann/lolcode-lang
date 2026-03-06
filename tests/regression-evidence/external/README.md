@@ -78,6 +78,12 @@ Run by hypothesis:
 ./scripts/test_external_evidence.sh --hypothesis expects-pass
 ```
 
+Run summary-only (counts without per-case table):
+
+```bash
+./scripts/test_external_evidence.sh --scope 1.3 --summary-only
+```
+
 Seed manifest hypotheses from observed outcomes (line-preserving update):
 
 ```bash

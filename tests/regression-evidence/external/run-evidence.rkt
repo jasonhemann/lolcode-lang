@@ -382,22 +382,24 @@
   (for ([k (in-list (sort (hash-keys counts) string<?))])
     (printf "  ~a: ~a\n" k (hash-ref counts k))))
 
-(define (print-report rows)
-  (displayln "id\twave\tproject\tkind\tsource-id\tobserved\tassessment\ttriage\thypothesis\tstdout-check\terror-check")
-  (for ([r (in-list rows)])
-    (printf "~a\t~a\t~a\t~a\t~a\t~a\t~a\t~a\t~a\t~a\t~a\n"
-            (hash-ref r 'id)
-            (hash-ref r 'wave)
-            (hash-ref r 'project)
-            (hash-ref r 'source-kind)
-            (hash-ref r 'source-id)
-            (hash-ref r 'observed-status)
-            (hash-ref r 'assessment)
-            (hash-ref r 'triage-status)
-            (hash-ref r 'hypothesis)
-            (hash-ref r 'stdout-check)
-            (hash-ref r 'regex-check)))
-  (newline)
+(define (print-report rows [summary-only? #f])
+  (unless summary-only?
+    (displayln "id\twave\tproject\tkind\tsource-id\tobserved\tassessment\ttriage\thypothesis\tstdout-check\terror-check")
+    (for ([r (in-list rows)])
+      (printf "~a\t~a\t~a\t~a\t~a\t~a\t~a\t~a\t~a\t~a\t~a\n"
+              (hash-ref r 'id)
+              (hash-ref r 'wave)
+              (hash-ref r 'project)
+              (hash-ref r 'source-kind)
+              (hash-ref r 'source-id)
+              (hash-ref r 'observed-status)
+              (hash-ref r 'assessment)
+              (hash-ref r 'triage-status)
+              (hash-ref r 'hypothesis)
+              (hash-ref r 'stdout-check)
+              (hash-ref r 'regex-check)))
+    (newline))
+  (printf "Cases evaluated: ~a\n" (length rows))
   (print-counts "Observed status counts:" (status-count rows 'observed-status))
   (print-counts "Assessment counts:" (status-count rows 'assessment))
   (newline)
@@ -439,7 +441,8 @@
                             selected-id
                             [selected-scope #f]
                             [selected-triage #f]
-                            [selected-hypothesis #f])
+                            [selected-hypothesis #f]
+                            [summary-only? #f])
   (define rows
     (evaluate-evidence-cases manifest-path
                              selected-wave
@@ -453,7 +456,7 @@
                 (scope->arg-label selected-scope))
         (displayln "No evidence cases selected."))
     (void))
-  (print-report rows)
+  (print-report rows summary-only?)
   rows)
 
 (define-runtime-path default-manifest-path "manifest.rktd")
@@ -466,6 +469,7 @@
   (define selected-scope #f)
   (define selected-triage #f)
   (define selected-hypothesis #f)
+  (define summary-only? #f)
 
   (command-line
    #:program "run-evidence.rkt"
@@ -488,11 +492,14 @@
                         (parse-one-of "--triage" s valid-triage-status))]
    [("--hypothesis") s "Select only one hypothesis"
                       (set! selected-hypothesis
-                            (parse-one-of "--hypothesis" s valid-hypotheses))])
+                            (parse-one-of "--hypothesis" s valid-hypotheses))]
+   [("--summary-only") "Print only aggregate counts (suppress per-case rows)"
+                       (set! summary-only? #t)])
 
   (void (run-evidence-cases manifest-path
                             selected-wave
                             selected-id
                             selected-scope
                             selected-triage
-                            selected-hypothesis)))
+                            selected-hypothesis
+                            summary-only?)))

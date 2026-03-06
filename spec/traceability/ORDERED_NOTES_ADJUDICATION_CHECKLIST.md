@@ -286,6 +286,11 @@ Latest checklist-batch delta (`2026-03-06`, analyzer wave/id targeting pass):
 - Extended analyzer filter metadata to include `wave` and `id` in generated reports.
 - Verified targeted analyzer slices (`--wave 1 --id ext_lci_issue_0047`, `--wave 1 --scope unknown`) and re-verified full external evidence stability.
 
+Latest checklist-batch delta (`2026-03-06`, evidence-runner summary mode pass):
+- Added `--summary-only` to `tests/regression-evidence/external/run-evidence.rkt` to suppress per-case rows and print aggregate counts only.
+- Updated `tests/regression-evidence/external/README.md` with summary-mode usage examples.
+- Verified summary mode across filtered and full runs (`--scope 1.3 --summary-only`, `--summary-only`) while preserving default per-case output behavior.
+
 Next corpus/harvest actions tied to this checklist:
 - [x] `47` Partition parse-errors into `strict-non-1.3`, `spec-divergence`, `program-bug`.
   Done: produced `corpus/research/PARSE_ERROR_PARTITION_2026-03-05.md` (tier2 likely-program parse failures: strict-non-1.3 `149`, program-bug `18`, spec-divergence `0`).
