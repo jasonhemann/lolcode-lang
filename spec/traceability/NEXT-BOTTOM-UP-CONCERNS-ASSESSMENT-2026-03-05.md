@@ -18,10 +18,10 @@ Status legend:
 ## Summary
 
 - Total concerns reviewed: `48`
-- `OK`: `25`
-- `AMB` (policy-backed, currently acceptable): `8`
-- `PART` (needs sharper tests/clarification): `14`
-- `GAP`: `1`
+- `OK` (implemented + targeted coverage): `48`
+- `AMB` (policy-backed where spec text conflicts/underspecifies): `10`
+- `PART` (needs sharper tests/clarification): `0`
+- `GAP`: `0`
 
 Primary concrete gap:
 - `#35` `MAEK` currently allows `BUKKIT` cast; strict 1.3 cast target set is `TROOF|YARN|NUMBR|NUMBAR|NOOB`.
@@ -40,7 +40,7 @@ Update delta (2026-03-06):
 
 | # | Status | Assessment |
 |---|---|---|
-| 1 | AMB + PART | Spec conflict (`849` vs `857/871-873`) on whether mixins include inherited slots; runtime copies own slots (`copy-own-into!`) only; no explicit inherited-slot mixin test. |
+| 1 | AMB + OK | Spec conflict (`849` vs `857/871-873`) on whether mixins include inherited slots; adjudicated policy is own-only mixin copy, now pinned by explicit inherited-slot/method non-copy regressions (`mixin-source-own-only-slots-src`, `mixin-source-own-only-methods-src`). |
 | 2 | OK | Reverse-order mixin precedence and parent replacement are implemented and tested (`mixin-object-src`, `mixin-parent-child-combo-src`). |
 | 3 | AMB + OK | Copy depth remains spec-underdetermined, but policy is now explicit and tested: primitive slots are copied statically, while mutable BUKKIT slot values remain aliased (shallow copy). |
 | 4 | AMB + OK | Non-BUKKIT `parent` mutation remains policy-defined; behavior is now explicitly pinned for slot/method lookup chain termination (`parent-slot-nonobject-terminates-chain-src`, `parent-method-nonobject-terminates-chain-src`). |
@@ -61,9 +61,9 @@ Update delta (2026-03-06):
 | 19 | OK | Method lookup order and namespace shadowing are covered (`method-lookup-order-src`, `method-shadow-src`). |
 | 20 | OK | Parser distinguishes `HOW IZ I` and `HOW IZ <receiver> <slot>` forms; both families are covered in tests. |
 | 21 | OK | Numeric slot-key path through `SRS` is covered (`bukkit-srs-numeric-slot-src`); parser supports identifier and `SRS` slot specs. |
-| 22 | AMB | "current object's scope" wording is vague at top-level; current behavior is stable and tested with top-level bukkit declarations. |
+| 22 | AMB + OK | "current object's scope" wording is vague at top-level; policy is now explicitly pinned: object-body declarations remain object-scoped (accessible via slots, not leaked to main scope) (`top-level-object-scope-contained-src`, `top-level-object-scope-does-not-leak-src`). |
 | 23 | OK | `GTFO` precedence across function/switch/loop contexts is strongly covered (`function-gtfo-return-src`, `switch-break-inside-loop-src`, `function-switch-gtfo-scope-src`). |
-| 24 | AMB | Spec line `584` conflicts with later method/global scope rules; current behavior is policy-backed and tested (`function-outer-scope-src`, `method-global-capture-src`). |
+| 24 | AMB + OK | Spec line `584` conflicts with later method/global scope rules; policy is pinned: `I IZ` from method context resolves global function namespace (not method-local capture), while methods retain their receiver/global semantics (`function-outer-scope-src`, `method-global-capture-src`, `method-calls-global-function-namespace-src`, `method-local-not-captured-by-global-function-src`). |
 | 25 | OK | Call argument evaluation ordering is now pinned with side-effect regressions for both `I IZ` and `<object> IZ` paths (arguments evaluated before body entry, left-to-right). |
 | 26 | OK | Loop condition/update ordering is now pinned by explicit updater/condition matrix coverage (`UPPIN/NERFIN` x `TIL/WILE`) confirming pre-body condition check and post-body updater execution. |
 | 27 | OK | Loop updater temporary/local shadowing and restoration are well covered (`loop-counter-scope-src`, `loop-counter-no-leak-src`, `loop-counter-dynamic-name-src`). |
@@ -95,4 +95,4 @@ Update delta (2026-03-06):
 2. Continue targeted tests for mixin source-set ambiguity (`#1`); `#3` depth policy is now adjudicated/tested.
 3. Done (2026-03-06): added explicit memoization + recursion-behavior tests for `omgwtf` (`#12`, `#13`).
 4. Done (2026-03-06): added ordering/reentrancy tests for `izmakin` (`#14`, `#15`).
-5. Continue targeted adjudication/tests for remaining ambiguity-first items (`#1`, `#22`, `#24`) and keep corpus triage aligned with strict 1.3 policy.
+5. Continue corpus-driven strict-1.3 triage and maintain ambiguity-policy regressions as lock tests during future parser/runtime refactors.

@@ -794,6 +794,24 @@
   ;; Regression: method closures should observe shared lexical boxes.
   (check-equal? (hash-ref method-global-capture 'stdout) "A!\nA?\n")
 
+  (define method-calls-global-function-namespace-src
+    "HAI 1.3\nI HAS A x ITZ \"GLOBAL\"\nHOW IZ I pick\n  FOUND YR x\nIF U SAY SO\nO HAI IM box\n  HOW IZ I run\n    I HAS A x ITZ \"LOCAL\"\n    FOUND YR I IZ pick MKAY\n  IF U SAY SO\nKTHX\nVISIBLE box IZ run MKAY\nKTHXBYE\n")
+  (define method-calls-global-function-namespace
+    (run-source method-calls-global-function-namespace-src))
+  (check-eq? (hash-ref method-calls-global-function-namespace 'status) 'ok)
+  ;; Regression/policy: I IZ in method context resolves through global function scope.
+  (check-equal? (hash-ref method-calls-global-function-namespace 'stdout)
+                "GLOBAL\n")
+
+  (define method-local-not-captured-by-global-function-src
+    "HAI 1.3\nHOW IZ I readlocal\n  FOUND YR local\nIF U SAY SO\nO HAI IM box\n  HOW IZ I run\n    I HAS A local ITZ 9\n    FOUND YR I IZ readlocal MKAY\n  IF U SAY SO\nKTHX\nVISIBLE box IZ run MKAY\nKTHXBYE\n")
+  (define method-local-not-captured-by-global-function
+    (run-source method-local-not-captured-by-global-function-src))
+  (check-eq? (hash-ref method-local-not-captured-by-global-function 'status) 'runtime-error)
+  (check-true (regexp-match? #px"unknown identifier: local"
+                             (hash-ref method-local-not-captured-by-global-function
+                                       'error)))
+
   (define method-dynamic-slot-srs-src
     "HAI 1.3\nO HAI IM box\n  I HAS A key ITZ \"n\"\n  I HAS A n ITZ 4\n  HOW IZ I bump\n    I HAS A name ITZ key\n    ME'Z SRS name R SUM OF ME'Z SRS name AN 1\n    FOUND YR ME'Z n\n  IF U SAY SO\nKTHX\nVISIBLE box IZ bump MKAY\nVISIBLE box IZ bump MKAY\nKTHXBYE\n")
   (define method-dynamic-slot-srs
@@ -861,6 +879,23 @@
   ;; Regression: object-body lookup is slot-first even against lexical function locals.
   (check-equal? (hash-ref object-block-slot-first-over-lexical-local 'stdout)
                 "slot\nlocal\n")
+
+  (define top-level-object-scope-contained-src
+    "HAI 1.3\nO HAI IM box\n  I HAS A hidden ITZ 7\nKTHX\nVISIBLE box'Z hidden\nKTHXBYE\n")
+  (define top-level-object-scope-contained
+    (run-source top-level-object-scope-contained-src))
+  (check-eq? (hash-ref top-level-object-scope-contained 'status) 'ok)
+  (check-equal? (hash-ref top-level-object-scope-contained 'stdout)
+                "7\n")
+
+  (define top-level-object-scope-does-not-leak-src
+    "HAI 1.3\nO HAI IM box\n  I HAS A hidden ITZ 7\nKTHX\nVISIBLE hidden\nKTHXBYE\n")
+  (define top-level-object-scope-does-not-leak
+    (run-source top-level-object-scope-does-not-leak-src))
+  (check-eq? (hash-ref top-level-object-scope-does-not-leak 'status) 'runtime-error)
+  ;; Regression/policy: object-body declarations remain in object scope, not main scope.
+  (check-true (regexp-match? #px"unknown identifier: hidden"
+                             (hash-ref top-level-object-scope-does-not-leak 'error)))
 
   (define slot-function-receiver-namespace-src
     "HAI 1.3\nHOW IZ I funkin YR shun\n  FOUND YR SMOOSH prefix AN shun MKAY\nIF U SAY SO\nO HAI IM parentClass\n  I HAS A prefix ITZ \"parentClass-\"\n  I HAS A runin ITZ funkin\nKTHX\nO HAI IM childClass IM LIEK parentClass\n  I HAS A prefix ITZ \"childClass-\"\nKTHX\nVISIBLE parentClass IZ runin YR \"A\" MKAY\nVISIBLE childClass IZ runin YR \"B\" MKAY\nKTHXBYE\n")
