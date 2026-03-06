@@ -136,6 +136,38 @@
   (check-eq? (hash-ref bukkit-srs-numeric-slot 'status) 'ok)
   (check-equal? (hash-ref bukkit-srs-numeric-slot 'stdout) "42\n")
 
+  (define prototype-srs-parent-and-mixins-src
+    "HAI 1.3\nI HAS A pname ITZ \"Parent\"\nI HAS A m1name ITZ \"MixA\"\nI HAS A m2name ITZ \"MixB\"\nO HAI IM Parent\n  I HAS A pslot ITZ \"P\"\nKTHX\nO HAI IM MixA\n  I HAS A m1slot ITZ \"M1\"\nKTHX\nO HAI IM MixB\n  I HAS A m2slot ITZ \"M2\"\nKTHX\nI HAS A kid ITZ A SRS pname SMOOSH SRS m1name AN SRS m2name\nVISIBLE kid'Z pslot\nVISIBLE kid'Z m1slot\nVISIBLE kid'Z m2slot\nKTHXBYE\n")
+  (define prototype-srs-parent-and-mixins
+    (run-source prototype-srs-parent-and-mixins-src))
+  (check-eq? (hash-ref prototype-srs-parent-and-mixins 'status) 'ok)
+  (check-equal? (hash-ref prototype-srs-parent-and-mixins 'stdout)
+                "P\nM1\nM2\n")
+
+  (define method-def-srs-receiver-and-name-src
+    "HAI 1.3\nI HAS A recv ITZ \"box\"\nI HAS A mname ITZ \"bump\"\nO HAI IM box\n  I HAS A n ITZ 0\nKTHX\nHOW IZ SRS recv SRS mname\n  n R SUM OF n AN 1\n  FOUND YR n\nIF U SAY SO\nVISIBLE box IZ bump MKAY\nVISIBLE box IZ bump MKAY\nKTHXBYE\n")
+  (define method-def-srs-receiver-and-name
+    (run-source method-def-srs-receiver-and-name-src))
+  (check-eq? (hash-ref method-def-srs-receiver-and-name 'status) 'ok)
+  (check-equal? (hash-ref method-def-srs-receiver-and-name 'stdout)
+                "1\n2\n")
+
+  (define call-target-srs-slot-name-src
+    "HAI 1.3\nI HAS A host ITZ A BUKKIT\nHOW IZ host ping\n  FOUND YR \"pong\"\nIF U SAY SO\nI HAS A dyn ITZ \"ping\"\nVISIBLE I IZ host'Z SRS dyn MKAY\nKTHXBYE\n")
+  (define call-target-srs-slot-name
+    (run-source call-target-srs-slot-name-src))
+  (check-eq? (hash-ref call-target-srs-slot-name 'status) 'ok)
+  (check-equal? (hash-ref call-target-srs-slot-name 'stdout)
+                "pong\n")
+
+  (define method-def-srs-receiver-slot-tail-src
+    "HAI 1.3\nI HAS A rootname ITZ \"root\"\nI HAS A childname ITZ \"child\"\nO HAI IM root\n  I HAS A child ITZ A BUKKIT\nKTHX\nHOW IZ SRS rootname'Z SRS childname ping\n  FOUND YR \"ok\"\nIF U SAY SO\nVISIBLE root'Z child IZ ping MKAY\nKTHXBYE\n")
+  (define method-def-srs-receiver-slot-tail
+    (run-source method-def-srs-receiver-slot-tail-src))
+  (check-eq? (hash-ref method-def-srs-receiver-slot-tail 'status) 'ok)
+  (check-equal? (hash-ref method-def-srs-receiver-slot-tail 'stdout)
+                "ok\n")
+
   (define bukkit-slot-redeclare-overwrite-src
     "HAI 1.3\nI HAS A obj ITZ A BUKKIT\nobj HAS A answer ITZ 1\nobj HAS A answer ITZ 2\nVISIBLE obj'Z answer\nKTHXBYE\n")
   (define bukkit-slot-redeclare-overwrite

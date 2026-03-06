@@ -77,7 +77,7 @@ Update delta (2026-03-06):
 | 35 | OK (resolved 2026-03-06) | Parser now rejects non-spec cast target designators for both `MAEK` and `IS NOW A`; runtime `cast-value` no longer accepts `BUKKIT` as cast target. |
 | 36 | AMB + OK | Numeric bounds/precision are host-defined by spec; implementation intentionally follows Racket numeric model; formatting/truncation tested. |
 | 37 | OK (resolved 2026-03-06) | Strict cast grammar now has direct negative coverage for malformed numeric forms (spaced sign, scientific notation, and leading-plus literals), matching spec numeric lexical constraints. |
-| 38 | PART | `SRS` support is broad and tested in many positions; boundary cases (all "identifier positions") still not exhaustively enumerated. |
+| 38 | OK (resolved 2026-03-06) | `SRS` identifier-position boundaries are now pinned across additional sites: prototype parent/mixins, dynamic method receiver+name definition, `I IZ` dynamic call-slot names, and dynamic receiver slot-tail references. |
 | 39 | OK | Comma-inline `OBTW/TLDR` examples are now pinned with direct runtime regression, and strict parser rejection is pinned for `TLDR` trailing statements without comma/newline. |
 | 40 | PART | Unicode normative-name escape path is implemented with `codepoint` table and core tests, but alias/normalization edge coverage is limited. |
 | 41 | OK | Version-policy gap is explicitly handled and tested (`unsupported-v12`, `unsupported-v14`, external strict triage partition docs). |
