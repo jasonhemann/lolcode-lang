@@ -186,6 +186,12 @@
   (check-not-exn
    (lambda () (parse-program inline-block-comment-tldr-handoff)))
 
+  (define block-comment-tldr-trailing-statement-without-comma
+    "HAI 1.3\nOBTW hidden\nTLDR VISIBLE \"OK\"\nKTHXBYE\n")
+  (check-exn #px"TLDR must be followed by newline or comma"
+             (lambda ()
+               (parse-program block-comment-tldr-trailing-statement-without-comma)))
+
   (define one-line-minimal-program
     "HAI 1.3, KTHXBYE\n")
   (check-not-exn

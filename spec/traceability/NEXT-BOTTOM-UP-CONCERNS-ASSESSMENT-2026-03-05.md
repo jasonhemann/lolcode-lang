@@ -68,7 +68,7 @@ Update delta (2026-03-06):
 | 28 | AMB + OK | Dynamic labels via `SRS` are supported and tested (`loop-dynamic-label-src`, mismatch case). Spec leaves this under-specified. |
 | 29 | OK | Nested infinite-loop termination controls are covered (`switch-break-inside-loop-src`, nested loop tests). |
 | 30 | PART | Duplicate `OMG` literal checks exist (`duplicate-wtf-case-literal`), but mixed-type equality-mode edge cases are not explicitly tested. |
-| 31 | PART | Fallthrough behavior is tested, but explicit "matched case must not run `OMGWTF`" target test is missing. |
+| 31 | OK | Fallthrough plus default gating is now explicit: matched `OMG` cases may fall through subsequent `OMG` blocks but do not run `OMGWTF` when any `OMG` matched. |
 | 32 | OK | IT local vs method-global lookup split is explicitly tested (`it-local-main-and-function-src`, `method-it-global-lookup-src`). |
 | 33 | OK | Optional `AN` ambiguity and reserved-token handling are tested (`and-as-identifier-*`, reserved keyword negatives). |
 | 34 | OK | EOL-based variadic closure in nested contexts is covered (`nested-variadic-closure-src`, known-gaps variadic regression test). |
@@ -76,7 +76,7 @@ Update delta (2026-03-06):
 | 36 | AMB + OK | Numeric bounds/precision are host-defined by spec; implementation intentionally follows Racket numeric model; formatting/truncation tested. |
 | 37 | PART | Strict cast grammar rejects known bad forms (spaces/scientific), but edge matrix (e.g. plus-sign forms) is not exhaustive. |
 | 38 | PART | `SRS` support is broad and tested in many positions; boundary cases (all "identifier positions") still not exhaustively enumerated. |
-| 39 | PART | Block comment behavior is tested, but comma-inline `OBTW/TLDR` examples are not directly isolated as regressions. |
+| 39 | OK | Comma-inline `OBTW/TLDR` examples are now pinned with direct runtime regression, and strict parser rejection is pinned for `TLDR` trailing statements without comma/newline. |
 | 40 | PART | Unicode normative-name escape path is implemented with `codepoint` table and core tests, but alias/normalization edge coverage is limited. |
 | 41 | OK | Version-policy gap is explicitly handled and tested (`unsupported-v12`, `unsupported-v14`, external strict triage partition docs). |
 | 42 | OK | Distinction between variable declaration and slot declaration in object contexts is covered (object/block + slot-set parse/runtime tests). |
@@ -93,4 +93,4 @@ Update delta (2026-03-06):
 2. Continue targeted tests for mixin source-set ambiguity (`#1`); `#3` depth policy is now adjudicated/tested.
 3. Done (2026-03-06): added explicit memoization + recursion-behavior tests for `omgwtf` (`#12`, `#13`).
 4. Done (2026-03-06): added ordering/reentrancy tests for `izmakin` (`#14`, `#15`).
-5. Continue parser/runtime tests for remaining partial syntax intersections (`#31`, `#39`).
+5. Continue parser/runtime tests for remaining partial syntax intersections (`#25`, `#26`, `#30`, `#37`, `#38`, `#40`).

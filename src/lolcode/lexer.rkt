@@ -205,6 +205,23 @@
                 (char=? ch #\")))))
 
 (define (skip-block-comment! in)
+  (define (horizontal-space? ch)
+    (and (char? ch)
+         (or (char=? ch #\space)
+             (char=? ch #\tab))))
+  (define (valid-tail-after-tldr-space!)
+    (let loop ()
+      (define next (peek-char in))
+      (cond
+        [(eof-object? next) #t]
+        [(horizontal-space? next)
+         (read-char in)
+         (loop)]
+        [(newline-or-return? next) #t]
+        [(and (char? next)
+              (char=? next #\,))
+         #t]
+        [else #f])))
   (define (loop current-word ch)
     (cond
       [(eof-object? ch)
@@ -217,6 +234,18 @@
              (read-char in))]
       [(string=? current-word "TLDR")
        (lexer-cover! 'skip-block-comment!/found-tldr)
+       (define delimiter-valid?
+         (cond
+           [(newline-or-return? ch) #t]
+           [(and (char? ch)
+                 (char=? ch #\,))
+            #t]
+           [(horizontal-space? ch)
+            (valid-tail-after-tldr-space!)]
+           [else #f]))
+       (unless delimiter-valid?
+         (error 'lex-source
+                "TLDR must be followed by newline or comma"))
        (void)]
       [else
        (lexer-cover! 'skip-block-comment!/delimiter)

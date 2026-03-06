@@ -189,6 +189,15 @@
   (check-eq? (hash-ref switch-empty-omg-fallthrough 'status) 'ok)
   (check-equal? (hash-ref switch-empty-omg-fallthrough 'stdout) "FALL\n")
 
+  (define switch-matched-fallthrough-skips-default-src
+    "HAI 1.3\nI HAS A x ITZ 1\nx, WTF?\n  OMG 1\n    VISIBLE \"A\"\n  OMG 2\n    VISIBLE \"B\"\n  OMGWTF\n    VISIBLE \"D\"\nOIC\nKTHXBYE\n")
+  (define switch-matched-fallthrough-skips-default
+    (run-source switch-matched-fallthrough-skips-default-src))
+  (check-eq? (hash-ref switch-matched-fallthrough-skips-default 'status) 'ok)
+  ;; Spec line 486: OMGWTF is taken only when no OMG literal matches.
+  (check-equal? (hash-ref switch-matched-fallthrough-skips-default 'stdout)
+                "A\nB\n")
+
   (define function-src
     "HAI 1.3\nHOW IZ I addin YR x AN YR y\n  FOUND YR SUM OF x AN y\nIF U SAY SO\nI HAS A result ITZ I IZ addin YR 2 AN YR 3 MKAY\nVISIBLE result\nKTHXBYE\n")
   (define function-result (run-source function-src))
@@ -943,6 +952,15 @@
   (check-equal? (hash-ref preprocess-order-runtime-result 'stdout)
                 "A\nA,B\n...\nCD\n")
 
+  (define block-comment-inline-comma-example-src
+    "HAI 1.3\nI HAS A VAR ITZ 12, OBTW this is a long comment block\n  see, i have more comments here\n  and here\nTLDR, I HAS A FISH ITZ \"BOB\"\nVISIBLE VAR\nVISIBLE FISH\nKTHXBYE\n")
+  (define block-comment-inline-comma-example
+    (run-source block-comment-inline-comma-example-src))
+  (check-eq? (hash-ref block-comment-inline-comma-example 'status) 'ok)
+  ;; Spec lines 79-83: comma-inline OBTW/TLDR handoff is valid.
+  (check-equal? (hash-ref block-comment-inline-comma-example 'stdout)
+                "12\nBOB\n")
+
   (define it-update-matrix-src
     "HAI 1.3\nSUM OF 1 AN 1\nI HAS A snap1 ITZ IT\nI HAS A x ITZ 9\nx R 10\nI HAS A snap2 ITZ IT\nO RLY?\n  YA RLY\n    I HAS A y ITZ 1\nOIC\nI HAS A snap3 ITZ IT\nWTF?\n  OMG 2\n    I HAS A z ITZ 1\n    GTFO\nOIC\nI HAS A snap4 ITZ IT\nx IS NOW A YARN\nI HAS A snap5 ITZ IT\nGIMMEH in1\nI HAS A snap6 ITZ IT\nI HAS A obj ITZ A BUKKIT\nobj HAS A n ITZ 7\nI HAS A snap7 ITZ IT\nO HAI IM box\nKTHX\nI HAS A snap8 ITZ IT\nSUM OF 2 AN 3\nI HAS A snap9 ITZ IT\nIM IN YR lp\n  GTFO\nIM OUTTA YR lp\nI HAS A snap10 ITZ IT\nVISIBLE snap1\nVISIBLE snap2\nVISIBLE snap3\nVISIBLE snap4\nVISIBLE snap5\nVISIBLE snap6\nVISIBLE snap7\nVISIBLE snap8\nVISIBLE snap9\nVISIBLE snap10\nKTHXBYE\n")
   (define it-update-matrix-result
@@ -1032,6 +1050,22 @@
     (run-source line-cont-ellipsis-in-comment-src))
   (check-eq? (hash-ref line-cont-ellipsis-in-comment-result 'status) 'ok)
   (check-equal? (hash-ref line-cont-ellipsis-in-comment-result 'stdout) "A\nB\n")
+
+  (define btw-comma-does-not-end-comment-src
+    "HAI 1.3\nI HAS A x ITZ 1 BTW comment, x R 2\nVISIBLE x\nKTHXBYE\n")
+  (define btw-comma-does-not-end-comment
+    (run-source btw-comma-does-not-end-comment-src))
+  (check-eq? (hash-ref btw-comma-does-not-end-comment 'status) 'ok)
+  ;; Spec line 40: comma after BTW is ignored until newline.
+  (check-equal? (hash-ref btw-comma-does-not-end-comment 'stdout) "1\n")
+
+  (define btw-inside-yarn-is-literal-src
+    "HAI 1.3\nVISIBLE \"A BTW B, C\"\nKTHXBYE\n")
+  (define btw-inside-yarn-is-literal
+    (run-source btw-inside-yarn-is-literal-src))
+  (check-eq? (hash-ref btw-inside-yarn-is-literal 'status) 'ok)
+  ;; Spec line 42: comment/soft-break controls are ignored inside quoted strings.
+  (check-equal? (hash-ref btw-inside-yarn-is-literal 'stdout) "A BTW B, C\n")
 
   (define smoosh-optional-an-src
     "HAI 1.3\nVISIBLE SMOOSH \"a\" \"b\" \"c\" MKAY\nKTHXBYE\n")
