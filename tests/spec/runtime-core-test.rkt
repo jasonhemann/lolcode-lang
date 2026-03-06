@@ -822,6 +822,24 @@
   (check-true (regexp-match? #px"omgwtf recursion while resolving missing slot: nope"
                              (hash-ref omgwtf-recursive-same-slot-reentry 'error)))
 
+  (define method-call-does-not-trigger-omgwtf-src
+    "HAI 1.3\nHOW IZ I helper\n  FOUND YR \"OK\"\nIF U SAY SO\nO HAI IM box\n  HOW IZ I omgwtf YR slotname\n    FOUND YR helper\n  IF U SAY SO\nKTHX\nVISIBLE box IZ nope MKAY\nKTHXBYE\n")
+  (define method-call-does-not-trigger-omgwtf
+    (run-source method-call-does-not-trigger-omgwtf-src))
+  (check-eq? (hash-ref method-call-does-not-trigger-omgwtf 'status) 'runtime-error)
+  ;; Policy: <object> IZ <slot> call path does not auto-materialize missing slots
+  ;; through omgwtf; only slot access (<object>'Z <slot>) does.
+  (check-true (regexp-match? #px"unknown method: nope"
+                             (hash-ref method-call-does-not-trigger-omgwtf 'error)))
+
+  (define method-call-uses-prewarmed-omgwtf-slot-src
+    "HAI 1.3\nHOW IZ I helper\n  FOUND YR \"OK\"\nIF U SAY SO\nO HAI IM box\n  HOW IZ I omgwtf YR slotname\n    FOUND YR helper\n  IF U SAY SO\nKTHX\nI HAS A warm ITZ box'Z nope\nVISIBLE box IZ nope MKAY\nKTHXBYE\n")
+  (define method-call-uses-prewarmed-omgwtf-slot
+    (run-source method-call-uses-prewarmed-omgwtf-slot-src))
+  (check-eq? (hash-ref method-call-uses-prewarmed-omgwtf-slot 'status) 'ok)
+  (check-equal? (hash-ref method-call-uses-prewarmed-omgwtf-slot 'stdout)
+                "OK\n")
+
   (define izmakin-special-slot-runs-on-prototype-src
     "HAI 1.3\nO HAI IM Maker\n  I HAS A seed ITZ 1\n  HOW IZ I izmakin\n    seed R SUM OF seed AN 1\n  IF U SAY SO\nKTHX\nI HAS A first ITZ LIEK A Maker\nI HAS A second ITZ LIEK A Maker\nVISIBLE first'Z seed\nVISIBLE second'Z seed\nKTHXBYE\n")
   (define izmakin-special-slot-runs-on-prototype
@@ -849,6 +867,15 @@
   ;; constructed prototype runs izmakin exactly once.
   (check-equal? (hash-ref izmakin-reentrant-prototype 'stdout)
                 "2\n")
+
+  (define izmakin-failure-surfaced-before-binding-src
+    "HAI 1.3\nO HAI IM maker\n  HOW IZ I izmakin\n    DIFFRINT ME'Z parent AN NOOB\n    O RLY?\n      YA RLY\n        VISIBLE ghost\n    OIC\n  IF U SAY SO\nKTHX\nI HAS A prior ITZ \"before\"\nprior\nI HAS A made ITZ LIEK A maker\nKTHXBYE\n")
+  (define izmakin-failure-surfaced-before-binding
+    (run-source izmakin-failure-surfaced-before-binding-src))
+  (check-eq? (hash-ref izmakin-failure-surfaced-before-binding 'status) 'runtime-error)
+  ;; Regression: constructor failure from izmakin aborts the declaration path.
+  (check-true (regexp-match? #px"unknown identifier: ghost"
+                             (hash-ref izmakin-failure-surfaced-before-binding 'error)))
 
   (define method-global-capture-src
     "HAI 1.3\nI HAS A suffix ITZ \"!\"\nO HAI IM speaker\n  HOW IZ I say YR x\n    FOUND YR SMOOSH x AN suffix MKAY\n  IF U SAY SO\nKTHX\nVISIBLE speaker IZ say YR \"A\" MKAY\nsuffix R \"?\"\nVISIBLE speaker IZ say YR \"A\" MKAY\nKTHXBYE\n")
@@ -890,6 +917,25 @@
     (run-source method-me-has-a-slot-src))
   (check-eq? (hash-ref method-me-has-a-slot 'status) 'ok)
   (check-equal? (hash-ref method-me-has-a-slot 'stdout) "9\n9\n")
+
+  (define me-has-a-shadows-inherited-slot-src
+    "HAI 1.3\nO HAI IM parent\n  I HAS A v ITZ 1\n  HOW IZ I install\n    ME HAS A v ITZ 9\n    FOUND YR ME'Z v\n  IF U SAY SO\nKTHX\nO HAI IM child IM LIEK parent\nKTHX\nVISIBLE child IZ install MKAY\nVISIBLE child'Z v\nVISIBLE parent'Z v\nKTHXBYE\n")
+  (define me-has-a-shadows-inherited-slot
+    (run-source me-has-a-shadows-inherited-slot-src))
+  (check-eq? (hash-ref me-has-a-shadows-inherited-slot 'status) 'ok)
+  ;; Policy: ME HAS A creates/overwrites the receiver's own slot and does not
+  ;; mutate the inherited ancestor slot in place.
+  (check-equal? (hash-ref me-has-a-shadows-inherited-slot 'stdout)
+                "9\n9\n1\n")
+
+  (define me-slot-assign-rhs-sees-prior-value-src
+    "HAI 1.3\nO HAI IM box\n  I HAS A n ITZ 4\n  HOW IZ I twice\n    ME'Z n R SUM OF ME'Z n AN ME'Z n\n    FOUND YR ME'Z n\n  IF U SAY SO\nKTHX\nVISIBLE box IZ twice MKAY\nVISIBLE box IZ twice MKAY\nKTHXBYE\n")
+  (define me-slot-assign-rhs-sees-prior-value
+    (run-source me-slot-assign-rhs-sees-prior-value-src))
+  (check-eq? (hash-ref me-slot-assign-rhs-sees-prior-value 'status) 'ok)
+  ;; Regression: RHS is evaluated before slot write for ME'Z slot assignment.
+  (check-equal? (hash-ref me-slot-assign-rhs-sees-prior-value 'stdout)
+                "8\n16\n")
 
   (define me-outside-method-src
     "HAI 1.3\nHOW IZ I bad\n  FOUND YR ME\nIF U SAY SO\nVISIBLE I IZ bad MKAY\nKTHXBYE\n")
@@ -1482,6 +1528,186 @@
   (check-eq? (hash-ref bad-object-break 'status) 'runtime-error)
   (check-true (regexp-match? #px"GTFO used inside object definition badobj"
                              (hash-ref bad-object-break 'error)))
+
+  (define ast-function-vs-method-def-shape-src
+    "HAI 1.3\nI HAS A box ITZ A BUKKIT\nHOW IZ I plain\n  FOUND YR 1\nIF U SAY SO\nHOW IZ box meth\n  FOUND YR 2\nIF U SAY SO\nKTHXBYE\n")
+  (define ast-function-vs-method-def-shape
+    (parse-program ast-function-vs-method-def-shape-src))
+  (define ast-function-vs-method-def-stmts
+    (program-statements ast-function-vs-method-def-shape))
+  (define ast-function-def
+    (for/first ([s (in-list ast-function-vs-method-def-stmts)]
+                #:when (stmt-function-def? s))
+      s))
+  (define ast-method-def
+    (for/first ([s (in-list ast-function-vs-method-def-stmts)]
+                #:when (stmt-method-def? s))
+      s))
+  (check-not-false ast-function-def)
+  (check-not-false ast-method-def)
+  ;; N01: HOW IZ I and HOW IZ <receiver> compile to distinct AST nodes.
+  (check-true (expr-literal? (stmt-function-def-name ast-function-def)))
+  (check-equal? (expr-literal-value (stmt-function-def-name ast-function-def))
+                "plain")
+  (check-true (expr-ident? (stmt-method-def-receiver ast-method-def)))
+  (check-equal? (expr-ident-name (stmt-method-def-receiver ast-method-def))
+                "box")
+  (check-true (expr-literal? (stmt-method-def-name ast-method-def)))
+  (check-equal? (expr-literal-value (stmt-method-def-name ast-method-def))
+                "meth")
+
+  (define ast-stmt-node-split-src
+    "HAI 1.3\nI HAS A obj ITZ A BUKKIT\nI HAS A x ITZ 1\nx R 2\nx IS NOW A NUMBAR\nobj HAS A y ITZ 3\nKTHXBYE\n")
+  (define ast-stmt-node-split
+    (parse-program ast-stmt-node-split-src))
+  (define ast-stmt-node-split-stmts
+    (program-statements ast-stmt-node-split))
+  (define n-declare
+    (for/sum ([s (in-list ast-stmt-node-split-stmts)])
+      (if (stmt-declare? s) 1 0)))
+  (define n-assign
+    (for/sum ([s (in-list ast-stmt-node-split-stmts)])
+      (if (stmt-assign? s) 1 0)))
+  (define n-cast
+    (for/sum ([s (in-list ast-stmt-node-split-stmts)])
+      (if (stmt-cast? s) 1 0)))
+  (define n-slot-set
+    (for/sum ([s (in-list ast-stmt-node-split-stmts)])
+      (if (stmt-slot-set? s) 1 0)))
+  ;; N03: declaration/assignment/cast/slot-set remain distinct statement nodes.
+  (check-equal? n-declare 2)
+  (check-equal? n-assign 1)
+  (check-equal? n-cast 1)
+  (check-equal? n-slot-set 1)
+
+  (define ast-srs-sites-shape-src
+    "HAI 1.3\nI HAS A key ITZ \"name\"\nI HAS A SRS key ITZ 1\nI HAS A obj ITZ A BUKKIT\nobj HAS A SRS key ITZ I IZ id YR 2 MKAY\nVISIBLE obj IZ SRS key MKAY\nHOW IZ I id YR x\n  FOUND YR x\nIF U SAY SO\nKTHXBYE\n")
+  (define ast-srs-sites-shape
+    (parse-program ast-srs-sites-shape-src))
+  (define ast-srs-sites-stmts
+    (program-statements ast-srs-sites-shape))
+  (define ast-srs-declare
+    (for/first ([s (in-list ast-srs-sites-stmts)]
+                #:when (and (stmt-declare? s)
+                            (expr-srs? (stmt-declare-target s))))
+      s))
+  (define ast-srs-slot-set
+    (for/first ([s (in-list ast-srs-sites-stmts)]
+                #:when (and (stmt-slot-set? s)
+                            (expr-srs? (stmt-slot-set-slot s))))
+      s))
+  (define ast-srs-visible-method-call
+    (for/first ([s (in-list ast-srs-sites-stmts)]
+                #:when (stmt-visible? s))
+      s))
+  (check-not-false ast-srs-declare)
+  (check-not-false ast-srs-slot-set)
+  (check-not-false ast-srs-visible-method-call)
+  ;; N04: SRS is preserved as an explicit AST node in identifier-sensitive sites.
+  (define ast-srs-visible-expr
+    (car (stmt-visible-exprs ast-srs-visible-method-call)))
+  (check-true (expr-method-call? ast-srs-visible-expr))
+  (check-true (expr-srs? (expr-method-call-name ast-srs-visible-expr)))
+
+  (define ast-smoosh-disambiguation-src
+    "HAI 1.3\nI HAS A txt ITZ SMOOSH \"A\" AN \"B\" MKAY\nI HAS A Parent ITZ A BUKKIT\nI HAS A Mix ITZ A BUKKIT\nI HAS A child ITZ A Parent SMOOSH Mix\nKTHXBYE\n")
+  (define ast-smoosh-disambiguation
+    (parse-program ast-smoosh-disambiguation-src))
+  (define ast-smoosh-disambiguation-stmts
+    (program-statements ast-smoosh-disambiguation))
+  (define ast-smoosh-expr-declare
+    (for/first ([s (in-list ast-smoosh-disambiguation-stmts)]
+                #:when (and (stmt-declare? s)
+                            (expr-ident? (stmt-declare-target s))
+                            (string=? (expr-ident-name (stmt-declare-target s))
+                                      "txt")))
+      s))
+  (define ast-prototype-declare
+    (for/first ([s (in-list ast-smoosh-disambiguation-stmts)]
+                #:when (and (stmt-declare? s)
+                            (expr-ident? (stmt-declare-target s))
+                            (string=? (expr-ident-name (stmt-declare-target s))
+                                      "child")))
+      s))
+  (check-not-false ast-smoosh-expr-declare)
+  (check-not-false ast-prototype-declare)
+  ;; N05: SMOOSH expression and prototype-mixin SMOOSH parse into distinct AST forms.
+  (check-true (expr-variadic? (stmt-declare-init ast-smoosh-expr-declare)))
+  (check-equal? (expr-variadic-op (stmt-declare-init ast-smoosh-expr-declare))
+                "SMOOSH")
+  (check-true (expr-prototype? (stmt-declare-init ast-prototype-declare)))
+
+  (define i-token-role-shape-src
+    "HAI 1.3\nHOW IZ I ping\n  FOUND YR 7\nIF U SAY SO\nVISIBLE I IZ ping MKAY\nO HAI IM box\n  I HAS A n ITZ 1\n  HOW IZ I bump\n    n R SUM OF n AN 1\n    FOUND YR n\n  IF U SAY SO\nKTHX\nVISIBLE box IZ bump MKAY\nVISIBLE box'Z n\nKTHXBYE\n")
+  (define i-token-role-shape
+    (parse-program i-token-role-shape-src))
+  (define i-token-role-stmts
+    (program-statements i-token-role-shape))
+  (define i-token-visible-call
+    (for/first ([s (in-list i-token-role-stmts)]
+                #:when (and (stmt-visible? s)
+                            (pair? (stmt-visible-exprs s))
+                            (expr-call? (car (stmt-visible-exprs s)))))
+      s))
+  (define i-token-object-stmt
+    (for/first ([s (in-list i-token-role-stmts)]
+                #:when (stmt-object-def? s))
+      s))
+  (check-not-false i-token-visible-call)
+  (check-not-false i-token-object-stmt)
+  ;; N07: token I has distinct contextual roles (call marker, declaration marker,
+  ;; and object-body function-to-method declaration form).
+  (define i-token-call-expr
+    (car (stmt-visible-exprs i-token-visible-call)))
+  (check-true (expr-literal? (expr-call-name i-token-call-expr)))
+  (check-equal? (expr-literal-value (expr-call-name i-token-call-expr))
+                "ping")
+  (define i-token-object-body
+    (stmt-object-def-body i-token-object-stmt))
+  (check-true
+   (for/or ([s (in-list i-token-object-body)])
+     (and (stmt-declare? s)
+          (expr-ident? (stmt-declare-target s))
+          (string=? (expr-ident-name (stmt-declare-target s))
+                    "n"))))
+  (check-true
+   (for/or ([s (in-list i-token-object-body)])
+     (and (stmt-function-def? s)
+          (expr-literal? (stmt-function-def-name s))
+          (string=? (expr-literal-value (stmt-function-def-name s))
+                    "bump"))))
+  (define i-token-role-run
+    (run-source i-token-role-shape-src))
+  (check-eq? (hash-ref i-token-role-run 'status) 'ok)
+  (check-equal? (hash-ref i-token-role-run 'stdout) "7\n2\n2\n")
+
+  (define special-names-global-vs-slot-policy-src
+    "HAI 1.3\nI HAS A parent ITZ \"GLOBAL-PARENT\"\nI HAS A omgwtf ITZ \"GLOBAL-OMG\"\nI HAS A izmakin ITZ \"GLOBAL-IZ\"\nO HAI IM base\n  I HAS A tag ITZ \"BASE\"\nKTHX\nO HAI IM child IM LIEK base\nKTHX\nVISIBLE parent\nVISIBLE omgwtf\nVISIBLE izmakin\nVISIBLE child'Z parent'Z tag\nKTHXBYE\n")
+  (define special-names-global-vs-slot-policy
+    (run-source special-names-global-vs-slot-policy-src))
+  (check-eq? (hash-ref special-names-global-vs-slot-policy 'status) 'ok)
+  ;; N08: parent/omgwtf/izmakin are not globally reserved names; special behavior
+  ;; applies in slot context while globals with those names remain ordinary vars.
+  (check-equal? (hash-ref special-names-global-vs-slot-policy 'stdout)
+                "GLOBAL-PARENT\nGLOBAL-OMG\nGLOBAL-IZ\nBASE\n")
+
+  (define it-redeclare-runtime-error-src
+    "HAI 1.3\nI HAS A IT ITZ 1\nKTHXBYE\n")
+  (define it-redeclare-runtime-error
+    (run-source it-redeclare-runtime-error-src))
+  (check-eq? (hash-ref it-redeclare-runtime-error 'status) 'runtime-error)
+  (check-true (regexp-match? #px"identifier already declared in this scope: IT"
+                             (hash-ref it-redeclare-runtime-error 'error)))
+
+  (define preprocess-confluence-n09-src
+    "HAI 1.3\nVISIBLE \"BTW, OBTW, TLDR, ...\"\nVISIBLE \"A\"...\n\"B\", VISIBLE \"C\" BTW ignored tail\nOBTW hidden TLDR, VISIBLE \"D\"\nKTHXBYE\n")
+  (define preprocess-confluence-n09
+    (run-source preprocess-confluence-n09-src))
+  (check-eq? (hash-ref preprocess-confluence-n09 'status) 'ok)
+  ;; N09: statement-boundary normalization composes with string shielding,
+  ;; continuation, BTW, and inline OBTW/TLDR handoff.
+  (check-equal? (hash-ref preprocess-confluence-n09 'stdout)
+                "BTW, OBTW, TLDR, ...\nAB\nC\nD\n")
 
   ;; Unsupported operators should be rejected at compile step and surfaced.
   (define unsupported-op-program

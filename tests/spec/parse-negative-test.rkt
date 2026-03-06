@@ -416,6 +416,15 @@
   (check-exn #px"syntax error:"
              (lambda () (parse-program slot-set-with-an-article)))
 
+  (define slot-access-dash-operator
+    "HAI 1.3\nI HAS A obj ITZ A BUKKIT\nVISIBLE obj - foo\nKTHXBYE\n")
+  (define slot-access-dash-operator-msg
+    (capture-message (lambda () (parse-program slot-access-dash-operator))))
+  (check-true (string? slot-access-dash-operator-msg))
+  ;; N06: strict 1.3 slot access syntax is <object>'Z <slot>; '-' is prose-only text.
+  (check-true (regexp-match? #px"(syntax error:|lexing failed:|unexpected character|invalid identifier syntax:)"
+                             slot-access-dash-operator-msg))
+
   (define unterminated-block-comment
     "HAI 1.3\nOBTW\nVISIBLE \"oops\"\nKTHXBYE\n")
   (check-exn #px"unterminated OBTW block comment"
@@ -435,6 +444,11 @@
     "HAI 1.3\nI HAS A SUM ITZ 1\nKTHXBYE\n")
   (check-exn #px"syntax error:"
              (lambda () (parse-program reserved-keyword-name)))
+
+  (define reserved-keyword-i-name
+    "HAI 1.3\nI HAS A I ITZ 1\nKTHXBYE\n")
+  (check-exn #px"syntax error:"
+             (lambda () (parse-program reserved-keyword-i-name)))
 
   (define reserved-keyword-an-name
     "HAI 1.3\nI HAS A AN ITZ 1\nKTHXBYE\n")
