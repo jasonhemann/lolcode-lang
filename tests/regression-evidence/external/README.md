@@ -59,3 +59,15 @@ Run one case:
 ```bash
 ./scripts/test_external_evidence.sh --id ext_lci_issue_0013
 ```
+
+Seed manifest hypotheses from observed outcomes (line-preserving update):
+
+```bash
+racket scripts/seed_external_manifest_hypotheses.rkt --apply
+```
+
+Generate external evidence bucket report:
+
+```bash
+racket scripts/analyze_external_evidence.rkt
+```

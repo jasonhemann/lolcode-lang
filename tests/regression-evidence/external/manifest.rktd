@@ -14,7 +14,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=1 state=open category=runtime-safety score=120 title=SIGSEV")
     (added-on . "2026-02-28"))
 
@@ -32,7 +32,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-pass")
     (notes . "Imported from candidate_repros.tsv rank=2 state=open category=runtime-safety score=120 title=segfault or abort with IT in small programs")
     (added-on . "2026-02-28"))
 
@@ -50,7 +50,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=3 state=open category=runtime-safety score=120 title=SegFault when using STDIO Library")
     (added-on . "2026-02-28"))
 
@@ -68,7 +68,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=4 state=open category=runtime-safety score=120 title=Shebang without trailing newline causes buffer overflow (segfault)")
     (added-on . "2026-02-28"))
 
@@ -86,7 +86,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=5 state=open category=runtime-safety score=120 title=Failed realloc during program buffering causes segfault")
     (added-on . "2026-02-28"))
 
@@ -104,7 +104,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=6 state=open category=runtime-safety score=120 title=Out of Bounds Read and Null Pointer Dereference in LCI Version 0.10.5")
     (added-on . "2026-02-28"))
 
@@ -122,7 +122,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=7 state=open category=runtime-safety score=120 title=Fix a double free of the implicit variable")
     (added-on . "2026-02-28"))
 
@@ -140,7 +140,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=8 state=closed category=runtime-safety score=110 title=segfault")
     (added-on . "2026-02-28"))
 
@@ -158,7 +158,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=9 state=closed category=runtime-safety score=110 title=Defensive strategy that prevents a range of possible null pointer errors...")
     (added-on . "2026-02-28"))
 
@@ -176,7 +176,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=10 state=open category=language score=100 title=unexpected error message with undefined variable interpolation")
     (added-on . "2026-02-28"))
 
@@ -194,7 +194,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=11 state=open category=language score=100 title=String and colon")
     (added-on . "2026-03-01"))
 
@@ -212,7 +212,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=12 state=open category=language score=100 title=Invalid Unicode code points are accepted")
     (added-on . "2026-03-01"))
 
@@ -230,7 +230,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=13 state=open category=language score=100 title=Colon and quotation mark conflict in strings")
     (added-on . "2026-03-01"))
 
@@ -248,7 +248,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=14 state=open category=language score=100 title=Octal NUMBR works when negative, but not positive")
     (added-on . "2026-03-01"))
 
@@ -266,7 +266,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=15 state=open category=language score=100 title=NUMBAR doesn't always work with line continuation")
     (added-on . "2026-03-01"))
 
@@ -284,7 +284,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=16 state=open category=language score=100 title=EOL doesn't replace MKAY when calling a variadic function")
     (added-on . "2026-03-01"))
 
@@ -302,7 +302,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=17 state=open category=language score=100 title=Function can read and modify variables in outside scope")
     (added-on . "2026-03-01"))
 
@@ -320,7 +320,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=18 state=open category=language score=100 title=BTW may not appear on the same line as TLDR")
     (added-on . "2026-03-01"))
 
@@ -338,7 +338,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=19 state=open category=language score=100 title=Loops always create a loop-scope variable and initialize it to 0")
     (added-on . "2026-03-01"))
 
@@ -356,7 +356,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=20 state=open category=language score=100 title=Functions of NOOB very limited")
     (added-on . "2026-03-01"))
 
@@ -374,7 +374,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=21 state=open category=language score=100 title=Fixed loop creation of variable even when present")
     (added-on . "2026-03-01"))
 
@@ -392,7 +392,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=22 state=open category=language score=90 title=Try Removing Different Parser Types")
     (added-on . "2026-03-01"))
 
@@ -410,7 +410,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=23 state=open category=language score=90 title=Added doctype and head to HTML document")
     (added-on . "2026-03-01"))
 
@@ -428,7 +428,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=24 state=closed category=language score=90 title=Duplicate literals in Switch statment don't produce error message")
     (added-on . "2026-03-01"))
 
@@ -446,7 +446,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=25 state=closed category=language score=90 title=BOTH SAEM not working in loops")
     (added-on . "2026-03-01"))
 
@@ -464,7 +464,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=26 state=closed category=language score=90 title=string interpolation ignored in library calls")
     (added-on . "2026-03-01"))
 
@@ -482,7 +482,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=27 state=closed category=language score=90 title=Chained slot access on BUKKITS does not work sometimes, with no error message.")
     (added-on . "2026-03-01"))
 
@@ -500,7 +500,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=28 state=closed category=language score=90 title=relax numeric conversions from string")
     (added-on . "2026-03-01"))
 
@@ -518,7 +518,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=29 state=closed category=language score=90 title=add constraint for missing TLDR terminator fix #43")
     (added-on . "2026-03-01"))
 
@@ -536,7 +536,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=30 state=closed category=language score=80 title=refactor: move rules inside the lexer")
     (added-on . "2026-03-01"))
 
@@ -554,7 +554,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=8 state=closed category=runtime-safety score=110 title=Fixed a segfault when attempting to declare a function in a non-array type value.")
     (added-on . "2026-03-04"))
 
@@ -572,7 +572,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=11 state=closed category=runtime-safety score=100 title=Fix yet another panic & lol quines")
     (added-on . "2026-03-04"))
 
@@ -590,7 +590,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=12 state=closed category=runtime-safety score=100 title=Fix some errors which causes program to crash.")
     (added-on . "2026-03-04"))
 
@@ -608,7 +608,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=13 state=closed category=runtime-safety score=100 title=fixed program crashing when KTHXBYE is not present")
     (added-on . "2026-03-04"))
 
@@ -626,7 +626,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=14 state=closed category=runtime-safety score=100 title=fix bug which causes the program to crash when no idToken is given")
     (added-on . "2026-03-04"))
 
@@ -644,7 +644,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=29 state=closed category=language score=90 title=converted build toolchain to CMake")
     (added-on . "2026-03-04"))
 
@@ -662,7 +662,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=30 state=closed category=language score=90 title=using type name instead of identifier")
     (added-on . "2026-03-04"))
 
@@ -680,7 +680,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=31 state=closed category=language score=90 title=Added exception handlers to the parser; made SMOOSH require MKAY")
     (added-on . "2026-03-04"))
 
@@ -698,7 +698,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=32 state=closed category=language score=90 title=fixing interpolated string assignment")
     (added-on . "2026-03-04"))
 
@@ -716,7 +716,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=33 state=closed category=language score=90 title=added some string manipulation standard library functions")
     (added-on . "2026-03-04"))
 
@@ -734,7 +734,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=34 state=closed category=language score=90 title=Fixed string literal parsing")
     (added-on . "2026-03-04"))
 
@@ -752,7 +752,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=35 state=closed category=language score=90 title=added support for Unicode v6.2")
     (added-on . "2026-03-04"))
 
@@ -770,7 +770,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=36 state=closed category=language score=90 title=fixed string interpolation in library calls")
     (added-on . "2026-03-04"))
 
@@ -788,7 +788,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=37 state=closed category=language score=90 title=added support for Unicode v6.3")
     (added-on . "2026-03-04"))
 
@@ -806,7 +806,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=38 state=closed category=language score=90 title=added support for Unicode v6.1.0")
     (added-on . "2026-03-04"))
 
@@ -824,7 +824,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=39 state=closed category=language score=90 title=fix implicit declaration of close with unistd.h")
     (added-on . "2026-03-04"))
 
@@ -842,7 +842,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=40 state=closed category=language score=90 title=Added variable type initialization")
     (added-on . "2026-03-04"))
 
@@ -860,7 +860,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=41 state=closed category=language score=90 title=Added basic array functionality and cleaned up documentation.")
     (added-on . "2026-03-04"))
 
@@ -878,7 +878,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=42 state=closed category=language score=90 title=Added new functions, stored as values; updated EBNF")
     (added-on . "2026-03-04"))
 
@@ -896,7 +896,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=43 state=closed category=language score=90 title=fixed string interpolation during comparison (as pointed out by @Lucki, thanks)")
     (added-on . "2026-03-04"))
 
@@ -914,7 +914,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=44 state=closed category=language score=90 title=scope storage and access performance optimizations")
     (added-on . "2026-03-04"))
 
@@ -932,7 +932,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=45 state=closed category=language score=90 title=adding some stdlib randomizaton functions")
     (added-on . "2026-03-04"))
 
@@ -950,7 +950,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=46 state=closed category=language score=90 title=Added SRS; made SMOOSH require MKAY")
     (added-on . "2026-03-04"))
 
@@ -968,7 +968,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=47 state=closed category=language score=90 title=fix missing runtime array type check identified by LeartS")
     (added-on . "2026-03-04"))
 
@@ -986,7 +986,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=48 state=closed category=language score=90 title=fixed function resolution issue pointed out by markjreed")
     (added-on . "2026-03-04"))
 
@@ -1004,7 +1004,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=49 state=closed category=language score=90 title=relax numeric conversions from string")
     (added-on . "2026-03-04"))
 
@@ -1022,7 +1022,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=54 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -1040,7 +1040,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=55 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -1058,7 +1058,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=56 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -1076,7 +1076,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=57 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -1094,7 +1094,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=58 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -1112,7 +1112,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=59 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -1130,7 +1130,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=60 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -1148,7 +1148,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=61 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -1166,7 +1166,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=62 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -1184,7 +1184,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=63 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -1202,7 +1202,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=64 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -1220,7 +1220,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=65 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -1238,7 +1238,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=66 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -1256,7 +1256,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=67 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -1274,7 +1274,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=68 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -1292,7 +1292,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=69 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -1310,7 +1310,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=70 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -1328,7 +1328,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=71 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -1346,7 +1346,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=72 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -1364,7 +1364,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=73 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -1382,7 +1382,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=74 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -1400,7 +1400,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=75 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -1418,7 +1418,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=76 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -1436,7 +1436,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=77 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -1454,7 +1454,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=78 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -1472,7 +1472,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=79 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -1490,7 +1490,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=80 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -1508,7 +1508,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=81 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -1526,7 +1526,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=82 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -1544,7 +1544,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=83 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -1562,7 +1562,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=84 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -1580,7 +1580,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=85 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -1598,7 +1598,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=86 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -1616,7 +1616,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=87 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -1634,7 +1634,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=88 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -1652,7 +1652,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=89 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -1670,7 +1670,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=90 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -1688,7 +1688,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=91 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -1706,7 +1706,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=92 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -1724,7 +1724,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=93 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -1742,7 +1742,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=94 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -1760,7 +1760,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=95 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -1778,7 +1778,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=96 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -1796,7 +1796,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=97 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -1814,7 +1814,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=98 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -1832,7 +1832,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=99 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -1850,7 +1850,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=100 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -1868,7 +1868,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=101 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -1886,7 +1886,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=102 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -1904,7 +1904,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=103 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -1922,7 +1922,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=104 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -1940,7 +1940,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=105 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -1958,7 +1958,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=106 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -1976,7 +1976,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=107 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -1994,7 +1994,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=108 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -2012,7 +2012,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=109 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -2030,7 +2030,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=110 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -2048,7 +2048,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=111 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -2066,7 +2066,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=112 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -2084,7 +2084,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=113 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -2102,7 +2102,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=114 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -2120,7 +2120,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=115 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -2138,7 +2138,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=116 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -2156,7 +2156,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=117 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -2174,7 +2174,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=118 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -2192,7 +2192,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=119 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -2210,7 +2210,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=120 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -2228,7 +2228,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=121 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -2246,7 +2246,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=122 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -2264,7 +2264,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=123 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -2282,7 +2282,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=124 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -2300,7 +2300,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=125 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -2318,7 +2318,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=126 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -2336,7 +2336,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=127 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -2354,7 +2354,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=128 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -2372,7 +2372,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=129 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -2390,7 +2390,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=130 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -2408,7 +2408,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=131 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -2426,7 +2426,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=132 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -2444,7 +2444,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=133 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -2462,7 +2462,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=134 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -2480,7 +2480,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=135 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -2498,7 +2498,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=136 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -2516,7 +2516,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=137 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -2534,7 +2534,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=139 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -2552,7 +2552,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=140 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -2570,7 +2570,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=141 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -2588,7 +2588,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=142 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -2606,7 +2606,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=143 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -2624,7 +2624,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=144 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -2642,7 +2642,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=145 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -2660,7 +2660,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=146 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -2678,7 +2678,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=147 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -2696,7 +2696,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=148 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -2714,7 +2714,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=149 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -2732,7 +2732,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=150 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -2750,7 +2750,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=151 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -2768,7 +2768,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=152 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -2786,7 +2786,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=153 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -2804,7 +2804,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=154 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -2822,7 +2822,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=155 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -2840,7 +2840,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=156 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -2858,7 +2858,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=157 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -2876,7 +2876,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=158 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -2894,7 +2894,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=159 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -2912,7 +2912,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=160 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -2930,7 +2930,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=161 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -2948,7 +2948,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=162 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -2966,7 +2966,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=163 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -2984,7 +2984,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=164 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -3002,7 +3002,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=165 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -3020,7 +3020,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=166 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -3038,7 +3038,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=167 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -3056,7 +3056,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=168 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -3074,7 +3074,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=169 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -3092,7 +3092,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=170 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -3110,7 +3110,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=171 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -3128,7 +3128,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=172 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -3146,7 +3146,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=173 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -3164,7 +3164,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=174 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -3182,7 +3182,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=175 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -3200,7 +3200,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=176 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -3218,7 +3218,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=177 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -3236,7 +3236,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=178 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -3254,7 +3254,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=179 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -3272,7 +3272,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=180 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -3290,7 +3290,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=181 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -3308,7 +3308,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=182 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -3326,7 +3326,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=183 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -3344,7 +3344,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=184 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -3362,7 +3362,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=185 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -3380,7 +3380,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=186 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -3398,7 +3398,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=187 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -3416,7 +3416,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=188 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -3434,7 +3434,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=189 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -3452,7 +3452,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=190 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -3470,7 +3470,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=191 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -3488,7 +3488,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=192 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -3506,7 +3506,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=193 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -3524,7 +3524,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=194 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -3542,7 +3542,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=195 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -3560,7 +3560,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=196 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -3578,7 +3578,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=197 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -3596,7 +3596,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=198 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -3614,7 +3614,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=199 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -3632,7 +3632,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=200 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -3650,7 +3650,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=201 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -3668,7 +3668,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=202 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -3686,7 +3686,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=203 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -3704,7 +3704,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=204 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -3722,7 +3722,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=205 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -3740,7 +3740,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=206 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -3758,7 +3758,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=207 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -3776,7 +3776,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=208 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -3794,7 +3794,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=209 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -3812,7 +3812,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=210 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -3830,7 +3830,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=211 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -3848,7 +3848,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=212 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -3866,7 +3866,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=213 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -3884,7 +3884,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=214 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -3902,7 +3902,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=215 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -3920,7 +3920,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=216 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -3938,7 +3938,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=217 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -3956,7 +3956,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=218 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -3974,7 +3974,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=219 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -3992,7 +3992,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=220 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -4010,7 +4010,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=221 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -4028,7 +4028,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=222 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -4046,7 +4046,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=223 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -4064,7 +4064,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=224 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -4082,7 +4082,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=225 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -4100,7 +4100,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=226 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -4118,7 +4118,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=227 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -4136,7 +4136,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=228 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -4154,7 +4154,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=229 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -4172,7 +4172,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=230 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -4190,7 +4190,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=231 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -4208,7 +4208,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=232 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -4226,7 +4226,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=233 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -4244,7 +4244,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=234 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -4262,7 +4262,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=235 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -4280,7 +4280,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=236 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -4298,7 +4298,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=237 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -4316,7 +4316,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=238 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -4334,7 +4334,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=239 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -4352,7 +4352,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=240 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -4370,7 +4370,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=241 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -4388,7 +4388,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=242 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -4406,7 +4406,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=243 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -4424,7 +4424,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=244 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -4442,7 +4442,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=245 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -4460,7 +4460,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=246 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -4478,7 +4478,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=247 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -4496,7 +4496,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=248 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -4514,7 +4514,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=249 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -4532,7 +4532,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=250 state=closed category=language score=core-1.2-1.3 title=85")
     (added-on . "2026-03-05"))
 
@@ -4550,7 +4550,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=251 state=closed category=language score=core-1.2-1.3 fixture=scaffold title=85 feat: added string delimiter")
     (added-on . "2026-03-05"))
 
@@ -4568,7 +4568,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=252 state=closed category=language score=core-1.2-1.3 fixture=scaffold title=85 Merge pull request #10 from SallySanban/add_identifier_and_string_delimiter-eikou")
     (added-on . "2026-03-05"))
 
@@ -4586,7 +4586,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=253 state=closed category=language score=core-1.2-1.3 fixture=scaffold title=85 fix: switch case semantics")
     (added-on . "2026-03-05"))
 
@@ -4604,7 +4604,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=254 state=closed category=language score=core-1.2-1.3 fixture=scaffold title=85 fix: fixed semantics for switch case")
     (added-on . "2026-03-05"))
 
@@ -4622,7 +4622,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=255 state=closed category=language score=core-1.2-1.3 fixture=scaffold title=85 working_SmooshMkay")
     (added-on . "2026-03-05"))
 
@@ -4640,7 +4640,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=256 state=closed category=language score=core-1.2-1.3 fixture=scaffold title=85 Feat: Working arithmetic operations w/ implicit typecasting and semantic error catch")
     (added-on . "2026-03-05"))
 
@@ -4658,7 +4658,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=257 state=closed category=language score=core-1.2-1.3 fixture=scaffold title=85 Add identifier and string delimiter eikou")
     (added-on . "2026-03-05"))
 
@@ -4676,7 +4676,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=258 state=closed category=language score=core-1.2-1.3 fixture=scaffold title=85 feat: added identifier and removed sample code strings outside scope")
     (added-on . "2026-03-05"))
 
@@ -4694,7 +4694,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=259 state=closed category=language score=core-1.2-1.3 fixture=scaffold title=85 fix: fixed literal catching")
     (added-on . "2026-03-05"))
 
@@ -4712,7 +4712,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=260 state=closed category=language score=core-1.2-1.3 fixture=scaffold title=85 feat: added getter for lexemes and types")
     (added-on . "2026-03-05"))
 
@@ -4730,7 +4730,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=261 state=closed category=language score=core-1.2-1.3 fixture=scaffold title=85 Feat: Refactored keywords HAI to BOTH SAEM")
     (added-on . "2026-03-05"))
 
@@ -4748,7 +4748,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=262 state=closed category=language score=core-1.2-1.3 fixture=extracted title=85 feat: added syntax errors for I HAS A, HAI, KTHXBYE")
     (added-on . "2026-03-05"))
 
@@ -4766,7 +4766,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=263 state=closed category=language score=core-1.2-1.3 fixture=scaffold title=85 Feat: I HAS A and Type Literals")
     (added-on . "2026-03-05"))
 
@@ -4784,7 +4784,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=264 state=closed category=language score=core-1.2-1.3 fixture=scaffold title=85 Feat: Completed Syntax of BOTH SAEM and DIFFRINT")
     (added-on . "2026-03-05"))
 
@@ -4802,7 +4802,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=265 state=closed category=language score=core-1.2-1.3 fixture=scaffold title=85 Feat: Added YARN literal as possible operands for SMOOSH")
     (added-on . "2026-03-05"))
 
@@ -4820,7 +4820,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=266 state=closed category=language score=core-1.2-1.3 fixture=scaffold title=85 Feat: Started switch case semantics")
     (added-on . "2026-03-05"))
 
@@ -4838,7 +4838,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=267 state=closed category=language score=core-1.2-1.3 fixture=scaffold title=85 fixed lexemes for strings")
     (added-on . "2026-03-05"))
 
@@ -4856,7 +4856,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=268 state=closed category=language score=core-1.2-1.3 fixture=scaffold title=85 Fix: Infinite loop on visible nested operations")
     (added-on . "2026-03-05"))
 
@@ -4874,7 +4874,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=269 state=closed category=language score=core-1.2-1.3 fixture=scaffold title=85 fix: fixed typecasting for arithmetic")
     (added-on . "2026-03-05"))
 
@@ -4892,7 +4892,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=270 state=closed category=language score=core-1.2-1.3 fixture=scaffold title=85 Switchcasetest zy")
     (added-on . "2026-03-05"))
 
@@ -4910,7 +4910,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=271 state=closed category=language score=core-1.2-1.3 fixture=scaffold title=85 feat: added syntax for switch")
     (added-on . "2026-03-05"))
 
@@ -4928,7 +4928,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=272 state=closed category=language score=core-1.2-1.3 fixture=scaffold title=85 feat: added switch case syntax")
     (added-on . "2026-03-05"))
 
@@ -4946,7 +4946,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=273 state=closed category=language score=core-1.2-1.3 fixture=scaffold title=85 Parse print statement")
     (added-on . "2026-03-05"))
 
@@ -4964,7 +4964,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=274 state=closed category=language score=core-1.2-1.3 fixture=scaffold title=85 Parse operators")
     (added-on . "2026-03-05"))
 
@@ -4982,7 +4982,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=275 state=closed category=language score=core-1.2-1.3 fixture=scaffold title=85 Handle non-digits when casting as numeric")
     (added-on . "2026-03-05"))
 
@@ -5000,7 +5000,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=276 state=closed category=language score=core-1.2-1.3 fixture=scaffold title=85 Refactor op and cast parsing")
     (added-on . "2026-03-05"))
 
@@ -5018,7 +5018,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=277 state=closed category=language score=core-1.2-1.3 fixture=scaffold title=85 Add Function")
     (added-on . "2026-03-05"))
 
@@ -5036,7 +5036,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=278 state=closed category=language score=core-1.2-1.3 fixture=scaffold title=85 Allow casting of nil to numeric")
     (added-on . "2026-03-05"))
 
@@ -5054,7 +5054,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=279 state=closed category=language score=core-1.2-1.3 fixture=scaffold title=85 Rename to Cast in AST")
     (added-on . "2026-03-05"))
 
@@ -5072,7 +5072,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=280 state=closed category=language score=core-1.2-1.3 fixture=scaffold title=85 Cleanup parser")
     (added-on . "2026-03-05"))
 
@@ -5090,7 +5090,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=281 state=closed category=language score=core-1.2-1.3 fixture=scaffold title=85 Allow optional loop operation")
     (added-on . "2026-03-05"))
 
@@ -5108,7 +5108,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=282 state=closed category=language score=core-1.2-1.3 fixture=scaffold title=85 Parse comma as line break")
     (added-on . "2026-03-05"))
 
@@ -5126,7 +5126,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=283 state=closed category=language score=core-1.2-1.3 fixture=scaffold title=85 Parse case")
     (added-on . "2026-03-05"))
 
@@ -5144,7 +5144,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=284 state=closed category=language score=core-1.2-1.3 fixture=scaffold title=85 Refactor switch")
     (added-on . "2026-03-05"))
 
@@ -5162,7 +5162,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=285 state=closed category=language score=core-1.2-1.3 fixture=scaffold title=85 Add failing test (recursive function)")
     (added-on . "2026-03-05"))
 
@@ -5180,7 +5180,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=286 state=closed category=language score=core-1.2-1.3 fixture=scaffold title=85 Fix syntax for unary function based loop")
     (added-on . "2026-03-05"))
 
@@ -5198,7 +5198,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=287 state=closed category=language score=core-1.2-1.3 fixture=scaffold title=85 Parse gtfo")
     (added-on . "2026-03-05"))
 
@@ -5216,7 +5216,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=288 state=closed category=language score=core-1.2-1.3 fixture=scaffold title=85 Interpret loop")
     (added-on . "2026-03-05"))
 
@@ -5234,7 +5234,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=289 state=closed category=language score=core-1.2-1.3 fixture=scaffold title=85 Parse loop")
     (added-on . "2026-03-05"))
 
@@ -5252,7 +5252,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=290 state=closed category=language score=core-1.2-1.3 fixture=scaffold title=85 Interpret cast statement")
     (added-on . "2026-03-05"))
 
@@ -5270,7 +5270,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=291 state=closed category=language score=core-1.2-1.3 fixture=scaffold title=85 Parse read statement")
     (added-on . "2026-03-05"))
 
@@ -5288,7 +5288,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=292 state=closed category=language score=core-1.2-1.3 fixture=scaffold title=85 Fix noob-yarn casting and negative float")
     (added-on . "2026-03-05"))
 
@@ -5306,7 +5306,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=293 state=closed category=language score=core-1.2-1.3 fixture=scaffold title=85 Add source context in parser")
     (added-on . "2026-03-05"))
 
@@ -5324,7 +5324,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=294 state=closed category=language score=core-1.2-1.3 fixture=scaffold title=85 Parse and interpret program in main")
     (added-on . "2026-03-05"))
 
@@ -5342,7 +5342,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=295 state=closed category=language score=core-1.2-1.3 fixture=scaffold title=85 Refactor casting")
     (added-on . "2026-03-05"))
 
@@ -5360,7 +5360,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=296 state=closed category=language score=core-1.2-1.3 fixture=scaffold title=85 Add casting")
     (added-on . "2026-03-05"))
 
@@ -5378,7 +5378,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=297 state=closed category=language score=core-1.2-1.3 fixture=scaffold title=85 Parse special characters")
     (added-on . "2026-03-05"))
 
@@ -5396,7 +5396,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=298 state=closed category=language score=core-1.2-1.3 fixture=scaffold title=85 Conform to lci on casting syntax")
     (added-on . "2026-03-05"))
 
@@ -5414,7 +5414,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=299 state=closed category=language score=core-1.2-1.3 fixture=scaffold title=85 Simplify type of tagged statement")
     (added-on . "2026-03-05"))
 
@@ -5432,7 +5432,7 @@
     (spec-refs . ())
     (oracle-class . "external-evidence")
     (triage-status . "candidate")
-    (hypothesis . "unknown")
+    (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=300 state=closed category=language score=core-1.2-1.3 fixture=scaffold title=85 Register global functions lazily")
     (added-on . "2026-03-05"))
 )

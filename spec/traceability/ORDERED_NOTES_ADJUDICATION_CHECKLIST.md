@@ -218,7 +218,7 @@ Completed run sequence:
 Current snapshots from latest run:
 - Tier2 classified totals: `223` files, `184` likely-programs, outcomes: `167 parse-error`, `9 ok`, `7 lex-error`, `1 runtime-error`.
 - Strict in-scope 1.3 (gap report): `13` files, `10 parse-ok`, `9 eval-ok`, `3 parse-error`, `1 runtime-error`.
-- External harvested evidence: `302` fixtures assessed; observed statuses `301 parse-error`, `1 ok`; all currently triaged `unknown` in evidence table.
+- External harvested evidence: `302` fixtures assessed; observed statuses `301 parse-error`, `1 ok`; hypotheses are now seeded to explicit expected outcomes (`301 expects-parse-error`, `1 expects-pass`).
 
 Latest checklist-batch delta (`2026-03-05`, post items `30/32/39-43`):
 - Re-ran all three scripts in sequence; snapshot counts are unchanged from the prior recorded run.
@@ -240,6 +240,11 @@ Latest checklist-batch delta (`2026-03-06`, external-evidence bucketing pass):
 - Added `scripts/analyze_external_evidence.rkt` and generated `corpus/research/external-evidence-report.json` + `corpus/research/EXTERNAL_EVIDENCE_REPORT.md`.
 - External suite (`302` cases) now classifies to actionable buckets: `297 strict-non-1.3-or-extension`, `4 program-bug-or-non-spec-input`, `1 ok`.
 - No remaining `possible-spec-divergence` candidate is currently flagged in the external evidence set under strict 1.3 policy.
+
+Latest checklist-batch delta (`2026-03-06`, external-evidence hypothesis seeding pass):
+- Added `scripts/seed_external_manifest_hypotheses.rkt` and generated `corpus/research/external-evidence-hypothesis-seed.json` + `corpus/research/EXTERNAL_EVIDENCE_HYPOTHESIS_SEED.md`.
+- Applied line-preserving manifest updates for hypothesis metadata (`302` entries changed from `unknown` to observed expectations).
+- External evidence runner now reports `Assessment counts: supports 302` (no `unknown` assessments remain).
 
 Next corpus/harvest actions tied to this checklist:
 - [x] `47` Partition parse-errors into `strict-non-1.3`, `spec-divergence`, `program-bug`.
