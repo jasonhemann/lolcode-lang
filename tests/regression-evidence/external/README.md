@@ -83,3 +83,9 @@ Seed `spec-scope` from fixture headers (line-preserving update):
 ```bash
 racket scripts/seed_external_manifest_spec_scope.rkt --apply
 ```
+
+Report unresolved `spec-scope = unknown` entries and classify reasons:
+
+```bash
+racket scripts/report_external_spec_scope_unknowns.rkt
+```

@@ -256,6 +256,11 @@ Latest checklist-batch delta (`2026-03-06`, external-evidence spec-scope seeding
 - Applied line-preserving manifest updates for `spec-scope` on entries that remained `("unknown")` when a fixture-level `HAI <version>` marker was discoverable (`298` entries updated; now `295` as `("1.2")`, `3` as `("1.3")`, and `4` unresolved `("unknown")`).
 - External evidence metadata is now version-scoped for nearly all harvested fixtures while preserving unresolved non-program/opaque fixtures as unknown.
 
+Latest checklist-batch delta (`2026-03-06`, external-evidence unknown-scope audit pass):
+- Added `scripts/report_external_spec_scope_unknowns.rkt` and generated `corpus/research/external-evidence-spec-scope-unknowns.json` + `corpus/research/EXTERNAL_EVIDENCE_SPEC_SCOPE_UNKNOWNS.md`.
+- Classified the remaining `4` unknown-scope entries into explicit reasons: `hai-missing-version` (`2`), `non-lolcode-shell-snippet` (`1`), and `non-program-crash-dump` (`1`).
+- Confirmed all remaining unknown-scope entries should remain `("unknown")` under strict 1.3 policy (no safe automatic promotion to `("1.2")`/`("1.3")`).
+
 Next corpus/harvest actions tied to this checklist:
 - [x] `47` Partition parse-errors into `strict-non-1.3`, `spec-divergence`, `program-bug`.
   Done: produced `corpus/research/PARSE_ERROR_PARTITION_2026-03-05.md` (tier2 likely-program parse failures: strict-non-1.3 `149`, program-bug `18`, spec-divergence `0`).
