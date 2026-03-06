@@ -112,6 +112,11 @@
   (check-exn #px"invalid Unicode normative name in string literal"
              (lambda () (parse-program invalid-unicode-normative-name)))
 
+  (define lowercase-unicode-normative-name
+    "HAI 1.3\nVISIBLE \":[dollar sign]\"\nKTHXBYE\n")
+  (check-exn #px"invalid Unicode normative name in string literal"
+             (lambda () (parse-program lowercase-unicode-normative-name)))
+
   (define unicode-ellipsis-continuation
     "HAI 1.3\nVISIBLE \"A\"…\n\"B\"\nKTHXBYE\n")
   (check-not-exn
@@ -125,6 +130,26 @@
                 '(WORD STRING NEWLINE WORD STRING NEWLINE EOF))
   (check-equal? (token-lexeme (list-ref comma-plus-continuation-toks 2))
                 ",")
+
+  (define lowercase-comment-markers-lex
+    "btw not-a-comment\nobtw still-not-comment\ntldr\n")
+  (define lowercase-comment-markers-toks
+    (lex-source lowercase-comment-markers-lex))
+  (check-equal? (map token-type lowercase-comment-markers-toks)
+                '(WORD WORD NEWLINE WORD WORD NEWLINE WORD NEWLINE EOF))
+  (check-equal? (token-lexeme (car lowercase-comment-markers-toks))
+                "btw")
+  (check-equal? (token-lexeme (list-ref lowercase-comment-markers-toks 3))
+                "obtw")
+
+  (define lowercase-slot-operator-lex
+    "obj'z\n")
+  (define lowercase-slot-operator-toks
+    (lex-source lowercase-slot-operator-lex))
+  (check-equal? (map token-type lowercase-slot-operator-toks)
+                '(WORD NEWLINE EOF))
+  (check-equal? (token-lexeme (car lowercase-slot-operator-toks))
+                "obj'z")
 
   (define comma-plus-continuation-program
     "HAI 1.3\nVISIBLE \"A\",...\nVISIBLE \"B\"\nKTHXBYE\n")
@@ -262,7 +287,7 @@
   (define as-cast-typo-msg
     (capture-message (lambda () (parse-program as-cast-typo))))
   (check-true (string? as-cast-typo-msg))
-  (check-true (regexp-match? #px"syntax error: unexpected ID \\(\"NUMBR\"\\)"
+  (check-true (regexp-match? #px"invalid cast target type: AS"
                              as-cast-typo-msg))
 
   (define as-as-identifier
@@ -280,10 +305,35 @@
   (check-not-exn
    (lambda () (parse-program maek-article-optional)))
 
+  (define maek-invalid-cast-target-bukkit
+    "HAI 1.3\nVISIBLE MAEK 1 A BUKKIT\nKTHXBYE\n")
+  (check-exn #px"invalid cast target type:"
+             (lambda () (parse-program maek-invalid-cast-target-bukkit)))
+
+  (define maek-invalid-cast-target-unknown
+    "HAI 1.3\nVISIBLE MAEK 1 A FOO\nKTHXBYE\n")
+  (check-exn #px"invalid cast target type:"
+             (lambda () (parse-program maek-invalid-cast-target-unknown)))
+
+  (define maek-lowercase-cast-target
+    "HAI 1.3\nVISIBLE MAEK 1 A numbr\nKTHXBYE\n")
+  (check-exn #px"invalid cast target type:"
+             (lambda () (parse-program maek-lowercase-cast-target)))
+
   (define cast-assignment-missing-a
     "HAI 1.3\nI HAS A x ITZ 1\nx IS NOW NUMBR\nKTHXBYE\n")
   (check-exn #px"syntax error:"
              (lambda () (parse-program cast-assignment-missing-a)))
+
+  (define cast-assignment-invalid-cast-target-bukkit
+    "HAI 1.3\nI HAS A x ITZ 1\nx IS NOW A BUKKIT\nKTHXBYE\n")
+  (check-exn #px"invalid cast target type:"
+             (lambda () (parse-program cast-assignment-invalid-cast-target-bukkit)))
+
+  (define cast-assignment-lowercase-cast-target
+    "HAI 1.3\nI HAS A x ITZ 1\nx IS NOW A numbar\nKTHXBYE\n")
+  (check-exn #px"invalid cast target type:"
+             (lambda () (parse-program cast-assignment-lowercase-cast-target)))
 
   (define assignment-nonvariable-lhs
     "HAI 1.3\nSUM OF 1 AN 2 R 3\nKTHXBYE\n")
@@ -344,6 +394,11 @@
     "HAI 1.3\nIM IN YR loop\nVISIBLE \"x\"\nIM OUTTA YR notloop\nKTHXBYE\n")
   (check-exn #px"loop label mismatch"
              (lambda () (parse-program loop-label-mismatch)))
+
+  (define loop-label-case-mismatch
+    "HAI 1.3\nIM IN YR Loop\nVISIBLE \"x\"\nIM OUTTA YR loop\nKTHXBYE\n")
+  (check-exn #px"loop label mismatch"
+             (lambda () (parse-program loop-label-case-mismatch)))
 
   (define reserved-keyword-name
     "HAI 1.3\nI HAS A SUM ITZ 1\nKTHXBYE\n")

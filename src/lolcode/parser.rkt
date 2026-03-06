@@ -116,6 +116,20 @@
     (error who "invalid identifier syntax: ~v" text))
   text)
 
+(define cast-target-types
+  (hash "TROOF" #t
+        "YARN" #t
+        "NUMBR" #t
+        "NUMBAR" #t
+        "NOOB" #t))
+
+(define (ensure-cast-target-type who text)
+  (unless (hash-ref cast-target-types text #f)
+    (error who
+           "invalid cast target type: ~a (expected TROOF, YARN, NUMBR, NUMBAR, or NOOB)"
+           text))
+  text)
+
 (define (token-label tok-name tok-value)
   (cond
     [(eq? tok-name 'EOF) "EOF"]
@@ -170,7 +184,7 @@
       [_ #f]))
   (when (and open-static
              close-static
-             (not (string-ci=? open-static close-static)))
+             (not (string=? open-static close-static)))
     (error 'parse-source
            "loop label mismatch: ~a closed by ~a"
            open-static
@@ -185,15 +199,15 @@
 
 (define (id->expr name)
   (cond
-    [(string-ci=? name "WIN") (expr-literal #t)]
-    [(string-ci=? name "FAIL") (expr-literal #f)]
-    [(string-ci=? name "NOOB") (expr-literal 'NOOB)]
-    [(or (string-ci=? name "NUMBR")
-         (string-ci=? name "NUMBAR")
-         (string-ci=? name "YARN")
-         (string-ci=? name "TROOF")
-         (string-ci=? name "TYPE"))
-     (expr-literal (string-upcase name))]
+    [(string=? name "WIN") (expr-literal #t)]
+    [(string=? name "FAIL") (expr-literal #f)]
+    [(string=? name "NOOB") (expr-literal 'NOOB)]
+    [(or (string=? name "NUMBR")
+         (string=? name "NUMBAR")
+         (string=? name "YARN")
+         (string=? name "TROOF")
+         (string=? name "TYPE"))
+     (expr-literal name)]
     [else (expr-ident name)]))
 
 (define (static-name-spec name)
@@ -289,7 +303,7 @@
 
 (define (word-token-ci=? t text)
   (and (eq? (token-type t) 'WORD)
-       (string-ci=? (token-lexeme t) text)))
+       (string=? (token-lexeme t) text)))
 
 (define (collapse-phrase-tokens raws [acc '()])
   (match raws
@@ -318,7 +332,7 @@
     [(NUMBER STRING) #t]
     [(WORD)
      (not (hash-ref keyword-token-ctors
-                    (string-upcase (token-lexeme t))
+                    (token-lexeme t)
                     #f))]
     [else #f]))
 
@@ -384,8 +398,8 @@
 
 (define (logic-head-token? t)
   (and (eq? (token-type t) 'WORD)
-       (or (string-ci=? (token-lexeme t) "ALL")
-           (string-ci=? (token-lexeme t) "ANY"))))
+       (or (string=? (token-lexeme t) "ALL")
+           (string=? (token-lexeme t) "ANY"))))
 
 (define (rewrite-logic-line line-toks)
   (let loop ([prefix '()] [rest line-toks])
@@ -510,12 +524,8 @@
     [(STRING)
      (token-STRING lex)]
     [(WORD)
-     (define lex-upcase (string-upcase lex))
      (define ctor
-       (and (not (string=? lex "a"))
-			(not (string=? lex "i"))
-			(string=? lex lex-upcase)
-            (hash-ref keyword-token-ctors lex-upcase #f)))
+       (hash-ref keyword-token-ctors lex #f))
      (if ctor
          (ctor)
          (token-ID lex))]
@@ -613,7 +623,9 @@
 
     (stmt-lvalue-tail
      [(R expr) (lambda (target) (stmt-assign target $2))]
-     [(IS NOW A ID) (lambda (target) (stmt-cast target $4))]
+     [(IS NOW A ID)
+      (lambda (target)
+        (stmt-cast target (ensure-cast-target-type 'IS-NOW-A $4)))]
      [() (lambda (target) (stmt-expr target))]
      [(IZ name-spec call-args MKAY postfix-tail)
       (lambda (target) (stmt-expr ($5 (expr-method-call target $2 $3))))])
@@ -802,8 +814,10 @@
      [(STRING) (expr-string $1)]
      [(LIEK A expr) (expr-clone $3)]
      [(NOT expr) (expr-unary "NOT" $2)]
-     [(MAEK expr A ID) (expr-cast $2 $4)]
-     [(MAEK expr ID) (expr-cast $2 $3)]
+     [(MAEK expr A ID)
+      (expr-cast $2 (ensure-cast-target-type 'MAEK $4))]
+     [(MAEK expr ID)
+      (expr-cast $2 (ensure-cast-target-type 'MAEK $3))]
      [(I IZ call-target call-args MKAY) (call-target->expr $3 $4)]
      [(bin-expr) $1]
      [(logic-variadic-expr) $1]
@@ -819,8 +833,10 @@
      [(SRS expr-no-postfix) (expr-srs $2)]
      [(LIEK A expr) (expr-clone $3)]
      [(NOT expr) (expr-unary "NOT" $2)]
-     [(MAEK expr A ID) (expr-cast $2 $4)]
-     [(MAEK expr ID) (expr-cast $2 $3)]
+     [(MAEK expr A ID)
+      (expr-cast $2 (ensure-cast-target-type 'MAEK $4))]
+     [(MAEK expr ID)
+      (expr-cast $2 (ensure-cast-target-type 'MAEK $3))]
      [(I IZ call-target call-args MKAY) (call-target->expr $3 $4)]
      [(bin-expr) $1]
      [(logic-variadic-expr) $1]

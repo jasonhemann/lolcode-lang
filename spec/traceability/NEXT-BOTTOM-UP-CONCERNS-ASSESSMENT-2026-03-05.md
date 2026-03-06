@@ -26,13 +26,20 @@ Status legend:
 Primary concrete gap:
 - `#35` `MAEK` currently allows `BUKKIT` cast; strict 1.3 cast target set is `TROOF|YARN|NUMBR|NUMBAR|NOOB`.
 
+Update delta (2026-03-06):
+- `#35` is now resolved: parser rejects non-spec cast targets in `MAEK` and `IS NOW A` forms, and runtime no longer supports legacy `MAEK ... BUKKIT` cast behavior.
+- Added targeted regressions in `tests/spec/parse-negative-test.rkt` and equality-policy coverage for complex values in `tests/spec/runtime-core-test.rkt`.
+- `#3` now has explicit mutable-value coverage: mixin slot copy is adjudicated as shallow aliasing for BUKKIT slot values (call-by-sharing), with regression coverage.
+- `#12`/`#13` `omgwtf` edge behavior is now pinned with explicit regressions: memoization under stateful mutation, return-value-vs-intermediate-mutation precedence, and deterministic same-slot re-entry error.
+- Strict-case audit completed: removed residual case-insensitive keyword/type/literal/comment handling in runtime paths and added regressions for lowercase lookalike behavior.
+
 ## Item-by-item results
 
 | # | Status | Assessment |
 |---|---|---|
 | 1 | AMB + PART | Spec conflict (`849` vs `857/871-873`) on whether mixins include inherited slots; runtime copies own slots (`copy-own-into!`) only; no explicit inherited-slot mixin test. |
 | 2 | OK | Reverse-order mixin precedence and parent replacement are implemented and tested (`mixin-object-src`, `mixin-parent-child-combo-src`). |
-| 3 | PART | Copy depth (shallow/deep) is under-specified; runtime is shallow for object/function values; tests only confirm static snapshot for primitive slot values. |
+| 3 | AMB + OK | Copy depth remains spec-underdetermined, but policy is now explicit and tested: primitive slots are copied statically, while mutable BUKKIT slot values remain aliased (shallow copy). |
 | 4 | AMB + PART | Non-BUKKIT `parent` mutation behavior is not specified; runtime treats non-object parent as chain termination; no dedicated spec test. |
 | 5 | PART | Cycle-safe lookup is tested (`parent-cycle-lookup-terminates-src`), but explicit assignment-path behavior in cyclic graphs is not separately targeted. |
 | 6 | OK | Copy-on-write assignment to inherited names is implemented and tested (`inherited-method-slot-independence-src`, `inherited-assignment-unknown-name-src`). |
@@ -41,8 +48,8 @@ Primary concrete gap:
 | 9 | OK | Receiver-projected slot-function scope is implemented and tested (`slot-function-receiver-namespace-src`, `slot-function-receiver-assignment-src`). |
 | 10 | OK | Dynamic method names via `SRS` are parsed and executed (`method-alt-call-dynamic-name-src`). |
 | 11 | AMB + PART | Method-call arg grammar says `<variable>` in one place but function-call section allows expressions; parser currently allows expressions; coverage is positive-only. |
-| 12 | PART | `omgwtf` missing-slot fallback is tested, but current tests do not explicitly prove memoization/caching behavior under stateful hook. |
-| 13 | PART | `omgwtf` recursion hazard remains unspecified and untested. |
+| 12 | OK | `omgwtf` fallback memoization is explicitly tested under stateful mutation and return-value precedence for synthesized slot values. |
+| 13 | AMB + OK | Spec is underdetermined on `omgwtf` recursion; project policy now raises deterministic runtime error on same-slot re-entry, with regression coverage. |
 | 14 | PART | `izmakin` hook execution is tested, but relative ordering with mixin copy / parent finalization is not explicitly pinned by tests. |
 | 15 | PART | `izmakin` reentrancy/recursive prototyping behavior is untested. |
 | 16 | PART | `O HAI IM` slot-first lookup vs lexical local lookup inside object block is not directly isolated in tests. |
@@ -64,7 +71,7 @@ Primary concrete gap:
 | 32 | OK | IT local vs method-global lookup split is explicitly tested (`it-local-main-and-function-src`, `method-it-global-lookup-src`). |
 | 33 | OK | Optional `AN` ambiguity and reserved-token handling are tested (`and-as-identifier-*`, reserved keyword negatives). |
 | 34 | OK | EOL-based variadic closure in nested contexts is covered (`nested-variadic-closure-src`, known-gaps variadic regression test). |
-| 35 | GAP | Runtime currently accepts `MAEK ... A BUKKIT`; strict 1.3 cast target text excludes BUKKIT (`365-368`). Needs adjudication/fix. |
+| 35 | OK (resolved 2026-03-06) | Parser now rejects non-spec cast target designators for both `MAEK` and `IS NOW A`; runtime `cast-value` no longer accepts `BUKKIT` as cast target. |
 | 36 | AMB + OK | Numeric bounds/precision are host-defined by spec; implementation intentionally follows Racket numeric model; formatting/truncation tested. |
 | 37 | PART | Strict cast grammar rejects known bad forms (spaces/scientific), but edge matrix (e.g. plus-sign forms) is not exhaustive. |
 | 38 | PART | `SRS` support is broad and tested in many positions; boundary cases (all "identifier positions") still not exhaustively enumerated. |
@@ -81,8 +88,8 @@ Primary concrete gap:
 
 ## Recommended next actions (ordered)
 
-1. Fix or adjudicate `#35` (`MAEK ... BUKKIT`) and add strict regression.
-2. Add targeted tests for mixin source-set/depth ambiguities (`#1`, `#3`).
-3. Add explicit memoization + recursion-behavior tests for `omgwtf` (`#12`, `#13`).
+1. Done (2026-03-06): fixed/adjudicated `#35` (`MAEK ... BUKKIT`) and added strict regressions.
+2. Continue targeted tests for mixin source-set ambiguity (`#1`); `#3` depth policy is now adjudicated/tested.
+3. Done (2026-03-06): added explicit memoization + recursion-behavior tests for `omgwtf` (`#12`, `#13`).
 4. Add ordering tests for `izmakin` vs mixin/parent finalize (`#14`, `#15`).
 5. Add parser/runtime tests for remaining partial syntax intersections (`#11`, `#31`, `#39`).

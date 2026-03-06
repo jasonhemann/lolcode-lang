@@ -129,10 +129,10 @@
 
 (define (word->tokens text line col)
   (cond
-    [(string-ci=? text "BTW")
+    [(string=? text "BTW")
      (lexer-cover! 'word->tokens/comment)
      (values 'comment '())]
-    [(string-ci=? text "OBTW")
+    [(string=? text "OBTW")
      (lexer-cover! 'word->tokens/block-comment)
      (values 'block-comment '())]
     [(or (string=? text "...")
@@ -161,7 +161,7 @@
                 (values 'ok+line-continuation toks))
               (values status toks)))]
        [(and (> len 2)
-             (regexp-match? #px"(?i:^.+\\'Z$)" text))
+             (regexp-match? #px"^.+\\'Z$" text))
         (lexer-cover! 'word->tokens/split-slot-z)
         (define base (substring text 0 (- len 2)))
         (define base-token
@@ -209,13 +209,13 @@
     (cond
       [(eof-object? ch)
        (lexer-cover! 'skip-block-comment!/eof)
-       (unless (string-ci=? current-word "TLDR")
+       (unless (string=? current-word "TLDR")
          (error 'lex-source "unterminated OBTW block comment"))]
       [(word-char? ch)
        (lexer-cover! 'skip-block-comment!/word-char)
        (loop (string-append current-word (string ch))
              (read-char in))]
-      [(string-ci=? current-word "TLDR")
+      [(string=? current-word "TLDR")
        (lexer-cover! 'skip-block-comment!/found-tldr)
        (void)]
       [else
@@ -345,7 +345,7 @@
 (define unicode-normative-name->codepoint-cache #f)
 
 (define (normalize-unicode-normative-name text)
-  (regexp-replace* #px"[ \t]+" (string-upcase (string-trim text)) " "))
+  (regexp-replace* #px"[ \t]+" (string-trim text) " "))
 
 (define (normative-name-char? ch)
   (or (char-alphabetic? ch)
@@ -356,7 +356,9 @@
 (define (valid-normalized-normative-name? text)
   (and (not (string=? text ""))
        (for/and ([ch (in-string text)])
-         (normative-name-char? ch))))
+         (and (normative-name-char? ch)
+              (or (not (char-alphabetic? ch))
+                  (char-upper-case? ch))))))
 
 (define (load-codepoint-package-normative-name->codepoint)
   (with-handlers ([exn:fail?
@@ -450,7 +452,7 @@
      (lexer-cover! 'scan-string-tail!/escaped-tab)
      (write-char #\tab out)
      #f]
-    [(char-ci=? ch #\o)
+    [(char=? ch #\o)
      (lexer-cover! 'scan-string-tail!/escaped-bell)
      (write-char #\u0007 out)
      #f]

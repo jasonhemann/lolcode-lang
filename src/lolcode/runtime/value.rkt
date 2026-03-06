@@ -27,6 +27,8 @@
                 [parent noob])
     (super-new)
 
+    (define active-omgwtf-slots (make-hash))
+
     (define (default-omgwtf receiver arg-values _ctx)
       (require-arity "omgwtf" arg-values 1)
       (error 'run-program "unknown slot: ~a" (lol-string (first arg-values))))
@@ -70,22 +72,35 @@
          (and p (send p lookup-method name visited))]))
 
     (define/private (call-omgwtf! name ctx)
-      (define sentinel (gensym 'no-omgwtf))
-      (define maybe-method-value
-        (send this invoke-method
-              "omgwtf"
-              (list name)
-              ctx
-              (lambda () sentinel)))
-      (define value
-        (if (eq? maybe-method-value sentinel)
-            (let ([maybe-hook (send this lookup-slot "omgwtf" noob)])
-              (if (procedure? maybe-hook)
-                  (maybe-hook this (list name) ctx)
-                  (error 'run-program "unknown slot: ~a" name)))
-            maybe-method-value))
-      (send this declare-slot! name value)
-      value)
+      (when (hash-ref active-omgwtf-slots name #f)
+        (error 'run-program
+               "omgwtf recursion while resolving missing slot: ~a"
+               name))
+      (dynamic-wind
+        (lambda ()
+          (hash-set! active-omgwtf-slots name #t))
+        (lambda ()
+          (define sentinel (gensym 'no-omgwtf))
+          (define maybe-method-value
+            (send this invoke-method
+                  "omgwtf"
+                  (list name)
+                  ctx
+                  (lambda () sentinel)))
+          (define value
+            (if (eq? maybe-method-value sentinel)
+                (let ([maybe-hook (send this lookup-slot "omgwtf" noob)])
+                  (if (procedure? maybe-hook)
+                      (maybe-hook this (list name) ctx)
+                      (error 'run-program "unknown slot: ~a" name)))
+                maybe-method-value))
+          ;; Memoize the synthesized result into the missing slot.
+          ;; If omgwtf mutated the same slot during evaluation, the return value
+          ;; remains authoritative for the requested missing name.
+          (send this declare-slot! name value)
+          value)
+        (lambda ()
+          (hash-remove! active-omgwtf-slots name))))
 
     (define/public (clone)
       (define copied-slots (make-hash))
@@ -249,7 +264,7 @@
     [else (error who "cannot cast ~e to numeric value" v)]))
 
 (define (cast-value who v type-name)
-  (case (string-upcase type-name)
+  (case type-name
     [("NUMBR")
      (inexact->exact (truncate (coerce-cast-number who v)))]
     [("NUMBAR")
@@ -260,15 +275,11 @@
      (lol-truthy? v)]
     [("NOOB")
      noob]
-    [("BUKKIT")
-     (if (lol-object? v)
-         (send v clone)
-         (error who "cannot cast non-BUKKIT value to BUKKIT: ~e" v))]
     [else
      (error who "unknown cast target type: ~a" type-name)]))
 
 (define (type-default-value type-name)
-  (case (string-upcase type-name)
+  (case type-name
     [("NUMBR" "NUMBAR") (values #t 0)]
     [("YARN") (values #t "")]
     [("TROOF") (values #t #f)]

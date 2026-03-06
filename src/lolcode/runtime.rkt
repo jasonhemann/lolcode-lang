@@ -128,7 +128,7 @@
      (define-values (known? default-value)
        (type-default-value type-name))
      (if known?
-         (if (string-ci=? type-name "BUKKIT")
+         (if (string=? type-name "BUKKIT")
              (lambda (_e _ctx) (new lol-object%))
              (lambda (_e _ctx) default-value))
          (compile-expr init-expr))]
@@ -292,7 +292,7 @@
        (type-default-value type-name))
      (unless known?
        (error 'run-program "unknown type name in ITZ A: ~a" type-name))
-     (if (string-ci=? type-name "BUKKIT")
+     (if (string=? type-name "BUKKIT")
          (lambda (_e _ctx) (new lol-object%))
          (lambda (_e _ctx) default-value))]
 
@@ -633,7 +633,7 @@
       (open-label-proc e ctx))
     (define resolved-close
       (close-label-proc e ctx))
-    (unless (string-ci=? resolved-open resolved-close)
+    (unless (string=? resolved-open resolved-close)
       (error 'run-program
              "loop label mismatch: ~a closed by ~a"
              resolved-open

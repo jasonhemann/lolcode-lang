@@ -449,6 +449,14 @@
   (check-equal? (hash-ref equality-numbr-numbar-numeric-mode 'stdout)
                 "WIN\nWIN\n")
 
+  (define equality-complex-values-identity-src
+    "HAI 1.3\nO HAI IM a\n  I HAS A n ITZ 1\nKTHX\nI HAS A same ITZ a\nO HAI IM b\n  I HAS A n ITZ 1\nKTHX\nVISIBLE BOTH SAEM a AN same\nVISIBLE BOTH SAEM a AN b\nHOW IZ I id YR x\n  FOUND YR x\nIF U SAY SO\nI HAS A f1 ITZ id\nI HAS A f2 ITZ id\nHOW IZ I id2 YR x\n  FOUND YR x\nIF U SAY SO\nI HAS A g ITZ id2\nVISIBLE BOTH SAEM f1 AN f2\nVISIBLE BOTH SAEM f1 AN g\nVISIBLE BOTH SAEM NUMBR AN NUMBR\nVISIBLE BOTH SAEM NUMBR AN YARN\nKTHXBYE\n")
+  (define equality-complex-values-identity
+    (run-source equality-complex-values-identity-src))
+  (check-eq? (hash-ref equality-complex-values-identity 'status) 'ok)
+  (check-equal? (hash-ref equality-complex-values-identity 'stdout)
+                "WIN\nFAIL\nWIN\nFAIL\nWIN\nFAIL\n")
+
   (define logic-all-of-src
     "HAI 1.3\nI HAS A flag ITZ WIN\nI HAS A anotherflag ITZ FAIL\nI HAS A flag3 ITZ WIN\nI HAS A flag4 ITZ WIN\nI HAS A flag5\nflag5 R ALL OF flag AN anotherflag AN flag3 AN flag4 MKAY\nVISIBLE flag5\nKTHXBYE\n")
   (define logic-all-of-result (run-source logic-all-of-src))
@@ -623,6 +631,25 @@
   (check-equal? (hash-ref omgwtf-memoizes-missing-slot 'stdout)
                 "1\n1\n1\n")
 
+  (define omgwtf-return-value-overrides-intermediate-slot-mutation-src
+    "HAI 1.3\nO HAI IM box\n  I HAS A hits ITZ 0\n  HOW IZ I omgwtf YR slotname\n    hits R SUM OF hits AN 1\n    ME HAS A SRS slotname ITZ \"from-body\"\n    FOUND YR SMOOSH \"from-return-\" AN hits MKAY\n  IF U SAY SO\nKTHX\nVISIBLE box'Z nope\nVISIBLE box'Z nope\nVISIBLE box'Z hits\nVISIBLE box'Z nope\nKTHXBYE\n")
+  (define omgwtf-return-value-overrides-intermediate-slot-mutation
+    (run-source omgwtf-return-value-overrides-intermediate-slot-mutation-src))
+  (check-eq? (hash-ref omgwtf-return-value-overrides-intermediate-slot-mutation 'status) 'ok)
+  ;; Policy: resolved missing-slot value is the omgwtf return value, then cached.
+  (check-equal? (hash-ref omgwtf-return-value-overrides-intermediate-slot-mutation 'stdout)
+                "from-return-1\nfrom-return-1\n1\nfrom-return-1\n")
+
+  (define omgwtf-recursive-same-slot-reentry-src
+    "HAI 1.3\nO HAI IM box\n  HOW IZ I omgwtf YR slotname\n    FOUND YR ME'Z SRS slotname\n  IF U SAY SO\nKTHX\nVISIBLE box'Z nope\nKTHXBYE\n")
+  (define omgwtf-recursive-same-slot-reentry
+    (run-source omgwtf-recursive-same-slot-reentry-src))
+  (check-eq? (hash-ref omgwtf-recursive-same-slot-reentry 'status) 'runtime-error)
+  ;; Policy: direct omgwtf re-entry on the same unresolved slot is trapped as a
+  ;; deterministic runtime error rather than unbounded recursion/divergence.
+  (check-true (regexp-match? #px"omgwtf recursion while resolving missing slot: nope"
+                             (hash-ref omgwtf-recursive-same-slot-reentry 'error)))
+
   (define izmakin-special-slot-runs-on-prototype-src
     "HAI 1.3\nO HAI IM Maker\n  I HAS A seed ITZ 1\n  HOW IZ I izmakin\n    seed R SUM OF seed AN 1\n  IF U SAY SO\nKTHX\nI HAS A first ITZ LIEK A Maker\nI HAS A second ITZ LIEK A Maker\nVISIBLE first'Z seed\nVISIBLE second'Z seed\nKTHXBYE\n")
   (define izmakin-special-slot-runs-on-prototype
@@ -781,6 +808,15 @@
   (check-eq? (hash-ref mixin-static-snapshot 'status) 'ok)
   (check-equal? (hash-ref mixin-static-snapshot 'stdout) "1\n")
 
+  (define mixin-static-snapshot-mutable-alias-src
+    "HAI 1.3\nO HAI IM parent\nKTHX\nO HAI IM mix\n  I HAS A nested ITZ A BUKKIT\n  nested HAS A n ITZ 1\nKTHX\nO HAI IM child IM LIEK parent SMOOSH mix\nKTHX\nmix'Z nested'Z n R 9\nVISIBLE child'Z nested'Z n\nchild'Z nested'Z n R 7\nVISIBLE mix'Z nested'Z n\nKTHXBYE\n")
+  (define mixin-static-snapshot-mutable-alias
+    (run-source mixin-static-snapshot-mutable-alias-src))
+  (check-eq? (hash-ref mixin-static-snapshot-mutable-alias 'status) 'ok)
+  ;; Policy: mixin slot copy is static for direct primitive slots, but mutable
+  ;; BUKKIT slot values are copied by reference (call-by-sharing).
+  (check-equal? (hash-ref mixin-static-snapshot-mutable-alias 'stdout) "9\n7\n")
+
   (define mixin-parent-child-combo-src
     "HAI 1.3\nO HAI IM parent\n  I HAS A x ITZ \"parent\"\nKTHX\nO HAI IM mix\n  I HAS A x ITZ \"mix\"\nKTHX\nO HAI IM child IM LIEK parent SMOOSH mix\nKTHX\nVISIBLE child'Z x\nparent'Z x R \"parent2\"\nVISIBLE child'Z x\nKTHXBYE\n")
   (define mixin-parent-child-combo
@@ -905,6 +941,14 @@
   (define literals-result (run-source literals-src))
   (check-eq? (hash-ref literals-result 'status) 'ok)
   (check-equal? (hash-ref literals-result 'stdout) "WIN\nFAIL\nNOOB\n")
+
+  (define lowercase-identifiers-not-literals-src
+    "HAI 1.3\nI HAS A win ITZ 3\nI HAS A fail ITZ 4\nI HAS A noob ITZ 5\nI HAS A numbr ITZ 6\nVISIBLE win\nVISIBLE fail\nVISIBLE noob\nVISIBLE numbr\nVISIBLE WIN\nVISIBLE FAIL\nVISIBLE NOOB\nVISIBLE NUMBR\nKTHXBYE\n")
+  (define lowercase-identifiers-not-literals-result
+    (run-source lowercase-identifiers-not-literals-src))
+  (check-eq? (hash-ref lowercase-identifiers-not-literals-result 'status) 'ok)
+  (check-equal? (hash-ref lowercase-identifiers-not-literals-result 'stdout)
+                "3\n4\n5\n6\nWIN\nFAIL\nNOOB\nNUMBR\n")
 
   (define line-cont-src
     "HAI 1.3\nVISIBLE SMOOSH \"A\" AN ...\n\"B\" MKAY\nKTHXBYE\n")

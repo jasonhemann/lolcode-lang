@@ -42,6 +42,14 @@ Pass-2 tranche-1 targets:
 | `N56` | adjudicated | `WTF?` binds to current `IT`; parser encodes `stmt-switch` with subject `(expr-ident \"IT\")`. |
 | `N60` | adjudicated | IT update closed-list is documented (`IT_UPDATE_MATRIX.md`) and enforced by regression `it-update-matrix-src` plus supporting IT tests. |
 | `N61` | adjudicated | `VISIBLE` remains statement-special variadic with delimiter closure and `!` suffix newline suppression. |
+| `N43` | adjudicated | Keyword/literal/type recognition is strict-case in direct syntax positions; lowercase lookalikes remain identifiers (per identifier case-sensitivity text and strict extension policy). |
+| `N63` | adjudicated | TYPE-words are dual-role by context: expression-position words remain TYPE literals, while cast-target positions require strict cast target designators. |
+| `N64` | adjudicated | Parser now enforces cast-target domain for both `MAEK <expr> [A] <type>` and `<lvalue> IS NOW A <type>` forms (`TROOF|YARN|NUMBR|NUMBAR|NOOB` only). |
+| `N65` | adjudicated | Equality remains numeric-mode only for numeric pairs; non-numeric values use non-coercing host equality, with identity behavior pinned for BUKKIT/function values. |
+| `N81` | adjudicated | Mixin copy depth for mutable slot values is call-by-sharing (shallow object reference copy), pinned by `mixin-static-snapshot-mutable-alias-src`. |
+| `N82` | adjudicated | Mutable-value aliasing policy is consistent across mixin copy and ordinary assignment paths: shared BUKKIT references remain shared unless explicitly re-bound. |
+| `N20` | adjudicated (extended) | `omgwtf` missing-slot policy is pinned for stateful hooks: return-value memoization is authoritative for the resolved slot name even if intermediate same-slot mutation occurs inside `omgwtf`. |
+| `N13` | adjudicated (edge policy) | `omgwtf` same-slot recursive re-entry is trapped as deterministic runtime error to avoid silent divergence in spec-underdetermined recursion scenarios. |
 
 ## N23 Policy Table: Special Slots
 
@@ -70,6 +78,10 @@ Pass-2 tranche-1 targets:
    - `./scripts/analyze_corpus_gaps.sh`
    - `./scripts/eval_tier2_corpus.sh`
    - `./scripts/test_external_evidence.sh`
+6. Completed (2026-03-06): strict cast-target parser gate and runtime cast-domain cleanup for `N63`/`N64`, with new parse-negative regressions (`MAEK ... A BUKKIT`, `IS NOW A BUKKIT`).
+7. Completed (2026-03-06): equality identity-mode regression added for `N65` (same-reference vs same-shape object/function values).
+8. Completed (2026-03-06): `omgwtf` stateful memoization precedence and same-slot re-entry policy pinned with targeted runtime regressions.
+9. Completed (2026-03-06): strict-case audit removed residual case-insensitive keyword/type/literal/comment handling extensions and added regressions for lowercase lookalike behavior.
 
 ## Fourth-Tier Integration Note
 
