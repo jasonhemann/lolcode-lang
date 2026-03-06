@@ -560,6 +560,14 @@
   (check-true (regexp-match? #px"cannot cast YARN to numeric value"
                              (hash-ref cast-scientific-number-yarn 'error)))
 
+  (define cast-plus-number-yarn-src
+    "HAI 1.3\nVISIBLE MAEK \"+1.25\" A NUMBAR\nKTHXBYE\n")
+  (define cast-plus-number-yarn
+    (run-source cast-plus-number-yarn-src))
+  (check-eq? (hash-ref cast-plus-number-yarn 'status) 'runtime-error)
+  (check-true (regexp-match? #px"cannot cast YARN to numeric value"
+                             (hash-ref cast-plus-number-yarn 'error)))
+
   (define maek-without-article-src
     "HAI 1.3\nVISIBLE MAEK 2 NUMBAR\nKTHXBYE\n")
   (define maek-without-article

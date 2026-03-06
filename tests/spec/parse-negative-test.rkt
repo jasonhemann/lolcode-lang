@@ -225,6 +225,16 @@
   (check-exn #px"invalid numeric literal"
              (lambda () (parse-program malformed-number-trailing-dot)))
 
+  (define malformed-number-leading-plus-int
+    "HAI 1.3\nI HAS A x ITZ +123\nKTHXBYE\n")
+  (check-exn #px"invalid identifier syntax"
+             (lambda () (parse-program malformed-number-leading-plus-int)))
+
+  (define malformed-number-leading-plus-float
+    "HAI 1.3\nI HAS A x ITZ +1.23\nKTHXBYE\n")
+  (check-exn #px"invalid identifier syntax"
+             (lambda () (parse-program malformed-number-leading-plus-float)))
+
   (define invalid-ident-leading-underscore
     "HAI 1.3\nI HAS A _x ITZ 1\nKTHXBYE\n")
   (check-exn #px"invalid identifier syntax"
