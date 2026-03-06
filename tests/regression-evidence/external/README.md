@@ -99,19 +99,19 @@ racket scripts/seed_external_manifest_hypotheses.rkt --apply
 Generate external evidence bucket report:
 
 ```bash
-racket scripts/analyze_external_evidence.rkt
+./scripts/analyze_external_evidence.sh
 ```
 
 Generate a filtered external evidence bucket report:
 
 ```bash
-racket scripts/analyze_external_evidence.rkt --scope 1.3 --hypothesis expects-pass
+./scripts/analyze_external_evidence.sh --scope 1.3 --hypothesis expects-pass
 ```
 
 Generate a single-case external evidence report:
 
 ```bash
-racket scripts/analyze_external_evidence.rkt --wave 1 --id ext_lci_issue_0047
+./scripts/analyze_external_evidence.sh --wave 1 --id ext_lci_issue_0047
 ```
 
 Promote supported `candidate` triage entries to `reproducer-ready`:

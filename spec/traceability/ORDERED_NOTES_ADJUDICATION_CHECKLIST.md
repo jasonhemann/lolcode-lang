@@ -296,6 +296,11 @@ Latest checklist-batch delta (`2026-03-06`, evidence-runner filter-header clarit
 - Improved no-selection behavior to stop after the explanatory message instead of printing an empty aggregate report.
 - Verified both hit and no-hit summary runs (`--scope 1.3 --summary-only`, `--wave 999 --summary-only`).
 
+Latest checklist-batch delta (`2026-03-06`, analyzer wrapper ergonomics pass):
+- Added `scripts/analyze_external_evidence.sh` as a shell wrapper for `scripts/analyze_external_evidence.rkt`, mirroring the runner wrapper pattern.
+- Updated `tests/regression-evidence/external/README.md` examples to use the new wrapper for baseline, filtered, and single-case analyzer runs.
+- Verified wrapper execution with filtered analyzer invocation.
+
 Next corpus/harvest actions tied to this checklist:
 - [x] `47` Partition parse-errors into `strict-non-1.3`, `spec-divergence`, `program-bug`.
   Done: produced `corpus/research/PARSE_ERROR_PARTITION_2026-03-05.md` (tier2 likely-program parse failures: strict-non-1.3 `149`, program-bug `18`, spec-divergence `0`).
