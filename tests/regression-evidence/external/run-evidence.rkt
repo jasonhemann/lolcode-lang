@@ -220,6 +220,36 @@
               (string=? (hash-ref c 'id) selected-id))))
    cases))
 
+(define (parse-scope-arg s)
+  (cond
+    [(string=? s "1.2") '("1.2")]
+    [(string=? s "1.3") '("1.3")]
+    [(or (string=? s "1.2+1.3")
+         (string=? s "1.3+1.2"))
+     '("1.2" "1.3")]
+    [(string=? s "unknown") '("unknown")]
+    [else
+     (fail "--scope must be one of 1.2, 1.3, 1.2+1.3, unknown; got ~e" s)]))
+
+(define (scope->arg-label scope)
+  (cond
+    [(equal? scope '("1.2")) "1.2"]
+    [(equal? scope '("1.3")) "1.3"]
+    [(equal? scope '("1.2" "1.3")) "1.2+1.3"]
+    [(equal? scope '("unknown")) "unknown"]
+    [else (format "~s" scope)]))
+
+(define (select-cases/scope cases selected-wave selected-id selected-scope)
+  (filter
+   (lambda (c)
+     (and (or (not selected-wave)
+              (= (hash-ref c 'wave) selected-wave))
+          (or (not selected-id)
+              (string=? (hash-ref c 'id) selected-id))
+          (or (not selected-scope)
+              (equal? (hash-ref c 'spec-scope) selected-scope))))
+   cases))
+
 (define (assessment-for c observed-status observed-stdout observed-message)
   (define hypothesis (hash-ref c 'hypothesis))
   (define expected-stdout
@@ -345,12 +375,12 @@
   (newline)
   (displayln "Note: semantic conflicts are reported as evidence and do not fail this run."))
 
-(define (evaluate-evidence-cases manifest-path selected-wave selected-id)
+(define (evaluate-evidence-cases manifest-path selected-wave selected-id [selected-scope #f])
   (define cases
     (load-and-validate-manifest manifest-path))
 
   (define selected
-    (select-cases cases selected-wave selected-id))
+    (select-cases/scope cases selected-wave selected-id selected-scope))
 
   (when selected-id
     (unless (ormap (lambda (c) (string=? (hash-ref c 'id) selected-id)) cases)
@@ -366,11 +396,14 @@
      (for/list ([c (in-list selected)])
        (run-one-case c manifest-dir))]))
 
-(define (run-evidence-cases manifest-path selected-wave selected-id)
+(define (run-evidence-cases manifest-path selected-wave selected-id [selected-scope #f])
   (define rows
-    (evaluate-evidence-cases manifest-path selected-wave selected-id))
+    (evaluate-evidence-cases manifest-path selected-wave selected-id selected-scope))
   (when (null? rows)
-    (displayln "No evidence cases selected.")
+    (if selected-scope
+        (printf "No evidence cases selected (scope: ~a).\n"
+                (scope->arg-label selected-scope))
+        (displayln "No evidence cases selected."))
     (void))
   (print-report rows)
   rows)
@@ -382,6 +415,7 @@
     default-manifest-path)
   (define selected-wave #f)
   (define selected-id #f)
+  (define selected-scope #f)
 
   (command-line
    #:program "run-evidence.rkt"
@@ -396,6 +430,8 @@
                    (fail "--wave must be a positive integer, got ~e" w))
                  (set! selected-wave maybe-wave)]
    [("--id") case-id "Select only one case id"
-               (set! selected-id case-id)])
+               (set! selected-id case-id)]
+   [("--scope") s "Select only one spec scope: 1.2 | 1.3 | 1.2+1.3 | unknown"
+                 (set! selected-scope (parse-scope-arg s))])
 
-  (void (run-evidence-cases manifest-path selected-wave selected-id)))
+  (void (run-evidence-cases manifest-path selected-wave selected-id selected-scope)))

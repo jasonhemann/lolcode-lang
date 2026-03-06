@@ -266,6 +266,11 @@ Latest checklist-batch delta (`2026-03-06`, external-evidence report scope-enric
 - Updated `scripts/analyze_external_evidence.rkt` to emit `spec-scope-counts` and an `unknown-spec-scope` case list in both JSON and Markdown outputs.
 - Regenerated `corpus/research/external-evidence-report.json` + `corpus/research/EXTERNAL_EVIDENCE_REPORT.md`; current scope distribution is `295` (`1.2`), `3` (`1.3`), `4` (`unknown`).
 
+Latest checklist-batch delta (`2026-03-06`, external-evidence scope-filtering pass):
+- Added `--scope` filtering to `tests/regression-evidence/external/run-evidence.rkt` (`1.2`, `1.3`, `1.2+1.3`, `unknown`) and exposed it through `./scripts/test_external_evidence.sh`.
+- Updated `tests/regression-evidence/external/README.md` with scope-filter command usage examples.
+- Verified targeted scope slices (`--scope 1.3`, `--scope unknown`) and full run remain stable (`Assessment counts: supports 302`).
+
 Next corpus/harvest actions tied to this checklist:
 - [x] `47` Partition parse-errors into `strict-non-1.3`, `spec-divergence`, `program-bug`.
   Done: produced `corpus/research/PARSE_ERROR_PARTITION_2026-03-05.md` (tier2 likely-program parse failures: strict-non-1.3 `149`, program-bug `18`, spec-divergence `0`).

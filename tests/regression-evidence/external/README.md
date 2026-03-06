@@ -60,6 +60,12 @@ Run one case:
 ./scripts/test_external_evidence.sh --id ext_lci_issue_0013
 ```
 
+Run by manifest spec scope:
+
+```bash
+./scripts/test_external_evidence.sh --scope 1.3
+```
+
 Seed manifest hypotheses from observed outcomes (line-preserving update):
 
 ```bash
