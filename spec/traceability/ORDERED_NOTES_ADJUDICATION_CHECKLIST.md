@@ -291,6 +291,11 @@ Latest checklist-batch delta (`2026-03-06`, evidence-runner summary mode pass):
 - Updated `tests/regression-evidence/external/README.md` with summary-mode usage examples.
 - Verified summary mode across filtered and full runs (`--scope 1.3 --summary-only`, `--summary-only`) while preserving default per-case output behavior.
 
+Latest checklist-batch delta (`2026-03-06`, evidence-runner filter-header clarity pass):
+- Added a normalized active-filter header in `tests/regression-evidence/external/run-evidence.rkt` (`wave`, `id`, `scope`, `triage`, `hypothesis`) for all runs.
+- Improved no-selection behavior to stop after the explanatory message instead of printing an empty aggregate report.
+- Verified both hit and no-hit summary runs (`--scope 1.3 --summary-only`, `--wave 999 --summary-only`).
+
 Next corpus/harvest actions tied to this checklist:
 - [x] `47` Partition parse-errors into `strict-non-1.3`, `spec-divergence`, `program-bug`.
   Done: produced `corpus/research/PARSE_ERROR_PARTITION_2026-03-05.md` (tier2 likely-program parse failures: strict-non-1.3 `149`, program-bug `18`, spec-divergence `0`).

@@ -84,6 +84,12 @@ Run summary-only (counts without per-case table):
 ./scripts/test_external_evidence.sh --scope 1.3 --summary-only
 ```
 
+The runner prints a normalized active-filter header on each run:
+
+```text
+Filters: wave=all id=all scope=1.3 triage=all hypothesis=all
+```
+
 Seed manifest hypotheses from observed outcomes (line-preserving update):
 
 ```bash

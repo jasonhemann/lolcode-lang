@@ -239,6 +239,24 @@
     [(equal? scope '("unknown")) "unknown"]
     [else (format "~s" scope)]))
 
+(define (filter-label v kind)
+  (cond
+    [(eq? v #f) "all"]
+    [(eq? kind 'scope) (scope->arg-label v)]
+    [else (~a v)]))
+
+(define (format-active-filters selected-wave
+                               selected-id
+                               selected-scope
+                               selected-triage
+                               selected-hypothesis)
+  (format "Filters: wave=~a id=~a scope=~a triage=~a hypothesis=~a"
+          (filter-label selected-wave 'wave)
+          (filter-label selected-id 'id)
+          (filter-label selected-scope 'scope)
+          (filter-label selected-triage 'triage)
+          (filter-label selected-hypothesis 'hypothesis)))
+
 (define (select-cases/scope cases selected-wave selected-id selected-scope)
   (filter
    (lambda (c)
@@ -443,6 +461,12 @@
                             [selected-triage #f]
                             [selected-hypothesis #f]
                             [summary-only? #f])
+  (define filters-line
+    (format-active-filters selected-wave
+                           selected-id
+                           selected-scope
+                           selected-triage
+                           selected-hypothesis))
   (define rows
     (evaluate-evidence-cases manifest-path
                              selected-wave
@@ -450,14 +474,15 @@
                              selected-scope
                              selected-triage
                              selected-hypothesis))
-  (when (null? rows)
-    (if selected-scope
-        (printf "No evidence cases selected (scope: ~a).\n"
-                (scope->arg-label selected-scope))
-        (displayln "No evidence cases selected."))
-    (void))
-  (print-report rows summary-only?)
-  rows)
+  (if (null? rows)
+      (begin
+        (displayln filters-line)
+        (displayln "No evidence cases selected.")
+        rows)
+      (begin
+        (displayln filters-line)
+        (print-report rows summary-only?)
+        rows)))
 
 (define-runtime-path default-manifest-path "manifest.rktd")
 
