@@ -590,6 +590,15 @@
   (check-eq? (hash-ref method-alt-call-dynamic-name 'status) 'ok)
   (check-equal? (hash-ref method-alt-call-dynamic-name 'stdout) "11\n")
 
+  (define method-call-expression-args-src
+    "HAI 1.3\nO HAI IM calc\n  HOW IZ I add YR x AN YR y\n    FOUND YR SUM OF x AN y\n  IF U SAY SO\nKTHX\nVISIBLE calc IZ add YR SUM OF 1 AN 2 AN YR PRODUKT OF 2 AN 3 MKAY\nKTHXBYE\n")
+  (define method-call-expression-args
+    (run-source method-call-expression-args-src))
+  (check-eq? (hash-ref method-call-expression-args 'status) 'ok)
+  ;; Adjudication: method-call argument positions accept expressions, matching
+  ;; ordinary I IZ call argument semantics.
+  (check-equal? (hash-ref method-call-expression-args 'stdout) "9\n")
+
   (define method-call-missing-slot-src
     "HAI 1.3\nI HAS A foo ITZ A BUKKIT\nfoo IZ nope MKAY\nKTHXBYE\n")
   (define method-call-missing-slot
@@ -657,6 +666,26 @@
   (check-eq? (hash-ref izmakin-special-slot-runs-on-prototype 'status) 'ok)
   (check-equal? (hash-ref izmakin-special-slot-runs-on-prototype 'stdout)
                 "3\n3\n")
+
+  (define izmakin-ordering-parent-restore-src
+    "HAI 1.3\nO HAI IM base\n  I HAS A tag ITZ \"BASE\"\nKTHX\nO HAI IM mix\n  I HAS A tag ITZ \"MIX\"\n  HOW IZ I izmakin\n    DIFFRINT ME'Z parent AN NOOB\n    O RLY?\n      YA RLY\n        ME HAS A seenTag ITZ ME'Z tag\n        ME HAS A seenParentTag ITZ ME'Z parent'Z tag\n    OIC\n  IF U SAY SO\nKTHX\nO HAI IM child IM LIEK base SMOOSH mix\nKTHX\nVISIBLE child'Z seenTag\nVISIBLE child'Z seenParentTag\nKTHXBYE\n")
+  (define izmakin-ordering-parent-restore
+    (run-source izmakin-ordering-parent-restore-src))
+  (check-eq? (hash-ref izmakin-ordering-parent-restore 'status) 'ok)
+  ;; Adjudication: izmakin observes a fully prototyped object where mixin copy
+  ;; has already happened and declared parent restoration is complete.
+  (check-equal? (hash-ref izmakin-ordering-parent-restore 'stdout)
+                "MIX\nBASE\n")
+
+  (define izmakin-reentrant-prototype-src
+    "HAI 1.3\nI HAS A ticks ITZ 0\nO HAI IM maker\n  HOW IZ I izmakin\n    DIFFRINT ME'Z parent AN NOOB\n    O RLY?\n      YA RLY\n        ticks R SUM OF ticks AN 1\n        BOTH SAEM ticks AN 1\n        O RLY?\n          YA RLY\n            I HAS A spare ITZ LIEK A maker\n        OIC\n    OIC\n  IF U SAY SO\nKTHX\nI HAS A first ITZ LIEK A maker\nVISIBLE ticks\nKTHXBYE\n")
+  (define izmakin-reentrant-prototype
+    (run-source izmakin-reentrant-prototype-src))
+  (check-eq? (hash-ref izmakin-reentrant-prototype 'status) 'ok)
+  ;; Adjudication: reentrant prototyping from izmakin is permitted; each
+  ;; constructed prototype runs izmakin exactly once.
+  (check-equal? (hash-ref izmakin-reentrant-prototype 'stdout)
+                "2\n")
 
   (define method-global-capture-src
     "HAI 1.3\nI HAS A suffix ITZ \"!\"\nO HAI IM speaker\n  HOW IZ I say YR x\n    FOUND YR SMOOSH x AN suffix MKAY\n  IF U SAY SO\nKTHX\nVISIBLE speaker IZ say YR \"A\" MKAY\nsuffix R \"?\"\nVISIBLE speaker IZ say YR \"A\" MKAY\nKTHXBYE\n")

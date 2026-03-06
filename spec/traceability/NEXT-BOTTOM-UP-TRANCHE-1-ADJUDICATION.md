@@ -43,9 +43,11 @@ Pass-2 tranche-1 targets:
 | `N60` | adjudicated | IT update closed-list is documented (`IT_UPDATE_MATRIX.md`) and enforced by regression `it-update-matrix-src` plus supporting IT tests. |
 | `N61` | adjudicated | `VISIBLE` remains statement-special variadic with delimiter closure and `!` suffix newline suppression. |
 | `N43` | adjudicated | Keyword/literal/type recognition is strict-case in direct syntax positions; lowercase lookalikes remain identifiers (per identifier case-sensitivity text and strict extension policy). |
+| `N42` | adjudicated | Method-call argument positions use expression semantics for coherence with call-expression section; parser/runtime tests now pin expression-argument method calls. |
 | `N63` | adjudicated | TYPE-words are dual-role by context: expression-position words remain TYPE literals, while cast-target positions require strict cast target designators. |
 | `N64` | adjudicated | Parser now enforces cast-target domain for both `MAEK <expr> [A] <type>` and `<lvalue> IS NOW A <type>` forms (`TROOF|YARN|NUMBR|NUMBAR|NOOB` only). |
 | `N65` | adjudicated | Equality remains numeric-mode only for numeric pairs; non-numeric values use non-coercing host equality, with identity behavior pinned for BUKKIT/function values. |
+| `N19` | adjudicated | `izmakin` ordering is pinned to post-prototype/mixin parent-restored state; reentrant prototype creation from `izmakin` is allowed and tested per-prototype execution. |
 | `N81` | adjudicated | Mixin copy depth for mutable slot values is call-by-sharing (shallow object reference copy), pinned by `mixin-static-snapshot-mutable-alias-src`. |
 | `N82` | adjudicated | Mutable-value aliasing policy is consistent across mixin copy and ordinary assignment paths: shared BUKKIT references remain shared unless explicitly re-bound. |
 | `N20` | adjudicated (extended) | `omgwtf` missing-slot policy is pinned for stateful hooks: return-value memoization is authoritative for the resolved slot name even if intermediate same-slot mutation occurs inside `omgwtf`. |
@@ -82,6 +84,7 @@ Pass-2 tranche-1 targets:
 7. Completed (2026-03-06): equality identity-mode regression added for `N65` (same-reference vs same-shape object/function values).
 8. Completed (2026-03-06): `omgwtf` stateful memoization precedence and same-slot re-entry policy pinned with targeted runtime regressions.
 9. Completed (2026-03-06): strict-case audit removed residual case-insensitive keyword/type/literal/comment handling extensions and added regressions for lowercase lookalike behavior.
+10. Completed (2026-03-06): `izmakin` ordering/reentrancy and method-call argument expression policy (`N19`, `N42`) pinned with dedicated runtime regressions.
 
 ## Fourth-Tier Integration Note
 

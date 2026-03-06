@@ -54,6 +54,21 @@ For each concern:
 5. Update traceability mapping and corpus classification notes.
 6. Record final status and follow-up tasks.
 
+## Implementation Safety Gate
+
+Every tranche change must pass this gate before check-in:
+
+1. Anchor each change to exact spec clauses first (no speculative edits).
+2. Add or tighten targeted regression tests before broad refactors.
+3. Keep edits minimal and local to the adjudicated concern.
+4. Run focused suites for touched behavior, then full `./scripts/test_racket.sh`.
+5. If parser acceptance/lexing changed, compare corpus classification deltas.
+6. Update traceability docs with:
+   - clause anchors
+   - policy rationale
+   - test references
+7. Reject any acceptance broadening unless explicitly warranted by spec text.
+
 ## Evidence Requirements
 
 A concern can be closed only when all are true:

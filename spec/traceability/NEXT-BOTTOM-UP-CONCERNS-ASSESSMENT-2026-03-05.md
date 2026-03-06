@@ -32,6 +32,7 @@ Update delta (2026-03-06):
 - `#3` now has explicit mutable-value coverage: mixin slot copy is adjudicated as shallow aliasing for BUKKIT slot values (call-by-sharing), with regression coverage.
 - `#12`/`#13` `omgwtf` edge behavior is now pinned with explicit regressions: memoization under stateful mutation, return-value-vs-intermediate-mutation precedence, and deterministic same-slot re-entry error.
 - Strict-case audit completed: removed residual case-insensitive keyword/type/literal/comment handling in runtime paths and added regressions for lowercase lookalike behavior.
+- `#11` is now policy-pinned as expression-argument method calls (matching call-expression semantics); `#14`/`#15` now have explicit izmakin ordering and reentrancy coverage.
 
 ## Item-by-item results
 
@@ -47,11 +48,11 @@ Update delta (2026-03-06):
 | 8 | PART | Special slots exist and are exercised (`parent`, `omgwtf`, `izmakin`), but full inheritance/shadow interaction matrix is not explicitly tested. |
 | 9 | OK | Receiver-projected slot-function scope is implemented and tested (`slot-function-receiver-namespace-src`, `slot-function-receiver-assignment-src`). |
 | 10 | OK | Dynamic method names via `SRS` are parsed and executed (`method-alt-call-dynamic-name-src`). |
-| 11 | AMB + PART | Method-call arg grammar says `<variable>` in one place but function-call section allows expressions; parser currently allows expressions; coverage is positive-only. |
+| 11 | AMB + OK | Method-call arg wording conflicts with function-call expression prose; policy is expression-argument acceptance for coherence, now pinned with explicit method expression-arg regression. |
 | 12 | OK | `omgwtf` fallback memoization is explicitly tested under stateful mutation and return-value precedence for synthesized slot values. |
 | 13 | AMB + OK | Spec is underdetermined on `omgwtf` recursion; project policy now raises deterministic runtime error on same-slot re-entry, with regression coverage. |
-| 14 | PART | `izmakin` hook execution is tested, but relative ordering with mixin copy / parent finalization is not explicitly pinned by tests. |
-| 15 | PART | `izmakin` reentrancy/recursive prototyping behavior is untested. |
+| 14 | OK | `izmakin` ordering is explicitly tested: hook observes fully prototyped post-mixin object with declared parent restoration applied. |
+| 15 | AMB + OK | Spec is underdetermined on `izmakin` reentrancy; policy allows reentrant prototype creation, with regression confirming per-prototype hook execution. |
 | 16 | PART | `O HAI IM` slot-first lookup vs lexical local lookup inside object block is not directly isolated in tests. |
 | 17 | OK | Parser/runtime separate `I` forms correctly in object block context (`object-alt-src`, method alt-def/call tests). |
 | 18 | PART | `ME` outside method is tested negative and normal use is tested positive; nested helper-call context semantics remain untested. |
@@ -91,5 +92,5 @@ Update delta (2026-03-06):
 1. Done (2026-03-06): fixed/adjudicated `#35` (`MAEK ... BUKKIT`) and added strict regressions.
 2. Continue targeted tests for mixin source-set ambiguity (`#1`); `#3` depth policy is now adjudicated/tested.
 3. Done (2026-03-06): added explicit memoization + recursion-behavior tests for `omgwtf` (`#12`, `#13`).
-4. Add ordering tests for `izmakin` vs mixin/parent finalize (`#14`, `#15`).
-5. Add parser/runtime tests for remaining partial syntax intersections (`#11`, `#31`, `#39`).
+4. Done (2026-03-06): added ordering/reentrancy tests for `izmakin` (`#14`, `#15`).
+5. Continue parser/runtime tests for remaining partial syntax intersections (`#31`, `#39`).
