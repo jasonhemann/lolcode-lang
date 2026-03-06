@@ -43,11 +43,11 @@ Update delta (2026-03-06):
 | 1 | AMB + PART | Spec conflict (`849` vs `857/871-873`) on whether mixins include inherited slots; runtime copies own slots (`copy-own-into!`) only; no explicit inherited-slot mixin test. |
 | 2 | OK | Reverse-order mixin precedence and parent replacement are implemented and tested (`mixin-object-src`, `mixin-parent-child-combo-src`). |
 | 3 | AMB + OK | Copy depth remains spec-underdetermined, but policy is now explicit and tested: primitive slots are copied statically, while mutable BUKKIT slot values remain aliased (shallow copy). |
-| 4 | AMB + PART | Non-BUKKIT `parent` mutation behavior is not specified; runtime treats non-object parent as chain termination; no dedicated spec test. |
-| 5 | PART | Cycle-safe lookup is tested (`parent-cycle-lookup-terminates-src`), but explicit assignment-path behavior in cyclic graphs is not separately targeted. |
+| 4 | AMB + OK | Non-BUKKIT `parent` mutation remains policy-defined; behavior is now explicitly pinned for slot/method lookup chain termination (`parent-slot-nonobject-terminates-chain-src`, `parent-method-nonobject-terminates-chain-src`). |
+| 5 | OK | Cycle-safe parent traversal is now covered across lookup, assignment error, assignment success/copy-on-write, and method lookup (`parent-cycle-*` regressions including `parent-cycle-assignment-existing-name-copy-on-write-src`). |
 | 6 | OK | Copy-on-write assignment to inherited names is implemented and tested (`inherited-method-slot-independence-src`, `inherited-assignment-unknown-name-src`). |
-| 7 | PART | Function-valued inherited slot assignment edge lacks direct test coverage. |
-| 8 | PART | Special slots exist and are exercised (`parent`, `omgwtf`, `izmakin`), but full inheritance/shadow interaction matrix is not explicitly tested. |
+| 7 | OK | Function-valued inherited slot assignment now has direct copy-on-write coverage (`inherited-function-slot-assignment-copy-on-write-src`). |
+| 8 | OK | Special-slot inheritance/shadow interactions are now explicitly pinned for parent vs child overrides (`special-slot-parent-child-shadow-src`) in addition to existing special-slot coverage. |
 | 9 | OK | Receiver-projected slot-function scope is implemented and tested (`slot-function-receiver-namespace-src`, `slot-function-receiver-assignment-src`). |
 | 10 | OK | Dynamic method names via `SRS` are parsed and executed (`method-alt-call-dynamic-name-src`). |
 | 11 | AMB + OK | Method-call arg wording conflicts with function-call expression prose; policy is expression-argument acceptance for coherence, now pinned with explicit method expression-arg regression. |
@@ -55,9 +55,9 @@ Update delta (2026-03-06):
 | 13 | AMB + OK | Spec is underdetermined on `omgwtf` recursion; project policy now raises deterministic runtime error on same-slot re-entry, with regression coverage. |
 | 14 | OK | `izmakin` ordering is explicitly tested: hook observes fully prototyped post-mixin object with declared parent restoration applied. |
 | 15 | AMB + OK | Spec is underdetermined on `izmakin` reentrancy; policy allows reentrant prototype creation, with regression confirming per-prototype hook execution. |
-| 16 | PART | `O HAI IM` slot-first lookup vs lexical local lookup inside object block is not directly isolated in tests. |
+| 16 | OK | `O HAI IM` slot-first lookup precedence is now isolated against both global and lexical-local bindings (`object-block-slot-first-over-global-src`, `object-block-slot-first-over-lexical-local-src`). |
 | 17 | OK | Parser/runtime separate `I` forms correctly in object block context (`object-alt-src`, method alt-def/call tests). |
-| 18 | PART | `ME` outside method is tested negative and normal use is tested positive; nested helper-call context semantics remain untested. |
+| 18 | OK | `ME` nested context behavior is now pinned: no leakage into nested global function calls, but preserved through nested method dispatch (`me-does-not-leak-into-nested-function-from-method-src`, `me-available-in-nested-method-call-src`). |
 | 19 | OK | Method lookup order and namespace shadowing are covered (`method-lookup-order-src`, `method-shadow-src`). |
 | 20 | OK | Parser distinguishes `HOW IZ I` and `HOW IZ <receiver> <slot>` forms; both families are covered in tests. |
 | 21 | OK | Numeric slot-key path through `SRS` is covered (`bukkit-srs-numeric-slot-src`); parser supports identifier and `SRS` slot specs. |
@@ -95,4 +95,4 @@ Update delta (2026-03-06):
 2. Continue targeted tests for mixin source-set ambiguity (`#1`); `#3` depth policy is now adjudicated/tested.
 3. Done (2026-03-06): added explicit memoization + recursion-behavior tests for `omgwtf` (`#12`, `#13`).
 4. Done (2026-03-06): added ordering/reentrancy tests for `izmakin` (`#14`, `#15`).
-5. Continue parser/runtime tests for remaining partial syntax intersections (`#37`, `#38`, `#40`).
+5. Continue targeted adjudication/tests for remaining ambiguity-first items (`#1`, `#22`, `#24`) and keep corpus triage aligned with strict 1.3 policy.

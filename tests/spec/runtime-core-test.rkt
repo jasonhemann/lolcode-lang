@@ -817,6 +817,25 @@
   (check-true (regexp-match? #px"unknown identifier: ME"
                              (hash-ref me-outside-method 'error)))
 
+  (define me-does-not-leak-into-nested-function-from-method-src
+    "HAI 1.3\nHOW IZ I readme\n  FOUND YR ME\nIF U SAY SO\nO HAI IM box\n  HOW IZ I run\n    FOUND YR I IZ readme MKAY\n  IF U SAY SO\nKTHX\nVISIBLE box IZ run MKAY\nKTHXBYE\n")
+  (define me-does-not-leak-into-nested-function-from-method
+    (run-source me-does-not-leak-into-nested-function-from-method-src))
+  (check-eq? (hash-ref me-does-not-leak-into-nested-function-from-method 'status)
+             'runtime-error)
+  ;; Regression/policy: global function calls from method context do not inherit ME.
+  (check-true (regexp-match? #px"unknown identifier: ME"
+                             (hash-ref me-does-not-leak-into-nested-function-from-method
+                                       'error)))
+
+  (define me-available-in-nested-method-call-src
+    "HAI 1.3\nO HAI IM box\n  I HAS A n ITZ 1\n  HOW IZ I bump\n    n R SUM OF n AN 1\n    FOUND YR n\n  IF U SAY SO\n  HOW IZ I run\n    FOUND YR ME IZ bump MKAY\n  IF U SAY SO\nKTHX\nVISIBLE box IZ run MKAY\nVISIBLE box'Z n\nKTHXBYE\n")
+  (define me-available-in-nested-method-call
+    (run-source me-available-in-nested-method-call-src))
+  (check-eq? (hash-ref me-available-in-nested-method-call 'status) 'ok)
+  (check-equal? (hash-ref me-available-in-nested-method-call 'stdout)
+                "2\n2\n")
+
   (define method-lookup-order-src
     "HAI 1.3\nI HAS A g ITZ \"GLOBAL\"\nI HAS A h ITZ \"GLOBAL-H\"\nO HAI IM obj\n  I HAS A g ITZ \"SLOT\"\n  HOW IZ I pick YR g\n    FOUND YR g\n  IF U SAY SO\n  HOW IZ I pickslot\n    FOUND YR g\n  IF U SAY SO\n  HOW IZ I pickglobal\n    FOUND YR h\n  IF U SAY SO\nKTHX\nVISIBLE obj IZ pick YR \"ARG\" MKAY\nVISIBLE obj IZ pickslot MKAY\nVISIBLE obj IZ pickglobal MKAY\nKTHXBYE\n")
   (define method-lookup-order
@@ -833,6 +852,15 @@
   ;; Regression: inside O HAI IM block, lookup is slot-first before global.
   (check-equal? (hash-ref object-block-slot-first-over-global 'stdout)
                 "slot\nglobal\n")
+
+  (define object-block-slot-first-over-lexical-local-src
+    "HAI 1.3\nHOW IZ I maker YR x\n  O HAI IM obj\n    I HAS A x ITZ \"slot\"\n    I HAS A seen ITZ x\n  KTHX\n  VISIBLE obj'Z seen\n  FOUND YR x\nIF U SAY SO\nVISIBLE I IZ maker YR \"local\" MKAY\nKTHXBYE\n")
+  (define object-block-slot-first-over-lexical-local
+    (run-source object-block-slot-first-over-lexical-local-src))
+  (check-eq? (hash-ref object-block-slot-first-over-lexical-local 'status) 'ok)
+  ;; Regression: object-body lookup is slot-first even against lexical function locals.
+  (check-equal? (hash-ref object-block-slot-first-over-lexical-local 'stdout)
+                "slot\nlocal\n")
 
   (define slot-function-receiver-namespace-src
     "HAI 1.3\nHOW IZ I funkin YR shun\n  FOUND YR SMOOSH prefix AN shun MKAY\nIF U SAY SO\nO HAI IM parentClass\n  I HAS A prefix ITZ \"parentClass-\"\n  I HAS A runin ITZ funkin\nKTHX\nO HAI IM childClass IM LIEK parentClass\n  I HAS A prefix ITZ \"childClass-\"\nKTHX\nVISIBLE parentClass IZ runin YR \"A\" MKAY\nVISIBLE childClass IZ runin YR \"B\" MKAY\nKTHXBYE\n")
@@ -875,6 +903,23 @@
   (check-equal? (hash-ref parent-slot-reparenting 'stdout)
                 "A\nB\n")
 
+  (define parent-slot-nonobject-terminates-chain-src
+    "HAI 1.3\nO HAI IM parent\n  I HAS A val ITZ \"P\"\nKTHX\nO HAI IM child IM LIEK parent\nKTHX\nchild'Z parent R 0\nVISIBLE child'Z val\nKTHXBYE\n")
+  (define parent-slot-nonobject-terminates-chain
+    (run-source parent-slot-nonobject-terminates-chain-src))
+  (check-eq? (hash-ref parent-slot-nonobject-terminates-chain 'status) 'runtime-error)
+  ;; Policy: non-BUKKIT parent values terminate inheritance-chain traversal.
+  (check-true (regexp-match? #px"unknown slot: val"
+                             (hash-ref parent-slot-nonobject-terminates-chain 'error)))
+
+  (define parent-method-nonobject-terminates-chain-src
+    "HAI 1.3\nO HAI IM parent\n  HOW IZ I hi\n    FOUND YR \"P\"\n  IF U SAY SO\nKTHX\nO HAI IM child IM LIEK parent\nKTHX\nchild'Z parent R \"NOPE\"\nVISIBLE child IZ hi MKAY\nKTHXBYE\n")
+  (define parent-method-nonobject-terminates-chain
+    (run-source parent-method-nonobject-terminates-chain-src))
+  (check-eq? (hash-ref parent-method-nonobject-terminates-chain 'status) 'runtime-error)
+  (check-true (regexp-match? #px"unknown method: hi"
+                             (hash-ref parent-method-nonobject-terminates-chain 'error)))
+
   (define parent-cycle-lookup-terminates-src
     "HAI 1.3\nO HAI IM a\n  I HAS A keep ITZ 1\nKTHX\nO HAI IM b IM LIEK a\nKTHX\na'Z parent R b\nVISIBLE b'Z keep\nVISIBLE b'Z missing\nKTHXBYE\n")
   (define parent-cycle-lookup-terminates
@@ -892,6 +937,15 @@
   ;; Regression: assignment traversal over parent chain must remain cycle-safe.
   (check-true (regexp-match? #px"unknown slot: ghost"
                              (hash-ref parent-cycle-assignment-terminates 'error)))
+
+  (define parent-cycle-assignment-existing-name-copy-on-write-src
+    "HAI 1.3\nO HAI IM a\n  I HAS A keep ITZ 1\nKTHX\nO HAI IM b IM LIEK a\nKTHX\na'Z parent R b\nb'Z keep R 9\nVISIBLE a'Z keep\nVISIBLE b'Z keep\nKTHXBYE\n")
+  (define parent-cycle-assignment-existing-name-copy-on-write
+    (run-source parent-cycle-assignment-existing-name-copy-on-write-src))
+  (check-eq? (hash-ref parent-cycle-assignment-existing-name-copy-on-write 'status) 'ok)
+  ;; Regression: cycle-safe assignment still preserves copy-on-write behavior.
+  (check-equal? (hash-ref parent-cycle-assignment-existing-name-copy-on-write 'stdout)
+                "1\n9\n")
 
   (define parent-cycle-method-call-terminates-src
     "HAI 1.3\nO HAI IM a\n  I HAS A keep ITZ 1\nKTHX\nO HAI IM b IM LIEK a\nKTHX\na'Z parent R b\nb IZ nope MKAY\nKTHXBYE\n")
@@ -915,6 +969,15 @@
   (define function-storage (run-source function-storage-src))
   (check-eq? (hash-ref function-storage 'status) 'ok)
   (check-equal? (hash-ref function-storage 'stdout) "a\n")
+
+  (define inherited-function-slot-assignment-copy-on-write-src
+    "HAI 1.3\nHOW IZ I f1\n  FOUND YR \"P\"\nIF U SAY SO\nHOW IZ I f2\n  FOUND YR \"C\"\nIF U SAY SO\nO HAI IM parent\n  I HAS A run ITZ f1\nKTHX\nO HAI IM child IM LIEK parent\nKTHX\nchild'Z run R f2\nVISIBLE I IZ parent'Z run MKAY\nVISIBLE I IZ child'Z run MKAY\nKTHXBYE\n")
+  (define inherited-function-slot-assignment-copy-on-write
+    (run-source inherited-function-slot-assignment-copy-on-write-src))
+  (check-eq? (hash-ref inherited-function-slot-assignment-copy-on-write 'status) 'ok)
+  ;; Regression: assigning inherited function-valued slot is copy-on-write.
+  (check-equal? (hash-ref inherited-function-slot-assignment-copy-on-write 'stdout)
+                "P\nC\n")
 
   (define dynamic-function-name-src
     "HAI 1.3\nI HAS A name1 ITZ \"fun\"\nHOW IZ I SRS SMOOSH name1 AN 1 MKAY\n  VISIBLE \"a\"\nIF U SAY SO\nHOW IZ I SRS SMOOSH name1 AN 2 MKAY YR arg\n  VISIBLE arg\nIF U SAY SO\nI IZ SRS SMOOSH name1 AN 1 MKAY MKAY\nI IZ SRS SMOOSH name1 AN 2 MKAY YR \"b\" MKAY\nKTHXBYE\n")
@@ -975,6 +1038,15 @@
   (check-eq? (hash-ref mixin-special-izmakin-copied 'status) 'ok)
   ;; Regression: mixin-provided izmakin runs during child construction.
   (check-equal? (hash-ref mixin-special-izmakin-copied 'stdout) "YES\n")
+
+  (define special-slot-parent-child-shadow-src
+    "HAI 1.3\nO HAI IM parent\n  HOW IZ I omgwtf YR slotname\n    FOUND YR SMOOSH \"P-\" AN slotname MKAY\n  IF U SAY SO\n  HOW IZ I izmakin\n    ME HAS A made ITZ \"P\"\n  IF U SAY SO\nKTHX\nO HAI IM child IM LIEK parent\n  HOW IZ I omgwtf YR slotname\n    FOUND YR SMOOSH \"C-\" AN slotname MKAY\n  IF U SAY SO\n  HOW IZ I izmakin\n    ME HAS A made ITZ \"C\"\n  IF U SAY SO\nKTHX\nI HAS A p ITZ LIEK A parent\nI HAS A c ITZ LIEK A child\nVISIBLE p'Z ghost\nVISIBLE c'Z ghost\nVISIBLE p'Z made\nVISIBLE c'Z made\nKTHXBYE\n")
+  (define special-slot-parent-child-shadow
+    (run-source special-slot-parent-child-shadow-src))
+  (check-eq? (hash-ref special-slot-parent-child-shadow 'status) 'ok)
+  ;; Regression: child special-slot methods shadow inherited parent special-slot behavior.
+  (check-equal? (hash-ref special-slot-parent-child-shadow 'stdout)
+                "P-ghost\nC-ghost\nP\nC\n")
 
   (define mixin-source-own-only-slots-src
     "HAI 1.3\nO HAI IM mixbase\n  I HAS A inherited ITZ \"INHERITED\"\nKTHX\nO HAI IM mix IM LIEK mixbase\n  I HAS A own ITZ \"OWN\"\nKTHX\nO HAI IM parent\nKTHX\nO HAI IM child IM LIEK parent SMOOSH mix\nKTHX\nVISIBLE child'Z own\nVISIBLE child'Z inherited\nKTHXBYE\n")
