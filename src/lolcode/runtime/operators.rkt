@@ -6,11 +6,15 @@
          unary-operator-table
          variadic-operator-compiler-table)
 
+(define ((binop/coerce who op) lv rv)
+  (op (coerce-number who lv)
+      (coerce-number who rv)))
+
 (define binary-operator-table
   (hash
-   "SUM OF" (lambda (lv rv) (+ (coerce-number 'SUM lv) (coerce-number 'SUM rv)))
-   "DIFF OF" (lambda (lv rv) (- (coerce-number 'DIFF lv) (coerce-number 'DIFF rv)))
-   "PRODUKT OF" (lambda (lv rv) (* (coerce-number 'PRODUKT lv) (coerce-number 'PRODUKT rv)))
+   "SUM OF" (binop/coerce 'SUM +)
+   "DIFF OF" (binop/coerce 'DIFF -)
+   "PRODUKT OF" (binop/coerce 'PRODUKT *)
    "QUOSHUNT OF"
    (lambda (lv rv)
      (define lnum (coerce-number 'QUOSHUNT lv))
@@ -23,8 +27,8 @@
    (lambda (lv rv)
      (remainder (inexact->exact (truncate (coerce-number 'MOD lv)))
                 (inexact->exact (truncate (coerce-number 'MOD rv)))))
-   "BIGGR OF" (lambda (lv rv) (max (coerce-number 'BIGGR lv) (coerce-number 'BIGGR rv)))
-   "SMALLR OF" (lambda (lv rv) (min (coerce-number 'SMALLR lv) (coerce-number 'SMALLR rv)))
+   "BIGGR OF" (binop/coerce 'BIGGR max)
+   "SMALLR OF" (binop/coerce 'SMALLR min)
    "BOTH OF" (lambda (lv rv) (and (lol-truthy? lv) (lol-truthy? rv)))
    "EITHER OF" (lambda (lv rv) (or (lol-truthy? lv) (lol-truthy? rv)))
    "WON OF" (lambda (lv rv) (bool-xor (lol-truthy? lv)
