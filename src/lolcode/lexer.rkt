@@ -373,16 +373,13 @@
 
 (define unicode-normative-name->codepoint-cache #f)
 
-(define (normalize-unicode-normative-name text)
-  (regexp-replace* #px"[ \t]+" (string-trim text) " "))
-
 (define (normative-name-char? ch)
   (or (char-alphabetic? ch)
       (char-numeric? ch)
-      (char-whitespace? ch)
+      (char=? ch #\space)
       (char=? ch #\-)))
 
-(define (valid-normalized-normative-name? text)
+(define (valid-normative-name? text)
   (and (not (string=? text ""))
        (for/and ([ch (in-string text)])
          (and (normative-name-char? ch)
@@ -406,11 +403,9 @@
     (for ([(cp raw-name) (in-hash cp->name)])
       (when (and (exact-nonnegative-integer? cp)
                  (string? raw-name))
-        (define normalized
-          (normalize-unicode-normative-name raw-name))
-        (when (and (valid-normalized-normative-name? normalized)
-                   (not (hash-has-key? table normalized)))
-          (hash-set! table normalized cp))))
+        (when (and (valid-normative-name? raw-name)
+                   (not (hash-has-key? table raw-name)))
+          (hash-set! table raw-name cp))))
     table))
 
 (define (load-unicode-normative-name->codepoint)
@@ -434,17 +429,16 @@
        (lex-error 'lex-source "unterminated :[...] Unicode escape in string literal" line col)]
       [(char=? pch #\])
        (lexer-cover! 'scan-string-tail!/normative/end)
-       (define normalized
-         (normalize-unicode-normative-name (get-output-string name-out)))
-       (when (string=? normalized "")
+       (define name
+         (get-output-string name-out))
+       (when (string=? name "")
          (lexer-cover! 'scan-string-tail!/normative/empty)
          (lex-error 'lex-source "invalid Unicode normative name in string literal" line col))
-       (unless (for/and ([ch (in-string normalized)])
-                 (normative-name-char? ch))
+       (unless (valid-normative-name? name)
          (lexer-cover! 'scan-string-tail!/normative/invalid-char)
          (lex-error 'lex-source "invalid Unicode normative name in string literal" line col))
        (define cp
-         (unicode-normative-name->codepoint normalized))
+         (unicode-normative-name->codepoint name))
        (unless cp
          (lexer-cover! 'scan-string-tail!/normative/unknown-name)
          (lex-error 'lex-source "invalid Unicode normative name in string literal" line col))

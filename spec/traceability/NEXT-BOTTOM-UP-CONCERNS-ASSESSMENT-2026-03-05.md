@@ -79,7 +79,7 @@ Update delta (2026-03-06):
 | 37 | OK (resolved 2026-03-06) | Strict cast grammar now has direct negative coverage for malformed numeric forms (spaced sign, scientific notation, and leading-plus literals), matching spec numeric lexical constraints. |
 | 38 | OK (resolved 2026-03-06) | `SRS` identifier-position boundaries are now pinned across additional sites: prototype parent/mixins, dynamic method receiver+name definition, `I IZ` dynamic call-slot names, and dynamic receiver slot-tail references. |
 | 39 | OK | Comma-inline `OBTW/TLDR` examples are now pinned with direct runtime regression, and strict parser rejection is pinned for `TLDR` trailing statements without comma/newline. |
-| 40 | PART | Unicode normative-name escape path is implemented with `codepoint` table and core tests, but alias/normalization edge coverage is limited. |
+| 40 | OK (resolved 2026-03-06) | Unicode normative-name escapes now use strict exact-name matching (uppercase normative names, no whitespace normalization), with explicit negative tests for lowercase and non-spec spacing/tab variants. |
 | 41 | OK | Version-policy gap is explicitly handled and tested (`unsupported-v12`, `unsupported-v14`, external strict triage partition docs). |
 | 42 | OK | Distinction between variable declaration and slot declaration in object contexts is covered (object/block + slot-set parse/runtime tests). |
 | 43 | OK | `HOW IZ I` vs `HOW IZ <object> <slot>` distinction is covered by parser/runtime tests for both definitions. |

@@ -117,6 +117,16 @@
   (check-exn #px"invalid Unicode normative name in string literal"
              (lambda () (parse-program lowercase-unicode-normative-name)))
 
+  (define spaced-unicode-normative-name
+    "HAI 1.3\nVISIBLE \":[DOLLAR  SIGN]\"\nKTHXBYE\n")
+  (check-exn #px"invalid Unicode normative name in string literal"
+             (lambda () (parse-program spaced-unicode-normative-name)))
+
+  (define tabbed-unicode-normative-name
+    "HAI 1.3\nVISIBLE \":[DOLLAR\tSIGN]\"\nKTHXBYE\n")
+  (check-exn #px"invalid Unicode normative name in string literal"
+             (lambda () (parse-program tabbed-unicode-normative-name)))
+
   (define unicode-ellipsis-continuation
     "HAI 1.3\nVISIBLE \"A\"…\n\"B\"\nKTHXBYE\n")
   (check-not-exn
