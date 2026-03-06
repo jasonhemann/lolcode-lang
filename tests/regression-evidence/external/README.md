@@ -77,3 +77,9 @@ Promote supported `candidate` triage entries to `reproducer-ready`:
 ```bash
 racket scripts/promote_external_manifest_triage.rkt --apply
 ```
+
+Seed `spec-scope` from fixture headers (line-preserving update):
+
+```bash
+racket scripts/seed_external_manifest_spec_scope.rkt --apply
+```
