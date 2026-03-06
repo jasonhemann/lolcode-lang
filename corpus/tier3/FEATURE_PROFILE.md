@@ -1,6 +1,6 @@
 # tier3 Feature Profile
 
-Generated: `2026-03-02T20:00:40Z`
+Generated: `2026-03-06T13:41:26Z`
 
 ## Recovery + Extraction Summary
 
@@ -8,6 +8,9 @@ Generated: `2026-03-02T20:00:40Z`
 - Recovered with implementation+sample code: `0`
 - Recovered with sample-only capture: `0`
 - Bugs extracted (candidate repro items): `0`
+- Candidate core-1.2/1.3 repro items: `0`
+- Candidate extension repro items: `0`
+- Candidate unknown-scope repro items: `0`
 - Test cases extracted (imported external fixtures): `0`
 - Known failures (triaged unresolved): `0`
 - Known divergences: `0`
@@ -24,6 +27,9 @@ Generated: `2026-03-02T20:00:40Z`
 - LOLCODE files: `0`
 - Total LOLCODE lines: `0`
 - Bugs extracted (candidate repro items): `0`
+- Candidate core-1.2/1.3 repro items: `0`
+- Candidate extension repro items: `0`
+- Candidate unknown-scope repro items: `0`
 - Test cases extracted (imported fixtures): `0`
 - Known failures (triaged unresolved): `0`
 - Known divergences: `0`

@@ -1,7 +1,187 @@
 {
-  "generated_at": "2026-03-05T12:35:11Z",
+  "generated_at": "2026-03-06T13:41:26Z",
   "catalog": "corpus/tier2/CANDIDATE_REPOS.tsv",
   "entries": [
+    {
+      "tier": "tier1",
+      "label": "lci",
+      "repo": "justinmeza/lci",
+      "kind": "interpreter",
+      "oracle_priority": "P1",
+      "corpus_priority": "P2",
+      "source": "implementations.pdf",
+      "status": "unverified",
+      "sync_state": "ok",
+      "sync_note": "ok",
+      "recovery_tracking": {
+        "initially_missing": false,
+        "recovered_from_initially_missing": false,
+        "recovery_state": "not-applicable",
+        "recovery_source": "implementations.pdf",
+        "recovery_basis": "none"
+      },
+      "corpus_capture": {
+        "repo_kind": "interpreter",
+        "total_files": 332,
+        "sample_lol_files": 328,
+        "implementation_files": 2,
+        "capture_type": "implementation+sample-code"
+      },
+      "extraction_progress": {
+        "external_items_total": 189,
+        "external_issues_total": 59,
+        "external_prs_total": 27,
+        "candidate_repros_total": 47,
+        "candidate_runtime_safety_total": 9,
+        "candidate_language_total": 38,
+        "candidate_core_1_2_1_3_total": 47,
+        "candidate_extension_total": 0,
+        "candidate_unknown_scope_total": 0,
+        "imported_test_cases_total": 49,
+        "triage_status_counts": {
+          "reproducer-ready": 49
+        },
+        "known_divergences_total": 0,
+        "known_failures_total": 0,
+        "fixed_here_total": 0,
+        "candidate_triage_total": 0
+      }
+    },
+    {
+      "tier": "tier1",
+      "label": "rust-lci",
+      "repo": "jD91mZM2/rust-lci",
+      "kind": "interpreter",
+      "oracle_priority": "P1",
+      "corpus_priority": "P1",
+      "source": "implementations.pdf",
+      "status": "unverified",
+      "sync_state": "ok",
+      "sync_note": "ok",
+      "recovery_tracking": {
+        "initially_missing": false,
+        "recovered_from_initially_missing": false,
+        "recovery_state": "not-applicable",
+        "recovery_source": "implementations.pdf",
+        "recovery_basis": "none"
+      },
+      "corpus_capture": {
+        "repo_kind": "interpreter",
+        "total_files": 19,
+        "sample_lol_files": 10,
+        "implementation_files": 7,
+        "capture_type": "implementation+sample-code"
+      },
+      "extraction_progress": {
+        "external_items_total": 36,
+        "external_issues_total": 0,
+        "external_prs_total": 0,
+        "candidate_repros_total": 13,
+        "candidate_runtime_safety_total": 1,
+        "candidate_language_total": 12,
+        "candidate_core_1_2_1_3_total": 13,
+        "candidate_extension_total": 0,
+        "candidate_unknown_scope_total": 0,
+        "imported_test_cases_total": 1,
+        "triage_status_counts": {
+          "reproducer-ready": 1
+        },
+        "known_divergences_total": 0,
+        "known_failures_total": 0,
+        "fixed_here_total": 0,
+        "candidate_triage_total": 0
+      }
+    },
+    {
+      "tier": "tier1",
+      "label": "i-has-js",
+      "repo": "NullDev/I-HAS-JS",
+      "kind": "interpreter",
+      "oracle_priority": "P1",
+      "corpus_priority": "P1",
+      "source": "implementations.pdf",
+      "status": "unverified",
+      "sync_state": "ok",
+      "sync_note": "ok",
+      "recovery_tracking": {
+        "initially_missing": false,
+        "recovered_from_initially_missing": false,
+        "recovery_state": "not-applicable",
+        "recovery_source": "implementations.pdf",
+        "recovery_basis": "none"
+      },
+      "corpus_capture": {
+        "repo_kind": "interpreter",
+        "total_files": 9,
+        "sample_lol_files": 2,
+        "implementation_files": 5,
+        "capture_type": "implementation+sample-code"
+      },
+      "extraction_progress": {
+        "external_items_total": 35,
+        "external_issues_total": 1,
+        "external_prs_total": 3,
+        "candidate_repros_total": 1,
+        "candidate_runtime_safety_total": 0,
+        "candidate_language_total": 1,
+        "candidate_core_1_2_1_3_total": 1,
+        "candidate_extension_total": 0,
+        "candidate_unknown_scope_total": 0,
+        "imported_test_cases_total": 1,
+        "triage_status_counts": {
+          "reproducer-ready": 1
+        },
+        "known_divergences_total": 0,
+        "known_failures_total": 0,
+        "fixed_here_total": 0,
+        "candidate_triage_total": 0
+      }
+    },
+    {
+      "tier": "tier1",
+      "label": "lolcode-net",
+      "repo": "JasonBock/LOLCode.net",
+      "kind": "compiler",
+      "oracle_priority": "P1",
+      "corpus_priority": "P2",
+      "source": "implementations.pdf",
+      "status": "unverified",
+      "sync_state": "ok",
+      "sync_note": "ok",
+      "recovery_tracking": {
+        "initially_missing": false,
+        "recovered_from_initially_missing": false,
+        "recovery_state": "not-applicable",
+        "recovery_source": "implementations.pdf",
+        "recovery_basis": "none"
+      },
+      "corpus_capture": {
+        "repo_kind": "compiler",
+        "total_files": 103,
+        "sample_lol_files": 12,
+        "implementation_files": 89,
+        "capture_type": "implementation+sample-code"
+      },
+      "extraction_progress": {
+        "external_items_total": 62,
+        "external_issues_total": 9,
+        "external_prs_total": 0,
+        "candidate_repros_total": 10,
+        "candidate_runtime_safety_total": 0,
+        "candidate_language_total": 10,
+        "candidate_core_1_2_1_3_total": 10,
+        "candidate_extension_total": 0,
+        "candidate_unknown_scope_total": 0,
+        "imported_test_cases_total": 10,
+        "triage_status_counts": {
+          "reproducer-ready": 10
+        },
+        "known_divergences_total": 0,
+        "known_failures_total": 0,
+        "fixed_here_total": 0,
+        "candidate_triage_total": 0
+      }
+    },
     {
       "tier": "tier2",
       "label": "hlci",
@@ -37,8 +217,10 @@
         "candidate_core_1_2_1_3_total": 31,
         "candidate_extension_total": 0,
         "candidate_unknown_scope_total": 0,
-        "imported_test_cases_total": 0,
-        "triage_status_counts": {},
+        "imported_test_cases_total": 28,
+        "triage_status_counts": {
+          "reproducer-ready": 28
+        },
         "known_divergences_total": 0,
         "known_failures_total": 0,
         "fixed_here_total": 0,
@@ -82,12 +264,12 @@
         "candidate_unknown_scope_total": 0,
         "imported_test_cases_total": 3,
         "triage_status_counts": {
-          "candidate": 3
+          "reproducer-ready": 3
         },
         "known_divergences_total": 0,
         "known_failures_total": 0,
         "fixed_here_total": 0,
-        "candidate_triage_total": 3
+        "candidate_triage_total": 0
       }
     },
     {
@@ -168,8 +350,10 @@
         "candidate_core_1_2_1_3_total": 37,
         "candidate_extension_total": 0,
         "candidate_unknown_scope_total": 0,
-        "imported_test_cases_total": 0,
-        "triage_status_counts": {},
+        "imported_test_cases_total": 37,
+        "triage_status_counts": {
+          "reproducer-ready": 37
+        },
         "known_divergences_total": 0,
         "known_failures_total": 0,
         "fixed_here_total": 0,
@@ -211,14 +395,14 @@
         "candidate_core_1_2_1_3_total": 101,
         "candidate_extension_total": 0,
         "candidate_unknown_scope_total": 0,
-        "imported_test_cases_total": 1,
+        "imported_test_cases_total": 101,
         "triage_status_counts": {
-          "candidate": 1
+          "reproducer-ready": 101
         },
         "known_divergences_total": 0,
         "known_failures_total": 0,
         "fixed_here_total": 0,
-        "candidate_triage_total": 1
+        "candidate_triage_total": 0
       }
     },
     {
@@ -258,12 +442,12 @@
         "candidate_unknown_scope_total": 0,
         "imported_test_cases_total": 1,
         "triage_status_counts": {
-          "candidate": 1
+          "reproducer-ready": 1
         },
         "known_divergences_total": 0,
         "known_failures_total": 0,
         "fixed_here_total": 0,
-        "candidate_triage_total": 1
+        "candidate_triage_total": 0
       }
     },
     {
@@ -301,8 +485,10 @@
         "candidate_core_1_2_1_3_total": 2,
         "candidate_extension_total": 0,
         "candidate_unknown_scope_total": 0,
-        "imported_test_cases_total": 0,
-        "triage_status_counts": {},
+        "imported_test_cases_total": 2,
+        "triage_status_counts": {
+          "reproducer-ready": 2
+        },
         "known_divergences_total": 0,
         "known_failures_total": 0,
         "fixed_here_total": 0,
@@ -1419,8 +1605,10 @@
         "candidate_core_1_2_1_3_total": 69,
         "candidate_extension_total": 0,
         "candidate_unknown_scope_total": 0,
-        "imported_test_cases_total": 0,
-        "triage_status_counts": {},
+        "imported_test_cases_total": 69,
+        "triage_status_counts": {
+          "reproducer-ready": 69
+        },
         "known_divergences_total": 0,
         "known_failures_total": 0,
         "fixed_here_total": 0,
@@ -1498,6 +1686,49 @@
       "extraction_progress": {
         "external_items_total": 0,
         "external_issues_total": 0,
+        "external_prs_total": 0,
+        "candidate_repros_total": 0,
+        "candidate_runtime_safety_total": 0,
+        "candidate_language_total": 0,
+        "candidate_core_1_2_1_3_total": 0,
+        "candidate_extension_total": 0,
+        "candidate_unknown_scope_total": 0,
+        "imported_test_cases_total": 0,
+        "triage_status_counts": {},
+        "known_divergences_total": 0,
+        "known_failures_total": 0,
+        "fixed_here_total": 0,
+        "candidate_triage_total": 0
+      }
+    },
+    {
+      "tier": "tier3",
+      "label": "pllolcode",
+      "repo": "eggyknap/pllolcode",
+      "kind": "extension",
+      "oracle_priority": "P3",
+      "corpus_priority": "P3",
+      "source": "implementations.pdf",
+      "status": "unverified",
+      "sync_state": "ok",
+      "sync_note": "ok",
+      "recovery_tracking": {
+        "initially_missing": false,
+        "recovered_from_initially_missing": false,
+        "recovery_state": "not-applicable",
+        "recovery_source": "implementations.pdf",
+        "recovery_basis": "none"
+      },
+      "corpus_capture": {
+        "repo_kind": "extension",
+        "total_files": 2,
+        "sample_lol_files": 0,
+        "implementation_files": 0,
+        "capture_type": "metadata-only"
+      },
+      "extraction_progress": {
+        "external_items_total": 5,
+        "external_issues_total": 1,
         "external_prs_total": 0,
         "candidate_repros_total": 0,
         "candidate_runtime_safety_total": 0,

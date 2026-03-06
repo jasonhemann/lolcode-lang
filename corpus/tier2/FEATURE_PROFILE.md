@@ -1,6 +1,6 @@
 # tier2 Feature Profile
 
-Generated: `2026-03-05T12:35:11Z`
+Generated: `2026-03-06T13:41:26Z`
 
 ## Recovery + Extraction Summary
 
@@ -11,7 +11,7 @@ Generated: `2026-03-05T12:35:11Z`
 - Candidate core-1.2/1.3 repro items: `422`
 - Candidate extension repro items: `0`
 - Candidate unknown-scope repro items: `0`
-- Test cases extracted (imported external fixtures): `5`
+- Test cases extracted (imported external fixtures): `241`
 - Known failures (triaged unresolved): `0`
 - Known divergences: `0`
 
@@ -30,7 +30,7 @@ Generated: `2026-03-05T12:35:11Z`
 - Candidate core-1.2/1.3 repro items: `31`
 - Candidate extension repro items: `0`
 - Candidate unknown-scope repro items: `0`
-- Test cases extracted (imported fixtures): `0`
+- Test cases extracted (imported fixtures): `28`
 - Known failures (triaged unresolved): `0`
 - Known divergences: `0`
 
@@ -132,7 +132,7 @@ Generated: `2026-03-05T12:35:11Z`
 - Candidate core-1.2/1.3 repro items: `37`
 - Candidate extension repro items: `0`
 - Candidate unknown-scope repro items: `0`
-- Test cases extracted (imported fixtures): `0`
+- Test cases extracted (imported fixtures): `37`
 - Known failures (triaged unresolved): `0`
 - Known divergences: `0`
 
@@ -187,7 +187,7 @@ Generated: `2026-03-05T12:35:11Z`
 - Candidate core-1.2/1.3 repro items: `101`
 - Candidate extension repro items: `0`
 - Candidate unknown-scope repro items: `0`
-- Test cases extracted (imported fixtures): `1`
+- Test cases extracted (imported fixtures): `101`
 - Known failures (triaged unresolved): `0`
 - Known divergences: `0`
 
@@ -283,7 +283,7 @@ Generated: `2026-03-05T12:35:11Z`
 - Candidate core-1.2/1.3 repro items: `2`
 - Candidate extension repro items: `0`
 - Candidate unknown-scope repro items: `0`
-- Test cases extracted (imported fixtures): `0`
+- Test cases extracted (imported fixtures): `2`
 - Known failures (triaged unresolved): `0`
 - Known divergences: `0`
 
@@ -1284,7 +1284,7 @@ Generated: `2026-03-05T12:35:11Z`
 - Candidate core-1.2/1.3 repro items: `69`
 - Candidate extension repro items: `0`
 - Candidate unknown-scope repro items: `0`
-- Test cases extracted (imported fixtures): `0`
+- Test cases extracted (imported fixtures): `69`
 - Known failures (triaged unresolved): `0`
 - Known divergences: `0`
 

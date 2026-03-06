@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-02T20:00:40Z",
+  "generated_at": "2026-03-06T13:41:26Z",
   "tier": "tier1",
   "entries": [
     {
@@ -28,20 +28,23 @@
         "capture_type": "implementation+sample-code"
       },
       "extraction_progress": {
-        "external_items_total": 86,
+        "external_items_total": 189,
         "external_issues_total": 59,
         "external_prs_total": 27,
-        "candidate_repros_total": 27,
+        "candidate_repros_total": 47,
         "candidate_runtime_safety_total": 9,
-        "candidate_language_total": 18,
-        "imported_test_cases_total": 27,
+        "candidate_language_total": 38,
+        "candidate_core_1_2_1_3_total": 47,
+        "candidate_extension_total": 0,
+        "candidate_unknown_scope_total": 0,
+        "imported_test_cases_total": 49,
         "triage_status_counts": {
-          "candidate": 27
+          "reproducer-ready": 49
         },
         "known_divergences_total": 0,
         "known_failures_total": 0,
         "fixed_here_total": 0,
-        "candidate_triage_total": 27
+        "candidate_triage_total": 0
       }
     },
     {
@@ -70,14 +73,19 @@
         "capture_type": "implementation+sample-code"
       },
       "extraction_progress": {
-        "external_items_total": 0,
+        "external_items_total": 36,
         "external_issues_total": 0,
         "external_prs_total": 0,
-        "candidate_repros_total": 0,
-        "candidate_runtime_safety_total": 0,
-        "candidate_language_total": 0,
-        "imported_test_cases_total": 0,
-        "triage_status_counts": {},
+        "candidate_repros_total": 13,
+        "candidate_runtime_safety_total": 1,
+        "candidate_language_total": 12,
+        "candidate_core_1_2_1_3_total": 13,
+        "candidate_extension_total": 0,
+        "candidate_unknown_scope_total": 0,
+        "imported_test_cases_total": 1,
+        "triage_status_counts": {
+          "reproducer-ready": 1
+        },
         "known_divergences_total": 0,
         "known_failures_total": 0,
         "fixed_here_total": 0,
@@ -110,14 +118,19 @@
         "capture_type": "implementation+sample-code"
       },
       "extraction_progress": {
-        "external_items_total": 4,
+        "external_items_total": 35,
         "external_issues_total": 1,
         "external_prs_total": 3,
-        "candidate_repros_total": 0,
+        "candidate_repros_total": 1,
         "candidate_runtime_safety_total": 0,
-        "candidate_language_total": 0,
-        "imported_test_cases_total": 0,
-        "triage_status_counts": {},
+        "candidate_language_total": 1,
+        "candidate_core_1_2_1_3_total": 1,
+        "candidate_extension_total": 0,
+        "candidate_unknown_scope_total": 0,
+        "imported_test_cases_total": 1,
+        "triage_status_counts": {
+          "reproducer-ready": 1
+        },
         "known_divergences_total": 0,
         "known_failures_total": 0,
         "fixed_here_total": 0,
@@ -150,20 +163,23 @@
         "capture_type": "implementation+sample-code"
       },
       "extraction_progress": {
-        "external_items_total": 9,
+        "external_items_total": 62,
         "external_issues_total": 9,
         "external_prs_total": 0,
-        "candidate_repros_total": 1,
+        "candidate_repros_total": 10,
         "candidate_runtime_safety_total": 0,
-        "candidate_language_total": 1,
-        "imported_test_cases_total": 1,
+        "candidate_language_total": 10,
+        "candidate_core_1_2_1_3_total": 10,
+        "candidate_extension_total": 0,
+        "candidate_unknown_scope_total": 0,
+        "imported_test_cases_total": 10,
         "triage_status_counts": {
-          "candidate": 1
+          "reproducer-ready": 10
         },
         "known_divergences_total": 0,
         "known_failures_total": 0,
         "fixed_here_total": 0,
-        "candidate_triage_total": 1
+        "candidate_triage_total": 0
       }
     }
   ]

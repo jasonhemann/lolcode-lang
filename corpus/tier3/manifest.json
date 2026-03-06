@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-02T20:00:40Z",
+  "generated_at": "2026-03-06T13:41:26Z",
   "tier": "tier3",
   "entries": [
     {
@@ -28,12 +28,15 @@
         "capture_type": "metadata-only"
       },
       "extraction_progress": {
-        "external_items_total": 1,
+        "external_items_total": 5,
         "external_issues_total": 1,
         "external_prs_total": 0,
         "candidate_repros_total": 0,
         "candidate_runtime_safety_total": 0,
         "candidate_language_total": 0,
+        "candidate_core_1_2_1_3_total": 0,
+        "candidate_extension_total": 0,
+        "candidate_unknown_scope_total": 0,
         "imported_test_cases_total": 0,
         "triage_status_counts": {},
         "known_divergences_total": 0,

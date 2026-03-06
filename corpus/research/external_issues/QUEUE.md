@@ -1,6 +1,6 @@
 # External Regression Queue
 
-- Generated at: 2026-03-05T12:49:01Z
+- Generated at: 2026-03-06T13:45:13Z
 - Source catalog: `corpus/tier2/CANDIDATE_REPOS.tsv`
 - Total issues+PR items collected: 2276
 - Scope counts (all items): core=493, extension=17, unknown=1766

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-05T12:35:11Z",
+  "generated_at": "2026-03-06T13:41:26Z",
   "tier": "tier2",
   "entries": [
     {
@@ -37,8 +37,10 @@
         "candidate_core_1_2_1_3_total": 31,
         "candidate_extension_total": 0,
         "candidate_unknown_scope_total": 0,
-        "imported_test_cases_total": 0,
-        "triage_status_counts": {},
+        "imported_test_cases_total": 28,
+        "triage_status_counts": {
+          "reproducer-ready": 28
+        },
         "known_divergences_total": 0,
         "known_failures_total": 0,
         "fixed_here_total": 0,
@@ -82,12 +84,12 @@
         "candidate_unknown_scope_total": 0,
         "imported_test_cases_total": 3,
         "triage_status_counts": {
-          "candidate": 3
+          "reproducer-ready": 3
         },
         "known_divergences_total": 0,
         "known_failures_total": 0,
         "fixed_here_total": 0,
-        "candidate_triage_total": 3
+        "candidate_triage_total": 0
       }
     },
     {
@@ -168,8 +170,10 @@
         "candidate_core_1_2_1_3_total": 37,
         "candidate_extension_total": 0,
         "candidate_unknown_scope_total": 0,
-        "imported_test_cases_total": 0,
-        "triage_status_counts": {},
+        "imported_test_cases_total": 37,
+        "triage_status_counts": {
+          "reproducer-ready": 37
+        },
         "known_divergences_total": 0,
         "known_failures_total": 0,
         "fixed_here_total": 0,
@@ -211,14 +215,14 @@
         "candidate_core_1_2_1_3_total": 101,
         "candidate_extension_total": 0,
         "candidate_unknown_scope_total": 0,
-        "imported_test_cases_total": 1,
+        "imported_test_cases_total": 101,
         "triage_status_counts": {
-          "candidate": 1
+          "reproducer-ready": 101
         },
         "known_divergences_total": 0,
         "known_failures_total": 0,
         "fixed_here_total": 0,
-        "candidate_triage_total": 1
+        "candidate_triage_total": 0
       }
     },
     {
@@ -258,12 +262,12 @@
         "candidate_unknown_scope_total": 0,
         "imported_test_cases_total": 1,
         "triage_status_counts": {
-          "candidate": 1
+          "reproducer-ready": 1
         },
         "known_divergences_total": 0,
         "known_failures_total": 0,
         "fixed_here_total": 0,
-        "candidate_triage_total": 1
+        "candidate_triage_total": 0
       }
     },
     {
@@ -301,8 +305,10 @@
         "candidate_core_1_2_1_3_total": 2,
         "candidate_extension_total": 0,
         "candidate_unknown_scope_total": 0,
-        "imported_test_cases_total": 0,
-        "triage_status_counts": {},
+        "imported_test_cases_total": 2,
+        "triage_status_counts": {
+          "reproducer-ready": 2
+        },
         "known_divergences_total": 0,
         "known_failures_total": 0,
         "fixed_here_total": 0,
@@ -1419,8 +1425,10 @@
         "candidate_core_1_2_1_3_total": 69,
         "candidate_extension_total": 0,
         "candidate_unknown_scope_total": 0,
-        "imported_test_cases_total": 0,
-        "triage_status_counts": {},
+        "imported_test_cases_total": 69,
+        "triage_status_counts": {
+          "reproducer-ready": 69
+        },
         "known_divergences_total": 0,
         "known_failures_total": 0,
         "fixed_here_total": 0,
