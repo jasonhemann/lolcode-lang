@@ -271,6 +271,11 @@ Latest checklist-batch delta (`2026-03-06`, external-evidence scope-filtering pa
 - Updated `tests/regression-evidence/external/README.md` with scope-filter command usage examples.
 - Verified targeted scope slices (`--scope 1.3`, `--scope unknown`) and full run remain stable (`Assessment counts: supports 302`).
 
+Latest checklist-batch delta (`2026-03-06`, external-evidence triage/hypothesis filtering pass):
+- Added `--triage` and `--hypothesis` filters to `tests/regression-evidence/external/run-evidence.rkt` (validated against manifest enum domains).
+- Updated `tests/regression-evidence/external/README.md` with usage examples for both new filters.
+- Verified targeted slices (`--hypothesis expects-pass`, `--triage reproducer-ready --scope unknown`) and full run remain stable (`Assessment counts: supports 302`).
+
 Next corpus/harvest actions tied to this checklist:
 - [x] `47` Partition parse-errors into `strict-non-1.3`, `spec-divergence`, `program-bug`.
   Done: produced `corpus/research/PARSE_ERROR_PARTITION_2026-03-05.md` (tier2 likely-program parse failures: strict-non-1.3 `149`, program-bug `18`, spec-divergence `0`).

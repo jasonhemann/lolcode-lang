@@ -250,6 +250,34 @@
               (equal? (hash-ref c 'spec-scope) selected-scope))))
    cases))
 
+(define (parse-one-of who arg allowed)
+  (unless (member arg allowed)
+    (fail "~a must be one of ~a, got ~e"
+          who
+          (string-join allowed ", ")
+          arg))
+  arg)
+
+(define (select-cases/filters cases
+                              selected-wave
+                              selected-id
+                              selected-scope
+                              selected-triage
+                              selected-hypothesis)
+  (filter
+   (lambda (c)
+     (and (or (not selected-wave)
+              (= (hash-ref c 'wave) selected-wave))
+          (or (not selected-id)
+              (string=? (hash-ref c 'id) selected-id))
+          (or (not selected-scope)
+              (equal? (hash-ref c 'spec-scope) selected-scope))
+          (or (not selected-triage)
+              (string=? (hash-ref c 'triage-status) selected-triage))
+          (or (not selected-hypothesis)
+              (string=? (hash-ref c 'hypothesis) selected-hypothesis))))
+   cases))
+
 (define (assessment-for c observed-status observed-stdout observed-message)
   (define hypothesis (hash-ref c 'hypothesis))
   (define expected-stdout
@@ -375,12 +403,22 @@
   (newline)
   (displayln "Note: semantic conflicts are reported as evidence and do not fail this run."))
 
-(define (evaluate-evidence-cases manifest-path selected-wave selected-id [selected-scope #f])
+(define (evaluate-evidence-cases manifest-path
+                                 selected-wave
+                                 selected-id
+                                 [selected-scope #f]
+                                 [selected-triage #f]
+                                 [selected-hypothesis #f])
   (define cases
     (load-and-validate-manifest manifest-path))
 
   (define selected
-    (select-cases/scope cases selected-wave selected-id selected-scope))
+    (select-cases/filters cases
+                          selected-wave
+                          selected-id
+                          selected-scope
+                          selected-triage
+                          selected-hypothesis))
 
   (when selected-id
     (unless (ormap (lambda (c) (string=? (hash-ref c 'id) selected-id)) cases)
@@ -396,9 +434,19 @@
      (for/list ([c (in-list selected)])
        (run-one-case c manifest-dir))]))
 
-(define (run-evidence-cases manifest-path selected-wave selected-id [selected-scope #f])
+(define (run-evidence-cases manifest-path
+                            selected-wave
+                            selected-id
+                            [selected-scope #f]
+                            [selected-triage #f]
+                            [selected-hypothesis #f])
   (define rows
-    (evaluate-evidence-cases manifest-path selected-wave selected-id selected-scope))
+    (evaluate-evidence-cases manifest-path
+                             selected-wave
+                             selected-id
+                             selected-scope
+                             selected-triage
+                             selected-hypothesis))
   (when (null? rows)
     (if selected-scope
         (printf "No evidence cases selected (scope: ~a).\n"
@@ -416,6 +464,8 @@
   (define selected-wave #f)
   (define selected-id #f)
   (define selected-scope #f)
+  (define selected-triage #f)
+  (define selected-hypothesis #f)
 
   (command-line
    #:program "run-evidence.rkt"
@@ -432,6 +482,17 @@
    [("--id") case-id "Select only one case id"
                (set! selected-id case-id)]
    [("--scope") s "Select only one spec scope: 1.2 | 1.3 | 1.2+1.3 | unknown"
-                 (set! selected-scope (parse-scope-arg s))])
+                 (set! selected-scope (parse-scope-arg s))]
+   [("--triage") s "Select only one triage-status"
+                  (set! selected-triage
+                        (parse-one-of "--triage" s valid-triage-status))]
+   [("--hypothesis") s "Select only one hypothesis"
+                      (set! selected-hypothesis
+                            (parse-one-of "--hypothesis" s valid-hypotheses))])
 
-  (void (run-evidence-cases manifest-path selected-wave selected-id selected-scope)))
+  (void (run-evidence-cases manifest-path
+                            selected-wave
+                            selected-id
+                            selected-scope
+                            selected-triage
+                            selected-hypothesis)))

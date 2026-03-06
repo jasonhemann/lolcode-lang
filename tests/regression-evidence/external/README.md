@@ -66,6 +66,18 @@ Run by manifest spec scope:
 ./scripts/test_external_evidence.sh --scope 1.3
 ```
 
+Run by triage status:
+
+```bash
+./scripts/test_external_evidence.sh --triage reproducer-ready
+```
+
+Run by hypothesis:
+
+```bash
+./scripts/test_external_evidence.sh --hypothesis expects-pass
+```
+
 Seed manifest hypotheses from observed outcomes (line-preserving update):
 
 ```bash
