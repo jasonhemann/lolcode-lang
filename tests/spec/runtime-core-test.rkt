@@ -448,6 +448,16 @@
   (check-eq? (hash-ref object-alt-dynamic-name 'status) 'ok)
   (check-equal? (hash-ref object-alt-dynamic-name 'stdout) "pikachu\n")
 
+  (define object-self-reference-during-construction-src
+    "HAI 1.3\nO HAI IM selfref\n  I HAS A bad ITZ selfref\nKTHX\nKTHXBYE\n")
+  (define object-self-reference-during-construction
+    (run-source object-self-reference-during-construction-src))
+  (check-eq? (hash-ref object-self-reference-during-construction 'status) 'runtime-error)
+  ;; N26: object name binding occurs after O HAI body evaluation.
+  (check-true (regexp-match? #px"unknown identifier: selfref"
+                             (hash-ref object-self-reference-during-construction
+                                       'error)))
+
   (define unsupported-src
     "HAI 1.3\nI HAS A obj ITZ A BUKKIT\nI HAS A res ITZ obj IZ call MKAY\nKTHXBYE\n")
   (define unsupported (run-source unsupported-src))
@@ -536,6 +546,23 @@
   (define loop-unary-updater (run-source loop-unary-updater-src))
   (check-eq? (hash-ref loop-unary-updater 'status) 'ok)
   (check-equal? (hash-ref loop-unary-updater 'stdout) "0\n2\n4\n6\n8\n10\n")
+
+  (define loop-unary-updater-side-effects-src
+    "HAI 1.3\nI HAS A ticks ITZ 0\nHOW IZ I bump YR v\n  ticks R SUM OF ticks AN 1\n  FOUND YR SUM OF v AN 1\nIF U SAY SO\nIM IN YR lp I IZ bump YR i MKAY TIL BOTH SAEM i AN 3\n  VISIBLE i\nIM OUTTA YR lp\nVISIBLE ticks\nKTHXBYE\n")
+  (define loop-unary-updater-side-effects
+    (run-source loop-unary-updater-side-effects-src))
+  (check-eq? (hash-ref loop-unary-updater-side-effects 'status) 'ok)
+  ;; N30: updater function runs once per completed iteration (post-body).
+  (check-equal? (hash-ref loop-unary-updater-side-effects 'stdout)
+                "0\n1\n2\n3\n")
+
+  (define loop-unary-updater-arity-error-src
+    "HAI 1.3\nHOW IZ I zerofn\n  FOUND YR 0\nIF U SAY SO\nIM IN YR lp I IZ zerofn YR i MKAY TIL BOTH SAEM i AN 1\n  VISIBLE i\nIM OUTTA YR lp\nKTHXBYE\n")
+  (define loop-unary-updater-arity-error
+    (run-source loop-unary-updater-arity-error-src))
+  (check-eq? (hash-ref loop-unary-updater-arity-error 'status) 'runtime-error)
+  (check-true (regexp-match? #px"function zerofn expected 0 args, got 1"
+                             (hash-ref loop-unary-updater-arity-error 'error)))
 
   (define logic-src
     "HAI 1.3\nI HAS A n ITZ 42\nVISIBLE BOTH OF DIFFRINT n AN 0 AN DIFFRINT n AN 42\nVISIBLE EITHER OF BOTH SAEM n AN 0 AN BOTH SAEM n AN 42\nVISIBLE WON OF BOTH SAEM n AN 42 AN BOTH SAEM n AN 0\nVISIBLE ALL OF DIFFRINT n AN 0 AN NOT BOTH SAEM n AN 0 MKAY\nVISIBLE ANY OF BOTH SAEM n AN 0 AN BOTH SAEM n AN 42 MKAY\nKTHXBYE\n")
@@ -693,6 +720,15 @@
   (check-eq? (hash-ref type-literal-domain-casts 'status) 'ok)
   (check-equal? (hash-ref type-literal-domain-casts 'stdout)
                 "TROOF\nNOOB\nNUMBR\nNUMBAR\nYARN\nTYPE\nWIN\nFAIL\nWIN\nWIN\nWIN\nWIN\n")
+
+  (define type-noob-distinction-stability-src
+    "HAI 1.3\nVISIBLE BOTH SAEM TYPE AN NOOB\nVISIBLE MAEK TYPE A YARN\nVISIBLE MAEK NOOB A YARN\nVISIBLE MAEK TYPE A TROOF\nVISIBLE MAEK NOOB A TROOF\nKTHXBYE\n")
+  (define type-noob-distinction-stability
+    (run-source type-noob-distinction-stability-src))
+  (check-eq? (hash-ref type-noob-distinction-stability 'status) 'ok)
+  ;; N37: TYPE literal and NOOB remain distinct value categories.
+  (check-equal? (hash-ref type-noob-distinction-stability 'stdout)
+                "FAIL\nTYPE\nNOOB\nWIN\nFAIL\n")
 
   (define numbar-visible-format-src
     "HAI 1.3\nVISIBLE MAEK \"3.14159\" A NUMBAR\nVISIBLE MAEK 2 A NUMBAR\nVISIBLE MAEK \"-1.239\" A NUMBAR\nKTHXBYE\n")
@@ -1169,6 +1205,16 @@
     (run-source mixin-parent-child-combo-src))
   (check-eq? (hash-ref mixin-parent-child-combo 'status) 'ok)
   (check-equal? (hash-ref mixin-parent-child-combo 'stdout) "mix\nmix\n")
+
+  (define mixin-copied-function-receiver-late-binding-src
+    "HAI 1.3\nI HAS A prefix ITZ \"G-\"\nHOW IZ I addprefix YR s\n  FOUND YR SMOOSH prefix AN s MKAY\nIF U SAY SO\nO HAI IM parent\n  I HAS A prefix ITZ \"P-\"\nKTHX\nO HAI IM mix\n  I HAS A prefix ITZ \"M-\"\n  I HAS A run ITZ addprefix\nKTHX\nO HAI IM child IM LIEK parent SMOOSH mix\nKTHX\nchild'Z prefix R \"C-\"\nVISIBLE I IZ child'Z run YR \"x\" MKAY\nI HAS A extracted ITZ child'Z run\nVISIBLE I IZ extracted YR \"x\" MKAY\nKTHXBYE\n")
+  (define mixin-copied-function-receiver-late-binding
+    (run-source mixin-copied-function-receiver-late-binding-src))
+  (check-eq? (hash-ref mixin-copied-function-receiver-late-binding 'status) 'ok)
+  ;; N69: copied function slot retains receiver-projected lookup when called via
+  ;; slot-call syntax; extracted direct call falls back to global namespace.
+  (check-equal? (hash-ref mixin-copied-function-receiver-late-binding 'stdout)
+                "C-x\nG-x\n")
 
   (define mixin-special-parent-restored-src
     "HAI 1.3\nO HAI IM base1\n  I HAS A tag ITZ \"BASE1\"\nKTHX\nO HAI IM base2\n  I HAS A tag ITZ \"BASE2\"\nKTHX\nO HAI IM mix IM LIEK base1\nKTHX\nO HAI IM child IM LIEK base2 SMOOSH mix\nKTHX\nVISIBLE child'Z tag\nKTHXBYE\n")

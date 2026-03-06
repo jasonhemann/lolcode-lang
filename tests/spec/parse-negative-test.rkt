@@ -436,6 +436,11 @@
   (check-exn #px"syntax error:"
              (lambda () (parse-program slot-set-with-an-article)))
 
+  (define slot-set-direct-numeric-target
+    "HAI 1.3\nI HAS A obj ITZ A BUKKIT\nobj HAS A 0 ITZ 1\nKTHXBYE\n")
+  (check-exn #px"syntax error:"
+             (lambda () (parse-program slot-set-direct-numeric-target)))
+
   (define slot-access-dash-operator
     "HAI 1.3\nI HAS A obj ITZ A BUKKIT\nVISIBLE obj - foo\nKTHXBYE\n")
   (define slot-access-dash-operator-msg
