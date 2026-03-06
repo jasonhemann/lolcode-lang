@@ -10,6 +10,7 @@
          "../../../src/lolcode/main.rkt")
 
 (provide load-and-validate-manifest
+         evaluate-evidence-cases
          select-cases
          run-evidence-cases)
 
@@ -342,7 +343,7 @@
   (newline)
   (displayln "Note: semantic conflicts are reported as evidence and do not fail this run."))
 
-(define (run-evidence-cases manifest-path selected-wave selected-id)
+(define (evaluate-evidence-cases manifest-path selected-wave selected-id)
   (define cases
     (load-and-validate-manifest manifest-path))
 
@@ -353,18 +354,22 @@
     (unless (ormap (lambda (c) (string=? (hash-ref c 'id) selected-id)) cases)
       (fail "requested --id not found in manifest: ~a" selected-id)))
 
-  (when (null? selected)
+  (cond
+    [(null? selected) '()]
+    [else
+     (define manifest-dir
+       (or (path-only (simplify-path manifest-path))
+           (current-directory)))
+
+     (for/list ([c (in-list selected)])
+       (run-one-case c manifest-dir))]))
+
+(define (run-evidence-cases manifest-path selected-wave selected-id)
+  (define rows
+    (evaluate-evidence-cases manifest-path selected-wave selected-id))
+  (when (null? rows)
     (displayln "No evidence cases selected.")
     (void))
-
-  (define manifest-dir
-    (or (path-only (simplify-path manifest-path))
-        (current-directory)))
-
-  (define rows
-    (for/list ([c (in-list selected)])
-      (run-one-case c manifest-dir)))
-
   (print-report rows)
   rows)
 
