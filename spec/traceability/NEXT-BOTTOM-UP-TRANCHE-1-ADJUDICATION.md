@@ -4,6 +4,7 @@ Date: 2026-03-06
 Source list:
 - `NEXT-BOTTOM-UP-SPEC-CONCERNS-2026-03-05.md`
 - `third-tier-of-40-issues.md`
+- `fourth-tier-of-40-issues.md`
 
 Policy: `spec/traceability/SPEC_ADJUDICATION_POLICY.md`
 
@@ -69,6 +70,12 @@ Pass-2 tranche-1 targets:
    - `./scripts/analyze_corpus_gaps.sh`
    - `./scripts/eval_tier2_corpus.sh`
    - `./scripts/test_external_evidence.sh`
+
+## Fourth-Tier Integration Note
+
+- Fourth-tier sweep is integrated into the master numbered backlog.
+- Net-new additions were assigned `N70`-`N85` and explicitly placed in the quaternary (low-priority) tranche.
+- Overlap-heavy fourth-tier items were mapped to existing concerns and not renumbered as duplicates.
 
 ## Pass-2 Script Snapshot
 

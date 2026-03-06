@@ -5,6 +5,7 @@ Sources:
 - Original bottom-up concern list
 - Prior normalized concern pass
 - `third-tier-of-40-issues.md` (newly integrated)
+- `fourth-tier-of-40-issues.md` (newly integrated)
 
 Target: strict LOLCODE 1.3 only.
 
@@ -28,6 +29,10 @@ Secondary tranche:
 Tertiary tranche:
 
 - `N25`, `N26`, `N28`-`N33`, `N35`-`N37`, `N39`-`N41`, `N62`, `N65`, `N66`, `N69`
+
+Quaternary tranche (low-priority additions from fourth-tier sweep):
+
+- `N70`-`N85`
 
 ## Unified Concern List
 
@@ -100,6 +105,22 @@ Tertiary tranche:
 67. `N67` `ME` parse acceptance and runtime-only failure when no receiver exists.
 68. `N68` `HOW IZ <object> <slot>` receiver existence/type check stage (parse, definition time, call time).
 69. `N69` Receiver late-binding invariant for mixin-copied function values.
+70. `N70` Reserved-word/literal/special-name collision policy in identifier positions.
+71. `N71` Version token acceptance policy (`HAI <version>`) under spec-declared nonstandard handling.
+72. `N72` Truthiness semantics for empty BUKKIT/array wording conflict.
+73. `N73` Numeric portability policy for overflow/underflow/Inf/NaN/division-by-zero behavior.
+74. `N74` Statement value-status policy for IT-sensitive default returns (`VISIBLE`, `GIMMEH`, others).
+75. `N75` Assignment/declaration RHS sequencing relative to target binding visibility.
+76. `N76` Forward-reference policy for function calls before function-definition statements.
+77. `N77` Duplicate function-parameter-name policy.
+78. `N78` Function-definition placement semantics (declaration/executable/conditional/loop nesting policy).
+79. `N79` `ME HAS A` receiver-slot declaration shadow/overwrite behavior against inherited slots.
+80. `N80` `ME'Z slot R expr` evaluation sequencing and same-slot read/write interaction.
+81. `N81` Mixin copy depth semantics for mutable slot values (deep clone vs shallow alias).
+82. `N82` Mutable-value aliasing policy (call-by-sharing) across function args and slot assignment.
+83. `N83` Non-BUKKIT parent-slot mutation policy (`NOOB`/primitive parent values).
+84. `N84` `omgwtf` method-call fallback when synthesized missing-slot value is non-callable.
+85. `N85` `izmakin` failure atomicity (binding visibility on constructor failure).
 
 ## Third-Tier Crosswalk
 
@@ -107,6 +128,13 @@ Integrated from `third-tier-of-40-issues.md`:
 
 - New IDs: `N43`-`N69`.
 - Mapped to existing IDs (not renumbered as new): `N06`, `N07`, `N09`, `N12`, `N35`, `N38`, `N41`.
+
+## Fourth-Tier Crosswalk
+
+Integrated from `fourth-tier-of-40-issues.md`:
+
+- New IDs: `N70`-`N85`.
+- Mapped to existing IDs (not renumbered as new): `N01`, `N06`, `N07`, `N09`, `N10`, `N11`, `N12`, `N17`, `N18`, `N19`, `N20`, `N21`, `N23`, `N24`, `N25`, `N27`, `N34`, `N40`, `N44`, `N45`, `N46`, `N47`, `N48`, `N49`, `N51`, `N58`, `N60`, `N61`, `N62`, `N63`, `N64`, `N65`, `N69`.
 
 ## Status Keys
 
