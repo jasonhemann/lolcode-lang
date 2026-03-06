@@ -90,7 +90,7 @@
     (run-source declaration-literal-infers-type-src))
   (check-eq? (hash-ref declaration-literal-infers-type 'status) 'ok)
   (check-equal? (hash-ref declaration-literal-infers-type 'stdout)
-                "2\n2.50\nWIN\ncat\nNOOB\n3\n")
+                "2\n2.5\nWIN\ncat\nNOOB\n3\n")
 
   (define typed-decl-src
     "HAI 1.3\nI HAS A count ITZ A NUMBR\nVISIBLE count\nKTHXBYE\n")
@@ -198,11 +198,35 @@
   (check-equal? (hash-ref switch-matched-fallthrough-skips-default 'stdout)
                 "A\nB\n")
 
+  (define switch-numeric-mode-match-src
+    "HAI 1.3\nI HAS A x ITZ 1.0\nx, WTF?\n  OMG 1\n    VISIBLE \"NUM\"\n    GTFO\n  OMG \"1\"\n    VISIBLE \"YARN\"\n    GTFO\n  OMGWTF\n    VISIBLE \"MISS\"\nOIC\nKTHXBYE\n")
+  (define switch-numeric-mode-match
+    (run-source switch-numeric-mode-match-src))
+  (check-eq? (hash-ref switch-numeric-mode-match 'status) 'ok)
+  ;; Numeric-mode equality: NUMBR and NUMBAR compare numerically in WTF? matching.
+  (check-equal? (hash-ref switch-numeric-mode-match 'stdout) "NUM\n")
+
+  (define switch-no-string-coercion-src
+    "HAI 1.3\nI HAS A x ITZ \"1\"\nx, WTF?\n  OMG 1\n    VISIBLE \"NUM\"\n    GTFO\n  OMG \"1\"\n    VISIBLE \"YARN\"\n    GTFO\n  OMGWTF\n    VISIBLE \"MISS\"\nOIC\nKTHXBYE\n")
+  (define switch-no-string-coercion
+    (run-source switch-no-string-coercion-src))
+  (check-eq? (hash-ref switch-no-string-coercion 'status) 'ok)
+  ;; Non-numeric mixed-type matching does not coerce in WTF? matching.
+  (check-equal? (hash-ref switch-no-string-coercion 'stdout) "YARN\n")
+
   (define function-src
     "HAI 1.3\nHOW IZ I addin YR x AN YR y\n  FOUND YR SUM OF x AN y\nIF U SAY SO\nI HAS A result ITZ I IZ addin YR 2 AN YR 3 MKAY\nVISIBLE result\nKTHXBYE\n")
   (define function-result (run-source function-src))
   (check-eq? (hash-ref function-result 'status) 'ok)
   (check-equal? (hash-ref function-result 'stdout) "5\n")
+
+  (define function-arg-eval-order-src
+    "HAI 1.3\nI HAS A seq ITZ \"\"\nHOW IZ I mark YR c\n  seq R SMOOSH seq AN c MKAY\n  FOUND YR c\nIF U SAY SO\nHOW IZ I see YR a AN YR b\n  FOUND YR seq\nIF U SAY SO\nVISIBLE I IZ see YR I IZ mark YR \"A\" MKAY AN YR I IZ mark YR \"B\" MKAY MKAY\nKTHXBYE\n")
+  (define function-arg-eval-order
+    (run-source function-arg-eval-order-src))
+  (check-eq? (hash-ref function-arg-eval-order 'status) 'ok)
+  ;; Regression: call arguments are evaluated before body entry, left-to-right.
+  (check-equal? (hash-ref function-arg-eval-order 'stdout) "AB\n")
 
   (define function-implicit-it-return-src
     "HAI 1.3\nHOW IZ I calc\n  SUM OF 2 AN 3\nIF U SAY SO\nVISIBLE I IZ calc MKAY\nKTHXBYE\n")
@@ -373,6 +397,14 @@
   (check-eq? (hash-ref loop-result 'status) 'ok)
   (check-equal? (hash-ref loop-result 'stdout) "10\n")
 
+  (define loop-order-matrix-src
+    "HAI 1.3\nI HAS A a ITZ \"\"\nI HAS A i ITZ 0\nIM IN YR l1 UPPIN YR i TIL BOTH SAEM i AN 3\n  a R SMOOSH a AN i MKAY\nIM OUTTA YR l1\nVISIBLE a\nI HAS A b ITZ \"\"\nI HAS A j ITZ 0\nIM IN YR l2 UPPIN YR j WILE DIFFRINT j AN 3\n  b R SMOOSH b AN j MKAY\nIM OUTTA YR l2\nVISIBLE b\nI HAS A c ITZ \"\"\nI HAS A k ITZ 3\nIM IN YR l3 NERFIN YR k TIL BOTH SAEM k AN 0\n  c R SMOOSH c AN k MKAY\nIM OUTTA YR l3\nVISIBLE c\nI HAS A d ITZ \"\"\nI HAS A m ITZ 3\nIM IN YR l4 NERFIN YR m WILE DIFFRINT m AN 0\n  d R SMOOSH d AN m MKAY\nIM OUTTA YR l4\nVISIBLE d\nKTHXBYE\n")
+  (define loop-order-matrix (run-source loop-order-matrix-src))
+  (check-eq? (hash-ref loop-order-matrix 'status) 'ok)
+  ;; Regression: loop condition checks happen pre-body; updater runs post-body.
+  (check-equal? (hash-ref loop-order-matrix 'stdout)
+                "012\n012\n321\n321\n")
+
   (define loop-dynamic-label-src
     "HAI 1.3\nI HAS A loopname ITZ \"lp\"\nI HAS A i ITZ 0\nIM IN YR SRS loopname UPPIN YR i TIL BOTH SAEM i AN 3\n  VISIBLE i\nIM OUTTA YR SRS loopname\nKTHXBYE\n")
   (define loop-dynamic-label (run-source loop-dynamic-label-src))
@@ -442,6 +474,15 @@
   (check-equal? (hash-ref binary-ops-optional-an 'stdout)
                 "3\n3\n12\n3\n3\n5\n2\nFAIL\nWIN\nWIN\nWIN\nWIN\n")
 
+  (define quoshunt-numbr-vs-numbar-src
+    "HAI 1.3\nVISIBLE QUOSHUNT OF 5 AN 2\nVISIBLE QUOSHUNT OF MAEK 5 A NUMBAR AN 2\nVISIBLE QUOSHUNT OF 1 AN 2\nKTHXBYE\n")
+  (define quoshunt-numbr-vs-numbar
+    (run-source quoshunt-numbr-vs-numbar-src))
+  (check-eq? (hash-ref quoshunt-numbr-vs-numbar 'status) 'ok)
+  ;; Spec line 305: NUMBR/NUMBR uses integer math; NUMBAR presence uses float math.
+  (check-equal? (hash-ref quoshunt-numbr-vs-numbar 'stdout)
+                "2\n2.5\n0\n")
+
   (define equality-no-implicit-cast-src
     "HAI 1.3\nVISIBLE BOTH SAEM \"3\" AN 3\nVISIBLE DIFFRINT \"3\" AN 3\nVISIBLE BOTH SAEM MAEK \"3\" A NUMBR AN 3\nKTHXBYE\n")
   (define equality-no-implicit-cast
@@ -493,7 +534,7 @@
     (run-source maek-local-cast-does-not-mutate-var-src))
   (check-eq? (hash-ref maek-local-cast-does-not-mutate-var 'status) 'ok)
   (check-equal? (hash-ref maek-local-cast-does-not-mutate-var 'stdout)
-                "2.50\n2\n")
+                "2.5\n2\n")
 
   (define maek-local-cast-does-not-mutate-slot-src
     "HAI 1.3\nI HAS A obj ITZ A BUKKIT\nobj HAS A raw ITZ \"41\"\nI HAS A casted ITZ MAEK obj'Z raw A NUMBR\nVISIBLE obj'Z raw\nVISIBLE casted\nKTHXBYE\n")
@@ -524,7 +565,7 @@
   (define maek-without-article
     (run-source maek-without-article-src))
   (check-eq? (hash-ref maek-without-article 'status) 'ok)
-  (check-equal? (hash-ref maek-without-article 'stdout) "2.00\n")
+  (check-equal? (hash-ref maek-without-article 'stdout) "2\n")
 
   (define noob-arithmetic-src
     "HAI 1.3\nVISIBLE SUM OF NOOB AN 1\nKTHXBYE\n")
@@ -554,9 +595,10 @@
   (define numbar-visible-format-result
     (run-source numbar-visible-format-src))
   (check-eq? (hash-ref numbar-visible-format-result 'status) 'ok)
-  ;; Spec: NUMBAR printed as YARN defaults to two decimal places (truncated).
+  ;; Spec: NUMBAR printed as YARN truncates to default two decimal places.
+  ;; Policy: this is interpreted as "at most two decimals" (no forced zero pad).
   (check-equal? (hash-ref numbar-visible-format-result 'stdout)
-                "3.14\n2.00\n-1.23\n")
+                "3.14\n2\n-1.23\n")
 
   (define numbar-to-numbr-truncate-src
     "HAI 1.3\nVISIBLE MAEK \"-0.567\" A NUMBR\nVISIBLE MAEK \"-1.239\" A NUMBR\nVISIBLE MAEK \"1.999\" A NUMBR\nKTHXBYE\n")
@@ -607,6 +649,14 @@
   ;; Adjudication: method-call argument positions accept expressions, matching
   ;; ordinary I IZ call argument semantics.
   (check-equal? (hash-ref method-call-expression-args 'stdout) "9\n")
+
+  (define method-call-arg-eval-order-src
+    "HAI 1.3\nI HAS A seq ITZ \"\"\nHOW IZ I mark YR c\n  seq R SMOOSH seq AN c MKAY\n  FOUND YR c\nIF U SAY SO\nO HAI IM obj\n  HOW IZ I see YR a AN YR b\n    FOUND YR seq\n  IF U SAY SO\nKTHX\nVISIBLE obj IZ see YR I IZ mark YR \"C\" MKAY AN YR I IZ mark YR \"D\" MKAY MKAY\nKTHXBYE\n")
+  (define method-call-arg-eval-order
+    (run-source method-call-arg-eval-order-src))
+  (check-eq? (hash-ref method-call-arg-eval-order 'status) 'ok)
+  ;; Regression: method-call arguments are evaluated before method body entry.
+  (check-equal? (hash-ref method-call-arg-eval-order 'stdout) "CD\n")
 
   (define method-call-missing-slot-src
     "HAI 1.3\nI HAS A foo ITZ A BUKKIT\nfoo IZ nope MKAY\nKTHXBYE\n")

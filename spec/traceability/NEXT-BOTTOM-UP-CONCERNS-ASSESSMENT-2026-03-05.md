@@ -33,6 +33,8 @@ Update delta (2026-03-06):
 - `#12`/`#13` `omgwtf` edge behavior is now pinned with explicit regressions: memoization under stateful mutation, return-value-vs-intermediate-mutation precedence, and deterministic same-slot re-entry error.
 - Strict-case audit completed: removed residual case-insensitive keyword/type/literal/comment handling in runtime paths and added regressions for lowercase lookalike behavior.
 - `#11` is now policy-pinned as expression-argument method calls (matching call-expression semantics); `#14`/`#15` now have explicit izmakin ordering and reentrancy coverage.
+- `#25`/`#26`/`#30` are now resolved: side-effect call-argument ordering is pinned (`I IZ` and `<object> IZ`), loop update/condition ordering is matrix-covered for `UPPIN/NERFIN x TIL/WILE`, and `WTF?` duplicate/match equality now uses numeric-mode comparison for numeric pairs (`1` vs `1.0`) with non-coercing mixed-type behavior preserved.
+- NUMBAR->YARN printing policy is now explicitly pinned to spec line 235 wording: truncate to a default maximum of two decimal places without forced zero-padding, and treat default precision as the only available mode in strict 1.3 (no precision-control syntax exists).
 
 ## Item-by-item results
 
@@ -62,12 +64,12 @@ Update delta (2026-03-06):
 | 22 | AMB | "current object's scope" wording is vague at top-level; current behavior is stable and tested with top-level bukkit declarations. |
 | 23 | OK | `GTFO` precedence across function/switch/loop contexts is strongly covered (`function-gtfo-return-src`, `switch-break-inside-loop-src`, `function-switch-gtfo-scope-src`). |
 | 24 | AMB | Spec line `584` conflicts with later method/global scope rules; current behavior is policy-backed and tested (`function-outer-scope-src`, `method-global-capture-src`). |
-| 25 | PART | Arg evaluation before call is implemented (`fn.call-args-evaluated-before-call` row), but explicit side-effect ordering tests are sparse. |
-| 26 | PART | Loop condition/update order appears correct from current loop tests, but no direct off-by-one assertion matrix for all updater forms. |
+| 25 | OK | Call argument evaluation ordering is now pinned with side-effect regressions for both `I IZ` and `<object> IZ` paths (arguments evaluated before body entry, left-to-right). |
+| 26 | OK | Loop condition/update ordering is now pinned by explicit updater/condition matrix coverage (`UPPIN/NERFIN` x `TIL/WILE`) confirming pre-body condition check and post-body updater execution. |
 | 27 | OK | Loop updater temporary/local shadowing and restoration are well covered (`loop-counter-scope-src`, `loop-counter-no-leak-src`, `loop-counter-dynamic-name-src`). |
 | 28 | AMB + OK | Dynamic labels via `SRS` are supported and tested (`loop-dynamic-label-src`, mismatch case). Spec leaves this under-specified. |
 | 29 | OK | Nested infinite-loop termination controls are covered (`switch-break-inside-loop-src`, nested loop tests). |
-| 30 | PART | Duplicate `OMG` literal checks exist (`duplicate-wtf-case-literal`), but mixed-type equality-mode edge cases are not explicitly tested. |
+| 30 | OK | `WTF?` duplicate literals and runtime matching now follow numeric-mode equality for numeric pairs (`1` duplicates/matches `1.0`) while preserving non-coercing mixed-type behavior (`\"1\"` distinct from `1`). |
 | 31 | OK | Fallthrough plus default gating is now explicit: matched `OMG` cases may fall through subsequent `OMG` blocks but do not run `OMGWTF` when any `OMG` matched. |
 | 32 | OK | IT local vs method-global lookup split is explicitly tested (`it-local-main-and-function-src`, `method-it-global-lookup-src`). |
 | 33 | OK | Optional `AN` ambiguity and reserved-token handling are tested (`and-as-identifier-*`, reserved keyword negatives). |
@@ -93,4 +95,4 @@ Update delta (2026-03-06):
 2. Continue targeted tests for mixin source-set ambiguity (`#1`); `#3` depth policy is now adjudicated/tested.
 3. Done (2026-03-06): added explicit memoization + recursion-behavior tests for `omgwtf` (`#12`, `#13`).
 4. Done (2026-03-06): added ordering/reentrancy tests for `izmakin` (`#14`, `#15`).
-5. Continue parser/runtime tests for remaining partial syntax intersections (`#25`, `#26`, `#30`, `#37`, `#38`, `#40`).
+5. Continue parser/runtime tests for remaining partial syntax intersections (`#37`, `#38`, `#40`).

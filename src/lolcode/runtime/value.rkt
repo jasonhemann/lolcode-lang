@@ -203,17 +203,27 @@
   (/ clipped scale))
 
 (define (format-numbar n)
-  (~r (truncate-real-decimals n 2)
-      #:precision '(= 2)))
+  (define fixed
+    (~r (truncate-real-decimals n 2)
+        #:precision '(= 2)))
+  (define trimmed
+    (regexp-replace #px"\\.$"
+                    (regexp-replace #px"0+$" fixed "")
+                    ""))
+  (if (string=? trimmed "")
+      "0"
+      trimmed))
 
 (define (lol-string v)
   (cond
     [(eq? v noob) "NOOB"]
     [(boolean? v) (if v "WIN" "FAIL")]
     [(and (number? v)
+          (real? v)
           (rational? v)
-          (inexact? v))
-     (format-numbar v)]
+          (or (inexact? v)
+              (not (integer? v))))
+     (format-numbar (if (inexact? v) v (exact->inexact v)))]
     [(number? v) (number->string v)]
     [(string? v) v]
     [(lol-object? v) "<BUKKIT>"]

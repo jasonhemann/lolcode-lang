@@ -571,7 +571,7 @@
         (match remaining
           ['() #f]
           [`((,case-match-proc . ,_case-body-proc) . ,rest)
-           (if (equal? subject-value (case-match-proc e ctx))
+           (if (lol-equal? subject-value (case-match-proc e ctx))
                idx
                (find-first rest (+ idx 1)))]))
       (define (run-cases remaining)

@@ -289,17 +289,25 @@
      (list 'LIT value)]
     [_ #f]))
 
+(define (switch-literal-duplicate? a b)
+  (match* (a b)
+    [((list 'NUM na) (list 'NUM nb))
+     (= na nb)]
+    [(_ _)
+     (equal? a b)]))
+
 (define (validate-switch-case-literals! cases)
-  (define seen (make-hash))
+  (define seen '())
   (for ([c (in-list cases)])
     (match-define (switch-case case-match _case-body) c)
     (define key (switch-literal-key case-match))
     (when key
-      (when (hash-has-key? seen key)
+      (when (for/or ([prior (in-list seen)])
+              (switch-literal-duplicate? prior key))
         (error 'parse-source
                "duplicate OMG literal in WTF?: ~e"
                case-match))
-      (hash-set! seen key #t))))
+      (set! seen (cons key seen)))))
 
 (define (word-token-ci=? t text)
   (and (eq? (token-type t) 'WORD)

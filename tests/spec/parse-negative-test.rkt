@@ -439,6 +439,11 @@
   (check-exn #px"duplicate OMG literal in WTF\\?"
              (lambda () (parse-program duplicate-wtf-case-literal)))
 
+  (define duplicate-wtf-case-literal-numeric-mode
+    "HAI 1.3\nI HAS A x ITZ 1\nx, WTF?\n  OMG 1\n    VISIBLE \"A\"\n  OMG 1.0\n    VISIBLE \"B\"\nOIC\nKTHXBYE\n")
+  (check-exn #px"duplicate OMG literal in WTF\\?"
+             (lambda () (parse-program duplicate-wtf-case-literal-numeric-mode)))
+
   (define interpolated-wtf-string-case
     "HAI 1.3\nI HAS A n ITZ \"x\"\nn, WTF?\n  OMG \":{n}\"\n    VISIBLE \"bad\"\nOIC\nKTHXBYE\n")
   (check-exn #px"WTF\\? case literal cannot contain YARN interpolation"

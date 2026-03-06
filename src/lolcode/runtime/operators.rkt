@@ -11,7 +11,14 @@
    "SUM OF" (lambda (lv rv) (+ (coerce-number 'SUM lv) (coerce-number 'SUM rv)))
    "DIFF OF" (lambda (lv rv) (- (coerce-number 'DIFF lv) (coerce-number 'DIFF rv)))
    "PRODUKT OF" (lambda (lv rv) (* (coerce-number 'PRODUKT lv) (coerce-number 'PRODUKT rv)))
-   "QUOSHUNT OF" (lambda (lv rv) (/ (coerce-number 'QUOSHUNT lv) (coerce-number 'QUOSHUNT rv)))
+   "QUOSHUNT OF"
+   (lambda (lv rv)
+     (define lnum (coerce-number 'QUOSHUNT lv))
+     (define rnum (coerce-number 'QUOSHUNT rv))
+     (if (and (exact-integer? lnum)
+              (exact-integer? rnum))
+         (quotient lnum rnum)
+         (/ lnum rnum)))
    "MOD OF"
    (lambda (lv rv)
      (remainder (inexact->exact (truncate (coerce-number 'MOD lv)))
