@@ -862,6 +862,31 @@
   (check-eq? (hash-ref visible-inline-result 'status) 'ok)
   (check-equal? (hash-ref visible-inline-result 'stdout) "AB3\n")
 
+  (define visible-updates-it-src
+    "HAI 1.3\nVISIBLE \"A\" AN \"B\"\nVISIBLE IT\nKTHXBYE\n")
+  (define visible-updates-it-result (run-source visible-updates-it-src))
+  (check-eq? (hash-ref visible-updates-it-result 'status) 'ok)
+  ;; Regression: VISIBLE updates IT to its last argument value.
+  (check-equal? (hash-ref visible-updates-it-result 'stdout) "AB\nB\n")
+
+  (define preprocess-order-runtime-src
+    "HAI 1.3\nOBTW hidden TLDR, VISIBLE \"A\"\nVISIBLE \"A,B\"\nVISIBLE \"...\"\nVISIBLE \"C\"...\n\"D\"\nKTHXBYE\n")
+  (define preprocess-order-runtime-result
+    (run-source preprocess-order-runtime-src))
+  (check-eq? (hash-ref preprocess-order-runtime-result 'status) 'ok)
+  ;; Regression: TLDR handoff + string shielding + continuation ordering.
+  (check-equal? (hash-ref preprocess-order-runtime-result 'stdout)
+                "A\nA,B\n...\nCD\n")
+
+  (define it-update-matrix-src
+    "HAI 1.3\nSUM OF 1 AN 1\nI HAS A snap1 ITZ IT\nI HAS A x ITZ 9\nx R 10\nI HAS A snap2 ITZ IT\nO RLY?\n  YA RLY\n    I HAS A y ITZ 1\nOIC\nI HAS A snap3 ITZ IT\nWTF?\n  OMG 2\n    I HAS A z ITZ 1\n    GTFO\nOIC\nI HAS A snap4 ITZ IT\nx IS NOW A YARN\nI HAS A snap5 ITZ IT\nGIMMEH in1\nI HAS A snap6 ITZ IT\nI HAS A obj ITZ A BUKKIT\nobj HAS A n ITZ 7\nI HAS A snap7 ITZ IT\nO HAI IM box\nKTHX\nI HAS A snap8 ITZ IT\nSUM OF 2 AN 3\nI HAS A snap9 ITZ IT\nIM IN YR lp\n  GTFO\nIM OUTTA YR lp\nI HAS A snap10 ITZ IT\nVISIBLE snap1\nVISIBLE snap2\nVISIBLE snap3\nVISIBLE snap4\nVISIBLE snap5\nVISIBLE snap6\nVISIBLE snap7\nVISIBLE snap8\nVISIBLE snap9\nVISIBLE snap10\nKTHXBYE\n")
+  (define it-update-matrix-result
+    (run-source it-update-matrix-src #:input "hi\n"))
+  (check-eq? (hash-ref it-update-matrix-result 'status) 'ok)
+  ;; Regression: only IT-updating statement forms change IT; others preserve it.
+  (check-equal? (hash-ref it-update-matrix-result 'stdout)
+                "2\n2\n2\n2\n10\nhi\n7\n<BUKKIT>\n5\n5\n")
+
   (define string-namespace-src
     "HAI 1.3\nVISIBLE I IZ STRING'Z LEN YR \"cats\" MKAY\nKTHXBYE\n")
   (define string-namespace-result (run-source string-namespace-src))

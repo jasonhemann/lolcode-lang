@@ -34,12 +34,12 @@ Pass-2 tranche-1 targets:
 
 | ID | Status | Decision / Action |
 | --- | --- | --- |
-| `N44` | needs-change | Document exact preprocessing order as executable policy + add parser/lexer tests for ordering-sensitive cases. |
-| `N51` | needs-change | Keep longest-match keyword tokenization policy; add explicit regressions for phrase collisions and punctuation suffix tokens. |
+| `N44` | adjudicated | Deterministic preprocessing order is fixed and documented (`PREPROCESSING_AND_KEYWORD_POLICY.md`) with ordering-sensitive regressions (`inline-block-comment-tldr-handoff`, `preprocess-order-runtime-src`). |
+| `N51` | adjudicated | Canonical longest-match keyword policy is fixed for punctuated and phrase tokens (`spaced-orly-question`, `spaced-wtf-question`, `split-im-outta-phrase`). |
 | `N53` | adjudicated | `O RLY?` binds to current `IT`; statement delimiter behavior remains expression-driven (`stmt-if` uses `IT` directly). |
 | `N54` | adjudicated | `MEBBE` uses TROOF-cast truthiness semantics; pinned by regression `orly-mebbe-truthy-cast-src`. |
 | `N56` | adjudicated | `WTF?` binds to current `IT`; parser encodes `stmt-switch` with subject `(expr-ident \"IT\")`. |
-| `N60` | needs-change | Create closed list of `IT`-updating forms and verify no accidental updates from non-expression statements. |
+| `N60` | adjudicated | IT update closed-list is documented (`IT_UPDATE_MATRIX.md`) and enforced by regression `it-update-matrix-src` plus supporting IT tests. |
 | `N61` | adjudicated | `VISIBLE` remains statement-special variadic with delimiter closure and `!` suffix newline suppression. |
 
 ## N23 Policy Table: Special Slots
@@ -62,8 +62,8 @@ Pass-2 tranche-1 targets:
 ## Immediate Next Steps
 
 1. Completed: added `N54` regression (`orly-mebbe-truthy-cast-src`).
-2. Add explicit regressions for `N51` (longest-match collisions) and `N44` (ordering-sensitive preprocessing).
-3. Write and check in an `IT` mutation matrix for `N60`.
+2. Completed: adjudicated and documented `N44` + `N51` with explicit parser/runtime regressions.
+3. Completed: authored `IT_UPDATE_MATRIX.md` and adjudicated `N60`.
 4. Carry out-of-tranche early result: `N62` now has regression coverage (`gimmeh-implicit-target-declare-src`) pinning implicit target declaration behavior.
 5. Re-run tranche scripts after these pass-2 additions:
    - `./scripts/analyze_corpus_gaps.sh`

@@ -156,6 +156,11 @@
   (check-not-exn
    (lambda () (parse-program ellipsis-in-comment-is-ignored)))
 
+  (define inline-block-comment-tldr-handoff
+    "HAI 1.3\nOBTW hidden TLDR, VISIBLE \"OK\"\nKTHXBYE\n")
+  (check-not-exn
+   (lambda () (parse-program inline-block-comment-tldr-handoff)))
+
   (define one-line-minimal-program
     "HAI 1.3, KTHXBYE\n")
   (check-not-exn
@@ -388,6 +393,16 @@
   (check-exn #px"syntax error:"
              (lambda () (parse-program orly-missing-ya-rly)))
 
+  (define spaced-orly-question
+    "HAI 1.3\nWIN\nO RLY ?\n  YA RLY\n    VISIBLE \"Y\"\nOIC\nKTHXBYE\n")
+  (check-exn #px"syntax error:"
+             (lambda () (parse-program spaced-orly-question)))
+
+  (define spaced-wtf-question
+    "HAI 1.3\n1, WTF ?\n  OMG 1\n    VISIBLE \"Y\"\nOIC\nKTHXBYE\n")
+  (check-exn #px"syntax error:"
+             (lambda () (parse-program spaced-wtf-question)))
+
   (define orphan-mebbe-without-ya-rly
     "HAI 1.3\nWIN\nO RLY?\n  MEBBE WIN\n    VISIBLE \"x\"\nOIC\nKTHXBYE\n")
   (check-exn #px"syntax error:"
@@ -397,6 +412,11 @@
     "HAI 1.3\nFAIL\nO RLY?\n  YA RLY\n    VISIBLE \"Y\"\n  NO WAI\n    VISIBLE \"N\"\n  MEBBE WIN\n    VISIBLE \"M\"\nOIC\nKTHXBYE\n")
   (check-exn #px"syntax error:"
              (lambda () (parse-program orly-mebbe-after-no-wai)))
+
+  (define split-im-outta-phrase
+    "HAI 1.3\nIM IN YR lp\n  GTFO\nIM\nOUTTA YR lp\nKTHXBYE\n")
+  (check-exn #px"syntax error:"
+             (lambda () (parse-program split-im-outta-phrase)))
 
   (define nested-function-def
     "HAI 1.3\nHOW IZ I outer\n  HOW IZ I inner\n    FOUND YR 1\n  IF U SAY SO\n  FOUND YR I IZ inner MKAY\nIF U SAY SO\nKTHXBYE\n")
