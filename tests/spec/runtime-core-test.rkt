@@ -570,6 +570,22 @@
   (check-eq? (hash-ref logic-result 'status) 'ok)
   (check-equal? (hash-ref logic-result 'stdout) "FAIL\nWIN\nWIN\nWIN\nWIN\n")
 
+  (define logic-binary-eager-rhs-src
+    "HAI 1.3\nI HAS A obj ITZ A BUKKIT\nVISIBLE BOTH OF FAIL AN obj'Z missing\nKTHXBYE\n")
+  (define logic-binary-eager-rhs (run-source logic-binary-eager-rhs-src))
+  (check-eq? (hash-ref logic-binary-eager-rhs 'status) 'runtime-error)
+  ;; Binary boolean operators are eager; RHS still evaluates.
+  (check-true (regexp-match? #px"unknown slot: missing"
+                             (hash-ref logic-binary-eager-rhs 'error)))
+
+  (define logic-binary-left-to-right-src
+    "HAI 1.3\nI HAS A log ITZ \"\"\nHOW IZ I mark YR ch\n  log R SMOOSH log AN ch MKAY\n  FOUND YR WIN\nIF U SAY SO\nVISIBLE BOTH OF I IZ mark YR \"L\" MKAY AN I IZ mark YR \"R\" MKAY\nVISIBLE log\nKTHXBYE\n")
+  (define logic-binary-left-to-right (run-source logic-binary-left-to-right-src))
+  (check-eq? (hash-ref logic-binary-left-to-right 'status) 'ok)
+  ;; Operand evaluation order is deterministic left-to-right.
+  (check-equal? (hash-ref logic-binary-left-to-right 'stdout)
+                "WIN\nLR\n")
+
   (define binary-ops-optional-an-src
     "HAI 1.3\nVISIBLE SUM OF 1 2\nVISIBLE DIFF OF 5 2\nVISIBLE PRODUKT OF 3 4\nVISIBLE QUOSHUNT OF 6 2\nVISIBLE MOD OF 7 4\nVISIBLE BIGGR OF 5 2\nVISIBLE SMALLR OF 5 2\nVISIBLE BOTH OF WIN FAIL\nVISIBLE EITHER OF FAIL WIN\nVISIBLE WON OF WIN FAIL\nVISIBLE BOTH SAEM 3 3\nVISIBLE DIFFRINT 3 4\nKTHXBYE\n")
   (define binary-ops-optional-an
