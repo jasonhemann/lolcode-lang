@@ -1115,6 +1115,16 @@
   (check-eq? (hash-ref function-storage 'status) 'ok)
   (check-equal? (hash-ref function-storage 'stdout) "a\n")
 
+  (define extracted-slot-function-direct-call-namespace-src
+    "HAI 1.3\nI HAS A prefix ITZ \"G-\"\nHOW IZ I funkin YR x\n  FOUND YR SMOOSH prefix AN x MKAY\nIF U SAY SO\nO HAI IM box\n  I HAS A prefix ITZ \"O-\"\n  I HAS A f ITZ funkin\nKTHX\nVISIBLE I IZ box'Z f YR \"x\" MKAY\nI HAS A extracted ITZ box'Z f\nVISIBLE I IZ extracted YR \"x\" MKAY\nKTHXBYE\n")
+  (define extracted-slot-function-direct-call-namespace
+    (run-source extracted-slot-function-direct-call-namespace-src))
+  (check-eq? (hash-ref extracted-slot-function-direct-call-namespace 'status) 'ok)
+  ;; N16: extracted function values lose slot-call receiver projection; direct
+  ;; I IZ invocation uses global call namespace.
+  (check-equal? (hash-ref extracted-slot-function-direct-call-namespace 'stdout)
+                "O-x\nG-x\n")
+
   (define inherited-function-slot-assignment-copy-on-write-src
     "HAI 1.3\nHOW IZ I f1\n  FOUND YR \"P\"\nIF U SAY SO\nHOW IZ I f2\n  FOUND YR \"C\"\nIF U SAY SO\nO HAI IM parent\n  I HAS A run ITZ f1\nKTHX\nO HAI IM child IM LIEK parent\nKTHX\nchild'Z run R f2\nVISIBLE I IZ parent'Z run MKAY\nVISIBLE I IZ child'Z run MKAY\nKTHXBYE\n")
   (define inherited-function-slot-assignment-copy-on-write
