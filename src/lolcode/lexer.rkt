@@ -449,59 +449,25 @@
        (loop (read-char in))]))
   (loop (read-char in)))
 
-(define (scan-string-handle-escape! in line col out ch)
-  (cond
-    [(char=? ch #\:)
-     (lexer-cover! 'scan-string-tail!/escaped-colon)
-     (write-char #\: out)
-     #f]
-    [(char=? ch #\")
-     (define next (peek-char in))
-     (if (or (eof-object? next)
-             (newline-or-return? next))
-         (begin
-           (lexer-cover! 'scan-string-tail!/escaped-quote/end-string)
-           (write-char #\: out)
-           (get-output-string out))
-         (begin
-           (lexer-cover! 'scan-string-tail!/escaped-quote/literal)
-           (write-char #\" out)
-           #f))]
-    [(char=? ch #\))
-     (lexer-cover! 'scan-string-tail!/escaped-newline)
-     (write-char #\newline out)
-     #f]
-    [(char=? ch #\>)
-     (lexer-cover! 'scan-string-tail!/escaped-tab)
-     (write-char #\tab out)
-     #f]
-    [(char=? ch #\o)
-     (lexer-cover! 'scan-string-tail!/escaped-bell)
-     (write-char #\u0007 out)
-     #f]
-    [(char=? ch #\()
-     (lexer-cover! 'scan-string-tail!/escaped-codepoint)
-     (write-char (scan-string-codepoint-escape! in line col) out)
-     #f]
-    [(char=? ch #\[)
-     (lexer-cover! 'scan-string-tail!/escaped-normative)
-     (write-char (scan-string-normative-name-escape! in line col) out)
-     #f]
-    [(char=? ch #\{)
-     (lexer-cover! 'scan-string-tail!/escaped-placeholder)
-     (write-char placeholder-start-char out)
-     (display (scan-string-format-placeholder! in line col) out)
-     (write-char placeholder-end-char out)
-     #f]
-    [else
-     ;; Unknown escape: keep the colon literally.
-     (lexer-cover! 'scan-string-tail!/escaped-unknown)
-     (write-char #\: out)
-     (write-char ch out)
-     #f]))
-
 (define (scan-string-tail! in line col)
-  (define out (open-output-string))
+  (define text-out (open-output-string))
+  (define parts-rev '())
+  (define (emit-char! ch)
+    (write-char ch text-out))
+  (define (flush-text!)
+    (define text (get-output-string text-out))
+    (unless (string=? text "")
+      (set! parts-rev
+            (cons (yarn-part-text text) parts-rev))
+      (set! text-out (open-output-string))))
+  (define (emit-placeholder! raw-name)
+    (flush-text!)
+    (set! parts-rev
+          (cons (yarn-part-placeholder raw-name)
+                parts-rev)))
+  (define (finish-template)
+    (flush-text!)
+    (make-yarn-template (reverse parts-rev)))
   (define (loop escaped? ch)
     (cond
       [(eof-object? ch)
@@ -511,20 +477,62 @@
        (lexer-cover! 'scan-string-tail!/newline)
        (lex-error 'lex-source "unterminated string literal" line col)]
       [escaped?
-       (define maybe-result
-         (scan-string-handle-escape! in line col out ch))
-       (if (string? maybe-result)
-           maybe-result
-           (loop #f (read-char in)))]
+       (cond
+         [(char=? ch #\:)
+          (lexer-cover! 'scan-string-tail!/escaped-colon)
+          (emit-char! #\:)
+          (loop #f (read-char in))]
+         [(char=? ch #\")
+          (define next (peek-char in))
+          (if (or (eof-object? next)
+                  (newline-or-return? next))
+              (begin
+                (lexer-cover! 'scan-string-tail!/escaped-quote/end-string)
+                (emit-char! #\:)
+                (finish-template))
+              (begin
+                (lexer-cover! 'scan-string-tail!/escaped-quote/literal)
+                (emit-char! #\")
+                (loop #f (read-char in))))]
+         [(char=? ch #\))
+          (lexer-cover! 'scan-string-tail!/escaped-newline)
+          (emit-char! #\newline)
+          (loop #f (read-char in))]
+         [(char=? ch #\>)
+          (lexer-cover! 'scan-string-tail!/escaped-tab)
+          (emit-char! #\tab)
+          (loop #f (read-char in))]
+         [(char=? ch #\o)
+          (lexer-cover! 'scan-string-tail!/escaped-bell)
+          (emit-char! #\u0007)
+          (loop #f (read-char in))]
+         [(char=? ch #\()
+          (lexer-cover! 'scan-string-tail!/escaped-codepoint)
+          (emit-char! (scan-string-codepoint-escape! in line col))
+          (loop #f (read-char in))]
+         [(char=? ch #\[)
+          (lexer-cover! 'scan-string-tail!/escaped-normative)
+          (emit-char! (scan-string-normative-name-escape! in line col))
+          (loop #f (read-char in))]
+         [(char=? ch #\{)
+          (lexer-cover! 'scan-string-tail!/escaped-placeholder)
+          (emit-placeholder! (scan-string-format-placeholder! in line col))
+          (loop #f (read-char in))]
+         [else
+          ;; Unknown escape: keep the colon literally.
+          (lexer-cover! 'scan-string-tail!/escaped-unknown)
+          (emit-char! #\:)
+          (emit-char! ch)
+          (loop #f (read-char in))])]
       [(char=? ch #\:)
        (lexer-cover! 'scan-string-tail!/start-escape)
        (loop #t (read-char in))]
       [(char=? ch #\")
        (lexer-cover! 'scan-string-tail!/end-string)
-       (get-output-string out)]
+       (finish-template)]
       [else
        (lexer-cover! 'scan-string-tail!/plain-char)
-       (write-char ch out)
+       (emit-char! ch)
        (loop #f (read-char in))]))
   (loop #f (read-char in)))
 

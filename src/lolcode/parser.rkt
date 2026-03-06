@@ -174,6 +174,8 @@
          context-fragment))
 
 (define (make-loop-stmt label-open label-close update cond body)
+  (match-define (cons update-var update-op) update)
+  (match-define (cons cond-kind cond-expr) cond)
   (define open-static
     (match label-open
       [(expr-literal (? string? s)) s]
@@ -191,10 +193,10 @@
            close-static))
   (stmt-loop label-open
              label-close
-             (car update)
-             (cdr update)
-             (car cond)
-             (cdr cond)
+             update-var
+             update-op
+             cond-kind
+             cond-expr
              body))
 
 (define (id->expr name)
@@ -274,17 +276,19 @@
               target)]))
 
 (define (switch-string->literal text)
-  (when (contains-placeholder-marker? text)
+  (define template
+    (ensure-yarn-template text))
+  (when (yarn-template-has-placeholders? template)
     (error 'parse-source
            "WTF? case literal cannot contain YARN interpolation (:{...})"))
-  (expr-string text))
+  (expr-string template))
 
 (define (switch-literal-key expr)
   (match expr
     [(expr-number text)
      (list 'NUM (or (string->number text) text))]
     [(expr-string text)
-     (list 'YARN text)]
+     (list 'YARN (yarn-template-static-text text))]
     [(expr-literal value)
      (list 'LIT value)]
     [_ #f]))
@@ -297,17 +301,20 @@
      (equal? a b)]))
 
 (define (validate-switch-case-literals! cases)
-  (define seen '())
-  (for ([c (in-list cases)])
-    (match-define (switch-case case-match _case-body) c)
-    (define key (switch-literal-key case-match))
-    (when key
-      (when (for/or ([prior (in-list seen)])
-              (switch-literal-duplicate? prior key))
-        (error 'parse-source
-               "duplicate OMG literal in WTF?: ~e"
-               case-match))
-      (set! seen (cons key seen)))))
+  (void
+   (for/fold ([seen '()])
+             ([c (in-list cases)])
+     (match-define (switch-case case-match _case-body) c)
+     (cond
+       [(switch-literal-key case-match) =>
+        (lambda (key)
+           (when (for/or ([prior (in-list seen)])
+                   (switch-literal-duplicate? prior key))
+             (error 'parse-source
+                    "duplicate OMG literal in WTF?: ~e"
+                    case-match))
+           (cons key seen))]
+       [else seen]))))
 
 (define (word-token-ci=? t text)
   (and (eq? (token-type t) 'WORD)
@@ -332,8 +339,8 @@
       rest
       (cons (token 'WORD "IMOUTTA" (token-line t1) (token-col t1))
             acc))]
-    [`(,t . ,rest)
-     (collapse-phrase-tokens rest (cons t acc))]))
+    [`(,t . ,rst)
+     (collapse-phrase-tokens rst (cons t acc))]))
 
 (define (raw-atom-token? t)
   (case (token-type t)
@@ -344,65 +351,48 @@
                     #f))]
     [else #f]))
 
+(define (split-until-mkay toks)
+  (splitf-at toks
+             (lambda (t)
+               (not (word-token-ci=? t "MKAY")))))
+
 (define (rewrite-smoosh-line line-toks)
   (let loop ([prefix '()] [rest line-toks])
-    (cond
-      [(null? rest)
+    (match rest
+      ['()
        (append (reverse prefix) rest)]
-      [(word-token-ci=? (car rest) "SMOOSH")
-       (define sm (car rest))
-       (define suffix (cdr rest))
+      [(cons sm suffix)
+       #:when (word-token-ci=? sm "SMOOSH")
        (define-values (args tail)
-         (let gather ([remaining suffix] [acc '()])
-           (cond
-             [(null? remaining)
-              (values (reverse acc) '())]
-             [(word-token-ci=? (car remaining) "MKAY")
-              (values (reverse acc) remaining)]
-             [else
-              (gather (cdr remaining) (cons (car remaining) acc))])))
+         (split-until-mkay suffix))
        (define rewritten-rest
          (if (and (>= (length args) 2)
                   (not (for/or ([a (in-list args)])
                          (word-token-ci=? a "AN")))
                   (andmap raw-atom-token? args))
-             (let build ([remaining args] [idx 0] [out '()])
-               (cond
-                 [(null? remaining) (reverse out)]
-                 [else
-                  (define arg (car remaining))
-                  (if (>= idx 1)
-                      (build (cdr remaining)
-                             (+ idx 1)
-                             (cons arg
-                                   (cons (token 'WORD
-                                                "AN"
-                                                (token-line arg)
-                                                (max 1 (- (token-col arg) 3)))
-                                         out)))
-                      (build (cdr remaining)
-                             (+ idx 1)
-                             (cons arg out)))]))
+             (insert-optional-an-separators args)
              args))
        (append (reverse prefix) (list sm) rewritten-rest tail)]
-      [else
-       (loop (cons (car rest) prefix) (cdr rest))])))
+      [(cons t rst)
+       (loop (cons t prefix) rst)])))
 
-(define (rewrite-smoosh-no-an-raws raws [line '()] [out '()])
-  (cond
-    [(null? raws)
-     (append out (rewrite-smoosh-line line))]
-    [else
-     (define t (car raws))
-     (if (eq? (token-type t) 'NEWLINE)
-         (rewrite-smoosh-no-an-raws
-          (cdr raws)
-          '()
-          (append out (rewrite-smoosh-line line) (list t)))
-         (rewrite-smoosh-no-an-raws
-          (cdr raws)
-          (append line (list t))
-          out))]))
+(define (rewrite-no-an-raws raws rewrite-line)
+  (define (emit-line out-rev line-rev)
+    (foldl cons
+           out-rev
+           (rewrite-line (reverse line-rev))))
+  (define-values (line-rev out-rev)
+    (for/fold ([line-rev '()] [out-rev '()])
+              ([t (in-list raws)])
+      (if (eq? (token-type t) 'NEWLINE)
+          (values '()
+                  (cons t (emit-line out-rev line-rev)))
+          (values (cons t line-rev)
+                  out-rev))))
+  (reverse (emit-line out-rev line-rev)))
+
+(define (rewrite-smoosh-no-an-raws raws)
+  (rewrite-no-an-raws raws rewrite-smoosh-line))
 
 (define (logic-head-token? t)
   (and (eq? (token-type t) 'WORD)
@@ -411,24 +401,14 @@
 
 (define (rewrite-logic-line line-toks)
   (let loop ([prefix '()] [rest line-toks])
-    (cond
-      [(null? rest)
+    (match rest
+      ['()
        (append (reverse prefix) rest)]
-      [(and (pair? (cdr rest))
-            (logic-head-token? (car rest))
-            (word-token-ci=? (cadr rest) "OF"))
-       (define head1 (car rest))
-       (define head2 (cadr rest))
-       (define suffix (cddr rest))
+      [(cons head1 (cons head2 suffix))
+       #:when (and (logic-head-token? head1)
+                   (word-token-ci=? head2 "OF"))
        (define-values (args tail)
-         (let gather ([remaining suffix] [acc '()])
-           (cond
-             [(null? remaining)
-              (values (reverse acc) '())]
-             [(word-token-ci=? (car remaining) "MKAY")
-              (values (reverse acc) remaining)]
-             [else
-              (gather (cdr remaining) (cons (car remaining) acc))])))
+         (split-until-mkay suffix))
        (define rewritten-args
          (if (and (>= (length args) 2)
                   (not (for/or ([a (in-list args)])
@@ -437,87 +417,50 @@
              (insert-optional-an-separators args)
              args))
        (append (reverse prefix) (list head1 head2) rewritten-args tail)]
-      [else
-       (loop (cons (car rest) prefix) (cdr rest))])))
+      [(cons t rst)
+       (loop (cons t prefix) rst)])))
 
-(define (rewrite-logic-no-an-raws raws [line '()] [out '()])
-  (cond
-    [(null? raws)
-     (append out (rewrite-logic-line line))]
-    [else
-     (define t (car raws))
-     (if (eq? (token-type t) 'NEWLINE)
-         (rewrite-logic-no-an-raws
-          (cdr raws)
-          '()
-          (append out (rewrite-logic-line line) (list t)))
-         (rewrite-logic-no-an-raws
-          (cdr raws)
-          (append line (list t))
-          out))]))
+(define (rewrite-logic-no-an-raws raws)
+  (rewrite-no-an-raws raws rewrite-logic-line))
 
 (define (insert-optional-an-separators args)
-  (let loop ([remaining args] [idx 0] [out '()])
-    (cond
-      [(null? remaining) (reverse out)]
-      [else
-       (define arg (car remaining))
-       (if (zero? idx)
-           (loop (cdr remaining)
-                 (add1 idx)
-                 (cons arg out))
-           (loop (cdr remaining)
-                 (add1 idx)
-                 (cons arg
-                       (cons (token 'WORD
-                                    "AN"
-                                    (token-line arg)
-                                    (max 1 (- (token-col arg) 3)))
-                             out))))])))
+  (match args
+    ['() '()]
+    [(cons first rest)
+     (cons first
+           (for/foldr ([out '()])
+                      ([arg (in-list rest)])
+             (list* (token 'WORD
+                           "AN"
+                           (token-line arg)
+                           (max 1 (- (token-col arg) 3)))
+                    arg
+                    out)))]))
 
 (define (rewrite-visible-line line-toks)
-  (cond
-    [(or (null? line-toks)
-         (not (word-token-ci=? (car line-toks) "VISIBLE")))
-     line-toks]
-    [else
-     (define visible-tok (car line-toks))
-     (define body (cdr line-toks))
-     (define has-trailing-bang?
-       (and (pair? body)
-            (word-token-ci=? (last body) "!")))
-     (define args
-       (if has-trailing-bang?
-           (drop-right body 1)
-           body))
-     (define trailing
-       (if has-trailing-bang?
-           (list (last body))
-           '()))
+  (match line-toks
+    [(cons visible-tok body)
+     #:when (word-token-ci=? visible-tok "VISIBLE")
+     (define-values (args trailing)
+       (if (pair? body)
+           (let-values ([(candidate-args candidate-trailing)
+                         (split-at-right body 1)])
+             (if (word-token-ci=? (car candidate-trailing) "!")
+                 (values candidate-args candidate-trailing)
+                 (values body '())))
+           (values body '())))
      (if (and (>= (length args) 2)
               (not (for/or ([a (in-list args)])
                      (word-token-ci=? a "AN")))
               (andmap raw-atom-token? args))
-         (append (list visible-tok)
-                 (insert-optional-an-separators args)
-                 trailing)
-         line-toks)]))
+         (cons visible-tok
+               (append (insert-optional-an-separators args)
+                       trailing))
+         line-toks)]
+    [_ line-toks]))
 
-(define (rewrite-visible-no-an-raws raws [line '()] [out '()])
-  (cond
-    [(null? raws)
-     (append out (rewrite-visible-line line))]
-    [else
-     (define t (car raws))
-     (if (eq? (token-type t) 'NEWLINE)
-         (rewrite-visible-no-an-raws
-          (cdr raws)
-          '()
-          (append out (rewrite-visible-line line) (list t)))
-         (rewrite-visible-no-an-raws
-          (cdr raws)
-          (append line (list t))
-          out))]))
+(define (rewrite-visible-no-an-raws raws)
+  (rewrite-no-an-raws raws rewrite-visible-line))
 
 (define (raw->token raw)
   (define ttype (token-type raw))
@@ -543,7 +486,16 @@
 (define (raw->position-token raw)
   (define line (token-line raw))
   (define col (token-col raw))
-  (define len (max 1 (string-length (token-lexeme raw))))
+  (define lexeme (token-lexeme raw))
+  (define len
+    (max 1
+         (cond
+           [(string? lexeme)
+            (string-length lexeme)]
+           [(yarn-template? lexeme)
+            (yarn-template-source-length lexeme)]
+           [else
+            1])))
   (define start (make-position 0 line col))
   (define end (make-position 0 line (+ col len)))
   (make-position-token (raw->token raw) start end))
@@ -774,7 +726,8 @@
 
     (object-stmt
      [(O HAI IM name-spec object-parent-opt nlopt statement-list-opt KTHX)
-      (stmt-object-def $4 (car $5) (cdr $5) $7)])
+      (match-let ([(cons parent-spec mixins) $5])
+        (stmt-object-def $4 parent-spec mixins $7))])
 
     (object-parent-opt
      [() (cons #f '())]

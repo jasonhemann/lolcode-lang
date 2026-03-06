@@ -1555,6 +1555,21 @@
   (check-equal? (hash-ref format-string-escaped-placeholder 'stdout)
                 ":{name}\n")
 
+  (define pua-placeholder-start (string (integer->char #xE000)))
+  (define pua-placeholder-end (string (integer->char #xE001)))
+  (define format-string-private-use-literal-src
+    (string-append
+     "HAI 1.3\n"
+     "VISIBLE \"" pua-placeholder-start "\"\n"
+     "VISIBLE \"" pua-placeholder-end "\"\n"
+     "KTHXBYE\n"))
+  (define format-string-private-use-literal
+    (run-source format-string-private-use-literal-src))
+  (check-eq? (hash-ref format-string-private-use-literal 'status) 'ok)
+  (check-equal? (hash-ref format-string-private-use-literal 'stdout)
+                (string-append pua-placeholder-start "\n"
+                               pua-placeholder-end "\n"))
+
   (define format-string-missing-src
     "HAI 1.3\nVISIBLE \"HI :{missing}\"\nKTHXBYE\n")
   (define format-string-missing-result (run-source format-string-missing-src))

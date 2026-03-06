@@ -191,35 +191,19 @@
     (set-it! e updated)))
 
 (define (expand-format-placeholders e text)
+  (define template
+    (ensure-yarn-template text))
   (define out (open-output-string))
-  (define len (string-length text))
-  (define (find-placeholder-end from)
-    (let loop ([i from])
-      (cond
-        [(>= i len) #f]
-        [(placeholder-end? (string-ref text i)) i]
-        [else (loop (add1 i))])))
-  (define (loop i)
-    (cond
-      [(>= i len) (get-output-string out)]
-      [else
-       (define ch (string-ref text i))
-       (cond
-         [(placeholder-start? ch)
-          (define end-i (find-placeholder-end (add1 i)))
-          (unless end-i
-            (error 'run-program "unterminated :{...} placeholder in YARN literal"))
-          (define raw-name
-            (substring text (add1 i) end-i))
-          (define name (string-trim raw-name))
-          (when (string=? name "")
-            (error 'run-program "empty :{...} placeholder in YARN literal"))
-          (display (lol-string (env-ref e name)) out)
-          (loop (add1 end-i))]
-         [else
-          (write-char ch out)
-          (loop (add1 i))])]))
-  (loop 0))
+  (for ([part (in-list (yarn-template-parts template))])
+    (match part
+      [(yarn-part-text literal)
+       (display literal out)]
+      [(yarn-part-placeholder raw-name)
+       (define name (string-trim raw-name))
+       (when (string=? name "")
+         (error 'run-program "empty :{...} placeholder in YARN literal"))
+       (display (lol-string (env-ref e name)) out)]))
+  (get-output-string out))
 
 (define (resolve-bukkit who value)
   (unless (lol-object? value)
