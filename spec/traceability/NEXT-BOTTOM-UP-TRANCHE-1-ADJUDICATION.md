@@ -52,6 +52,15 @@ Pass-2 tranche-1 targets:
 | `N82` | adjudicated | Mutable-value aliasing policy is consistent across mixin copy and ordinary assignment paths: shared BUKKIT references remain shared unless explicitly re-bound. |
 | `N20` | adjudicated (extended) | `omgwtf` missing-slot policy is pinned for stateful hooks: return-value memoization is authoritative for the resolved slot name even if intermediate same-slot mutation occurs inside `omgwtf`. |
 | `N13` | adjudicated (edge policy) | `omgwtf` same-slot recursive re-entry is trapped as deterministic runtime error to avoid silent divergence in spec-underdetermined recursion scenarios. |
+| `N70` | adjudicated | Reserved literal/special names are rejected at user binding sites (declarations, function/method/object names, parameter names) via runtime binder gate; added regressions for `WIN`/`ME` declarations and `FAIL`/`NOOB`/`TROOF` def-name/param/object collisions. |
+| `N71` | adjudicated | Version acceptance remains strict `1.3`; unsupported versions and missing-version behavior are pinned by parse negatives (`unsupported-v12`, `unsupported-v14`, `missing-version`). |
+| `N72` | adjudicated | BUKKIT values are truthy (no empty-container false special case), now explicitly pinned (`empty-bukkit-truthy-src`). |
+| `N73` | adjudicated | Numeric portability follows host runtime: division by zero surfaces runtime error, and large NUMBR arithmetic remains exact (`quoshunt-division-by-zero-runtime-error-src`, `numbr-bignum-arithmetic-src`). |
+| `N74` | adjudicated | IT-sensitive statement update policy remains the closed-list captured by `N60` and enforced by matrix regression (`it-update-matrix-src`). |
+| `N75` | adjudicated | RHS sequencing is now pinned: declaration RHS cannot see the binding being created, assignment RHS reads prior binding value (`declaration-rhs-does-not-see-binding-being-declared-src`, `assignment-rhs-sees-prior-binding-value-src`). |
+| `N76` | adjudicated | No forward-reference prebinding for functions; call-before-definition is runtime error (`function-forward-reference-runtime-error-src`). |
+| `N77` | adjudicated | Duplicate function parameter names are rejected by same-scope binding rules at call frame construction (`function-duplicate-params-runtime-error-src`). |
+| `N78` | adjudicated | Nested function definitions are rejected under strict 1.3 parser policy (`nested HOW IZ I definitions are not allowed in strict 1.3` parse negatives). |
 
 ## N23 Policy Table: Special Slots
 
@@ -85,6 +94,7 @@ Pass-2 tranche-1 targets:
 8. Completed (2026-03-06): `omgwtf` stateful memoization precedence and same-slot re-entry policy pinned with targeted runtime regressions.
 9. Completed (2026-03-06): strict-case audit removed residual case-insensitive keyword/type/literal/comment handling extensions and added regressions for lowercase lookalike behavior.
 10. Completed (2026-03-06): `izmakin` ordering/reentrancy and method-call argument expression policy (`N19`, `N42`) pinned with dedicated runtime regressions.
+11. Completed (2026-03-06): quaternary-seed pass adjudicated/pinned `N70`-`N78` behavior for reserved-name collisions, truthiness/numeric policy edges, RHS sequencing, forward references, duplicate params, and nested function-definition strictness.
 
 ## Fourth-Tier Integration Note
 

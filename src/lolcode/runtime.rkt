@@ -109,6 +109,25 @@
       maybe-callable
       (error 'run-program "unknown ~a: ~a" who name)))
 
+(define reserved-binding-names
+  (hash "WIN" #t
+        "FAIL" #t
+        "NOOB" #t
+        "NUMBR" #t
+        "NUMBAR" #t
+        "YARN" #t
+        "TROOF" #t
+        "TYPE" #t
+        "ME" #t))
+
+(define (ensure-bindable-name who name)
+  (when (hash-ref reserved-binding-names name #f)
+    (error 'run-program
+           "~a uses reserved identifier name: ~a"
+           who
+           name))
+  name)
+
 (define (bind-global-it-alias! call-env caller-ctx)
   (define global-it-box
     (or (env-lookup-box (runtime-globals caller-ctx) "IT")
@@ -475,7 +494,8 @@
   (define init-proc (compile-declare-init init))
   (lambda (e ctx)
     (define value (init-proc e ctx))
-    (env-define! e (name-proc e ctx) value)))
+    (define name (ensure-bindable-name "declaration" (name-proc e ctx)))
+    (env-define! e name value)))
 
 (define (compile-stmt-assign target expr)
   (define lv
@@ -669,10 +689,10 @@
          params))
   (lambda (e ctx)
     (define resolved-name
-      (name-proc e ctx))
+      (ensure-bindable-name "function name" (name-proc e ctx)))
     (define resolved-params
       (map (lambda (param-name-proc)
-             (param-name-proc e ctx))
+             (ensure-bindable-name "parameter name" (param-name-proc e ctx)))
            param-name-procs))
     (define def-env e)
     (define method-lexical-parent
@@ -770,10 +790,10 @@
          params))
   (lambda (e ctx)
     (define resolved-name
-      (name-proc e ctx))
+      (ensure-bindable-name "method name" (name-proc e ctx)))
     (define resolved-params
       (map (lambda (param-name-proc)
-             (param-name-proc e ctx))
+             (ensure-bindable-name "parameter name" (param-name-proc e ctx)))
            param-name-procs))
     (define target (receiver-proc e ctx))
     (unless (lol-object? target)
@@ -838,7 +858,7 @@
   (define body-proc (compile-block body))
   (lambda (e ctx)
     (define resolved-name
-      (name-proc e ctx))
+      (ensure-bindable-name "object name" (name-proc e ctx)))
     (define obj
       (if parent-proc
           (let* ([resolved-parent-name

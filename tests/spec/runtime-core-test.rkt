@@ -300,6 +300,43 @@
   (check-eq? (hash-ref function-outer-scope 'status) 'ok)
   (check-equal? (hash-ref function-outer-scope 'stdout) "9\n")
 
+  (define function-forward-reference-runtime-error-src
+    "HAI 1.3\nVISIBLE I IZ later MKAY\nHOW IZ I later\n  FOUND YR \"ok\"\nIF U SAY SO\nKTHXBYE\n")
+  (define function-forward-reference-runtime-error
+    (run-source function-forward-reference-runtime-error-src))
+  (check-eq? (hash-ref function-forward-reference-runtime-error 'status) 'runtime-error)
+  ;; Policy: function bindings become available when definition statements execute.
+  (check-true (regexp-match? #px"unknown function: later"
+                             (hash-ref function-forward-reference-runtime-error
+                                       'error)))
+
+  (define function-duplicate-params-runtime-error-src
+    "HAI 1.3\nHOW IZ I dup YR x AN YR x\n  FOUND YR x\nIF U SAY SO\nVISIBLE I IZ dup YR 1 AN YR 2 MKAY\nKTHXBYE\n")
+  (define function-duplicate-params-runtime-error
+    (run-source function-duplicate-params-runtime-error-src))
+  (check-eq? (hash-ref function-duplicate-params-runtime-error 'status) 'runtime-error)
+  (check-true (regexp-match? #px"identifier already declared in this scope: x"
+                             (hash-ref function-duplicate-params-runtime-error
+                                       'error)))
+
+  (define declaration-rhs-does-not-see-binding-being-declared-src
+    "HAI 1.3\nI HAS A x ITZ SUM OF x AN 1\nKTHXBYE\n")
+  (define declaration-rhs-does-not-see-binding-being-declared
+    (run-source declaration-rhs-does-not-see-binding-being-declared-src))
+  (check-eq? (hash-ref declaration-rhs-does-not-see-binding-being-declared 'status)
+             'runtime-error)
+  (check-true (regexp-match? #px"unknown identifier: x"
+                             (hash-ref declaration-rhs-does-not-see-binding-being-declared
+                                       'error)))
+
+  (define assignment-rhs-sees-prior-binding-value-src
+    "HAI 1.3\nI HAS A x ITZ 1\nx R SUM OF x AN 1\nVISIBLE x\nKTHXBYE\n")
+  (define assignment-rhs-sees-prior-binding-value
+    (run-source assignment-rhs-sees-prior-binding-value-src))
+  (check-eq? (hash-ref assignment-rhs-sees-prior-binding-value 'status) 'ok)
+  (check-equal? (hash-ref assignment-rhs-sees-prior-binding-value 'stdout)
+                "2\n")
+
   (define function-it-reset-src
     "HAI 1.3\nHOW IZ I peek\n  FOUND YR IT\nIF U SAY SO\nVISIBLE I IZ peek MKAY\nSUM OF 1 AN 2\nVISIBLE I IZ peek MKAY\nKTHXBYE\n")
   (define function-it-reset (run-source function-it-reset-src))
@@ -347,6 +384,14 @@
     (run-source orly-uses-implicit-it-src))
   (check-eq? (hash-ref orly-uses-implicit-it 'status) 'ok)
   (check-equal? (hash-ref orly-uses-implicit-it 'stdout) "N\n")
+
+  (define empty-bukkit-truthy-src
+    "HAI 1.3\nI HAS A b ITZ A BUKKIT\nb\nO RLY?\n  YA RLY\n    VISIBLE \"T\"\n  NO WAI\n    VISIBLE \"F\"\nOIC\nKTHXBYE\n")
+  (define empty-bukkit-truthy
+    (run-source empty-bukkit-truthy-src))
+  (check-eq? (hash-ref empty-bukkit-truthy 'status) 'ok)
+  ;; Policy: BUKKIT values are truthy (no empty-container false special case).
+  (check-equal? (hash-ref empty-bukkit-truthy 'stdout) "T\n")
 
   (define orly-assignment-does-not-reset-it-src
     "HAI 1.3\nWIN\nI HAS A x ITZ 0\nx R 1\nO RLY?\n  YA RLY\n    VISIBLE \"Y\"\n  NO WAI\n    VISIBLE \"N\"\nOIC\nKTHXBYE\n")
@@ -514,6 +559,25 @@
   ;; Spec line 305: NUMBR/NUMBR uses integer math; NUMBAR presence uses float math.
   (check-equal? (hash-ref quoshunt-numbr-vs-numbar 'stdout)
                 "2\n2.5\n0\n")
+
+  (define quoshunt-division-by-zero-runtime-error-src
+    "HAI 1.3\nVISIBLE QUOSHUNT OF 1 AN 0\nKTHXBYE\n")
+  (define quoshunt-division-by-zero-runtime-error
+    (run-source quoshunt-division-by-zero-runtime-error-src))
+  (check-eq? (hash-ref quoshunt-division-by-zero-runtime-error 'status)
+             'runtime-error)
+  (check-true (regexp-match? #px"division by zero"
+                             (hash-ref quoshunt-division-by-zero-runtime-error
+                                       'error)))
+
+  (define numbr-bignum-arithmetic-src
+    "HAI 1.3\nVISIBLE PRODUKT OF 1000000000000000000000000000000 AN 1000000000000000000000000000000\nKTHXBYE\n")
+  (define numbr-bignum-arithmetic
+    (run-source numbr-bignum-arithmetic-src))
+  (check-eq? (hash-ref numbr-bignum-arithmetic 'status) 'ok)
+  ;; Policy: numeric portability follows host integers; large NUMBR arithmetic remains exact.
+  (check-true (regexp-match? #px"^1[0-9]{60}\n$"
+                             (hash-ref numbr-bignum-arithmetic 'stdout)))
 
   (define equality-no-implicit-cast-src
     "HAI 1.3\nVISIBLE BOTH SAEM \"3\" AN 3\nVISIBLE DIFFRINT \"3\" AN 3\nVISIBLE BOTH SAEM MAEK \"3\" A NUMBR AN 3\nKTHXBYE\n")
@@ -1193,6 +1257,53 @@
   (check-eq? (hash-ref lowercase-identifiers-not-literals-result 'status) 'ok)
   (check-equal? (hash-ref lowercase-identifiers-not-literals-result 'stdout)
                 "3\n4\n5\n6\nWIN\nFAIL\nNOOB\nNUMBR\n")
+
+  (define reserved-literal-name-declaration-runtime-error-src
+    "HAI 1.3\nI HAS A WIN ITZ 1\nKTHXBYE\n")
+  (define reserved-literal-name-declaration-runtime-error
+    (run-source reserved-literal-name-declaration-runtime-error-src))
+  (check-eq? (hash-ref reserved-literal-name-declaration-runtime-error 'status)
+             'runtime-error)
+  (check-true (regexp-match? #px"declaration uses reserved identifier name: WIN"
+                             (hash-ref reserved-literal-name-declaration-runtime-error
+                                       'error)))
+
+  (define reserved-special-name-declaration-runtime-error-src
+    "HAI 1.3\nI HAS A ME ITZ 1\nKTHXBYE\n")
+  (define reserved-special-name-declaration-runtime-error
+    (run-source reserved-special-name-declaration-runtime-error-src))
+  (check-eq? (hash-ref reserved-special-name-declaration-runtime-error 'status)
+             'runtime-error)
+  (check-true (regexp-match? #px"declaration uses reserved identifier name: ME"
+                             (hash-ref reserved-special-name-declaration-runtime-error
+                                       'error)))
+
+  (define reserved-function-name-runtime-error-src
+    "HAI 1.3\nHOW IZ I FAIL\n  FOUND YR 1\nIF U SAY SO\nKTHXBYE\n")
+  (define reserved-function-name-runtime-error
+    (run-source reserved-function-name-runtime-error-src))
+  (check-eq? (hash-ref reserved-function-name-runtime-error 'status) 'runtime-error)
+  (check-true (regexp-match? #px"function name uses reserved identifier name: FAIL"
+                             (hash-ref reserved-function-name-runtime-error
+                                       'error)))
+
+  (define reserved-parameter-name-runtime-error-src
+    "HAI 1.3\nHOW IZ I f YR NOOB\n  FOUND YR 1\nIF U SAY SO\nKTHXBYE\n")
+  (define reserved-parameter-name-runtime-error
+    (run-source reserved-parameter-name-runtime-error-src))
+  (check-eq? (hash-ref reserved-parameter-name-runtime-error 'status) 'runtime-error)
+  (check-true (regexp-match? #px"parameter name uses reserved identifier name: NOOB"
+                             (hash-ref reserved-parameter-name-runtime-error
+                                       'error)))
+
+  (define reserved-object-name-runtime-error-src
+    "HAI 1.3\nO HAI IM TROOF\nKTHX\nKTHXBYE\n")
+  (define reserved-object-name-runtime-error
+    (run-source reserved-object-name-runtime-error-src))
+  (check-eq? (hash-ref reserved-object-name-runtime-error 'status) 'runtime-error)
+  (check-true (regexp-match? #px"object name uses reserved identifier name: TROOF"
+                             (hash-ref reserved-object-name-runtime-error
+                                       'error)))
 
   (define line-cont-src
     "HAI 1.3\nVISIBLE SMOOSH \"A\" AN ...\n\"B\" MKAY\nKTHXBYE\n")

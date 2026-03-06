@@ -321,6 +321,11 @@
   (check-not-exn
    (lambda () (parse-program as-as-identifier)))
 
+  (define mkay-as-identifier
+    "HAI 1.3\nI HAS A MKAY ITZ 1\nKTHXBYE\n")
+  (check-exn #px"syntax error:"
+             (lambda () (parse-program mkay-as-identifier)))
+
   (define declaration-article-optional
     "HAI 1.3\nI HAS x ITZ 1\nVISIBLE x\nKTHXBYE\n")
   (check-not-exn
