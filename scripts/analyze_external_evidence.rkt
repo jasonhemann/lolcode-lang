@@ -123,7 +123,12 @@
     [else
      "needs-manual-triage"]))
 
-(define (build-report rows selected-scope selected-triage selected-hypothesis)
+(define (build-report rows
+                      selected-wave
+                      selected-id
+                      selected-scope
+                      selected-triage
+                      selected-hypothesis)
   (define enriched
     (for/list ([r (in-list rows)])
       (define bucket (bucket-for r))
@@ -177,7 +182,9 @@
             'message (hash-ref r 'normalized-message))))
 
   (hash 'generated-at (date->string (current-date) #t)
-        'filters (hash 'scope (filter-value->label selected-scope 'scope)
+        'filters (hash 'wave (filter-value->label selected-wave 'wave)
+                       'id (filter-value->label selected-id 'id)
+                       'scope (filter-value->label selected-scope 'scope)
                        'triage-status (filter-value->label selected-triage 'triage-status)
                        'hypothesis (filter-value->label selected-hypothesis 'hypothesis))
         'totals (hash 'cases (length enriched))
@@ -212,7 +219,9 @@
       (fprintf out "# External Evidence Report\n\n")
       (fprintf out "Generated: `~a`\n\n" (hash-ref report 'generated-at))
       (fprintf out "- Cases evaluated: `~a`\n" (hash-ref (hash-ref report 'totals) 'cases))
-      (fprintf out "- Filters: scope=`~a`, triage=`~a`, hypothesis=`~a`\n"
+      (fprintf out "- Filters: wave=`~a`, id=`~a`, scope=`~a`, triage=`~a`, hypothesis=`~a`\n"
+               (hash-ref filters 'wave)
+               (hash-ref filters 'id)
                (hash-ref filters 'scope)
                (hash-ref filters 'triage-status)
                (hash-ref filters 'hypothesis))
@@ -267,6 +276,8 @@
   (define manifest-path default-manifest-path)
   (define json-out-path default-json-out-path)
   (define md-out-path default-md-out-path)
+  (define selected-wave #f)
+  (define selected-id #f)
   (define selected-scope #f)
   (define selected-triage #f)
   (define selected-hypothesis #f)
@@ -280,6 +291,17 @@
                     (set! json-out-path (string->path path))]
    [("--md-out") path "Markdown output path"
                   (set! md-out-path (string->path path))]
+   [("--wave") w "Select only wave N"
+                (define maybe-wave (string->number w))
+                (unless (and maybe-wave
+                             (exact-integer? maybe-wave)
+                             (> maybe-wave 0))
+                  (error 'analyze-external-evidence
+                         "--wave must be a positive integer, got ~e"
+                         w))
+                (set! selected-wave maybe-wave)]
+   [("--id") case-id "Select only one case id"
+               (set! selected-id case-id)]
    [("--scope") s "Select only one spec scope: 1.2 | 1.3 | 1.2+1.3 | unknown"
                  (set! selected-scope (parse-scope-arg s))]
    [("--triage") s "Select only one triage-status"
@@ -291,13 +313,18 @@
 
   (define rows
     (evaluate-evidence-cases manifest-path
-                             #f
-                             #f
+                             selected-wave
+                             selected-id
                              selected-scope
                              selected-triage
                              selected-hypothesis))
   (define report
-    (build-report rows selected-scope selected-triage selected-hypothesis))
+    (build-report rows
+                  selected-wave
+                  selected-id
+                  selected-scope
+                  selected-triage
+                  selected-hypothesis))
 
   (write-json-report json-out-path report)
   (write-md-report md-out-path report json-out-path)

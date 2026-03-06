@@ -281,6 +281,11 @@ Latest checklist-batch delta (`2026-03-06`, analyzer filter parity pass):
 - Added report metadata for active filters (`scope`, `triage-status`, `hypothesis`) to both JSON and Markdown outputs.
 - Verified filtered analyzer runs (`--scope 1.3 --hypothesis expects-pass`, `--scope unknown --triage reproducer-ready`) and confirmed the main evidence runner remains stable.
 
+Latest checklist-batch delta (`2026-03-06`, analyzer wave/id targeting pass):
+- Added `--wave` and `--id` filters to `scripts/analyze_external_evidence.rkt` to match runner-level targeting granularity.
+- Extended analyzer filter metadata to include `wave` and `id` in generated reports.
+- Verified targeted analyzer slices (`--wave 1 --id ext_lci_issue_0047`, `--wave 1 --scope unknown`) and re-verified full external evidence stability.
+
 Next corpus/harvest actions tied to this checklist:
 - [x] `47` Partition parse-errors into `strict-non-1.3`, `spec-divergence`, `program-bug`.
   Done: produced `corpus/research/PARSE_ERROR_PARTITION_2026-03-05.md` (tier2 likely-program parse failures: strict-non-1.3 `149`, program-bug `18`, spec-divergence `0`).

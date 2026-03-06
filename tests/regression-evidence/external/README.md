@@ -96,6 +96,12 @@ Generate a filtered external evidence bucket report:
 racket scripts/analyze_external_evidence.rkt --scope 1.3 --hypothesis expects-pass
 ```
 
+Generate a single-case external evidence report:
+
+```bash
+racket scripts/analyze_external_evidence.rkt --wave 1 --id ext_lci_issue_0047
+```
+
 Promote supported `candidate` triage entries to `reproducer-ready`:
 
 ```bash
