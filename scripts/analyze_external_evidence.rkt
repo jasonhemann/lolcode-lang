@@ -18,6 +18,20 @@
 (define-runtime-path default-md-out-path
   "../corpus/research/EXTERNAL_EVIDENCE_REPORT.md")
 
+(define valid-triage-status
+  '("candidate"
+    "reproducer-ready"
+    "spec-ambiguous"
+    "known-divergence"
+    "out-of-spec-1.4"
+    "promoted-conformance"))
+
+(define valid-hypotheses
+  '("unknown"
+    "expects-pass"
+    "expects-parse-error"
+    "expects-runtime-error"))
+
 (define (hash-inc h k [n 1])
   (hash-set h k (+ n (hash-ref h k 0))))
 
@@ -39,6 +53,28 @@
       "(none)"
       (string-trim (car (string-split msg "\n")))))
 
+(define (parse-scope-arg s)
+  (cond
+    [(string=? s "1.2") '("1.2")]
+    [(string=? s "1.3") '("1.3")]
+    [(or (string=? s "1.2+1.3")
+         (string=? s "1.3+1.2"))
+     '("1.2" "1.3")]
+    [(string=? s "unknown") '("unknown")]
+    [else
+     (error 'analyze-external-evidence
+            "--scope must be one of 1.2, 1.3, 1.2+1.3, unknown; got ~e"
+            s)]))
+
+(define (parse-one-of who arg allowed)
+  (unless (member arg allowed)
+    (error 'analyze-external-evidence
+           "~a must be one of ~a, got ~e"
+           who
+           (string-join allowed ", ")
+           arg))
+  arg)
+
 (define (scope-label scope)
   (cond
     [(equal? scope '("1.2")) "1.2"]
@@ -46,6 +82,12 @@
     [(equal? scope '("1.2" "1.3")) "1.2+1.3"]
     [(equal? scope '("unknown")) "unknown"]
     [else (format "~s" scope)]))
+
+(define (filter-value->label v kind)
+  (cond
+    [(eq? v #f) "all"]
+    [(eq? kind 'scope) (scope-label v)]
+    [else (~a v)]))
 
 (define (bucket-for row)
   (define status
@@ -81,7 +123,7 @@
     [else
      "needs-manual-triage"]))
 
-(define (build-report rows)
+(define (build-report rows selected-scope selected-triage selected-hypothesis)
   (define enriched
     (for/list ([r (in-list rows)])
       (define bucket (bucket-for r))
@@ -135,6 +177,9 @@
             'message (hash-ref r 'normalized-message))))
 
   (hash 'generated-at (date->string (current-date) #t)
+        'filters (hash 'scope (filter-value->label selected-scope 'scope)
+                       'triage-status (filter-value->label selected-triage 'triage-status)
+                       'hypothesis (filter-value->label selected-hypothesis 'hypothesis))
         'totals (hash 'cases (length enriched))
         'status-counts (counts->rows status-counts)
         'bucket-counts (counts->rows bucket-counts)
@@ -159,6 +204,7 @@
   (define top-messages (hash-ref report 'top-messages))
   (define unknown-scope (hash-ref report 'unknown-spec-scope))
   (define candidates (hash-ref report 'candidates))
+  (define filters (hash-ref report 'filters))
 
   (make-directory* (or (path-only path) (current-directory)))
   (call-with-output-file path
@@ -166,6 +212,10 @@
       (fprintf out "# External Evidence Report\n\n")
       (fprintf out "Generated: `~a`\n\n" (hash-ref report 'generated-at))
       (fprintf out "- Cases evaluated: `~a`\n" (hash-ref (hash-ref report 'totals) 'cases))
+      (fprintf out "- Filters: scope=`~a`, triage=`~a`, hypothesis=`~a`\n"
+               (hash-ref filters 'scope)
+               (hash-ref filters 'triage-status)
+               (hash-ref filters 'hypothesis))
       (fprintf out "- JSON report: `~a`\n\n" (path->string json-path))
 
       (fprintf out "## Observed Status Counts\n\n")
@@ -217,6 +267,9 @@
   (define manifest-path default-manifest-path)
   (define json-out-path default-json-out-path)
   (define md-out-path default-md-out-path)
+  (define selected-scope #f)
+  (define selected-triage #f)
+  (define selected-hypothesis #f)
 
   (command-line
    #:program "analyze_external_evidence.rkt"
@@ -226,12 +279,25 @@
    [("--json-out") path "JSON output path"
                     (set! json-out-path (string->path path))]
    [("--md-out") path "Markdown output path"
-                  (set! md-out-path (string->path path))])
+                  (set! md-out-path (string->path path))]
+   [("--scope") s "Select only one spec scope: 1.2 | 1.3 | 1.2+1.3 | unknown"
+                 (set! selected-scope (parse-scope-arg s))]
+   [("--triage") s "Select only one triage-status"
+                  (set! selected-triage
+                        (parse-one-of "--triage" s valid-triage-status))]
+   [("--hypothesis") s "Select only one hypothesis"
+                      (set! selected-hypothesis
+                            (parse-one-of "--hypothesis" s valid-hypotheses))])
 
   (define rows
-    (evaluate-evidence-cases manifest-path #f #f))
+    (evaluate-evidence-cases manifest-path
+                             #f
+                             #f
+                             selected-scope
+                             selected-triage
+                             selected-hypothesis))
   (define report
-    (build-report rows))
+    (build-report rows selected-scope selected-triage selected-hypothesis))
 
   (write-json-report json-out-path report)
   (write-md-report md-out-path report json-out-path)

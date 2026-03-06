@@ -90,6 +90,12 @@ Generate external evidence bucket report:
 racket scripts/analyze_external_evidence.rkt
 ```
 
+Generate a filtered external evidence bucket report:
+
+```bash
+racket scripts/analyze_external_evidence.rkt --scope 1.3 --hypothesis expects-pass
+```
+
 Promote supported `candidate` triage entries to `reproducer-ready`:
 
 ```bash

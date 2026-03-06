@@ -276,6 +276,11 @@ Latest checklist-batch delta (`2026-03-06`, external-evidence triage/hypothesis 
 - Updated `tests/regression-evidence/external/README.md` with usage examples for both new filters.
 - Verified targeted slices (`--hypothesis expects-pass`, `--triage reproducer-ready --scope unknown`) and full run remain stable (`Assessment counts: supports 302`).
 
+Latest checklist-batch delta (`2026-03-06`, analyzer filter parity pass):
+- Added `--scope`, `--triage`, and `--hypothesis` filters to `scripts/analyze_external_evidence.rkt` so reporting can be targeted without post-processing.
+- Added report metadata for active filters (`scope`, `triage-status`, `hypothesis`) to both JSON and Markdown outputs.
+- Verified filtered analyzer runs (`--scope 1.3 --hypothesis expects-pass`, `--scope unknown --triage reproducer-ready`) and confirmed the main evidence runner remains stable.
+
 Next corpus/harvest actions tied to this checklist:
 - [x] `47` Partition parse-errors into `strict-non-1.3`, `spec-divergence`, `program-bug`.
   Done: produced `corpus/research/PARSE_ERROR_PARTITION_2026-03-05.md` (tier2 likely-program parse failures: strict-non-1.3 `149`, program-bug `18`, spec-divergence `0`).
