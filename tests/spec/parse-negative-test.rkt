@@ -450,6 +450,21 @@
   (check-true (regexp-match? #px"(syntax error:|lexing failed:|unexpected character|invalid identifier syntax:)"
                              slot-access-dash-operator-msg))
 
+  (define misspelled-diffrence-operator
+    "HAI 1.3\nVISIBLE DIFFRENCE OF 3 AN 1\nKTHXBYE\n")
+  (check-exn #px"syntax error: unexpected OF"
+             (lambda () (parse-program misspelled-diffrence-operator)))
+
+  (define misspelled-diffrence-in-srs-index
+    "HAI 1.3\nI HAS A xs ITZ A BUKKIT\nxs HAS A Length ITZ 1\nxs HAS A SRS 0 ITZ 7\nVISIBLE xs'Z SRS DIFFRENCE OF xs'Z Length AN 1\nKTHXBYE\n")
+  (check-exn #px"syntax error: unexpected OF"
+             (lambda () (parse-program misspelled-diffrence-in-srs-index)))
+
+  (define slash-slash-comment-style
+    "HAI 1.3\n// this is not a BTW comment\nKTHXBYE\n")
+  (check-exn #px"invalid identifier syntax: \"//\""
+             (lambda () (parse-program slash-slash-comment-style)))
+
   (define unterminated-block-comment
     "HAI 1.3\nOBTW\nVISIBLE \"oops\"\nKTHXBYE\n")
   (check-exn #px"unterminated OBTW block comment"

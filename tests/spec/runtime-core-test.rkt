@@ -578,6 +578,18 @@
   (check-true (regexp-match? #px"unknown slot: missing"
                              (hash-ref logic-binary-eager-rhs 'error)))
 
+  (define logic-binary-eager-rhs-numeric-srs-slot-src
+    "HAI 1.3\nI HAS A m ITZ A BUKKIT\nm HAS A SRS 1 ITZ 0\nVISIBLE BOTH OF FAIL AN DIFFRINT m'Z SRS 2 AN 0\nKTHXBYE\n")
+  (define logic-binary-eager-rhs-numeric-srs-slot
+    (run-source logic-binary-eager-rhs-numeric-srs-slot-src))
+  (check-eq? (hash-ref logic-binary-eager-rhs-numeric-srs-slot 'status)
+             'runtime-error)
+  ;; Corpus tie-in (loleuler/014): eager BOTH OF still evaluates RHS numeric
+  ;; SRS slot access, so missing-slot errors are not short-circuited.
+  (check-true (regexp-match? #px"unknown slot: 2"
+                             (hash-ref logic-binary-eager-rhs-numeric-srs-slot
+                                       'error)))
+
   (define logic-binary-left-to-right-src
     "HAI 1.3\nI HAS A log ITZ \"\"\nHOW IZ I mark YR ch\n  log R SMOOSH log AN ch MKAY\n  FOUND YR WIN\nIF U SAY SO\nVISIBLE BOTH OF I IZ mark YR \"L\" MKAY AN I IZ mark YR \"R\" MKAY\nVISIBLE log\nKTHXBYE\n")
   (define logic-binary-left-to-right (run-source logic-binary-left-to-right-src))
