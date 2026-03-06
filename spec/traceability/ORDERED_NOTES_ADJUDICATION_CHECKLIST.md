@@ -230,6 +230,12 @@ Latest checklist-batch delta (`2026-03-05`, post items `44-48`):
 - External evidence observed-status split remains `301 parse-error`, `1 ok`.
 - No new strict-1.3 implementation regressions surfaced by corpus/evidence reruns.
 
+Latest checklist-batch delta (`2026-03-06`, post tertiary + operand-order lock tests):
+- Re-ran gap/corpus/evidence snapshots; aggregate counts remain unchanged.
+- Strict in-scope failures remain `3 parse-error` + `1 runtime-error`, with no new parser/runtime spec divergences.
+- The two strict parse failures in `eulol` remain program-bug misspellings (`DIFFRENCE OF`); not valid 1.3 syntax.
+- The strict runtime failure (`loleuler/files/014.lol`) is a program assumption mismatch (expects short-circuiting around missing slot reads). Runtime semantics are now explicitly pinned as eager/left-to-right for binary boolean operators (`logic-binary-eager-rhs-src`, `logic-binary-left-to-right-src`).
+
 Next corpus/harvest actions tied to this checklist:
 - [x] `47` Partition parse-errors into `strict-non-1.3`, `spec-divergence`, `program-bug`.
   Done: produced `corpus/research/PARSE_ERROR_PARTITION_2026-03-05.md` (tier2 likely-program parse failures: strict-non-1.3 `149`, program-bug `18`, spec-divergence `0`).
