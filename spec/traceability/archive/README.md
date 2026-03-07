@@ -15,5 +15,5 @@ These files are retained for provenance only. Active planning and decisions live
 
 - `../SPEC_ADJUDICATION_POLICY.md`
 - `../EXPERT_REVIEW_ACTION_TODO_2026-03-07.md`
-- `../lolcode_1_3_expert_review_adjudication_pass1.md`
+- `../ITEM_BY_ITEM_RESOLUTION_MAP.md`
 - `../NEXT-BOTTOM-UP-TRANCHE-1-ADJUDICATION.md`

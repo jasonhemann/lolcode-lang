@@ -75,9 +75,9 @@ Use this ownership map to avoid policy fragmentation:
 1. Canonical adjudication rules:
    - `spec/traceability/SPEC_ADJUDICATION_POLICY.md`
 2. Expert item dispositions and status:
-   - `spec/traceability/lolcode_1_3_expert_review_adjudication_pass1.md`
+   - `spec/traceability/ITEM_BY_ITEM_RESOLUTION_MAP.md`
 3. Delta discoveries and tranche updates:
-   - `spec/traceability/EXPERT_REVIEW_DEEP_AUDIT_DELTA_2026-03-06.md`
+   - `spec/traceability/spec-1.3-clause-mapping-audit.md`
 4. Implementation/refactor house style:
    - `spec/traceability/IMPLEMENTATION_HOUSE_STYLE.md`
 5. Clause-level matrix truth source:
