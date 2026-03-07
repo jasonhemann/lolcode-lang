@@ -2,7 +2,7 @@
 
 Date: 2026-03-05  
 Inputs checked:
-- `NEXT-BOTTOM-UP-SPEC-CONCERNS-2026-03-05.md`
+- `archive/legacy-inputs/NEXT-BOTTOM-UP-SPEC-CONCERNS-2026-03-05.md`
 - `spec/upstream/lolcode-spec-v1.3.md`
 - `tests/spec/runtime-core-test.rkt`
 - `tests/spec/parse-negative-test.rkt`

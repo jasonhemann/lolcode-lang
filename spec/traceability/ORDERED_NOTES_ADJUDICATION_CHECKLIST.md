@@ -1,7 +1,7 @@
 # Ordered Adjudication Checklist (Notes x Spec 1.3)
 
 Source inputs (read in order):
-- `CURRENT-SPEC-NOTES-BUGS-WORRIES.md`
+- `archive/legacy-inputs/CURRENT-SPEC-NOTES-BUGS-WORRIES.md`
 - `spec/upstream/lolcode-spec-v1.3.md`
 
 Companion mapping audit:

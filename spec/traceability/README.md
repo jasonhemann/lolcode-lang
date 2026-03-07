@@ -21,6 +21,24 @@ This directory tracks clause-level conformance status for the strict 1.3 target.
   - Clause-intersection matrix for cross-feature bug hunting.
   - Maps high-risk clause pairs to dedicated pass/fail confluence tests.
 
+- `lolcode_1_3_expert_review_checklist.md`
+  - Expert checklist input for pass-level adjudication work.
+
+- `SPEC_ADJUDICATION_POLICY.md`
+  - Canonical strict-1.3 adjudication policy and decision ladder.
+
+- `EXPERT_REVIEW_DEEP_AUDIT_DELTA_2026-03-06.md`
+  - Expert-review delta findings plus remediation updates.
+
+- `EXPERT_REVIEW_ACTION_TODO_2026-03-07.md`
+  - Prioritized action queue from expert-review adjudication.
+
+- `IMPLEMENTATION_HOUSE_STYLE.md`
+  - Implementation invariants and refactor/style rules for runtime/parser work.
+
+- `archive/README.md`
+  - Provenance-only historical concern notebooks and their active replacements.
+
 ## Status Values
 
 - `implemented`: clause appears implemented and test-backed.

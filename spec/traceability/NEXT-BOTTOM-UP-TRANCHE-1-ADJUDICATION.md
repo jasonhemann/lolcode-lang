@@ -2,9 +2,9 @@
 
 Date: 2026-03-06
 Source list:
-- `NEXT-BOTTOM-UP-SPEC-CONCERNS-2026-03-05.md`
-- `third-tier-of-40-issues.md`
-- `fourth-tier-of-40-issues.md`
+- `archive/legacy-inputs/NEXT-BOTTOM-UP-SPEC-CONCERNS-2026-03-05.md`
+- `archive/legacy-inputs/third-tier-of-40-issues.md`
+- `archive/legacy-inputs/fourth-tier-of-40-issues.md`
 
 Policy: `spec/traceability/SPEC_ADJUDICATION_POLICY.md`
 

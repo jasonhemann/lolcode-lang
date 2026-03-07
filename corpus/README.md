@@ -75,6 +75,17 @@ Outputs:
 - `corpus/research/external_issues/candidate_repros.tsv`
 - `corpus/research/external_issues/candidate_repros_ranked.json`
 
+Update consolidated corpus tracking status:
+
+```bash
+./scripts/update_corpus_status.sh
+```
+
+Canonical status surface:
+
+- `corpus/research/CURRENT_STATUS.md`
+- `corpus/research/README.md`
+
 Seed one wave into the non-gating evidence suite:
 
 ```bash

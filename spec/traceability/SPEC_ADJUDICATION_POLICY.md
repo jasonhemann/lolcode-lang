@@ -9,6 +9,26 @@ Scope: `HAI 1.3` only, interpreted as 1.3 plus 1.2 baseline clauses not overridd
 2. Avoid silent extensions and ad hoc convenience behavior.
 3. Keep parser/runtime behavior predictable and compositional.
 4. Make every policy decision traceable to spec text and tests.
+5. Recover a unique, clear, coherent, executable semantics with no unnecessary implied machinery.
+
+## Exegesis Principles
+
+These principles guide interpretation when literal text alone does not pick one answer.
+
+1. Treat adjudication as semantic exegesis, not feature growth.
+2. Prefer interpretations that keep the language coherent and implementable end-to-end.
+3. If an interpretation would make large parts of the language ambiguous, incoherent, or unworkable, reject it.
+4. When multiple coherent readings remain, choose the one that introduces the least extra semantic machinery.
+5. Keep the resulting semantics compositional across interacting features (objects, slot calls, inheritance, control, IT).
+6. When no unique coherent reading is recoverable, classify explicitly as conflict/underdetermined and pin a narrow policy.
+7. In interpreting LOLCODE 1.3, we should use contemporaneous programming-language conventions only as interpretive context,
+   not as a source of semantics. The draft is from 2007 and explicitly aims to make LOLCODE more like what programmers of
+   that period would expect from modern languages, so it is appropriate to read it with familiarity with prototype inheritance,
+   receiver-sensitive method dispatch, missing-member hooks, and static mixin patterns. That background helps us avoid missing
+   implications that would likely have been obvious to the intended reader. But it must never override the actual text. We should
+   use period conventions to recognize what kind of mechanism the spec appears to be describing, not to invent behavior that the
+   text does not state or to repair a genuine contradiction. Where the text is silent or inconsistent, we should flag the ambiguity
+   and leave it unresolved
 
 ## Decision Ladder
 
@@ -77,3 +97,13 @@ A concern can be closed only when all are true:
 2. Behavior is represented in parser/runtime code.
 3. Tests pass and prevent regression.
 4. Traceability docs are updated.
+
+## Traceability Document Roles
+
+Use these roles to avoid duplicated or conflicting policy text:
+
+1. `SPEC_ADJUDICATION_POLICY.md`: canonical adjudication rules.
+2. `lolcode_1_3_expert_review_adjudication_pass1.md`: item-by-item dispositions.
+3. `EXPERT_REVIEW_DEEP_AUDIT_DELTA_2026-03-06.md`: delta findings and tranche updates.
+4. `EXPERT_REVIEW_ACTION_TODO_2026-03-07.md`: active implementation queue and closure status.
+5. `IMPLEMENTATION_HOUSE_STYLE.md`: code-level implementation/style invariants.

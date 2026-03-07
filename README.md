@@ -1,7 +1,7 @@
 lolcode-lang
 ===========
 
-A Racket-based [LOLCODE](http://lolcode.com) implementation project targeting the 1.2 and 1.3 specs.
+A Racket-based [LOLCODE](http://lolcode.com) implementation project targeting strict `HAI 1.3` (with 1.2 baseline clauses where 1.3 does not override).
 
 ## Corpus Sync
 
@@ -26,6 +26,7 @@ Issue/PR sync for `lci` divergence triage:
 Tracked triage notes live at:
 
 - `corpus/research/lci_issues/TRIAGE.md`
+- `corpus/research/CURRENT_STATUS.md`
 
 ## Racket Bootstrap
 

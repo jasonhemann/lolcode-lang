@@ -2,10 +2,10 @@
 
 Scope:
 - Source concern lists:
-  - `/Users/jhemann/Code/lolcode-lang/CURRENT-SPEC-NOTES-BUGS-WORRIES.md`
-  - `/Users/jhemann/Code/lolcode-lang/NEXT-BOTTOM-UP-SPEC-CONCERNS-2026-03-05.md`
-  - `/Users/jhemann/Code/lolcode-lang/third-tier-of-40-issues.md`
-  - `/Users/jhemann/Code/lolcode-lang/fourth-tier-of-40-issues.md`
+  - `/Users/jhemann/Code/lolcode-lang/spec/traceability/archive/legacy-inputs/CURRENT-SPEC-NOTES-BUGS-WORRIES.md`
+  - `/Users/jhemann/Code/lolcode-lang/spec/traceability/archive/legacy-inputs/NEXT-BOTTOM-UP-SPEC-CONCERNS-2026-03-05.md`
+  - `/Users/jhemann/Code/lolcode-lang/spec/traceability/archive/legacy-inputs/third-tier-of-40-issues.md`
+  - `/Users/jhemann/Code/lolcode-lang/spec/traceability/archive/legacy-inputs/fourth-tier-of-40-issues.md`
 - Canonical adjudication ledger:
   - `/Users/jhemann/Code/lolcode-lang/spec/traceability/NEXT-BOTTOM-UP-TRANCHE-1-ADJUDICATION.md`
 
