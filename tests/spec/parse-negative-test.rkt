@@ -507,6 +507,12 @@
   (check-exn #px"syntax error:"
              (lambda () (parse-program reserved-keyword-mkay-arg)))
 
+  (define malformed-method-call-args-missing-yr
+    "HAI 1.3\nO HAI IM box\n  HOW IZ I pair YR x AN YR y\n    FOUND YR x\n  IF U SAY SO\nKTHX\nVISIBLE box IZ pair YR 1 AN 2 MKAY\nKTHXBYE\n")
+  ;; Method-call argument lists follow: YR <expr> (AN YR <expr>)*.
+  (check-exn #px"syntax error:"
+             (lambda () (parse-program malformed-method-call-args-missing-yr)))
+
   (define nonliteral-wtf-case
     "HAI 1.3\nI HAS A x ITZ 1\nI HAS A y ITZ 1\nx, WTF?\n  OMG y\n    VISIBLE \"bad\"\nOIC\nKTHXBYE\n")
   (define nonliteral-wtf-case-msg

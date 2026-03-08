@@ -469,7 +469,7 @@
     "HAI 1.3\nI HAS A obj ITZ A BUKKIT\nI HAS A res ITZ obj IZ call MKAY\nKTHXBYE\n")
   (define unsupported (run-source unsupported-src))
   (check-eq? (hash-ref unsupported 'status) 'runtime-error)
-  (check-true (regexp-match? #px"unknown method"
+  (check-true (regexp-match? #px"unknown slot"
                              (hash-ref unsupported 'error)))
 
   (define inherited-object-src
@@ -848,7 +848,8 @@
   (define method-call-missing-slot
     (run-source method-call-missing-slot-src))
   (check-eq? (hash-ref method-call-missing-slot 'status) 'runtime-error)
-  (check-true (regexp-match? #px"unknown method: nope"
+  ;; Method-call miss follows slot-access miss path, including default omgwtf.
+  (check-true (regexp-match? #px"unknown slot: nope"
                              (hash-ref method-call-missing-slot 'error)))
 
   (define method-call-noncallable-slot-src
@@ -856,7 +857,7 @@
   (define method-call-noncallable-slot
     (run-source method-call-noncallable-slot-src))
   (check-eq? (hash-ref method-call-noncallable-slot 'status) 'runtime-error)
-  (check-true (regexp-match? #px"unknown method: nope"
+  (check-true (regexp-match? #px"method slot is not callable: nope"
                              (hash-ref method-call-noncallable-slot 'error)))
 
   (define missing-slot-default-omgwtf-src
@@ -922,23 +923,25 @@
   (check-true (regexp-match? #px"omgwtf recursion while resolving missing slot: nope"
                              (hash-ref omgwtf-recursive-same-slot-reentry 'error)))
 
-  (define method-call-does-not-trigger-omgwtf-src
-    "HAI 1.3\nHOW IZ I helper\n  FOUND YR \"OK\"\nIF U SAY SO\nO HAI IM box\n  HOW IZ I omgwtf\n    FOUND YR helper\n  IF U SAY SO\nKTHX\nVISIBLE box IZ nope MKAY\nKTHXBYE\n")
-  (define method-call-does-not-trigger-omgwtf
-    (run-source method-call-does-not-trigger-omgwtf-src))
-  (check-eq? (hash-ref method-call-does-not-trigger-omgwtf 'status) 'runtime-error)
-  ;; Policy: <object> IZ <slot> call path does not auto-materialize missing slots
-  ;; through omgwtf; only slot access (<object>'Z <slot>) does.
-  (check-true (regexp-match? #px"unknown method: nope"
-                             (hash-ref method-call-does-not-trigger-omgwtf 'error)))
+  (define method-call-miss-omgwtf-after-full-chain-src
+    "HAI 1.3\nHOW IZ I helper\n  FOUND YR \"OK\"\nIF U SAY SO\nO HAI IM parent\n  HOW IZ I present\n    FOUND YR \"PRESENT\"\n  IF U SAY SO\nKTHX\nO HAI IM box IM LIEK parent\n  I HAS A hits ITZ 0\n  HOW IZ I omgwtf\n    hits R SUM OF hits AN 1\n    FOUND YR helper\n  IF U SAY SO\nKTHX\nVISIBLE box IZ present MKAY\nVISIBLE box'Z hits\nVISIBLE box IZ nope MKAY\nVISIBLE box'Z hits\nVISIBLE box IZ nope MKAY\nVISIBLE box'Z hits\nKTHXBYE\n")
+  (define method-call-miss-omgwtf-after-full-chain
+    (run-source method-call-miss-omgwtf-after-full-chain-src))
+  (check-eq? (hash-ref method-call-miss-omgwtf-after-full-chain 'status) 'ok)
+  ;; Policy: method call miss triggers omgwtf only after full parent-chain lookup
+  ;; fails; hook result is memoized, so repeated calls do not retrigger.
+  (check-equal? (hash-ref method-call-miss-omgwtf-after-full-chain 'stdout)
+                "PRESENT\n0\nOK\n1\nOK\n1\n")
 
-  (define method-call-uses-prewarmed-omgwtf-slot-src
-    "HAI 1.3\nHOW IZ I helper\n  FOUND YR \"OK\"\nIF U SAY SO\nO HAI IM box\n  HOW IZ I omgwtf\n    FOUND YR helper\n  IF U SAY SO\nKTHX\nI HAS A warm ITZ box'Z nope\nVISIBLE box IZ nope MKAY\nKTHXBYE\n")
-  (define method-call-uses-prewarmed-omgwtf-slot
-    (run-source method-call-uses-prewarmed-omgwtf-slot-src))
-  (check-eq? (hash-ref method-call-uses-prewarmed-omgwtf-slot 'status) 'ok)
-  (check-equal? (hash-ref method-call-uses-prewarmed-omgwtf-slot 'stdout)
-                "OK\n")
+  (define method-call-miss-omgwtf-on-original-receiver-src
+    "HAI 1.3\nO HAI IM parent\n  HOW IZ I omgwtf\n    hits R SUM OF hits AN 1\n    FOUND YR ME'Z hitfn\n  IF U SAY SO\nKTHX\nO HAI IM box IM LIEK parent\n  I HAS A hits ITZ 0\n  HOW IZ I hitfn\n    FOUND YR \"OK\"\n  IF U SAY SO\nKTHX\nVISIBLE box IZ nope MKAY\nVISIBLE box'Z hits\nKTHXBYE\n")
+  (define method-call-miss-omgwtf-on-original-receiver
+    (run-source method-call-miss-omgwtf-on-original-receiver-src))
+  (check-eq? (hash-ref method-call-miss-omgwtf-on-original-receiver 'status) 'ok)
+  ;; Policy: once lookup fully fails, omgwtf is resolved then invoked once on the
+  ;; original receiver context (ME == receiver).
+  (check-equal? (hash-ref method-call-miss-omgwtf-on-original-receiver 'stdout)
+                "OK\n1\n")
 
   (define izmakin-special-slot-runs-on-prototype-src
     "HAI 1.3\nO HAI IM Maker\n  I HAS A seed ITZ 1\n  HOW IZ I izmakin\n    seed R SUM OF seed AN 1\n  IF U SAY SO\nKTHX\nI HAS A first ITZ LIEK A Maker\nI HAS A second ITZ LIEK A Maker\nVISIBLE first'Z seed\nVISIBLE second'Z seed\nKTHXBYE\n")
@@ -1162,7 +1165,7 @@
   (define parent-method-nonobject-terminates-chain
     (run-source parent-method-nonobject-terminates-chain-src))
   (check-eq? (hash-ref parent-method-nonobject-terminates-chain 'status) 'runtime-error)
-  (check-true (regexp-match? #px"unknown method: hi"
+  (check-true (regexp-match? #px"unknown slot: hi"
                              (hash-ref parent-method-nonobject-terminates-chain 'error)))
 
   (define parent-cycle-lookup-terminates-src
@@ -1198,7 +1201,7 @@
     (run-source parent-cycle-method-call-terminates-src))
   (check-eq? (hash-ref parent-cycle-method-call-terminates 'status) 'runtime-error)
   ;; Regression: method lookup traversal over parent chain must remain cycle-safe.
-  (check-true (regexp-match? #px"unknown method: nope"
+  (check-true (regexp-match? #px"unknown slot: nope"
                              (hash-ref parent-cycle-method-call-terminates 'error)))
 
   (define inherited-assignment-unknown-name-src

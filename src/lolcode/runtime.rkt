@@ -441,10 +441,15 @@
          (map (lambda (a) (a e ctx)) arg-procs))
        (define (invoke-on-object obj)
          (define maybe-slot-callable
-           (send obj lookup-slot method-name #f))
+           ;; Method calls share slot-access resolution semantics:
+           ;; full parent-chain search first, then one omgwtf miss hook on the
+           ;; original receiver if and only if the overall lookup fails.
+           (read-slot-value obj method-name ctx))
          (if (procedure? maybe-slot-callable)
              (invoke-slot-callable obj maybe-slot-callable arg-values ctx)
-             (error 'run-program "unknown method: ~a" method-name)))
+             (error 'run-program
+                    "method slot is not callable: ~a"
+                    method-name)))
        (cond
          [receiver-ident
           (define maybe-box

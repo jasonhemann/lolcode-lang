@@ -101,7 +101,7 @@ Legend:
 | `N81` | policy+implemented | `src/lolcode/runtime.rkt` (mixin shallow alias policy)                                | adjudication row `N81`                               |
 | `N82` | policy+implemented | `src/lolcode/runtime.rkt` (call-by-sharing consistency)                               | adjudication row `N82`                               |
 | `N83` | implemented        | `src/lolcode/runtime.rkt` (non-BUKKIT parent chain termination)                       | adjudication row `N83`                               |
-| `N84` | implemented        | `src/lolcode/runtime.rkt` (`omgwtf` non-invocation on method-call miss)               | adjudication row `N84`                               |
+| `N84` | implemented        | `src/lolcode/runtime.rkt` (method-call miss uses full slot-access + one-shot `omgwtf`) | adjudication row `N84`                               |
 | `N85` | implemented        | `src/lolcode/runtime.rkt` (`izmakin` failure atomicity)                               | adjudication row `N85`                               |
 
 ## Notes on “already correct” and “mistake”

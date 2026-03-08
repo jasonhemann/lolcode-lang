@@ -57,7 +57,7 @@ Priority A (semantic contradictions):
 2. Default return semantics in method context when no explicit `FOUND YR`.
 
 Priority B (special slots / object lifecycle):
-3. `omgwtf` trigger boundary for `<object> IZ <slot> ... MKAY` miss path (currently strict runtime error without hook materialization).
+3. DONE (2026-03-08): `omgwtf` trigger boundary for `<object> IZ <slot> ... MKAY` miss path aligned to slot-access semantics (full chain then one-shot hook on original receiver, with memoization).
 
 Priority C (underspecified feature intersections):
 4. Evaluation-order policy hardening for side-effecting expressions (`SMOOSH`/logic intersections).
