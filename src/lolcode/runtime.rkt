@@ -214,7 +214,7 @@
 (define (apply-mixins! target mixins)
   ;; Spec says mixins are applied in reverse declaration order.
   (for ([mix (in-list (reverse mixins))])
-    (send mix copy-own-into! target)))
+    (send mix copy-visible-into! target)))
 
 (define (run-izmakin-hook! obj _e ctx)
   (define maybe-slot-hook

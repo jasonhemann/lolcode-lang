@@ -100,9 +100,11 @@
       (remove-duplicates
        (append (hash-keys slots) parent-names)))
 
-    (define/public (copy-own-into! target)
-      (for ([(name b) (in-hash slots)])
-        (send target declare-slot! name (unbox b))))
+    (define/public (copy-visible-into! target)
+      ;; Copy the donor object's effective visible slot interface:
+      ;; own slots first, then inherited-visible slots from its parent chain.
+      (for ([name (in-list (send this slot-names (mutable-seteq)))])
+        (send target declare-slot! name (send this lookup-slot name noob))))
 
     (define/public (has-slot? name)
       (hash-has-key? slots name))

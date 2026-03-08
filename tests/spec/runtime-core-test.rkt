@@ -1278,8 +1278,9 @@
   (define mixin-special-parent-restored
     (run-source mixin-special-parent-restored-src))
   (check-eq? (hash-ref mixin-special-parent-restored 'status) 'ok)
-  ;; Regression: mixin parent slot copy must not replace declared IM LIEK parent.
-  (check-equal? (hash-ref mixin-special-parent-restored 'stdout) "BASE2\n")
+  ;; Regression: declared IM LIEK parent slot itself is restored even when the
+  ;; mixin contributes inherited-visible slots (including inherited tag values).
+  (check-equal? (hash-ref mixin-special-parent-restored 'stdout) "BASE1\n")
 
   (define mixin-special-omgwtf-copied-src
     "HAI 1.3\nO HAI IM parent\nKTHX\nO HAI IM mix\n  HOW IZ I omgwtf\n    FOUND YR \"mix\"\n  IF U SAY SO\nKTHX\nO HAI IM child IM LIEK parent SMOOSH mix\nKTHX\nVISIBLE child'Z ghost\nKTHXBYE\n")
@@ -1310,19 +1311,35 @@
     "HAI 1.3\nO HAI IM mixbase\n  I HAS A inherited ITZ \"INHERITED\"\nKTHX\nO HAI IM mix IM LIEK mixbase\n  I HAS A own ITZ \"OWN\"\nKTHX\nO HAI IM parent\nKTHX\nO HAI IM child IM LIEK parent SMOOSH mix\nKTHX\nVISIBLE child'Z own\nVISIBLE child'Z inherited\nKTHXBYE\n")
   (define mixin-source-own-only-slots
     (run-source mixin-source-own-only-slots-src))
-  (check-eq? (hash-ref mixin-source-own-only-slots 'status) 'runtime-error)
-  ;; Regression: mixin copy source set is own slots/methods, not inherited ones.
-  (check-equal? (hash-ref mixin-source-own-only-slots 'stdout) "OWN\n")
-  (check-true (regexp-match? #px"unknown slot: inherited"
-                             (hash-ref mixin-source-own-only-slots 'error)))
+  (check-eq? (hash-ref mixin-source-own-only-slots 'status) 'ok)
+  ;; Regression: mixin copy source set includes inherited-visible donor slots.
+  (check-equal? (hash-ref mixin-source-own-only-slots 'stdout)
+                "OWN\nINHERITED\n")
 
   (define mixin-source-own-only-methods-src
-    "HAI 1.3\nO HAI IM mixbase\n  HOW IZ I inheritedmeth\n    FOUND YR \"INHERITED\"\n  IF U SAY SO\nKTHX\nO HAI IM mix IM LIEK mixbase\nKTHX\nO HAI IM parent\nKTHX\nO HAI IM child IM LIEK parent SMOOSH mix\nKTHX\nchild IZ inheritedmeth MKAY\nKTHXBYE\n")
+    "HAI 1.3\nO HAI IM mixbase\n  HOW IZ I inheritedmeth\n    FOUND YR \"INHERITED\"\n  IF U SAY SO\nKTHX\nO HAI IM mix IM LIEK mixbase\nKTHX\nO HAI IM parent\nKTHX\nO HAI IM child IM LIEK parent SMOOSH mix\nKTHX\nVISIBLE child IZ inheritedmeth MKAY\nKTHXBYE\n")
   (define mixin-source-own-only-methods
     (run-source mixin-source-own-only-methods-src))
-  (check-eq? (hash-ref mixin-source-own-only-methods 'status) 'runtime-error)
-  (check-true (regexp-match? #px"unknown method: inheritedmeth"
-                             (hash-ref mixin-source-own-only-methods 'error)))
+  (check-eq? (hash-ref mixin-source-own-only-methods 'status) 'ok)
+  (check-equal? (hash-ref mixin-source-own-only-methods 'stdout)
+                "INHERITED\n")
+
+  (define bukkit-default-parent-noob-src
+    "HAI 1.3\nI HAS A x ITZ A BUKKIT\nVISIBLE BOTH SAEM x'Z parent AN NOOB\nKTHXBYE\n")
+  (define bukkit-default-parent-noob
+    (run-source bukkit-default-parent-noob-src))
+  (check-eq? (hash-ref bukkit-default-parent-noob 'status) 'ok)
+  ;; Regression: default parent slot on plain BUKKIT is NOOB.
+  (check-equal? (hash-ref bukkit-default-parent-noob 'stdout) "WIN\n")
+
+  (define slot-operator-hyphen-equivalence-src
+    "HAI 1.3\nI HAS A obj ITZ A BUKKIT\nobj HAS A foo ITZ \"ok\"\nVISIBLE obj'Z foo\nVISIBLE obj-foo\nVISIBLE obj - foo\nKTHXBYE\n")
+  (define slot-operator-hyphen-equivalence
+    (run-source slot-operator-hyphen-equivalence-src))
+  (check-eq? (hash-ref slot-operator-hyphen-equivalence 'status) 'ok)
+  ;; Adjudication: accept both "-" and "'Z" spellings for slot access.
+  (check-equal? (hash-ref slot-operator-hyphen-equivalence 'stdout)
+                "ok\nok\nok\n")
 
   (define gimmeh-src
     "HAI 1.3\nI HAS A name\nGIMMEH name\nVISIBLE name\nKTHXBYE\n")

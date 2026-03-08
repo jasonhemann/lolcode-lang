@@ -27,7 +27,7 @@ Pass-2 tranche-1 targets:
 | `N21` | adjudicated | Parent-chain traversal is cycle-safe across lookup/assignment/method paths.                                                                                  |
 | `N22` | adjudicated | Copy-on-write assignment for inherited slots; ancestor slot is not mutated by child assignment.                                                              |
 | `N23` | adjudicated | Special-slot policy table fixed and tested (`parent`, `omgwtf`, `izmakin`).                                                                                  |
-| `N24` | adjudicated | Mixin source-set fixed to own members only (inherited members not copied).                                                                                   |
+| `N24` | adjudicated | Mixin source-set is donor effective-visible slots/methods (including inherited-visible members), copied in reverse mixin declaration order.              |
 | `N27` | adjudicated | `GTFO` uses nearest valid control target semantics.                                                                                                          |
 | `N34` | adjudicated | Variadic implicit closure runs over logical statements after formatting preprocess.                                                                          |
 
@@ -59,7 +59,7 @@ Pass-2 tranche-1 targets:
 | `N03` | adjudicated               | Declaration, assignment, cast-assignment, and slot-set remain distinct statement constructors (`ast-stmt-node-split-src`).                                                                                                                                                                                                                                                            |
 | `N04` | adjudicated               | `SRS` remains an explicit AST form in identifier-sensitive declaration/slot/call-name sites (`ast-srs-sites-shape-src`).                                                                                                                                                                                                                                                              |
 | `N05` | adjudicated               | `SMOOSH` expression and prototype-mixin `SMOOSH` parse to different AST forms (`expr-variadic` vs `expr-prototype`) (`ast-smoosh-disambiguation-src`).                                                                                                                                                                                                                                |
-| `N06` | adjudicated               | Strict syntax policy is `'Z` slot operator only; prose `-` form is rejected in parser tests (`slot-access-dash-operator`).                                                                                                                                                                                                                                                            |
+| `N06` | adjudicated               | Slot-operator prose/display contradiction is harmonized by accepting both `-` and `'Z` spellings as equivalent slot access syntax, including dynamic `SRS` paths.                                                                                                                                                                                                                           |
 | `N07` | adjudicated               | Multi-role `I` policy pinned: `I` remains reserved syntax token in declaration/call forms, and object-body `HOW IZ I`/`I HAS A` semantics are preserved (`i-token-role-shape-src`, parse negative `reserved-keyword-i-name`).                                                                                                                                                         |
 | `N08` | adjudicated               | Special-name policy pinned: `ME` remains reserved at binding sites; `IT` is pre-bound (redeclaration rejected by same-scope duplicate gate); `parent/omgwtf/izmakin` are not globally reserved identifiers but retain slot-level special behavior (`special-names-global-vs-slot-policy-src`, `it-redeclare-runtime-error-src`).                                                      |
 | `N09` | adjudicated               | Pre-parse boundary normalization remains deterministic and compositional across comma, continuation, line/block comments, and string shielding (`preprocess-confluence-n09-src`, plus existing preprocess-order regressions).                                                                                                                                                         |
@@ -113,18 +113,18 @@ Pass-2 tranche-1 targets:
 
 | Special slot | Prototype inheritance path                                       | Mixin-copy path                                       | Override precedence                                                     | Effective policy                                                                                                    |
 |--------------|------------------------------------------------------------------|-------------------------------------------------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------|
-| `parent`     | created on object/prototype and inherited by parent-chain lookup | may be copied from mixin own slots, but then replaced | declared `IM LIEK` parent wins after mixin application                  | force `child'Z parent` to the declared parent object at construction                                                |
-| `omgwtf`     | inherited via parent-chain lookup like any slot/method behavior  | copied when present as own mixin slot/method          | child own definition > copied mixin > inherited parent > default throw  | missing-slot lookup invokes effective `omgwtf` with zero arguments; synthesized value is memoized into missing slot |
-| `izmakin`    | inherited via parent-chain slot lookup                           | copied when present as own mixin slot/method          | child own definition > copied mixin > inherited parent > default `NOOB` | run callable effective `izmakin` after prototype build and before constructor return                                |
+| `parent`     | created on object/prototype and inherited by parent-chain lookup | copied from mixin effective visible slots, then replaced | declared `IM LIEK` parent wins after mixin application                  | force `child'Z parent` to the declared parent object at construction                                                |
+| `omgwtf`     | inherited via parent-chain lookup like any slot/method behavior  | copied from mixin effective visible slots               | child own definition > copied mixin > inherited parent > default throw  | missing-slot lookup invokes effective `omgwtf` with zero arguments; synthesized value is memoized into missing slot |
+| `izmakin`    | inherited via parent-chain slot lookup                           | copied from mixin effective visible slots               | child own definition > copied mixin > inherited parent > default `NOOB` | run callable effective `izmakin` after prototype build and before constructor return                                |
 
 ## N24 Policy Table: Mixin Source Set
 
-| Source member on mixin object      | Copied to target? | Policy                          |
-|------------------------------------|-------------------|---------------------------------|
-| Own slot                           | yes               | copied statically at mixin time |
-| Own method                         | yes               | copied statically at mixin time |
-| Inherited slot from mixin parent   | no                | not part of mixin source-set    |
-| Inherited method from mixin parent | no                | not part of mixin source-set    |
+| Source member on mixin object      | Copied to target? | Policy                                                |
+|------------------------------------|-------------------|-------------------------------------------------------|
+| Own slot                           | yes               | copied statically at mixin time                       |
+| Own method                         | yes               | copied statically at mixin time                       |
+| Inherited slot from mixin parent   | yes               | copied from donor effective visible slot interface    |
+| Inherited method from mixin parent | yes               | copied from donor effective visible slot interface    |
 
 ## Immediate Next Steps
 

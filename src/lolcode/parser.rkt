@@ -36,6 +36,7 @@
 (define keyword-token-ctors
   (hash
         "!" token-BANG
+        "-" token-SLOT
         "'Z" token-SLOT
         "A" token-A
         "ALL" token-ALL

@@ -272,7 +272,7 @@
 
   (define invalid-ident-with-dash
     "HAI 1.3\nI HAS A x-y ITZ 1\nKTHXBYE\n")
-  (check-exn #px"invalid identifier syntax"
+  (check-exn #px"(invalid identifier syntax|syntax error: unexpected SLOT)"
              (lambda () (parse-program invalid-ident-with-dash)))
 
   (define invalid-ident-symbol-only
@@ -443,12 +443,9 @@
 
   (define slot-access-dash-operator
     "HAI 1.3\nI HAS A obj ITZ A BUKKIT\nVISIBLE obj - foo\nKTHXBYE\n")
-  (define slot-access-dash-operator-msg
-    (capture-message (lambda () (parse-program slot-access-dash-operator))))
-  (check-true (string? slot-access-dash-operator-msg))
-  ;; N06: strict 1.3 slot access syntax is <object>'Z <slot>; '-' is prose-only text.
-  (check-true (regexp-match? #px"(syntax error:|lexing failed:|unexpected character|invalid identifier syntax:)"
-                             slot-access-dash-operator-msg))
+  ;; N06: accept both '-' and "'Z" spellings for slot access.
+  (check-not-exn
+   (lambda () (parse-program slot-access-dash-operator)))
 
   (define misspelled-diffrence-operator
     "HAI 1.3\nVISIBLE DIFFRENCE OF 3 AN 1\nKTHXBYE\n")

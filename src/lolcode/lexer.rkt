@@ -34,6 +34,7 @@
    'word->tokens/line-continuation
    'word->tokens/ok+line-continuation
    'word->tokens/split-slot-z
+   'word->tokens/split-slot-dash
    'word->tokens/number
    'word->tokens/word
    'skip-comment-tail!/eof
@@ -171,6 +172,22 @@
         (define slot-token
           (token 'WORD "'Z" line (+ col (- len 1))))
         (values 'ok (list base-token slot-token))]
+       [(regexp-match #px"^([A-Za-z][A-Za-z0-9_]*)-([A-Za-z][A-Za-z0-9_]*)$" text)
+        => (lambda (m)
+             (lexer-cover! 'word->tokens/split-slot-dash)
+             (define base
+               (list-ref m 1))
+             (define slot
+               (list-ref m 2))
+             (define base-len
+               (string-length base))
+             (define base-token
+               (token 'WORD base line col))
+             (define dash-token
+               (token 'WORD "-" line (+ col base-len)))
+             (define slot-token
+               (token 'WORD slot line (+ col base-len 1)))
+             (values 'ok (list base-token dash-token slot-token)))]
        [(numeric-token? text)
         (lexer-cover! 'word->tokens/number)
         (values 'ok (list (token 'NUMBER text line col)))]

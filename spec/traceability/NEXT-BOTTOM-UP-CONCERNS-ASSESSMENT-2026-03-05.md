@@ -40,7 +40,7 @@ Update delta (2026-03-06):
 
 | # | Status | Assessment |
 |---|---|---|
-| 1 | AMB + OK | Spec conflict (`849` vs `857/871-873`) on whether mixins include inherited slots; adjudicated policy is own-only mixin copy, now pinned by explicit inherited-slot/method non-copy regressions (`mixin-source-own-only-slots-src`, `mixin-source-own-only-methods-src`). |
+| 1 | AMB + OK | Spec conflict (`849` vs `857/871-873`) on whether mixins include inherited slots; adjudicated policy is donor effective-visible mixin copy (including inherited-visible slots/methods), pinned by inherited-slot/method copy regressions (`mixin-source-own-only-slots-src`, `mixin-source-own-only-methods-src`). |
 | 2 | OK | Reverse-order mixin precedence and parent replacement are implemented and tested (`mixin-object-src`, `mixin-parent-child-combo-src`). |
 | 3 | AMB + OK | Copy depth remains spec-underdetermined, but policy is now explicit and tested: primitive slots are copied statically, while mutable BUKKIT slot values remain aliased (shallow copy). |
 | 4 | AMB + OK | Non-BUKKIT `parent` mutation remains policy-defined; behavior is now explicitly pinned for slot/method lookup chain termination (`parent-slot-nonobject-terminates-chain-src`, `parent-method-nonobject-terminates-chain-src`). |

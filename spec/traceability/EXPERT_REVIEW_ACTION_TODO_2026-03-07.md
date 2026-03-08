@@ -61,8 +61,8 @@ Priority B (special slots / object lifecycle):
 4. `omgwtf` trigger boundary for `<object> IZ <slot> ... MKAY` miss path (currently strict runtime error without hook materialization).
 
 Priority C (underspecified feature intersections):
-5. Mixin source domain: own-only vs own+inherited (text contradiction).
-6. Evaluation-order policy hardening for side-effecting expressions (`SMOOSH`/logic intersections).
+5. Evaluation-order policy hardening for side-effecting expressions (`SMOOSH`/logic intersections).
+6. Built-in TYPE-word binding policy (`YARN`/`NUMBR`/`NOOB`/`TYPE` as reserved vs contextual identifiers).
 
 Priority D (process/traceability hygiene):
 7. Reconcile status drift between `ITEM_BY_ITEM_RESOLUTION_MAP.md` and expert-pass docs.
