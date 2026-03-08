@@ -1,26 +1,26 @@
 # External Evidence Report
 
-Generated: `Sunday, March 8th, 2026 12:40:25am`
+Generated: `Sunday, March 8th, 2026 12:42:47am`
 
-- Cases evaluated: `422`
+- Cases evaluated: `425`
 - Filters: wave=`all`, id=`all`, scope=`all`, triage=`all`, hypothesis=`all`
 - JSON report: `/Users/jhemann/Code/lolcode-lang/scripts/../corpus/research/external-evidence-report.json`
 
 ## Observed Status Counts
 
-- `parse-error`: `421`
+- `parse-error`: `424`
 - `ok`: `1`
 
 ## Bucket Counts
 
-- `strict-non-1.3-or-extension`: `417`
+- `strict-non-1.3-or-extension`: `420`
 - `program-bug-or-non-spec-input`: `4`
 - `ok`: `1`
 
 ## Spec Scope Counts
 
 - `1.2`: `295`
-- `unknown`: `124`
+- `unknown`: `127`
 - `1.3`: `3`
 
 ## Unknown Spec Scope Cases
@@ -149,10 +149,13 @@ Generated: `Sunday, March 8th, 2026 12:40:25am`
 - `ext_loco_commit_9dcb1d8a1b16cc4ba187cd4d561c5324413129bd` (`loco` / `parse-error`): `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)`
 - `ext_loco_commit_a4508445893c37f92b120139bdd51cef62712ada` (`loco` / `parse-error`): `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)`
 - `ext_loco_commit_a4a880b07231f29c3e918ebcde54c43515d959fe` (`loco` / `parse-error`): `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)`
+- `ext_loco_commit_f828136f5918a89a51a21ea09f6cd2329943eeef` (`loco` / `parse-error`): `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)`
+- `ext_loco_commit_fb7728be08a250febb462bf539a0c7ab199402fc` (`loco` / `parse-error`): `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)`
+- `ext_loco_commit_fcc3485ffac2c17b759bed991d1c4d99ac39a482` (`loco` / `parse-error`): `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)`
 
 ## Top Messages
 
-- `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)` (`415`)
+- `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)` (`418`)
 - `parse-source: syntax error: unexpected NEWLINE at line 1, col 4` (`2`)
 - `lex-source: invalid Unicode normative name in string literal at line 25, col 15` (`1`)
 - `parse-source: syntax error: unexpected I at line 4, col 9` (`1`)
