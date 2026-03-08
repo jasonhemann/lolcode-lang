@@ -1,6 +1,6 @@
 # Corpus Current Status
 
-- Generated: 2026-03-08T05:43:15Z
+- Generated: 2026-03-08T15:41:44Z
 - Policy scope: strict `HAI 1.3` implementation target
 
 ## Canonical Sources
