@@ -1,26 +1,26 @@
 # External Evidence Report
 
-Generated: `Sunday, March 8th, 2026 11:41:45am`
+Generated: `Sunday, March 8th, 2026 2:59:34pm`
 
-- Cases evaluated: `425`
+- Cases evaluated: `445`
 - Filters: wave=`all`, id=`all`, scope=`all`, triage=`all`, hypothesis=`all`
 - JSON report: `/Users/jhemann/Code/lolcode-lang/scripts/../corpus/research/external-evidence-report.json`
 
 ## Observed Status Counts
 
-- `parse-error`: `424`
+- `parse-error`: `444`
 - `ok`: `1`
 
 ## Bucket Counts
 
-- `strict-non-1.3-or-extension`: `420`
+- `strict-non-1.3-or-extension`: `440`
 - `program-bug-or-non-spec-input`: `4`
 - `ok`: `1`
 
 ## Spec Scope Counts
 
 - `1.2`: `295`
-- `unknown`: `127`
+- `unknown`: `147`
 - `1.3`: `3`
 
 ## Unknown Spec Scope Cases
@@ -152,10 +152,30 @@ Generated: `Sunday, March 8th, 2026 11:41:45am`
 - `ext_loco_commit_f828136f5918a89a51a21ea09f6cd2329943eeef` (`loco` / `parse-error`): `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)`
 - `ext_loco_commit_fb7728be08a250febb462bf539a0c7ab199402fc` (`loco` / `parse-error`): `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)`
 - `ext_loco_commit_fcc3485ffac2c17b759bed991d1c4d99ac39a482` (`loco` / `parse-error`): `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)`
+- `ext_nfenciso1_lolcode_interpreter_commit_bc833ca6100d184452f75ca5c6cad08edd0e399a` (`nfenciso1-lolcode-interpreter` / `parse-error`): `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)`
+- `ext_nfenciso1_lolcode_interpreter_commit_bcf4470edf2c7bc1d9b740c36e6a9543d396904c` (`nfenciso1-lolcode-interpreter` / `parse-error`): `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)`
+- `ext_nfenciso1_lolcode_interpreter_commit_c5cbdfcd3fdca86cd382a4f77404c8391535f197` (`nfenciso1-lolcode-interpreter` / `parse-error`): `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)`
+- `ext_nfenciso1_lolcode_interpreter_commit_c98ce228bb081dd7acc8fccce1313812ec3f593a` (`nfenciso1-lolcode-interpreter` / `parse-error`): `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)`
+- `ext_nfenciso1_lolcode_interpreter_commit_d1b5928f52ca98fc40c1d07bcea5efc88a8e70d7` (`nfenciso1-lolcode-interpreter` / `parse-error`): `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)`
+- `ext_nfenciso1_lolcode_interpreter_commit_d95923e30498c23ec3ef4480a45816066fcf0965` (`nfenciso1-lolcode-interpreter` / `parse-error`): `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)`
+- `ext_nfenciso1_lolcode_interpreter_commit_da7b0a532d90587f7cfeeb2174b1867b2fd67fd9` (`nfenciso1-lolcode-interpreter` / `parse-error`): `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)`
+- `ext_nfenciso1_lolcode_interpreter_commit_dfa55a119ede562958c086c16235f536ebf8f078` (`nfenciso1-lolcode-interpreter` / `parse-error`): `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)`
+- `ext_nfenciso1_lolcode_interpreter_commit_e714f59d4d1958f1093f718eaa07a3e073399a1f` (`nfenciso1-lolcode-interpreter` / `parse-error`): `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)`
+- `ext_nfenciso1_lolcode_interpreter_commit_eea3466218d36a11b8ef9954d17d0b838213a90a` (`nfenciso1-lolcode-interpreter` / `parse-error`): `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)`
+- `ext_nfenciso1_lolcode_interpreter_commit_f1b07d59039516bad1326cb3e01faa39891690f6` (`nfenciso1-lolcode-interpreter` / `parse-error`): `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)`
+- `ext_nfenciso1_lolcode_interpreter_commit_f1e55c8db7b359a4683790a1a8eb14df4af1623e` (`nfenciso1-lolcode-interpreter` / `parse-error`): `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)`
+- `ext_nfenciso1_lolcode_interpreter_commit_fedcdfc3e8a5833f5de6298c3dcbf71102f2df7f` (`nfenciso1-lolcode-interpreter` / `parse-error`): `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)`
+- `ext_nfenciso1_lolcode_interpreter_commit_ff28e9e5b4fa2646a47049d9c185ead9dda068bc` (`nfenciso1-lolcode-interpreter` / `parse-error`): `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)`
+- `ext_nicodecastro_lolcode_interpreter_commit_39cfaebe3f8720cc4abf13113968eceb2f8e131e` (`nicodecastro-lolcode-interpreter` / `parse-error`): `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)`
+- `ext_nicodecastro_lolcode_interpreter_commit_4001fadf8b8757080b3cc5d06f03a42ba5c6cbff` (`nicodecastro-lolcode-interpreter` / `parse-error`): `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)`
+- `ext_nicodecastro_lolcode_interpreter_commit_6ea44fe8151ec25a08c606febdb10962d98261f6` (`nicodecastro-lolcode-interpreter` / `parse-error`): `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)`
+- `ext_nicodecastro_lolcode_interpreter_commit_73e761fb52ccd2858c2495ca8f5e1115deaf63d2` (`nicodecastro-lolcode-interpreter` / `parse-error`): `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)`
+- `ext_nicodecastro_lolcode_interpreter_commit_7b980c7155948e5d0d121d23420a443cfae8ffe5` (`nicodecastro-lolcode-interpreter` / `parse-error`): `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)`
+- `ext_nicodecastro_lolcode_interpreter_commit_b151592221ea753f9798d59975718021c832f7f1` (`nicodecastro-lolcode-interpreter` / `parse-error`): `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)`
 
 ## Top Messages
 
-- `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)` (`418`)
+- `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)` (`438`)
 - `parse-source: syntax error: unexpected NEWLINE at line 1, col 4` (`2`)
 - `lex-source: invalid Unicode normative name in string literal at line 25, col 15` (`1`)
 - `parse-source: syntax error: unexpected I at line 4, col 9` (`1`)
