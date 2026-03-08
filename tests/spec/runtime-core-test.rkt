@@ -98,6 +98,13 @@
   (check-eq? (hash-ref typed-decl 'status) 'ok)
   (check-equal? (hash-ref typed-decl 'stdout) "0\n")
 
+  (define typed-decl-yarn-src
+    "HAI 1.3\nI HAS A s ITZ A YARN\nVISIBLE s\nKTHXBYE\n")
+  (define typed-decl-yarn
+    (run-source typed-decl-yarn-src))
+  (check-eq? (hash-ref typed-decl-yarn 'status) 'ok)
+  (check-equal? (hash-ref typed-decl-yarn 'stdout) "\n")
+
   (define srs-target-src
     "HAI 1.3\nI HAS A name ITZ \"var\"\nI HAS A SRS name ITZ 0\nVISIBLE var\nKTHXBYE\n")
   (define srs-target (run-source srs-target-src))

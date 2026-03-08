@@ -125,10 +125,25 @@
        "NUMBAR"
        "NOOB"))
 
+(define declaration-default-types
+  (set "TROOF"
+       "YARN"
+       "NUMBR"
+       "NUMBAR"
+       "NOOB"
+       "BUKKIT"))
+
 (define (ensure-cast-target-type who text)
   (unless (set-member? cast-target-types text)
     (error who
            "invalid cast target type: ~a (expected TROOF, YARN, NUMBR, NUMBAR, or NOOB)"
+           text))
+  text)
+
+(define (ensure-declaration-default-type who text)
+  (unless (set-member? declaration-default-types text)
+    (error who
+           "invalid declaration type in ITZ A: ~a (expected TROOF, YARN, NUMBR, NUMBAR, NOOB, or BUKKIT)"
            text))
   text)
 
@@ -453,7 +468,7 @@
     (declare-init-opt
      [() #f]
      [(ITZ expr) $2]
-     [(ITZ A ID) (expr-ident $3)]
+     [(ITZ A ID) (expr-type-default (ensure-declaration-default-type 'parse-source $3))]
      [(ITZ A ID SMOOSH name-spec mixin-list-tail)
       (expr-prototype (static-name-spec $3) (cons $5 $6))]
      [(ITZ A SRS expr SMOOSH name-spec mixin-list-tail)

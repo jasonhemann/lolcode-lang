@@ -142,7 +142,7 @@
        (status . implemented)
        (code-refs . ("src/lolcode/parser.rkt" "src/lolcode/runtime/value.rkt"))
        (test-refs . ("tests/spec/runtime-core-test.rkt" "tests/spec/fixtures/manifest.rktd"))
-       (notes . "NUMBR/NUMBAR/YARN/TROOF/NOOB/BUKKIT defaults implemented for ITZ A <type>; bare ITZ TYPE-word remains a legal TYPE-literal expression initializer."))
+       (notes . "ITZ A declaration defaults are restricted to TROOF/YARN/NUMBR/NUMBAR/NOOB/BUKKIT. Prototyping remains disambiguated as ITZ LIEK A <parent> (plain) and ITZ A <parent> SMOOSH ... (mixin); bare ITZ A <non-built-in> declarations are rejected. Bare ITZ TYPE-word remains a legal TYPE-literal expression initializer."))
  #hash((id . "var.declare-uninitialized")
        (spec-version . "1.3")
        (source-file . "spec/upstream/lolcode-spec-v1.3.md")

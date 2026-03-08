@@ -92,6 +92,11 @@
   (check-not-exn
    (lambda () (parse-program mixin-declare)))
 
+  (define invalid-plain-a-parent-declare
+    "HAI 1.3\nI HAS A River ITZ A BUKKIT\nI HAS A bad ITZ A River\nKTHXBYE\n")
+  (check-exn #px"invalid declaration type in ITZ A"
+             (lambda () (parse-program invalid-plain-a-parent-declare)))
+
   (define unterminated-string
     "HAI 1.3\nVISIBLE \"oops\nKTHXBYE\n")
   (check-exn #px"unterminated string literal at line 2, col 9"

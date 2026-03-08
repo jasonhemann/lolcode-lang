@@ -57,16 +57,16 @@ Priority A (semantic contradictions):
 2. Default return semantics in method context when no explicit `FOUND YR`.
 
 Priority B (special slots / object lifecycle):
-3. Final adjudication for inherited `izmakin` precedence when child has default special slots.
-4. `omgwtf` trigger boundary for `<object> IZ <slot> ... MKAY` miss path (currently strict runtime error without hook materialization).
+3. `omgwtf` trigger boundary for `<object> IZ <slot> ... MKAY` miss path (currently strict runtime error without hook materialization).
 
 Priority C (underspecified feature intersections):
-5. Evaluation-order policy hardening for side-effecting expressions (`SMOOSH`/logic intersections).
-6. Built-in TYPE-word binding policy (`YARN`/`NUMBR`/`NOOB`/`TYPE` as reserved vs contextual identifiers).
+4. Evaluation-order policy hardening for side-effecting expressions (`SMOOSH`/logic intersections).
+5. Expression-level TYPE-word binding policy (`YARN`/`NUMBR`/`NOOB`/`TYPE` as reserved vs contextual identifiers).  
+   Note: declaration/prototyping grammar disambiguation is adjudicated (`ITZ A <built-in-type>` defaults, `ITZ LIEK A <parent>` plain prototype, `ITZ A <parent> SMOOSH ...` mixin prototype).
 
 Priority D (process/traceability hygiene):
-7. Reconcile status drift between `ITEM_BY_ITEM_RESOLUTION_MAP.md` and expert-pass docs.
-8. Convert remaining pass1 open prompts into explicit tracked IDs with tests.
+6. Reconcile status drift between `ITEM_BY_ITEM_RESOLUTION_MAP.md` and expert-pass docs.
+7. Convert remaining pass1 open prompts into explicit tracked IDs with tests.
 
 ## 4) De-duplicated Document Ownership
 
