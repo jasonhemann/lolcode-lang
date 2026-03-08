@@ -53,20 +53,27 @@ Reasoning:
 ## 3) Prioritized Outstanding Queue
 
 Priority A (semantic contradictions):
-1. `IT` contradiction cluster (`C1/C2/C3`): no-global prose vs method/global lookup prose.
-2. Default return semantics in method context when no explicit `FOUND YR`.
+1. OPEN: `IT` contradiction cluster (`C1/C2/C3`): no-global prose vs method/global lookup prose.
+2. OPEN: default return semantics in method context when no explicit `FOUND YR`.
+3. Provisional pins tied to the open `IT` cluster: `N12`/`N60`/`N74` are implemented and test-pinned but remain policy-provisional until `C1/C2/C3` closes.
 
 Priority B (special slots / object lifecycle):
 3. DONE (2026-03-08): `omgwtf` trigger boundary for `<object> IZ <slot> ... MKAY` miss path aligned to slot-access semantics (full chain then one-shot hook on original receiver, with memoization).
+   - Closed pieces: `E4`/`E5` one-shot miss-path semantics.
+   - Related still-open boundary: synthesized non-function slot-call behavior (`G4`) remains tracked separately.
 
 Priority C (underspecified feature intersections):
-4. Evaluation-order policy hardening for side-effecting expressions (`SMOOSH`/logic intersections).
-5. Expression-level TYPE-word binding policy (`YARN`/`NUMBR`/`NOOB`/`TYPE` as reserved vs contextual identifiers).  
-   Note: declaration/prototyping grammar disambiguation is adjudicated (`ITZ A <built-in-type>` defaults, `ITZ LIEK A <parent>` plain prototype, `ITZ A <parent> SMOOSH ...` mixin prototype).
+4. OPEN: evaluation-order policy hardening for side-effecting expressions (`SMOOSH`/logic intersections).
+   - Provisional pins: `N40`/`N75` cover currently implemented eager/left-to-right call/operand sequencing, but remain provisional pending fuller textual exegesis for variadic/side-effect intersections (`G1`-`G3`).
+5. CLOSED (resolved by `N63`): expression-level TYPE-word binding policy is adjudicated and implemented as dual-role contextual semantics (TYPE literals in expression position; declaration/prototype forms disambiguated by grammar).
 
 Priority D (process/traceability hygiene):
-6. Reconcile status drift between `ITEM_BY_ITEM_RESOLUTION_MAP.md` and expert-pass docs.
-7. Convert remaining pass1 open prompts into explicit tracked IDs with tests.
+6. In progress: reconcile status drift between `ITEM_BY_ITEM_RESOLUTION_MAP.md`, expert checklist, and pass-level adjudication docs.
+7. CLOSED (process pass complete): no generic “remaining pass1 prompts” bucket remains.
+   - Residual concrete queue is now explicit:
+     - method-context fallthrough return via `IT` (`C3`),
+     - `IT` contradiction cluster closure (`C1/C2`),
+     - evaluation-order textual grounding for `SMOOSH`/logic intersections (`G1`-`G3`).
 
 ## 4) De-duplicated Document Ownership
 

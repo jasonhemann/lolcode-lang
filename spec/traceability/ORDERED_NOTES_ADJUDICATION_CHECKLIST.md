@@ -132,9 +132,10 @@ Cross-cutting adjudications:
   Spec: line 582 (`unmapped`).  
   Done: parser now requires argument names to be direct identifier tokens (not `SRS` expressions) in both function and method definitions. Added parse-negative regressions for dynamic arg-name forms.
 
-- [x] `29` (notes 211-216) Function return semantics (`GTFO` => NOOB, fallthrough returns IT).
+- [x] `29` (notes 211-216) Ordinary function return semantics (`GTFO` => NOOB, ordinary-function fallthrough returns IT).
   Spec: line 590 (mapped).  
   Done: covered by existing runtime regressions (`function-gtfo-return`, `function-implicit-it-return`) that assert both return paths.
+  Note: method-context fallthrough return via `IT` remains an open contradiction item (`C1/C2/C3`) and is tracked separately in `EXPERT_REVIEW_ACTION_TODO_2026-03-07.md`.
 
 - [x] `30` (notes 218-220) Clarify “I parameter” in call syntax.
   Spec: line 604 (`unmapped`).  

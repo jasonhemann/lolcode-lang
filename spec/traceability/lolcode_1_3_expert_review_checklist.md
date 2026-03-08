@@ -71,8 +71,8 @@ For each item:
 ### A8. Slot operator typo: prose says `-`, examples use `'Z`
 - **Text**: “slot operator `-`” immediately followed by syntax `<object> 'Z <slotname>`.
 - **Why it matters**: lexer/parser must choose one actual token.
-- **Initial assessment**: **C**.
-- **Decision needed**: treat `'Z` as canonical surface syntax and record `-` as editorial noise unless stronger evidence exists elsewhere.
+- **Initial assessment**: **T** for equivalence under explicit syntax prose.
+- **Resolution (N06)**: accept both `-` and `'Z` as equivalent slot-access syntax, including dynamic `SRS` slot-name forms. This is treated as a textual equivalence, not a permissive extension.
 
 ---
 
@@ -223,16 +223,14 @@ For each item:
 - **Decision needed**: conservative reading suggests missing-slot only, not non-function call.
 
 ### E4. Does parent-chain search happen before `omgwtf`, or does each failed hop trigger it?
-- **Open issue from notes**.
+- **Historical open issue from notes**.
 - **Why it matters**: side effects, memoization, and cycle behavior all change.
-- **Initial assessment**: **U**.
-- **Decision needed**: conservative policy should likely search the chain first, then invoke only once on the original receiver if total lookup fails.
+- **Resolution (N84)**: full parent-chain slot lookup happens first; `omgwtf` runs once only after total lookup failure, on the original receiver.
 
 ### E5. Which object’s `omgwtf` is used after total failure?
-- **Open issue from notes**: original receiver vs most distant ancestor.
+- **Historical open issue from notes**: original receiver vs most distant ancestor.
 - **Why it matters**: determines receiver, mutation target, and behavior under cycles.
-- **Initial assessment**: **U**.
-- **Decision needed**: likely original receiver only.
+- **Resolution (N84)**: original receiver only.
 
 ### E6. Interaction of `omgwtf` with global fallback
 - **Open issue from notes**: if global lookup would succeed, does missing slot still count as failure?
@@ -249,14 +247,12 @@ For each item:
 ### E8. `izmakin` timing and inheritance
 - **Text**: runs after a bukkit is fully prototyped but before the prototyping method returns.
 - **Why it matters**: unclear whether inherited `izmakin` runs, and on what receiver.
-- **Initial assessment**: high-level existence is **T**; inheritance/dispatch details are **U**.
-- **Decision needed**: explicitly decide inherited-vs-fresh-default behavior.
+- **Resolution (N19 + N23)**: high-level existence is **T** and inheritance/dispatch is policy-pinned: effective `izmakin` follows special-slot precedence (child own > copied mixin > inherited parent > default), and runs after prototype/mixin/parent restoration on the constructed receiver.
 
 ### E9. What state is visible to `izmakin`?
 - **Text**: “fully prototyped” suggests parent/mixin state exists, but the ordering against body execution and mixins is not fully spelled out.
 - **Why it matters**: constructor side effects and invariants depend on it.
-- **Initial assessment**: **U**.
-- **Decision needed**: specify visible state and ordering.
+- **Resolution (N19)**: visible state is post-prototype build with mixin copy and parent slot finalized; this ordering is test-pinned.
 
 ---
 
@@ -277,26 +273,22 @@ For each item:
 ### F3. What exactly gets copied: own slots only, or inherited slots too?
 - **Text**: prose says “all slots defined on the mixin”; later example comment says “all of cheeze and its parent slots are copied into slice.”
 - **Why it matters**: these are not the same semantics.
-- **Initial assessment**: **C**.
-- **Decision needed**: choose the narrowest reading that best matches the text as a whole.
+- **Resolution (N24)**: policy-pinned to donor effective-visible source set (own + inherited-visible slots/methods), copied in reverse mixin order.
 
 ### F4. Shallow copy vs deep copy for copied slot values
 - **Text**: not stated.
 - **Why it matters**: nested mutable BUKKITs may alias across donor and recipient.
-- **Initial assessment**: **U**.
-- **Decision needed**: conservative implementation probably should not invent deep-copy semantics without textual support.
+- **Resolution (N81)**: policy-pinned shallow/call-by-sharing copy for mutable slot values.
 
 ### F5. Receiver behavior of functions copied via mixins
 - **Text**: slot-access function call rule says receiver is the object the function was accessed from, regardless of where the function is stored.
 - **Why it matters**: copied functions should likely still be receiver-dynamic when slot-called on the recipient.
-- **Initial assessment**: **I** from explicit slot-call rule.
-- **Decision needed**: confirm that mixin-copied functions are not “parent-locked” or “mixin-locked.”
+- **Resolution (N69)**: receiver-dynamic behavior is implemented and pinned for mixin-copied functions.
 
 ### F6. Mixing parent and child objects together
-- **Open issue from notes**.
+- **Historical open issue from notes**.
 - **Why it matters**: with reverse copy order and possible inherited-slot copying, parent/child mixin combinations can duplicate or overwrite unexpectedly.
-- **Initial assessment**: **U** until F3 is resolved.
-- **Decision needed**: add targeted tests after F3 is settled.
+- **Resolution (N24 + N69 + N81)**: behavior is now policy-pinned with parent/child mixin interaction regressions.
 
 ### F7. Post-construction “manual mixin” example
 - **Text**: example creates `slice` with `A bukkit SMOOSH cheeze`, then rewires `parent`.
@@ -427,4 +419,3 @@ These should be treated as default prohibitions unless the expert finds direct t
 - Inheritance of slots
 - Functions and inheritance
 - Mixin inheritance and its worked examples
-
