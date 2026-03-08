@@ -664,7 +664,7 @@
        (status . implemented)
        (code-refs . ("src/lolcode/runtime.rkt"))
        (test-refs . ("tests/spec/runtime-core-test.rkt" "tests/spec/spec-audit/known-gaps-failing-test.rkt"))
-       (notes . "Method call frames alias IT to the global IT binding, so lookup/update follows global namespace semantics."))
+       (notes . "Adjudicated under C1/C2/C3 contradiction policy: method IT is activation-local and bypasses receiver-slot lookup. \"global namespace\" is interpreted as non-receiver ordinary scope, not a process-global IT alias."))
  #hash((id . "bukkit.special-slot-default-omgwtf")
        (spec-version . "1.3")
        (source-file . "spec/upstream/lolcode-spec-v1.3.md")

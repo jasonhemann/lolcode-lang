@@ -31,7 +31,7 @@ Legend:
 | `N09` | implemented        | `src/lolcode/lexer.rkt`, `src/lolcode/parser.rkt`                                     | adjudication row `N09`                               |
 | `N10` | policy             | `src/lolcode/runtime.rkt` (scope lookup precedence)                                   | adjudication row `N10`                               |
 | `N11` | policy             | `src/lolcode/runtime.rkt`                                                             | adjudication row `N11`                               |
-| `N12` | provisional-policy | `src/lolcode/runtime.rkt` (`IT` split by context)                                     | adjudication row `N12`                               |
+| `N12` | policy+implemented | `src/lolcode/runtime.rkt` (`IT` split by context)                                     | adjudication row `N12`                               |
 | `N13` | implemented        | `src/lolcode/runtime.rkt` (object-body lookup)                                        | adjudication rows `N13` + `N13 (edge policy)`        |
 | `N14` | implemented        | `src/lolcode/runtime.rkt` (`env-define!` duplicate gate)                              | adjudication row `N14`                               |
 | `N15` | implemented        | `src/lolcode/runtime.rkt` (receiver-projected slot call)                              | adjudication row `N15`                               |
@@ -79,7 +79,7 @@ Legend:
 | `N57` | implemented        | `src/lolcode/runtime.rkt` (case-sensitive loop labels)                                | adjudication row `N57`                               |
 | `N58` | implemented        | `src/lolcode/parser.rkt` (strict `HOW IZ I`)                                          | adjudication row `N58`                               |
 | `N59` | implemented        | `src/lolcode/parser.rkt`, `src/lolcode/runtime.rkt` (`SRS` dynamic-name handling)     | adjudication row `N59`                               |
-| `N60` | provisional-policy | `src/lolcode/runtime.rkt` + `IT_UPDATE_MATRIX.md`                                     | adjudication row `N60`                               |
+| `N60` | policy+implemented | `src/lolcode/runtime.rkt` + `IT_UPDATE_MATRIX.md`                                     | adjudication row `N60`                               |
 | `N61` | implemented        | `src/lolcode/parser.rkt`, `src/lolcode/runtime.rkt` (`VISIBLE` variadic closure)      | adjudication row `N61`                               |
 | `N62` | implemented        | `src/lolcode/runtime.rkt` (`GIMMEH` implicit target declare)                          | adjudication row `N62`                               |
 | `N63` | implemented        | `src/lolcode/parser.rkt`, `src/lolcode/runtime.rkt` (TYPE dual role by context)       | adjudication row `N63`                               |
@@ -93,7 +93,7 @@ Legend:
 | `N71` | implemented        | `src/lolcode/parser.rkt` (strict `HAI 1.3`)                                           | adjudication row `N71`                               |
 | `N72` | implemented        | `src/lolcode/runtime.rkt` (BUKKIT truthiness policy)                                  | adjudication row `N72`                               |
 | `N73` | policy+implemented | `src/lolcode/runtime.rkt` (host numeric portability decisions)                        | adjudication row `N73`                               |
-| `N74` | provisional-policy | `src/lolcode/runtime.rkt` + `IT_UPDATE_MATRIX.md`                                     | adjudication row `N74`                               |
+| `N74` | policy+implemented | `src/lolcode/runtime.rkt` + `IT_UPDATE_MATRIX.md`                                     | adjudication row `N74`                               |
 | `N75` | provisional-policy | `src/lolcode/runtime.rkt` (RHS sequencing guarantees)                                 | adjudication row `N75`                               |
 | `N76` | implemented        | `src/lolcode/runtime.rkt` (no forward prebinding)                                     | adjudication row `N76`                               |
 | `N77` | implemented        | `src/lolcode/runtime.rkt` (duplicate param rejection)                                 | adjudication row `N77`                               |

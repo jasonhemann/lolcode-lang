@@ -53,9 +53,11 @@ Reasoning:
 ## 3) Prioritized Outstanding Queue
 
 Priority A (semantic contradictions):
-1. OPEN: `IT` contradiction cluster (`C1/C2/C3`): no-global prose vs method/global lookup prose.
-2. OPEN: default return semantics in method context when no explicit `FOUND YR`.
-3. Provisional pins tied to the open `IT` cluster: `N12`/`N60`/`N74` are implemented and test-pinned but remain policy-provisional until `C1/C2/C3` closes.
+1. DONE (2026-03-08): `IT` contradiction cluster (`C1/C2/C3`) closed with conservative exegesis policy.
+   - Ordinary execution contexts keep activation-local `IT` semantics.
+   - In method context, bare `IT` bypasses receiver slot namespace and resolves to method activation-local `IT` (never receiver/global aliased).
+2. DONE (2026-03-08): default return semantics in method context now follow ordinary function rule (fallthrough returns method activation-local `IT`).
+3. DONE (2026-03-08): provisional pins promoted: `N12`/`N60`/`N74` are now policy+implemented.
 
 Priority B (special slots / object lifecycle):
 3. DONE (2026-03-08): `omgwtf` trigger boundary for `<object> IZ <slot> ... MKAY` miss path aligned to slot-access semantics (full chain then one-shot hook on original receiver, with memoization).
@@ -71,8 +73,6 @@ Priority D (process/traceability hygiene):
 6. In progress: reconcile status drift between `ITEM_BY_ITEM_RESOLUTION_MAP.md`, expert checklist, and pass-level adjudication docs.
 7. CLOSED (process pass complete): no generic “remaining pass1 prompts” bucket remains.
    - Residual concrete queue is now explicit:
-     - method-context fallthrough return via `IT` (`C3`),
-     - `IT` contradiction cluster closure (`C1/C2`),
      - evaluation-order textual grounding for `SMOOSH`/logic intersections (`G1`-`G3`).
 
 ## 4) De-duplicated Document Ownership

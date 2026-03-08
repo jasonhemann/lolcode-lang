@@ -31,4 +31,5 @@ Primary regression:
 Supporting regressions:
 - `visible-updates-it-src`
 - `orly-mebbe-truthy-cast-src`
-- `method-it-global-lookup-src`
+- `method-it-local-activation-src`
+- `method-fallthrough-returns-local-it-src`

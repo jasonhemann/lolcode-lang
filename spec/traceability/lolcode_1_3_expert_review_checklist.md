@@ -140,19 +140,19 @@ For each item:
 - **Text**: early scope section says there is no global scope; bukkit function scope later says lookup ends in the “global” namespace.
 - **Why it matters**: this affects name resolution everywhere in methods.
 - **Initial assessment**: **C**.
-- **Decision needed**: derive the narrowest workable notion of “global” that is actually justified by examples.
+- **Resolution (`C1/C2/C3`)**: “global” is interpreted as non-receiver ordinary lookup plane, not a process-global override of activation-local function temporaries.
 
 ### C2. `IT` is local after bare expressions vs `IT` is always looked up from global namespace
 - **Text**: expression-statement section says `IT` remains in local scope; bukkit function scope says `IT` is always global.
 - **Why it matters**: default function return and control-flow constructs depend on `IT`.
 - **Initial assessment**: **C**.
-- **Decision needed**: choose the narrowest policy consistent with the most direct statements and examples; add regression tests.
+- **Resolution (`N12`/`N60`/`N74`)**: method-context `IT` is activation-local and never resolved through receiver slot lookup; regressions pin local IT behavior and method fallthrough.
 
 ### C3. Default method return via `IT`
 - **Text**: functions return `IT` if they reach `IF U SAY SO` without `FOUND YR`; bukkit scope section destabilizes where `IT` comes from.
 - **Why it matters**: methods without explicit return are currently semantically unstable.
 - **Initial assessment**: **C**.
-- **Decision needed**: expert should explicitly determine default-return behavior for methods.
+- **Resolution (`C1/C2/C3`)**: method fallthrough returns the method activation-local `IT` cell (initialized to `NOOB`).
 
 ---
 

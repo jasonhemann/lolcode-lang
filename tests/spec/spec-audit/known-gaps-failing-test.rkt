@@ -61,15 +61,15 @@
    (check-eq? (hash-ref out 'status) 'ok)
    (check-equal? (hash-ref out 'stdout) "9\n"))
 
-  ;; Spec ref: spec/upstream/lolcode-spec-v1.3.md:672
-  ;; "IT is always looked up from global namespace" in object-function context.
+  ;; C1/C2/C3 adjudication policy:
+  ;; method IT is activation-local and bypasses receiver slot lookup.
   (test-case
-   "REGRESSION: object method IT resolves through global namespace"
+   "REGRESSION: object method IT is activation-local (not global/receiver)"
    (define src
      "HAI 1.3\nO HAI IM obj\n  HOW IZ I show\n    VISIBLE IT\n  IF U SAY SO\nKTHX\n7\nobj IZ show MKAY\nKTHXBYE\n")
    (define out (run-source src))
    (check-eq? (hash-ref out 'status) 'ok)
-   (check-equal? (hash-ref out 'stdout) "7\n"))
+   (check-equal? (hash-ref out 'stdout) "NOOB\n"))
 
   ;; Spec ref: spec/upstream/lolcode-spec-v1.3.md:259
   ;; TYPE values should include bare words (NUMBR, NUMBAR, ...).

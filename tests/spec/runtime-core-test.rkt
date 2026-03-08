@@ -358,12 +358,21 @@
   (check-eq? (hash-ref it-local-main-and-function 'status) 'ok)
   (check-equal? (hash-ref it-local-main-and-function 'stdout) "NOOB\n3\n9\n")
 
-  (define method-it-global-lookup-src
-    "HAI 1.3\nSUM OF 1 AN 2\nO HAI IM obj\n  HOW IZ I bump\n    SUM OF IT AN 1\n    FOUND YR IT\n  IF U SAY SO\nKTHX\nSUM OF 1 AN 2\nI HAS A r ITZ obj IZ bump MKAY\nVISIBLE r\nVISIBLE IT\nKTHXBYE\n")
-  (define method-it-global-lookup
-    (run-source method-it-global-lookup-src))
-  (check-eq? (hash-ref method-it-global-lookup 'status) 'ok)
-  (check-equal? (hash-ref method-it-global-lookup 'stdout) "4\n4\n")
+  (define method-it-local-activation-src
+    "HAI 1.3\nSUM OF 1 AN 2\nO HAI IM obj\n  HOW IZ I bump\n    0\n    SUM OF IT AN 1\n    FOUND YR IT\n  IF U SAY SO\nKTHX\nSUM OF 1 AN 2\nI HAS A r ITZ obj IZ bump MKAY\nVISIBLE r\nVISIBLE IT\nKTHXBYE\n")
+  (define method-it-local-activation
+    (run-source method-it-local-activation-src))
+  (check-eq? (hash-ref method-it-local-activation 'status) 'ok)
+  ;; C1/C2/C3 adjudication: method IT is activation-local and never receiver/global aliased.
+  (check-equal? (hash-ref method-it-local-activation 'stdout) "1\n1\n")
+
+  (define method-fallthrough-returns-local-it-src
+    "HAI 1.3\n7\nO HAI IM obj\n  HOW IZ I keep\n  IF U SAY SO\nKTHX\nVISIBLE obj IZ keep MKAY\nVISIBLE IT\nKTHXBYE\n")
+  (define method-fallthrough-returns-local-it
+    (run-source method-fallthrough-returns-local-it-src))
+  (check-eq? (hash-ref method-fallthrough-returns-local-it 'status) 'ok)
+  (check-equal? (hash-ref method-fallthrough-returns-local-it 'stdout)
+                "NOOB\nNOOB\n")
 
   (define expr-stmt-src
     "HAI 1.3\nHOW IZ I ping\n  VISIBLE \"P\"\nIF U SAY SO\nI IZ ping MKAY\nKTHXBYE\n")

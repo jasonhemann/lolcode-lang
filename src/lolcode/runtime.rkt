@@ -129,14 +129,6 @@
            name))
   name)
 
-(define (bind-global-it-alias! call-env caller-ctx)
-  (define global-it-box
-    (or (env-lookup-box (runtime-globals caller-ctx) "IT")
-        (error 'run-program
-               "runtime invariant violation: global IT binding missing")))
-  ;; Method-context IT must resolve through the global namespace (spec 1.3).
-  (hash-set! (env-table call-env) "IT" global-it-box))
-
 (define (compile-declare-init init-expr)
   (cond
     [(not init-expr)
@@ -685,9 +677,9 @@
     (for ([param (in-list param-names)]
           [arg (in-list arg-values)])
       (env-define! call-env param arg))
-    (if (env-lookup-box call-root "ME")
-        (bind-global-it-alias! call-env caller-ctx)
-        (env-define! call-env "IT" noob))
+    ;; Each function/method activation gets its own IT cell.
+    ;; Method calls still resolve non-IT names through receiver projection via caller-env.
+    (env-define! call-env "IT" noob)
     (let/ec return-k
       (define fn-ctx
         (ctx-derive caller-ctx
