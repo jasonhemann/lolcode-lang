@@ -1,26 +1,26 @@
 # External Evidence Report
 
-Generated: `Sunday, March 8th, 2026 12:36:09am`
+Generated: `Sunday, March 8th, 2026 12:40:25am`
 
-- Cases evaluated: `392`
+- Cases evaluated: `422`
 - Filters: wave=`all`, id=`all`, scope=`all`, triage=`all`, hypothesis=`all`
 - JSON report: `/Users/jhemann/Code/lolcode-lang/scripts/../corpus/research/external-evidence-report.json`
 
 ## Observed Status Counts
 
-- `parse-error`: `391`
+- `parse-error`: `421`
 - `ok`: `1`
 
 ## Bucket Counts
 
-- `strict-non-1.3-or-extension`: `387`
+- `strict-non-1.3-or-extension`: `417`
 - `program-bug-or-non-spec-input`: `4`
 - `ok`: `1`
 
 ## Spec Scope Counts
 
 - `1.2`: `295`
-- `unknown`: `94`
+- `unknown`: `124`
 - `1.3`: `3`
 
 ## Unknown Spec Scope Cases
@@ -119,10 +119,40 @@ Generated: `Sunday, March 8th, 2026 12:36:09am`
 - `ext_rust_lci_commit_985f3f10a9a6e965d9144186554814ea426b2284` (`rust-lci` / `parse-error`): `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)`
 - `ext_rust_lci_commit_a81f263ea5ca1653442a17c7806c4bb82cb9372e` (`rust-lci` / `parse-error`): `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)`
 - `ext_rust_lci_commit_cec1b1cdf0ecc973ae6db636bf8c170acf0420c9` (`rust-lci` / `parse-error`): `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)`
+- `ext_rust_lci_commit_d8fe45dff69789261a99cd117db22fb26faef282` (`rust-lci` / `parse-error`): `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)`
+- `ext_loco_commit_021ad7f9a418b810b407781e1aff67cee6449478` (`loco` / `parse-error`): `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)`
+- `ext_loco_commit_038fe13fee64df5f46e5fef64e2165bd12e4e100` (`loco` / `parse-error`): `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)`
+- `ext_loco_commit_16a9e7bc252a4bf1a512e04bc8464becb43bca97` (`loco` / `parse-error`): `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)`
+- `ext_loco_commit_1ad0a45714e3ece9b8417b11da328663d337b0ad` (`loco` / `parse-error`): `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)`
+- `ext_loco_commit_1fbdfd3337945802ea6303e2a351a0ba36cb0e4e` (`loco` / `parse-error`): `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)`
+- `ext_loco_commit_202b31d86b54eb9df34b5f6137ffa4e8c5abc554` (`loco` / `parse-error`): `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)`
+- `ext_loco_commit_248d21ce7bb301c0f6a8e12bb647f1c2a4d4e2c9` (`loco` / `parse-error`): `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)`
+- `ext_loco_commit_295ed849a12095293b363ab0974072d754a2c8f5` (`loco` / `parse-error`): `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)`
+- `ext_loco_commit_2efc6cddf0635fc82868ff9741416937cc9c30ff` (`loco` / `parse-error`): `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)`
+- `ext_loco_commit_472ccf3cab7547dd4b74651a6e9f6214ff80ee5c` (`loco` / `parse-error`): `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)`
+- `ext_loco_commit_4815ab5b57c97a6db49163b7fe4a25175e4ce102` (`loco` / `parse-error`): `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)`
+- `ext_loco_commit_4a5bd8b84bbdff269d1fd846a9a71ee0ec574968` (`loco` / `parse-error`): `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)`
+- `ext_loco_commit_5415efde4b9e33176776148eabf4e26a7b516865` (`loco` / `parse-error`): `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)`
+- `ext_loco_commit_5ebb84499e107dcd312ef9ea09eb3a195537b888` (`loco` / `parse-error`): `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)`
+- `ext_loco_commit_5f36af9d8e6cdf6b5520dd22860890e76899053b` (`loco` / `parse-error`): `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)`
+- `ext_loco_commit_64bd4796d6c8cf28169d770b035699c2ceef4ac4` (`loco` / `parse-error`): `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)`
+- `ext_loco_commit_677665cc5da03a7f0a7097b488bb9b94dcfa4edc` (`loco` / `parse-error`): `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)`
+- `ext_loco_commit_731172877832dfa4230171d5c554fa284fb87373` (`loco` / `parse-error`): `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)`
+- `ext_loco_commit_7b1a31547700660cd6a12ed708e2c9cdc850be44` (`loco` / `parse-error`): `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)`
+- `ext_loco_commit_7ce2458fb3105123dc55a010f934ba3110d63ddc` (`loco` / `parse-error`): `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)`
+- `ext_loco_commit_83088ea21580b5078f18ed3c4d5c388ed10dd3c6` (`loco` / `parse-error`): `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)`
+- `ext_loco_commit_83fe19d193015e34bc8f467342880f0fc0718fd0` (`loco` / `parse-error`): `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)`
+- `ext_loco_commit_88d03ab9b5d032da77b03ed4546139a74b2941c1` (`loco` / `parse-error`): `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)`
+- `ext_loco_commit_8cb1784eeb6f290aecd57e312864ea2393db8ccc` (`loco` / `parse-error`): `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)`
+- `ext_loco_commit_8f5c768d39afad17c5e504c53123d986103df7ec` (`loco` / `parse-error`): `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)`
+- `ext_loco_commit_95037838ac82d528f6c6770c88135ece6041971b` (`loco` / `parse-error`): `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)`
+- `ext_loco_commit_9dcb1d8a1b16cc4ba187cd4d561c5324413129bd` (`loco` / `parse-error`): `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)`
+- `ext_loco_commit_a4508445893c37f92b120139bdd51cef62712ada` (`loco` / `parse-error`): `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)`
+- `ext_loco_commit_a4a880b07231f29c3e918ebcde54c43515d959fe` (`loco` / `parse-error`): `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)`
 
 ## Top Messages
 
-- `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)` (`385`)
+- `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)` (`415`)
 - `parse-source: syntax error: unexpected NEWLINE at line 1, col 4` (`2`)
 - `lex-source: invalid Unicode normative name in string literal at line 25, col 15` (`1`)
 - `parse-source: syntax error: unexpected I at line 4, col 9` (`1`)

@@ -1,6 +1,6 @@
 # Tier2 Classified Eval Snapshot
 
-Generated: `Sunday, March 8th, 2026 12:35:50am`
+Generated: `Sunday, March 8th, 2026 12:40:37am`
 
 - Corpus root: `corpus/tier2`
 - Timeout seconds: `2.0`
@@ -21,15 +21,17 @@ Generated: `Sunday, March 8th, 2026 12:35:50am`
 
 - `parse-error`: `167`
 - `non-program`: `39`
-- `ok`: `9`
+- `ok`: `8`
 - `lex-error`: `7`
+- `timeout`: `1`
 - `runtime-error`: `1`
 
 ### Outcome Counts (Likely Programs)
 
 - `parse-error`: `167`
-- `ok`: `9`
+- `ok`: `8`
 - `lex-error`: `7`
+- `timeout`: `1`
 - `runtime-error`: `1`
 
 ### Top Messages (Likely Programs)
@@ -65,6 +67,7 @@ Generated: `Sunday, March 8th, 2026 12:35:50am`
 - `parse-source: syntax error: unexpected DIFFRINT at line 42, col 13`: `1`
 - `parse-source: syntax error: unexpected DIFFRINT at line 22, col 13`: `1`
 - `parse-source: syntax error: unexpected NEWLINE at line 1, col 5`: `1`
+- `evaluation timed out after 2.0 seconds`: `1`
 - `lex-source: line continuation marker must be at end of line at line 19, col 48`: `1`
 - `parse-source: syntax error: unexpected DIFFRINT at line 17, col 27`: `1`
 - `parse-source: syntax error: unexpected OF at line 49, col 37`: `1`
