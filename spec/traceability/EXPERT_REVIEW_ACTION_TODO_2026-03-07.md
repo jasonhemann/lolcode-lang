@@ -65,15 +65,17 @@ Priority B (special slots / object lifecycle):
    - Related still-open boundary: synthesized non-function slot-call behavior (`G4`) remains tracked separately.
 
 Priority C (underspecified feature intersections):
-4. OPEN: evaluation-order policy hardening for side-effecting expressions (`SMOOSH`/logic intersections).
-   - Provisional pins: `N40`/`N75` cover currently implemented eager/left-to-right call/operand sequencing, but remain provisional pending fuller textual exegesis for variadic/side-effect intersections (`G1`-`G3`).
+4. DONE (2026-03-08): evaluation-order policy hardening for side-effecting expressions (`SMOOSH`/logic intersections) is now pinned.
+   - Adjudicated policy: expression operands evaluate left-to-right and eagerly; variadic logical forms (`ALL OF`/`ANY OF`) do not short-circuit.
+   - Side effects from earlier operands remain visible even when a later operand errors.
+   - `N40`/`N75` promoted from provisional to policy+implemented.
 5. CLOSED (resolved by `N63`): expression-level TYPE-word binding policy is adjudicated and implemented as dual-role contextual semantics (TYPE literals in expression position; declaration/prototype forms disambiguated by grammar).
 
 Priority D (process/traceability hygiene):
 6. In progress: reconcile status drift between `ITEM_BY_ITEM_RESOLUTION_MAP.md`, expert checklist, and pass-level adjudication docs.
 7. CLOSED (process pass complete): no generic “remaining pass1 prompts” bucket remains.
    - Residual concrete queue is now explicit:
-     - evaluation-order textual grounding for `SMOOSH`/logic intersections (`G1`-`G3`).
+     - (none in this queue section after `G1`-`G3` closure).
 
 ## 4) De-duplicated Document Ownership
 

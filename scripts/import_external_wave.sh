@@ -233,12 +233,12 @@ append_manifest_entry() {
   local tmp
   tmp="$(mktemp "${TMPDIR:-/tmp}/manifest-entry.XXXXXX")"
 
-  local last
-  last="$(
-    awk '/^[[:space:]]*\)[[:space:]]*$/ { line = NR } END { print line + 0 }' "$manifest_path"
+  local close_line
+  close_line="$(
+    awk '/^[[:space:]]*\)[[:space:]]*$/ { print NR; exit }' "$manifest_path"
   )"
 
-  if [[ "$last" -eq 0 ]]; then
+  if [[ -z "$close_line" ]]; then
     {
       echo "("
       cat "$manifest_path"
@@ -247,11 +247,11 @@ append_manifest_entry() {
       echo ")"
     } > "$tmp"
   else
-    awk -v last="$last" 'NR < last { print }' "$manifest_path" > "$tmp"
+    awk -v close_line="$close_line" 'NR < close_line { print }' "$manifest_path" > "$tmp"
     echo >> "$tmp"
     printf '%s\n' "$entry" >> "$tmp"
     echo ")" >> "$tmp"
-    awk -v last="$last" 'NR > last { print }' "$manifest_path" >> "$tmp"
+    awk -v close_line="$close_line" 'NR > close_line { print }' "$manifest_path" >> "$tmp"
   fi
 
   mv "$tmp" "$manifest_path"

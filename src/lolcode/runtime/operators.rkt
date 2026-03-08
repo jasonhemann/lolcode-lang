@@ -46,12 +46,21 @@
    (lambda (arg-procs)
      (lambda (e ctx)
        (apply string-append
-              (map (lambda (a) (lol-string (a e ctx))) arg-procs))))
+              (for/list ([a (in-list arg-procs)])
+                (lol-string (a e ctx))))))
    "ALL OF"
    (lambda (arg-procs)
      (lambda (e ctx)
-       (andmap (lambda (a) (lol-truthy? (a e ctx))) arg-procs)))
+       (for/fold ([out #t])
+                 ([a (in-list arg-procs)])
+         (if (lol-truthy? (a e ctx))
+             out
+             #f))))
    "ANY OF"
    (lambda (arg-procs)
      (lambda (e ctx)
-       (ormap (lambda (a) (lol-truthy? (a e ctx))) arg-procs)))))
+       (for/fold ([out #f])
+                 ([a (in-list arg-procs)])
+         (if (lol-truthy? (a e ctx))
+             #t
+             out))))))

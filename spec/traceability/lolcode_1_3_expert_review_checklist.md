@@ -304,19 +304,19 @@ For each item:
 - **Text**: `SMOOSH` implicitly casts all input values to YARNs, but evaluation order and strictness are not explicitly formalized here.
 - **Why it matters**: side effects, errors, and missing-slot hooks become observable.
 - **Initial assessment**: probably **I** that arguments are evaluated, but exact order is **U**.
-- **Decision needed**: do not elevate current implementation order into language semantics unless the expert finds stronger textual basis.
+- **Resolution (policy-pinned)**: evaluate left-to-right and eagerly; side effects from earlier operands are preserved even if a later operand errors.
 
 ### G2. Two independent missing-slot accesses inside one `SMOOSH`
 - **Observed**: `SMOOSH box'Z a AN box'Z b MKAY` fired `omgwtf` twice.
 - **Why it matters**: this may be perfectly consistent if each operand is evaluated independently.
 - **Initial assessment**: likely **I/U**, not necessarily a bug.
-- **Decision needed**: separate “two distinct missing accesses” from “same missing access repeated” and test both.
+- **Resolution (policy-pinned)**: independent operands are evaluated independently in order; distinct misses trigger independent lookup/hook behavior.
 
 ### G3. Side effects before later operand error
 - **Text**: not settled for variadics in general.
 - **Why it matters**: whether printing/mutation from earlier operands survives if a later operand errors.
 - **Initial assessment**: **U**.
-- **Decision needed**: define error/side-effect ordering conservatively.
+- **Resolution (policy-pinned)**: side effects from already-evaluated operands are kept; later operand errors do not roll them back.
 
 ### G4. Slot-call after `omgwtf` synthesizes a non-function
 - **Text**: `omgwtf` returns a value to place in the unknown slot, but slot-call type-check behavior is not specified.

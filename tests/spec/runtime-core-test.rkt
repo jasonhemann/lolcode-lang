@@ -614,6 +614,44 @@
   (check-equal? (hash-ref logic-binary-left-to-right 'stdout)
                 "WIN\nLR\n")
 
+  (define logic-variadic-any-eager-src
+    "HAI 1.3\nHOW IZ I mark\n  VISIBLE \"R\"\n  FOUND YR FAIL\nIF U SAY SO\nVISIBLE ANY OF WIN AN I IZ mark MKAY MKAY\nKTHXBYE\n")
+  (define logic-variadic-any-eager
+    (run-source logic-variadic-any-eager-src))
+  (check-eq? (hash-ref logic-variadic-any-eager 'status) 'ok)
+  ;; Adjudication (G1-G3): variadic logic is eager; no short-circuit side-step.
+  (check-equal? (hash-ref logic-variadic-any-eager 'stdout)
+                "R\nWIN\n")
+
+  (define logic-variadic-any-eager-error-src
+    "HAI 1.3\nHOW IZ I loud\n  VISIBLE \"L\"\n  FOUND YR WIN\nIF U SAY SO\nVISIBLE ANY OF I IZ loud MKAY AN missing MKAY\nKTHXBYE\n")
+  (define logic-variadic-any-eager-error
+    (run-source logic-variadic-any-eager-error-src))
+  (check-eq? (hash-ref logic-variadic-any-eager-error 'status) 'runtime-error)
+  (check-equal? (hash-ref logic-variadic-any-eager-error 'stdout) "L\n")
+  (check-true (regexp-match? #px"unknown identifier: missing"
+                             (hash-ref logic-variadic-any-eager-error 'error)))
+
+  (define logic-variadic-all-eager-rhs-src
+    "HAI 1.3\nVISIBLE ALL OF FAIL AN missing MKAY\nKTHXBYE\n")
+  (define logic-variadic-all-eager-rhs
+    (run-source logic-variadic-all-eager-rhs-src))
+  (check-eq? (hash-ref logic-variadic-all-eager-rhs 'status) 'runtime-error)
+  (check-true (regexp-match? #px"unknown identifier: missing"
+                             (hash-ref logic-variadic-all-eager-rhs 'error)))
+
+  (define smoosh-eager-side-effect-before-error-src
+    "HAI 1.3\nHOW IZ I loud\n  VISIBLE \"L\"\n  FOUND YR \"L\"\nIF U SAY SO\nSMOOSH I IZ loud MKAY AN missing MKAY\nKTHXBYE\n")
+  (define smoosh-eager-side-effect-before-error
+    (run-source smoosh-eager-side-effect-before-error-src))
+  (check-eq? (hash-ref smoosh-eager-side-effect-before-error 'status)
+             'runtime-error)
+  (check-equal? (hash-ref smoosh-eager-side-effect-before-error 'stdout)
+                "L\n")
+  (check-true (regexp-match? #px"unknown identifier: missing"
+                             (hash-ref smoosh-eager-side-effect-before-error
+                                       'error)))
+
   (define binary-ops-optional-an-src
     "HAI 1.3\nVISIBLE SUM OF 1 2\nVISIBLE DIFF OF 5 2\nVISIBLE PRODUKT OF 3 4\nVISIBLE QUOSHUNT OF 6 2\nVISIBLE MOD OF 7 4\nVISIBLE BIGGR OF 5 2\nVISIBLE SMALLR OF 5 2\nVISIBLE BOTH OF WIN FAIL\nVISIBLE EITHER OF FAIL WIN\nVISIBLE WON OF WIN FAIL\nVISIBLE BOTH SAEM 3 3\nVISIBLE DIFFRINT 3 4\nKTHXBYE\n")
   (define binary-ops-optional-an

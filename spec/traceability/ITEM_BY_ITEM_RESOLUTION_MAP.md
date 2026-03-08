@@ -59,7 +59,7 @@ Legend:
 | `N37` | implemented        | `src/lolcode/runtime.rkt` (TYPE/NOOB distinction + casts)                             | adjudication row `N37`                               |
 | `N38` | implemented        | `src/lolcode/parser.rkt` (optional-article grammar sites)                             | adjudication row `N38`                               |
 | `N39` | policy             | parser/call-shape remains name/slot based                                             | adjudication row `N39`                               |
-| `N40` | provisional-policy | `src/lolcode/runtime.rkt` (left-to-right eager eval)                                  | adjudication row `N40`                               |
+| `N40` | policy+implemented | `src/lolcode/runtime.rkt` (left-to-right eager eval)                                  | adjudication row `N40`                               |
 | `N41` | implemented        | `src/lolcode/parser.rkt`, `src/lolcode/runtime.rkt` (dynamic labels)                  | adjudication row `N41`                               |
 | `N42` | policy+implemented | `src/lolcode/parser.rkt`, `src/lolcode/runtime.rkt` (expr args for methods)           | adjudication row `N42`                               |
 | `N43` | implemented        | `src/lolcode/lexer.rkt`, `src/lolcode/parser.rkt`, `src/lolcode/runtime.rkt`          | adjudication row `N43`                               |
@@ -94,7 +94,7 @@ Legend:
 | `N72` | implemented        | `src/lolcode/runtime.rkt` (BUKKIT truthiness policy)                                  | adjudication row `N72`                               |
 | `N73` | policy+implemented | `src/lolcode/runtime.rkt` (host numeric portability decisions)                        | adjudication row `N73`                               |
 | `N74` | policy+implemented | `src/lolcode/runtime.rkt` + `IT_UPDATE_MATRIX.md`                                     | adjudication row `N74`                               |
-| `N75` | provisional-policy | `src/lolcode/runtime.rkt` (RHS sequencing guarantees)                                 | adjudication row `N75`                               |
+| `N75` | policy+implemented | `src/lolcode/runtime.rkt` (RHS sequencing guarantees)                                 | adjudication row `N75`                               |
 | `N76` | implemented        | `src/lolcode/runtime.rkt` (no forward prebinding)                                     | adjudication row `N76`                               |
 | `N77` | implemented        | `src/lolcode/runtime.rkt` (duplicate param rejection)                                 | adjudication row `N77`                               |
 | `N78` | implemented        | `src/lolcode/parser.rkt` (nested def rejection in strict 1.3)                         | adjudication row `N78`                               |
