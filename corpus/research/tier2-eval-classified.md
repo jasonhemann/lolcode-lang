@@ -1,6 +1,6 @@
 # Tier2 Classified Eval Snapshot
 
-Generated: `Friday, March 6th, 2026 8:41:58am`
+Generated: `Sunday, March 8th, 2026 12:35:50am`
 
 - Corpus root: `corpus/tier2`
 - Timeout seconds: `2.0`

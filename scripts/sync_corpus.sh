@@ -85,6 +85,11 @@ require_cmds() {
 
 require_cmds || exit 1
 
+url_encode_path_preserving_slash() {
+  local raw_path="$1"
+  jq -nr --arg p "$raw_path" '$p|@uri' | sed 's/%2[Ff]/\//g'
+}
+
 write_empty_json() {
   local path="$1"
   printf '{}\n' > "$path"
@@ -323,8 +328,10 @@ download_repo_snapshot() {
 
   while IFS= read -r path; do
     [ -z "$path" ] && continue
+    local encoded_path
+    encoded_path="$(url_encode_path_preserving_slash "$path")"
     mkdir -p "$out/files/$(dirname "$path")"
-    if ! curl -sS -L --max-time 20 "https://raw.githubusercontent.com/$repo/$branch/$path" > "$out/files/$path"; then
+    if ! curl -sS -L --max-time 20 "https://raw.githubusercontent.com/$repo/$branch/$encoded_path" > "$out/files/$path"; then
       file_failures=$((file_failures + 1))
     fi
   done < "$selected"

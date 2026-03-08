@@ -25,29 +25,29 @@ All currently unmapped normative lines are now adjudicated as exactly one of:
 - `merged` (line is semantically covered by one or more existing rows)
 - `example-only` (syntax-introducer/example line with no independent semantic requirement)
 
-| Line | Disposition | Resolution |
-|---|---|---|
-| 50 | merged | Covered by `comment.single-line-btw` (`source-line` 48) + lexer tests in `tests/spec/runtime-core-test.rkt`. |
-| 67 | merged | Covered by `comment.block-obtw-tldr` (`source-line` 65) + unterminated block-comment negative test. |
-| 241 | merged | Covered by `string.ignore-line-control-inside-yarn` (`source-line` 42) plus unterminated-string lexer failure tests in `tests/spec/parse-negative-test.rkt`. |
-| 269 | merged | Covered by `op.prefix-nesting-composition` (`303`) + `op.mkay-variadic-form` (`286`). |
-| 271 | example-only | Introduces unary syntax block; independent unary semantics are already covered by operator rows and tests. |
-| 283 | example-only | Introduces variadic syntax block; independent closure semantics covered by `op.mkay-variadic-form`. |
-| 324 | merged | Covered by `cast.implicit-operator-cast-errors` (`360`) and logic/comparison runtime regressions in `tests/spec/runtime-core-test.rkt`. |
-| 346 | example-only | IT idiom prose; semantic rule is captured by `flow.expr-stmt-it-local-scope` (`407`). |
-| 391 | merged | Syntax introducer for `GIMMEH`; semantics covered by `io.gimmeh` (`394`). |
-| 582 | merged | Fixed-arity/single-word argument behavior covered by `fn.definition-call` (`574`) + parser arg-shape restrictions in tests. |
-| 588 | merged | Return-introducer prose covered by `fn.return-semantics` (`590`). |
-| 596 | merged | Call-syntax introducer prose covered by `fn.definition-call` (`574`) + `fn.call-i-namespace-marker` (`604`). |
-| 612 | merged | Container/slot domain prose covered by `bukkit.declaration` (`619`) + `bukkit.slot-access` (`738`). |
-| 616 | merged | Empty-object creation introducer covered by `bukkit.declaration` (`619`). |
-| 678 | example-only | Inline explanatory comment in spec example; no separate normative rule. |
-| 680 | example-only | Inline explanatory comment in spec example; no separate normative rule. |
-| 741 | merged | Method call syntax introducer covered by `bukkit.slot-access` (`738`) and call regressions. |
-| 770 | new row | Added `bukkit.special-slot-izmakin-hook` (`source-line` 770) with runtime regression in `tests/spec/runtime-core-test.rkt`. |
-| 774 | merged | Prototype-object creation syntax introducer covered by `bukkit.parent-slot-prototype-link` (`790`). |
-| 782 | merged | Alternate inheritance syntax introducer covered by `bukkit.alt-syntax` (`709`) + inheritance rows (`790`/`798`). |
-| 810 | merged | Restatement/example line for receiver-based slot-function lookup, covered by `bukkit.slot-function-receiver-lookup` (`804`). |
+| Line | Disposition  | Resolution                                                                                                                                                   |
+|------|--------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 50   | merged       | Covered by `comment.single-line-btw` (`source-line` 48) + lexer tests in `tests/spec/runtime-core-test.rkt`.                                                 |
+| 67   | merged       | Covered by `comment.block-obtw-tldr` (`source-line` 65) + unterminated block-comment negative test.                                                          |
+| 241  | merged       | Covered by `string.ignore-line-control-inside-yarn` (`source-line` 42) plus unterminated-string lexer failure tests in `tests/spec/parse-negative-test.rkt`. |
+| 269  | merged       | Covered by `op.prefix-nesting-composition` (`303`) + `op.mkay-variadic-form` (`286`).                                                                        |
+| 271  | example-only | Introduces unary syntax block; independent unary semantics are already covered by operator rows and tests.                                                   |
+| 283  | example-only | Introduces variadic syntax block; independent closure semantics covered by `op.mkay-variadic-form`.                                                          |
+| 324  | merged       | Covered by `cast.implicit-operator-cast-errors` (`360`) and logic/comparison runtime regressions in `tests/spec/runtime-core-test.rkt`.                      |
+| 346  | example-only | IT idiom prose; semantic rule is captured by `flow.expr-stmt-it-local-scope` (`407`).                                                                        |
+| 391  | merged       | Syntax introducer for `GIMMEH`; semantics covered by `io.gimmeh` (`394`).                                                                                    |
+| 582  | merged       | Fixed-arity/single-word argument behavior covered by `fn.definition-call` (`574`) + parser arg-shape restrictions in tests.                                  |
+| 588  | merged       | Return-introducer prose covered by `fn.return-semantics` (`590`).                                                                                            |
+| 596  | merged       | Call-syntax introducer prose covered by `fn.definition-call` (`574`) + `fn.call-i-namespace-marker` (`604`).                                                 |
+| 612  | merged       | Container/slot domain prose covered by `bukkit.declaration` (`619`) + `bukkit.slot-access` (`738`).                                                          |
+| 616  | merged       | Empty-object creation introducer covered by `bukkit.declaration` (`619`).                                                                                    |
+| 678  | example-only | Inline explanatory comment in spec example; no separate normative rule.                                                                                      |
+| 680  | example-only | Inline explanatory comment in spec example; no separate normative rule.                                                                                      |
+| 741  | merged       | Method call syntax introducer covered by `bukkit.slot-access` (`738`) and call regressions.                                                                  |
+| 770  | new row      | Added `bukkit.special-slot-izmakin-hook` (`source-line` 770) with runtime regression in `tests/spec/runtime-core-test.rkt`.                                  |
+| 774  | merged       | Prototype-object creation syntax introducer covered by `bukkit.parent-slot-prototype-link` (`790`).                                                          |
+| 782  | merged       | Alternate inheritance syntax introducer covered by `bukkit.alt-syntax` (`709`) + inheritance rows (`790`/`798`).                                             |
+| 810  | merged       | Restatement/example line for receiver-based slot-function lookup, covered by `bukkit.slot-function-receiver-lookup` (`804`).                                 |
 
 ## 1.2 \ 1.3 Normative Delta (text-normalized)
 

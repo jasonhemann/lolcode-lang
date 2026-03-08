@@ -1,6 +1,6 @@
 # tier2 Feature Profile
 
-Generated: `2026-03-06T13:41:26Z`
+Generated: `2026-03-08T05:20:36Z`
 
 ## Recovery + Extraction Summary
 
@@ -11,7 +11,7 @@ Generated: `2026-03-06T13:41:26Z`
 - Candidate core-1.2/1.3 repro items: `422`
 - Candidate extension repro items: `0`
 - Candidate unknown-scope repro items: `0`
-- Test cases extracted (imported external fixtures): `241`
+- Test cases extracted (imported external fixtures): `291`
 - Known failures (triaged unresolved): `0`
 - Known divergences: `0`
 
@@ -30,7 +30,7 @@ Generated: `2026-03-06T13:41:26Z`
 - Candidate core-1.2/1.3 repro items: `31`
 - Candidate extension repro items: `0`
 - Candidate unknown-scope repro items: `0`
-- Test cases extracted (imported fixtures): `28`
+- Test cases extracted (imported fixtures): `31`
 - Known failures (triaged unresolved): `0`
 - Known divergences: `0`
 
@@ -889,7 +889,7 @@ Generated: `2026-03-06T13:41:26Z`
 - Candidate core-1.2/1.3 repro items: `1`
 - Candidate extension repro items: `0`
 - Candidate unknown-scope repro items: `0`
-- Test cases extracted (imported fixtures): `0`
+- Test cases extracted (imported fixtures): `1`
 - Known failures (triaged unresolved): `0`
 - Known divergences: `0`
 
@@ -1050,7 +1050,7 @@ Generated: `2026-03-06T13:41:26Z`
 - Candidate core-1.2/1.3 repro items: `20`
 - Candidate extension repro items: `0`
 - Candidate unknown-scope repro items: `0`
-- Test cases extracted (imported fixtures): `0`
+- Test cases extracted (imported fixtures): `20`
 - Known failures (triaged unresolved): `0`
 - Known divergences: `0`
 
@@ -1182,7 +1182,7 @@ Generated: `2026-03-06T13:41:26Z`
 - Candidate core-1.2/1.3 repro items: `55`
 - Candidate extension repro items: `0`
 - Candidate unknown-scope repro items: `0`
-- Test cases extracted (imported fixtures): `0`
+- Test cases extracted (imported fixtures): `26`
 - Known failures (triaged unresolved): `0`
 - Known divergences: `0`
 

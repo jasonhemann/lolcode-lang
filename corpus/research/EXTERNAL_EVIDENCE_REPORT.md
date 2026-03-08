@@ -1,26 +1,26 @@
 # External Evidence Report
 
-Generated: `Friday, March 6th, 2026 8:49:09am`
+Generated: `Sunday, March 8th, 2026 12:36:09am`
 
-- Cases evaluated: `352`
+- Cases evaluated: `392`
 - Filters: wave=`all`, id=`all`, scope=`all`, triage=`all`, hypothesis=`all`
 - JSON report: `/Users/jhemann/Code/lolcode-lang/scripts/../corpus/research/external-evidence-report.json`
 
 ## Observed Status Counts
 
-- `parse-error`: `351`
+- `parse-error`: `391`
 - `ok`: `1`
 
 ## Bucket Counts
 
-- `strict-non-1.3-or-extension`: `347`
+- `strict-non-1.3-or-extension`: `387`
 - `program-bug-or-non-spec-input`: `4`
 - `ok`: `1`
 
 ## Spec Scope Counts
 
 - `1.2`: `295`
-- `unknown`: `54`
+- `unknown`: `94`
 - `1.3`: `3`
 
 ## Unknown Spec Scope Cases
@@ -79,10 +79,50 @@ Generated: `Friday, March 6th, 2026 8:49:09am`
 - `ext_garthendrich_lolcode_interpreter_commit_7029948f074e015ffbd9bfd6d9ff9dcc25348d36` (`garthendrich-lolcode-interpreter` / `parse-error`): `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)`
 - `ext_garthendrich_lolcode_interpreter_commit_79272cbec3562959c89290f60fc97995ed97466e` (`garthendrich-lolcode-interpreter` / `parse-error`): `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)`
 - `ext_garthendrich_lolcode_interpreter_commit_7e59ef5894c3adb950e8e56567bbf867e0f409b8` (`garthendrich-lolcode-interpreter` / `parse-error`): `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)`
+- `ext_garthendrich_lolcode_interpreter_commit_90896e4982313dae83af32dc026deab3781cd8d2` (`garthendrich-lolcode-interpreter` / `parse-error`): `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)`
+- `ext_garthendrich_lolcode_interpreter_commit_97c6d2f4cdc68aee96bbc34bd1fa1f20c6d90241` (`garthendrich-lolcode-interpreter` / `parse-error`): `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)`
+- `ext_garthendrich_lolcode_interpreter_commit_98bdcbbd5c958806d7518f3d58c7b52e577e0c88` (`garthendrich-lolcode-interpreter` / `parse-error`): `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)`
+- `ext_garthendrich_lolcode_interpreter_commit_994b7b8e5a3d10951ef83031805517e86772441b` (`garthendrich-lolcode-interpreter` / `parse-error`): `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)`
+- `ext_garthendrich_lolcode_interpreter_commit_9c467ac0cdd799590685e4fe68fd717adba395c1` (`garthendrich-lolcode-interpreter` / `parse-error`): `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)`
+- `ext_garthendrich_lolcode_interpreter_commit_9efea2d47d4244c3ddb960d37b963647eb982a69` (`garthendrich-lolcode-interpreter` / `parse-error`): `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)`
+- `ext_garthendrich_lolcode_interpreter_commit_a378e85063fb3ac2aa20775a8168c7ce95a80be0` (`garthendrich-lolcode-interpreter` / `parse-error`): `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)`
+- `ext_garthendrich_lolcode_interpreter_commit_aabe58d32ae76795bb68127bf6886c1fda8c0349` (`garthendrich-lolcode-interpreter` / `parse-error`): `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)`
+- `ext_garthendrich_lolcode_interpreter_commit_acf37231a98bc8aa9a51b7b268ffc08ef0a2ab3f` (`garthendrich-lolcode-interpreter` / `parse-error`): `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)`
+- `ext_garthendrich_lolcode_interpreter_commit_b059f18e479dc9a3b8a3899b3d4475f42d18a91c` (`garthendrich-lolcode-interpreter` / `parse-error`): `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)`
+- `ext_garthendrich_lolcode_interpreter_commit_b1309ecc114f05b992c738bc11a8b27a1a1a8bc6` (`garthendrich-lolcode-interpreter` / `parse-error`): `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)`
+- `ext_garthendrich_lolcode_interpreter_commit_b3c2c6432aa88903c6c422685c4451cc19fa5db2` (`garthendrich-lolcode-interpreter` / `parse-error`): `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)`
+- `ext_garthendrich_lolcode_interpreter_commit_b613d2956b16b8cbb0b23ffdc09ce575eb34a6ec` (`garthendrich-lolcode-interpreter` / `parse-error`): `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)`
+- `ext_garthendrich_lolcode_interpreter_commit_b73612dd35cbdc5a3b63ede94a2542decc8a6318` (`garthendrich-lolcode-interpreter` / `parse-error`): `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)`
+- `ext_garthendrich_lolcode_interpreter_commit_bd28f1a82e1ef6d7d6e50df7ae313cb3a4a79d98` (`garthendrich-lolcode-interpreter` / `parse-error`): `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)`
+- `ext_garthendrich_lolcode_interpreter_commit_bdebb8fe0d6113ffb78b679241a4de478a82b431` (`garthendrich-lolcode-interpreter` / `parse-error`): `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)`
+- `ext_garthendrich_lolcode_interpreter_commit_c465bb627dd056c55cb6ba99890ba6274c3ae18e` (`garthendrich-lolcode-interpreter` / `parse-error`): `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)`
+- `ext_garthendrich_lolcode_interpreter_commit_c59751599219c3f8675ac51a99cd62c05774e7e9` (`garthendrich-lolcode-interpreter` / `parse-error`): `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)`
+- `ext_garthendrich_lolcode_interpreter_commit_d4115dac717773ad4b18b1cafd2a418d30d1a429` (`garthendrich-lolcode-interpreter` / `parse-error`): `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)`
+- `ext_garthendrich_lolcode_interpreter_commit_d67e99288c2c2ed6553f6bfd2679ca2f7254c9ea` (`garthendrich-lolcode-interpreter` / `parse-error`): `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)`
+- `ext_garthendrich_lolcode_interpreter_commit_d7df8b24e256c4bfbec871f200ffa8156198460b` (`garthendrich-lolcode-interpreter` / `parse-error`): `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)`
+- `ext_garthendrich_lolcode_interpreter_commit_de27943f71130645736ff88af5685dd199dd5e5f` (`garthendrich-lolcode-interpreter` / `parse-error`): `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)`
+- `ext_garthendrich_lolcode_interpreter_commit_e065e51ccd7e1c9cd4318cf3000f4c07e94bcc72` (`garthendrich-lolcode-interpreter` / `parse-error`): `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)`
+- `ext_garthendrich_lolcode_interpreter_commit_e1280ddc3ba12e99b3dbbbe89de6a5d04f43888d` (`garthendrich-lolcode-interpreter` / `parse-error`): `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)`
+- `ext_garthendrich_lolcode_interpreter_commit_e1adb5c2a39d4ea618a8d32b134a76b44680b789` (`garthendrich-lolcode-interpreter` / `parse-error`): `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)`
+- `ext_garthendrich_lolcode_interpreter_commit_e39ccbca5ee06c83f5cd8f6ee77c1ad0a12583f5` (`garthendrich-lolcode-interpreter` / `parse-error`): `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)`
+- `ext_garthendrich_lolcode_interpreter_commit_ed675e10fde94c44e89a656fc6eb9172223c8a13` (`garthendrich-lolcode-interpreter` / `parse-error`): `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)`
+- `ext_garthendrich_lolcode_interpreter_commit_f2ca79413833581e0c9f227f1a88c02d0854f7d0` (`garthendrich-lolcode-interpreter` / `parse-error`): `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)`
+- `ext_garthendrich_lolcode_interpreter_commit_f770e66d90603ea0fd46580a11e054abd283fbf4` (`garthendrich-lolcode-interpreter` / `parse-error`): `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)`
+- `ext_rust_lci_commit_1dbbe4cfec3741a99b12997d435ee58cdb7b8f6e` (`rust-lci` / `parse-error`): `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)`
+- `ext_rust_lci_commit_4029f3f74a2b7514f9673747c5ada1e42d2d18f7` (`rust-lci` / `parse-error`): `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)`
+- `ext_rust_lci_commit_54df66b6a134c1f9519baace241baf1d736567fa` (`rust-lci` / `parse-error`): `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)`
+- `ext_rust_lci_commit_66de88380b44c5a058d2eb5b1b194a321d17c0e6` (`rust-lci` / `parse-error`): `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)`
+- `ext_rust_lci_commit_677ec8ae1f91259673ae58a48c11172ace58fc4e` (`rust-lci` / `parse-error`): `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)`
+- `ext_rust_lci_commit_698dc34dfb3cd7d62e8bf3fbf26b72c42775ba65` (`rust-lci` / `parse-error`): `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)`
+- `ext_rust_lci_commit_71e53ec56030036ee98427217c35b6a8d1efb84f` (`rust-lci` / `parse-error`): `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)`
+- `ext_rust_lci_commit_8ef8689a3167c5d2259067f21d55f0e9cf43c2fb` (`rust-lci` / `parse-error`): `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)`
+- `ext_rust_lci_commit_985f3f10a9a6e965d9144186554814ea426b2284` (`rust-lci` / `parse-error`): `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)`
+- `ext_rust_lci_commit_a81f263ea5ca1653442a17c7806c4bb82cb9372e` (`rust-lci` / `parse-error`): `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)`
+- `ext_rust_lci_commit_cec1b1cdf0ecc973ae6db636bf8c170acf0420c9` (`rust-lci` / `parse-error`): `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)`
 
 ## Top Messages
 
-- `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)` (`345`)
+- `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)` (`385`)
 - `parse-source: syntax error: unexpected NEWLINE at line 1, col 4` (`2`)
 - `lex-source: invalid Unicode normative name in string literal at line 25, col 15` (`1`)
 - `parse-source: syntax error: unexpected I at line 4, col 9` (`1`)

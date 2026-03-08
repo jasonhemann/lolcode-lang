@@ -1,13 +1,13 @@
 # Corpus Current Status
 
-- Generated: 2026-03-07T16:06:33Z
+- Generated: 2026-03-08T05:36:16Z
 - Policy scope: strict `HAI 1.3` implementation target
 
 ## Canonical Sources
 
 - Manifest + extraction progress: `corpus/manifest.json`
 - Tier evaluation snapshots:
-  - `corpus/research/tier1-eval-classified-2026-03-05.json`
+  - `corpus/research/tier1-eval-classified.json`
   - `corpus/research/tier2-eval-classified.json`
 - Strict reject list: `corpus/research/PROMOTED_1_3_REJECTED_NONCOMPLIANT.json`
 - External bug/issue queue: `corpus/research/external_issues/candidate_repros_ranked.json`
@@ -18,22 +18,22 @@
 
 ### Tier1
 
-- Snapshot generated-at: Thursday, March 5th, 2026 9:31:33am
+- Snapshot generated-at: Sunday, March 8th, 2026 12:36:01am
 - Files: 352
 - Likely programs: 350
 - Non-programs: 2
 
 | Outcome (likely programs) | Count |
 |---|---:|
-| `ok` | 270 |
-| `parse-error` | 47 |
-| `runtime-error` | 21 |
-| `lex-error` | 11 |
+| `ok` | 264 |
+| `parse-error` | 50 |
+| `runtime-error` | 23 |
+| `lex-error` | 12 |
 | `timeout` | 1 |
 
 ### Tier2
 
-- Snapshot generated-at: Friday, March 6th, 2026 8:41:58am
+- Snapshot generated-at: Sunday, March 8th, 2026 12:35:50am
 - Files: 223
 - Likely programs: 184
 - Non-programs: 39
@@ -47,7 +47,7 @@
 
 ### Tracking Buckets
 
-- Good (strict-1.3 currently passing): `279`
+- Good (strict-1.3 currently passing): `273`
 - Irredeemably bad for strict-1.3 (explicit reject list): `7`
 - Fixed-here (from corpus manifest extraction progress): `0`
 
@@ -61,11 +61,11 @@
 - Aggregated extraction totals (manifest):
   - external_items_total: 2276
   - candidate_repros_total: 493
-  - imported_test_cases_total: 302
+  - imported_test_cases_total: 352
   - known_divergences_total: 0
   - known_failures_total: 0
   - fixed_here_total: 0
-  - candidate_triage_total: 0
+  - candidate_triage_total: 50
 
 - External regression candidate queue:
   - total candidates: 493
@@ -75,8 +75,8 @@
   - waves: 50
 
 - External evidence report totals:
-  - cases: 352
-  - bucket:strict-non-1.3-or-extension = 347
+  - cases: 392
+  - bucket:strict-non-1.3-or-extension = 387
   - bucket:program-bug-or-non-spec-input = 4
   - bucket:ok = 1
 

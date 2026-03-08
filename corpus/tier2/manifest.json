@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-06T13:41:26Z",
+  "generated_at": "2026-03-08T05:20:36Z",
   "tier": "tier2",
   "entries": [
     {
@@ -37,14 +37,15 @@
         "candidate_core_1_2_1_3_total": 31,
         "candidate_extension_total": 0,
         "candidate_unknown_scope_total": 0,
-        "imported_test_cases_total": 28,
+        "imported_test_cases_total": 31,
         "triage_status_counts": {
-          "reproducer-ready": 28
+          "reproducer-ready": 28,
+          "candidate": 3
         },
         "known_divergences_total": 0,
         "known_failures_total": 0,
         "fixed_here_total": 0,
-        "candidate_triage_total": 0
+        "candidate_triage_total": 3
       }
     },
     {
@@ -1081,12 +1082,14 @@
         "candidate_core_1_2_1_3_total": 1,
         "candidate_extension_total": 0,
         "candidate_unknown_scope_total": 0,
-        "imported_test_cases_total": 0,
-        "triage_status_counts": {},
+        "imported_test_cases_total": 1,
+        "triage_status_counts": {
+          "candidate": 1
+        },
         "known_divergences_total": 0,
         "known_failures_total": 0,
         "fixed_here_total": 0,
-        "candidate_triage_total": 0
+        "candidate_triage_total": 1
       }
     },
     {
@@ -1210,12 +1213,14 @@
         "candidate_core_1_2_1_3_total": 20,
         "candidate_extension_total": 0,
         "candidate_unknown_scope_total": 0,
-        "imported_test_cases_total": 0,
-        "triage_status_counts": {},
+        "imported_test_cases_total": 20,
+        "triage_status_counts": {
+          "candidate": 20
+        },
         "known_divergences_total": 0,
         "known_failures_total": 0,
         "fixed_here_total": 0,
-        "candidate_triage_total": 0
+        "candidate_triage_total": 20
       }
     },
     {
@@ -1339,12 +1344,14 @@
         "candidate_core_1_2_1_3_total": 55,
         "candidate_extension_total": 0,
         "candidate_unknown_scope_total": 0,
-        "imported_test_cases_total": 0,
-        "triage_status_counts": {},
+        "imported_test_cases_total": 26,
+        "triage_status_counts": {
+          "candidate": 26
+        },
         "known_divergences_total": 0,
         "known_failures_total": 0,
         "fixed_here_total": 0,
-        "candidate_triage_total": 0
+        "candidate_triage_total": 26
       }
     },
     {
