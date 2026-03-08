@@ -20,8 +20,9 @@ These principles guide interpretation when literal text alone does not pick one 
 3. If an interpretation would make large parts of the language ambiguous, incoherent, or unworkable, reject it.
 4. When multiple coherent readings remain, choose the one that introduces the least extra semantic machinery.
 5. Keep the resulting semantics compositional across interacting features (objects, slot calls, inheritance, control, IT).
-6. When no unique coherent reading is recoverable, classify explicitly as conflict/underdetermined and pin a narrow policy.
-7. In interpreting LOLCODE 1.3, we should use contemporaneous programming-language conventions only as interpretive context,
+6. Prefer non-degenerate interpretations: if a reading makes a construct self-defeating in normal use, reject it unless explicit text requires it.
+7. When no unique coherent reading is recoverable, classify explicitly as conflict/underdetermined and pin a narrow policy.
+8. In interpreting LOLCODE 1.3, we should use contemporaneous programming-language conventions only as interpretive context,
    not as a source of semantics. The draft is from 2007 and explicitly aims to make LOLCODE more like what programmers of
    that period would expect from modern languages, so it is appropriate to read it with familiarity with prototype inheritance,
    receiver-sensitive method dispatch, missing-member hooks, and static mixin patterns. That background helps us avoid missing
@@ -42,6 +43,7 @@ Apply these in order for each disputed behavior.
 6. If one interpretation creates unavoidable parse ambiguity, reject it and keep the unambiguous interpretation.
 7. If ambiguity remains irreducible, keep strict acceptance boundaries and surface explicit errors over hidden coercion or inference.
 8. If the spec is truly silent and no coherent implied behavior can be derived, mark the item as `spec-underdetermined` and defer to an explicit project policy note.
+9. For hooks/operators where parameter passing is unspecified, default to the least-implied calling convention (for example, zero-arity) unless explicit grammar/prose requires arguments.
 
 ## Reserved Keywords Policy
 

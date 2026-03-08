@@ -673,7 +673,7 @@
        (status . implemented)
        (code-refs . ("src/lolcode/runtime/value.rkt"))
        (test-refs . ("tests/spec/spec-audit/known-gaps-failing-test.rkt" "tests/spec/runtime-core-test.rkt"))
-       (notes . "Missing-slot access invokes effective omgwtf hook; default behavior raises unknown-slot error, custom overrides are supported, synthesized values are memoized to the missing slot, and same-slot re-entry during omgwtf resolution raises deterministic runtime error."))
+       (notes . "Missing-slot access invokes effective omgwtf hook; default behavior raises unknown-slot error, custom overrides are supported, synthesized values are memoized to the missing slot, and same-slot re-entry during omgwtf resolution raises deterministic runtime error. Adjudicated policy: omgwtf is invoked with zero args because the spec does not define hook parameters; adding implicit missing-slot-name parameters would require extra unstated machinery."))
  #hash((id . "bukkit.special-slot-izmakin-hook")
        (spec-version . "1.3")
        (source-file . "spec/upstream/lolcode-spec-v1.3.md")

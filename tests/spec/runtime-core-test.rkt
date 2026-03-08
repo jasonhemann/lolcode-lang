@@ -818,6 +818,16 @@
   ;; ordinary I IZ call argument semantics.
   (check-equal? (hash-ref method-call-expression-args 'stdout) "9\n")
 
+  (define method-defs-are-slot-callables-src
+    "HAI 1.3\nHOW IZ I repl\n  FOUND YR \"SLOT\"\nIF U SAY SO\nO HAI IM obj\n  HOW IZ I f\n    FOUND YR \"METHOD\"\n  IF U SAY SO\nKTHX\nVISIBLE I IZ obj'Z f MKAY\nobj'Z f R repl\nVISIBLE obj IZ f MKAY\nKTHXBYE\n")
+  (define method-defs-are-slot-callables
+    (run-source method-defs-are-slot-callables-src))
+  (check-eq? (hash-ref method-defs-are-slot-callables 'status) 'ok)
+  ;; Regression: HOW IZ-defined behavior is stored in a normal slot; reading the
+  ;; slot and rebinding it affects subsequent IZ dispatch for the same name.
+  (check-equal? (hash-ref method-defs-are-slot-callables 'stdout)
+                "METHOD\nSLOT\n")
+
   (define method-call-arg-eval-order-src
     "HAI 1.3\nI HAS A seq ITZ \"\"\nHOW IZ I mark YR c\n  seq R SMOOSH seq AN c MKAY\n  FOUND YR c\nIF U SAY SO\nO HAI IM obj\n  HOW IZ I see YR a AN YR b\n    FOUND YR seq\n  IF U SAY SO\nKTHX\nVISIBLE obj IZ see YR I IZ mark YR \"C\" MKAY AN YR I IZ mark YR \"D\" MKAY MKAY\nKTHXBYE\n")
   (define method-call-arg-eval-order
@@ -851,15 +861,25 @@
                              (hash-ref missing-slot-default-omgwtf 'error)))
 
   (define custom-omgwtf-on-missing-slot-src
-    "HAI 1.3\nO HAI IM box\n  HOW IZ I omgwtf YR slotname\n    FOUND YR SMOOSH \"made-\" AN slotname MKAY\n  IF U SAY SO\nKTHX\nVISIBLE box'Z nope\nVISIBLE box'Z nope\nKTHXBYE\n")
+    "HAI 1.3\nO HAI IM box\n  HOW IZ I omgwtf\n    FOUND YR \"made\"\n  IF U SAY SO\nKTHX\nVISIBLE box'Z nope\nVISIBLE box'Z nope\nKTHXBYE\n")
   (define custom-omgwtf-on-missing-slot
     (run-source custom-omgwtf-on-missing-slot-src))
   (check-eq? (hash-ref custom-omgwtf-on-missing-slot 'status) 'ok)
   (check-equal? (hash-ref custom-omgwtf-on-missing-slot 'stdout)
-                "made-nope\nmade-nope\n")
+                "made\nmade\n")
+
+  (define omgwtf-slot-function-call-convention-src
+    "HAI 1.3\nI HAS A g ITZ 7\nHOW IZ I mk\n  FOUND YR SUM OF g AN 1\nIF U SAY SO\nI HAS A o ITZ A BUKKIT\no HAS A omgwtf ITZ mk\nVISIBLE o'Z missing\nKTHXBYE\n")
+  (define omgwtf-slot-function-call-convention
+    (run-source omgwtf-slot-function-call-convention-src))
+  (check-eq? (hash-ref omgwtf-slot-function-call-convention 'status) 'ok)
+  ;; Regression: slot-assigned omgwtf hooks must receive env-first callable
+  ;; invocation with strict zero-arity dispatch.
+  (check-equal? (hash-ref omgwtf-slot-function-call-convention 'stdout)
+                "8\n")
 
   (define omgwtf-memoizes-missing-slot-src
-    "HAI 1.3\nO HAI IM box\n  I HAS A hits ITZ 0\n  HOW IZ I omgwtf YR slotname\n    hits R SUM OF hits AN 1\n    FOUND YR hits\n  IF U SAY SO\nKTHX\nVISIBLE box'Z nope\nVISIBLE box'Z nope\nVISIBLE box'Z hits\nKTHXBYE\n")
+    "HAI 1.3\nO HAI IM box\n  I HAS A hits ITZ 0\n  HOW IZ I omgwtf\n    hits R SUM OF hits AN 1\n    FOUND YR hits\n  IF U SAY SO\nKTHX\nVISIBLE box'Z nope\nVISIBLE box'Z nope\nVISIBLE box'Z hits\nKTHXBYE\n")
   (define omgwtf-memoizes-missing-slot
     (run-source omgwtf-memoizes-missing-slot-src))
   (check-eq? (hash-ref omgwtf-memoizes-missing-slot 'status) 'ok)
@@ -868,7 +888,7 @@
                 "1\n1\n1\n")
 
   (define omgwtf-return-value-overrides-intermediate-slot-mutation-src
-    "HAI 1.3\nO HAI IM box\n  I HAS A hits ITZ 0\n  HOW IZ I omgwtf YR slotname\n    hits R SUM OF hits AN 1\n    ME HAS A SRS slotname ITZ \"from-body\"\n    FOUND YR SMOOSH \"from-return-\" AN hits MKAY\n  IF U SAY SO\nKTHX\nVISIBLE box'Z nope\nVISIBLE box'Z nope\nVISIBLE box'Z hits\nVISIBLE box'Z nope\nKTHXBYE\n")
+    "HAI 1.3\nO HAI IM box\n  I HAS A hits ITZ 0\n  HOW IZ I omgwtf\n    hits R SUM OF hits AN 1\n    ME HAS A nope ITZ \"from-body\"\n    FOUND YR SMOOSH \"from-return-\" AN hits MKAY\n  IF U SAY SO\nKTHX\nVISIBLE box'Z nope\nVISIBLE box'Z nope\nVISIBLE box'Z hits\nVISIBLE box'Z nope\nKTHXBYE\n")
   (define omgwtf-return-value-overrides-intermediate-slot-mutation
     (run-source omgwtf-return-value-overrides-intermediate-slot-mutation-src))
   (check-eq? (hash-ref omgwtf-return-value-overrides-intermediate-slot-mutation 'status) 'ok)
@@ -876,8 +896,17 @@
   (check-equal? (hash-ref omgwtf-return-value-overrides-intermediate-slot-mutation 'stdout)
                 "from-return-1\nfrom-return-1\n1\nfrom-return-1\n")
 
+  (define omgwtf-nonzero-arity-rejected-src
+    "HAI 1.3\nO HAI IM box\n  HOW IZ I omgwtf YR slotname\n    FOUND YR \"made\"\n  IF U SAY SO\nKTHX\nVISIBLE box'Z nope\nKTHXBYE\n")
+  (define omgwtf-nonzero-arity-rejected
+    (run-source omgwtf-nonzero-arity-rejected-src))
+  (check-eq? (hash-ref omgwtf-nonzero-arity-rejected 'status) 'runtime-error)
+  ;; Policy: strict mode invokes omgwtf with zero args; nonzero arity hooks fail.
+  (check-true (regexp-match? #px"method omgwtf expected 1 args, got 0"
+                             (hash-ref omgwtf-nonzero-arity-rejected 'error)))
+
   (define omgwtf-recursive-same-slot-reentry-src
-    "HAI 1.3\nO HAI IM box\n  HOW IZ I omgwtf YR slotname\n    FOUND YR ME'Z SRS slotname\n  IF U SAY SO\nKTHX\nVISIBLE box'Z nope\nKTHXBYE\n")
+    "HAI 1.3\nO HAI IM box\n  HOW IZ I omgwtf\n    FOUND YR ME'Z nope\n  IF U SAY SO\nKTHX\nVISIBLE box'Z nope\nKTHXBYE\n")
   (define omgwtf-recursive-same-slot-reentry
     (run-source omgwtf-recursive-same-slot-reentry-src))
   (check-eq? (hash-ref omgwtf-recursive-same-slot-reentry 'status) 'runtime-error)
@@ -887,7 +916,7 @@
                              (hash-ref omgwtf-recursive-same-slot-reentry 'error)))
 
   (define method-call-does-not-trigger-omgwtf-src
-    "HAI 1.3\nHOW IZ I helper\n  FOUND YR \"OK\"\nIF U SAY SO\nO HAI IM box\n  HOW IZ I omgwtf YR slotname\n    FOUND YR helper\n  IF U SAY SO\nKTHX\nVISIBLE box IZ nope MKAY\nKTHXBYE\n")
+    "HAI 1.3\nHOW IZ I helper\n  FOUND YR \"OK\"\nIF U SAY SO\nO HAI IM box\n  HOW IZ I omgwtf\n    FOUND YR helper\n  IF U SAY SO\nKTHX\nVISIBLE box IZ nope MKAY\nKTHXBYE\n")
   (define method-call-does-not-trigger-omgwtf
     (run-source method-call-does-not-trigger-omgwtf-src))
   (check-eq? (hash-ref method-call-does-not-trigger-omgwtf 'status) 'runtime-error)
@@ -897,7 +926,7 @@
                              (hash-ref method-call-does-not-trigger-omgwtf 'error)))
 
   (define method-call-uses-prewarmed-omgwtf-slot-src
-    "HAI 1.3\nHOW IZ I helper\n  FOUND YR \"OK\"\nIF U SAY SO\nO HAI IM box\n  HOW IZ I omgwtf YR slotname\n    FOUND YR helper\n  IF U SAY SO\nKTHX\nI HAS A warm ITZ box'Z nope\nVISIBLE box IZ nope MKAY\nKTHXBYE\n")
+    "HAI 1.3\nHOW IZ I helper\n  FOUND YR \"OK\"\nIF U SAY SO\nO HAI IM box\n  HOW IZ I omgwtf\n    FOUND YR helper\n  IF U SAY SO\nKTHX\nI HAS A warm ITZ box'Z nope\nVISIBLE box IZ nope MKAY\nKTHXBYE\n")
   (define method-call-uses-prewarmed-omgwtf-slot
     (run-source method-call-uses-prewarmed-omgwtf-slot-src))
   (check-eq? (hash-ref method-call-uses-prewarmed-omgwtf-slot 'status) 'ok)
@@ -1253,12 +1282,12 @@
   (check-equal? (hash-ref mixin-special-parent-restored 'stdout) "BASE2\n")
 
   (define mixin-special-omgwtf-copied-src
-    "HAI 1.3\nO HAI IM parent\nKTHX\nO HAI IM mix\n  HOW IZ I omgwtf YR slotname\n    FOUND YR SMOOSH \"mix-\" AN slotname MKAY\n  IF U SAY SO\nKTHX\nO HAI IM child IM LIEK parent SMOOSH mix\nKTHX\nVISIBLE child'Z ghost\nKTHXBYE\n")
+    "HAI 1.3\nO HAI IM parent\nKTHX\nO HAI IM mix\n  HOW IZ I omgwtf\n    FOUND YR \"mix\"\n  IF U SAY SO\nKTHX\nO HAI IM child IM LIEK parent SMOOSH mix\nKTHX\nVISIBLE child'Z ghost\nKTHXBYE\n")
   (define mixin-special-omgwtf-copied
     (run-source mixin-special-omgwtf-copied-src))
   (check-eq? (hash-ref mixin-special-omgwtf-copied 'status) 'ok)
   ;; Regression: mixin-provided omgwtf special slot behavior is copied to child.
-  (check-equal? (hash-ref mixin-special-omgwtf-copied 'stdout) "mix-ghost\n")
+  (check-equal? (hash-ref mixin-special-omgwtf-copied 'stdout) "mix\n")
 
   (define mixin-special-izmakin-copied-src
     "HAI 1.3\nO HAI IM parent\nKTHX\nO HAI IM mix\n  HOW IZ I izmakin\n    ME HAS A built ITZ \"YES\"\n  IF U SAY SO\nKTHX\nO HAI IM child IM LIEK parent SMOOSH mix\nKTHX\nVISIBLE child'Z built\nKTHXBYE\n")
@@ -1269,13 +1298,13 @@
   (check-equal? (hash-ref mixin-special-izmakin-copied 'stdout) "YES\n")
 
   (define special-slot-parent-child-shadow-src
-    "HAI 1.3\nO HAI IM parent\n  HOW IZ I omgwtf YR slotname\n    FOUND YR SMOOSH \"P-\" AN slotname MKAY\n  IF U SAY SO\n  HOW IZ I izmakin\n    ME HAS A made ITZ \"P\"\n  IF U SAY SO\nKTHX\nO HAI IM child IM LIEK parent\n  HOW IZ I omgwtf YR slotname\n    FOUND YR SMOOSH \"C-\" AN slotname MKAY\n  IF U SAY SO\n  HOW IZ I izmakin\n    ME HAS A made ITZ \"C\"\n  IF U SAY SO\nKTHX\nI HAS A p ITZ LIEK A parent\nI HAS A c ITZ LIEK A child\nVISIBLE p'Z ghost\nVISIBLE c'Z ghost\nVISIBLE p'Z made\nVISIBLE c'Z made\nKTHXBYE\n")
+    "HAI 1.3\nO HAI IM parent\n  HOW IZ I omgwtf\n    FOUND YR \"P\"\n  IF U SAY SO\n  HOW IZ I izmakin\n    ME HAS A made ITZ \"P\"\n  IF U SAY SO\nKTHX\nO HAI IM child IM LIEK parent\n  HOW IZ I omgwtf\n    FOUND YR \"C\"\n  IF U SAY SO\n  HOW IZ I izmakin\n    ME HAS A made ITZ \"C\"\n  IF U SAY SO\nKTHX\nI HAS A p ITZ LIEK A parent\nI HAS A c ITZ LIEK A child\nVISIBLE p'Z ghost\nVISIBLE c'Z ghost\nVISIBLE p'Z made\nVISIBLE c'Z made\nKTHXBYE\n")
   (define special-slot-parent-child-shadow
     (run-source special-slot-parent-child-shadow-src))
   (check-eq? (hash-ref special-slot-parent-child-shadow 'status) 'ok)
   ;; Regression: child special-slot methods shadow inherited parent special-slot behavior.
   (check-equal? (hash-ref special-slot-parent-child-shadow 'stdout)
-                "P-ghost\nC-ghost\nP\nC\n")
+                "P\nC\nP\nC\n")
 
   (define mixin-source-own-only-slots-src
     "HAI 1.3\nO HAI IM mixbase\n  I HAS A inherited ITZ \"INHERITED\"\nKTHX\nO HAI IM mix IM LIEK mixbase\n  I HAS A own ITZ \"OWN\"\nKTHX\nO HAI IM parent\nKTHX\nO HAI IM child IM LIEK parent SMOOSH mix\nKTHX\nVISIBLE child'Z own\nVISIBLE child'Z inherited\nKTHXBYE\n")

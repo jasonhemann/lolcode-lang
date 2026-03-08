@@ -48,7 +48,7 @@
   (test-case
    "REGRESSION: omgwtf slot fallback runs on missing slot access"
    (define src
-     "HAI 1.3\nO HAI IM obj\n  HOW IZ I omgwtf YR name\n    FOUND YR 42\n  IF U SAY SO\nKTHX\nVISIBLE obj'Z missing\nKTHXBYE\n")
+     "HAI 1.3\nO HAI IM obj\n  HOW IZ I omgwtf\n    FOUND YR 42\n  IF U SAY SO\nKTHX\nVISIBLE obj'Z missing\nKTHXBYE\n")
    (define out (run-source src))
    (check-eq? (hash-ref out 'status) 'ok)
    (check-equal? (hash-ref out 'stdout) "42\n"))

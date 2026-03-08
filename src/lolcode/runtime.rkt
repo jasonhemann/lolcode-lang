@@ -93,7 +93,7 @@
        (define obj (object-proc e ctx))
        (unless (lol-object? obj)
          (error 'run-program "slot lookup requires BUKKIT, got ~e" obj))
-       (send obj get-slot (slot-name-proc e ctx) noob ctx))
+       (read-slot-value obj (slot-name-proc e ctx) ctx))
      (define (lv-write e value ctx)
        (define obj (object-proc e ctx))
        (unless (lol-object? obj)
@@ -216,18 +216,11 @@
   (for ([mix (in-list (reverse mixins))])
     (send mix copy-own-into! target)))
 
-(define (run-izmakin-hook! obj e ctx)
-  (send obj
-        invoke-method
-        "izmakin"
-        '()
-        ctx
-        (lambda ()
-          (define maybe-slot-hook
-            (send obj lookup-slot "izmakin" noob))
-          (when (procedure? maybe-slot-hook)
-            (maybe-slot-hook e '() ctx))
-          (void))))
+(define (run-izmakin-hook! obj _e ctx)
+  (define maybe-slot-hook
+    (send obj lookup-special-procedure-slot "izmakin"))
+  (when (procedure? maybe-slot-hook)
+    (invoke-slot-callable obj maybe-slot-hook '() ctx)))
 
 (define (project-receiver-slot-frame receiver)
   (define own-table
@@ -265,9 +258,48 @@
       [else
        (define prior-box
          (hash-ref inherited-before name missing-inherited-slot))
-       (unless (or (eq? prior-box missing-inherited-slot)
-                   (equal? value (unbox prior-box)))
-         (send receiver assign-slot! name value))])))
+         (unless (or (eq? prior-box missing-inherited-slot)
+                     (equal? value (unbox prior-box)))
+           (send receiver assign-slot! name value))])))
+
+(define (invoke-slot-callable obj slot-fn arg-values ctx)
+  (define-values (projected-table own-slot-names inherited-before)
+    (project-receiver-slot-frame obj))
+  (define receiver-slot-env
+    (env-with-table projected-table (runtime-globals ctx)))
+  (define receiver-call-root
+    (extend-env receiver-slot-env))
+  (env-define! receiver-call-root "ME" obj)
+  (dynamic-wind
+    void
+    (lambda ()
+      (slot-fn receiver-call-root arg-values ctx))
+    (lambda ()
+      (sync-receiver-slot-frame!
+       obj
+       projected-table
+       own-slot-names
+       inherited-before))))
+
+(define (read-slot-value obj slot-name ctx)
+  (define missing-slot-value
+    (gensym 'missing-slot-value))
+  (define maybe-value
+    (send obj lookup-slot slot-name missing-slot-value))
+  (if (eq? maybe-value missing-slot-value)
+      (send obj resolve-missing-slot!
+            slot-name
+            (lambda ()
+              (define maybe-hook
+                (send obj lookup-special-procedure-slot "omgwtf"))
+              (if (procedure? maybe-hook)
+                  (invoke-slot-callable
+                   obj
+                   maybe-hook
+                   '()
+                   ctx)
+                  (error 'run-program "unknown slot: ~a" slot-name))))
+      maybe-value))
 
 (define (make-prototype-object parent-obj mixin-objs)
   (define child (send parent-obj prototype))
@@ -407,53 +439,22 @@
          (name-proc e ctx))
        (define arg-values
          (map (lambda (a) (a e ctx)) arg-procs))
-       (define (invoke-slot-callable obj slot-fn)
-         (define-values (projected-table own-slot-names inherited-before)
-           (project-receiver-slot-frame obj))
-         (define receiver-env
-           (env-with-table projected-table (runtime-globals ctx)))
-         (dynamic-wind
-           void
-           (lambda ()
-             (slot-fn receiver-env arg-values ctx))
-           (lambda ()
-             (sync-receiver-slot-frame!
-              obj
-              projected-table
-              own-slot-names
-              inherited-before))))
        (define (invoke-on-object obj)
-         (send obj
-               invoke-method
-               method-name
-               arg-values
-               ctx
-               (lambda ()
-                 (define maybe-slot-callable
-                  (send obj lookup-slot method-name #f))
-                 (cond
-                   [(procedure? maybe-slot-callable)
-                    (invoke-slot-callable obj maybe-slot-callable)]
-                   [else
-                    ((resolve-callable e ctx method-name "method")
-                     (runtime-globals ctx)
-                     arg-values
-                     ctx)]))))
+         (define maybe-slot-callable
+           (send obj lookup-slot method-name #f))
+         (if (procedure? maybe-slot-callable)
+             (invoke-slot-callable obj maybe-slot-callable arg-values ctx)
+             (error 'run-program "unknown method: ~a" method-name)))
        (cond
          [receiver-ident
           (define maybe-box
             (env-lookup-box e receiver-ident))
-         (if maybe-box
-              (let ([recv-val (unbox maybe-box)])
-                (unless (lol-object? recv-val)
-                  (error 'run-program "method call requires BUKKIT receiver, got ~e" recv-val))
-                (invoke-on-object recv-val))
-              (let* ([ns-fn-name (format "~a'Z ~a" receiver-ident method-name)]
-                     [ns-fn-box (env-lookup-box e ns-fn-name)]
-                     [ns-fn (and ns-fn-box (unbox ns-fn-box))])
-                (if (procedure? ns-fn)
-                    (ns-fn (runtime-globals ctx) arg-values ctx)
-                    (error 'run-program "unknown identifier: ~a" receiver-ident))))]
+          (unless maybe-box
+            (error 'run-program "unknown identifier: ~a" receiver-ident))
+          (define recv-val (unbox maybe-box))
+          (unless (lol-object? recv-val)
+            (error 'run-program "method call requires BUKKIT receiver, got ~e" recv-val))
+          (invoke-on-object recv-val)]
          [else
           (define obj (recv-proc e ctx))
           (unless (lol-object? obj)
@@ -659,6 +660,39 @@
           (loop)))
       (loop))))
 
+(define (make-callable-fn kind fn-name param-names body-proc)
+  (define expected-arity
+    (length param-names))
+  (lambda (caller-env arg-values caller-ctx)
+    (define actual-arity
+      (length arg-values))
+    (unless (= expected-arity actual-arity)
+      (error 'run-program
+             "~a ~a expected ~a args, got ~a"
+             kind
+             fn-name
+             expected-arity
+             actual-arity))
+    (define call-root
+      (or caller-env
+          (runtime-globals caller-ctx)))
+    (define call-env (extend-env call-root))
+    (for ([param (in-list param-names)]
+          [arg (in-list arg-values)])
+      (env-define! call-env param arg))
+    (if (env-lookup-box call-root "ME")
+        (bind-global-it-alias! call-env caller-ctx)
+        (env-define! call-env "IT" noob))
+    (let/ec return-k
+      (define fn-ctx
+        (ctx-derive caller-ctx
+                    #:return-k return-k
+                    #:break-k #f
+                    #:object-name #f
+                    #:def-object #f))
+      (body-proc call-env fn-ctx)
+      (env-ref call-env "IT"))))
+
 (define (compile-stmt-function-def name params body)
   (define body-proc (compile-block body))
   (define name-proc
@@ -678,86 +712,20 @@
       (map (lambda (param-name-proc)
              (ensure-bindable-name "parameter name" (param-name-proc e ctx)))
            param-name-procs))
-    (define def-env e)
-    (define method-lexical-parent
-      (if (exec-ctx-def-object ctx)
-          (env-parent def-env)
-          def-env))
-    (define (make-global-fn fn-name param-names)
-      (lambda (caller-env arg-values caller-ctx)
-        (unless (= (length param-names) (length arg-values))
-          (error 'run-program
-                 "function ~a expected ~a args, got ~a"
-                 fn-name
-                 (length param-names)
-                 (length arg-values)))
-        ;; Caller selects namespace root:
-        ;; - normal I IZ calls pass runtime globals
-        ;; - slot-access function calls pass receiver-projected env
-        (define call-root
-          (or caller-env
-              (runtime-globals caller-ctx)))
-        (define call-env (extend-env call-root))
-        (for ([param (in-list param-names)]
-              [arg (in-list arg-values)])
-          (env-define! call-env param arg))
-        (env-define! call-env "IT" noob)
-        (let/ec return-k
-          (define fn-ctx
-            (ctx-derive caller-ctx
-                        #:return-k return-k
-                        #:break-k #f
-                        #:object-name #f
-                        #:def-object #f))
-          (body-proc call-env fn-ctx)
-          (env-ref call-env "IT"))))
-    (define (make-method-fn fn-name param-names)
-      (lambda (receiver arg-values caller-ctx)
-        (unless (= (length param-names) (length arg-values))
-          (error 'run-program
-                 "method ~a expected ~a args, got ~a"
-                 fn-name
-                 (length param-names)
-                 (length arg-values)))
-        (define-values (projected-table own-slot-names inherited-before)
-          (project-receiver-slot-frame receiver))
-        (define receiver-env
-          (env-with-table projected-table
-                          method-lexical-parent))
-        (define call-env (extend-env receiver-env))
-        (for ([param (in-list param-names)]
-              [arg (in-list arg-values)])
-          (env-define! call-env param arg))
-        (env-define! call-env "ME" receiver)
-        (bind-global-it-alias! call-env caller-ctx)
-        (let/ec return-k
-          (define fn-ctx
-            (ctx-derive caller-ctx
-                        #:return-k return-k
-                        #:break-k #f
-                        #:object-name #f
-                        #:def-object #f))
-          (dynamic-wind
-            void
-            (lambda ()
-              (body-proc call-env fn-ctx)
-              (env-ref call-env "IT"))
-            (lambda ()
-              (sync-receiver-slot-frame!
-               receiver
-               projected-table
-               own-slot-names
-               inherited-before))))))
-    (define global-fn
-      (make-global-fn resolved-name resolved-params))
+    (define callable-fn
+      (make-callable-fn
+       (if (exec-ctx-def-object ctx) "method" "function")
+       resolved-name
+       resolved-params
+       body-proc))
     (cond
       [(exec-ctx-def-object ctx)
        (send (exec-ctx-def-object ctx)
-             define-method!
+             declare-slot!
              resolved-name
-             (make-method-fn resolved-name resolved-params))]
+             callable-fn)]
       [else
-       (env-define! e resolved-name global-fn)])))
+       (env-define! e resolved-name callable-fn)])))
 
 (define (compile-stmt-method-def receiver name params body)
   (define receiver-proc (compile-expr receiver))
@@ -784,44 +752,13 @@
       (error 'run-program
              "method declaration requires BUKKIT receiver, got ~e"
              target))
-    (define lexical-parent e)
-    (define (method-fn receiver-value arg-values caller-ctx)
-      (unless (= (length resolved-params) (length arg-values))
-        (error 'run-program
-               "method ~a expected ~a args, got ~a"
-               resolved-name
-               (length resolved-params)
-               (length arg-values)))
-      (define-values (projected-table own-slot-names inherited-before)
-        (project-receiver-slot-frame receiver-value))
-      (define receiver-env
-        (env-with-table projected-table
-                        lexical-parent))
-      (define call-env (extend-env receiver-env))
-      (for ([param (in-list resolved-params)]
-            [arg (in-list arg-values)])
-        (env-define! call-env param arg))
-      (env-define! call-env "ME" receiver-value)
-      (bind-global-it-alias! call-env caller-ctx)
-      (let/ec return-k
-        (define fn-ctx
-          (ctx-derive caller-ctx
-                      #:return-k return-k
-                      #:break-k #f
-                      #:object-name #f
-                      #:def-object #f))
-        (dynamic-wind
-          void
-          (lambda ()
-            (body-proc call-env fn-ctx)
-            (env-ref call-env "IT"))
-          (lambda ()
-            (sync-receiver-slot-frame!
-             receiver-value
-             projected-table
-             own-slot-names
-             inherited-before)))))
-    (send target define-method! resolved-name method-fn)))
+    (define method-fn
+      (make-callable-fn
+       "method"
+       resolved-name
+       resolved-params
+       body-proc))
+    (send target declare-slot! resolved-name method-fn)))
 
 (define (compile-stmt-object-def name-spec parent-spec mixins body)
   (define name-proc

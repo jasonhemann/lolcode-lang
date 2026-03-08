@@ -37,7 +37,7 @@ Legend:
 | `N17` | mooted             | `src/lolcode/parser.rkt`, `src/lolcode/runtime.rkt` (full BUKKIT support retained)    | adjudication row `N17`                               |
 | `N18` | implemented        | `src/lolcode/runtime.rkt` (prototype/copy-on-write)                                   | adjudication row `N18`                               |
 | `N19` | implemented        | `src/lolcode/runtime.rkt` (`izmakin` ordering/reentrancy)                             | adjudication row `N19`                               |
-| `N20` | implemented        | `src/lolcode/runtime.rkt` (`omgwtf` memoization path)                                 | adjudication rows `N20` + `N20 (extended)`           |
+| `N20` | policy+implemented | `src/lolcode/runtime.rkt` (`omgwtf` memoization + strict zero-arity hook call`)       | adjudication rows `N20` + `N20 (extended)`           |
 | `N21` | implemented        | `src/lolcode/runtime.rkt` (cycle-safe parent traversal)                               | adjudication row `N21`                               |
 | `N22` | implemented        | `src/lolcode/runtime.rkt` (inherited assignment COW)                                  | adjudication row `N22`                               |
 | `N23` | policy             | `src/lolcode/runtime.rkt` + policy table in adjudication doc                          | adjudication row `N23` + `N23 Policy Table`          |

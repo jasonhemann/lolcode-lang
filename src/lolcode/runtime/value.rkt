@@ -24,21 +24,16 @@
 (define lol-object%
   (class object%
     (init-field [slots (make-hash)]
-                [methods (make-hash)]
                 [parent noob])
     (super-new)
 
     (define active-omgwtf-slots (mutable-set))
 
-    (define (default-omgwtf receiver arg-values _ctx)
-      (require-arity "omgwtf" arg-values 1)
-      (error 'run-program "unknown slot: ~a" (lol-string (first arg-values))))
-
     (define/private (ensure-special-slots!)
       (unless (hash-has-key? slots "parent")
         (hash-set! slots "parent" (box parent)))
       (unless (hash-has-key? slots "omgwtf")
-        (hash-set! slots "omgwtf" (box default-omgwtf)))
+        (hash-set! slots "omgwtf" (box noob)))
       (unless (hash-has-key? slots "izmakin")
         (hash-set! slots "izmakin" (box noob))))
 
@@ -62,17 +57,7 @@
          (define p (parent-object visited))
          (and p (send p lookup-slot-box name visited))]))
 
-    (define/public (lookup-method name visited)
-      (cond
-        [(hash-ref methods name #f)
-         => (lambda (maybe-method)
-              (and (procedure? maybe-method) maybe-method))]
-        [else
-         (set-add! visited this)
-         (define p (parent-object visited))
-         (and p (send p lookup-method name visited))]))
-
-    (define/private (call-omgwtf! name ctx)
+    (define/public (resolve-missing-slot! name resolver)
       (when (set-member? active-omgwtf-slots name)
         (error 'run-program
                "omgwtf recursion while resolving missing slot: ~a"
@@ -81,20 +66,7 @@
         (lambda ()
           (set-add! active-omgwtf-slots name))
         (lambda ()
-          (define sentinel (gensym 'no-omgwtf))
-          (define maybe-method-value
-            (send this invoke-method
-                  "omgwtf"
-                  (list name)
-                  ctx
-                  (lambda () sentinel)))
-          (define value
-            (if (eq? maybe-method-value sentinel)
-                (let ([maybe-hook (send this lookup-slot "omgwtf" noob)])
-                  (if (procedure? maybe-hook)
-                      (maybe-hook this (list name) ctx)
-                      (error 'run-program "unknown slot: ~a" name)))
-                maybe-method-value))
+          (define value (resolver))
           ;; Memoize the synthesized result into the missing slot.
           ;; If omgwtf mutated the same slot during evaluation, the return value
           ;; remains authoritative for the requested missing name.
@@ -109,7 +81,6 @@
         (hash-set! copied-slots name (box (unbox b))))
       (new lol-object%
            [slots copied-slots]
-           [methods (hash-copy methods)]
            [parent (unbox (hash-ref slots "parent" (lambda () (box noob))))]))
 
     (define/public (prototype)
@@ -131,10 +102,7 @@
 
     (define/public (copy-own-into! target)
       (for ([(name b) (in-hash slots)])
-        (send target declare-slot! name (unbox b)))
-      (for ([(name fn) (in-hash methods)]
-            #:when (procedure? fn))
-        (send target define-method! name fn)))
+        (send target declare-slot! name (unbox b))))
 
     (define/public (has-slot? name)
       (hash-has-key? slots name))
@@ -144,11 +112,25 @@
         [(send this lookup-slot-box name (mutable-seteq)) => unbox]
         [else default]))
 
-    (define/public (get-slot name [default noob] [ctx #f])
+    (define/public (lookup-special-procedure-slot name [visited (mutable-seteq)])
+      (define (lookup-parent)
+        (set-add! visited this)
+        (define p (parent-object visited))
+        (and p
+             (send p lookup-special-procedure-slot name visited)))
+      (cond
+        [(hash-ref slots name #f)
+         => (lambda (maybe-box)
+              (or (and (box? maybe-box)
+                       (let ([maybe-proc (unbox maybe-box)])
+                         (and (procedure? maybe-proc) maybe-proc)))
+                  (lookup-parent)))]
+        [else (lookup-parent)]))
+
+    (define/public (get-slot name [default noob])
       (cond
         [(send this lookup-slot-box name (mutable-seteq)) => unbox]
-        [else
-         (call-omgwtf! name ctx)]))
+        [else default]))
 
     (define/public (declare-slot! name value)
       (cond
@@ -174,22 +156,7 @@
       (send this declare-slot! name value))
 
     (define/public (remove-slot! name)
-      (hash-remove! slots name))
-
-    (define/public (define-method! name fn)
-      (hash-set! methods name fn))
-
-    (define/public (get-method name [default #f])
-      (or (send this lookup-method name (mutable-seteq))
-          default))
-
-    (define/public (invoke-method name arg-values ctx fallback-thunk)
-      (define method
-        (send this lookup-method name (mutable-seteq)))
-      (cond
-        [(procedure? method) (method this arg-values ctx)]
-        [(procedure? fallback-thunk) (fallback-thunk)]
-        [else (error 'run-program "unknown method: ~a" name)]))))
+      (hash-remove! slots name))))
 
 (define (lol-object? v)
   (is-a? v lol-object%))

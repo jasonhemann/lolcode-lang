@@ -229,8 +229,7 @@
     [(list 'function name)
      (expr-call name args)]
     [(list 'method receiver method-name)
-     ;; Namespace-style calls dispatch as method calls first and fall back to
-     ;; runtime namespace functions when receiver binding is absent.
+     ;; Method-call syntax remains distinct from ordinary I IZ function calls.
      (expr-method-call receiver method-name args)]
     [_ (error 'parse-source "invalid call target: ~e" target)]))
 
