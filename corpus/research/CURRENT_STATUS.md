@@ -1,6 +1,6 @@
 # Corpus Current Status
 
-- Generated: 2026-03-08T18:59:38Z
+- Generated: 2026-03-08T19:07:51Z
 - Policy scope: strict `HAI 1.3` implementation target
 
 ## Canonical Sources
@@ -76,10 +76,10 @@
   - waves: 50
 
 - External evidence report totals:
-  - cases: 445
-  - bucket:strict-non-1.3-or-extension = 440
+  - cases: 495
+  - bucket:strict-non-1.3-or-extension = 489
   - bucket:program-bug-or-non-spec-input = 4
-  - bucket:ok = 1
+  - bucket:ok = 2
 
 - LCI backlog snapshot:
   - issues total/open/closed: 59/38/21
