@@ -157,9 +157,15 @@
 (define (source-line-text line)
   (define lines (current-source-lines))
     (and (vector? lines)
-		 (<= 1 line)
-         (<= line (vector-length lines))
-		 (vector-ref lines (- line 1))))
+			 (<= 1 line)
+	         (<= line (vector-length lines))
+			 (vector-ref lines (- line 1))))
+
+(define source-line-split-rx
+  #px"\r\n|\n|\r")
+
+(define (source->line-vector source)
+  (list->vector (string-split source source-line-split-rx #:trim? #f)))
 
 (define (source-caret col line-text)
   (define line-len (string-length line-text))
@@ -190,9 +196,7 @@
          col
          context-fragment))
 
-(define (make-loop-stmt label-open label-close update cond body)
-  (match-define (cons update-var update-op) update)
-  (match-define (cons cond-kind cond-expr) cond)
+(define (make-loop-stmt label-open label-close update condtn body)
   (define open-static
     (match label-open
       [(expr-literal (? string? s)) s]
@@ -208,6 +212,8 @@
            "loop label mismatch: ~a closed by ~a"
            open-static
            close-static))
+  (match-define (cons update-var update-op) update)
+  (match-define (cons cond-kind cond-expr) condtn)
   (stmt-loop label-open
              label-close
              update-var
@@ -229,9 +235,6 @@
      (expr-literal name)]
     [else (expr-ident name)]))
 
-(define (static-name-spec name)
-  (expr-literal name))
-
 (define (switch-id->literal name)
   (define v (id->expr name))
   (if (expr-ident? v)
@@ -250,17 +253,15 @@
     [_ (error 'parse-source "invalid call target: ~e" target)]))
 
 (define (slot-name-spec->expr spec)
-  (cond
-    [(expr-literal? spec)
-     (define maybe-name
-       (expr-literal-value spec))
-     (unless (string? maybe-name)
-       (error 'parse-source "invalid slot name spec literal: ~e" spec))
-     (expr-ident maybe-name)]
-    [(string? spec)
-     (expr-ident spec)]
-    [(expr-srs? spec)
-     spec]
+  (match spec
+    [(expr-literal (? string? name))
+     (expr-ident name)]
+    [(expr-literal _)
+     (error 'parse-source "invalid slot name spec literal: ~e" spec)]
+    [(? string? name)
+     (expr-ident name)]
+    [(and s (expr-srs _))
+     s]
     [else
      (error 'parse-source "invalid slot name spec: ~e" spec)]))
 
@@ -269,19 +270,18 @@
     (expr-slot obj (slot-name-spec->expr slot-spec))))
 
 (define (call-slot-chain->target base slot-name-specs)
-  (define n (length slot-name-specs))
-  (when (< n 1)
+  (unless (pair? slot-name-specs)
     (error 'parse-source "invalid call slot chain"))
+  (match-define-values (receiver-slot-specs (list method-name-spec))
+    (split-at-right slot-name-specs 1))
   (define receiver
-    (build-slot-chain base (take slot-name-specs (sub1 n))))
-  (define method-name-spec
-    (last slot-name-specs))
+    (build-slot-chain base receiver-slot-specs))
   (list 'method receiver method-name-spec))
 
 (define (call-target-from-ident name maybe-slots)
   (if maybe-slots
       (call-slot-chain->target (id->expr name) maybe-slots)
-      (list 'function (static-name-spec name))))
+      (list 'function (expr-literal name))))
 
 (define (loop-update->spec target var-name)
   (match target
@@ -318,80 +318,70 @@
 
 (define (validate-switch-case-literals cases)
   (void
-   (for/fold ([seen '()])
-             ([c (in-list cases)])
-     (match-define (switch-case case-match _case-body) c)
-     (cond
-       [(switch-literal-key case-match) =>
-        (lambda (key)
-           (when (for/or ([prior (in-list seen)])
-                   (switch-literal-duplicate? prior key))
-             (error 'parse-source
-                    "duplicate OMG literal in WTF?: ~e"
-                    case-match))
-           (cons key seen))]
-       [else seen]))))
+    (for/fold ([seen '()])
+              ([c (in-list cases)])
+      (match-define (switch-case case-match _case-body) c)
+      (cond
+        [(switch-literal-key case-match) =>
+         (lambda (key)
+            (when (for/or ([prior (in-list seen)])
+                    (switch-literal-duplicate? prior key))
+              (error 'parse-source
+                     "duplicate OMG literal in WTF?: ~e"
+                     case-match))
+            (cons key seen))]
+        [else seen]))))
 
 (define (word-token=? text t)
-  (and (eq? (token-type t) 'WORD)
-       (string=? (token-lexeme t) text)))
+  (match t
+    [(token 'WORD lexeme _ _)
+     (string=? lexeme text)]
+    [_ #f]))
 
 (define (collapse-phrase-tokens raws [acc '()])
   (match raws
     ['() (reverse acc)]
-    [`(,t1 ,t2 ., rst)
-     #:when (and (word-token=? "IM" t1)
-                 (word-token=? "IN" t2)
-                 (= (token-line t1) (token-line t2)))
+
+    [(cons (token 'WORD "IM" line col)
+           (cons (token 'WORD "IN" line2 _)
+                 rst))
+     #:when (= line line2)
      (collapse-phrase-tokens
       rst
-      (cons (token 'WORD "IMIN" (token-line t1) (token-col t1))
-            acc))]
-    [`(,t1 ,t2 . ,rst)
-     #:when (and (word-token=? "IM" t1)
-                 (word-token=? "OUTTA" t2)
-                 (= (token-line t1) (token-line t2)))
+      (cons (token 'WORD "IMIN" line col) acc))]
+
+    [(cons (token 'WORD "IM" line col)
+           (cons (token 'WORD "OUTTA" line2 _)
+                 rst))
+     #:when (= line line2)
      (collapse-phrase-tokens
       rst
-      (cons (token 'WORD "IMOUTTA" (token-line t1) (token-col t1))
-            acc))]
-    [`(,t . ,rst)
+      (cons (token 'WORD "IMOUTTA" line col) acc))]
+
+    [(cons t rst)
      (collapse-phrase-tokens rst (cons t acc))]))
 
 (define (raw->token raw)
-  (define ttype (token-type raw))
-  (define lex (token-lexeme raw))
-  (case ttype
-    [(NEWLINE)
-     (token-NEWLINE)]
-    [(EOF)
-     (token-EOF)]
-    [(NUMBER)
-     (token-NUMBER lex)]
-    [(STRING)
-     (token-STRING lex)]
-    [(WORD)
-     (define ctor
-       (hash-ref keyword-token-ctors lex #f))
-     (if ctor
-         (ctor)
-         (token-ID lex))]
-    [else
+  (match raw
+    [(token 'NEWLINE _ _ _) (token-NEWLINE)]
+    [(token 'EOF _ _ _) (token-EOF)]
+    [(token 'NUMBER lex _ _) (token-NUMBER lex)]
+    [(token 'STRING lex _ _) (token-STRING lex)]
+    [(token 'WORD lex _ _)
+     (cond
+       [(hash-ref keyword-token-ctors lex #f)
+        => (lambda (ctor) (ctor))]
+       [else (token-ID lex)])]
+    [(token ttype _ _ _)
      (error 'parse-source "unknown lexer token type: ~a" ttype)]))
 
 (define (raw->position-token raw)
-  (define line (token-line raw))
-  (define col (token-col raw))
-  (define lexeme (token-lexeme raw))
+  (match-define (token _ lexeme line col) raw)
   (define len
-    (max 1
-         (cond
-           [(string? lexeme)
-            (string-length lexeme)]
-           [(yarn-template? lexeme)
-            (yarn-template-source-length lexeme)]
-           [else
-            1])))
+    (match lexeme
+      [(? string? s) (max 1 (string-length s))]
+      [(? yarn-template? yt) (max 1 (yarn-template-source-length yt))]
+      [_ 1]))
   (define start (make-position 0 line col))
   (define end (make-position 0 line (+ col len)))
   (make-position-token (raw->token raw) start end))
@@ -470,7 +460,7 @@
      [(ITZ expr) $2]
      [(ITZ A ID) (expr-type-default (ensure-declaration-default-type 'parse-source $3))]
      [(ITZ A ID SMOOSH name-spec mixin-list-tail)
-      (expr-prototype (static-name-spec $3) (cons $5 $6))]
+      (expr-prototype (expr-literal $3) (cons $5 $6))]
      [(ITZ A SRS expr SMOOSH name-spec mixin-list-tail)
       (expr-prototype (expr-srs $4) (cons $6 $7))])
 
@@ -549,7 +539,7 @@
       (make-loop-stmt $3 $10 $4 $5 $7)])
 
     (loop-label
-     [(ident-token) (static-name-spec $1)]
+     [(ident-token) (expr-literal $1)]
      [(SRS expr) (expr-srs $2)])
 
     (loop-body-opt
@@ -604,15 +594,15 @@
 
     (arg-def-opt
      [() '()]
-     [(YR ident-token arg-def-more) (cons (static-name-spec $2) $3)])
+     [(YR ident-token arg-def-more) (cons (expr-literal $2) $3)])
 
     (arg-def-more
      [() '()]
      [(AN YR ident-token arg-def-more)
-      (cons (static-name-spec $3) $4)])
+      (cons (expr-literal $3) $4)])
 
     (name-spec
-     [(ident-token) (static-name-spec $1)]
+     [(ident-token) (expr-literal $1)]
      [(SRS expr) (expr-srs $2)])
 
     (method-receiver
@@ -718,7 +708,7 @@
      [(SLOT call-slot-name-spec call-slot-chain) (cons $2 $3)])
 
     (call-slot-name-spec
-     [(ident-token) (static-name-spec $1)]
+     [(ident-token) (expr-literal $1)]
      [(SRS expr-no-postfix) (expr-srs $2)])
 
     (ident-token
@@ -796,20 +786,19 @@
      [(MKAY) (void)]))))
 
 (define (validate-raw-token-stream raws)
-  (define (loop remaining)
-    (match remaining
-      [`(,t1 ,t2 . ,rest)
-       (when (and (eq? (token-type t1) 'WORD)
-                  (string=? (token-lexeme t1) "-")
-                  (eq? (token-type t2) 'NUMBER)
-                  (= (token-line t1) (token-line t2)))
-         (error 'parse-source
-                "invalid numeric literal: '-' must be adjacent to digits at line ~a, col ~a"
-                (token-line t1)
-                (token-col t1)))
-       (loop (cons t2 rest))]
-      [_ (void)]))
-  (loop raws))
+  (match raws
+    [(cons (token 'WORD "-" line col)
+           (cons (and t2 (token 'NUMBER _ line2 _))
+                 rest))
+     (when (= line line2)
+       (error 'parse-source
+              "invalid numeric literal: '-' must be adjacent to digits at line ~a, col ~a"
+              line
+              col))
+     (validate-raw-token-stream (cons t2 rest))]
+    [(cons _ rst)
+     (validate-raw-token-stream rst)]
+    [_ (void)]))
 
 (define (validate-function-def-placement parsed)
   (define (walk-block stmts allow-function-def?)
@@ -849,17 +838,19 @@
   (validate-raw-token-stream normalized-raws)
   (define toks
     (map raw->position-token normalized-raws))
-  (define eof-token
-    (last toks))
+  (unless (pair? toks)
+    (error 'parse-source "internal error: lexer produced no tokens"))
+  (match-define-values (non-eof-toks (list eof-token))
+    (split-at-right toks 1))
   (define-values (more-token? advance-token)
-    (sequence-generate (in-list toks)))
+    (sequence-generate (in-list non-eof-toks)))
   (define (next-token)
     (if (more-token?)
         (advance-token)
         eof-token))
   (define parsed
     (parameterize ([current-source-lines
-                    (list->vector (string-split source "\n" #:trim? #f))])
+                    (source->line-vector source)])
       (parse/internal next-token)))
   (unless (string=? (program-version parsed) supported-language-version)
     (error 'parse-source

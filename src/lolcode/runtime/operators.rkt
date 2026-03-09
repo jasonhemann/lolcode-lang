@@ -1,6 +1,7 @@
 #lang racket/base
 
-(require "value.rkt")
+(require racket/bool
+         "value.rkt")
 
 (provide binary-operator-table
          unary-operator-table
@@ -31,8 +32,8 @@
    "SMALLR OF" (binop/coerce 'SMALLR min)
    "BOTH OF" (lambda (lv rv) (and (lol-truthy? lv) (lol-truthy? rv)))
    "EITHER OF" (lambda (lv rv) (or (lol-truthy? lv) (lol-truthy? rv)))
-   "WON OF" (lambda (lv rv) (bool-xor (lol-truthy? lv)
-                                       (lol-truthy? rv)))
+   "WON OF" (lambda (lv rv) (xor (lol-truthy? lv)
+                                 (lol-truthy? rv)))
    "BOTH SAEM" (lambda (lv rv) (lol-equal? lv rv))
    "DIFFRINT" (lambda (lv rv) (not (lol-equal? lv rv)))))
 
@@ -51,16 +52,12 @@
    "ALL OF"
    (lambda (arg-procs)
      (lambda (e ctx)
-       (for/fold ([out #t])
-                 ([a (in-list arg-procs)])
-         (if (lol-truthy? (a e ctx))
-             out
-             #f))))
+       (andmap (lambda (a)
+                 (lol-truthy? (a e ctx)))
+               arg-procs)))
    "ANY OF"
    (lambda (arg-procs)
      (lambda (e ctx)
-       (for/fold ([out #f])
-                 ([a (in-list arg-procs)])
-         (if (lol-truthy? (a e ctx))
-             #t
-             out))))))
+       (ormap (lambda (a)
+                (lol-truthy? (a e ctx)))
+              arg-procs)))))

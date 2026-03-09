@@ -277,7 +277,7 @@
        (status . implemented)
        (code-refs . ("src/lolcode/parser.rkt"))
        (test-refs . ("tests/spec/runtime-core-test.rkt" "tests/spec/spec-audit/edge-cases-test.rkt" "tests/spec/spec-audit/known-gaps-failing-test.rkt"))
-       (notes . "Parser accepts explicit MKAY and line-terminated closure for open variadics (ALL OF/ANY OF). Runtime policy pins eager/left-to-right operand evaluation for ALL OF/ANY OF (no short-circuit), with side effects preserved before later operand errors."))
+       (notes . "Parser accepts explicit MKAY and line-terminated closure for open variadics (ALL OF/ANY OF). Runtime policy pins left-to-right evaluation with short-circuit behavior for ALL OF/ANY OF (stop at first decisive operand)."))
  #hash((id . "op.strict-canonical-spellings")
        (spec-version . "1.3")
        (source-file . "spec/upstream/lolcode-spec-v1.3.md")

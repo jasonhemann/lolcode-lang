@@ -71,8 +71,8 @@ Priority B (special slots / object lifecycle):
    - Regression pin: `method-call-noncallable-after-omgwtf-synthesis`.
 
 Priority C (underspecified feature intersections):
-6. DONE (2026-03-08): evaluation-order policy hardening for side-effecting expressions (`SMOOSH`/logic intersections) is now pinned.
-   - Adjudicated policy: expression operands evaluate left-to-right and eagerly; variadic logical forms (`ALL OF`/`ANY OF`) do not short-circuit.
+6. DONE (2026-03-08; updated 2026-03-09): evaluation-order policy hardening for side-effecting expressions (`SMOOSH`/logic intersections) is now pinned.
+   - Adjudicated policy: expression operands evaluate left-to-right; `SMOOSH` remains eager, while variadic logical forms (`ALL OF`/`ANY OF`) short-circuit.
    - Side effects from earlier operands remain visible even when a later operand errors.
    - `N40`/`N75` promoted from provisional to policy+implemented.
 7. CLOSED (resolved by `N63`): expression-level TYPE-word binding policy is adjudicated and implemented as dual-role contextual semantics (TYPE literals in expression position; declaration/prototype forms disambiguated by grammar).

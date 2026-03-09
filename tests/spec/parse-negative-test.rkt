@@ -25,6 +25,22 @@
   (check-true (regexp-match? #px"\\^" missing-kthxbye-msg))
   (check-false (regexp-match? #px"hint:" missing-kthxbye-msg))
 
+  (define parse-error-crlf
+    "HAI 1.3\r\nVISIBLE\r\nKTHXBYE\r\n")
+  (define parse-error-crlf-msg
+    (capture-message (lambda () (parse-program parse-error-crlf))))
+  (check-true (string? parse-error-crlf-msg))
+  (check-true (regexp-match? #px"line 2, col " parse-error-crlf-msg))
+  (check-true (regexp-match? #px"\n  VISIBLE\n  +\\^" parse-error-crlf-msg))
+
+  (define parse-error-cr
+    "HAI 1.3\rVISIBLE\rKTHXBYE\r")
+  (define parse-error-cr-msg
+    (capture-message (lambda () (parse-program parse-error-cr))))
+  (check-true (string? parse-error-cr-msg))
+  (check-true (regexp-match? #px"line 2, col " parse-error-cr-msg))
+  (check-true (regexp-match? #px"\n  VISIBLE\n  +\\^" parse-error-cr-msg))
+
   (define missing-version
     "HAI\nVISIBLE \"OH HAI\"\nKTHXBYE\n")
   (define missing-version-msg

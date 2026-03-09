@@ -68,7 +68,8 @@
      (error 'run-program "GTFO used outside switch/loop")]))
 
 (define (make-root-env)
-  (env (make-hash) #f))
+  ;; Root scope always has the implicit IT binding.
+  (env (make-hash (list (cons "IT" (box noob)))) #f))
 
 (define (extend-env parent)
   (env (make-hash) parent))
@@ -77,20 +78,19 @@
   (env table parent))
 
 (define (env-lookup-box e name)
-  (let loop ([cur e])
-    (cond
-      [(not cur) #f]
-      [(hash-has-key? (env-table cur) name)
-       (define maybe-box
-         (hash-ref (env-table cur) name))
-       (unless (box? maybe-box)
-         (error 'run-program
-                "runtime invariant violation: non-box binding in env table for identifier ~a: ~e"
-                name
-                maybe-box))
-       maybe-box]
-      [else
-       (loop (env-parent cur))])))
+  (cond
+    [(not e) #f]
+    [(hash-has-key? (env-table e) name)
+     (define maybe-box
+       (hash-ref (env-table e) name))
+     (unless (box? maybe-box)
+       (error 'run-program
+              "runtime invariant violation: non-box binding in env table for identifier ~a: ~e"
+              name
+              maybe-box))
+     maybe-box]
+    [else
+     (env-lookup-box (env-parent e) name)]))
 
 (define (env-define! e name value)
   (when (hash-has-key? (env-table e) name)

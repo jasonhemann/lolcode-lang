@@ -41,17 +41,14 @@
               ([raw (in-list parts)])
       (define part (normalize-yarn-part 'make-yarn-template raw))
       (match part
+        [(yarn-part-text "")
+         out]
         [(yarn-part-text txt)
-         (cond
-           [(string=? txt "") out]
-           [(and (pair? out) (yarn-part-text? (car out)))
-            (cons (yarn-part-text
-                   (string-append
-                    (yarn-part-text-text (car out))
-                    txt))
-                  (cdr out))]
-           [else
-            (cons part out)])]
+         (match out
+           [(cons (yarn-part-text prev) tail)
+            (cons (yarn-part-text (string-append prev txt))
+                  tail)]
+           [_ (cons part out)])]
         [_ (cons part out)])))
   (yarn-template (reverse normalized-rev)))
 

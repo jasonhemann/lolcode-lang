@@ -651,31 +651,30 @@
   (check-equal? (hash-ref logic-binary-left-to-right 'stdout)
                 "WIN\nLR\n")
 
-  (define logic-variadic-any-eager-src
+  (define logic-variadic-any-short-circuit-src
     "HAI 1.3\nHOW IZ I mark\n  VISIBLE \"R\"\n  FOUND YR FAIL\nIF U SAY SO\nVISIBLE ANY OF WIN AN I IZ mark MKAY MKAY\nKTHXBYE\n")
-  (define logic-variadic-any-eager
-    (run-source logic-variadic-any-eager-src))
-  (check-eq? (hash-ref logic-variadic-any-eager 'status) 'ok)
-  ;; Adjudication (G1-G3): variadic logic is eager; no short-circuit side-step.
-  (check-equal? (hash-ref logic-variadic-any-eager 'stdout)
-                "R\nWIN\n")
+  (define logic-variadic-any-short-circuit
+    (run-source logic-variadic-any-short-circuit-src))
+  (check-eq? (hash-ref logic-variadic-any-short-circuit 'status) 'ok)
+  ;; Variadic ANY OF short-circuits once a truthy operand is reached.
+  (check-equal? (hash-ref logic-variadic-any-short-circuit 'stdout)
+                "WIN\n")
 
-  (define logic-variadic-any-eager-error-src
+  (define logic-variadic-any-short-circuit-avoids-error-src
     "HAI 1.3\nHOW IZ I loud\n  VISIBLE \"L\"\n  FOUND YR WIN\nIF U SAY SO\nVISIBLE ANY OF I IZ loud MKAY AN missing MKAY\nKTHXBYE\n")
-  (define logic-variadic-any-eager-error
-    (run-source logic-variadic-any-eager-error-src))
-  (check-eq? (hash-ref logic-variadic-any-eager-error 'status) 'runtime-error)
-  (check-equal? (hash-ref logic-variadic-any-eager-error 'stdout) "L\n")
-  (check-true (regexp-match? #px"unknown identifier: missing"
-                             (hash-ref logic-variadic-any-eager-error 'error)))
+  (define logic-variadic-any-short-circuit-avoids-error
+    (run-source logic-variadic-any-short-circuit-avoids-error-src))
+  (check-eq? (hash-ref logic-variadic-any-short-circuit-avoids-error 'status) 'ok)
+  (check-equal? (hash-ref logic-variadic-any-short-circuit-avoids-error 'stdout)
+                "L\nWIN\n")
 
-  (define logic-variadic-all-eager-rhs-src
+  (define logic-variadic-all-short-circuit-rhs-src
     "HAI 1.3\nVISIBLE ALL OF FAIL AN missing MKAY\nKTHXBYE\n")
-  (define logic-variadic-all-eager-rhs
-    (run-source logic-variadic-all-eager-rhs-src))
-  (check-eq? (hash-ref logic-variadic-all-eager-rhs 'status) 'runtime-error)
-  (check-true (regexp-match? #px"unknown identifier: missing"
-                             (hash-ref logic-variadic-all-eager-rhs 'error)))
+  (define logic-variadic-all-short-circuit-rhs
+    (run-source logic-variadic-all-short-circuit-rhs-src))
+  (check-eq? (hash-ref logic-variadic-all-short-circuit-rhs 'status) 'ok)
+  (check-equal? (hash-ref logic-variadic-all-short-circuit-rhs 'stdout)
+                "FAIL\n")
 
   (define smoosh-eager-side-effect-before-error-src
     "HAI 1.3\nHOW IZ I loud\n  VISIBLE \"L\"\n  FOUND YR \"L\"\nIF U SAY SO\nSMOOSH I IZ loud MKAY AN missing MKAY\nKTHXBYE\n")

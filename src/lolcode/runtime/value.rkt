@@ -12,14 +12,12 @@
          lol-string
          lol-truthy?
          lol-equal?
-         bool-xor
          coerce-number
          coerce-cast-number
          cast-value
          type-default-value
          identifier-text
-         require-arity
-         install-runtime-builtins!)
+         require-arity)
 
 (define lol-object%
   (class object%
@@ -165,24 +163,17 @@
 
 (define (truncate-real-decimals n places)
   (define scale (expt 10 places))
-  (define scaled (* n scale))
-  (define clipped
-    (if (negative? scaled)
-        (ceiling scaled)
-        (floor scaled)))
-  (/ clipped scale))
+  (/ (truncate (* n scale)) scale))
 
 (define (format-numbar n)
   (define fixed
     (~r (truncate-real-decimals n 2)
         #:precision '(= 2)))
-  (define trimmed
-    (regexp-replace #px"\\.$"
-                    (regexp-replace #px"0+$" fixed "")
-                    ""))
-  (if (string=? trimmed "")
-      "0"
-      trimmed))
+  (define without-trailing-zeros
+    (regexp-replace #px"0+$" fixed ""))
+  (regexp-replace #px"\\.$"
+                  without-trailing-zeros
+                  ""))
 
 (define (lol-string v)
   (cond
@@ -206,10 +197,6 @@
     [(number? v) (not (zero? v))]
     [(string? v) (not (string=? v ""))]
     [else #t]))
-
-(define (bool-xor a b)
-  (or (and a (not b))
-      (and (not a) b)))
 
 (define (lol-equal? lv rv)
   ;; Spec 1.3 comparison: numeric comparison only when both operands are numeric;
@@ -279,6 +266,3 @@
 (define (require-arity who arg-values n)
   (unless (= (length arg-values) n)
     (error 'run-program "~a expected ~a args, got ~a" who n (length arg-values))))
-
-(define (install-runtime-builtins! _builtins-env)
-  (void))

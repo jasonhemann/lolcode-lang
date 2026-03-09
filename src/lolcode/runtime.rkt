@@ -90,15 +90,15 @@
      (define object-proc (compile-expr object))
      (define slot-name-proc (compile-slot-name slot))
      (define (lv-read e ctx)
-       (define obj (object-proc e ctx))
-       (unless (lol-object? obj)
-         (error 'run-program "slot lookup requires BUKKIT, got ~e" obj))
-       (read-slot-value obj (slot-name-proc e ctx) ctx))
+       (read-slot-value
+        (resolve-bukkit-from-proc "slot lookup" object-proc e ctx)
+        (slot-name-proc e ctx)
+        ctx))
      (define (lv-write e value ctx)
-       (define obj (object-proc e ctx))
-       (unless (lol-object? obj)
-         (error 'run-program "slot assignment requires BUKKIT, got ~e" obj))
-       (send obj assign-slot! (slot-name-proc e ctx) value))
+       (send (resolve-bukkit-from-proc "slot assignment" object-proc e ctx)
+             assign-slot!
+             (slot-name-proc e ctx)
+             value))
      (lvalue lv-read lv-write)]
     [_ (raise-unsupported target)]))
 
@@ -183,6 +183,85 @@
     (env-set! e update-var updated)
     (set-it! e updated)))
 
+(define (run-compiled-loop! loop-env
+                            loop-ctx
+                            cond-kind
+                            cond-proc
+                            body-proc
+                            resolved-update-var
+                            resolved-update-op)
+  (when (loop-continue? loop-env cond-kind cond-proc loop-ctx)
+    (body-proc (extend-env loop-env) loop-ctx)
+    (apply-loop-update! loop-env resolved-update-var resolved-update-op loop-ctx)
+    (run-compiled-loop! loop-env
+                        loop-ctx
+                        cond-kind
+                        cond-proc
+                        body-proc
+                        resolved-update-var
+                        resolved-update-op)))
+
+(define (compile-loop-update-op update-op)
+  (match update-op
+    [#f
+     (lambda (_e _ctx) #f)]
+    [(list 'delta (? number? delta))
+     (lambda (_e _ctx)
+       (lambda (_loop-env _loop-ctx current)
+         (+ (coerce-number 'LOOP current) delta)))]
+    [(list 'call updater-name-spec)
+     (define updater-name-proc
+       (compile-name-resolver
+        "loop updater function name must evaluate to identifier text"
+        updater-name-spec))
+     (lambda (e ctx)
+       (define fn-name
+         (updater-name-proc e ctx))
+       (lambda (loop-env loop-ctx current)
+         (define fn
+           (resolve-callable loop-env loop-ctx fn-name "function"))
+         (fn loop-env (list current) loop-ctx)))]
+    [_ (error 'run-program "unsupported loop updater specification: ~e" update-op)]))
+
+(define (ensure-loop-labels-match open-label-proc close-label-proc e ctx)
+  (define resolved-open
+    (open-label-proc e ctx))
+  (define resolved-close
+    (close-label-proc e ctx))
+  (unless (string=? resolved-open resolved-close)
+    (error 'run-program
+           "loop label mismatch: ~a closed by ~a"
+           resolved-open
+           resolved-close)))
+
+(define (run-compiled-loop-stmt! e
+                                 ctx
+                                 open-label-proc
+                                 close-label-proc
+                                 update-var-proc
+                                 update-op-proc
+                                 cond-kind
+                                 cond-proc
+                                 body-proc)
+  (ensure-loop-labels-match open-label-proc close-label-proc e ctx)
+  (define resolved-update-var
+    (and update-var-proc
+         (update-var-proc e ctx)))
+  (define resolved-update-op
+    (update-op-proc e ctx))
+  (define loop-env
+    (make-loop-env e resolved-update-var))
+  (let/ec break-k
+    (define loop-ctx
+      (ctx-derive ctx #:break-k break-k))
+    (run-compiled-loop! loop-env
+                        loop-ctx
+                        cond-kind
+                        cond-proc
+                        body-proc
+                        resolved-update-var
+                        resolved-update-op)))
+
 (define (expand-format-placeholders e text)
   (define template
     (ensure-yarn-template text))
@@ -203,10 +282,22 @@
     (error 'run-program "~a requires BUKKIT, got ~e" who value))
   value)
 
+(define (resolve-bukkit-from-proc who object-proc e ctx)
+  (resolve-bukkit who (object-proc e ctx)))
+
+(define (for-each-right f xs)
+  (match xs
+    ['() (void)]
+    [(cons x rst)
+     (for-each-right f rst)
+     (f x)]))
+
 (define (apply-mixins! target mixins)
   ;; Spec says mixins are applied in reverse declaration order.
-  (for ([mix (in-list (reverse mixins))])
-    (send mix copy-visible-into! target)))
+  (for-each-right
+   (lambda (mix)
+     (send mix copy-visible-into! target))
+   mixins))
 
 (define (run-izmakin-hook! obj _e ctx)
   (define maybe-slot-hook
@@ -497,7 +588,7 @@
 
 (define (compile-stmt-assign target expr)
   (define lv
-    (compile-lvalue target #:define-missing? #f))
+    (compile-lvalue target))
   (define expr-proc (compile-expr expr))
   (lambda (e ctx)
     (define value (expr-proc e ctx))
@@ -505,7 +596,7 @@
 
 (define (compile-stmt-cast target type-name)
   (define lv
-    (compile-lvalue target #:define-missing? #f))
+    (compile-lvalue target))
   (lambda (e ctx)
     (define value
       (cast-value 'IS-NOW-A
@@ -529,9 +620,8 @@
   (define slot-name-proc (compile-slot-name slot))
   (define expr-proc (compile-declare-init expr))
   (lambda (e ctx)
-    (define obj (object-proc e ctx))
-    (unless (lol-object? obj)
-      (error 'run-program "slot assignment requires BUKKIT, got ~e" obj))
+    (define obj
+      (resolve-bukkit-from-proc "slot assignment" object-proc e ctx))
     (define value (expr-proc e ctx))
     (send obj declare-slot! (slot-name-proc e ctx) value)
     (set-it! e value)))
@@ -587,10 +677,9 @@
         (ctx-derive ctx #:break-k break-k))
       (define-values (_before matching-and-after)
         (splitf-at case-procs
-                   (lambda (compiled-case)
-                     (match-define (cons case-match-proc _case-body-proc)
-                       compiled-case)
-                     (not (lol-equal? subject-value (case-match-proc e ctx))))))
+                   (match-lambda
+                     [(cons case-match-proc _case-body-proc)
+                      (not (lol-equal? subject-value (case-match-proc e ctx)))])))
       (if (null? matching-and-after)
           (default-proc (extend-env e) switch-ctx)
           (for ([compiled-case (in-list matching-and-after)])
@@ -613,59 +702,19 @@
           "loop variable name must evaluate to identifier text"
           update-var-spec)))
   (define update-op-proc
-    (cond
-      [(not update-op)
-       (lambda (_e _ctx) #f)]
-      [(and (list? update-op)
-            (= (length update-op) 2)
-            (eq? (first update-op) 'delta)
-            (number? (second update-op)))
-       (define delta (second update-op))
-       (lambda (_e _ctx)
-         (lambda (_loop-env _loop-ctx current)
-           (+ (coerce-number 'LOOP current) delta)))]
-      [(and (list? update-op)
-            (= (length update-op) 2)
-            (eq? (first update-op) 'call))
-       (define updater-name-proc
-         (compile-name-resolver
-          "loop updater function name must evaluate to identifier text"
-          (second update-op)))
-       (lambda (e ctx)
-         (define fn-name (updater-name-proc e ctx))
-         (lambda (loop-env loop-ctx current)
-           (define fn (resolve-callable loop-env loop-ctx fn-name "function"))
-           (fn loop-env (list current) loop-ctx)))]
-      [else
-       (error 'run-program "unsupported loop updater specification: ~e" update-op)]))
+    (compile-loop-update-op update-op))
   (define cond-proc (and cond-expr (compile-expr cond-expr)))
   (define body-proc (compile-block body))
   (lambda (e ctx)
-    (define resolved-open
-      (open-label-proc e ctx))
-    (define resolved-close
-      (close-label-proc e ctx))
-    (unless (string=? resolved-open resolved-close)
-      (error 'run-program
-             "loop label mismatch: ~a closed by ~a"
-             resolved-open
-             resolved-close))
-    (define resolved-update-var
-      (and update-var-proc
-           (update-var-proc e ctx)))
-    (define resolved-update-op
-      (update-op-proc e ctx))
-    (define loop-env
-      (make-loop-env e resolved-update-var))
-    (let/ec break-k
-      (define loop-ctx
-        (ctx-derive ctx #:break-k break-k))
-      (define (loop)
-        (when (loop-continue? loop-env cond-kind cond-proc loop-ctx)
-          (body-proc (extend-env loop-env) loop-ctx)
-          (apply-loop-update! loop-env resolved-update-var resolved-update-op loop-ctx)
-          (loop)))
-      (loop))))
+    (run-compiled-loop-stmt! e
+                             ctx
+                             open-label-proc
+                             close-label-proc
+                             update-var-proc
+                             update-op-proc
+                             cond-kind
+                             cond-proc
+                             body-proc)))
 
 (define (make-callable-fn kind fn-name param-names body-proc)
   (define expected-arity
@@ -864,13 +913,18 @@
     [_ (raise-unsupported stmt)]))
 
 (define (compile-program parsed [phase 'unknown])
-  (unless (program? parsed)
-    (raise-argument-error 'compile-program "program?" parsed))
+  (define program-proc
+    (match parsed
+      [(program _ statements)
+       (with-handlers ([exn:fail?
+                        (lambda (e)
+                          (lambda (_e _ctx)
+                            (raise e)))])
+         (compile-block statements))]
+      [_ (raise-argument-error 'compile-program "program?" parsed)]))
   (lambda ()
     (define globals (make-root-env))
-    (install-runtime-builtins! globals)
     (define stdout (open-output-string))
-    (env-define! globals "IT" noob)
     (define st
       (runstate globals stdout phase))
     (define root-ctx
@@ -890,8 +944,6 @@
                              'stdout (get-output-string stdout)
                              'last-value (env-ref globals "IT")
                              'error (exn-message e)))])
-      (define program-proc
-        (compile-block (program-statements parsed)))
       (program-proc globals root-ctx)
       (hash 'status 'ok
             'phase (runstate-phase st)
