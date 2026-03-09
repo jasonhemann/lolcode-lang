@@ -483,7 +483,17 @@
   (lambda (e ctx)
     (define value (init-proc e ctx))
     (define name (ensure-bindable-name "declaration" (name-proc e ctx)))
-    (env-define! e name value)))
+    (if (exec-ctx-def-object ctx)
+        ;; Object body declarations are slot declarations; special slots such as
+        ;; omgwtf/izmakin/parent already exist and must remain assignable via
+        ;; `I HAS A ...` within O HAI IM blocks.
+        (cond
+          [(hash-ref (env-table e) name #f)
+           => (lambda (b)
+                (set-box! b value))]
+          [else
+           (env-define! e name value)])
+        (env-define! e name value))))
 
 (define (compile-stmt-assign target expr)
   (define lv
@@ -792,15 +802,12 @@
                      (env-ref e (mixin-name-proc e ctx))))])
             (make-prototype-object resolved-parent resolved-mixins))
           (new lol-object%)))
-    (send obj set-slot! "IT" noob)
     (define object-ctx
       (ctx-derive ctx
                   #:object-name resolved-name
                   #:def-object obj))
     (body-proc (env-with-table (send obj slot-table) e)
                object-ctx)
-    (when (send obj has-slot? "IT")
-      (send obj remove-slot! "IT"))
     (run-izmakin-hook! obj e object-ctx)
     (env-set-or-define! e resolved-name obj)
     (set-it! e obj)))

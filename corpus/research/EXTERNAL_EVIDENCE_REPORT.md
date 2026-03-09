@@ -1,25 +1,25 @@
 # External Evidence Report
 
-Generated: `Sunday, March 8th, 2026 3:07:51pm`
+Generated: `Monday, March 9th, 2026 12:11:08pm`
 
-- Cases evaluated: `495`
+- Cases evaluated: `493`
 - Filters: wave=`all`, id=`all`, scope=`all`, triage=`all`, hypothesis=`all`
 - JSON report: `/Users/jhemann/Code/lolcode-lang/scripts/../corpus/research/external-evidence-report.json`
 
 ## Observed Status Counts
 
-- `parse-error`: `493`
+- `parse-error`: `491`
 - `ok`: `2`
 
 ## Bucket Counts
 
-- `strict-non-1.3-or-extension`: `489`
+- `strict-non-1.3-or-extension`: `487`
 - `program-bug-or-non-spec-input`: `4`
 - `ok`: `2`
 
 ## Spec Scope Counts
 
-- `1.2`: `295`
+- `1.2`: `293`
 - `unknown`: `197`
 - `1.3`: `3`
 
@@ -225,7 +225,7 @@ Generated: `Sunday, March 8th, 2026 3:07:51pm`
 
 ## Top Messages
 
-- `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)` (`487`)
+- `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)` (`485`)
 - `parse-source: syntax error: unexpected NEWLINE at line 1, col 4` (`2`)
 - `lex-source: invalid Unicode normative name in string literal at line 25, col 15` (`1`)
 - `parse-source: syntax error: unexpected I at line 4, col 9` (`1`)

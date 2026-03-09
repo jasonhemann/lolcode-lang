@@ -1,6 +1,6 @@
 # Corpus Current Status
 
-- Generated: 2026-03-08T19:07:51Z
+- Generated: 2026-03-09T16:11:06Z
 - Policy scope: strict `HAI 1.3` implementation target
 
 ## Canonical Sources
@@ -18,7 +18,7 @@
 
 ### Tier1
 
-- Snapshot generated-at: Sunday, March 8th, 2026 12:40:35am
+- Snapshot generated-at: Monday, March 9th, 2026 12:03:53pm
 - Files: 352
 - Likely programs: 350
 - Non-programs: 2
@@ -33,7 +33,7 @@
 
 ### Tier2
 
-- Snapshot generated-at: Sunday, March 8th, 2026 12:40:37am
+- Snapshot generated-at: Monday, March 9th, 2026 12:03:55pm
 - Files: 223
 - Likely programs: 184
 - Non-programs: 39
@@ -76,8 +76,8 @@
   - waves: 50
 
 - External evidence report totals:
-  - cases: 495
-  - bucket:strict-non-1.3-or-extension = 489
+  - cases: 493
+  - bucket:strict-non-1.3-or-extension = 487
   - bucket:program-bug-or-non-spec-input = 4
   - bucket:ok = 2
 

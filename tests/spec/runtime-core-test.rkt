@@ -374,6 +374,16 @@
   (check-equal? (hash-ref method-fallthrough-returns-local-it 'stdout)
                 "NOOB\nNOOB\n")
 
+  (define method-bare-it-distinct-from-slot-it-src
+    "HAI 1.3\nO HAI IM obj\n  I HAS A IT ITZ \"slot-it\"\n  HOW IZ I check\n    7\n    FOUND YR SMOOSH IT AN \"|\" AN ME'Z IT MKAY\n  IF U SAY SO\nKTHX\nVISIBLE obj IZ check MKAY\nKTHXBYE\n")
+  (define method-bare-it-distinct-from-slot-it
+    (run-source method-bare-it-distinct-from-slot-it-src))
+  (check-eq? (hash-ref method-bare-it-distinct-from-slot-it 'status) 'ok)
+  ;; Handoff C: bare IT remains method-local and does not resolve through
+  ;; receiver slots; explicit ME'Z IT accesses the receiver slot.
+  (check-equal? (hash-ref method-bare-it-distinct-from-slot-it 'stdout)
+                "7|slot-it\n")
+
   (define expr-stmt-src
     "HAI 1.3\nHOW IZ I ping\n  VISIBLE \"P\"\nIF U SAY SO\nI IZ ping MKAY\nKTHXBYE\n")
   (define expr-stmt-result (run-source expr-stmt-src))
@@ -942,6 +952,26 @@
   (check-equal? (hash-ref omgwtf-memoizes-missing-slot 'stdout)
                 "1\n1\n1\n")
 
+  (define omgwtf-distinct-missing-slots-in-one-expression-src
+    "HAI 1.3\nO HAI IM box\n  I HAS A hits ITZ 0\n  HOW IZ I omgwtf\n    hits R SUM OF hits AN 1\n    FOUND YR hits\n  IF U SAY SO\nKTHX\nVISIBLE SMOOSH box'Z a AN box'Z b MKAY\nVISIBLE box'Z hits\nVISIBLE box'Z a\nVISIBLE box'Z b\nKTHXBYE\n")
+  (define omgwtf-distinct-missing-slots-in-one-expression
+    (run-source omgwtf-distinct-missing-slots-in-one-expression-src))
+  (check-eq? (hash-ref omgwtf-distinct-missing-slots-in-one-expression 'status) 'ok)
+  ;; Independent operand evaluation: each distinct missing slot goes through its
+  ;; own miss-resolution path in a single expression.
+  (check-equal? (hash-ref omgwtf-distinct-missing-slots-in-one-expression 'stdout)
+                "12\n2\n1\n2\n")
+
+  (define omgwtf-same-missing-slot-repeated-in-one-expression-src
+    "HAI 1.3\nO HAI IM box\n  I HAS A hits ITZ 0\n  HOW IZ I omgwtf\n    hits R SUM OF hits AN 1\n    FOUND YR hits\n  IF U SAY SO\nKTHX\nVISIBLE SMOOSH box'Z a AN box'Z a MKAY\nVISIBLE box'Z hits\nVISIBLE box'Z a\nKTHXBYE\n")
+  (define omgwtf-same-missing-slot-repeated-in-one-expression
+    (run-source omgwtf-same-missing-slot-repeated-in-one-expression-src))
+  (check-eq? (hash-ref omgwtf-same-missing-slot-repeated-in-one-expression 'status) 'ok)
+  ;; Memoization sensitivity: once slot `a` is synthesized, later accesses to
+  ;; the same slot in the expression observe the cached value.
+  (check-equal? (hash-ref omgwtf-same-missing-slot-repeated-in-one-expression 'stdout)
+                "11\n1\n1\n")
+
   (define omgwtf-return-value-overrides-intermediate-slot-mutation-src
     "HAI 1.3\nO HAI IM box\n  I HAS A hits ITZ 0\n  HOW IZ I omgwtf\n    hits R SUM OF hits AN 1\n    ME HAS A nope ITZ \"from-body\"\n    FOUND YR SMOOSH \"from-return-\" AN hits MKAY\n  IF U SAY SO\nKTHX\nVISIBLE box'Z nope\nVISIBLE box'Z nope\nVISIBLE box'Z hits\nVISIBLE box'Z nope\nKTHXBYE\n")
   (define omgwtf-return-value-overrides-intermediate-slot-mutation
@@ -989,6 +1019,20 @@
   ;; original receiver context (ME == receiver).
   (check-equal? (hash-ref method-call-miss-omgwtf-on-original-receiver 'stdout)
                 "OK\n1\n")
+
+  (define method-call-noncallable-after-omgwtf-synthesis-src
+    "HAI 1.3\nHOW IZ I fallback\n  FOUND YR 0\nIF U SAY SO\nO HAI IM box\n  I HAS A omgwtf ITZ fallback\nKTHX\nVISIBLE box'Z missing\nVISIBLE box IZ missing MKAY\nKTHXBYE\n")
+  (define method-call-noncallable-after-omgwtf-synthesis
+    (run-source method-call-noncallable-after-omgwtf-synthesis-src))
+  (check-eq? (hash-ref method-call-noncallable-after-omgwtf-synthesis 'status)
+             'runtime-error)
+  ;; Handoff E: ordinary slot access may synthesize and memoize a non-callable
+  ;; value, but slot-call remains a callable-only operation.
+  (check-equal? (hash-ref method-call-noncallable-after-omgwtf-synthesis 'stdout)
+                "0\n")
+  (check-true (regexp-match? #px"method slot is not callable: missing"
+                             (hash-ref method-call-noncallable-after-omgwtf-synthesis
+                                       'error)))
 
   (define izmakin-special-slot-runs-on-prototype-src
     "HAI 1.3\nO HAI IM Maker\n  I HAS A seed ITZ 1\n  HOW IZ I izmakin\n    seed R SUM OF seed AN 1\n  IF U SAY SO\nKTHX\nI HAS A first ITZ LIEK A Maker\nI HAS A second ITZ LIEK A Maker\nVISIBLE first'Z seed\nVISIBLE second'Z seed\nKTHXBYE\n")

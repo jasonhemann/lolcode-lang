@@ -39,7 +39,7 @@
   (check-true (string? unsupported-v12-msg))
   (check-true (regexp-match? #px"unsupported version: 1\\.2" unsupported-v12-msg))
 
-  (define external-lci-issue-0049-path
+  (define external-lci-issue-0043-path
     (build-path here
                 ".."
                 "regression-evidence"
@@ -47,15 +47,15 @@
                 "fixtures"
                 "lci"
                 "wave_01"
-                "issue_0049"
+                "issue_0043"
                 "repro.lol"))
-  (define external-lci-issue-0049
-    (file->string external-lci-issue-0049-path))
-  (define external-lci-issue-0049-msg
-    (capture-message (lambda () (parse-program external-lci-issue-0049))))
-  (check-true (string? external-lci-issue-0049-msg))
+  (define external-lci-issue-0043
+    (file->string external-lci-issue-0043-path))
+  (define external-lci-issue-0043-msg
+    (capture-message (lambda () (parse-program external-lci-issue-0043))))
+  (check-true (string? external-lci-issue-0043-msg))
   (check-true (regexp-match? #px"unsupported version: 1\\.2"
-                             external-lci-issue-0049-msg))
+                             external-lci-issue-0043-msg))
 
   (define unsupported-v14
     "HAI 1.4\nVISIBLE \"future\"\nKTHXBYE\n")

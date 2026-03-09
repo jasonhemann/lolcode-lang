@@ -37,24 +37,6 @@
     (added-on . "2026-02-28"))
 
   #hasheq(
-    (id . "ext_lci_issue_0049")
-    (wave . 1)
-    (source-file . "fixtures/lci/wave_01/issue_0049/repro.lol")
-    (source-project . "lci")
-    (source-repo . "justinmeza/lci")
-    (source-kind . "issue")
-    (source-id . "49")
-    (source-url . "https://github.com/justinmeza/lci/issues/49")
-    (source-origin . "issue-body")
-    (spec-scope . ("1.2"))
-    (spec-refs . ())
-    (oracle-class . "external-evidence")
-    (triage-status . "reproducer-ready")
-    (hypothesis . "expects-parse-error")
-    (notes . "Imported from candidate_repros.tsv rank=3 state=open category=runtime-safety score=120 title=SegFault when using STDIO Library")
-    (added-on . "2026-02-28"))
-
-  #hasheq(
     (id . "ext_lci_issue_0054")
     (wave . 1)
     (source-file . "fixtures/lci/wave_01/issue_0054/repro.lol")
@@ -164,8 +146,8 @@
 
   #hasheq(
     (id . "ext_lci_issue_0013")
-    (wave . 1)
-    (source-file . "fixtures/lci/wave_01/issue_0013/repro.lol")
+    (wave . 2)
+    (source-file . "fixtures/lci/wave_02/issue_0013/repro.lol")
     (source-project . "lci")
     (source-repo . "justinmeza/lci")
     (source-kind . "issue")
@@ -290,8 +272,8 @@
 
   #hasheq(
     (id . "ext_lci_issue_0060")
-    (wave . 2)
-    (source-file . "fixtures/lci/wave_02/issue_0060/repro.lol")
+    (wave . 3)
+    (source-file . "fixtures/lci/wave_03/issue_0060/repro.lol")
     (source-project . "lci")
     (source-repo . "justinmeza/lci")
     (source-kind . "issue")
@@ -308,8 +290,8 @@
 
   #hasheq(
     (id . "ext_lci_issue_0062")
-    (wave . 2)
-    (source-file . "fixtures/lci/wave_02/issue_0062/repro.lol")
+    (wave . 3)
+    (source-file . "fixtures/lci/wave_03/issue_0062/repro.lol")
     (source-project . "lci")
     (source-repo . "justinmeza/lci")
     (source-kind . "issue")
@@ -326,8 +308,8 @@
 
   #hasheq(
     (id . "ext_lci_issue_0071")
-    (wave . 2)
-    (source-file . "fixtures/lci/wave_02/issue_0071/repro.lol")
+    (wave . 3)
+    (source-file . "fixtures/lci/wave_03/issue_0071/repro.lol")
     (source-project . "lci")
     (source-repo . "justinmeza/lci")
     (source-kind . "issue")
@@ -344,8 +326,8 @@
 
   #hasheq(
     (id . "ext_lci_issue_0078")
-    (wave . 2)
-    (source-file . "fixtures/lci/wave_02/issue_0078/repro.lol")
+    (wave . 3)
+    (source-file . "fixtures/lci/wave_03/issue_0078/repro.lol")
     (source-project . "lci")
     (source-repo . "justinmeza/lci")
     (source-kind . "issue")
@@ -416,8 +398,8 @@
 
   #hasheq(
     (id . "ext_lci_issue_0004")
-    (wave . 3)
-    (source-file . "fixtures/lci/wave_03/issue_0004/repro.lol")
+    (wave . 5)
+    (source-file . "fixtures/lci/wave_05/issue_0004/repro.lol")
     (source-project . "lci")
     (source-repo . "justinmeza/lci")
     (source-kind . "issue")
@@ -434,8 +416,8 @@
 
   #hasheq(
     (id . "ext_lci_issue_0007")
-    (wave . 3)
-    (source-file . "fixtures/lci/wave_03/issue_0007/repro.lol")
+    (wave . 5)
+    (source-file . "fixtures/lci/wave_05/issue_0007/repro.lol")
     (source-project . "lci")
     (source-repo . "justinmeza/lci")
     (source-kind . "issue")
@@ -452,8 +434,8 @@
 
   #hasheq(
     (id . "ext_lci_issue_0015")
-    (wave . 3)
-    (source-file . "fixtures/lci/wave_03/issue_0015/repro.lol")
+    (wave . 5)
+    (source-file . "fixtures/lci/wave_05/issue_0015/repro.lol")
     (source-project . "lci")
     (source-repo . "justinmeza/lci")
     (source-kind . "issue")
@@ -470,8 +452,8 @@
 
   #hasheq(
     (id . "ext_lci_issue_0018")
-    (wave . 3)
-    (source-file . "fixtures/lci/wave_03/issue_0018/repro.lol")
+    (wave . 6)
+    (source-file . "fixtures/lci/wave_06/issue_0018/repro.lol")
     (source-project . "lci")
     (source-repo . "justinmeza/lci")
     (source-kind . "issue")
@@ -488,8 +470,8 @@
 
   #hasheq(
     (id . "ext_lci_pr_0029")
-    (wave . 3)
-    (source-file . "fixtures/lci/wave_03/pr_0029/repro.lol")
+    (wave . 6)
+    (source-file . "fixtures/lci/wave_06/pr_0029/repro.lol")
     (source-project . "lci")
     (source-repo . "justinmeza/lci")
     (source-kind . "pr")
@@ -506,8 +488,8 @@
 
   #hasheq(
     (id . "ext_lci_pr_0046")
-    (wave . 3)
-    (source-file . "fixtures/lci/wave_03/pr_0046/repro.lol")
+    (wave . 6)
+    (source-file . "fixtures/lci/wave_06/pr_0046/repro.lol")
     (source-project . "lci")
     (source-repo . "justinmeza/lci")
     (source-kind . "pr")
@@ -524,8 +506,8 @@
 
   #hasheq(
     (id . "ext_lolcode_py_cmsc124_pr_0003")
-    (wave . 3)
-    (source-file . "fixtures/lolcode-py-cmsc124/wave_03/pr_0003/repro.lol")
+    (wave . 14)
+    (source-file . "fixtures/lolcode-py-cmsc124/wave_14/pr_0003/repro.lol")
     (source-project . "lolcode-py-cmsc124")
     (source-repo . "DvaeFroot/cmsc124-lolcode-interpreter")
     (source-kind . "pr")
@@ -560,8 +542,8 @@
 
   #hasheq(
     (id . "ext_rust_lci_commit_9f21cab3a1005d9022ec3ad63d2213005025c432")
-    (wave . 2)
-    (source-file . "fixtures/rust-lci/wave_02/commit_9f21cab3a1005d9022ec3ad63d2213005025c432/repro.lol")
+    (wave . 1)
+    (source-file . "fixtures/rust-lci/wave_01/commit_9f21cab3a1005d9022ec3ad63d2213005025c432/repro.lol")
     (source-project . "rust-lci")
     (source-repo . "jD91mZM2/rust-lci")
     (source-kind . "commit")
@@ -668,8 +650,8 @@
 
   #hasheq(
     (id . "ext_lci_commit_233aa9481d141bcafe0eaefe9fb44006919189c2")
-    (wave . 4)
-    (source-file . "fixtures/lci/wave_04/commit_233aa9481d141bcafe0eaefe9fb44006919189c2/repro.lol")
+    (wave . 3)
+    (source-file . "fixtures/lci/wave_03/commit_233aa9481d141bcafe0eaefe9fb44006919189c2/repro.lol")
     (source-project . "lci")
     (source-repo . "justinmeza/lci")
     (source-kind . "commit")
@@ -848,8 +830,8 @@
 
   #hasheq(
     (id . "ext_lci_commit_a6ef5811e8eb98935a16600b799bccbe4adffdde")
-    (wave . 5)
-    (source-file . "fixtures/lci/wave_05/commit_a6ef5811e8eb98935a16600b799bccbe4adffdde/repro.lol")
+    (wave . 4)
+    (source-file . "fixtures/lci/wave_04/commit_a6ef5811e8eb98935a16600b799bccbe4adffdde/repro.lol")
     (source-project . "lci")
     (source-repo . "justinmeza/lci")
     (source-kind . "commit")
@@ -916,24 +898,6 @@
     (triage-status . "reproducer-ready")
     (hypothesis . "expects-parse-error")
     (notes . "Imported from candidate_repros.tsv rank=44 state=closed category=language score=90 title=scope storage and access performance optimizations")
-    (added-on . "2026-03-04"))
-
-  #hasheq(
-    (id . "ext_lci_commit_e8dd671a2719e2a62f7cbed111ffe2006f436e7e")
-    (wave . 5)
-    (source-file . "fixtures/lci/wave_05/commit_e8dd671a2719e2a62f7cbed111ffe2006f436e7e/repro.lol")
-    (source-project . "lci")
-    (source-repo . "justinmeza/lci")
-    (source-kind . "commit")
-    (source-id . "e8dd671a2719e2a62f7cbed111ffe2006f436e7e")
-    (source-url . "https://github.com/justinmeza/lci/commit/e8dd671a2719e2a62f7cbed111ffe2006f436e7e")
-    (source-origin . "commit-message")
-    (spec-scope . ("1.2"))
-    (spec-refs . ())
-    (oracle-class . "external-evidence")
-    (triage-status . "reproducer-ready")
-    (hypothesis . "expects-parse-error")
-    (notes . "Imported from candidate_repros.tsv rank=45 state=closed category=language score=90 title=adding some stdlib randomizaton functions")
     (added-on . "2026-03-04"))
 
   #hasheq(
