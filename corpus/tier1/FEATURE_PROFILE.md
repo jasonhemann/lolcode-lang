@@ -1,6 +1,6 @@
 # tier1 Feature Profile
 
-Generated: `2026-03-08T05:20:36Z`
+Generated: `2026-03-09T16:55:08Z`
 
 ## Recovery + Extraction Summary
 
@@ -11,7 +11,7 @@ Generated: `2026-03-08T05:20:36Z`
 - Candidate core-1.2/1.3 repro items: `71`
 - Candidate extension repro items: `0`
 - Candidate unknown-scope repro items: `0`
-- Test cases extracted (imported external fixtures): `61`
+- Test cases extracted (imported external fixtures): `71`
 - Known failures (triaged unresolved): `0`
 - Known divergences: `0`
 
@@ -25,19 +25,19 @@ Generated: `2026-03-08T05:20:36Z`
 - Capture type: `implementation+sample-code`
 - Captured implementation files: `2`
 - LOLCODE files: `328`
-- Total LOLCODE lines: `2818`
+- Total LOLCODE lines: `2815`
 - Bugs extracted (candidate repro items): `47`
 - Candidate core-1.2/1.3 repro items: `47`
 - Candidate extension repro items: `0`
 - Candidate unknown-scope repro items: `0`
-- Test cases extracted (imported fixtures): `49`
+- Test cases extracted (imported fixtures): `47`
 - Known failures (triaged unresolved): `0`
 - Known divergences: `0`
 
 | Construct | Count |
 | --- | ---: |
 | `CAN HAS [A-Z]+\?` | 9 |
-| `HAI [0-9]+\.[0-9]+` | 326 |
+| `HAI [0-9]+\.[0-9]+` | 325 |
 | `HOW IZ I` | 31 |
 | `IF U SAY SO` | 42 |
 | `FOUND YR` | 109 |
@@ -59,8 +59,8 @@ Generated: `2026-03-08T05:20:36Z`
 | `MAEK` | 80 |
 | `IS NOW A` | 80 |
 | `I IZ` | 79 |
-| `I HAS A` | 244 |
-| `HAS A` | 289 |
+| `I HAS A` | 243 |
+| `HAS A` | 288 |
 | `ITZ A BUKKIT` | 20 |
 | `LIEK A` | 2 |
 | `'Z ` | 122 |
@@ -91,7 +91,7 @@ Generated: `2026-03-08T05:20:36Z`
 - Candidate core-1.2/1.3 repro items: `13`
 - Candidate extension repro items: `0`
 - Candidate unknown-scope repro items: `0`
-- Test cases extracted (imported fixtures): `1`
+- Test cases extracted (imported fixtures): `13`
 - Known failures (triaged unresolved): `0`
 - Known divergences: `0`
 

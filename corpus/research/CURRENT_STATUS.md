@@ -1,6 +1,6 @@
 # Corpus Current Status
 
-- Generated: 2026-03-09T16:11:06Z
+- Generated: 2026-03-09T16:55:37Z
 - Policy scope: strict `HAI 1.3` implementation target
 
 ## Canonical Sources
@@ -33,22 +33,22 @@
 
 ### Tier2
 
-- Snapshot generated-at: Monday, March 9th, 2026 12:03:55pm
+- Snapshot generated-at: Monday, March 9th, 2026 12:55:07pm
 - Files: 223
-- Likely programs: 184
-- Non-programs: 39
+- Likely programs: 193
+- Non-programs: 30
 
 | Outcome (likely programs) | Count |
 |---|---:|
-| `parse-error` | 167 |
-| `ok` | 8 |
-| `lex-error` | 7 |
+| `parse-error` | 175 |
+| `lex-error` | 8 |
+| `ok` | 7 |
+| `timeout` | 2 |
 | `runtime-error` | 1 |
-| `timeout` | 1 |
 
 ### Tracking Buckets
 
-- Good (strict-1.3 currently passing): `272`
+- Good (strict-1.3 currently passing): `271`
 - Irredeemably bad for strict-1.3 (explicit reject list): `7`
 - Fixed-here (from corpus manifest extraction progress): `0`
 
@@ -62,11 +62,11 @@
 - Aggregated extraction totals (manifest):
   - external_items_total: 2276
   - candidate_repros_total: 493
-  - imported_test_cases_total: 352
+  - imported_test_cases_total: 493
   - known_divergences_total: 0
   - known_failures_total: 0
   - fixed_here_total: 0
-  - candidate_triage_total: 50
+  - candidate_triage_total: 193
 
 - External regression candidate queue:
   - total candidates: 493

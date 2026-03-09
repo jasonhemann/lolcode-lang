@@ -24,7 +24,7 @@ Status legend:
 - `GAP`: `0`
 
 Reconciliation note (2026-03-08):
-- `#25`/`#26` (evaluation-order family, `N40`/`N75`) and `#48` (`IT` family, `N12`/`N60`/`N74`) are implemented and test-pinned but currently treated as provisional policy pins pending closure of umbrella contradiction items in `EXPERT_REVIEW_ACTION_TODO_2026-03-07.md`.
+- `#25`/`#26` (evaluation-order family, `N40`/`N75`) and `#48` (`IT` family, `N12`/`N60`/`N74`) are implemented and test-pinned but currently treated as provisional policy pins pending closure of umbrella contradiction items in `EXPERT_REVIEW_IMPLEMENTATION_QUEUE.md`.
 
 Primary concrete gap:
 - `#35` `MAEK` currently allows `BUKKIT` cast; strict 1.3 cast target set is `TROOF|YARN|NUMBR|NUMBAR|NOOB`.

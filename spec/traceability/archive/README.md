@@ -14,6 +14,6 @@ Original concern notebooks that were consolidated into tranche/adjudication ledg
 These files are retained for provenance only. Active planning and decisions live in:
 
 - `../SPEC_ADJUDICATION_POLICY.md`
-- `../EXPERT_REVIEW_ACTION_TODO_2026-03-07.md`
+- `../EXPERT_REVIEW_IMPLEMENTATION_QUEUE.md`
 - `../ITEM_BY_ITEM_RESOLUTION_MAP.md`
-- `../NEXT-BOTTOM-UP-TRANCHE-1-ADJUDICATION.md`
+- `../EXPERT_REVIEW_ADJUDICATION_LEDGER.md`

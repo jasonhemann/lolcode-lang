@@ -1,6 +1,6 @@
 # tier2 Feature Profile
 
-Generated: `2026-03-08T05:20:36Z`
+Generated: `2026-03-09T16:55:08Z`
 
 ## Recovery + Extraction Summary
 
@@ -11,7 +11,7 @@ Generated: `2026-03-08T05:20:36Z`
 - Candidate core-1.2/1.3 repro items: `422`
 - Candidate extension repro items: `0`
 - Candidate unknown-scope repro items: `0`
-- Test cases extracted (imported external fixtures): `291`
+- Test cases extracted (imported external fixtures): `422`
 - Known failures (triaged unresolved): `0`
 - Known divergences: `0`
 
@@ -52,7 +52,7 @@ Generated: `2026-03-08T05:20:36Z`
 - Candidate core-1.2/1.3 repro items: `46`
 - Candidate extension repro items: `0`
 - Candidate unknown-scope repro items: `0`
-- Test cases extracted (imported fixtures): `3`
+- Test cases extracted (imported fixtures): `46`
 - Known failures (triaged unresolved): `0`
 - Known divergences: `0`
 
@@ -437,7 +437,7 @@ Generated: `2026-03-08T05:20:36Z`
 - Candidate core-1.2/1.3 repro items: `1`
 - Candidate extension repro items: `0`
 - Candidate unknown-scope repro items: `0`
-- Test cases extracted (imported fixtures): `0`
+- Test cases extracted (imported fixtures): `1`
 - Known failures (triaged unresolved): `0`
 - Known divergences: `0`
 
@@ -940,7 +940,7 @@ Generated: `2026-03-08T05:20:36Z`
 - Candidate core-1.2/1.3 repro items: `8`
 - Candidate extension repro items: `0`
 - Candidate unknown-scope repro items: `0`
-- Test cases extracted (imported fixtures): `0`
+- Test cases extracted (imported fixtures): `8`
 - Known failures (triaged unresolved): `0`
 - Known divergences: `0`
 
@@ -1101,7 +1101,7 @@ Generated: `2026-03-08T05:20:36Z`
 - Candidate core-1.2/1.3 repro items: `5`
 - Candidate extension repro items: `0`
 - Candidate unknown-scope repro items: `0`
-- Test cases extracted (imported fixtures): `0`
+- Test cases extracted (imported fixtures): `5`
 - Known failures (triaged unresolved): `0`
 - Known divergences: `0`
 
@@ -1182,7 +1182,7 @@ Generated: `2026-03-08T05:20:36Z`
 - Candidate core-1.2/1.3 repro items: `55`
 - Candidate extension repro items: `0`
 - Candidate unknown-scope repro items: `0`
-- Test cases extracted (imported fixtures): `26`
+- Test cases extracted (imported fixtures): `55`
 - Known failures (triaged unresolved): `0`
 - Known divergences: `0`
 
@@ -1233,7 +1233,7 @@ Generated: `2026-03-08T05:20:36Z`
 - Candidate core-1.2/1.3 repro items: `45`
 - Candidate extension repro items: `0`
 - Candidate unknown-scope repro items: `0`
-- Test cases extracted (imported fixtures): `0`
+- Test cases extracted (imported fixtures): `45`
 - Known failures (triaged unresolved): `0`
 - Known divergences: `0`
 
@@ -1279,7 +1279,7 @@ Generated: `2026-03-08T05:20:36Z`
 - Capture type: `implementation+sample-code`
 - Captured implementation files: `4`
 - LOLCODE files: `9`
-- Total LOLCODE lines: `0`
+- Total LOLCODE lines: `262`
 - Bugs extracted (candidate repro items): `69`
 - Candidate core-1.2/1.3 repro items: `69`
 - Candidate extension repro items: `0`
@@ -1290,6 +1290,35 @@ Generated: `2026-03-08T05:20:36Z`
 
 | Construct | Count |
 | --- | ---: |
+| `IM IN YR` | 2 |
+| `IM OUTTA YR` | 2 |
+| `UPPIN YR` | 1 |
+| `NERFIN YR` | 1 |
+| `TIL` | 1 |
+| `WILE` | 1 |
+| `O RLY\?` | 2 |
+| `YA RLY` | 2 |
+| `MEBBE` | 6 |
+| `NO WAI` | 1 |
+| `OIC` | 3 |
+| `WTF\?` | 1 |
+| `OMGWTF` | 1 |
+| `OMG ` | 4 |
+| `SMOOSH` | 3 |
+| `MAEK` | 1 |
+| `IS NOW A` | 1 |
+| `I HAS A` | 25 |
+| `HAS A` | 25 |
+| `GIMMEH` | 18 |
+| `VISIBLE` | 100 |
+| `BOTH SAEM` | 9 |
+| `DIFFRINT` | 4 |
+| `BOTH OF` | 9 |
+| `EITHER OF` | 9 |
+| `WON OF` | 3 |
+| `ALL OF` | 3 |
+| `ANY OF` | 6 |
+| `NOT` | 12 |
 
 ## kjdeluna-lolcode-interpreter
 

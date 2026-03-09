@@ -1,6 +1,6 @@
 # External Regression Queue
 
-- Generated at: 2026-03-08T05:25:45Z
+- Generated at: 2026-03-09T16:54:22Z
 - Source catalog: `corpus/tier2/CANDIDATE_REPOS.tsv`
 - Total issues+PR items collected: 2276
 - Scope counts (all items): core=493, extension=17, unknown=1766
@@ -8,7 +8,7 @@
 - Candidate core-1.2/1.3 items: 493
 - Wave size: 10
 - Total waves currently: 50
-- Warning: partial fetch failures during sync: 30
+- Warning: partial fetch failures during sync: 120
 
 ## How To Process All Items
 

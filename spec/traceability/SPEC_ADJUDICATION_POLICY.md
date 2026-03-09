@@ -105,6 +105,6 @@ A concern can be closed only when all are true:
 Use these roles to avoid duplicated or conflicting policy text:
 
 1. `SPEC_ADJUDICATION_POLICY.md`: canonical adjudication rules.
-2. `EXPERT_REVIEW_ACTION_TODO_2026-03-07.md`: active implementation queue and closure status.
+2. `EXPERT_REVIEW_IMPLEMENTATION_QUEUE.md`: active implementation queue and closure status.
 3. `ITEM_BY_ITEM_RESOLUTION_MAP.md`: item-level disposition mapping and implementation links.
 4. `IMPLEMENTATION_HOUSE_STYLE.md`: code-level implementation/style invariants.

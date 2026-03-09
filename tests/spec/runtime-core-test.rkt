@@ -384,6 +384,33 @@
   (check-equal? (hash-ref method-bare-it-distinct-from-slot-it 'stdout)
                 "7|slot-it\n")
 
+  (define method-fallthrough-it-vs-slot-it-src
+    "HAI 1.3\nO HAI IM o\n  I HAS A IT ITZ \"slot-it\"\n  HOW IZ I f\n    7\n  IF U SAY SO\nKTHX\nVISIBLE o IZ f MKAY\nVISIBLE o'Z IT\nKTHXBYE\n")
+  (define method-fallthrough-it-vs-slot-it
+    (run-source method-fallthrough-it-vs-slot-it-src))
+  (check-eq? (hash-ref method-fallthrough-it-vs-slot-it 'status) 'ok)
+  ;; Fallthrough uses method-local IT; object slot IT remains independently readable.
+  (check-equal? (hash-ref method-fallthrough-it-vs-slot-it 'stdout)
+                "7\nslot-it\n")
+
+  (define method-explicit-me-slot-it-src
+    "HAI 1.3\nO HAI IM o\n  I HAS A IT ITZ \"slot-it\"\n  HOW IZ I f\n    FOUND YR ME'Z IT\n  IF U SAY SO\nKTHX\nVISIBLE o IZ f MKAY\nKTHXBYE\n")
+  (define method-explicit-me-slot-it
+    (run-source method-explicit-me-slot-it-src))
+  (check-eq? (hash-ref method-explicit-me-slot-it 'status) 'ok)
+  ;; Explicit receiver-slot access still returns the object slot value.
+  (check-equal? (hash-ref method-explicit-me-slot-it 'stdout)
+                "slot-it\n")
+
+  (define object-body-it-slot-construction-src
+    "HAI 1.3\nO HAI IM o\n  I HAS A IT ITZ \"real-slot\"\nKTHX\nVISIBLE o'Z IT\nKTHXBYE\n")
+  (define object-body-it-slot-construction
+    (run-source object-body-it-slot-construction-src))
+  (check-eq? (hash-ref object-body-it-slot-construction 'status) 'ok)
+  ;; Object-body I HAS A IT declares a real slot on the object (no temp injected IT).
+  (check-equal? (hash-ref object-body-it-slot-construction 'stdout)
+                "real-slot\n")
+
   (define expr-stmt-src
     "HAI 1.3\nHOW IZ I ping\n  VISIBLE \"P\"\nIF U SAY SO\nI IZ ping MKAY\nKTHXBYE\n")
   (define expr-stmt-result (run-source expr-stmt-src))

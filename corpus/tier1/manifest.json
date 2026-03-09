@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-08T05:20:36Z",
+  "generated_at": "2026-03-09T16:55:08Z",
   "tier": "tier1",
   "entries": [
     {
@@ -12,7 +12,7 @@
       "source": "implementations.pdf",
       "status": "unverified",
       "sync_state": "ok",
-      "sync_note": "ok",
+      "sync_note": "ok:partial:1",
       "recovery_tracking": {
         "initially_missing": false,
         "recovered_from_initially_missing": false,
@@ -37,9 +37,9 @@
         "candidate_core_1_2_1_3_total": 47,
         "candidate_extension_total": 0,
         "candidate_unknown_scope_total": 0,
-        "imported_test_cases_total": 49,
+        "imported_test_cases_total": 47,
         "triage_status_counts": {
-          "reproducer-ready": 49
+          "reproducer-ready": 47
         },
         "known_divergences_total": 0,
         "known_failures_total": 0,
@@ -82,14 +82,15 @@
         "candidate_core_1_2_1_3_total": 13,
         "candidate_extension_total": 0,
         "candidate_unknown_scope_total": 0,
-        "imported_test_cases_total": 1,
+        "imported_test_cases_total": 13,
         "triage_status_counts": {
-          "reproducer-ready": 1
+          "reproducer-ready": 1,
+          "candidate": 12
         },
         "known_divergences_total": 0,
         "known_failures_total": 0,
         "fixed_here_total": 0,
-        "candidate_triage_total": 0
+        "candidate_triage_total": 12
       }
     },
     {

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-08T05:20:36Z",
+  "generated_at": "2026-03-09T16:55:08Z",
   "tier": "tier2",
   "entries": [
     {
@@ -83,14 +83,15 @@
         "candidate_core_1_2_1_3_total": 46,
         "candidate_extension_total": 0,
         "candidate_unknown_scope_total": 0,
-        "imported_test_cases_total": 3,
+        "imported_test_cases_total": 46,
         "triage_status_counts": {
-          "reproducer-ready": 3
+          "reproducer-ready": 3,
+          "candidate": 43
         },
         "known_divergences_total": 0,
         "known_failures_total": 0,
         "fixed_here_total": 0,
-        "candidate_triage_total": 0
+        "candidate_triage_total": 43
       }
     },
     {
@@ -191,7 +192,7 @@
       "source": "implementations.pdf",
       "status": "unverified",
       "sync_state": "ok",
-      "sync_note": "ok:partial:8",
+      "sync_note": "ok",
       "recovery_tracking": {
         "initially_missing": false,
         "recovered_from_initially_missing": false,
@@ -437,12 +438,14 @@
         "candidate_core_1_2_1_3_total": 1,
         "candidate_extension_total": 0,
         "candidate_unknown_scope_total": 0,
-        "imported_test_cases_total": 0,
-        "triage_status_counts": {},
+        "imported_test_cases_total": 1,
+        "triage_status_counts": {
+          "candidate": 1
+        },
         "known_divergences_total": 0,
         "known_failures_total": 0,
         "fixed_here_total": 0,
-        "candidate_triage_total": 0
+        "candidate_triage_total": 1
       }
     },
     {
@@ -1102,7 +1105,7 @@
       "source": "ecosyste.ms-search-2026-03-02",
       "status": "unverified",
       "sync_state": "ok",
-      "sync_note": "ok:partial:4",
+      "sync_note": "ok",
       "recovery_tracking": {
         "initially_missing": false,
         "recovered_from_initially_missing": false,
@@ -1127,12 +1130,14 @@
         "candidate_core_1_2_1_3_total": 8,
         "candidate_extension_total": 0,
         "candidate_unknown_scope_total": 0,
-        "imported_test_cases_total": 0,
-        "triage_status_counts": {},
+        "imported_test_cases_total": 8,
+        "triage_status_counts": {
+          "candidate": 8
+        },
         "known_divergences_total": 0,
         "known_failures_total": 0,
         "fixed_here_total": 0,
-        "candidate_triage_total": 0
+        "candidate_triage_total": 8
       }
     },
     {
@@ -1258,12 +1263,14 @@
         "candidate_core_1_2_1_3_total": 5,
         "candidate_extension_total": 0,
         "candidate_unknown_scope_total": 0,
-        "imported_test_cases_total": 0,
-        "triage_status_counts": {},
+        "imported_test_cases_total": 5,
+        "triage_status_counts": {
+          "candidate": 5
+        },
         "known_divergences_total": 0,
         "known_failures_total": 0,
         "fixed_here_total": 0,
-        "candidate_triage_total": 0
+        "candidate_triage_total": 5
       }
     },
     {
@@ -1344,14 +1351,14 @@
         "candidate_core_1_2_1_3_total": 55,
         "candidate_extension_total": 0,
         "candidate_unknown_scope_total": 0,
-        "imported_test_cases_total": 26,
+        "imported_test_cases_total": 55,
         "triage_status_counts": {
-          "candidate": 26
+          "candidate": 55
         },
         "known_divergences_total": 0,
         "known_failures_total": 0,
         "fixed_here_total": 0,
-        "candidate_triage_total": 26
+        "candidate_triage_total": 55
       }
     },
     {
@@ -1389,12 +1396,14 @@
         "candidate_core_1_2_1_3_total": 45,
         "candidate_extension_total": 0,
         "candidate_unknown_scope_total": 0,
-        "imported_test_cases_total": 0,
-        "triage_status_counts": {},
+        "imported_test_cases_total": 45,
+        "triage_status_counts": {
+          "candidate": 45
+        },
         "known_divergences_total": 0,
         "known_failures_total": 0,
         "fixed_here_total": 0,
-        "candidate_triage_total": 0
+        "candidate_triage_total": 45
       }
     },
     {
@@ -1407,7 +1416,7 @@
       "source": "shadow-mirror-search-2026-03-02",
       "status": "unverified",
       "sync_state": "ok",
-      "sync_note": "ok:partial:14",
+      "sync_note": "ok",
       "recovery_tracking": {
         "initially_missing": true,
         "recovered_from_initially_missing": true,

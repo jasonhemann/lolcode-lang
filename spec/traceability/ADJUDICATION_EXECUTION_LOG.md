@@ -135,7 +135,7 @@ Cross-cutting adjudications:
 - [x] `29` (notes 211-216) Ordinary function return semantics (`GTFO` => NOOB, ordinary-function fallthrough returns IT).
   Spec: line 590 (mapped).  
   Done: covered by existing runtime regressions (`function-gtfo-return`, `function-implicit-it-return`) that assert both return paths.
-  Note: method-context fallthrough return via `IT` remains an open contradiction item (`C1/C2/C3`) and is tracked separately in `EXPERT_REVIEW_ACTION_TODO_2026-03-07.md`.
+  Note: method-context fallthrough return via `IT` remains an open contradiction item (`C1/C2/C3`) and is tracked separately in `EXPERT_REVIEW_IMPLEMENTATION_QUEUE.md`.
 
 - [x] `30` (notes 218-220) Clarify “I parameter” in call syntax.
   Spec: line 604 (`unmapped`).  
@@ -203,11 +203,11 @@ Cross-cutting adjudications:
 
 - [x] `45` For each checklist item above, add:
   one positive test and one negative test unless clause is explicitly non-erroring.
-  Done: completed coverage audit in `spec/traceability/checklist-test-and-ergonomics-audit.md` itemizing paired vs non-erroring clauses and evidence anchors.
+  Done: completed coverage audit in `spec/traceability/TRACEABILITY_TEST_ERGONOMICS_AUDIT.md` itemizing paired vs non-erroring clauses and evidence anchors.
 
 - [x] `46` AST/runtime ergonomics check:
   document whether each new test required parser hacks vs compositional AST support; file follow-up refactors where pain is highest.
-  Done: added ergonomics findings + follow-up refactor queue in `spec/traceability/checklist-test-and-ergonomics-audit.md`.
+  Done: added ergonomics findings + follow-up refactor queue in `spec/traceability/TRACEABILITY_TEST_ERGONOMICS_AUDIT.md`.
 
 ## Phase 6: Corpus / Harvest Check (run in order and recorded)
 

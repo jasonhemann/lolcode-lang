@@ -36,4 +36,17 @@
   (define clause-index-text
     (file->string clause-index-path))
   (check-true (string-contains? clause-index-text
-                                "277\tnormative\tThe `AN` keyword can optionally be used")))
+                                "277\tnormative\tThe `AN` keyword can optionally be used"))
+
+  ;; Release-blocking runtime boundary regressions must remain in the always-run
+  ;; core suite because they pin the IT/object/omgwtf exegesis decisions.
+  (define runtime-core-path
+    (build-path here ".." "runtime-core-test.rkt"))
+  (check-true (file-exists? runtime-core-path))
+  (define runtime-core-text
+    (file->string runtime-core-path))
+  (for ([name (in-list (list "method-fallthrough-it-vs-slot-it"
+                             "method-explicit-me-slot-it"
+                             "object-body-it-slot-construction"
+                             "method-call-noncallable-after-omgwtf-synthesis"))])
+    (check-true (string-contains? runtime-core-text name))))

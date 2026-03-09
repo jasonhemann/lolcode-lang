@@ -30,43 +30,43 @@ For each item:
 - **Text**: `HOW IZ I <function name>` versus `HOW IZ <object> <slot>`.
 - **Why it matters**: these are not just the same syntax with a missing argument; they produce different lookup and receiver behavior.
 - **Initial assessment**: **T** that both syntactic forms exist; **I** that they should be represented distinctly in the AST.
-- **Decision needed**: confirm that the implementation does not collapse these too early.
+- **Resolution (`N01`)**: parser/AST preserve distinct definition forms (ordinary function-def vs object slot-function-def); no early collapse.
 
 ### A2. Ordinary call vs slot-access function call
 - **Text**: `I IZ <function name> ... MKAY` versus `<object> IZ <slotname> ... MKAY`.
 - **Why it matters**: slot-call establishes receiver-sensitive lookup and enables `ME`.
 - **Initial assessment**: **T**.
-- **Decision needed**: confirm that these are separate parse/eval forms, not one call form with ad hoc runtime branching.
+- **Resolution (`N04`)**: parser/evaluator keep separate ordinary-call and slot-call forms; receiver-sensitive behavior is only in slot-call path.
 
 ### A3. Ordinary `SMOOSH` concatenation vs mixin/inheritance `SMOOSH`
 - **Text**: `SMOOSH ... MKAY` as string concatenation; `IM LIEK <parent> SMOOSH <mixin> ...` as mixin inheritance.
 - **Why it matters**: same surface word, different grammatical category and semantics.
 - **Initial assessment**: **T** that both uses exist; **I** that they need distinct AST nodes.
-- **Decision needed**: confirm parser separation and prevent precedence bleed-through.
+- **Resolution (`N03`/`N24`)**: parser separation is explicit and test-pinned; expression `SMOOSH` and mixin/prototype `SMOOSH` do not share AST/eval paths.
 
 ### A4. Slot access vs slot call vs ordinary identifier lookup
 - **Text**: `<object> 'Z <slotname>`, `<object> IZ <slotname> ... MKAY`, and ordinary identifiers.
 - **Why it matters**: lookup, type-checking, and fallback rules differ.
 - **Initial assessment**: **T**.
-- **Decision needed**: confirm these are separate evaluator paths.
+- **Resolution (`N04`/`N15`)**: evaluator uses distinct paths with separate lookup/type boundaries for slot access, slot call, and ordinary identifiers.
 
 ### A5. `SRS` as dynamic slot name, not generic receiver reinterpretation
 - **Text**: `<object> 'Z SRS <expression>` and `<object> IZ SRS funcName MKAY`.
 - **Why it matters**: the spec gives `SRS` for dynamic slot naming/calling, not for converting arbitrary strings into receiver identifiers.
 - **Initial assessment**: **T** for dynamic slot names; **X** for any extra “receiver-name fallback” semantics not grounded in the text.
-- **Decision needed**: forbid non-textual reinterpretation of `SRS` results as namespace lookups.
+- **Resolution (`N59` + fallback removal)**: `SRS` remains dynamic slot-name/call-name syntax only; non-textual receiver reinterpretation is forbidden.
 
 ### A6. `O HAI IM` contextual rewrite of `I`
 - **Text**: “Anything `I` inside the codeblock actually refers to `<object>`.”
 - **Why it matters**: this is a context-sensitive rewrite rule, not ordinary lexical scoping.
 - **Initial assessment**: **T**, but operational details are partly **U**.
-- **Decision needed**: specify whether this is parser desugaring or runtime contextual evaluation.
+- **Resolution (`N13`)**: implemented as runtime contextual evaluation (object-definition execution context), not parser-level textual desugaring.
 
 ### A7. `O HAI IM` identifier lookup regime
 - **Text**: identifiers within the block are looked up via slot-access first, then global scope, else error.
 - **Why it matters**: this is a different lookup regime from ordinary local scope.
 - **Initial assessment**: **T**.
-- **Decision needed**: confirm whether this applies to all identifiers in the block, including references inside nested function definitions.
+- **Resolution (`N13`/`N78`)**: object-body lookup regime is applied in object-definition context; strict 1.3 nested ordinary defs are rejected, avoiding ambiguous mixed regimes.
 
 ### A8. Slot operator typo: prose says `-`, examples use `'Z`
 - **Text**: “slot operator `-`” immediately followed by syntax `<object> 'Z <slotname>`.
@@ -82,55 +82,55 @@ For each item:
 - **Text**: “No matter where a FUNKSHUN is stored in a slot, during a Slot-Access Function call, the Function obtains variables from the object it was accessed from,” plus the `parentClass` / `testClass` example.
 - **Why it matters**: this is the central object-method semantics.
 - **Initial assessment**: **T**.
-- **Decision needed**: lock this in as canonical.
+- **Resolution (`N15`/`N69`)**: canonical receiver-dynamic slot-call semantics are implemented and regression-pinned (including inherited and mixin-copied callables).
 
 ### B2. Function namespace -> calling object namespace -> “global” namespace
 - **Text**: explicit three-step lookup order in the bukkit function scope section.
 - **Why it matters**: determines shadowing and accidental capture behavior.
 - **Initial assessment**: **T**.
-- **Decision needed**: define what “global” means, given other parts of the spec deny global scope.
+- **Resolution (`N10` + `C1`)**: “global” is adjudicated as the ordinary non-receiver lookup plane (not a process-global override).
 
 ### B3. `ME` exists only when there is a calling object
 - **Text**: explicit statement that `ME` throws if there is no calling object.
 - **Why it matters**: the same function can succeed as a slot-call and fail as a plain call.
 - **Initial assessment**: **T**.
-- **Decision needed**: confirm this is a runtime error, not parse-time rejection.
+- **Resolution (`N67`)**: enforced as runtime error when no calling object exists.
 
 ### B4. `ME HAS A` and `ME'Z` target receiver slots
 - **Text**: examples for declaration and assignment on the calling object.
 - **Why it matters**: receiver slots and function-local variables are distinct namespaces.
 - **Initial assessment**: **T**.
-- **Decision needed**: confirm whether `ME HAS A` always creates/shadows locally on the receiver.
+- **Resolution (`N79`/`N80`)**: `ME HAS A` declares/shadows on the receiver; `ME'Z` assignment sequencing is pinned.
 
 ### B5. Parameter / local shadowing of receiver slots
 - **Text**: function namespace is searched before calling object namespace; `ME'Z` is the explicit escape hatch.
 - **Why it matters**: methods can accidentally read parameters instead of slots.
 - **Initial assessment**: **I**.
-- **Decision needed**: lock in test cases proving local/param shadowing and explicit `ME'Z` access.
+- **Resolution (`N10`/`N67`)**: local/param shadowing over receiver slots is implemented; explicit `ME'Z` remains the receiver-slot escape hatch and is regression-pinned.
 
 ### B6. Slot-call on a non-function slot
 - **Text**: spec defines slot-call syntax but does not explicitly say what happens when the resolved slot is not a FUNKSHUN.
 - **Why it matters**: this is a major type-error boundary.
 - **Initial assessment**: **U**.
-- **Decision needed**: conservative policy should probably be runtime type error, not fallback or coercion.
+- **Resolution (policy-pinned)**: runtime type error; no fallback/coercion for non-callable slot-call targets.
 
 ### B7. Distinct “method namespace” beating callable slot values
 - **Observed in implementation**: “method wins over same-named slot callable on `obj IZ name MKAY`.”
 - **Why it matters**: the spec treats methods as functions in slots, not as a separate namespace.
 - **Initial assessment**: **X** unless a textual basis is found.
-- **Decision needed**: likely forbid as an extension.
+- **Resolution**: forbidden extension; method/slot split removed and behavior pinned to callable slot values only.
 
 ### B8. Synthetic namespaced fallback for `I IZ ghost'Z hi MKAY`
 - **Observed in implementation**: fallback works only when receiver is a bare unbound identifier.
 - **Why it matters**: this invents semantics for a surface form not clearly licensed by the grammar.
 - **Initial assessment**: **X**.
-- **Decision needed**: likely remove / reject.
+- **Resolution**: removed/rejected as non-textual extension.
 
 ### B9. No equivalent fallback for `SRS` receiver paths
 - **Observed in implementation**: `SRS recv IZ hi MKAY` errors on non-BUKKIT string instead of using namespaced fallback.
 - **Why it matters**: asymmetry suggests the fallback is not real language semantics.
 - **Initial assessment**: fallback itself looks **X**; this asymmetry is evidence of that.
-- **Decision needed**: remove the fallback rather than extend `SRS` to match it.
+- **Resolution**: mooted by fallback removal; strict behavior is now uniform.
 
 ---
 
@@ -146,13 +146,13 @@ For each item:
 - **Text**: expression-statement section says `IT` remains in local scope; bukkit function scope says `IT` is always global.
 - **Why it matters**: default function return and control-flow constructs depend on `IT`.
 - **Initial assessment**: **C**.
-- **Resolution (`N12`/`N60`/`N74`)**: method-context `IT` is activation-local and never resolved through receiver slot lookup; regressions pin local IT behavior and method fallthrough.
+- **Resolution (`N12`/`N60`/`N74`)**: method-context `IT` is activation-local and never resolved through receiver slot lookup; regressions pin local IT behavior and method fallthrough (`method-it-local-activation`, `method-fallthrough-it-vs-slot-it`, `method-explicit-me-slot-it`).
 
 ### C3. Default method return via `IT`
 - **Text**: functions return `IT` if they reach `IF U SAY SO` without `FOUND YR`; bukkit scope section destabilizes where `IT` comes from.
 - **Why it matters**: methods without explicit return are currently semantically unstable.
 - **Initial assessment**: **C**.
-- **Resolution (`C1/C2/C3`)**: method fallthrough returns the method activation-local `IT` cell (initialized to `NOOB`).
+- **Resolution (`C1/C2/C3`)**: method fallthrough returns the method activation-local `IT` cell (initialized to `NOOB`), while explicit receiver-slot `IT` remains independently addressable (`method-fallthrough-it-vs-slot-it`, `object-body-it-slot-construction`).
 
 ---
 
@@ -162,43 +162,43 @@ For each item:
 - **Text**: inheritance automatically creates a `parent` slot on the new object.
 - **Why it matters**: required for all inheritance lookups.
 - **Initial assessment**: **T**.
-- **Decision needed**: confirm exact timing of creation.
+- **Resolution (`N18`/`N19`)**: parent slot is finalized as part of prototype construction before `izmakin` execution.
 
 ### D2. Parent mutation is allowed
 - **Text**: a bukkit may change its prototype by changing its `parent` slot.
 - **Why it matters**: lookup is dynamic and can be changed after construction.
 - **Initial assessment**: **T**.
-- **Decision needed**: add explicit tests for parent mutation effects.
+- **Resolution (`N21`/`N83`)**: runtime supports parent mutation with cycle-safe traversal; regression cases pin dynamic effect.
 
 ### D3. Cycle detection on parent-chain lookup
 - **Text**: lookup stops when it reaches a parent object it has already searched before.
 - **Why it matters**: prevents nontermination on cyclic parent graphs.
 - **Initial assessment**: **T**.
-- **Decision needed**: confirm that every parent-chain walk uses the same visited-set rule.
+- **Resolution (`N21`/`N83`)**: parent-chain lookup uses explicit visited tracking and termination on repeats/non-BUKKIT parent values.
 
 ### D4. Cycle detection also on assignment’s existence search
 - **Text**: assignment searches the current object, then parents, and if found only in an ancestor creates a new slot in the current object.
 - **Why it matters**: this search is distinct from simple lookup, but must also be cycle-safe.
 - **Initial assessment**: **I**.
-- **Decision needed**: explicitly apply cycle handling here too.
+- **Resolution (`N22`)**: assignment existence search is cycle-safe and preserves copy-on-write shadow semantics.
 
 ### D5. Assignment to inherited name creates/shadows locally
 - **Text**: if the variable name is found up the inheritance chain, then that variable is declared and created within the current object and set there.
 - **Why it matters**: this is copy-on-write shadowing, not parent mutation.
 - **Initial assessment**: **T**.
-- **Decision needed**: lock in with tests.
+- **Resolution (`N22`)**: implemented and regression-pinned as local shadow-on-write.
 
 ### D6. Declaration error when assignment finds no such name
 - **Text**: if the variable search fails and the variable was never previously assigned, then it is a declaration error.
 - **Why it matters**: this is a sharp error boundary inside object assignment.
 - **Initial assessment**: **T**.
-- **Decision needed**: add explicit failure tests.
+- **Resolution (`N22`)**: missing-slot assignment path raises runtime error when no declaration/ancestor target exists.
 
 ### D7. Shallow aliasing of nested BUKKITs across parent/child
 - **Observed / inferred**: top-level inherited slot assignment shadows locally, but nested mutable BUKKIT values may still alias.
 - **Why it matters**: child mutation of `cfg'Z count` may leak to parent if `cfg` itself was inherited by reference.
 - **Initial assessment**: probably **I** or **U** depending on how literally “variables are references” is applied to slot-copy / prototype state.
-- **Decision needed**: determine whether this can actually be recovered from text, or whether it is a policy choice.
+- **Resolution (`N81`/`N82`)**: policy-pinned as shallow/call-by-sharing alias semantics for nested mutable values.
 
 ---
 
@@ -208,19 +208,19 @@ For each item:
 - **Text**: explicit list of special slots every bukkit contains.
 - **Why it matters**: affects inheritance and whether defaults exist on each object.
 - **Initial assessment**: **T**.
-- **Decision needed**: determine whether “contains” means each new object gets fresh default slots that may shadow inherited ones.
+- **Resolution (`N23`)**: special-slot precedence is policy-pinned; effective resolution order is child own > copied mixin > inherited parent > default.
 
 ### E2. `omgwtf` runs when slot access fails; returns value to install or throws
 - **Text**: explicit prose.
 - **Why it matters**: defines missing-slot behavior and memoization.
 - **Initial assessment**: **T** at high level; operational details below remain open.
-- **Decision needed**: lock in the exact trigger and receiver.
+- **Resolution (`N20`/`N84`)**: exact trigger and receiver are pinned: full chain lookup first, one-shot hook on original receiver after total failure, with synthesis memoization.
 
 ### E3. What counts as “slot access fails”?
-- **Open issue from notes**: missing slot vs present-but-non-function during slot-call vs other error modes.
+- **Historical issue from notes**: missing slot vs present-but-non-function during slot-call vs other error modes.
 - **Why it matters**: determines whether `omgwtf` is a missing-name hook or a more general dispatch failure hook.
 - **Initial assessment**: **U**.
-- **Decision needed**: conservative reading suggests missing-slot only, not non-function call.
+- **Resolution (`N20` + `G4`)**: `omgwtf` is a missing-slot hook only; if lookup/synthesis returns a non-function and call-shape is slot-call, runtime raises non-callable error without reinterpreting it as another miss (`method-call-noncallable-after-omgwtf-synthesis`).
 
 ### E4. Does parent-chain search happen before `omgwtf`, or does each failed hop trigger it?
 - **Historical open issue from notes**.
@@ -233,16 +233,16 @@ For each item:
 - **Resolution (N84)**: original receiver only.
 
 ### E6. Interaction of `omgwtf` with global fallback
-- **Open issue from notes**: if global lookup would succeed, does missing slot still count as failure?
+- **Historical issue from notes**: if global lookup would succeed, does missing slot still count as failure?
 - **Why it matters**: slot access and ordinary identifier lookup are being conflated in some readings.
 - **Initial assessment**: **U**, but likely resolved by keeping slot lookup separate from global variable lookup.
-- **Decision needed**: do not let ordinary global identifiers satisfy slot access unless text explicitly requires it.
+- **Resolution**: slot access and ordinary identifier lookup are kept disjoint; ordinary/global bindings do not satisfy missing slot lookup.
 
 ### E7. Special slots masked by per-object defaults
 - **Observed in implementation**: parent `izmakin`/`omgwtf` masked because child gets default special slots.
 - **Why it matters**: inherited constructor/hook behavior may silently disappear.
 - **Initial assessment**: **U** or **X**, not clearly textually compelled.
-- **Decision needed**: do not bless this unless the expert finds direct textual support.
+- **Resolution (`N23`)**: no unconditional masking rule is blessed; inherited visibility is governed by special-slot precedence table.
 
 ### E8. `izmakin` timing and inheritance
 - **Text**: runs after a bukkit is fully prototyped but before the prototyping method returns.
@@ -262,13 +262,13 @@ For each item:
 - **Text**: mixin slots are copied in reverse order of declaration; example says `ZipStuffz` then `FileStuffz`.
 - **Why it matters**: leftmost written mixin wins in conflicts.
 - **Initial assessment**: **T**.
-- **Decision needed**: lock in as canonical.
+- **Resolution (`N24`)**: canonical and test-pinned.
 
 ### F2. Mixin inheritance is static, not live
 - **Text**: object does not see later changes to mixin objects.
 - **Why it matters**: copied slots are not dynamically linked.
 - **Initial assessment**: **T**.
-- **Decision needed**: lock in as canonical.
+- **Resolution (`N24`)**: canonical and test-pinned.
 
 ### F3. What exactly gets copied: own slots only, or inherited slots too?
 - **Text**: prose says “all slots defined on the mixin”; later example comment says “all of cheeze and its parent slots are copied into slice.”
@@ -294,7 +294,7 @@ For each item:
 - **Text**: example creates `slice` with `A bukkit SMOOSH cheeze`, then rewires `parent`.
 - **Why it matters**: spec itself demonstrates manual prototype surgery after static mixin copying.
 - **Initial assessment**: **T** that this pattern is intended to be legal.
-- **Decision needed**: confirm exact consequences and test them.
+- **Resolution (`N24`/`N69`/`N81`)**: consequences are now policy-pinned and regression-covered (static copy, receiver-dynamic callable behavior, shallow aliasing).
 
 ---
 
@@ -322,46 +322,43 @@ For each item:
 - **Text**: `omgwtf` returns a value to place in the unknown slot, but slot-call type-check behavior is not specified.
 - **Why it matters**: `<object> IZ missing MKAY` may synthesize a non-function.
 - **Initial assessment**: **U**.
-- **Decision needed**: likely runtime type error after synthesis.
+- **Resolution (policy-pinned)**: runtime type error after synthesis; slot access may synthesize/memoize a value, but slot-call requires callable slot values (`method-call-noncallable-after-omgwtf-synthesis`).
 
 ---
 
 ## H. User-supplied implementation observations to classify
 
-Use this section as a triage queue. The “initial read” is only a provisional judgment from the text.
+This section now records adjudicated outcomes of prior triage observations.
 
 ### H1. `obj IZ name MKAY` prefers a method over a same-named callable slot
-- **Initial read**: probably **X**.
-- **Reason**: the spec presents methods as functions in slots, not a parallel namespace.
+- **Resolution**: treated as **X** and removed; runtime uses callable slot values only, with no separate method namespace.
 
 ### H2. `I IZ ghost'Z hi MKAY` can resolve a synthetic function name when `ghost` is unbound
-- **Initial read**: probably **X**.
-- **Reason**: not recoverable from ordinary-call grammar or slot-call grammar.
+- **Resolution**: treated as **X** and removed; strict parser/runtime reject synthetic namespaced fallback.
 
 ### H3. The same fallback is blocked when `ghost` is bound to a non-BUKKIT
-- **Initial read**: symptom of H2 rather than standalone semantics.
+- **Resolution**: mooted with H2 removal; no synthetic fallback exists for either bound or unbound receivers.
 
 ### H4. `SRS` receiver path does not get the same fallback
-- **Initial read**: more evidence that H2 is an artifact.
+- **Resolution**: mooted with H2 removal; `SRS` remains dynamic slot-name syntax only and does not participate in synthetic fallback.
 
 ### H5. Inherited slot function calls are receiver-dynamic
-- **Initial read**: **T**.
+- **Resolution (`N15`/`N69`)**: **T**, implemented and test-pinned.
 
 ### H6. Copy-on-write is shallow, so nested objects alias across parent/child
-- **Initial read**: **I/U**.
+- **Resolution (`N81`/`N82`)**: policy-pinned as shallow/call-by-sharing alias behavior.
 
 ### H7. `SMOOSH` is eager, so all operand side effects run
-- **Initial read**: **I/U**.
+- **Resolution (`N40`/`N75`)**: policy-pinned eager left-to-right evaluation, including side effects.
 
 ### H8. Missing-slot `omgwtf` side effects fire once per operand access in `SMOOSH`
-- **Initial read**: probably fine for distinct operands; needs same-name repeat test.
+- **Resolution (`N20` + evaluation-order pins)**: distinct missing-slot operands trigger independent lookups/hooks; repeated same-name access uses memoized synthesized slot.
 
 ### H9. Mixin order is reverse-applied; leftmost declared mixin wins
-- **Initial read**: **T**.
+- **Resolution (`N24`)**: **T**, canonical and test-pinned.
 
 ### H10. Child defaults mask inherited parent `omgwtf` / `izmakin`
-- **Initial read**: **U/X**.
-- **Reason**: “every bukkit contains” is not enough by itself to justify eager per-object shadowing.
+- **Resolution (`N23`)**: eager per-object masking is not blessed; effective behavior follows special-slot precedence table.
 
 ---
 

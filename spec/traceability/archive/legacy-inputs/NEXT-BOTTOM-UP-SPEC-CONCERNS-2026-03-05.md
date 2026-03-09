@@ -145,4 +145,4 @@ Integrated from `fourth-tier-of-40-issues.md`:
 
 ## Tracking
 
-Restart-pass adjudication tracking is in `spec/traceability/NEXT-BOTTOM-UP-TRANCHE-1-ADJUDICATION.md`.
+Restart-pass adjudication tracking is in `spec/traceability/EXPERT_REVIEW_ADJUDICATION_LEDGER.md`.

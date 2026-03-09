@@ -1,6 +1,6 @@
 # Tier2 Classified Eval Snapshot
 
-Generated: `Monday, March 9th, 2026 12:03:55pm`
+Generated: `Monday, March 9th, 2026 12:55:07pm`
 
 - Corpus root: `corpus/tier2`
 - Timeout seconds: `2.0`
@@ -8,42 +8,43 @@ Generated: `Monday, March 9th, 2026 12:03:55pm`
 ## Totals
 
 - Files: `223`
-- Likely programs: `184`
-- Non-programs: `39`
+- Likely programs: `193`
+- Non-programs: `30`
 
 ### Classification Reasons
 
-- `leading-hai`: `184`
+- `leading-hai`: `193`
 - `no-hai-header`: `26`
-- `empty-or-comments-only`: `13`
+- `empty-or-comments-only`: `4`
 
 ### Outcome Counts (All Files)
 
-- `parse-error`: `167`
-- `non-program`: `39`
-- `ok`: `8`
-- `lex-error`: `7`
-- `timeout`: `1`
+- `parse-error`: `175`
+- `non-program`: `30`
+- `lex-error`: `8`
+- `ok`: `7`
+- `timeout`: `2`
 - `runtime-error`: `1`
 
 ### Outcome Counts (Likely Programs)
 
-- `parse-error`: `167`
-- `ok`: `8`
-- `lex-error`: `7`
-- `timeout`: `1`
+- `parse-error`: `175`
+- `lex-error`: `8`
+- `ok`: `7`
+- `timeout`: `2`
 - `runtime-error`: `1`
 
 ### Top Messages (Likely Programs)
 
-- `parse-source: syntax error: unexpected NEWLINE at line 1, col 4`: `94`
+- `parse-source: syntax error: unexpected NEWLINE at line 1, col 4`: `101`
 - `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)`: `28`
-- `parse-source: syntax error: unexpected NEWLINE at line 2, col 4`: `9`
+- `parse-source: syntax error: unexpected NEWLINE at line 2, col 4`: `10`
 - `parse-source: syntax error: unexpected ID ("STDIO?") at line 2, col 9`: `6`
-- `lex-source: unterminated string literal at line 6, col 27`: `3`
+- `lex-source: unterminated string literal at line 6, col 27`: `4`
 - `lex-source: unterminated string literal at line 8, col 31`: `2`
 - `parse-source: syntax error: unexpected ID ("STDIO?") at line 11, col 13`: `2`
 - `parse-source: syntax error: unexpected ID ("VAR!!1") at line 3, col 8`: `2`
+- `evaluation timed out after 2.0 seconds`: `2`
 - `parse-source: syntax error: unexpected ID ("RAYLIB?") at line 2, col 9`: `2`
 - `parse-source: syntax error: unexpected STRING ((yarn-template (list (yarn-part-text "Dear curious test reader")))) at line 1, col 5`: `2`
 - `parse-source: syntax error: unexpected MOD at line 13, col 42`: `1`
@@ -67,7 +68,6 @@ Generated: `Monday, March 9th, 2026 12:03:55pm`
 - `parse-source: syntax error: unexpected DIFFRINT at line 42, col 13`: `1`
 - `parse-source: syntax error: unexpected DIFFRINT at line 22, col 13`: `1`
 - `parse-source: syntax error: unexpected NEWLINE at line 1, col 5`: `1`
-- `evaluation timed out after 2.0 seconds`: `1`
 - `lex-source: line continuation marker must be at end of line at line 19, col 48`: `1`
 - `parse-source: syntax error: unexpected DIFFRINT at line 17, col 27`: `1`
 - `parse-source: syntax error: unexpected OF at line 49, col 37`: `1`

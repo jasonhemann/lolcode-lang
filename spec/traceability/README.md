@@ -21,14 +21,29 @@ This directory tracks clause-level conformance status for the strict 1.3 target.
   - Clause-intersection matrix for cross-feature bug hunting.
   - Maps high-risk clause pairs to dedicated pass/fail confluence tests.
 
-- `lolcode_1_3_expert_review_checklist.md`
-  - Expert checklist input for pass-level adjudication work.
+- `EXPERT_REVIEW_TEXTUAL_CHECKLIST.md`
+  - Expert checklist with adjudicated status for textual-exegesis items.
 
 - `SPEC_ADJUDICATION_POLICY.md`
   - Canonical strict-1.3 adjudication policy and decision ladder.
 
-- `EXPERT_REVIEW_ACTION_TODO_2026-03-07.md`
-  - Prioritized action queue from expert-review adjudication.
+- `EXPERT_REVIEW_IMPLEMENTATION_QUEUE.md`
+  - Prioritized implementation queue and closure tracking from expert-review adjudication.
+
+- `EXPERT_REVIEW_ADJUDICATION_LEDGER.md`
+  - Pass-level adjudication ledger mapping `Nxx` concerns to concrete runtime/parser/test decisions.
+
+- `EXPERT_REVIEW_CONCERNS_ASSESSMENT.md`
+  - Consolidated concern-assessment pass that feeds adjudication prioritization.
+
+- `NXX_TEST_ANCHORS.md`
+  - Direct test-anchor names per `Nxx` item, extracted from adjudication rows.
+
+- `ADJUDICATION_EXECUTION_LOG.md`
+  - Ordered execution log for tranche handling and closure notes.
+
+- `TRACEABILITY_TEST_ERGONOMICS_AUDIT.md`
+  - Test/ergonomics audit and follow-up cleanup inventory.
 
 - `IMPLEMENTATION_HOUSE_STYLE.md`
   - Implementation invariants and refactor/style rules for runtime/parser work.
@@ -50,6 +65,7 @@ Run:
 
 ```sh
 racket scripts/check_spec_traceability.rkt
+racket scripts/generate_nxx_test_anchors.rkt
 ```
 
 This validates schema, file references, and emits a status summary.
