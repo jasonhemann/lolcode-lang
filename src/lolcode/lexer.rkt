@@ -485,14 +485,44 @@
                                          name-out
                                          (read-char in))]))
 
+(struct string-scan-state (text-rev parts-rev) #:transparent)
+
+(define empty-string-scan-state
+  (string-scan-state '() '()))
+
+(define (string-scan-state-emit-char st ch)
+  (string-scan-state (cons ch (string-scan-state-text-rev st))
+                     (string-scan-state-parts-rev st)))
+
+(define (string-scan-state-flush-text st)
+  (match st
+    [(string-scan-state '() _)
+     st]
+    [(string-scan-state text-rev parts-rev)
+     (string-scan-state
+      '()
+      (cons (yarn-part-text (list->string (reverse text-rev)))
+            parts-rev))]))
+
+(define (string-scan-state-emit-placeholder st raw-name)
+  (define flushed
+    (string-scan-state-flush-text st))
+  (string-scan-state
+   '()
+   (cons (yarn-part-placeholder raw-name)
+         (string-scan-state-parts-rev flushed))))
+
+(define (string-scan-state-finish-template st)
+  (define flushed
+    (string-scan-state-flush-text st))
+  (make-yarn-template (reverse (string-scan-state-parts-rev flushed))))
+
 (define (scan-string-tail/step! in
                                 line
                                 col
-                                emit-char!
-                                emit-placeholder!
-                                finish-template
                                 escaped?
-                                ch)
+                                ch
+                                st)
   (cond
     [(eof-object? ch)
      (lexer-cover! 'scan-string-tail!/eof)
@@ -503,166 +533,137 @@
     [escaped?
      (cond
        [(char=? ch #\:)
-        (lexer-cover! 'scan-string-tail!/escaped-colon)
-        (emit-char! #\:)
-        (scan-string-tail/step! in
+       (lexer-cover! 'scan-string-tail!/escaped-colon)
+       (define st*
+         (string-scan-state-emit-char st #\:))
+       (scan-string-tail/step! in
                                 line
                                 col
-                                emit-char!
-                                emit-placeholder!
-                                finish-template
                                 #f
-                                (read-char in))]
+                                (read-char in)
+                                st*)]
        [(char=? ch #\")
         (define next (peek-char in))
         (if (or (eof-object? next)
                 (newline-or-return? next))
             (begin
               (lexer-cover! 'scan-string-tail!/escaped-quote/end-string)
-              (emit-char! #\:)
-              (finish-template))
+              (string-scan-state-finish-template
+               (string-scan-state-emit-char st #\:)))
             (begin
               (lexer-cover! 'scan-string-tail!/escaped-quote/literal)
-              (emit-char! #\")
-              (scan-string-tail/step! in
-                                      line
-                                      col
-                                      emit-char!
-                                      emit-placeholder!
-                                      finish-template
-                                      #f
-                                      (read-char in))))]
+              (let ([st* (string-scan-state-emit-char st #\")])
+                (scan-string-tail/step! in
+                                        line
+                                        col
+                                        #f
+                                        (read-char in)
+                                        st*))))]
        [(char=? ch #\))
         (lexer-cover! 'scan-string-tail!/escaped-newline)
-        (emit-char! #\newline)
+        (define st*
+          (string-scan-state-emit-char st #\newline))
         (scan-string-tail/step! in
                                 line
                                 col
-                                emit-char!
-                                emit-placeholder!
-                                finish-template
                                 #f
-                                (read-char in))]
+                                (read-char in)
+                                st*)]
        [(char=? ch #\>)
         (lexer-cover! 'scan-string-tail!/escaped-tab)
-        (emit-char! #\tab)
+        (define st*
+          (string-scan-state-emit-char st #\tab))
         (scan-string-tail/step! in
                                 line
                                 col
-                                emit-char!
-                                emit-placeholder!
-                                finish-template
                                 #f
-                                (read-char in))]
+                                (read-char in)
+                                st*)]
        [(char=? ch #\o)
         (lexer-cover! 'scan-string-tail!/escaped-bell)
-        (emit-char! #\u0007)
+        (define st*
+          (string-scan-state-emit-char st #\u0007))
         (scan-string-tail/step! in
                                 line
                                 col
-                                emit-char!
-                                emit-placeholder!
-                                finish-template
                                 #f
-                                (read-char in))]
+                                (read-char in)
+                                st*)]
        [(char=? ch #\()
         (lexer-cover! 'scan-string-tail!/escaped-codepoint)
-        (emit-char! (scan-string-codepoint-escape! in line col))
+        (define st*
+          (string-scan-state-emit-char st
+                                       (scan-string-codepoint-escape! in line col)))
         (scan-string-tail/step! in
                                 line
                                 col
-                                emit-char!
-                                emit-placeholder!
-                                finish-template
                                 #f
-                                (read-char in))]
+                                (read-char in)
+                                st*)]
        [(char=? ch #\[)
         (lexer-cover! 'scan-string-tail!/escaped-normative)
-        (emit-char! (scan-string-normative-name-escape! in line col))
+        (define st*
+          (string-scan-state-emit-char st
+                                       (scan-string-normative-name-escape! in line col)))
         (scan-string-tail/step! in
                                 line
                                 col
-                                emit-char!
-                                emit-placeholder!
-                                finish-template
                                 #f
-                                (read-char in))]
+                                (read-char in)
+                                st*)]
        [(char=? ch #\{)
         (lexer-cover! 'scan-string-tail!/escaped-placeholder)
-        (emit-placeholder! (scan-string-format-placeholder! in line col))
+        (define st*
+          (string-scan-state-emit-placeholder st
+                                              (scan-string-format-placeholder! in line col)))
         (scan-string-tail/step! in
                                 line
                                 col
-                                emit-char!
-                                emit-placeholder!
-                                finish-template
                                 #f
-                                (read-char in))]
+                                (read-char in)
+                                st*)]
        [else
         ;; Unknown escape: keep the colon literally.
         (lexer-cover! 'scan-string-tail!/escaped-unknown)
-        (emit-char! #\:)
-        (emit-char! ch)
+        (define st*
+          (string-scan-state-emit-char
+           (string-scan-state-emit-char st #\:)
+           ch))
         (scan-string-tail/step! in
                                 line
                                 col
-                                emit-char!
-                                emit-placeholder!
-                                finish-template
                                 #f
-                                (read-char in))])]
+                                (read-char in)
+                                st*)])]
     [(char=? ch #\:)
      (lexer-cover! 'scan-string-tail!/start-escape)
      (scan-string-tail/step! in
                              line
                              col
-                             emit-char!
-                             emit-placeholder!
-                             finish-template
                              #t
-                             (read-char in))]
+                             (read-char in)
+                             st)]
     [(char=? ch #\")
      (lexer-cover! 'scan-string-tail!/end-string)
-     (finish-template)]
+     (string-scan-state-finish-template st)]
     [else
      (lexer-cover! 'scan-string-tail!/plain-char)
-     (emit-char! ch)
+     (define st*
+       (string-scan-state-emit-char st ch))
      (scan-string-tail/step! in
                              line
                              col
-                             emit-char!
-                             emit-placeholder!
-                             finish-template
                              #f
-                             (read-char in))]))
+                             (read-char in)
+                             st*)]))
 
 (define (scan-string-tail! in line col)
-  (define text-out (open-output-string))
-  (define parts-rev '())
-  (define (emit-char! ch)
-    (write-char ch text-out))
-  (define (flush-text!)
-    (define text (get-output-string text-out))
-    (unless (string=? text "")
-      (set! parts-rev
-            (cons (yarn-part-text text) parts-rev))
-      (set! text-out (open-output-string))))
-  (define (emit-placeholder! raw-name)
-    (flush-text!)
-    (set! parts-rev
-          (cons (yarn-part-placeholder raw-name)
-                parts-rev)))
-  (define (finish-template)
-    (flush-text!)
-    (make-yarn-template (reverse parts-rev)))
   (scan-string-tail/step! in
                           line
                           col
-                          emit-char!
-                          emit-placeholder!
-                          finish-template
                           #f
-                          (read-char in)))
+                          (read-char in)
+                          empty-string-scan-state))
 
 (define-lex-abbrevs
   [ws (:or #\space #\tab)]
