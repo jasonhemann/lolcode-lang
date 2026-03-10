@@ -472,8 +472,7 @@
 
 (define (compile-expr-slot object slot)
   (match-define (lvalue lread _) (compile-lvalue (expr-slot object slot)))
-  (lambda (e ctx)
-    (lread e ctx)))
+  (lambda (e ctx) (lread e ctx)))
 
 (define (compile-expr expr)
   (match expr
@@ -618,8 +617,7 @@
               mb-body))
        => (lambda (mb-body)
             (mb-body (extend-env e) ctx))]
-      [else
-       (else-proc (extend-env e) ctx)])))
+      [else (else-proc (extend-env e) ctx)])))
 
 (define (compile-stmt-switch subject cases default)
   (define subject-proc (compile-expr subject))

@@ -6,6 +6,4 @@
 
 ;; Dual of `splitf-at`: split at the first element satisfying `stop?`.
 (define (split-until xs stop?)
-  (splitf-at xs
-             (lambda (x)
-               (not (stop? x)))))
+  (splitf-at xs (lambda (x) (not (stop? x)))))

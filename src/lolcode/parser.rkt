@@ -649,8 +649,7 @@
     (call-target
      [(ident-token call-target-tail)
       (call-target-from-ident $1 $2)]
-     [(SRS expr) (list 'function (expr-srs $2))]
-     )
+     [(SRS expr) (list 'function (expr-srs $2))])
 
     (call-target-tail
      [() #f]
@@ -741,8 +740,7 @@
 (define (validate-raw-token-stream raws)
   (match raws
     [(cons (token 'WORD "-" line col)
-           (cons (and t2 (token 'NUMBER _ line2 _))
-                 rest))
+           (cons (and t2 (token 'NUMBER _ line2 _)) rest))
      (when (= line line2)
        (error 'parse-source
               "invalid numeric literal: '-' must be adjacent to digits at line ~a, col ~a"

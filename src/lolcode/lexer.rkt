@@ -21,11 +21,9 @@
 
 (struct token (type lexeme line col) #:transparent)
 
-(define lexer-coverage-enabled?
-  (make-parameter #f))
+(define lexer-coverage-enabled? (make-parameter #f))
 
-(define lexer-coverage-counts
-  (make-hash))
+(define lexer-coverage-counts (make-hash))
 
 (define lexer-coverage-universe
   (list
@@ -106,8 +104,7 @@
                key
                (+ 1 (hash-ref lexer-coverage-counts key 0)))))
 
-(define (lexer-coverage-reset!)
-  (hash-clear! lexer-coverage-counts))
+(define (lexer-coverage-reset!) (hash-clear! lexer-coverage-counts))
 
 (define (lexer-coverage-snapshot)
   (for/hash ([(k v) (in-hash lexer-coverage-counts)])
@@ -317,8 +314,7 @@
                       "line continuation may not be followed by an empty line"
                       line
                       col)))]
-    [else
-     (void)]))
+    [else (void)]))
 
 (define (scan-string-format-placeholder! in
                                          line
