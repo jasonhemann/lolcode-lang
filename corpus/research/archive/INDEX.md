@@ -1,0 +1,78 @@
+# Research Archive Index
+
+- Generated: 2026-03-10T17:22:41Z
+- Purpose: historical snapshots and one-off reports moved from canonical top-level surfaces.
+
+## Snapshot Paths
+
+- `corpus/research/archive/top-level/CORPUS_WIDE_HUNT_WAVES_16_25_2026-03-05.md`
+- `corpus/research/archive/top-level/DEPRECATION_MATRIX_1_1_TO_1_3.md`
+- `corpus/research/archive/top-level/EXTERNAL_EVIDENCE_HYPOTHESIS_SEED.md`
+- `corpus/research/archive/top-level/EXTERNAL_EVIDENCE_SPEC_SCOPE_SEED.md`
+- `corpus/research/archive/top-level/EXTERNAL_EVIDENCE_SPEC_SCOPE_UNKNOWNS.md`
+- `corpus/research/archive/top-level/EXTERNAL_EVIDENCE_TRIAGE_PROMOTION.md`
+- `corpus/research/archive/top-level/EXTERNAL_REGRESSION_WAVES.md`
+- `corpus/research/archive/top-level/IMPLEMENTATION_ORACLE_MATRIX.md`
+- `corpus/research/archive/top-level/LANGUAGE_GAPS_REPORT_2026-03-02.md`
+- `corpus/research/archive/top-level/LANGUAGE_GAPS_REPORT_PROMOTED_1_3.md`
+- `corpus/research/archive/top-level/LANGUAGE_GAPS_REPORT_PROMOTED_2026-03-02.md`
+- `corpus/research/archive/top-level/LANGUAGE_GAPS_TIER2_PROMOTED_FRESH_2026-03-02.md`
+- `corpus/research/archive/top-level/LEXER_COVERAGE_REPORT_2026-03-02.md`
+- `corpus/research/archive/top-level/LEX_7_TRIAGE_2026-03-02.md`
+- `corpus/research/archive/top-level/NEXT_BATCH_CLASSIFICATION_2026-03-02.json`
+- `corpus/research/archive/top-level/NEXT_BATCH_CLASSIFICATION_2026-03-02.md`
+- `corpus/research/archive/top-level/PARSE_ERROR_PARTITION_2026-03-05.md`
+- `corpus/research/archive/top-level/PROMOTED_1_3_ALLTIERS_MISSINGVERSION_EVAL_CLASSIFIED_2026-03-02.md`
+- `corpus/research/archive/top-level/PROMOTED_1_3_EVAL_CLASSIFIED_2026-03-02.md`
+- `corpus/research/archive/top-level/PROMOTED_1_3_EVAL_CLASSIFIED_POST_REJECT_2026-03-02.md`
+- `corpus/research/archive/top-level/PROMOTED_1_3_REJECTED_NONCOMPLIANT.md`
+- `corpus/research/archive/top-level/PROMOTED_1_3_TIER2_FRESH_EVAL_CLASSIFIED_2026-03-02.md`
+- `corpus/research/archive/top-level/PROMOTED_1_3_TRIAGE_2026-03-02.md`
+- `corpus/research/archive/top-level/RELAXED_CAST_SPEC_NOTE_2026-03-02.md`
+- `corpus/research/archive/top-level/REPLACEMENT_CANDIDATES_PROBE_2026-03-02.md`
+- `corpus/research/archive/top-level/SPEC_1_2_1_3_IMPLEMENTATION_STATUS.md`
+- `corpus/research/archive/top-level/SPEC_1_4_EXTENSION_STATUS.md`
+- `corpus/research/archive/top-level/STRICT_1_3_DISCOVERIES_2026-03-05.md`
+- `corpus/research/archive/top-level/TIER1_EVAL_CLASSIFIED_2026-03-02.md`
+- `corpus/research/archive/top-level/TIER1_EVAL_CLASSIFIED_AFTER_DYNAMIC_CALLS.md`
+- `corpus/research/archive/top-level/TIER1_EVAL_CLASSIFIED_AFTER_METHOD_SYNTAX.md`
+- `corpus/research/archive/top-level/TIER1_EVAL_CLASSIFIED_AFTER_SLOT_TARGET_FIX.md`
+- `corpus/research/archive/top-level/TIER2_BATCH_EXPANSION_FAILURE_SNAPSHOT_2026-03-01.md`
+- `corpus/research/archive/top-level/TIER2_EVAL_CLASSIFIED_AFTER_DYNAMIC_CALLS.md`
+- `corpus/research/archive/top-level/TIER2_EVAL_CLASSIFIED_AFTER_METHOD_SYNTAX.md`
+- `corpus/research/archive/top-level/TIER2_EVAL_CLASSIFIED_AFTER_SLOT_TARGET_FIX.md`
+- `corpus/research/archive/top-level/TIER2_EVAL_CLASSIFIED_FRESH_2026-03-02.md`
+- `corpus/research/archive/top-level/TIER2_STRICT_1_3_TRIAGE_2026-03-02.md`
+- `corpus/research/archive/top-level/TIER3_EVAL_CLASSIFIED_2026-03-02.md`
+- `corpus/research/archive/top-level/WAZZUP_BUHBYE_SPEC_NOTE_2026-03-02.md`
+- `corpus/research/archive/top-level/external-evidence-hypothesis-seed.json`
+- `corpus/research/archive/top-level/external-evidence-spec-scope-seed.json`
+- `corpus/research/archive/top-level/external-evidence-spec-scope-unknowns.json`
+- `corpus/research/archive/top-level/external-evidence-triage-promotion.json`
+- `corpus/research/archive/top-level/language-gaps-report-promoted.json`
+- `corpus/research/archive/top-level/language-gaps-report.promoted.json`
+- `corpus/research/archive/top-level/language-gaps-tier2-promoted-fresh.json`
+- `corpus/research/archive/top-level/lexer-coverage-report.json`
+- `corpus/research/archive/top-level/normalized-external-minfix-eval-2026-03-05.json`
+- `corpus/research/archive/top-level/normalized-external-minfix-eval-2026-03-05.md`
+- `corpus/research/archive/top-level/normalized-tier1-tier2-minfix-eval-2026-03-05.json`
+- `corpus/research/archive/top-level/normalized-tier1-tier2-minfix-eval-2026-03-05.md`
+- `corpus/research/archive/top-level/promoted-1_3-alltiers-missingversion-eval-classified.json`
+- `corpus/research/archive/top-level/promoted-1_3-eval-classified-post-reject.json`
+- `corpus/research/archive/top-level/promoted-1_3-eval-classified.json`
+- `corpus/research/archive/top-level/promoted-1_3-tier2-fresh-eval-classified.json`
+- `corpus/research/archive/top-level/tier1-eval-classified-2026-03-05.json`
+- `corpus/research/archive/top-level/tier1-eval-classified-2026-03-05.md`
+- `corpus/research/archive/top-level/tier1-eval-classified-2026-03-08.json`
+- `corpus/research/archive/top-level/tier1-eval-classified-2026-03-08.md`
+- `corpus/research/archive/top-level/tier1-eval-classified-after-dynamic-calls.json`
+- `corpus/research/archive/top-level/tier1-eval-classified-after-method-syntax.json`
+- `corpus/research/archive/top-level/tier1-eval-classified-after-slot-target-fix.json`
+- `corpus/research/archive/top-level/tier2-eval-classified-2026-03-05.json`
+- `corpus/research/archive/top-level/tier2-eval-classified-2026-03-05.md`
+- `corpus/research/archive/top-level/tier2-eval-classified-2026-03-05.md.json`
+- `corpus/research/archive/top-level/tier2-eval-classified-after-dynamic-calls.json`
+- `corpus/research/archive/top-level/tier2-eval-classified-after-method-syntax.json`
+- `corpus/research/archive/top-level/tier2-eval-classified-after-slot-target-fix.json`
+- `corpus/research/archive/top-level/tier2-eval-classified-fresh.json`
+
