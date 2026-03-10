@@ -38,6 +38,26 @@
   (check-true (string-contains? clause-index-text
                                 "277\tnormative\tThe `AN` keyword can optionally be used"))
 
+  (define readme-path
+    (build-path here ".." ".." ".." "README.md"))
+  (check-true (file-exists? readme-path))
+  (define readme-text
+    (file->string readme-path))
+  (check-true (string-contains? readme-text
+                                "Most advanced strict HAI 1.3 implementation we know of (we believe), by adjudication depth and traceability completeness."))
+  (check-true (string-contains? readme-text
+                                "This is a strict-spec, evidence-scoped claim, not a canonical head-to-head benchmark claim."))
+  (check-true (string-contains? readme-text
+                                "Adjudicated policy choices and implementation-dependent defaults are documented in spec/traceability/."))
+
+  (define defaults-doc-path
+    (build-path here ".." ".." ".." "spec" "traceability" "IMPLEMENTATION_DEPENDENT_DEFAULTS.md"))
+  (check-true (file-exists? defaults-doc-path))
+  (define defaults-doc-text
+    (file->string defaults-doc-path))
+  (for ([adjudication-id (in-list (list "N20" "N40" "N73" "N75" "N81" "N82"))])
+    (check-true (string-contains? defaults-doc-text adjudication-id)))
+
   ;; Release-blocking runtime boundary regressions must remain in the always-run
   ;; core suite because they pin the IT/object/omgwtf exegesis decisions.
   (define runtime-core-path

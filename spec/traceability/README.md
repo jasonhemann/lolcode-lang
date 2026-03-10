@@ -12,6 +12,8 @@ This directory tracks clause-level conformance status for the strict 1.3 target.
   - One-row-per-`Nxx` disposition map and implementation/test loci.
 - `ADJUDICATION_LEDGER.md`
   - Detailed adjudications and policy outcomes by tranche.
+- `IMPLEMENTATION_DEPENDENT_DEFAULTS.md`
+  - Canonical list of project-policy defaults for underdetermined/contradictory spec text.
 - `ADJUDICATION_LOG.md`
   - Chronological execution log of adjudication work.
 - `TEST_ANCHOR_INDEX.md`

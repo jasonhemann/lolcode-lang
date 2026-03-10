@@ -1,0 +1,13 @@
+# Implementation-Dependent Defaults
+
+This document records only project-policy defaults that are required where the 1.3 text is underdetermined or internally conflicting; it is not a restatement of directly specified behavior.
+
+| Area | Policy Default | Why Not Directly Fixed by Spec Text | Adjudication ID(s) | Regression Anchor(s) |
+| --- | --- | --- | --- | --- |
+| Evaluation order | Left-to-right eager expression evaluation for function/method arguments and binary operators. | The spec defines operators/calls but does not give a global sequencing rule for side-effecting subexpressions, so order-sensitive programs require a pinned policy. | `N40`, `N75` | `function-call-arg-eval-order-src`, `method-call-arg-eval-order-src`, `logic-binary-left-to-right-src`, `logic-binary-eager-rhs-src`, `declaration-rhs-does-not-see-binding-being-declared-src`, `assignment-rhs-sees-prior-binding-value-src` |
+| `SMOOSH` side-effect/error ordering | `SMOOSH` is eager and left-to-right; earlier side effects remain visible even if later operands fail. | The spec defines concatenation form but does not fully order side-effecting/erroring operand evaluation with rollback semantics. | `N40`, `N75` | `smoosh-eager-side-effect-before-error` |
+| `omgwtf` miss handling | `omgwtf` is a zero-arity missing-slot hook; its return value is memoized to the missing slot, and a non-function synthesized value still fails slot-call as non-callable. | Hook trigger exists in prose, but argument passing/arity and post-synthesis call-shape behavior are not fully defined. | `N20` | `omgwtf-nonzero-arity-rejected`, `omgwtf-memoizes-missing-slot`, `method-call-miss-omgwtf-after-full-chain-src`, `method-call-miss-omgwtf-on-original-receiver-src`, `method-call-noncallable-after-omgwtf-synthesis` |
+| Numeric portability | Numeric edge behavior follows host-number semantics (for example, division-by-zero runtime error; exact large NUMBR arithmetic where supported). | The spec leaves portability/overflow/division edge behavior under-specified across runtimes. | `N73` | `quoshunt-division-by-zero-runtime-error-src`, `numbr-bignum-arithmetic-src` |
+| Nested `BUKKIT` copy/alias behavior in mixin and copy flows | Mutable nested `BUKKIT` values are call-by-sharing (shallow alias), and assignment/copy paths remain consistent with copy-on-write rebinding semantics. | The spec text and examples create tension between static copy language and observed mutable-object behavior; copy depth is not fully formalized. | `N81`, `N82` | `mixin-static-snapshot-mutable-alias-src`, `r-noob-does-not-invalidate-other-reference-src`, `parent-cycle-assignment-existing-name-copy-on-write-src` |
+
+For full exegesis and all adjudications, see ADJUDICATION_LEDGER/RESOLUTION_MAP.

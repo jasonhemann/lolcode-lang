@@ -1,7 +1,7 @@
 lolcode-lang
 ===========
 
-A Racket-based [LOLCODE](http://lolcode.com) implementation project targeting strict `HAI 1.3` (with 1.2 baseline clauses where 1.3 does not override).
+Most advanced strict HAI 1.3 implementation we know of (we believe), by adjudication depth and traceability completeness. This is a strict-spec, evidence-scoped claim, not a canonical head-to-head benchmark claim. Adjudicated policy choices and implementation-dependent defaults are documented in spec/traceability/.
 
 ## Corpus Sync
 
