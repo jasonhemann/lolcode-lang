@@ -44,11 +44,19 @@ Standalone advisory drift check:
 ./scripts/check_research_drift.sh
 ```
 
+Persist the drift report to a tracked path only when explicitly requested:
+
+```bash
+./scripts/check_research_drift.sh --report-out corpus/research/drift-report.json
+```
+
 Install local non-blocking pre-push hook:
 
 ```bash
 ./scripts/install_research_prepush_hook.sh
 ```
+
+The installed hook is read-only: it runs advisory drift checks but does not run refresh/generation steps.
 
 ## Historical Snapshots
 

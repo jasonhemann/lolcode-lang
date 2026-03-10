@@ -4,7 +4,7 @@ set -euo pipefail
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 RESEARCH_DIR="$ROOT_DIR/corpus/research"
 CANONICAL_JSON="$RESEARCH_DIR/CANONICAL_ARTIFACTS.json"
-REPORT_OUT="$RESEARCH_DIR/drift-report.json"
+REPORT_OUT=""
 QUIET=0
 
 while [[ $# -gt 0 ]]; do
@@ -37,6 +37,12 @@ cleanup_tmpdir() {
   find "$tmpdir" -depth -type d -exec rmdir {} + 2>/dev/null || true
 }
 trap cleanup_tmpdir EXIT
+
+# Default to an ephemeral report path so advisory checks are read-only unless
+# callers explicitly request a persisted report.
+if [[ -z "${REPORT_OUT:-}" ]]; then
+  REPORT_OUT="$tmpdir/drift-report.json"
+fi
 
 warnings_jsonl="$tmpdir/warnings.jsonl"
 : > "$warnings_jsonl"

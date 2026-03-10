@@ -15,12 +15,15 @@ set -u
 
 repo_root="$(git rev-parse --show-toplevel 2>/dev/null || pwd)"
 
-echo "[pre-push][research] advisory refresh starting"
-if ! "$repo_root/scripts/refresh_research.sh" --offline --skip-external-evidence-run; then
-  echo "[pre-push][research] warning: refresh failed (non-blocking)"
-fi
+tmpdir="$(mktemp -d "${TMPDIR:-/tmp}/pre-push-research.XXXXXX")"
+cleanup_tmpdir() {
+  find "$tmpdir" -type f -exec rm -f {} + 2>/dev/null || true
+  find "$tmpdir" -depth -type d -exec rmdir {} + 2>/dev/null || true
+}
+trap cleanup_tmpdir EXIT
 
-if ! "$repo_root/scripts/check_research_drift.sh"; then
+echo "[pre-push][research] advisory drift check starting (read-only)"
+if ! "$repo_root/scripts/check_research_drift.sh" --report-out "$tmpdir/drift-report.json"; then
   echo "[pre-push][research] warning: drift check errored (non-blocking)"
 fi
 
