@@ -78,7 +78,7 @@ Priority C (underspecified feature intersections):
 7. CLOSED (resolved by `N63`): expression-level TYPE-word binding policy is adjudicated and implemented as dual-role contextual semantics (TYPE literals in expression position; declaration/prototype forms disambiguated by grammar).
 
 Priority D (process/traceability hygiene):
-8. DONE (2026-03-09): reconciled status drift between `ITEM_BY_ITEM_RESOLUTION_MAP.md`, expert checklist, and pass-level adjudication docs for the `IT`/`omgwtf` clusters.
+8. DONE (2026-03-09): reconciled status drift between `RESOLUTION_MAP.md`, expert checklist, and pass-level adjudication docs for the `IT`/`omgwtf` clusters.
 9. CLOSED (process pass complete): no generic “remaining pass1 prompts” bucket remains.
    - Residual concrete queue is now explicit:
      - (none in this queue section after `G1`-`G3` closure).
@@ -88,9 +88,9 @@ Priority D (process/traceability hygiene):
 Use this ownership map to avoid policy fragmentation:
 
 1. Canonical adjudication rules:
-   - `spec/traceability/SPEC_ADJUDICATION_POLICY.md`
+   - `spec/traceability/ADJUDICATION_POLICY.md`
 2. Expert item dispositions and status:
-   - `spec/traceability/ITEM_BY_ITEM_RESOLUTION_MAP.md`
+   - `spec/traceability/RESOLUTION_MAP.md`
 3. Delta discoveries and tranche updates:
    - `spec/traceability/spec-1.3-clause-mapping-audit.md`
 4. Implementation/refactor house style:
@@ -114,7 +114,7 @@ With the expert-checklist adjudication queue closed, the next useful work is evi
      - `./scripts/update_corpus_status.sh`
 2. DONE (2026-03-09): Traceability hard-linking for `Nxx` test names.
    - Added generated ledger:
-     - `spec/traceability/NXX_TEST_ANCHORS.md`
+     - `spec/traceability/TEST_ANCHOR_INDEX.md`
    - Added generator:
      - `scripts/generate_nxx_test_anchors.rkt`
 3. DONE (2026-03-09): Regression hygiene (release-blocking gate) pinned.

@@ -203,11 +203,11 @@ Cross-cutting adjudications:
 
 - [x] `45` For each checklist item above, add:
   one positive test and one negative test unless clause is explicitly non-erroring.
-  Done: completed coverage audit in `spec/traceability/TRACEABILITY_TEST_ERGONOMICS_AUDIT.md` itemizing paired vs non-erroring clauses and evidence anchors.
+  Done: completed coverage audit in `spec/traceability/archive/reports/TRACEABILITY_TEST_ERGONOMICS_AUDIT_2026-03.md` itemizing paired vs non-erroring clauses and evidence anchors.
 
 - [x] `46` AST/runtime ergonomics check:
   document whether each new test required parser hacks vs compositional AST support; file follow-up refactors where pain is highest.
-  Done: added ergonomics findings + follow-up refactor queue in `spec/traceability/TRACEABILITY_TEST_ERGONOMICS_AUDIT.md`.
+  Done: added ergonomics findings + follow-up refactor queue in `spec/traceability/archive/reports/TRACEABILITY_TEST_ERGONOMICS_AUDIT_2026-03.md`.
 
 ## Phase 6: Corpus / Harvest Check (run in order and recorded)
 
@@ -303,7 +303,7 @@ Latest checklist-batch delta (`2026-03-06`, analyzer wrapper ergonomics pass):
 - Verified wrapper execution with filtered analyzer invocation.
 
 Latest checklist-batch delta (`2026-03-10`, first-principles subtlety audit pass):
-- Re-ran a spec-first (text-only) subtlety scan against `spec/upstream/lolcode-spec-v1.3.md` before consulting adjudication docs; recorded clause clusters and independent readings in `spec/traceability/FIRST_PRINCIPLES_SPEC_SUBTLETY_AUDIT_2026-03-10.md`.
+- Re-ran a spec-first (text-only) subtlety scan against `spec/upstream/lolcode-spec-v1.3.md` before consulting adjudication docs; recorded clause clusters and independent readings in `spec/traceability/archive/reports/FIRST_PRINCIPLES_SPEC_SUBTLETY_AUDIT_2026-03-10.md`.
 - Cross-checked those first-principles readings against active adjudication docs and resolved hard status drift around formerly-provisional items (`N12`, `N40`, `N60`, `N74`, `N75`) in queue/map vs ledger/assessment/log.
 - Confirmed strict-1.3 `VISIBLE` adjacency semantics (no required `AN`) are now parser/test pinned for composite expressions (`VISIBLE "A" SUM OF 1 AN 2`), aligning implementation with spec line `386`.
 

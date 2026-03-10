@@ -5,13 +5,13 @@ Scope:
 - Cross-check canonical-policy docs against each other and against `spec/upstream/lolcode-spec-v1.3.md`.
 
 Inputs checked:
-- `SPEC_ADJUDICATION_POLICY.md`
-- `EXPERT_REVIEW_IMPLEMENTATION_QUEUE.md`
-- `ITEM_BY_ITEM_RESOLUTION_MAP.md`
-- `EXPERT_REVIEW_ADJUDICATION_LEDGER.md`
-- `EXPERT_REVIEW_CONCERNS_ASSESSMENT.md`
-- `ADJUDICATION_EXECUTION_LOG.md`
-- `EXPERT_REVIEW_TEXTUAL_CHECKLIST.md`
+- `ADJUDICATION_POLICY.md`
+- `IMPLEMENTATION_QUEUE.md`
+- `RESOLUTION_MAP.md`
+- `ADJUDICATION_LEDGER.md`
+- `archive/reports/EXPERT_REVIEW_CONCERNS_ASSESSMENT_2026-03.md`
+- `ADJUDICATION_LOG.md`
+- `archive/reports/EXPERT_REVIEW_TEXTUAL_CHECKLIST_2026-03.md`
 - `spec/upstream/lolcode-spec-v1.3.md`
 
 Validation commands:
@@ -36,9 +36,9 @@ Validation commands:
 - Action: replaced stale “method-global” wording in assessment/log with activation-local wording and updated test anchors.
 
 Files updated in this lint pass:
-- `spec/traceability/EXPERT_REVIEW_ADJUDICATION_LEDGER.md`
-- `spec/traceability/EXPERT_REVIEW_CONCERNS_ASSESSMENT.md`
-- `spec/traceability/ADJUDICATION_EXECUTION_LOG.md`
+- `spec/traceability/ADJUDICATION_LEDGER.md`
+- `spec/traceability/archive/reports/EXPERT_REVIEW_CONCERNS_ASSESSMENT_2026-03.md`
+- `spec/traceability/ADJUDICATION_LOG.md`
 
 ## B) Spec-facing skepticism lint (policy pins, not unresolved contradictions)
 

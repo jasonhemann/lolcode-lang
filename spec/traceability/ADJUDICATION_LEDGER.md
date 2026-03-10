@@ -6,7 +6,7 @@ Source list:
 - `archive/legacy-inputs/third-tier-of-40-issues.md`
 - `archive/legacy-inputs/fourth-tier-of-40-issues.md`
 
-Policy: `spec/traceability/SPEC_ADJUDICATION_POLICY.md`
+Policy: `spec/traceability/ADJUDICATION_POLICY.md`
 
 Pass-2 tranche-1 targets:
 - Carry-forward: `N02`, `N10`-`N15`, `N20`-`N24`, `N27`, `N34`

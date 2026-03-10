@@ -9,7 +9,7 @@ Sources:
 
 Target: strict LOLCODE 1.3 only.
 
-Policy reference: `spec/traceability/SPEC_ADJUDICATION_POLICY.md`.
+Policy reference: `spec/traceability/ADJUDICATION_POLICY.md`.
 
 ## Adjudication Order (Restart Pass 2)
 
@@ -145,4 +145,4 @@ Integrated from `fourth-tier-of-40-issues.md`:
 
 ## Tracking
 
-Restart-pass adjudication tracking is in `spec/traceability/EXPERT_REVIEW_ADJUDICATION_LEDGER.md`.
+Restart-pass adjudication tracking is in `spec/traceability/ADJUDICATION_LEDGER.md`.

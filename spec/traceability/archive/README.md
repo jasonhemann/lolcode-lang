@@ -13,7 +13,18 @@ Original concern notebooks that were consolidated into tranche/adjudication ledg
 
 These files are retained for provenance only. Active planning and decisions live in:
 
-- `../SPEC_ADJUDICATION_POLICY.md`
-- `../EXPERT_REVIEW_IMPLEMENTATION_QUEUE.md`
-- `../ITEM_BY_ITEM_RESOLUTION_MAP.md`
-- `../EXPERT_REVIEW_ADJUDICATION_LEDGER.md`
+- `../ADJUDICATION_POLICY.md`
+- `../IMPLEMENTATION_QUEUE.md`
+- `../RESOLUTION_MAP.md`
+- `../ADJUDICATION_LEDGER.md`
+
+## `reports/`
+
+Historical point-in-time outputs that fed adjudication but are not canonical
+edit targets:
+
+- `ADJUDICATION_CONSISTENCY_LINT_2026-03-10.md`
+- `EXPERT_REVIEW_CONCERNS_ASSESSMENT_2026-03.md`
+- `EXPERT_REVIEW_TEXTUAL_CHECKLIST_2026-03.md`
+- `FIRST_PRINCIPLES_SPEC_SUBTLETY_AUDIT_2026-03-10.md`
+- `TRACEABILITY_TEST_ERGONOMICS_AUDIT_2026-03.md`

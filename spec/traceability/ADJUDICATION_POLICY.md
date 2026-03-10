@@ -104,7 +104,10 @@ A concern can be closed only when all are true:
 
 Use these roles to avoid duplicated or conflicting policy text:
 
-1. `SPEC_ADJUDICATION_POLICY.md`: canonical adjudication rules.
-2. `EXPERT_REVIEW_IMPLEMENTATION_QUEUE.md`: active implementation queue and closure status.
-3. `ITEM_BY_ITEM_RESOLUTION_MAP.md`: item-level disposition mapping and implementation links.
-4. `IMPLEMENTATION_HOUSE_STYLE.md`: code-level implementation/style invariants.
+1. `ADJUDICATION_POLICY.md`: canonical adjudication rules.
+2. `IMPLEMENTATION_QUEUE.md`: active implementation queue and closure status.
+3. `RESOLUTION_MAP.md`: item-level disposition mapping and implementation links.
+4. `ADJUDICATION_LEDGER.md`: detailed adjudication outcomes and rationale.
+5. `ADJUDICATION_LOG.md`: chronological execution history.
+6. `TEST_ANCHOR_INDEX.md`: generated `Nxx` regression anchor index.
+7. `IMPLEMENTATION_HOUSE_STYLE.md`: code-level implementation/style invariants.

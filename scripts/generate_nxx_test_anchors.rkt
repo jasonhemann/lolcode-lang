@@ -12,11 +12,11 @@
   (simplify-path (current-directory)))
 
 (define default-map
-  (build-path (repo-root) "spec" "traceability" "ITEM_BY_ITEM_RESOLUTION_MAP.md"))
+  (build-path (repo-root) "spec" "traceability" "RESOLUTION_MAP.md"))
 (define default-ledger
-  (build-path (repo-root) "spec" "traceability" "EXPERT_REVIEW_ADJUDICATION_LEDGER.md"))
+  (build-path (repo-root) "spec" "traceability" "ADJUDICATION_LEDGER.md"))
 (define default-out
-  (build-path (repo-root) "spec" "traceability" "NXX_TEST_ANCHORS.md"))
+  (build-path (repo-root) "spec" "traceability" "TEST_ANCHOR_INDEX.md"))
 
 (define map-path default-map)
 (define ledger-path default-ledger)
@@ -25,7 +25,7 @@
 (command-line
  #:program "generate_nxx_test_anchors.rkt"
  #:once-each
- [("--map") p "Path to ITEM map markdown" (set! map-path (string->path p))]
+ [("--map") p "Path to RESOLUTION_MAP markdown" (set! map-path (string->path p))]
  [("--ledger") p "Path to adjudication ledger markdown" (set! ledger-path (string->path p))]
  [("--out") p "Output markdown path" (set! out-path (string->path p))])
 
@@ -84,7 +84,7 @@
     [(list line-no line-text)
      (define anchors (extract-anchor-tokens line-text id))
      (fprintf out
-              "| `~a` | ~a | [EXPERT_REVIEW_ADJUDICATION_LEDGER.md:line ~a](./EXPERT_REVIEW_ADJUDICATION_LEDGER.md#L~a) |\n"
+              "| `~a` | ~a | [ADJUDICATION_LEDGER.md:line ~a](./ADJUDICATION_LEDGER.md#L~a) |\n"
               id
               (anchors->text anchors)
               line-no
