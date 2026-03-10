@@ -106,7 +106,7 @@ Cross-cutting adjudications:
 
 - [x] `22` (notes 169-177) Reconcile “IT local scope” vs object-function “IT global lookup”.
   Spec: line 407 (`unmapped`), line 672 (`mapped`).  
-  Done: added matrix row `flow.expr-stmt-it-local-scope` for line 407 and runtime regressions covering local IT behavior in main/function scopes plus global IT aliasing in method context (line 672).
+  Done: added matrix row `flow.expr-stmt-it-local-scope` for line 407 and runtime regressions covering local IT behavior in main/function scopes plus activation-local bare-IT behavior in method context (line 672), with receiver-slot `IT` accessible only through explicit `ME'Z IT`.
 
 - [x] `23` (notes 179) Assignment operator identification and strict grammar.
   Spec: line 411 (`unmapped`) + line 205 (`mapped`).  
@@ -135,7 +135,7 @@ Cross-cutting adjudications:
 - [x] `29` (notes 211-216) Ordinary function return semantics (`GTFO` => NOOB, ordinary-function fallthrough returns IT).
   Spec: line 590 (mapped).  
   Done: covered by existing runtime regressions (`function-gtfo-return`, `function-implicit-it-return`) that assert both return paths.
-  Note: method-context fallthrough return via `IT` remains an open contradiction item (`C1/C2/C3`) and is tracked separately in `EXPERT_REVIEW_IMPLEMENTATION_QUEUE.md`.
+  Note: method-context fallthrough return via `IT` is now closed under `C1/C2/C3` with activation-local `IT` policy and dedicated regressions (`method-fallthrough-it-vs-slot-it`, `method-explicit-me-slot-it`, `object-body-it-slot-construction`).
 
 - [x] `30` (notes 218-220) Clarify “I parameter” in call syntax.
   Spec: line 604 (`unmapped`).  
@@ -301,6 +301,11 @@ Latest checklist-batch delta (`2026-03-06`, analyzer wrapper ergonomics pass):
 - Added `scripts/analyze_external_evidence.sh` as a shell wrapper for `scripts/analyze_external_evidence.rkt`, mirroring the runner wrapper pattern.
 - Updated `tests/regression-evidence/external/README.md` examples to use the new wrapper for baseline, filtered, and single-case analyzer runs.
 - Verified wrapper execution with filtered analyzer invocation.
+
+Latest checklist-batch delta (`2026-03-10`, first-principles subtlety audit pass):
+- Re-ran a spec-first (text-only) subtlety scan against `spec/upstream/lolcode-spec-v1.3.md` before consulting adjudication docs; recorded clause clusters and independent readings in `spec/traceability/FIRST_PRINCIPLES_SPEC_SUBTLETY_AUDIT_2026-03-10.md`.
+- Cross-checked those first-principles readings against active adjudication docs and resolved hard status drift around formerly-provisional items (`N12`, `N40`, `N60`, `N74`, `N75`) in queue/map vs ledger/assessment/log.
+- Confirmed strict-1.3 `VISIBLE` adjacency semantics (no required `AN`) are now parser/test pinned for composite expressions (`VISIBLE "A" SUM OF 1 AN 2`), aligning implementation with spec line `386`.
 
 Next corpus/harvest actions tied to this checklist:
 - [x] `47` Partition parse-errors into `strict-non-1.3`, `spec-divergence`, `program-bug`.

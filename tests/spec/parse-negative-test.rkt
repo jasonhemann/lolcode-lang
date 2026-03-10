@@ -303,8 +303,8 @@
 
   (define and-as-identifier-when-an-omitted
     "HAI 1.3\nVISIBLE SUM OF 1 AND 2\nKTHXBYE\n")
-  (check-exn #px"syntax error: unexpected NUMBER"
-             (lambda () (parse-program and-as-identifier-when-an-omitted)))
+  (check-not-exn
+   (lambda () (parse-program and-as-identifier-when-an-omitted)))
 
   (for ([src (in-list
               (list
@@ -320,8 +320,8 @@
                "HAI 1.3\nVISIBLE WON OF WIN AND FAIL\nKTHXBYE\n"
                "HAI 1.3\nVISIBLE BOTH SAEM 3 AND 3\nKTHXBYE\n"
                "HAI 1.3\nVISIBLE DIFFRINT 3 AND 4\nKTHXBYE\n"))])
-    (check-exn #px"syntax error:"
-               (lambda () (parse-program src))))
+    (check-not-exn
+     (lambda () (parse-program src))))
 
   (define and-as-identifier-with-explicit-an
     "HAI 1.3\nI HAS A AND ITZ 2\nVISIBLE SUM OF 1 AN AND\nKTHXBYE\n")

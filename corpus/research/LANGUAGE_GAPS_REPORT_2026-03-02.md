@@ -1,6 +1,6 @@
 # Language Gap Report (Strict 1.3)
 
-Generated: `Sunday, March 8th, 2026 12:40:46am`
+Generated: `Tuesday, March 10th, 2026 12:38:57am`
 
 ## Totals
 
@@ -14,26 +14,26 @@ Generated: `Sunday, March 8th, 2026 12:40:46am`
 
 ### Corpus Header Classes (Original)
 
-- `out-of-scope-hai-without-version`: `112`
+- `out-of-scope-hai-without-version`: `121`
 - `out-of-scope-version-1.2`: `44`
 - `non-program-no-leading-hai`: `26`
 - `in-scope-1.3`: `13`
-- `non-program-empty-or-comments`: `13`
 - `out-of-scope-version-1.4`: `6`
 - `out-of-scope-version-1.0`: `4`
+- `non-program-empty-or-comments`: `4`
 - `out-of-scope-version-"dear`: `3`
 - `out-of-scope-version-btw`: `1`
 - `out-of-scope-version-"this`: `1`
 
 ### Corpus Header Classes (Effective For Analysis)
 
-- `out-of-scope-hai-without-version`: `112`
+- `out-of-scope-hai-without-version`: `121`
 - `out-of-scope-version-1.2`: `44`
 - `non-program-no-leading-hai`: `26`
 - `in-scope-1.3`: `13`
-- `non-program-empty-or-comments`: `13`
 - `out-of-scope-version-1.4`: `6`
 - `out-of-scope-version-1.0`: `4`
+- `non-program-empty-or-comments`: `4`
 - `out-of-scope-version-"dear`: `3`
 - `out-of-scope-version-btw`: `1`
 - `out-of-scope-version-"this`: `1`

@@ -28,6 +28,13 @@
   (check-eq? (hash-ref optional-an-smoosh-result 'status) 'ok)
   (check-equal? (hash-ref optional-an-smoosh-result 'stdout) "AB\n")
 
+  (define visible-adjacent-composite-exprs
+    "HAI 1.3\nVISIBLE \"A\" SUM OF 1 AN 2\nKTHXBYE\n")
+  (define visible-adjacent-composite-exprs-result
+    (run-source visible-adjacent-composite-exprs))
+  (check-eq? (hash-ref visible-adjacent-composite-exprs-result 'status) 'ok)
+  (check-equal? (hash-ref visible-adjacent-composite-exprs-result 'stdout) "A3\n")
+
   (define bad-difference
     "HAI 1.3\nVISIBLE DIFFERENCE OF 5 AN 2\nKTHXBYE\n")
   (check-exn #px"syntax error:"
@@ -40,8 +47,11 @@
 
   (define and-as-second-arg-without-an
     "HAI 1.3\nVISIBLE SUM OF 1 AND 2\nKTHXBYE\n")
-  (check-exn #px"syntax error: unexpected NUMBER"
-             (lambda () (parse-program and-as-second-arg-without-an)))
+  (define and-as-second-arg-without-an-result
+    (run-source and-as-second-arg-without-an))
+  (check-eq? (hash-ref and-as-second-arg-without-an-result 'status) 'runtime-error)
+  (check-true (regexp-match? #px"unknown identifier: AND"
+                             (hash-ref and-as-second-arg-without-an-result 'error)))
 
   (define and-unbound-runtime
     "HAI 1.3\nVISIBLE SUM OF 1 AN AND\nKTHXBYE\n")

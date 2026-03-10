@@ -466,7 +466,7 @@
     (visible-args
      [(expr) (list $1)]
      [(expr AN visible-args) (cons $1 $3)]
-     [(raw-atom-expr raw-atom-expr-list+) (cons $1 $2)])
+     [(expr visible-args) (cons $1 $2)])
 
     (if-stmt
      [(O RLYQ nlopt YA RLY nlopt statement-list-opt mebbe-list else-opt OIC)

@@ -1,6 +1,6 @@
 # Corpus Current Status
 
-- Generated: 2026-03-09T16:55:37Z
+- Generated: 2026-03-10T04:23:03Z
 - Policy scope: strict `HAI 1.3` implementation target
 
 ## Canonical Sources
@@ -33,7 +33,7 @@
 
 ### Tier2
 
-- Snapshot generated-at: Monday, March 9th, 2026 12:55:07pm
+- Snapshot generated-at: Tuesday, March 10th, 2026 12:21:10am
 - Files: 223
 - Likely programs: 193
 - Non-programs: 30
@@ -41,14 +41,13 @@
 | Outcome (likely programs) | Count |
 |---|---:|
 | `parse-error` | 175 |
+| `ok` | 9 |
 | `lex-error` | 8 |
-| `ok` | 7 |
-| `timeout` | 2 |
 | `runtime-error` | 1 |
 
 ### Tracking Buckets
 
-- Good (strict-1.3 currently passing): `271`
+- Good (strict-1.3 currently passing): `273`
 - Irredeemably bad for strict-1.3 (explicit reject list): `7`
 - Fixed-here (from corpus manifest extraction progress): `0`
 

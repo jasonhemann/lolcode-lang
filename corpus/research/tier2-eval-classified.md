@@ -1,6 +1,6 @@
 # Tier2 Classified Eval Snapshot
 
-Generated: `Monday, March 9th, 2026 12:55:07pm`
+Generated: `Tuesday, March 10th, 2026 12:21:10am`
 
 - Corpus root: `corpus/tier2`
 - Timeout seconds: `2.0`
@@ -21,17 +21,15 @@ Generated: `Monday, March 9th, 2026 12:55:07pm`
 
 - `parse-error`: `175`
 - `non-program`: `30`
+- `ok`: `9`
 - `lex-error`: `8`
-- `ok`: `7`
-- `timeout`: `2`
 - `runtime-error`: `1`
 
 ### Outcome Counts (Likely Programs)
 
 - `parse-error`: `175`
+- `ok`: `9`
 - `lex-error`: `8`
-- `ok`: `7`
-- `timeout`: `2`
 - `runtime-error`: `1`
 
 ### Top Messages (Likely Programs)
@@ -44,7 +42,6 @@ Generated: `Monday, March 9th, 2026 12:55:07pm`
 - `lex-source: unterminated string literal at line 8, col 31`: `2`
 - `parse-source: syntax error: unexpected ID ("STDIO?") at line 11, col 13`: `2`
 - `parse-source: syntax error: unexpected ID ("VAR!!1") at line 3, col 8`: `2`
-- `evaluation timed out after 2.0 seconds`: `2`
 - `parse-source: syntax error: unexpected ID ("RAYLIB?") at line 2, col 9`: `2`
 - `parse-source: syntax error: unexpected STRING ((yarn-template (list (yarn-part-text "Dear curious test reader")))) at line 1, col 5`: `2`
 - `parse-source: syntax error: unexpected MOD at line 13, col 42`: `1`
