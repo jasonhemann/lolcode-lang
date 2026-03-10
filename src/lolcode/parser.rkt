@@ -107,31 +107,18 @@
 
 (define supported-language-version "1.3")
 
-(define identifier-token-rx
-  #px"^[A-Za-z][A-Za-z0-9_]*$")
+(define identifier-token-rx #px"^[A-Za-z][A-Za-z0-9_]*$")
 
-(define (valid-identifier-token? text)
-  (regexp-match? identifier-token-rx text))
+(define (valid-identifier-token? text) (regexp-match? identifier-token-rx text))
 
 (define (ensure-identifier-token who text)
   (unless (valid-identifier-token? text)
     (error who "invalid identifier syntax: ~v" text))
   text)
 
-(define cast-target-types
-  (set "TROOF"
-       "YARN"
-       "NUMBR"
-       "NUMBAR"
-       "NOOB"))
+(define cast-target-types (set "TROOF" "YARN" "NUMBR" "NUMBAR" "NOOB"))
 
-(define declaration-default-types
-  (set "TROOF"
-       "YARN"
-       "NUMBR"
-       "NUMBAR"
-       "NOOB"
-       "BUKKIT"))
+(define declaration-default-types (set "TROOF" "YARN" "NUMBR" "NUMBAR" "NOOB" "BUKKIT"))
 
 (define (ensure-cast-target-type who text)
   (unless (set-member? cast-target-types text)
@@ -143,7 +130,9 @@
 (define (ensure-declaration-default-type who text)
   (unless (set-member? declaration-default-types text)
     (error who
-           "invalid declaration type in ITZ A: ~a (expected TROOF, YARN, NUMBR, NUMBAR, NOOB, or BUKKIT)"
+           (string-append
+            "invalid declaration type in ITZ A: ~a "
+            "(expected TROOF, YARN, NUMBR, NUMBAR, NOOB, or BUKKIT)")
            text))
   text)
 
@@ -156,13 +145,12 @@
 
 (define (source-line-text line)
   (define lines (current-source-lines))
-    (and (vector? lines)
-			 (<= 1 line)
-	         (<= line (vector-length lines))
-			 (vector-ref lines (- line 1))))
+  (and (vector? lines)
+       (<= 1 line)
+       (<= line (vector-length lines))
+       (vector-ref lines (- line 1))))
 
-(define source-line-split-rx
-  #px"\r\n|\n|\r")
+(define source-line-split-rx #px"\r\n|\n|\r")
 
 (define (source->line-vector source)
   (list->vector (string-split source source-line-split-rx #:trim? #f)))
@@ -179,12 +167,9 @@
   (define raw-line-text (source-line-text line))
   (define line-text
     (cond
-      [(and raw-line-text (not (string=? raw-line-text "")))
-       raw-line-text]
-      [(eq? tok-name 'EOF)
-       "<end of input>"]
-      [else
-       #f]))
+      [(and raw-line-text (not (string=? raw-line-text ""))) raw-line-text]
+      [(eq? tok-name 'EOF) "<end of input>"]
+      [else #f]))
   (define context-fragment
     (if line-text
         (format "\n  ~a\n  ~a" line-text (source-caret col line-text))
@@ -205,22 +190,14 @@
     (match label-close
       [(expr-literal (? string? s)) s]
       [_ #f]))
-  (when (and open-static
-             close-static
-             (not (string=? open-static close-static)))
+  (when (and open-static close-static (not (string=? open-static close-static)))
     (error 'parse-source
            "loop label mismatch: ~a closed by ~a"
            open-static
            close-static))
   (match-define (cons update-var update-op) update)
   (match-define (cons cond-kind cond-expr) condtn)
-  (stmt-loop label-open
-             label-close
-             update-var
-             update-op
-             cond-kind
-             cond-expr
-             body))
+  (stmt-loop label-open label-close update-var update-op cond-kind cond-expr body))
 
 (define (id->expr name)
   (cond
@@ -245,8 +222,7 @@
 
 (define (call-target->expr target args)
   (match target
-    [(list 'function name)
-     (expr-call name args)]
+    [(list 'function name) (expr-call name args)]
     [(list 'method receiver method-name)
      ;; Method-call syntax remains distinct from ordinary I IZ function calls.
      (expr-method-call receiver method-name args)]
@@ -254,16 +230,11 @@
 
 (define (slot-name-spec->expr spec)
   (match spec
-    [(expr-literal (? string? name))
-     (expr-ident name)]
-    [(expr-literal _)
-     (error 'parse-source "invalid slot name spec literal: ~e" spec)]
-    [(? string? name)
-     (expr-ident name)]
-    [(and s (expr-srs _))
-     s]
-    [else
-     (error 'parse-source "invalid slot name spec: ~e" spec)]))
+    [(expr-literal (? string? name)) (expr-ident name)]
+    [(expr-literal _) (error 'parse-source "invalid slot name spec literal: ~e" spec)]
+    [(? string? name) (expr-ident name)]
+    [(and s (expr-srs _)) s]
+    [else (error 'parse-source "invalid slot name spec: ~e" spec)]))
 
 (define (build-slot-chain base slot-name-specs)
   (for/fold ([obj base]) ([slot-spec (in-list slot-name-specs)])
@@ -274,8 +245,7 @@
     (error 'parse-source "invalid call slot chain"))
   (match-define-values (receiver-slot-specs (list method-name-spec))
     (split-at-right slot-name-specs 1))
-  (define receiver
-    (build-slot-chain base receiver-slot-specs))
+  (define receiver (build-slot-chain base receiver-slot-specs))
   (list 'method receiver method-name-spec))
 
 (define (call-target-from-ident name maybe-slots)
@@ -285,15 +255,13 @@
 
 (define (loop-update->spec target var-name)
   (match target
-    [(list 'function fn-name)
-     (cons var-name (list 'call fn-name))]
+    [(list 'function fn-name) (cons var-name (list 'call fn-name))]
     [_ (error 'parse-source
               "loop updater call must target a function name, got ~e"
               target)]))
 
 (define (switch-string->literal text)
-  (define template
-    (ensure-yarn-template text))
+  (define template (ensure-yarn-template text))
   (when (yarn-template-has-placeholders? template)
     (error 'parse-source
            "WTF? case literal cannot contain YARN interpolation (:{...})"))
@@ -301,20 +269,15 @@
 
 (define (switch-literal-key expr)
   (match expr
-    [(expr-number text)
-     (list 'NUM (or (string->number text) text))]
-    [(expr-string text)
-     (list 'YARN (yarn-template-static-text text))]
-    [(expr-literal value)
-     (list 'LIT value)]
+    [(expr-number text) (list 'NUM (or (string->number text) text))]
+    [(expr-string text) (list 'YARN (yarn-template-static-text text))]
+    [(expr-literal value) (list 'LIT value)]
     [_ #f]))
 
 (define (switch-literal-duplicate? a b)
   (match* (a b)
-    [((list 'NUM na) (list 'NUM nb))
-     (= na nb)]
-    [(_ _)
-     (equal? a b)]))
+    [((list 'NUM na) (list 'NUM nb)) (= na nb)]
+    [(_ _) (equal? a b)]))
 
 (define (validate-switch-case-literals cases)
   (void
@@ -334,32 +297,22 @@
 
 (define (word-token=? text t)
   (match t
-    [(token 'WORD lexeme _ _)
-     (string=? lexeme text)]
+    [(token 'WORD lexeme _ _) (string=? lexeme text)]
     [_ #f]))
 
 (define (collapse-phrase-tokens raws [acc '()])
   (match raws
     ['() (reverse acc)]
 
-    [(cons (token 'WORD "IM" line col)
-           (cons (token 'WORD "IN" line2 _)
-                 rst))
+    [(cons (token 'WORD "IM" line col) (cons (token 'WORD "IN" line2 _) rst))
      #:when (= line line2)
-     (collapse-phrase-tokens
-      rst
-      (cons (token 'WORD "IMIN" line col) acc))]
+     (collapse-phrase-tokens rst (cons (token 'WORD "IMIN" line col) acc))]
 
-    [(cons (token 'WORD "IM" line col)
-           (cons (token 'WORD "OUTTA" line2 _)
-                 rst))
+    [(cons (token 'WORD "IM" line col) (cons (token 'WORD "OUTTA" line2 _) rst))
      #:when (= line line2)
-     (collapse-phrase-tokens
-      rst
-      (cons (token 'WORD "IMOUTTA" line col) acc))]
+     (collapse-phrase-tokens rst (cons (token 'WORD "IMOUTTA" line col) acc))]
 
-    [(cons t rst)
-     (collapse-phrase-tokens rst (cons t acc))]))
+    [(cons t rst) (collapse-phrase-tokens rst (cons t acc))]))
 
 (define (raw->token raw)
   (match raw
@@ -796,8 +749,7 @@
               line
               col))
      (validate-raw-token-stream (cons t2 rest))]
-    [(cons _ rst)
-     (validate-raw-token-stream rst)]
+    [(cons _ rst) (validate-raw-token-stream rst)]
     [_ (void)]))
 
 (define (validate-function-def-placement parsed)
@@ -811,11 +763,9 @@
          (error 'parse-source
                 "nested HOW IZ I definitions are not allowed in strict 1.3"))
        (walk-block body #f)]
-      [(stmt-method-def _ _ _ body)
-       (walk-block body #f)]
-      [(stmt-object-def _ _ _ body)
+      [(stmt-method-def _ _ _ body) (walk-block body #f)]
        ;; Object bodies may declare methods with HOW IZ I.
-       (walk-block body #t)]
+      [(stmt-object-def _ _ _ body) (walk-block body #t)]
       [(stmt-if _ then-branch mebbe-branches else-branch)
        (walk-block then-branch #f)
        (for ([mb (in-list mebbe-branches)])
@@ -825,25 +775,20 @@
        (for ([c (in-list cases)])
          (walk-block (switch-case-body c) #f))
        (walk-block default #f)]
-      [(stmt-loop _ _ _ _ _ _ body)
-       (walk-block body #f)]
+      [(stmt-loop _ _ _ _ _ _ body) (walk-block body #f)]
       [_ (void)]))
   (walk-block (program-statements parsed) #t))
 
 (define (parse-source source)
   (unless (string? source)
     (raise-argument-error 'parse-source "string?" source))
-  (define normalized-raws
-    (collapse-phrase-tokens (lex-source source)))
+  (define normalized-raws (collapse-phrase-tokens (lex-source source)))
   (validate-raw-token-stream normalized-raws)
-  (define toks
-    (map raw->position-token normalized-raws))
+  (define toks (map raw->position-token normalized-raws))
   (unless (pair? toks)
     (error 'parse-source "internal error: lexer produced no tokens"))
-  (match-define-values (non-eof-toks (list eof-token))
-    (split-at-right toks 1))
-  (define-values (more-token? advance-token)
-    (sequence-generate (in-list non-eof-toks)))
+  (match-define-values (non-eof-toks (list eof-token)) (split-at-right toks 1))
+  (define-values (more-token? advance-token) (sequence-generate (in-list non-eof-toks)))
   (define (next-token)
     (if (more-token?)
         (advance-token)

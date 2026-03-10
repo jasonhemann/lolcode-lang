@@ -38,8 +38,7 @@
     (ensure-special-slots!)
 
     (define/private (parent-object [visited #f])
-      (define parent-value
-        (unbox (hash-ref slots "parent" (lambda () (box noob)))))
+      (define parent-value (unbox (hash-ref slots "parent" (lambda () (box noob)))))
       (cond
         [(not (lol-object? parent-value)) #f]
         [(and visited (set-member? visited parent-value)) #f]
@@ -48,8 +47,7 @@
     (define/public (lookup-slot-box name visited)
       (cond
         [(hash-ref slots name #f)
-         => (lambda (maybe-box)
-              (and (box? maybe-box) maybe-box))]
+         => (lambda (maybe-box) (and (box? maybe-box) maybe-box))]
         [else
          (set-add! visited this)
          (define p (parent-object visited))
@@ -61,8 +59,7 @@
                "omgwtf recursion while resolving missing slot: ~a"
                name))
       (dynamic-wind
-        (lambda ()
-          (set-add! active-omgwtf-slots name))
+        (lambda () (set-add! active-omgwtf-slots name))
         (lambda ()
           (define value (resolver))
           ;; Memoize the synthesized result into the missing slot.
@@ -70,8 +67,7 @@
           ;; remains authoritative for the requested missing name.
           (send this declare-slot! name value)
           value)
-        (lambda ()
-          (set-remove! active-omgwtf-slots name))))
+        (lambda () (set-remove! active-omgwtf-slots name))))
 
     (define/public (clone)
       (define copied-slots (make-hash))
@@ -82,21 +78,18 @@
            [parent (unbox (hash-ref slots "parent" (lambda () (box noob))))]))
 
     (define/public (prototype)
-      (new lol-object%
-           [parent this]))
+      (new lol-object% [parent this]))
 
-    (define/public (slot-table)
-      slots)
+    (define/public (slot-table) slots)
 
     (define/public (slot-names [visited (mutable-seteq)])
       (set-add! visited this)
       (define parent-names
-        (let ([p (parent-object visited)])
-          (if p
-              (send p slot-names visited)
-              '())))
-      (remove-duplicates
-       (append (hash-keys slots) parent-names)))
+		(cond
+		  [(parent-object visited)
+			=> (lambda (p) (send p slot-names visited))]
+		  [else '()]))
+      (remove-duplicates (append (hash-keys slots) parent-names)))
 
     (define/public (copy-visible-into! target)
       ;; Copy the donor object's effective visible slot interface:
@@ -104,8 +97,7 @@
       (for ([name (in-list (send this slot-names (mutable-seteq)))])
         (send target declare-slot! name (send this lookup-slot name noob))))
 
-    (define/public (has-slot? name)
-      (hash-has-key? slots name))
+    (define/public (has-slot? name) (hash-has-key? slots name))
 
     (define/public (lookup-slot name [default #f])
       (cond
@@ -116,8 +108,7 @@
       (define (lookup-parent)
         (set-add! visited this)
         (define p (parent-object visited))
-        (and p
-             (send p lookup-special-procedure-slot name visited)))
+        (and p (send p lookup-special-procedure-slot name visited)))
       (cond
         [(hash-ref slots name #f)
          => (lambda (maybe-box)
@@ -145,12 +136,10 @@
     (define/public (assign-slot! name value)
       (cond
         [(hash-ref slots name #f)
-         => (lambda (b)
-              (set-box! b value))]
+         => (lambda (b) (set-box! b value))]
         [(send this lookup-slot-box name (mutable-seteq))
          (hash-set! slots name (box value))]
-        [else
-         (error 'run-program "unknown slot: ~a" name)]))
+        [else (error 'run-program "unknown slot: ~a" name)]))
 
     (define/public (set-slot! name value)
       (send this declare-slot! name value))
@@ -158,22 +147,16 @@
     (define/public (remove-slot! name)
       (hash-remove! slots name))))
 
-(define (lol-object? v)
-  (is-a? v lol-object%))
+(define (lol-object? v) (is-a? v lol-object%))
 
 (define (truncate-real-decimals n places)
   (define scale (expt 10 places))
   (/ (truncate (* n scale)) scale))
 
 (define (format-numbar n)
-  (define fixed
-    (~r (truncate-real-decimals n 2)
-        #:precision '(= 2)))
-  (define without-trailing-zeros
-    (regexp-replace #px"0+$" fixed ""))
-  (regexp-replace #px"\\.$"
-                  without-trailing-zeros
-                  ""))
+  (define fixed (~r (truncate-real-decimals n 2) #:precision '(= 2)))
+  (define without-trailing-zeros (regexp-replace #px"0+$" fixed ""))
+  (regexp-replace #px"\\.$" without-trailing-zeros ""))
 
 (define (lol-string v)
   (cond
@@ -207,13 +190,10 @@
 
 (define (coerce-number who v)
   (cond
-    [(eq? v noob)
-     (error who "cannot cast NOOB to numeric value")]
-    [else
-     (coerce-cast-number who v)]))
+    [(eq? v noob) (error who "cannot cast NOOB to numeric value")]
+    [else (coerce-cast-number who v)]))
 
-(define strict-numeric-yarn-rx
-  #px"^-?[0-9]+(?:\\.[0-9]+)?$")
+(define strict-numeric-yarn-rx #px"^-?[0-9]+(?:\\.[0-9]+)?$")
 
 (define (parse-strict-yarn-number who text)
   (unless (regexp-match? strict-numeric-yarn-rx text)
@@ -226,24 +206,17 @@
     [(number? v) v]
     [(boolean? v) (if v 1 0)]
     [(eq? v noob) 0]
-    [(string? v)
-     (parse-strict-yarn-number who v)]
+    [(string? v) (parse-strict-yarn-number who v)]
     [else (error who "cannot cast ~e to numeric value" v)]))
 
 (define (cast-value who v type-name)
   (case type-name
-    [("NUMBR")
-     (inexact->exact (truncate (coerce-cast-number who v)))]
-    [("NUMBAR")
-     (exact->inexact (coerce-cast-number who v))]
-    [("YARN")
-     (lol-string v)]
-    [("TROOF")
-     (lol-truthy? v)]
-    [("NOOB")
-     noob]
-    [else
-     (error who "unknown cast target type: ~a" type-name)]))
+    [("NUMBR") (inexact->exact (truncate (coerce-cast-number who v)))]
+    [("NUMBAR") (exact->inexact (coerce-cast-number who v))]
+    [("YARN") (lol-string v)]
+    [("TROOF") (lol-truthy? v)]
+    [("NOOB") noob]
+    [else (error who "unknown cast target type: ~a" type-name)]))
 
 (define (type-default-value type-name)
   (case type-name

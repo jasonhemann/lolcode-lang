@@ -31,10 +31,7 @@
 (define (run-file path)
   (unless (path-string? path)
     (raise-argument-error 'run-file "path-string?" path))
-  (define full-path
-    (simplify-path (path->complete-path path)))
-  (define base-dir
-    (or (path-only full-path)
-        (current-directory)))
+  (define full-path (simplify-path (path->complete-path path)))
+  (define base-dir (or (path-only full-path) (current-directory)))
   (parameterize ([current-directory base-dir])
     (run-program (parse-program (file->string full-path)))))

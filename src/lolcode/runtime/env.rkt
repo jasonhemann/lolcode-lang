@@ -43,29 +43,23 @@
 
 (define (ctx-return! ctx value)
   (cond
-    [(exec-ctx-return-k ctx)
-     => (lambda (k)
-          (k value))]
+    [(exec-ctx-return-k ctx) => (lambda (k) (k value))]
     [(exec-ctx-object-name ctx)
      (error 'run-program
             "FOUND YR used inside object definition ~a"
             (exec-ctx-object-name ctx))]
-    [else
-     (error 'run-program "FOUND YR used outside function")]))
+    [else (error 'run-program "FOUND YR used outside function")]))
 
 (define (ctx-break! ctx)
   (cond
-    [(exec-ctx-break-k ctx)
-     => (lambda (k)
-          (k (void)))]
+    [(exec-ctx-break-k ctx) => (lambda (k) (k (void)))]
     [(exec-ctx-return-k ctx)
      (ctx-return! ctx noob)]
     [(exec-ctx-object-name ctx)
      (error 'run-program
             "GTFO used inside object definition ~a"
             (exec-ctx-object-name ctx))]
-    [else
-     (error 'run-program "GTFO used outside switch/loop")]))
+    [else (error 'run-program "GTFO used outside switch/loop")]))
 
 (define (make-root-env)
   ;; Root scope always has the implicit IT binding.
@@ -81,16 +75,14 @@
   (cond
     [(not e) #f]
     [(hash-has-key? (env-table e) name)
-     (define maybe-box
-       (hash-ref (env-table e) name))
+     (define maybe-box (hash-ref (env-table e) name))
      (unless (box? maybe-box)
        (error 'run-program
               "runtime invariant violation: non-box binding in env table for identifier ~a: ~e"
               name
               maybe-box))
      maybe-box]
-    [else
-     (env-lookup-box (env-parent e) name)]))
+    [else (env-lookup-box (env-parent e) name)]))
 
 (define (env-define! e name value)
   (when (hash-has-key? (env-table e) name)
@@ -100,36 +92,23 @@
 (define (env-ref e name)
   (cond
     [(env-lookup-box e name) => unbox]
-    [else
-     (error 'run-program "unknown identifier: ~a" name)]))
+    [else (error 'run-program "unknown identifier: ~a" name)]))
 
 (define (env-set! e name value)
   (cond
-    [(env-lookup-box e name)
-     => (lambda (b)
-          (set-box! b value))]
-    [else
-     (error 'run-program "unknown identifier: ~a" name)]))
+    [(env-lookup-box e name) => (lambda (b) (set-box! b value))]
+    [else (error 'run-program "unknown identifier: ~a" name)]))
 
 (define (env-set-or-define! e name value)
   (cond
-    [(env-lookup-box e name)
-     => (lambda (b)
-          (set-box! b value))]
-    [else
-     (env-define! e name value)]))
+    [(env-lookup-box e name) => (lambda (b) (set-box! b value))]
+    [else (env-define! e name value)]))
 
 (define (set-it! e value)
   (cond
-    [(env-lookup-box e "IT")
-     => (lambda (maybe-it)
-          (set-box! maybe-it value))]
+    [(env-lookup-box e "IT") => (lambda (maybe-it) (set-box! maybe-it value))]
     [else (env-define! e "IT" value)]))
 
-(define (runtime-globals ctx)
-  (runstate-globals
-   (exec-ctx-state ctx)))
+(define (runtime-globals ctx) (runstate-globals (exec-ctx-state ctx)))
 
-(define (runtime-stdout ctx)
-  (runstate-stdout
-   (exec-ctx-state ctx)))
+(define (runtime-stdout ctx) (runstate-stdout (exec-ctx-state ctx)))

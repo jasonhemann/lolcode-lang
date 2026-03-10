@@ -8,8 +8,7 @@
          variadic-operator-compiler-table)
 
 (define ((binop/coerce who op) lv rv)
-  (op (coerce-number who lv)
-      (coerce-number who rv)))
+  (op (coerce-number who lv) (coerce-number who rv)))
 
 (define binary-operator-table
   (hash
@@ -32,8 +31,7 @@
    "SMALLR OF" (binop/coerce 'SMALLR min)
    "BOTH OF" (lambda (lv rv) (and (lol-truthy? lv) (lol-truthy? rv)))
    "EITHER OF" (lambda (lv rv) (or (lol-truthy? lv) (lol-truthy? rv)))
-   "WON OF" (lambda (lv rv) (xor (lol-truthy? lv)
-                                 (lol-truthy? rv)))
+   "WON OF" (lambda (lv rv) (xor (lol-truthy? lv) (lol-truthy? rv)))
    "BOTH SAEM" (lambda (lv rv) (lol-equal? lv rv))
    "DIFFRINT" (lambda (lv rv) (not (lol-equal? lv rv)))))
 
@@ -51,13 +49,12 @@
                 (lol-string (a e ctx))))))
    "ALL OF"
    (lambda (arg-procs)
-     (lambda (e ctx)
-       (andmap (lambda (a)
+    (lambda (e ctx)
+      (andmap (lambda (a)
                  (lol-truthy? (a e ctx)))
                arg-procs)))
    "ANY OF"
    (lambda (arg-procs)
      (lambda (e ctx)
-       (ormap (lambda (a)
-                (lol-truthy? (a e ctx)))
+       (ormap (lambda (a) (lol-truthy? (a e ctx)))
               arg-procs)))))

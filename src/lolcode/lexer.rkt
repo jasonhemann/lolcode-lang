@@ -135,8 +135,7 @@
            (char=? ch #\tab))))
 
 (define (comma-char? ch)
-  (and (char? ch)
-       (char=? ch #\,)))
+  (and (char? ch) (char=? ch #\,)))
 
 (define (valid-tail-after-tldr-space! in)
   (define next (peek-char in))
@@ -146,15 +145,13 @@
      (read-char in)
      (valid-tail-after-tldr-space! in)]
     [(newline-or-return? next) #t]
-    [(comma-char? next)
-     #t]
+    [(comma-char? next) #t]
     [else #f]))
 
 (define (valid-tldr-delimiter? in ch)
   (cond
     [(newline-or-return? ch) #t]
-    [(comma-char? ch)
-     #t]
+    [(comma-char? ch) #t]
     [(horizontal-space? ch)
      (valid-tail-after-tldr-space! in)]
     [else #f]))
@@ -173,44 +170,31 @@
     [_
      (define len (string-length text))
      (cond
-       [(and (> len 3)
-             (string-suffix? text "..."))
+       [(and (> len 3) (string-suffix? text "..."))
         (lex-word-with-trailing-line-continuation text line col 3)]
-       [(and (> len 1)
-             (string-suffix? text "…"))
+       [(and (> len 1) (string-suffix? text "…"))
         (lex-word-with-trailing-line-continuation text line col 1)]
-       [(and (> len 2)
-             (string-suffix? text "'Z"))
+       [(and (> len 2) (string-suffix? text "'Z"))
         (lexer-cover! 'word->tokens/split-slot-z)
         (define base (substring text 0 (- len 2)))
         (define base-token (word-or-number-token base line col))
-        (define slot-token
-          (token 'WORD "'Z" line (+ col (- len 1))))
+        (define slot-token (token 'WORD "'Z" line (+ col (- len 1))))
         (values 'ok (list base-token slot-token))]
        [(regexp-match #px"^([A-Za-z][A-Za-z0-9_]*)-([A-Za-z][A-Za-z0-9_]*)$" text)
         => (lambda (m)
              (lexer-cover! 'word->tokens/split-slot-dash)
-             (define base
-               (list-ref m 1))
-             (define slot
-               (list-ref m 2))
-             (define base-len
-               (string-length base))
-             (define base-token
-               (token 'WORD base line col))
-             (define dash-token
-               (token 'WORD "-" line (+ col base-len)))
-             (define slot-token
-               (token 'WORD slot line (+ col base-len 1)))
+             (define base (list-ref m 1))
+             (define slot (list-ref m 2))
+             (define base-len (string-length base))
+             (define base-token (token 'WORD base line col))
+             (define dash-token (token 'WORD "-" line (+ col base-len)))
+             (define slot-token (token 'WORD slot line (+ col base-len 1)))
              (values 'ok (list base-token dash-token slot-token)))]
        [(numeric-token? text)
         (lexer-cover! 'word->tokens/number)
         (values 'ok (list (token 'NUMBER text line col)))]
        [(malformed-number-token? text)
-        (lex-error 'lex-source
-                   "invalid numeric literal"
-                   line
-                   col)]
+        (lex-error 'lex-source "invalid numeric literal" line col)]
        [else
         (lexer-cover! 'word->tokens/word)
         (values 'ok (list (token 'WORD text line col)))])]))
@@ -228,8 +212,7 @@
       (values status toks)))
 
 (define (lex-word-with-trailing-line-continuation text line col suffix-len)
-  (define stem
-    (substring text 0 (- (string-length text) suffix-len)))
+  (define stem (substring text 0 (- (string-length text) suffix-len)))
   (let-values ([(status toks) (word->tokens stem line col)])
     (promote-line-continuation-status status toks)))
 
@@ -253,9 +236,7 @@
                 (comma-char? ch)
                 (char=? ch #\")))))
 
-(define (skip-block-comment! in
-                             [current-word ""]
-                             [ch (read-char in)])
+(define (skip-block-comment! in [current-word ""] [ch (read-char in)])
   (cond
     [(eof-object? ch)
      (lexer-cover! 'skip-block-comment!/eof)
@@ -263,22 +244,15 @@
        (error 'lex-source "unterminated OBTW block comment"))]
     [(word-char? ch)
      (lexer-cover! 'skip-block-comment!/word-char)
-     (skip-block-comment! in
-                          (string-append current-word (string ch))
-                          (read-char in))]
+     (skip-block-comment! in (string-append current-word (string ch)) (read-char in))]
     [(string=? current-word "TLDR")
      (lexer-cover! 'skip-block-comment!/found-tldr)
-     (define delimiter-valid?
-       (valid-tldr-delimiter? in ch))
-     (unless delimiter-valid?
-       (error 'lex-source
-              "TLDR must be followed by newline or comma"))
+     (define delimiter-valid? (valid-tldr-delimiter? in ch))
+     (unless delimiter-valid? (error 'lex-source "TLDR must be followed by newline or comma"))
      (void)]
     [else
      (lexer-cover! 'skip-block-comment!/delimiter)
-     (skip-block-comment! in
-                          ""
-                          (read-char in))]))
+     (skip-block-comment! in "" (read-char in))]))
 
 (define (skip-line-continuation! in line col allow-empty-line?)
   (define (consume-horizontal-space!)
@@ -297,8 +271,7 @@
        (lexer-cover! 'skip-line-continuation!/cr)
        (read-char in)
        (define next (peek-char in))
-       (when (and (char? next)
-                  (char=? next #\newline))
+       (when (and (char? next) (char=? next #\newline))
          (lexer-cover! 'skip-line-continuation!/crlf)
          (read-char in))
        'newline]
@@ -365,11 +338,7 @@
     [else
      (lexer-cover! 'scan-string-tail!/format-placeholder/char)
      (write-char pch placeholder-out)
-     (scan-string-format-placeholder! in
-                                      line
-                                      col
-                                      placeholder-out
-                                      (read-char in))]))
+     (scan-string-format-placeholder! in line col placeholder-out (read-char in))]))
 
 (define (scan-string-codepoint-escape! in
                                        line
@@ -390,20 +359,14 @@
        (lexer-cover! 'scan-string-tail!/codepoint/invalid-hex)
        (lex-error 'lex-source "invalid Unicode code point escape in string literal" line col))
      (define cp (string->number hex 16))
-     (unless (and cp
-                  (<= 0 cp #x10FFFF)
-                  (not (<= #xD800 cp #xDFFF)))
+     (unless (and cp (<= 0 cp #x10FFFF) (not (<= #xD800 cp #xDFFF)))
        (lexer-cover! 'scan-string-tail!/codepoint/invalid-range)
        (lex-error 'lex-source "invalid Unicode code point in string literal" line col))
      (integer->char cp)]
     [else
      (lexer-cover! 'scan-string-tail!/codepoint/char)
      (write-char pch hex-out)
-     (scan-string-codepoint-escape! in
-                                    line
-                                    col
-                                    hex-out
-                                    (read-char in))]))
+     (scan-string-codepoint-escape! in line col hex-out (read-char in))]))
 
 (define unicode-normative-name->codepoint-cache #f)
 
@@ -427,10 +390,8 @@
                             (string-append
                              "Unicode normative-name escapes require Racket's codepoint data: "
                              (exn-message e))))])
-    (define name-table-path
-      (collection-file-path "generated/name.rkt-src" "codepoint"))
-    (define cp->name
-      (call-with-input-file name-table-path read))
+    (define name-table-path (collection-file-path "generated/name.rkt-src" "codepoint"))
+    (define cp->name (call-with-input-file name-table-path read))
     (unless (hash? cp->name)
       (error 'lex-source "invalid codepoint name table format"))
     (define table (make-hash))
@@ -470,8 +431,7 @@
      (unless (valid-normative-name? name)
        (lexer-cover! 'scan-string-tail!/normative/invalid-char)
        (lex-error 'lex-source "invalid Unicode normative name in string literal" line col))
-     (define cp
-       (unicode-normative-name->codepoint name))
+     (define cp (unicode-normative-name->codepoint name))
      (unless cp
        (lexer-cover! 'scan-string-tail!/normative/unknown-name)
        (lex-error 'lex-source "invalid Unicode normative name in string literal" line col))
@@ -479,11 +439,7 @@
     [else
      (lexer-cover! 'scan-string-tail!/normative/char)
      (write-char pch name-out)
-     (scan-string-normative-name-escape! in
-                                         line
-                                         col
-                                         name-out
-                                         (read-char in))]))
+     (scan-string-normative-name-escape! in line col name-out (read-char in))]))
 
 (struct string-scan-state (text-rev parts-rev) #:transparent)
 
@@ -496,25 +452,17 @@
 
 (define (string-scan-state-flush-text st)
   (match st
-    [(string-scan-state '() _)
-     st]
+    [(string-scan-state '() _) st]
     [(string-scan-state text-rev parts-rev)
-     (string-scan-state
-      '()
-      (cons (yarn-part-text (list->string (reverse text-rev)))
-            parts-rev))]))
+     (string-scan-state '() (cons (yarn-part-text (list->string (reverse text-rev))) parts-rev))]))
 
 (define (string-scan-state-emit-placeholder st raw-name)
-  (define flushed
-    (string-scan-state-flush-text st))
-  (string-scan-state
-   '()
-   (cons (yarn-part-placeholder raw-name)
-         (string-scan-state-parts-rev flushed))))
+  (define flushed (string-scan-state-flush-text st))
+  (string-scan-state '() (cons (yarn-part-placeholder raw-name)
+                               (string-scan-state-parts-rev flushed))))
 
 (define (string-scan-state-finish-template st)
-  (define flushed
-    (string-scan-state-flush-text st))
+  (define flushed (string-scan-state-flush-text st))
   (make-yarn-template (reverse (string-scan-state-parts-rev flushed))))
 
 (struct scan-step-continue (escaped? st) #:transparent)
@@ -575,8 +523,7 @@
           (handler in line col st))]
     [(char=? ch #\")
      (define next (peek-char in))
-     (if (or (eof-object? next)
-             (newline-or-return? next))
+     (if (or (eof-object? next) (newline-or-return? next))
          (begin
            (lexer-cover! 'scan-string-tail!/escaped-quote/end-string)
            (scan-step-final
@@ -594,12 +541,7 @@
        (string-scan-state-emit-char st #\:)
        ch))]))
 
-(define (scan-string-tail/step! in
-                                line
-                                col
-                                escaped?
-                                ch
-                                st)
+(define (scan-string-tail/step! in line col escaped? ch st)
   (cond
     [(eof-object? ch)
      (lexer-cover! 'scan-string-tail!/eof)
@@ -609,8 +551,7 @@
      (lex-error 'lex-source "unterminated string literal" line col)]
     [escaped?
      (match (scan-string-escaped-step in line col ch st)
-       [(scan-step-final template)
-        template]
+       [(scan-step-final template) template]
        [(scan-step-continue escaped-next st-next)
         (scan-string-tail/continue in line col escaped-next st-next)])]
     [(char=? ch #\:)
@@ -621,20 +562,10 @@
      (string-scan-state-finish-template st)]
     [else
      (lexer-cover! 'scan-string-tail!/plain-char)
-     (scan-string-tail/continue
-      in
-      line
-      col
-      #f
-      (string-scan-state-emit-char st ch))]))
+     (scan-string-tail/continue in line col #f (string-scan-state-emit-char st ch))]))
 
 (define (scan-string-tail! in line col)
-  (scan-string-tail/step! in
-                          line
-                          col
-                          #f
-                          (read-char in)
-                          empty-string-scan-state))
+  (scan-string-tail/step! in line col #f (read-char in) empty-string-scan-state))
 
 (define-lex-abbrevs
   [ws (:or #\space #\tab)]
@@ -663,8 +594,7 @@
                 (pending-queue-back q))))
   (match front
     [(cons next rest)
-     (values next
-             (pending-queue rest back))]
+     (values next (pending-queue rest back))]
     ['()
      (error 'pending-queue-dequeue
             "dequeue from empty pending queue")]))
@@ -778,8 +708,7 @@
               ([_ (in-naturals)]
                #:break done?)
       (define tok (next-token))
-      (define done-now?
-        (eq? (token-type tok) 'EOF))
+      (define done-now? (eq? (token-type tok) 'EOF))
       (values (cons tok acc) done-now?)))
   (reverse acc))
 
