@@ -65,11 +65,9 @@
   ;; Root scope always has the implicit IT binding.
   (env (make-hash (list (cons "IT" (box noob)))) #f))
 
-(define (extend-env parent)
-  (env (make-hash) parent))
+(define (extend-env parent) (env (make-hash) parent))
 
-(define (env-with-table table parent)
-  (env table parent))
+(define (env-with-table table parent) (env table parent))
 
 (define (env-lookup-box e name)
   (cond
