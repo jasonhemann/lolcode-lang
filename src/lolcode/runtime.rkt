@@ -397,6 +397,142 @@
   (run-izmakin-hook! child e ctx)
   child)
 
+(define (compile-expr-srs inner)
+  (define inner-proc (compile-expr inner))
+  (lambda (e ctx)
+    (define resolved-name
+      (identifier-text
+       "SRS expression must evaluate to identifier text"
+       (inner-proc e ctx)))
+    (env-ref e resolved-name)))
+
+(define (compile-expr-clone inner)
+  (define inner-proc (compile-expr inner))
+  (lambda (e ctx)
+    (construct-prototype
+     (resolve-bukkit "LIEK initializer" (inner-proc e ctx))
+     '()
+     e
+     ctx)))
+
+(define (compile-expr-prototype parent-spec mixins)
+  (define parent-name-proc
+    (compile-name-resolver
+     "prototype parent name must evaluate to identifier text"
+     parent-spec))
+  (define mixin-name-procs
+    (map (lambda (m)
+           (compile-name-resolver
+            "mixin name must evaluate to identifier text"
+            m))
+         mixins))
+  (lambda (e ctx)
+    (define parent-name
+      (parent-name-proc e ctx))
+    (define parent-obj
+      (resolve-bukkit
+       "prototype parent"
+       (env-ref e parent-name)))
+    (define mixin-objs
+      (for/list ([mix-proc (in-list mixin-name-procs)])
+        (define mix-name (mix-proc e ctx))
+        (resolve-bukkit
+         "mixin"
+         (env-ref e mix-name))))
+    (construct-prototype parent-obj mixin-objs e ctx)))
+
+(define (compile-expr-binary op left right whole-expr)
+  (define left-proc (compile-expr left))
+  (define right-proc (compile-expr right))
+  (define op-fn
+    (or (hash-ref binary-operator-table op #f)
+        (raise-unsupported-op 'binary op whole-expr)))
+  (lambda (e ctx)
+    (op-fn (left-proc e ctx) (right-proc e ctx))))
+
+(define (compile-expr-unary op arg whole-expr)
+  (define arg-proc (compile-expr arg))
+  (define op-fn
+    (or (hash-ref unary-operator-table op #f)
+        (raise-unsupported-op 'unary op whole-expr)))
+  (lambda (e ctx)
+    (op-fn (arg-proc e ctx))))
+
+(define (compile-expr-variadic op args whole-expr)
+  (define arg-procs (map compile-expr args))
+  ((or (hash-ref variadic-operator-compiler-table op #f)
+       (raise-unsupported-op 'variadic op whole-expr))
+   arg-procs))
+
+(define (compile-expr-call name args)
+  (define name-proc
+    (compile-name-resolver
+     "function name must evaluate to identifier text"
+     name))
+  (define arg-procs (map compile-expr args))
+  (lambda (e ctx)
+    (define fn-name
+      (name-proc e ctx))
+    (define fn (resolve-callable e ctx fn-name "function"))
+    ;; Strict 1.3 function calls use global namespace, not caller-local scope.
+    (fn (runtime-globals ctx)
+        (map (lambda (a) (a e ctx)) arg-procs)
+        ctx)))
+
+(define (compile-expr-method-call receiver name-spec args)
+  (define recv-proc
+    (and (not (expr-ident? receiver))
+         (compile-expr receiver)))
+  (define receiver-ident
+    (and (expr-ident? receiver)
+         (expr-ident-name receiver)))
+  (define name-proc
+    (compile-name-resolver
+     "method name must evaluate to identifier text"
+     name-spec))
+  (define arg-procs (map compile-expr args))
+  (lambda (e ctx)
+    (define method-name
+      (name-proc e ctx))
+    (define arg-values
+      (map (lambda (a) (a e ctx)) arg-procs))
+    (define (invoke-on-object obj)
+      (define maybe-slot-callable
+        ;; Method calls share slot-access resolution semantics:
+        ;; full parent-chain search first, then one omgwtf miss hook on the
+        ;; original receiver if and only if the overall lookup fails.
+        (read-slot-value obj method-name ctx))
+      (if (procedure? maybe-slot-callable)
+          (invoke-slot-callable obj maybe-slot-callable arg-values ctx)
+          (error 'run-program
+                 "method slot is not callable: ~a"
+                 method-name)))
+    (cond
+      [receiver-ident
+       (define maybe-box
+         (env-lookup-box e receiver-ident))
+       (unless maybe-box
+         (error 'run-program "unknown identifier: ~a" receiver-ident))
+       (define recv-val (unbox maybe-box))
+       (unless (lol-object? recv-val)
+         (error 'run-program "method call requires BUKKIT receiver, got ~e" recv-val))
+       (invoke-on-object recv-val)]
+      [else
+       (define obj (recv-proc e ctx))
+       (unless (lol-object? obj)
+         (error 'run-program "method call requires BUKKIT receiver, got ~e" obj))
+       (invoke-on-object obj)])))
+
+(define (compile-expr-cast inner type-name)
+  (define inner-proc (compile-expr inner))
+  (lambda (e ctx)
+    (cast-value 'MAEK (inner-proc e ctx) type-name)))
+
+(define (compile-expr-slot object slot)
+  (match-define (lvalue lread _) (compile-lvalue (expr-slot object slot)))
+  (lambda (e ctx)
+    (lread e ctx)))
+
 (define (compile-expr expr)
   (match expr
     [(expr-number text)
@@ -424,140 +560,34 @@
      (lambda (e _ctx) (env-ref e name))]
 
     [(expr-srs inner)
-     (define inner-proc (compile-expr inner))
-     (lambda (e ctx)
-       (define resolved-name
-         (identifier-text
-          "SRS expression must evaluate to identifier text"
-          (inner-proc e ctx)))
-       (env-ref e resolved-name))]
+     (compile-expr-srs inner)]
 
     [(expr-clone inner)
-     (define inner-proc (compile-expr inner))
-     (lambda (e ctx)
-       (construct-prototype
-        (resolve-bukkit "LIEK initializer" (inner-proc e ctx))
-        '()
-        e
-        ctx))]
+     (compile-expr-clone inner)]
 
     [(expr-prototype parent-spec mixins)
-     (define parent-name-proc
-       (compile-name-resolver
-        "prototype parent name must evaluate to identifier text"
-        parent-spec))
-     (define mixin-name-procs
-       (map (lambda (m)
-              (compile-name-resolver
-               "mixin name must evaluate to identifier text"
-               m))
-            mixins))
-     (lambda (e ctx)
-       (define parent-name
-         (parent-name-proc e ctx))
-       (define parent-obj
-         (resolve-bukkit
-          "prototype parent"
-          (env-ref e parent-name)))
-       (define mixin-objs
-         (for/list ([mix-proc (in-list mixin-name-procs)])
-           (define mix-name (mix-proc e ctx))
-           (resolve-bukkit
-            "mixin"
-            (env-ref e mix-name))))
-       (construct-prototype parent-obj mixin-objs e ctx))]
+     (compile-expr-prototype parent-spec mixins)]
 
-    [(expr-binary op left right)
-     (define left-proc (compile-expr left))
-     (define right-proc (compile-expr right))
-     (define op-fn
-       (or (hash-ref binary-operator-table op #f)
-           (raise-unsupported-op 'binary op expr)))
-     (lambda (e ctx)
-       (op-fn (left-proc e ctx) (right-proc e ctx)))]
+    [(and whole-expr (expr-binary op left right))
+     (compile-expr-binary op left right whole-expr)]
 
-    [(expr-unary op arg)
-     (define arg-proc (compile-expr arg))
-     (define op-fn
-       (or (hash-ref unary-operator-table op #f)
-           (raise-unsupported-op 'unary op expr)))
-     (lambda (e ctx)
-       (op-fn (arg-proc e ctx)))]
+    [(and whole-expr (expr-unary op arg))
+     (compile-expr-unary op arg whole-expr)]
 
-    [(expr-variadic op args)
-     (define arg-procs (map compile-expr args))
-     ((or (hash-ref variadic-operator-compiler-table op #f)
-          (raise-unsupported-op 'variadic op expr))
-      arg-procs)]
+    [(and whole-expr (expr-variadic op args))
+     (compile-expr-variadic op args whole-expr)]
 
     [(expr-call name args)
-     (define name-proc
-       (compile-name-resolver
-        "function name must evaluate to identifier text"
-        name))
-     (define arg-procs (map compile-expr args))
-     (lambda (e ctx)
-       (define fn-name
-         (name-proc e ctx))
-       (define fn (resolve-callable e ctx fn-name "function"))
-       ;; Strict 1.3 function calls use global namespace, not caller-local scope.
-       (fn (runtime-globals ctx)
-           (map (lambda (a) (a e ctx)) arg-procs)
-           ctx))]
+     (compile-expr-call name args)]
 
     [(expr-method-call receiver name-spec args)
-     (define recv-proc
-       (and (not (expr-ident? receiver))
-            (compile-expr receiver)))
-     (define receiver-ident
-       (and (expr-ident? receiver)
-            (expr-ident-name receiver)))
-     (define name-proc
-       (compile-name-resolver
-        "method name must evaluate to identifier text"
-        name-spec))
-     (define arg-procs (map compile-expr args))
-     (lambda (e ctx)
-       (define method-name
-         (name-proc e ctx))
-       (define arg-values
-         (map (lambda (a) (a e ctx)) arg-procs))
-       (define (invoke-on-object obj)
-         (define maybe-slot-callable
-           ;; Method calls share slot-access resolution semantics:
-           ;; full parent-chain search first, then one omgwtf miss hook on the
-           ;; original receiver if and only if the overall lookup fails.
-           (read-slot-value obj method-name ctx))
-         (if (procedure? maybe-slot-callable)
-             (invoke-slot-callable obj maybe-slot-callable arg-values ctx)
-             (error 'run-program
-                    "method slot is not callable: ~a"
-                    method-name)))
-       (cond
-         [receiver-ident
-          (define maybe-box
-            (env-lookup-box e receiver-ident))
-          (unless maybe-box
-            (error 'run-program "unknown identifier: ~a" receiver-ident))
-          (define recv-val (unbox maybe-box))
-          (unless (lol-object? recv-val)
-            (error 'run-program "method call requires BUKKIT receiver, got ~e" recv-val))
-          (invoke-on-object recv-val)]
-         [else
-          (define obj (recv-proc e ctx))
-          (unless (lol-object? obj)
-            (error 'run-program "method call requires BUKKIT receiver, got ~e" obj))
-          (invoke-on-object obj)]))]
+     (compile-expr-method-call receiver name-spec args)]
 
     [(expr-cast inner type-name)
-     (define inner-proc (compile-expr inner))
-     (lambda (e ctx)
-       (cast-value 'MAEK (inner-proc e ctx) type-name))]
+     (compile-expr-cast inner type-name)]
 
     [(expr-slot object slot)
-     (define lv (compile-lvalue (expr-slot object slot)))
-     (lambda (e ctx)
-       ((lvalue-read lv) e ctx))]
+     (compile-expr-slot object slot)]
 
     [_ (raise-unsupported expr)]))
 
@@ -587,32 +617,30 @@
         (env-define! e name value))))
 
 (define (compile-stmt-assign target expr)
-  (define lv
-    (compile-lvalue target))
+  (match-define (lvalue lread lwrite) (compile-lvalue target))
   (define expr-proc (compile-expr expr))
   (lambda (e ctx)
-    (define value (expr-proc e ctx))
-    ((lvalue-write lv) e value ctx)))
+    (lwrite e (expr-proc e ctx) ctx)))
 
 (define (compile-stmt-cast target type-name)
-  (define lv
+  (match-define (lvalue lread lwrite)
     (compile-lvalue target))
   (lambda (e ctx)
     (define value
       (cast-value 'IS-NOW-A
-                  ((lvalue-read lv) e ctx)
+                  (lread e ctx)
                   type-name))
-    ((lvalue-write lv) e value ctx)
+    (lwrite e value ctx)
     (set-it! e value)))
 
 (define (compile-stmt-input target)
-  (define lv
+  (match-define (lvalue lread lwrite)
     (compile-lvalue target #:define-missing? #t))
   (lambda (e ctx)
     (define line (read-line (current-input-port) 'any))
     (define value
       (if (eof-object? line) noob line))
-    ((lvalue-write lv) e value ctx)
+    (lwrite e value ctx)
     (set-it! e value)))
 
 (define (compile-stmt-slot-set object slot expr)
@@ -651,16 +679,14 @@
     (cond
       [(lol-truthy? (cond-proc e ctx))
        (then-proc (extend-env e) ctx)]
+      [(for/or ([mb (in-list mebbe-procs)])
+         (match-define (cons mb-cond mb-body) mb)
+         (and (lol-truthy? (mb-cond e ctx))
+              mb-body))
+       => (lambda (mb-body)
+            (mb-body (extend-env e) ctx))]
       [else
-       (cond
-         [(for/or ([mb (in-list mebbe-procs)])
-            (match-define (cons mb-cond mb-body) mb)
-            (and (lol-truthy? (mb-cond e ctx))
-                 mb-body))
-          => (lambda (mb-body)
-               (mb-body (extend-env e) ctx))]
-         [else
-          (else-proc (extend-env e) ctx)])])))
+       (else-proc (extend-env e) ctx)])))
 
 (define (compile-stmt-switch subject cases default)
   (define subject-proc (compile-expr subject))
