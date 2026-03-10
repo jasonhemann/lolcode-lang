@@ -25,7 +25,7 @@
 (define json-out
   (build-path repo-root "corpus" "research" "language-gaps-report.json"))
 (define md-out
-  (build-path repo-root "corpus" "research" "LANGUAGE_GAPS_REPORT_2026-03-02.md"))
+  (build-path repo-root "corpus" "research" "LANGUAGE_GAPS_REPORT.md"))
 (define promote-missing-version? #f)
 (define promoted-out-dir #f)
 
@@ -683,6 +683,7 @@
   (lambda (out)
     (fprintf out "# Language Gap Report (Strict 1.3)\n\n")
     (fprintf out "Generated: `~a`\n\n" (hash-ref report 'generated-at))
+    (fprintf out "- JSON source: `~a`\n\n" (path->display json-out))
     (define totals (hash-ref report 'totals))
     (fprintf out "## Totals\n\n")
     (fprintf out "- Corpus files: `~a`\n" (hash-ref totals 'corpus-files))

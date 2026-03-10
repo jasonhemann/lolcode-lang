@@ -305,6 +305,7 @@
   (lambda (out)
     (fprintf out "# Tier2 Classified Eval Snapshot\n\n")
     (fprintf out "Generated: `~a`\n\n" (hash-ref summary 'generated-at))
+    (fprintf out "- JSON source: `~a`\n\n" (path->display json-out))
     (fprintf out "- Corpus root: `~a`\n" (hash-ref summary 'corpus-root))
     (fprintf out "- Timeout seconds: `~a`\n\n" timeout-seconds)
     (fprintf out "## Totals\n\n")

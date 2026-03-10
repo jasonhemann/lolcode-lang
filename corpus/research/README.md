@@ -1,36 +1,59 @@
-# Corpus Research Docs
+# Corpus Research
 
-This directory has two kinds of files:
+Canonical policy:
 
-1. Active tracking surfaces (edit/read first).
-2. Historical snapshots (dated investigation notes and one-off reports).
+- JSON files are the source of truth.
+- Markdown files are rendered views and summaries.
+- The canonical map is `corpus/research/CANONICAL_ARTIFACTS.json`.
 
-## Active Tracking Surfaces
+## Canonical Tracking Surfaces
 
-- `CURRENT_STATUS.md`
-  - Canonical high-level status for:
-    - strict-1.3 good/rejected/fixed buckets
-    - corpus sync/extraction progress
-    - external issue/PR harvesting backlog
-- `external_issues/QUEUE.md`
-  - Current ranked wave queue for issue/PR-based repro import.
-- `lci_issues/TRIAGE.md`
-  - LCI-specific triage workflow and candidate list.
-- `availability/AVAILABILITY_REPORT.md`
-  - Live/archive availability of candidate repos.
-- `SPEC_1_2_1_3_IMPLEMENTATION_STATUS.md`
-  - Core strict-spec implementation status summary.
+<!-- canonical-readme:start -->
+- `corpus/research/CURRENT_STATUS.md`
+- `corpus/research/tier1-eval-classified.md`
+- `corpus/research/tier2-eval-classified.md`
+- `corpus/research/tier3-eval-classified.md`
+- `corpus/research/LANGUAGE_GAPS_REPORT.md`
+- `corpus/research/EXTERNAL_EVIDENCE_REPORT.md`
+- `corpus/research/external_issues/QUEUE.md`
+- `corpus/research/lci_issues/TRIAGE.md`
+- `corpus/research/availability/AVAILABILITY_REPORT.md`
+<!-- canonical-readme:end -->
 
-## Regeneration Workflow
+## Refresh Workflow
 
 ```bash
-./scripts/sync_corpus.sh
-./scripts/build_external_regression_queue.sh
-./scripts/sync_lci_issue_backlog.sh
-./scripts/eval_tier2_corpus.sh
-./scripts/update_corpus_status.sh
+./scripts/refresh_research.sh
+```
+
+Offline/advisory refresh:
+
+```bash
+./scripts/refresh_research.sh --offline
+```
+
+Faster local advisory refresh (skip external evidence replay):
+
+```bash
+./scripts/refresh_research.sh --offline --skip-external-evidence-run
+```
+
+Standalone advisory drift check:
+
+```bash
+./scripts/check_research_drift.sh
+```
+
+Install local non-blocking pre-push hook:
+
+```bash
+./scripts/install_research_prepush_hook.sh
 ```
 
 ## Historical Snapshots
 
-Files with date-stamped names (for example `*_2026-03-02.md`) are retained as provenance snapshots and are not canonical policy/tracking sources.
+Historical snapshots and one-off reports live under:
+
+- `corpus/research/archive/`
+
+They are retained for provenance and are not canonical active surfaces.

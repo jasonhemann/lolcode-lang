@@ -1,0 +1,259 @@
+{
+  "schema_version": 1,
+  "policy": {
+    "mode": "advisory",
+    "source_of_truth": "json",
+    "notes": "JSON artifacts are canonical state; Markdown artifacts are rendered views."
+  },
+  "artifacts": [
+    {
+      "id": "manifest-json",
+      "kind": "json",
+      "path": "corpus/manifest.json",
+      "producer": "./scripts/sync_corpus.sh",
+      "depends_on": [],
+      "purpose": "Corpus sync manifest and extraction progress",
+      "include_in_readme": false
+    },
+    {
+      "id": "tier1-eval-json",
+      "kind": "json",
+      "path": "corpus/research/tier1-eval-classified.json",
+      "producer": "./scripts/eval_tier2_corpus.sh --corpus-root corpus/tier1 --json-out corpus/research/tier1-eval-classified.json --md-out corpus/research/tier1-eval-classified.md",
+      "depends_on": [
+        "corpus/tier1"
+      ],
+      "purpose": "Tier1 corpus classification outcomes",
+      "include_in_readme": false
+    },
+    {
+      "id": "tier2-eval-json",
+      "kind": "json",
+      "path": "corpus/research/tier2-eval-classified.json",
+      "producer": "./scripts/eval_tier2_corpus.sh",
+      "depends_on": [
+        "corpus/tier2"
+      ],
+      "purpose": "Tier2 corpus classification outcomes",
+      "include_in_readme": false
+    },
+    {
+      "id": "tier3-eval-json",
+      "kind": "json",
+      "path": "corpus/research/tier3-eval-classified.json",
+      "producer": "./scripts/eval_tier2_corpus.sh --corpus-root corpus/tier3 --json-out corpus/research/tier3-eval-classified.json --md-out corpus/research/tier3-eval-classified.md",
+      "depends_on": [
+        "corpus/tier3"
+      ],
+      "purpose": "Tier3 corpus classification outcomes",
+      "include_in_readme": false
+    },
+    {
+      "id": "language-gaps-json",
+      "kind": "json",
+      "path": "corpus/research/language-gaps-report.json",
+      "producer": "./scripts/analyze_corpus_gaps.sh",
+      "depends_on": [
+        "corpus/tier2",
+        "tests/spec/fixtures/programs"
+      ],
+      "purpose": "Strict-1.3 corpus gap analysis",
+      "include_in_readme": false
+    },
+    {
+      "id": "external-evidence-json",
+      "kind": "json",
+      "path": "corpus/research/external-evidence-report.json",
+      "producer": "./scripts/analyze_external_evidence.sh",
+      "depends_on": [
+        "tests/regression-evidence/external/evidence-run.json"
+      ],
+      "purpose": "External evidence aggregate classification",
+      "include_in_readme": false
+    },
+    {
+      "id": "external-queue-json",
+      "kind": "json",
+      "path": "corpus/research/external_issues/candidate_repros_ranked.json",
+      "producer": "./scripts/build_external_regression_queue.sh",
+      "depends_on": [
+        "corpus/tier2/CANDIDATE_REPOS.tsv"
+      ],
+      "purpose": "Ranked external repro candidate queue",
+      "include_in_readme": false
+    },
+    {
+      "id": "lci-issues-json",
+      "kind": "json",
+      "path": "corpus/research/lci_issues/issues.json",
+      "producer": "./scripts/sync_lci_issue_backlog.sh",
+      "depends_on": [],
+      "purpose": "LCI issues snapshot",
+      "include_in_readme": false
+    },
+    {
+      "id": "lci-pulls-json",
+      "kind": "json",
+      "path": "corpus/research/lci_issues/pulls.json",
+      "producer": "./scripts/sync_lci_issue_backlog.sh",
+      "depends_on": [],
+      "purpose": "LCI pull requests snapshot",
+      "include_in_readme": false
+    },
+    {
+      "id": "availability-json",
+      "kind": "json",
+      "path": "corpus/research/availability/availability.json",
+      "producer": "./scripts/check_implementation_availability.sh",
+      "depends_on": [
+        "corpus/tier2/CANDIDATE_REPOS.tsv"
+      ],
+      "purpose": "Repo availability and archive recovery status",
+      "include_in_readme": false
+    },
+    {
+      "id": "rejected-noncompliant-json",
+      "kind": "json",
+      "path": "corpus/research/PROMOTED_1_3_REJECTED_NONCOMPLIANT.json",
+      "producer": "manual/triage",
+      "depends_on": [],
+      "purpose": "Explicit strict-1.3 reject list",
+      "include_in_readme": false
+    },
+    {
+      "id": "current-status-md",
+      "kind": "md",
+      "path": "corpus/research/CURRENT_STATUS.md",
+      "producer": "./scripts/update_corpus_status.sh",
+      "depends_on": [
+        "corpus/manifest.json",
+        "corpus/research/tier1-eval-classified.json",
+        "corpus/research/tier2-eval-classified.json",
+        "corpus/research/external_issues/candidate_repros_ranked.json",
+        "corpus/research/external-evidence-report.json",
+        "corpus/research/lci_issues/issues.json",
+        "corpus/research/lci_issues/pulls.json"
+      ],
+      "rendered_from": null,
+      "purpose": "High-level current project status dashboard",
+      "include_in_readme": true
+    },
+    {
+      "id": "tier1-eval-md",
+      "kind": "md",
+      "path": "corpus/research/tier1-eval-classified.md",
+      "producer": "./scripts/eval_tier2_corpus.sh --corpus-root corpus/tier1 --json-out corpus/research/tier1-eval-classified.json --md-out corpus/research/tier1-eval-classified.md",
+      "depends_on": [
+        "corpus/research/tier1-eval-classified.json"
+      ],
+      "rendered_from": "corpus/research/tier1-eval-classified.json",
+      "purpose": "Tier1 classification rendered report",
+      "include_in_readme": true
+    },
+    {
+      "id": "tier2-eval-md",
+      "kind": "md",
+      "path": "corpus/research/tier2-eval-classified.md",
+      "producer": "./scripts/eval_tier2_corpus.sh",
+      "depends_on": [
+        "corpus/research/tier2-eval-classified.json"
+      ],
+      "rendered_from": "corpus/research/tier2-eval-classified.json",
+      "purpose": "Tier2 classification rendered report",
+      "include_in_readme": true
+    },
+    {
+      "id": "tier3-eval-md",
+      "kind": "md",
+      "path": "corpus/research/tier3-eval-classified.md",
+      "producer": "./scripts/eval_tier2_corpus.sh --corpus-root corpus/tier3 --json-out corpus/research/tier3-eval-classified.json --md-out corpus/research/tier3-eval-classified.md",
+      "depends_on": [
+        "corpus/research/tier3-eval-classified.json"
+      ],
+      "rendered_from": "corpus/research/tier3-eval-classified.json",
+      "purpose": "Tier3 classification rendered report",
+      "include_in_readme": true
+    },
+    {
+      "id": "language-gaps-md",
+      "kind": "md",
+      "path": "corpus/research/LANGUAGE_GAPS_REPORT.md",
+      "producer": "./scripts/analyze_corpus_gaps.sh",
+      "depends_on": [
+        "corpus/research/language-gaps-report.json"
+      ],
+      "rendered_from": "corpus/research/language-gaps-report.json",
+      "purpose": "Strict-1.3 corpus gap rendered report",
+      "include_in_readme": true
+    },
+    {
+      "id": "external-evidence-md",
+      "kind": "md",
+      "path": "corpus/research/EXTERNAL_EVIDENCE_REPORT.md",
+      "producer": "./scripts/analyze_external_evidence.sh",
+      "depends_on": [
+        "corpus/research/external-evidence-report.json"
+      ],
+      "rendered_from": "corpus/research/external-evidence-report.json",
+      "purpose": "External evidence rendered report",
+      "include_in_readme": true
+    },
+    {
+      "id": "external-queue-md",
+      "kind": "md",
+      "path": "corpus/research/external_issues/QUEUE.md",
+      "producer": "./scripts/build_external_regression_queue.sh",
+      "depends_on": [
+        "corpus/research/external_issues/candidate_repros_ranked.json"
+      ],
+      "rendered_from": null,
+      "purpose": "External queue human-readable wave plan",
+      "include_in_readme": true
+    },
+    {
+      "id": "lci-triage-md",
+      "kind": "md",
+      "path": "corpus/research/lci_issues/TRIAGE.md",
+      "producer": "manual/triage",
+      "depends_on": [
+        "corpus/research/lci_issues/issues.json",
+        "corpus/research/lci_issues/pulls.json"
+      ],
+      "rendered_from": null,
+      "purpose": "LCI triage queue and workflow",
+      "include_in_readme": true
+    },
+    {
+      "id": "availability-md",
+      "kind": "md",
+      "path": "corpus/research/availability/AVAILABILITY_REPORT.md",
+      "producer": "./scripts/check_implementation_availability.sh",
+      "depends_on": [
+        "corpus/research/availability/availability.json"
+      ],
+      "rendered_from": null,
+      "purpose": "Availability rendered summary",
+      "include_in_readme": true
+    },
+    {
+      "id": "current-run-json",
+      "kind": "json",
+      "path": "corpus/research/current_run.json",
+      "producer": "./scripts/refresh_research.sh",
+      "depends_on": [],
+      "purpose": "Last refresh execution metadata",
+      "include_in_readme": false
+    },
+    {
+      "id": "drift-report-json",
+      "kind": "json",
+      "path": "corpus/research/drift-report.json",
+      "producer": "./scripts/check_research_drift.sh",
+      "depends_on": [
+        "corpus/research/CANONICAL_ARTIFACTS.json"
+      ],
+      "purpose": "Advisory drift check findings",
+      "include_in_readme": false
+    }
+  ]
+}
