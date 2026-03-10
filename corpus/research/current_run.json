@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-03-10T17:57:14Z",
+  "generated_at": "2026-03-10T22:38:43Z",
   "mode": "advisory",
-  "started_at": "2026-03-10T17:56:58Z",
-  "ended_at": "2026-03-10T17:57:14Z",
+  "started_at": "2026-03-10T22:38:28Z",
+  "ended_at": "2026-03-10T22:38:43Z",
   "offline": true,
   "skip_external_evidence_run": true,
   "snapshot_tag": null,
@@ -13,57 +13,57 @@
     {
       "name": "eval-tier1",
       "status": "ok",
-      "started_at": "2026-03-10T17:56:58Z",
-      "ended_at": "2026-03-10T17:57:02Z",
-      "duration_seconds": 4,
+      "started_at": "2026-03-10T22:38:28Z",
+      "ended_at": "2026-03-10T22:38:30Z",
+      "duration_seconds": 2,
       "exit_code": 0
     },
     {
       "name": "eval-tier2",
       "status": "ok",
-      "started_at": "2026-03-10T17:57:02Z",
-      "ended_at": "2026-03-10T17:57:06Z",
+      "started_at": "2026-03-10T22:38:30Z",
+      "ended_at": "2026-03-10T22:38:34Z",
       "duration_seconds": 4,
       "exit_code": 0
     },
     {
       "name": "eval-tier3",
       "status": "ok",
-      "started_at": "2026-03-10T17:57:06Z",
-      "ended_at": "2026-03-10T17:57:08Z",
-      "duration_seconds": 2,
+      "started_at": "2026-03-10T22:38:34Z",
+      "ended_at": "2026-03-10T22:38:35Z",
+      "duration_seconds": 1,
       "exit_code": 0
     },
     {
       "name": "analyze-language-gaps",
       "status": "ok",
-      "started_at": "2026-03-10T17:57:08Z",
-      "ended_at": "2026-03-10T17:57:12Z",
-      "duration_seconds": 4,
+      "started_at": "2026-03-10T22:38:35Z",
+      "ended_at": "2026-03-10T22:38:40Z",
+      "duration_seconds": 5,
       "exit_code": 0
     },
     {
       "name": "analyze-external-evidence",
       "status": "ok",
-      "started_at": "2026-03-10T17:57:12Z",
-      "ended_at": "2026-03-10T17:57:14Z",
+      "started_at": "2026-03-10T22:38:40Z",
+      "ended_at": "2026-03-10T22:38:42Z",
       "duration_seconds": 2,
       "exit_code": 0
     },
     {
       "name": "update-current-status",
       "status": "ok",
-      "started_at": "2026-03-10T17:57:14Z",
-      "ended_at": "2026-03-10T17:57:14Z",
+      "started_at": "2026-03-10T22:38:42Z",
+      "ended_at": "2026-03-10T22:38:42Z",
       "duration_seconds": 0,
       "exit_code": 0
     },
     {
       "name": "check-research-drift",
       "status": "ok",
-      "started_at": "2026-03-10T17:57:14Z",
-      "ended_at": "2026-03-10T17:57:14Z",
-      "duration_seconds": 0,
+      "started_at": "2026-03-10T22:38:42Z",
+      "ended_at": "2026-03-10T22:38:43Z",
+      "duration_seconds": 1,
       "exit_code": 0
     }
   ]

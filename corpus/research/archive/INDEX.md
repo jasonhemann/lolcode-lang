@@ -1,6 +1,6 @@
 # Research Archive Index
 
-- Generated: 2026-03-10T17:57:14Z
+- Generated: 2026-03-10T22:38:43Z
 - Purpose: historical snapshots and one-off reports moved from canonical top-level surfaces.
 
 ## Snapshot Paths

@@ -1,6 +1,6 @@
 # Tier2 Classified Eval Snapshot
 
-Generated: `Tuesday, March 10th, 2026 1:57:02pm`
+Generated: `Tuesday, March 10th, 2026 6:38:30pm`
 
 - JSON source: `corpus/research/tier1-eval-classified.json`
 
@@ -22,20 +22,18 @@ Generated: `Tuesday, March 10th, 2026 1:57:02pm`
 
 ### Outcome Counts (All Files)
 
-- `ok`: `264`
+- `ok`: `265`
 - `parse-error`: `49`
 - `runtime-error`: `23`
 - `lex-error`: `12`
 - `non-program`: `3`
-- `timeout`: `1`
 
 ### Outcome Counts (Likely Programs)
 
-- `ok`: `264`
+- `ok`: `265`
 - `parse-error`: `49`
 - `runtime-error`: `23`
 - `lex-error`: `12`
-- `timeout`: `1`
 
 ### Top Messages (Likely Programs)
 
@@ -88,7 +86,6 @@ Generated: `Tuesday, March 10th, 2026 1:57:02pm`
 - `MAEK: cannot cast YARN to numeric value: " 123"`: `1`
 - `parse-source: syntax error: unexpected ID ("ITS") at line 8, col 13`: `1`
 - `parse-source: syntax error: unexpected ID ("sit") at line 3, col 15`: `1`
-- `evaluation timed out after 2.0 seconds`: `1`
 - `parse-source: syntax error: unexpected AN at line 2, col 26`: `1`
 - `parse-source: syntax error: unexpected AN at line 2, col 25`: `1`
 - `parse-source: syntax error: unexpected AN at line 3, col 19`: `1`
@@ -98,7 +95,6 @@ Generated: `Tuesday, March 10th, 2026 1:57:02pm`
 ## Sample Error Rows
 
 - `corpus/tier1/i-has-js/files/examples/LOOP.lol` => `parse-error` (`parse-source: syntax error: unexpected ID ("ITS") at line 8, col 13`)
-- `corpus/tier1/lci/files/test/1.3-Tests/0-Benchmarks/1-BFInterpreter/test.lol` => `timeout` (`evaluation timed out after 2.0 seconds`)
 - `corpus/tier1/lci/files/test/1.3-Tests/1-Structure/14-NoNewlineAfterJoinLF/test.lol` => `lex-error` (`lex-source: line continuation may not be followed by an empty line at line 2, col 31`)
 - `corpus/tier1/lci/files/test/1.3-Tests/1-Structure/15-NoNewlineAfterJoinCR/test.lol` => `lex-error` (`lex-source: line continuation may not be followed by an empty line at line 2, col 31`)
 - `corpus/tier1/lci/files/test/1.3-Tests/1-Structure/16-NoNewlineAfterJoinCRLF/test.lol` => `lex-error` (`lex-source: line continuation may not be followed by an empty line at line 2, col 31`)
@@ -117,4 +113,5 @@ Generated: `Tuesday, March 10th, 2026 1:57:02pm`
 - `corpus/tier1/lci/files/test/1.3-Tests/3-Types/4-Float/2-MustHaveAdjacentHyphen/test.lol` => `parse-error` (`parse-source: invalid numeric literal: '-' must be adjacent to digits at line 2, col 25`)
 - `corpus/tier1/lci/files/test/1.3-Tests/3-Types/5-String/2-Syntax/1-IgnoreContinuation/test.lol` => `lex-error` (`lex-source: unterminated string literal at line 2, col 17`)
 - `corpus/tier1/lci/files/test/1.3-Tests/3-Types/5-String/2-Syntax/3-MustHaveClosingQuote/test.lol` => `lex-error` (`lex-source: unterminated string literal at line 2, col 17`)
+- `corpus/tier1/lci/files/test/1.3-Tests/3-Types/5-String/3-Comparison/test.lol` => `parse-error` (`parse-source: syntax error: unexpected ID ("STRING?") at line 2, col 13`)
 

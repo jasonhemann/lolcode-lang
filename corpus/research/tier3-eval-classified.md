@@ -1,6 +1,6 @@
 # Tier2 Classified Eval Snapshot
 
-Generated: `Tuesday, March 10th, 2026 1:57:08pm`
+Generated: `Tuesday, March 10th, 2026 6:38:35pm`
 
 - JSON source: `corpus/research/tier3-eval-classified.json`
 
