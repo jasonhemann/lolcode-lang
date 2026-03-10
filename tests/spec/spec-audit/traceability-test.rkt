@@ -48,5 +48,32 @@
   (for ([name (in-list (list "method-fallthrough-it-vs-slot-it"
                              "method-explicit-me-slot-it"
                              "object-body-it-slot-construction"
+                             "method-call-noncallable-after-omgwtf-synthesis"
+                             "function-identifier-value-binding"
+                             "object-body-redeclare-overwrite-does-not-mutate-outer"))])
+    (check-true (string-contains? runtime-core-text name)))
+
+  (define holdings-index-path
+    (build-path here ".." "HOLDINGS_1_3_TEST_INDEX.md"))
+  (check-true (file-exists? holdings-index-path))
+  (define holdings-index-text
+    (file->string holdings-index-path))
+  (for ([holding-id (in-list (list "H01" "H02" "H03" "H04"
+                                   "H05" "H06" "H07" "H08"
+                                   "H09" "H10" "H11" "H12"
+                                   "H13" "H14" "H15" "H16"))])
+    (check-true (string-contains? holdings-index-text holding-id)))
+  (for ([name (in-list (list "function-identifier-value-binding"
+                             "object-body-redeclare-overwrite-does-not-mutate-outer"
                              "method-call-noncallable-after-omgwtf-synthesis"))])
-    (check-true (string-contains? runtime-core-text name))))
+    (check-true (string-contains? holdings-index-text name)))
+
+  (define parse-negative-path
+    (build-path here ".." "parse-negative-test.rkt"))
+  (check-true (file-exists? parse-negative-path))
+  (define parse-negative-text
+    (file->string parse-negative-path))
+  (for ([name (in-list (list "mixin-declare"
+                             "invalid-plain-a-parent-declare"))])
+    (check-true (string-contains? parse-negative-text name))
+    (check-true (string-contains? holdings-index-text name))))

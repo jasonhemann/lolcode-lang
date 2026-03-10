@@ -1201,6 +1201,19 @@
   (check-equal? (hash-ref object-block-slot-first-over-global 'stdout)
                 "slot\nglobal\n")
 
+  (define object-body-redeclare-overwrite-does-not-mutate-outer-src
+    "HAI 1.3\nI HAS A name ITZ \"outer\"\nO HAI IM o\n  I HAS A name ITZ \"inner-1\"\n  I HAS A name ITZ \"inner-2\"\nKTHX\nVISIBLE name\nVISIBLE o'Z name\nKTHXBYE\n")
+  (define object-body-redeclare-overwrite-does-not-mutate-outer
+    (run-source object-body-redeclare-overwrite-does-not-mutate-outer-src))
+  (check-eq? (hash-ref object-body-redeclare-overwrite-does-not-mutate-outer
+                       'status)
+             'ok)
+  ;; Regression: repeated object-body I HAS A overwrites object-local slot value
+  ;; while preserving the outer binding with the same name.
+  (check-equal? (hash-ref object-body-redeclare-overwrite-does-not-mutate-outer
+                          'stdout)
+                "outer\ninner-2\n")
+
   (define object-block-slot-first-over-lexical-local-src
     "HAI 1.3\nHOW IZ I maker YR x\n  O HAI IM obj\n    I HAS A x ITZ \"slot\"\n    I HAS A seen ITZ x\n  KTHX\n  VISIBLE obj'Z seen\n  FOUND YR x\nIF U SAY SO\nVISIBLE I IZ maker YR \"local\" MKAY\nKTHXBYE\n")
   (define object-block-slot-first-over-lexical-local
@@ -1334,6 +1347,14 @@
   (define function-storage (run-source function-storage-src))
   (check-eq? (hash-ref function-storage 'status) 'ok)
   (check-equal? (hash-ref function-storage 'stdout) "a\n")
+
+  (define function-identifier-value-binding-src
+    "HAI 1.3\nHOW IZ I f\n  FOUND YR 7\nIF U SAY SO\nI HAS A g ITZ f\nVISIBLE I IZ g MKAY\nKTHXBYE\n")
+  (define function-identifier-value-binding
+    (run-source function-identifier-value-binding-src))
+  (check-eq? (hash-ref function-identifier-value-binding 'status) 'ok)
+  ;; Regression: bare function identifiers denote function values (not nullary calls).
+  (check-equal? (hash-ref function-identifier-value-binding 'stdout) "7\n")
 
   (define extracted-slot-function-direct-call-namespace-src
     "HAI 1.3\nI HAS A prefix ITZ \"G-\"\nHOW IZ I funkin YR x\n  FOUND YR SMOOSH prefix AN x MKAY\nIF U SAY SO\nO HAI IM box\n  I HAS A prefix ITZ \"O-\"\n  I HAS A f ITZ funkin\nKTHX\nVISIBLE I IZ box'Z f YR \"x\" MKAY\nI HAS A extracted ITZ box'Z f\nVISIBLE I IZ extracted YR \"x\" MKAY\nKTHXBYE\n")
