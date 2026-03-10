@@ -1,0 +1,70 @@
+{
+  "generated_at": "2026-03-10T17:57:14Z",
+  "mode": "advisory",
+  "started_at": "2026-03-10T17:56:58Z",
+  "ended_at": "2026-03-10T17:57:14Z",
+  "offline": true,
+  "skip_external_evidence_run": true,
+  "snapshot_tag": null,
+  "status": "ok",
+  "failed_step": null,
+  "drift_warnings": 0,
+  "steps": [
+    {
+      "name": "eval-tier1",
+      "status": "ok",
+      "started_at": "2026-03-10T17:56:58Z",
+      "ended_at": "2026-03-10T17:57:02Z",
+      "duration_seconds": 4,
+      "exit_code": 0
+    },
+    {
+      "name": "eval-tier2",
+      "status": "ok",
+      "started_at": "2026-03-10T17:57:02Z",
+      "ended_at": "2026-03-10T17:57:06Z",
+      "duration_seconds": 4,
+      "exit_code": 0
+    },
+    {
+      "name": "eval-tier3",
+      "status": "ok",
+      "started_at": "2026-03-10T17:57:06Z",
+      "ended_at": "2026-03-10T17:57:08Z",
+      "duration_seconds": 2,
+      "exit_code": 0
+    },
+    {
+      "name": "analyze-language-gaps",
+      "status": "ok",
+      "started_at": "2026-03-10T17:57:08Z",
+      "ended_at": "2026-03-10T17:57:12Z",
+      "duration_seconds": 4,
+      "exit_code": 0
+    },
+    {
+      "name": "analyze-external-evidence",
+      "status": "ok",
+      "started_at": "2026-03-10T17:57:12Z",
+      "ended_at": "2026-03-10T17:57:14Z",
+      "duration_seconds": 2,
+      "exit_code": 0
+    },
+    {
+      "name": "update-current-status",
+      "status": "ok",
+      "started_at": "2026-03-10T17:57:14Z",
+      "ended_at": "2026-03-10T17:57:14Z",
+      "duration_seconds": 0,
+      "exit_code": 0
+    },
+    {
+      "name": "check-research-drift",
+      "status": "ok",
+      "started_at": "2026-03-10T17:57:14Z",
+      "ended_at": "2026-03-10T17:57:14Z",
+      "duration_seconds": 0,
+      "exit_code": 0
+    }
+  ]
+}

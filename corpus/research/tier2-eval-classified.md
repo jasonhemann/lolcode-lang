@@ -1,6 +1,8 @@
 # Tier2 Classified Eval Snapshot
 
-Generated: `Tuesday, March 10th, 2026 12:21:10am`
+Generated: `Tuesday, March 10th, 2026 1:57:06pm`
+
+- JSON source: `corpus/research/tier2-eval-classified.json`
 
 - Corpus root: `corpus/tier2`
 - Timeout seconds: `2.0`
@@ -35,7 +37,7 @@ Generated: `Tuesday, March 10th, 2026 12:21:10am`
 ### Top Messages (Likely Programs)
 
 - `parse-source: syntax error: unexpected NEWLINE at line 1, col 4`: `101`
-- `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)`: `28`
+- `parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)`: `32`
 - `parse-source: syntax error: unexpected NEWLINE at line 2, col 4`: `10`
 - `parse-source: syntax error: unexpected ID ("STDIO?") at line 2, col 9`: `6`
 - `lex-source: unterminated string literal at line 6, col 27`: `4`
@@ -45,7 +47,6 @@ Generated: `Tuesday, March 10th, 2026 12:21:10am`
 - `parse-source: syntax error: unexpected ID ("RAYLIB?") at line 2, col 9`: `2`
 - `parse-source: syntax error: unexpected STRING ((yarn-template (list (yarn-part-text "Dear curious test reader")))) at line 1, col 5`: `2`
 - `parse-source: syntax error: unexpected MOD at line 13, col 42`: `1`
-- `parse-source: syntax error: unexpected I at line 24, col 25`: `1`
 - `parse-source: syntax error: unexpected STRING ((yarn-template (list (yarn-part-text "This iz teh test")))) at line 1, col 5`: `1`
 - `parse-source: syntax error: unexpected NEWLINE at line 4, col 4`: `1`
 - `parse-source: syntax error: unexpected ID ("STDIO?") at line 26, col 17`: `1`
@@ -59,16 +60,13 @@ Generated: `Tuesday, March 10th, 2026 12:21:10am`
 - `parse-source: invalid identifier syntax: "//"`: `1`
 - `parse-source: syntax error: unexpected OF at line 12, col 19`: `1`
 - `parse-source: syntax error: unexpected SUM at line 3, col 13`: `1`
-- `parse-source: syntax error: unexpected ID ("STDIO?") at line 2, col 11`: `1`
-- `parse-source: syntax error: unexpected STRING ((yarn-template (list (yarn-part-text " years old")))) at line 34, col 34`: `1`
 - `parse-source: syntax error: unexpected ID ("STRING?") at line 2, col 9`: `1`
 - `parse-source: syntax error: unexpected DIFFRINT at line 42, col 13`: `1`
 - `parse-source: syntax error: unexpected DIFFRINT at line 22, col 13`: `1`
 - `parse-source: syntax error: unexpected NEWLINE at line 1, col 5`: `1`
 - `lex-source: line continuation marker must be at end of line at line 19, col 48`: `1`
-- `parse-source: syntax error: unexpected DIFFRINT at line 17, col 27`: `1`
 - `parse-source: syntax error: unexpected OF at line 49, col 37`: `1`
-- `parse-source: syntax error: unexpected BOTH at line 5, col 43`: `1`
+- `parse-source: syntax error: unexpected ID ("STDIO?") at line 2, col 11`: `1`
 
 ## Sample Error Rows
 

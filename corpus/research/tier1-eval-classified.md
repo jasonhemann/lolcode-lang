@@ -1,6 +1,8 @@
 # Tier2 Classified Eval Snapshot
 
-Generated: `Monday, March 9th, 2026 12:03:53pm`
+Generated: `Tuesday, March 10th, 2026 1:57:02pm`
+
+- JSON source: `corpus/research/tier1-eval-classified.json`
 
 - Corpus root: `corpus/tier1`
 - Timeout seconds: `2.0`
@@ -8,28 +10,29 @@ Generated: `Monday, March 9th, 2026 12:03:53pm`
 ## Totals
 
 - Files: `352`
-- Likely programs: `350`
-- Non-programs: `2`
+- Likely programs: `349`
+- Non-programs: `3`
 
 ### Classification Reasons
 
-- `leading-hai`: `347`
+- `leading-hai`: `346`
 - `hai-found-not-leading`: `3`
 - `no-hai-header`: `2`
+- `empty-or-comments-only`: `1`
 
 ### Outcome Counts (All Files)
 
 - `ok`: `264`
-- `parse-error`: `50`
+- `parse-error`: `49`
 - `runtime-error`: `23`
 - `lex-error`: `12`
-- `non-program`: `2`
+- `non-program`: `3`
 - `timeout`: `1`
 
 ### Outcome Counts (Likely Programs)
 
 - `ok`: `264`
-- `parse-error`: `50`
+- `parse-error`: `49`
 - `runtime-error`: `23`
 - `lex-error`: `12`
 - `timeout`: `1`
@@ -50,14 +53,12 @@ Generated: `Monday, March 9th, 2026 12:03:53pm`
 - `parse-source: syntax error: unexpected ID ("STDIO?") at line 2, col 13`: `2`
 - `remainder: division by zero`: `2`
 - `MAEK: cannot cast YARN to numeric value: ""`: `2`
-- `parse-source: invalid numeric literal: '-' must be adjacent to digits at line 2, col 25`: `2`
 - `MAEK: cannot cast YARN to numeric value: "abc"`: `2`
 - `parse-source: syntax error: unexpected AN at line 2, col 28`: `1`
 - `parse-source: syntax error: unexpected NEWLINE at line 2, col 16`: `1`
 - `run-program: function fun expected 0 args, got 1`: `1`
 - `run-program: identifier already declared in this scope: var`: `1`
 - `parse-source: syntax error: unexpected VISIBLE at line 13, col 9`: `1`
-- `parse-source: syntax error: unexpected ID ("FAIL") at line 2, col 113`: `1`
 - `parse-source: duplicate OMG literal in WTF?: (expr-number "1")`: `1`
 - `parse-source: WTF? case literal must be NUMBER, STRING, WIN, FAIL, or NOOB; got var`: `1`
 - `lex-source: invalid Unicode normative name in string literal at line 3, col 17`: `1`
@@ -81,6 +82,8 @@ Generated: `Monday, March 9th, 2026 12:03:53pm`
 - `IS-NOW-A: cannot cast YARN to numeric value: " 1.23"`: `1`
 - `lex-source: invalid numeric literal at line 2, col 25`: `1`
 - `IS-NOW-A: cannot cast YARN to numeric value: " 123"`: `1`
+- `parse-source: syntax error: unexpected MKAY at line 2, col 806`: `1`
+- `parse-source: invalid numeric literal: '-' must be adjacent to digits at line 2, col 25`: `1`
 - `quotient: division by zero`: `1`
 - `MAEK: cannot cast YARN to numeric value: " 123"`: `1`
 - `parse-source: syntax error: unexpected ID ("ITS") at line 8, col 13`: `1`
@@ -110,8 +113,8 @@ Generated: `Monday, March 9th, 2026 12:03:53pm`
 - `corpus/tier1/lci/files/test/1.3-Tests/2-Comments/2-MultipleLine/5-MustEndOnOwnLine/test.lol` => `lex-error` (`lex-source: TLDR must be followed by newline or comma`)
 - `corpus/tier1/lci/files/test/1.3-Tests/3-Types/1-Nil/2-NilToInteger/test.lol` => `runtime-error` (`SUM: cannot cast NOOB to numeric value`)
 - `corpus/tier1/lci/files/test/1.3-Tests/3-Types/1-Nil/3-NilToFloat/test.lol` => `runtime-error` (`SUM: cannot cast NOOB to numeric value`)
-- `corpus/tier1/lci/files/test/1.3-Tests/3-Types/3-Integer/2-MustHaveAdjacentHyphen/test.lol` => `parse-error` (`parse-source: invalid numeric literal: '-' must be adjacent to digits at line 2, col 25`)
 - `corpus/tier1/lci/files/test/1.3-Tests/3-Types/4-Float/1-OnlyOneDecimalPoint/test.lol` => `lex-error` (`lex-source: invalid numeric literal at line 2, col 25`)
 - `corpus/tier1/lci/files/test/1.3-Tests/3-Types/4-Float/2-MustHaveAdjacentHyphen/test.lol` => `parse-error` (`parse-source: invalid numeric literal: '-' must be adjacent to digits at line 2, col 25`)
 - `corpus/tier1/lci/files/test/1.3-Tests/3-Types/5-String/2-Syntax/1-IgnoreContinuation/test.lol` => `lex-error` (`lex-source: unterminated string literal at line 2, col 17`)
+- `corpus/tier1/lci/files/test/1.3-Tests/3-Types/5-String/2-Syntax/3-MustHaveClosingQuote/test.lol` => `lex-error` (`lex-source: unterminated string literal at line 2, col 17`)
 

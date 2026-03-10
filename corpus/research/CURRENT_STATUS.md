@@ -1,6 +1,6 @@
 # Corpus Current Status
 
-- Generated: 2026-03-10T04:23:03Z
+- Generated: 2026-03-10T17:57:14Z
 - Policy scope: strict `HAI 1.3` implementation target
 
 ## Canonical Sources
@@ -18,22 +18,22 @@
 
 ### Tier1
 
-- Snapshot generated-at: Monday, March 9th, 2026 12:03:53pm
+- Snapshot generated-at: Tuesday, March 10th, 2026 1:57:02pm
 - Files: 352
-- Likely programs: 350
-- Non-programs: 2
+- Likely programs: 349
+- Non-programs: 3
 
 | Outcome (likely programs) | Count |
 |---|---:|
 | `ok` | 264 |
-| `parse-error` | 50 |
+| `parse-error` | 49 |
 | `runtime-error` | 23 |
 | `lex-error` | 12 |
 | `timeout` | 1 |
 
 ### Tier2
 
-- Snapshot generated-at: Tuesday, March 10th, 2026 12:21:10am
+- Snapshot generated-at: Tuesday, March 10th, 2026 1:57:06pm
 - Files: 223
 - Likely programs: 193
 - Non-programs: 30
