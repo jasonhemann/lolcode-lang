@@ -48,6 +48,22 @@
   (check-true (string? missing-version-msg))
   (check-true (regexp-match? #px"syntax error: unexpected NEWLINE" missing-version-msg))
 
+  (define leading-btw-before-hai
+    "BTW comment before opener\nHAI 1.3\nVISIBLE \"x\"\nKTHXBYE\n")
+  (define leading-btw-before-hai-msg
+    (capture-message (lambda () (parse-program leading-btw-before-hai))))
+  (check-true (string? leading-btw-before-hai-msg))
+  (check-true (regexp-match? #px"program must begin with HAI opener"
+                             leading-btw-before-hai-msg))
+
+  (define leading-obtw-before-hai
+    "OBTW\n  block preface\nTLDR\nHAI 1.3\nVISIBLE \"x\"\nKTHXBYE\n")
+  (define leading-obtw-before-hai-msg
+    (capture-message (lambda () (parse-program leading-obtw-before-hai))))
+  (check-true (string? leading-obtw-before-hai-msg))
+  (check-true (regexp-match? #px"program must begin with HAI opener"
+                             leading-obtw-before-hai-msg))
+
   (define unsupported-v12
     "HAI 1.2\nVISIBLE \"legacy\"\nKTHXBYE\n")
   (define unsupported-v12-msg
@@ -82,7 +98,7 @@
 
   (define lowercase-keywords-program
     "hai 1.3\nvisible \"nope\"\nkthxbye\n")
-  (check-exn #px"syntax error:"
+  (check-exn #px"program must begin with HAI opener"
              (lambda () (parse-program lowercase-keywords-program)))
 
   (define editorial-how-duz-i-form

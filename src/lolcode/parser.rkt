@@ -152,6 +152,8 @@
 
 (define source-line-split-rx #px"\r\n|\n|\r")
 
+(define program-opener-rx #px"^\\s*HAI(?:\\s|$)")
+
 (define (source->line-vector source)
   (list->vector (string-split source source-line-split-rx #:trim? #f)))
 
@@ -780,6 +782,9 @@
 (define (parse-source source)
   (unless (string? source)
     (raise-argument-error 'parse-source "string?" source))
+  (unless (regexp-match? program-opener-rx source)
+    (error 'parse-source
+           "program must begin with HAI opener (no leading comments or tokens before HAI)"))
   (define normalized-raws (collapse-phrase-tokens (lex-source source)))
   (validate-raw-token-stream normalized-raws)
   (define toks (map raw->position-token normalized-raws))

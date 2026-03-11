@@ -1565,9 +1565,8 @@
 
   (define leading-btw-src
     "BTW top preamble comment\nHAI 1.3\nVISIBLE \"OK\"\nKTHXBYE\n")
-  (define leading-btw-result (run-source leading-btw-src))
-  (check-eq? (hash-ref leading-btw-result 'status) 'ok)
-  (check-equal? (hash-ref leading-btw-result 'stdout) "OK\n")
+  (check-exn #px"program must begin with HAI opener"
+             (lambda () (parse-program leading-btw-src)))
 
   (define literals-src
     "HAI 1.3\nVISIBLE WIN\nVISIBLE FAIL\nVISIBLE NOOB\nKTHXBYE\n")
