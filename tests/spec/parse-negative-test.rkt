@@ -249,6 +249,16 @@
   (check-not-exn
    (lambda () (parse-program one-line-minimal-program)))
 
+  (define kthxbye-inline-btw
+    "HAI 1.3\nKTHXBYE BTW end\n")
+  (check-not-exn
+   (lambda () (parse-program kthxbye-inline-btw)))
+
+  (define one-line-minimal-inline-btw
+    "HAI 1.3, KTHXBYE BTW end\n")
+  (check-not-exn
+   (lambda () (parse-program one-line-minimal-inline-btw)))
+
   (define one-line-missing-close
     "HAI 1.3\n")
   (define one-line-missing-close-msg
@@ -261,6 +271,21 @@
     "HAI 1.3, KTHXBYE, VISIBLE \"x\"\n")
   (check-exn #px"syntax error: unexpected VISIBLE"
              (lambda () (parse-program one-line-extra-after-close)))
+
+  (define trailing-btw-after-close
+    "HAI 1.3\nKTHXBYE\nBTW end\n")
+  (check-exn #px"no material allowed after KTHXBYE except optional same-line BTW comment"
+             (lambda () (parse-program trailing-btw-after-close)))
+
+  (define trailing-obtw-after-close
+    "HAI 1.3\nKTHXBYE\nOBTW trailing block\nTLDR\n")
+  (check-exn #px"no material allowed after KTHXBYE except optional same-line BTW comment"
+             (lambda () (parse-program trailing-obtw-after-close)))
+
+  (define trailing-code-after-close
+    "HAI 1.3\nKTHXBYE\nVISIBLE \"x\"\n")
+  (check-exn #px"syntax error: unexpected VISIBLE"
+             (lambda () (parse-program trailing-code-after-close)))
 
   (define malformed-number-spaced-sign
     "HAI 1.3\nI HAS A x ITZ - 123\nKTHXBYE\n")

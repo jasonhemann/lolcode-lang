@@ -153,6 +153,7 @@
 (define source-line-split-rx #px"\r\n|\n|\r")
 
 (define program-opener-rx #px"^\\s*HAI(?:\\s|$)")
+(define kthxbye-inline-tail-rx #px"^\\s*(?:BTW.*)?$")
 
 (define (source->line-vector source)
   (list->vector (string-split source source-line-split-rx #:trim? #f)))
@@ -751,6 +752,35 @@
     [(cons _ rst) (validate-raw-token-stream rst)]
     [_ (void)]))
 
+(define (validate-kthxbye-postlude source raws)
+  (define maybe-kthxbye
+    (for/first ([t (in-list raws)]
+                #:when (match t
+                         [(token 'WORD "KTHXBYE" _ _) #t]
+                         [_ #f]))
+      t))
+  (when maybe-kthxbye
+    (match-define (token 'WORD "KTHXBYE" line col) maybe-kthxbye)
+    (define lines (source->line-vector source))
+    (define line-index (- line 1))
+    (define line-text
+      (if (and (<= 0 line-index) (< line-index (vector-length lines)))
+          (vector-ref lines line-index)
+          ""))
+    (define suffix-start (+ (- col 1) (string-length "KTHXBYE")))
+    (define line-suffix
+      (if (<= suffix-start (string-length line-text))
+          (substring line-text suffix-start)
+          ""))
+    (unless (regexp-match? kthxbye-inline-tail-rx line-suffix)
+      (error 'parse-source
+             "no material allowed after KTHXBYE except optional same-line BTW comment"))
+    (for ([idx (in-range line (vector-length lines))])
+      (define trailing-line (vector-ref lines idx))
+      (unless (regexp-match? #px"^\\s*$" trailing-line)
+        (error 'parse-source
+               "no material allowed after KTHXBYE except optional same-line BTW comment")))))
+
 (define (validate-function-def-placement parsed)
   (define (walk-block stmts allow-function-def?)
     (for ([stmt (in-list stmts)])
@@ -804,5 +834,6 @@
            "unsupported version: ~a (this implementation only accepts HAI ~a)"
            (program-version parsed)
            supported-language-version))
+  (validate-kthxbye-postlude source normalized-raws)
   (validate-function-def-placement parsed)
   parsed)

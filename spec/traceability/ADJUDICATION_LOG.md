@@ -26,7 +26,7 @@ Cross-cutting adjudications:
 
 - [x] `03` (notes 22) One-line minimal program (`HAI 1.3, KTHXBYE`) and envelope closure.
   Spec: lines 89, 91. Matrix: `program.envelope-hai-kthxbye`, `program.kthxbye-closes-hai` (mapped).  
-  Done: added single-line positive test (`HAI 1.3, KTHXBYE`) and malformed one-line negatives (missing close, extra tokens).
+  Done: added single-line positive test (`HAI 1.3, KTHXBYE`) and malformed one-line negatives (missing close, extra tokens), plus strict close-boundary adjudication/tests: `KTHXBYE BTW ...` on the same line is accepted, while standalone trailing `BTW`/`OBTW...TLDR` lines after `KTHXBYE` are rejected.
 
 - [x] `04` (notes 65) Clarify `AS` in example text.
   Spec: appears in prose example, not grammar keyword. Matrix: n/a.  
