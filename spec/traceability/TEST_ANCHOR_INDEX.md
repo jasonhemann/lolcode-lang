@@ -42,7 +42,7 @@ This file provides direct named regression anchors for each `Nxx` item in the re
 | `N35` | r-noob-retains-binding-src, r-noob-does-not-invalidate-other-reference-src | [ADJUDICATION_LEDGER.md:line 77](./ADJUDICATION_LEDGER.md#L77) |
 | `N36` | equality-complex-values-identity-src | [ADJUDICATION_LEDGER.md:line 78](./ADJUDICATION_LEDGER.md#L78) |
 | `N37` | type-noob-distinction-stability-src, type-literal-domain-casts-src | [ADJUDICATION_LEDGER.md:line 79](./ADJUDICATION_LEDGER.md#L79) |
-| `N38` | optional-article-scope-n38-src, slot-set-without-article, cast-assignment-missing-a | [ADJUDICATION_LEDGER.md:line 85](./ADJUDICATION_LEDGER.md#L85) |
+| `N38` | optional-article-scope-n38-src, declaration-with-an-article, declaration-srs-with-an-article, slot-set-without-article, cast-assignment-missing-a | [ADJUDICATION_LEDGER.md:line 85](./ADJUDICATION_LEDGER.md#L85) |
 | `N39` | function-storage-src, extracted-slot-function-direct-call-namespace-src | [ADJUDICATION_LEDGER.md:line 80](./ADJUDICATION_LEDGER.md#L80) |
 | `N40` | function-call-arg-eval-order-src, method-call-arg-eval-order-src, logic-binary-left-to-right-src, logic-binary-eager-rhs-src | [ADJUDICATION_LEDGER.md:line 81](./ADJUDICATION_LEDGER.md#L81) |
 | `N41` | loop-dynamic-label-src, loop-dynamic-label-mismatch-src | [ADJUDICATION_LEDGER.md:line 82](./ADJUDICATION_LEDGER.md#L82) |

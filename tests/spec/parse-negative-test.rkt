@@ -388,6 +388,21 @@
   (check-not-exn
    (lambda () (parse-program declaration-article-optional)))
 
+  (define declaration-srs-article-optional
+    "HAI 1.3\nI HAS A name ITZ \"x\"\nI HAS SRS name ITZ 1\nVISIBLE x\nKTHXBYE\n")
+  (check-not-exn
+   (lambda () (parse-program declaration-srs-article-optional)))
+
+  (define declaration-with-an-article
+    "HAI 1.3\nI HAS AN x ITZ 1\nKTHXBYE\n")
+  (check-exn #px"syntax error:"
+             (lambda () (parse-program declaration-with-an-article)))
+
+  (define declaration-srs-with-an-article
+    "HAI 1.3\nI HAS A name ITZ \"x\"\nI HAS AN SRS name ITZ 1\nKTHXBYE\n")
+  (check-exn #px"syntax error:"
+             (lambda () (parse-program declaration-srs-with-an-article)))
+
   (define maek-article-optional
     "HAI 1.3\nVISIBLE MAEK 2 NUMBAR\nKTHXBYE\n")
   (check-not-exn

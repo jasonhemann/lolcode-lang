@@ -52,7 +52,7 @@ Cross-cutting adjudications:
 
 - [x] `09` (notes 80) Optional article `A` usage boundaries.
   Spec: line 189 (mapped), MAEK grammar line 362 (mapped).  
-  Done: completed grammar-site sweep and tests. Optional only at variable declaration (`I HAS ...`) and `MAEK <expr> [A] <type>`; required article at slot create (`HAS A` only), cast assignment (`IS NOW A <type>`), and clone/prototype forms (`LIEK A`, `ITZ A ...`). Note: `ITZ NUMBR` remains legal because TYPE literals are first-class expression values, distinct from typed-default `ITZ A <type>`.
+  Done: completed grammar-site sweep and tests. Optional only at variable declaration (`I HAS ...`) and `MAEK <expr> [A] <type>`; when an article is present in declaration/MAEK it must be `A` (not `AN`). Required article at slot create (`HAS A` only), cast assignment (`IS NOW A <type>`), and clone/prototype forms (`LIEK A`, `ITZ A ...`). Note: `ITZ NUMBR` remains legal because TYPE literals are first-class expression values, distinct from typed-default `ITZ A <type>`.
 
 - [x] `10` (notes 82) Assignment to undeclared identifiers in core scope.
   Spec: line 205 (mapped) but explicit undeclared-assignment behavior is not clearly stated.  

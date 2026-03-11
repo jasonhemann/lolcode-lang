@@ -183,11 +183,15 @@
   (check-eq? (hash-ref bukkit-slot-redeclare-overwrite 'status) 'ok)
   (check-equal? (hash-ref bukkit-slot-redeclare-overwrite 'stdout) "2\n")
 
-  (define slot-declare-a-only-src
-    "HAI 1.3\nI HAS AN obj ITZ A BUKKIT\nobj HAS A elem ITZ \"catmium\"\nobj HAS A empty\nVISIBLE obj'Z elem\nVISIBLE obj'Z empty\nKTHXBYE\n")
-  (define slot-declare-a-only (run-source slot-declare-a-only-src))
-  (check-eq? (hash-ref slot-declare-a-only 'status) 'ok)
-  (check-equal? (hash-ref slot-declare-a-only 'stdout) "catmium\nNOOB\n")
+  (define declaration-an-rejected-src
+    "HAI 1.3\nI HAS AN obj ITZ A BUKKIT\nKTHXBYE\n")
+  (check-exn #px"syntax error:"
+             (lambda () (run-source declaration-an-rejected-src)))
+
+  (define declaration-srs-an-rejected-src
+    "HAI 1.3\nI HAS A name ITZ \"obj\"\nI HAS AN SRS name ITZ A BUKKIT\nKTHXBYE\n")
+  (check-exn #px"syntax error:"
+             (lambda () (run-source declaration-srs-an-rejected-src)))
 
   (define clone-like-src
     "HAI 1.3\nI HAS A parent ITZ A BUKKIT\nparent HAS A val ITZ 1\nI HAS A child ITZ LIEK A parent\nchild'Z val R 2\nVISIBLE parent'Z val\nVISIBLE child'Z val\nKTHXBYE\n")
@@ -2077,6 +2081,14 @@
   (check-eq? (hash-ref method-def-receiver-nonbukkit-n68 'status) 'runtime-error)
   (check-true (regexp-match? #px"method declaration requires BUKKIT receiver"
                              (hash-ref method-def-receiver-nonbukkit-n68 'error)))
+
+  (define mutual-recursion-even-odd-src
+    "HAI 1.3\nHOW IZ I even YR n\n  BOTH SAEM n AN 0\n  O RLY?\n    YA RLY\n      FOUND YR WIN\n    NO WAI\n      FOUND YR I IZ odd YR DIFF OF n AN 1 MKAY\n  OIC\nIF U SAY SO\nHOW IZ I odd YR n\n  BOTH SAEM n AN 0\n  O RLY?\n    YA RLY\n      FOUND YR FAIL\n    NO WAI\n      FOUND YR I IZ even YR DIFF OF n AN 1 MKAY\n  OIC\nIF U SAY SO\nVISIBLE I IZ even YR 14 MKAY\nVISIBLE I IZ even YR 15 MKAY\nVISIBLE I IZ odd YR 14 MKAY\nVISIBLE I IZ odd YR 15 MKAY\nKTHXBYE\n")
+  (define mutual-recursion-even-odd
+    (run-source mutual-recursion-even-odd-src))
+  (check-eq? (hash-ref mutual-recursion-even-odd 'status) 'ok)
+  (check-equal? (hash-ref mutual-recursion-even-odd 'stdout)
+                "WIN\nFAIL\nFAIL\nWIN\n")
 
   ;; Unsupported operators should be rejected at compile step and surfaced.
   (define unsupported-op-program

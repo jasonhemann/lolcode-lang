@@ -397,8 +397,7 @@
 
     (article-opt
      [() (void)]
-     [(A) (void)]
-     [(AN) (void)])
+     [(A) (void)])
 
     (slot-article
      [(A) (void)])

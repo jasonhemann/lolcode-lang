@@ -178,7 +178,7 @@
        (status . implemented)
        (code-refs . ("src/lolcode/parser.rkt"))
        (test-refs . ("tests/spec/runtime-core-test.rkt"))
-       (notes . "Variable declaration accepts optional article in strict 1.3 (e.g., I HAS ..., I HAS SRS ...), while other forms keep explicit-article requirements per grammar text."))
+       (notes . "Variable declaration accepts omitted article in strict 1.3 (e.g., I HAS ..., I HAS SRS ...); if an article is present there, it must be A (AN rejected), while other forms keep explicit-article requirements per grammar text."))
  #hash((id . "var.assignment-r")
        (spec-version . "1.3")
        (source-file . "spec/upstream/lolcode-spec-v1.3.md")
