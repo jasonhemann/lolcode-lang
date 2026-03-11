@@ -1,5 +1,7 @@
 #lang info
 
+(define collection "lolcode")
+
 (define pkg-desc
   "Strict LOLCODE 1.3 parser/runtime with CLI and #lang integration.")
 
@@ -14,10 +16,10 @@
   '("rackunit-lib"))
 
 (define raco-commands
-  '(("lolcode" "lolcode/raco.rkt" "run LOLCODE 1.3 source files" #f)))
+  '(("lolcode" "raco.rkt" "run LOLCODE 1.3 source files" #f)))
 
 (define racket-launcher-names
   '("lolcode"))
 
 (define racket-launcher-libraries
-  '("lolcode/cmd.rkt"))
+  '("cmd.rkt"))

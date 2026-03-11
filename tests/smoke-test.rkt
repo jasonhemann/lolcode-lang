@@ -3,7 +3,7 @@
 (require rackunit
          racket/file
          racket/path
-         "../lolcode/cli.rkt"
+         "../cli.rkt"
          "../src/lolcode/main.rkt"
          "../src/lolcode/internal/reporting.rkt")
 
@@ -41,11 +41,16 @@
     #:exists 'truncate/replace
     (lambda (out)
       (display "#lang lolcode\nHAI 1.3\nVISIBLE \"LANG\"\nKTHXBYE\n" out)))
+  (define local-collects-root
+    (build-path tmp-dir "collects"))
+  (make-directory local-collects-root)
+  (make-file-or-directory-link repo-root
+                               (build-path local-collects-root "lolcode"))
 
   (define with-local-collection
     (lambda (thunk)
       (parameterize ([current-library-collection-paths
-                      (cons repo-root
+                      (cons local-collects-root
                             (current-library-collection-paths))])
         (thunk))))
 

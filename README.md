@@ -97,7 +97,7 @@ Use `--trace` for full stack traces.
 
 ## `#lang`
 
-`#lang lolcode` is supported via `lolcode/lang/reader.rkt`.
+`#lang lolcode` is supported via `lang/reader.rkt`.
 Module text still uses strict LOLCODE source and requires `HAI 1.3`.
 
 Run spec traceability audit:
