@@ -4,7 +4,8 @@
          racket/file
          racket/list
          racket/path
-         "../../src/lolcode/main.rkt")
+         "../../src/lolcode/main.rkt"
+         "../../src/lolcode/internal/reporting.rkt")
 
 (define here
   (or (current-load-relative-directory)
@@ -50,8 +51,8 @@
     (check-true (pair? (program-statements parsed))
                 (format "parsed program has statements for ~a" id))
 
-    (define result (run-program parsed))
-    (check-true (hash? result) (format "run-program returns hash for fixture ~a" id))
+    (define result (run-program/report parsed))
+    (check-true (hash? result) (format "run-program/report returns hash for fixture ~a" id))
     (check-eq? (hash-ref result 'status)
                'ok
                (format "fixture executes successfully for ~a" id))

@@ -12,7 +12,8 @@
          racket/string
          "../src/lolcode/ast.rkt"
          "../src/lolcode/lexer.rkt"
-         "../src/lolcode/main.rkt")
+         "../src/lolcode/main.rkt"
+         "../src/lolcode/internal/reporting.rkt")
 
 (define-runtime-path script-dir ".")
 (define repo-root
@@ -497,7 +498,7 @@
            (set! in-scope-parse-ok-files (cons rel in-scope-parse-ok-files))
            (set! status-counts (hash-inc status-counts "parse-ok"))
            (visit-program! in-scope-cov parsed)
-           (define result (run-program parsed))
+           (define result (run-program/report parsed))
            (define st (~a (hash-ref result 'status 'unknown)))
            (cond
              [(string=? st "ok")

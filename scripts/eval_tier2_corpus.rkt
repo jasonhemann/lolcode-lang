@@ -11,7 +11,8 @@
          racket/runtime-path
          racket/string
          "../src/lolcode/lexer.rkt"
-         "../src/lolcode/main.rkt")
+         "../src/lolcode/main.rkt"
+         "../src/lolcode/internal/reporting.rkt")
 
 (define-runtime-path script-dir ".")
 (define repo-root
@@ -172,7 +173,7 @@
                       'message msg)]
           [(list 'parse-ok parsed)
            (define eval-result
-             (with-timeout timeout-seconds (lambda () (run-program parsed))))
+             (with-timeout timeout-seconds (lambda () (run-program/report parsed))))
            (match eval-result
              ['(timeout)
               (hash-set* base

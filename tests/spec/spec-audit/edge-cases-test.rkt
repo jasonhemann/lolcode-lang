@@ -1,10 +1,11 @@
 #lang racket/base
 
 (require rackunit
-         "../../../src/lolcode/main.rkt")
+         "../../../src/lolcode/main.rkt"
+         "../../../src/lolcode/internal/reporting.rkt")
 
 (define (run-source source)
-  (run-program (parse-program source)))
+  (run-source/report source))
 
 (module+ test
   (define optional-an-binary

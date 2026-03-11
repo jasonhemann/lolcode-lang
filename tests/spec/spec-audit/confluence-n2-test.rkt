@@ -2,10 +2,11 @@
 
 (require rackunit
          racket/string
-         "../../../src/lolcode/main.rkt")
+         "../../../src/lolcode/main.rkt"
+         "../../../src/lolcode/internal/reporting.rkt")
 
 (define (run-source source)
-  (run-program (parse-program source)))
+  (run-source/report source))
 
 (struct context (id wrap) #:transparent)
 

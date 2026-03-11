@@ -7,7 +7,8 @@
          racket/path
          racket/runtime-path
          racket/string
-         "../../../src/lolcode/main.rkt")
+         "../../../src/lolcode/main.rkt"
+         "../../../src/lolcode/internal/reporting.rkt")
 
 (provide load-and-validate-manifest
          evaluate-evidence-cases
@@ -355,7 +356,7 @@
                      (lambda (e)
                        (set! observed-status "runtime-error")
                        (set! observed-message (exn-message e)))])
-      (define result (run-program parsed))
+      (define result (run-program/report parsed))
       (define status (hash-ref result 'status))
       (set! observed-status
             (case status

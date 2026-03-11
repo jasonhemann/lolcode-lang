@@ -2,11 +2,12 @@
 
 (require rackunit
          "../../src/lolcode/ast.rkt"
-         "../../src/lolcode/main.rkt")
+         "../../src/lolcode/main.rkt"
+         "../../src/lolcode/internal/reporting.rkt")
 
 (define (run-source source #:input [input ""])
   (parameterize ([current-input-port (open-input-string input)])
-    (run-program (parse-program source))))
+    (run-source/report source)))
 
 (module+ test
   (define one-line-minimal-src
@@ -2087,7 +2088,7 @@
                             (expr-number "1")
                             (expr-number "2"))))))
   (define unsupported-op-result
-    (run-program unsupported-op-program))
+    (run-program/report unsupported-op-program))
   (check-eq? (hash-ref unsupported-op-result 'status) 'unsupported)
   (check-true (regexp-match? #px"unsupported binary operator"
                              (hash-ref unsupported-op-result 'reason))))

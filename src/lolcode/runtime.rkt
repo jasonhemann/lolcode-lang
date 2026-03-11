@@ -12,7 +12,8 @@
          "runtime/operators.rkt")
 
 (provide compile-program
-         execute-program)
+         execute-program
+         execute-program/raw)
 
 (struct exn:fail:unsupported exn:fail (where) #:transparent)
 
@@ -879,3 +880,15 @@
 
 (define (execute-program parsed phase)
   ((compile-program parsed phase)))
+
+(define (execute-program/raw parsed phase)
+  (define program-proc
+    (match parsed
+      [(program _ statements)
+       (compile-block statements)]
+      [_ (raise-argument-error 'execute-program/raw "program?" parsed)]))
+  (define globals (make-root-env))
+  (define st (runstate globals (current-output-port) phase))
+  (define root-ctx (exec-ctx st #f #f #f #f))
+  (program-proc globals root-ctx)
+  (void))
