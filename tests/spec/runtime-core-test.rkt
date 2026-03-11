@@ -76,7 +76,7 @@
   (define declare-assign (run-source declare-assign-src))
   (check-eq? (hash-ref declare-assign 'status) 'ok)
   (check-equal? (hash-ref declare-assign 'stdout) "3\n")
-  (check-equal? (hash-ref declare-assign 'last-value) 3)
+  (check-equal? (hash-ref declare-assign 'last-value) 'NOOB)
 
   (define declare-without-article-src
     "HAI 1.3\nI HAS var ITZ 9\nVISIBLE var\nKTHXBYE\n")
@@ -369,7 +369,7 @@
     (run-source method-it-local-activation-src))
   (check-eq? (hash-ref method-it-local-activation 'status) 'ok)
   ;; C1/C2/C3 adjudication: method IT is activation-local and never receiver/global aliased.
-  (check-equal? (hash-ref method-it-local-activation 'stdout) "1\n1\n")
+  (check-equal? (hash-ref method-it-local-activation 'stdout) "1\n3\n")
 
   (define method-fallthrough-returns-local-it-src
     "HAI 1.3\n7\nO HAI IM obj\n  HOW IZ I keep\n  IF U SAY SO\nKTHX\nVISIBLE obj IZ keep MKAY\nVISIBLE IT\nKTHXBYE\n")
@@ -377,7 +377,7 @@
     (run-source method-fallthrough-returns-local-it-src))
   (check-eq? (hash-ref method-fallthrough-returns-local-it 'status) 'ok)
   (check-equal? (hash-ref method-fallthrough-returns-local-it 'stdout)
-                "NOOB\nNOOB\n")
+                "NOOB\n7\n")
 
   (define method-bare-it-distinct-from-slot-it-src
     "HAI 1.3\nO HAI IM obj\n  I HAS A IT ITZ \"slot-it\"\n  HOW IZ I check\n    7\n    FOUND YR SMOOSH IT AN \"|\" AN ME'Z IT MKAY\n  IF U SAY SO\nKTHX\nVISIBLE obj IZ check MKAY\nKTHXBYE\n")
@@ -577,13 +577,18 @@
   (check-eq? (hash-ref loop-counter-dynamic-name-result 'status) 'ok)
   (check-equal? (hash-ref loop-counter-dynamic-name-result 'stdout) "5\n6\n7\n8\n9\n5\n")
 
-  (define loop-counter-no-leak-src
-    "HAI 1.3\nIM IN YR lp UPPIN YR idx TIL BOTH SAEM idx AN 3\n  VISIBLE idx\nIM OUTTA YR lp\nVISIBLE idx\nKTHXBYE\n")
-  (define loop-counter-no-leak-result (run-source loop-counter-no-leak-src))
-  (check-eq? (hash-ref loop-counter-no-leak-result 'status) 'runtime-error)
-  (check-equal? (hash-ref loop-counter-no-leak-result 'stdout) "0\n1\n2\n")
+  (define loop-counter-requires-declared-updater-src
+    "HAI 1.3\nIM IN YR lp UPPIN YR idx TIL BOTH SAEM idx AN 3\n  VISIBLE idx\nIM OUTTA YR lp\nKTHXBYE\n")
+  (define loop-counter-requires-declared-updater
+    (run-source loop-counter-requires-declared-updater-src))
+  (check-eq? (hash-ref loop-counter-requires-declared-updater 'status)
+             'runtime-error)
+  ;; Strict 1.3: updater variable must be declared before loop header use.
+  (check-equal? (hash-ref loop-counter-requires-declared-updater 'stdout) "")
   (check-true (regexp-match? #px"unknown identifier: idx"
-                             (hash-ref loop-counter-no-leak-result 'error "")))
+                             (hash-ref loop-counter-requires-declared-updater
+                                       'error
+                                       "")))
 
   (define nested-loop-src
     "HAI 1.3\nI HAS A outer ITZ 0\nI HAS A total ITZ 0\nIM IN YR out UPPIN YR outer TIL BOTH SAEM outer AN 3\n  I HAS A inner ITZ 0\n  IM IN YR innerloop UPPIN YR inner TIL BOTH SAEM inner AN 2\n    total R SUM OF total AN 1\n  IM OUTTA YR innerloop\nIM OUTTA YR out\nVISIBLE total\nKTHXBYE\n")
@@ -600,13 +605,13 @@
   (check-equal? (hash-ref switch-break-inside-loop 'stdout) "BAB\n")
 
   (define loop-unary-updater-src
-    "HAI 1.3\nHOW IZ I plustwoin YR var\n  FOUND YR SUM OF var AN 2\nIF U SAY SO\nIM IN YR loop I IZ plustwoin YR var MKAY\n  VISIBLE var\n  BOTH SAEM var AN 10\n  O RLY?\n    YA RLY\n      GTFO\n  OIC\nIM OUTTA YR loop\nKTHXBYE\n")
+    "HAI 1.3\nHOW IZ I plustwoin YR var\n  FOUND YR SUM OF var AN 2\nIF U SAY SO\nI HAS A var ITZ 0\nIM IN YR loop I IZ plustwoin YR var MKAY\n  VISIBLE var\n  BOTH SAEM var AN 10\n  O RLY?\n    YA RLY\n      GTFO\n  OIC\nIM OUTTA YR loop\nKTHXBYE\n")
   (define loop-unary-updater (run-source loop-unary-updater-src))
   (check-eq? (hash-ref loop-unary-updater 'status) 'ok)
   (check-equal? (hash-ref loop-unary-updater 'stdout) "0\n2\n4\n6\n8\n10\n")
 
   (define loop-unary-updater-side-effects-src
-    "HAI 1.3\nI HAS A ticks ITZ 0\nHOW IZ I bump YR v\n  ticks R SUM OF ticks AN 1\n  FOUND YR SUM OF v AN 1\nIF U SAY SO\nIM IN YR lp I IZ bump YR i MKAY TIL BOTH SAEM i AN 3\n  VISIBLE i\nIM OUTTA YR lp\nVISIBLE ticks\nKTHXBYE\n")
+    "HAI 1.3\nI HAS A ticks ITZ 0\nI HAS A i ITZ 0\nHOW IZ I bump YR v\n  ticks R SUM OF ticks AN 1\n  FOUND YR SUM OF v AN 1\nIF U SAY SO\nIM IN YR lp I IZ bump YR i MKAY TIL BOTH SAEM i AN 3\n  VISIBLE i\nIM OUTTA YR lp\nVISIBLE ticks\nKTHXBYE\n")
   (define loop-unary-updater-side-effects
     (run-source loop-unary-updater-side-effects-src))
   (check-eq? (hash-ref loop-unary-updater-side-effects 'status) 'ok)
@@ -615,7 +620,7 @@
                 "0\n1\n2\n3\n")
 
   (define loop-unary-updater-arity-error-src
-    "HAI 1.3\nHOW IZ I zerofn\n  FOUND YR 0\nIF U SAY SO\nIM IN YR lp I IZ zerofn YR i MKAY TIL BOTH SAEM i AN 1\n  VISIBLE i\nIM OUTTA YR lp\nKTHXBYE\n")
+    "HAI 1.3\nI HAS A i ITZ 0\nHOW IZ I zerofn\n  FOUND YR 0\nIF U SAY SO\nIM IN YR lp I IZ zerofn YR i MKAY TIL BOTH SAEM i AN 1\n  VISIBLE i\nIM OUTTA YR lp\nKTHXBYE\n")
   (define loop-unary-updater-arity-error
     (run-source loop-unary-updater-arity-error-src))
   (check-eq? (hash-ref loop-unary-updater-arity-error 'status) 'runtime-error)
@@ -885,7 +890,7 @@
   (check-equal? (hash-ref method-alt-def 'stdout) "123\n")
 
   (define method-nested-receiver-def-src
-    "HAI 1.3\nI HAS A foo ITZ A BUKKIT\nfoo HAS A var1 ITZ A BUKKIT\nHOW IZ foo'Z var1 fun1\n  VISIBLE \"i\"\nIF U SAY SO\nI IZ foo'Z var1'Z fun1 MKAY\nKTHXBYE\n")
+    "HAI 1.3\nI HAS A foo ITZ A BUKKIT\nI HAS A inner ITZ A BUKKIT\nfoo HAS A var1 ITZ inner\nHOW IZ foo'Z var1 fun1\n  VISIBLE \"i\"\nIF U SAY SO\nI IZ foo'Z var1'Z fun1 MKAY\nKTHXBYE\n")
   (define method-nested-receiver-def
     (run-source method-nested-receiver-def-src))
   (check-eq? (hash-ref method-nested-receiver-def 'status) 'ok)
@@ -1506,13 +1511,16 @@
   (check-eq? (hash-ref gimmeh-eof-result 'status) 'ok)
   (check-equal? (hash-ref gimmeh-eof-result 'stdout) "NOOB\n")
 
-  (define gimmeh-implicit-target-declare-src
-    "HAI 1.3\nGIMMEH fresh\nVISIBLE fresh\nKTHXBYE\n")
-  (define gimmeh-implicit-target-declare
-    (run-source gimmeh-implicit-target-declare-src #:input "Zed\n"))
-  (check-eq? (hash-ref gimmeh-implicit-target-declare 'status) 'ok)
-  ;; Regression/policy: GIMMEH creates missing target binding when undeclared.
-  (check-equal? (hash-ref gimmeh-implicit-target-declare 'stdout) "Zed\n")
+  (define gimmeh-undeclared-target-runtime-error-src
+    "HAI 1.3\nGIMMEH fresh\nKTHXBYE\n")
+  (define gimmeh-undeclared-target-runtime-error
+    (run-source gimmeh-undeclared-target-runtime-error-src #:input "Zed\n"))
+  (check-eq? (hash-ref gimmeh-undeclared-target-runtime-error 'status)
+             'runtime-error)
+  ;; Strict 1.3: GIMMEH target must be declared before input assignment.
+  (check-true
+   (regexp-match? #px"unknown identifier: fresh"
+                  (hash-ref gimmeh-undeclared-target-runtime-error 'error)))
 
   (define visible-bang-src
     "HAI 1.3\nVISIBLE \"A\"!\nVISIBLE \"B\"\nKTHXBYE\n")
@@ -1527,11 +1535,11 @@
   (check-equal? (hash-ref visible-inline-result 'stdout) "AB3\n")
 
   (define visible-updates-it-src
-    "HAI 1.3\nVISIBLE \"A\" AN \"B\"\nVISIBLE IT\nKTHXBYE\n")
+    "HAI 1.3\nVISIBLE \"A\" \"B\"\nVISIBLE IT\nKTHXBYE\n")
   (define visible-updates-it-result (run-source visible-updates-it-src))
   (check-eq? (hash-ref visible-updates-it-result 'status) 'ok)
-  ;; Regression: VISIBLE updates IT to its last argument value.
-  (check-equal? (hash-ref visible-updates-it-result 'stdout) "AB\nB\n")
+  ;; Strict 1.3 policy: VISIBLE does not update IT.
+  (check-equal? (hash-ref visible-updates-it-result 'stdout) "AB\nNOOB\n")
 
   (define preprocess-order-runtime-src
     "HAI 1.3\nOBTW hidden TLDR, VISIBLE \"A\"\nVISIBLE \"A,B\"\nVISIBLE \"...\"\nVISIBLE \"C\"...\n\"D\"\nKTHXBYE\n")
@@ -1552,13 +1560,13 @@
                 "12\nBOB\n")
 
   (define it-update-matrix-src
-    "HAI 1.3\nSUM OF 1 AN 1\nI HAS A snap1 ITZ IT\nI HAS A x ITZ 9\nx R 10\nI HAS A snap2 ITZ IT\nO RLY?\n  YA RLY\n    I HAS A y ITZ 1\nOIC\nI HAS A snap3 ITZ IT\nWTF?\n  OMG 2\n    I HAS A z ITZ 1\n    GTFO\nOIC\nI HAS A snap4 ITZ IT\nx IS NOW A YARN\nI HAS A snap5 ITZ IT\nGIMMEH in1\nI HAS A snap6 ITZ IT\nI HAS A obj ITZ A BUKKIT\nobj HAS A n ITZ 7\nI HAS A snap7 ITZ IT\nO HAI IM box\nKTHX\nI HAS A snap8 ITZ IT\nSUM OF 2 AN 3\nI HAS A snap9 ITZ IT\nIM IN YR lp\n  GTFO\nIM OUTTA YR lp\nI HAS A snap10 ITZ IT\nVISIBLE snap1\nVISIBLE snap2\nVISIBLE snap3\nVISIBLE snap4\nVISIBLE snap5\nVISIBLE snap6\nVISIBLE snap7\nVISIBLE snap8\nVISIBLE snap9\nVISIBLE snap10\nKTHXBYE\n")
+    "HAI 1.3\nSUM OF 1 AN 1\nI HAS A snap1 ITZ IT\nI HAS A x ITZ 9\nx R 10\nI HAS A snap2 ITZ IT\nO RLY?\n  YA RLY\n    I HAS A y ITZ 1\nOIC\nI HAS A snap3 ITZ IT\nWTF?\n  OMG 2\n    I HAS A z ITZ 1\n    GTFO\nOIC\nI HAS A snap4 ITZ IT\nx IS NOW A YARN\nI HAS A snap5 ITZ IT\nI HAS A in1\nGIMMEH in1\nI HAS A snap6 ITZ IT\nI HAS A obj ITZ A BUKKIT\nobj HAS A n ITZ 7\nI HAS A snap7 ITZ IT\nO HAI IM box\nKTHX\nI HAS A snap8 ITZ IT\nSUM OF 2 AN 3\nI HAS A snap9 ITZ IT\nIM IN YR lp\n  GTFO\nIM OUTTA YR lp\nI HAS A snap10 ITZ IT\nVISIBLE snap1\nVISIBLE snap2\nVISIBLE snap3\nVISIBLE snap4\nVISIBLE snap5\nVISIBLE snap6\nVISIBLE snap7\nVISIBLE snap8\nVISIBLE snap9\nVISIBLE snap10\nKTHXBYE\n")
   (define it-update-matrix-result
     (run-source it-update-matrix-src #:input "hi\n"))
   (check-eq? (hash-ref it-update-matrix-result 'status) 'ok)
-  ;; Regression: only IT-updating statement forms change IT; others preserve it.
+  ;; Regression: only bare expression statements update IT.
   (check-equal? (hash-ref it-update-matrix-result 'stdout)
-                "2\n2\n2\n2\n10\nhi\n7\n<BUKKIT>\n5\n5\n")
+                "2\n2\n2\n2\n2\n2\n2\n2\n5\n5\n")
 
   (define string-namespace-src
     "HAI 1.3\nVISIBLE I IZ STRING'Z LEN YR \"cats\" MKAY\nKTHXBYE\n")
@@ -1752,10 +1760,21 @@
   (check-equal? (hash-ref string-literal-colon-result 'stdout) "GIMME RADIUS:\n:3\n\n")
 
   (define format-string-src
-    "HAI 1.3\nI HAS A name ITZ \"Ada\"\nI HAS A n ITZ 42\nVISIBLE \"HI :{name}! #:{ n }\"\nKTHXBYE\n")
+    "HAI 1.3\nI HAS A name ITZ \"Ada\"\nI HAS A n ITZ 42\nVISIBLE \"HI :{name}! #:{n}\"\nKTHXBYE\n")
   (define format-string-result (run-source format-string-src))
   (check-eq? (hash-ref format-string-result 'status) 'ok)
   (check-equal? (hash-ref format-string-result 'stdout) "HI Ada! #42\n")
+
+  (define format-string-whitespace-placeholder-src
+    "HAI 1.3\nI HAS A n ITZ 42\nVISIBLE \"#:{ n }\"\nKTHXBYE\n")
+  (define format-string-whitespace-placeholder
+    (run-source format-string-whitespace-placeholder-src))
+  (check-eq? (hash-ref format-string-whitespace-placeholder 'status)
+             'runtime-error)
+  (check-true
+   (regexp-match?
+    #px"invalid :\\{\\.\\.\\.\\} placeholder variable identifier"
+    (hash-ref format-string-whitespace-placeholder 'error)))
 
   (define format-string-escaped-placeholder-src
     "HAI 1.3\nI HAS A name ITZ \"Ada\"\nVISIBLE \"::{name}\"\nKTHXBYE\n")

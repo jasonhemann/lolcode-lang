@@ -518,6 +518,21 @@
   (check-exn #px"syntax error:"
              (lambda () (parse-program slot-set-direct-numeric-target)))
 
+  (define slot-set-missing-itz
+    "HAI 1.3\nI HAS A obj ITZ A BUKKIT\nobj HAS A x\nKTHXBYE\n")
+  (check-exn #px"syntax error:"
+             (lambda () (parse-program slot-set-missing-itz)))
+
+  (define visible-with-an-separator
+    "HAI 1.3\nVISIBLE \"A\" AN \"B\"\nKTHXBYE\n")
+  (check-exn #px"syntax error:"
+             (lambda () (parse-program visible-with-an-separator)))
+
+  (define gimmeh-expression-target
+    "HAI 1.3\nGIMMEH SUM OF 1 AN 2\nKTHXBYE\n")
+  (check-exn #px"syntax error:"
+             (lambda () (parse-program gimmeh-expression-target)))
+
   (define slot-access-dash-operator
     "HAI 1.3\nI HAS A obj ITZ A BUKKIT\nVISIBLE obj - foo\nKTHXBYE\n")
   ;; N06: accept both '-' and "'Z" spellings for slot access.

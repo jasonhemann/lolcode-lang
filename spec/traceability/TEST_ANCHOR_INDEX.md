@@ -33,7 +33,7 @@ This file provides direct named regression anchors for each `Nxx` item in the re
 | `N26` | object-self-reference-during-construction-src | [ADJUDICATION_LEDGER.md:line 70](./ADJUDICATION_LEDGER.md#L70) |
 | `N27` | (none explicit in ledger row) | [ADJUDICATION_LEDGER.md:line 31](./ADJUDICATION_LEDGER.md#L31) |
 | `N28` | loop-label-mismatch, duplicate-loop-labels-n57-src | [ADJUDICATION_LEDGER.md:line 71](./ADJUDICATION_LEDGER.md#L71) |
-| `N29` | loop-order-matrix-src | [ADJUDICATION_LEDGER.md:line 72](./ADJUDICATION_LEDGER.md#L72) |
+| `N29` | loop-order-matrix-src, loop-counter-requires-declared-updater-src | [ADJUDICATION_LEDGER.md:line 72](./ADJUDICATION_LEDGER.md#L72) |
 | `N30` | loop-unary-updater-src, loop-unary-updater-side-effects-src, loop-unary-updater-arity-error-src | [ADJUDICATION_LEDGER.md:line 73](./ADJUDICATION_LEDGER.md#L73) |
 | `N31` | duplicate-wtf-case-literal, duplicate-wtf-case-literal-numeric-mode | [ADJUDICATION_LEDGER.md:line 74](./ADJUDICATION_LEDGER.md#L74) |
 | `N32` | switch-runtime-error-propagates-src | [ADJUDICATION_LEDGER.md:line 75](./ADJUDICATION_LEDGER.md#L75) |
@@ -66,7 +66,7 @@ This file provides direct named regression anchors for each `Nxx` item in the re
 | `N59` | expr-srs, ast-srs-sites-shape-src | [ADJUDICATION_LEDGER.md:line 96](./ADJUDICATION_LEDGER.md#L96) |
 | `N60` | it-update-matrix-src | [ADJUDICATION_LEDGER.md:line 43](./ADJUDICATION_LEDGER.md#L43) |
 | `N61` | (none explicit in ledger row) | [ADJUDICATION_LEDGER.md:line 44](./ADJUDICATION_LEDGER.md#L44) |
-| `N62` | gimmeh-implicit-target-declare-src | [ADJUDICATION_LEDGER.md:line 97](./ADJUDICATION_LEDGER.md#L97) |
+| `N62` | gimmeh-undeclared-target-runtime-error-src, gimmeh-expression-target | [ADJUDICATION_LEDGER.md:line 97](./ADJUDICATION_LEDGER.md#L97) |
 | `N63` | (none explicit in ledger row) | [ADJUDICATION_LEDGER.md:line 47](./ADJUDICATION_LEDGER.md#L47) |
 | `N64` | (none explicit in ledger row) | [ADJUDICATION_LEDGER.md:line 48](./ADJUDICATION_LEDGER.md#L48) |
 | `N65` | (none explicit in ledger row) | [ADJUDICATION_LEDGER.md:line 49](./ADJUDICATION_LEDGER.md#L49) |

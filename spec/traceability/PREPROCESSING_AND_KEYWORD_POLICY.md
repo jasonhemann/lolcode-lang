@@ -12,7 +12,7 @@ Execution order used by implementation:
 3. Line-continuation processing (`...` and `…`) at line end only.
 4. Comma soft-break conversion to `NEWLINE` tokens.
 5. Parser-side same-line phrase collapse (`IM IN` -> `IMIN`, `IM OUTTA` -> `IMOUTTA`).
-6. Parser-side normalization rewrites for optional-`AN` sugar forms (`SMOOSH`, `ALL OF`, `ANY OF`, and selected `VISIBLE` shorthand).
+6. Parser-side normalization rewrites for optional-`AN` sugar forms (`SMOOSH`, `ALL OF`, `ANY OF`).
 7. Grammar parse over normalized token stream.
 
 Evidence tests:

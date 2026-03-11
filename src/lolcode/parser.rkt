@@ -447,19 +447,17 @@
      [(simple-expr-nonid postfix-tail) ($2 $1)])
 
     (input-stmt
-     [(GIMMEH expr) (stmt-input $2)])
+     [(GIMMEH declare-target) (stmt-input $2)])
 
     (slot-set-stmt
-     [(lvalue HAS slot-article slot-target slot-init-opt) (stmt-slot-set $1 $4 $5)])
+     [(lvalue HAS slot-article slot-target slot-init) (stmt-slot-set $1 $4 $5)])
 
     (slot-target
      [(ident-token) (expr-ident $1)]
      [(SRS expr) (expr-srs $2)])
 
-    (slot-init-opt
-     [() #f]
-     [(ITZ expr) $2]
-     [(ITZ A ID) (expr-ident $3)])
+    (slot-init
+     [(ITZ expr) $2])
 
     (visible-stmt
      [(VISIBLE visible-args) (stmt-visible $2 #f)]
@@ -467,7 +465,6 @@
 
     (visible-args
      [(expr) (list $1)]
-     [(expr AN visible-args) (cons $1 $3)]
      [(expr visible-args) (cons $1 $2)])
 
     (if-stmt

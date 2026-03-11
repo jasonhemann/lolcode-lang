@@ -4,7 +4,6 @@
          racket/list
          racket/match
          racket/set
-         racket/string
          "ast.rkt"
          "format-placeholder.rkt"
          "runtime/env.rkt"
@@ -150,7 +149,8 @@
     (define initial
       (cond
         [(env-lookup-box e update-var) => unbox]
-        [else 0]))
+        [else
+         (error 'run-program "unknown identifier: ~a" update-var)]))
     ;; Iteration variable is temporary and local to this loop.
     (env-define! loop-env update-var initial))
   loop-env)
@@ -165,8 +165,7 @@
                 "loop variable missing during update: ~a"
                 update-var)]))
     (define updated (update-op e ctx current))
-    (env-set! e update-var updated)
-    (set-it! e updated)))
+    (env-set! e update-var updated)))
 
 (define (run-compiled-loop! loop-env
                             loop-ctx
@@ -243,13 +242,22 @@
 (define (expand-format-placeholders e text)
   (define template (ensure-yarn-template text))
   (define out (open-output-string))
+  (define interpolation-name-rx #px"^[A-Za-z][A-Za-z0-9_]*$")
+  (define (ensure-interpolation-name raw-name)
+    (cond
+      [(string=? raw-name "")
+       (error 'run-program "empty :{...} placeholder in YARN literal")]
+      [(regexp-match? interpolation-name-rx raw-name)
+       raw-name]
+      [else
+       (error 'run-program
+              "invalid :{...} placeholder variable identifier: ~v"
+              raw-name)]))
   (for ([part (in-list (yarn-template-parts template))])
     (match part
       [(yarn-part-text literal) (display literal out)]
       [(yarn-part-placeholder raw-name)
-       (define name (string-trim raw-name))
-       (when (string=? name "")
-         (error 'run-program "empty :{...} placeholder in YARN literal"))
+       (define name (ensure-interpolation-name raw-name))
        (display (lol-string (env-ref e name)) out)]))
   (get-output-string out))
 
@@ -566,27 +574,24 @@
     (compile-lvalue target))
   (lambda (e ctx)
     (define value (cast-value 'IS-NOW-A (lread e ctx) type-name))
-    (lwrite e value ctx)
-    (set-it! e value)))
+    (lwrite e value ctx)))
 
 (define (compile-stmt-input target)
-  (match-define (lvalue lread lwrite)
-    (compile-lvalue target #:define-missing? #t))
+  (match-define (lvalue _ lwrite)
+    (compile-lvalue target))
   (lambda (e ctx)
     (define line (read-line (current-input-port) 'any))
     (define value (if (eof-object? line) noob line))
-    (lwrite e value ctx)
-    (set-it! e value)))
+    (lwrite e value ctx)))
 
 (define (compile-stmt-slot-set object slot expr)
   (define object-proc (compile-expr object))
   (define slot-name-proc (compile-slot-name slot))
-  (define expr-proc (compile-declare-init expr))
+  (define expr-proc (compile-expr expr))
   (lambda (e ctx)
     (define obj (resolve-bukkit-from-proc "slot assignment" object-proc e ctx))
     (define value (expr-proc e ctx))
-    (send obj declare-slot! (slot-name-proc e ctx) value)
-    (set-it! e value)))
+    (send obj declare-slot! (slot-name-proc e ctx) value)))
 
 (define (compile-stmt-visible exprs suppress-newline?)
   (define expr-procs (map compile-expr exprs))
@@ -595,9 +600,7 @@
     (for ([v (in-list values)])
       (display (lol-string v) (runtime-stdout ctx)))
     (unless suppress-newline?
-      (newline (runtime-stdout ctx)))
-    (when (pair? values)
-      (set-it! e (last values)))))
+      (newline (runtime-stdout ctx)))))
 
 (define (compile-stmt-if condition then-branch mebbe-branches else-branch)
   (define cond-proc (compile-expr condition))
@@ -788,14 +791,12 @@
     (body-proc (env-with-table (send obj slot-table) e)
                object-ctx)
     (run-izmakin-hook! obj e object-ctx)
-    (env-set-or-define! e resolved-name obj)
-    (set-it! e obj)))
+    (env-set-or-define! e resolved-name obj)))
 
 (define (compile-stmt-return expr)
   (define expr-proc (compile-expr expr))
   (lambda (e ctx)
     (define value (expr-proc e ctx))
-    (set-it! e value)
     (ctx-return! ctx value)))
 
 (define (compile-stmt-break)

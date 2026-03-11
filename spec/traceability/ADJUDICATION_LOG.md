@@ -126,7 +126,7 @@ Cross-cutting adjudications:
 
 - [x] `27` (notes 207) Loop updater variable is temporary/local.
   Spec: line 564 (mapped).  
-  Done: covered by existing loop regressions (`loop-counter-scope`, `loop-counter-no-leak`, `loop-counter-dynamic-name`) proving temporary local updater bindings with no outer-scope mutation/leak.
+  Done: covered by existing loop regressions (`loop-counter-scope`, `loop-counter-dynamic-name`, `loop-counter-requires-declared-updater`) proving temporary local updater bindings with no outer-scope mutation/leak and declaration-required updater names.
 
 - [x] `28` (notes 209) Function argument identifier shape (“single-word identifiers”).
   Spec: line 582 (`unmapped`).  

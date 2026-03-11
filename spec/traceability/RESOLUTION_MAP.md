@@ -51,7 +51,7 @@ Legend:
 | `N26` | implemented        | `src/lolcode/runtime.rkt` (construction binding timing)                               | adjudication row `N26`                               |
 | `N27` | implemented        | `src/lolcode/runtime.rkt` (nearest `GTFO` target)                                     | adjudication row `N27`                               |
 | `N28` | implemented        | `src/lolcode/runtime.rkt` (loop label matching)                                       | adjudication row `N28`                               |
-| `N29` | implemented        | `src/lolcode/runtime.rkt` (condition/update order)                                    | adjudication row `N29`                               |
+| `N29` | implemented        | `src/lolcode/runtime.rkt` (condition/update order + declaration-required updater binding) | adjudication row `N29`                               |
 | `N30` | implemented        | `src/lolcode/runtime.rkt` (unary updater contract)                                    | adjudication row `N30`                               |
 | `N31` | implemented        | `src/lolcode/parser.rkt`, `src/lolcode/runtime.rkt` (numeric-mode duplicate handling) | adjudication row `N31`                               |
 | `N32` | implemented        | `src/lolcode/runtime.rkt` (switch error propagation)                                  | adjudication row `N32`                               |
@@ -84,7 +84,7 @@ Legend:
 | `N59` | implemented        | `src/lolcode/parser.rkt`, `src/lolcode/runtime.rkt` (`SRS` dynamic-name handling)     | adjudication row `N59`                               |
 | `N60` | policy+implemented | `src/lolcode/runtime.rkt` + `IT_UPDATE_MATRIX.md`                                     | adjudication row `N60`                               |
 | `N61` | implemented        | `src/lolcode/parser.rkt`, `src/lolcode/runtime.rkt` (`VISIBLE` variadic closure)      | adjudication row `N61`                               |
-| `N62` | implemented        | `src/lolcode/runtime.rkt` (`GIMMEH` implicit target declare)                          | adjudication row `N62`                               |
+| `N62` | implemented        | `src/lolcode/parser.rkt`, `src/lolcode/runtime.rkt` (`GIMMEH` variable-target + declaration-required) | adjudication row `N62`                               |
 | `N63` | implemented        | `src/lolcode/parser.rkt`, `src/lolcode/runtime.rkt` (TYPE dual role by context)       | adjudication row `N63`                               |
 | `N64` | implemented        | `src/lolcode/parser.rkt`, `src/lolcode/runtime.rkt` (cast target gate)                | adjudication row `N64`                               |
 | `N65` | policy+implemented | `src/lolcode/runtime.rkt` (numeric-mode + identity behavior)                          | adjudication row `N65`                               |

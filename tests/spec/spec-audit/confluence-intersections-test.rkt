@@ -13,7 +13,7 @@
   (test-case
    "confluence: FOUND YR inside loop exits function (not just loop)"
    (define src
-     "HAI 1.3\nHOW IZ I firstover YR lim\n  IM IN YR lp UPPIN YR i TIL BOTH SAEM i AN lim\n    BOTH SAEM i AN 3, O RLY?\n      YA RLY\n        FOUND YR i\n    OIC\n  IM OUTTA YR lp\n  FOUND YR -1\nIF U SAY SO\nVISIBLE I IZ firstover YR 8 MKAY\nKTHXBYE\n")
+     "HAI 1.3\nHOW IZ I firstover YR lim\n  I HAS A i ITZ 0\n  IM IN YR lp UPPIN YR i TIL BOTH SAEM i AN lim\n    BOTH SAEM i AN 3, O RLY?\n      YA RLY\n        FOUND YR i\n    OIC\n  IM OUTTA YR lp\n  FOUND YR -1\nIF U SAY SO\nVISIBLE I IZ firstover YR 8 MKAY\nKTHXBYE\n")
    (define out (run-source src))
    (check-eq? (hash-ref out 'status) 'ok)
    (check-equal? (hash-ref out 'stdout) "3\n"))
@@ -21,7 +21,7 @@
   (test-case
    "confluence: FOUND YR remains invalid outside function even inside loop"
    (define src
-     "HAI 1.3\nIM IN YR lp UPPIN YR i TIL BOTH SAEM i AN 2\n  FOUND YR i\nIM OUTTA YR lp\nKTHXBYE\n")
+     "HAI 1.3\nI HAS A i ITZ 0\nIM IN YR lp UPPIN YR i TIL BOTH SAEM i AN 2\n  FOUND YR i\nIM OUTTA YR lp\nKTHXBYE\n")
    (define out (run-source src))
    (check-eq? (hash-ref out 'status) 'runtime-error)
    (check-true (regexp-match? #px"FOUND YR used outside function"
@@ -52,7 +52,7 @@
   (test-case
    "confluence: GTFO in method loop breaks loop and method continues"
    (define src
-     "HAI 1.3\nO HAI IM meter\n  HOW IZ I run\n    I HAS A out ITZ \"none\"\n    IM IN YR lp UPPIN YR i TIL BOTH SAEM i AN 5\n      BOTH SAEM i AN 2, O RLY?\n        YA RLY\n          out R i\n          GTFO\n      OIC\n    IM OUTTA YR lp\n    FOUND YR out\n  IF U SAY SO\nKTHX\nVISIBLE meter IZ run MKAY\nKTHXBYE\n")
+     "HAI 1.3\nO HAI IM meter\n  HOW IZ I run\n    I HAS A out ITZ \"none\"\n    I HAS A i ITZ 0\n    IM IN YR lp UPPIN YR i TIL BOTH SAEM i AN 5\n      BOTH SAEM i AN 2, O RLY?\n        YA RLY\n          out R i\n          GTFO\n      OIC\n    IM OUTTA YR lp\n    FOUND YR out\n  IF U SAY SO\nKTHX\nVISIBLE meter IZ run MKAY\nKTHXBYE\n")
    (define out (run-source src))
    (check-eq? (hash-ref out 'status) 'ok)
    (check-equal? (hash-ref out 'stdout) "2\n"))
