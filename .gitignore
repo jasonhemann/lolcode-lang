@@ -2,3 +2,6 @@
 .*.swp
 .trash/
 src/lolcode/compiled/
+src/lolcode/**/compiled/
+lolcode/compiled/
+lolcode/**/compiled/
