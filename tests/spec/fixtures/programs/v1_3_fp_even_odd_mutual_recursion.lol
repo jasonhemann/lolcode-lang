@@ -1,0 +1,25 @@
+HAI 1.3
+
+HOW IZ I even YR n
+  BOTH SAEM n AN 0
+  O RLY?
+    YA RLY
+      FOUND YR "WIN"
+    NO WAI
+      FOUND YR I IZ odd YR DIFF OF n AN 1 MKAY
+  OIC
+IF U SAY SO
+
+HOW IZ I odd YR n
+  BOTH SAEM n AN 0
+  O RLY?
+    YA RLY
+      FOUND YR "FAIL"
+    NO WAI
+      FOUND YR I IZ even YR DIFF OF n AN 1 MKAY
+  OIC
+IF U SAY SO
+
+VISIBLE I IZ even YR 15 MKAY
+
+KTHXBYE

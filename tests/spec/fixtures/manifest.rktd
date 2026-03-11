@@ -72,6 +72,24 @@
     (tags . ("functions" "return")))
 
   #hasheq(
+    (id . "v1_3_fp_ackermann_recursive")
+    (spec-version . "1.3")
+    (title . "External FP example: Ackermann recursion")
+    (source-file . "programs/v1_3_fp_ackermann_recursive.lol")
+    (expected-stdout . "61\n")
+    (source-ref . "external:user-examples:ack.lol")
+    (tags . ("functions" "recursion" "external-promotion" "fp")))
+
+  #hasheq(
+    (id . "v1_3_fp_even_odd_mutual_recursion")
+    (spec-version . "1.3")
+    (title . "External FP example: mutual recursion (even/odd)")
+    (source-file . "programs/v1_3_fp_even_odd_mutual_recursion.lol")
+    (expected-stdout . "FAIL\n")
+    (source-ref . "external:user-examples:even-odd.lol")
+    (tags . ("functions" "recursion" "mutual-recursion" "external-promotion" "fp")))
+
+  #hasheq(
     (id . "v1_3_object_alt_syntax")
     (spec-version . "1.3")
     (title . "O HAI IM alternate object syntax")

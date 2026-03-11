@@ -97,7 +97,7 @@
      (main (list (path->string cli-bad-file))))
    1)
   (check-true
-   (regexp-match? #px"syntax error|unsupported version|invalid"
+   (regexp-match? #px"program must begin with HAI opener"
                   (get-output-string cli-bad-err)))
 
   (delete-directory/files tmp-dir))
