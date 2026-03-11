@@ -70,6 +70,36 @@ or:
 raco test tests
 ```
 
+## Public Runtime API
+
+Library entrypoints are in `src/lolcode/main.rkt`:
+
+- `parse-program : String -> program`
+- `run-program : program -> Void`
+
+`run-program` writes directly to `current-output-port`, reads from
+`current-input-port`, and raises Racket exceptions for parse/runtime errors.
+It does not return status hashes.
+
+Internal corpus/research tooling uses `src/lolcode/internal/reporting.rkt` for
+hash-shaped execution reports.
+
+## CLI
+
+After package install, run:
+
+```bash
+lolcode path/to/program.lol
+raco lolcode path/to/program.lol
+```
+
+Use `--trace` for full stack traces.
+
+## `#lang`
+
+`#lang lolcode` is supported via `lolcode/lang/reader.rkt`.
+Module text still uses strict LOLCODE source and requires `HAI 1.3`.
+
 Run spec traceability audit:
 
 ```bash
