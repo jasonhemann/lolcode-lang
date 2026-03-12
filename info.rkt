@@ -3,7 +3,7 @@
 (define collection "lolcode")
 
 (define pkg-desc
-  "Strict LOLCODE 1.3 parser/runtime with CLI and #lang integration.")
+  "Strict LOLCODE 1.3 interpreter written in Racket with CLI and #lang integration.")
 
 (define version "0.1")
 (define pkg-authors '("jhemann"))

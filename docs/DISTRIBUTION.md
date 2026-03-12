@@ -3,7 +3,6 @@
 ## Package install
 
 ```bash
-raco pkg install --auto codepoint
 raco pkg install --auto .
 ```
 
