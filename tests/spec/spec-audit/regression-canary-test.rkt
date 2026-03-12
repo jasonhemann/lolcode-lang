@@ -4,11 +4,6 @@
          "../../../src/lolcode/main.rkt"
          "../../../src/lolcode/internal/reporting.rkt")
 
-;; Historical note:
-;; These cases were originally collected as unresolved concerns, but each is now
-;; closed and kept as a regression guard. This file remains always-on in the
-;; strict spec audit suite.
-
 (define (run-source source)
   (run-source/report source))
 

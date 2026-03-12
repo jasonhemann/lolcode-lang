@@ -22,7 +22,7 @@ Method:
 | FP-01 | 89 | Grammar requires `HAI <version>` but text says no standard behavior for using version number. | `N71`, parse negatives `unsupported-v12`, `unsupported-v14`, `missing-version` | `policy-pin` (strict 1.3 chosen; coherent with project scope) |
 | FP-02 | 105, 666-672, 725 | `global` terminology conflicts with “no global scope”; must be reconciled as namespace-layer wording, not process-global mutable singleton. | `N12`, `N60`, `N74`, textual checklist C1/C2/C3 | `policy-pin` (activation-local `IT`, receiver-bypass for bare `IT`) |
 | FP-03 | 111 | Identifier shape is broad (letters/digits/underscore) and does not define keyword reservation explicitly. | `ADJUDICATION_POLICY.md` reserved-keyword section, `N70`, parser negatives | `policy-pin` (strict reserved keywords in direct identifier positions) |
-| FP-04 | 170-199 | `SRS` says “anywhere identifier expected”, including declaration shorthand (`I HAS SRS name ...`). | `N59`, parser/runtime SRS tests | `aligned` (contextual grammar sites are explicit and tested) |
+| FP-04 | 170-199, 582 | `SRS` says “anywhere identifier expected”, including declaration shorthand (`I HAS SRS name ...`), while parameter binders remain the explicit direct-identifier carve-out (`YR <ident-token>`; no `YR SRS ...`). | `N59`, `N88`, parser/runtime SRS tests + parameter-binder negatives | `aligned` (contextual grammar sites are explicit and tested) |
 | FP-05 | 277-287, 356, 383-387 | Optional `AN` applies for operators/variadics; `VISIBLE` syntax is adjacency-based (`VISIBLE <expr> [<expr> ...]`) and does not require `AN`. | `N61`, parser change on 2026-03-10, edge-case regression for adjacent composite expressions | `aligned` (recently fixed) |
 | FP-06 | 582, 599-604, 744 | Function-call args are expressions; slot-call signature says `<variable>` and is ambiguous against expression semantics. | `N42`, method expression-arg tests | `policy-pin` (expression args for method calls) |
 | FP-07 | 729, 732 | Slot operator prose says `-`, syntax examples use `'Z`; treat as equivalent or choose one and reject the other. | `N06`, textual checklist A8 | `policy-pin` (accept both as equivalence) |
@@ -33,7 +33,7 @@ Method:
 | FP-12 | 849, 857, 871 | Mixin copy semantics conflict: “defined on mixin” vs “and parent slots” example comment; static snapshot is explicit. | `N24`, `N81` | `policy-pin` (effective-visible donor members + static snapshot + shallow alias) |
 | FP-13 | 33-35 | Line continuation explicitly allows both `...` and Unicode ellipsis `u2026`. | `N45`, lexer continuation tests | `aligned` |
 | FP-14 | 219 vs 608-878 | “Arrays (BUKKIT) reserved for future expansion” conflicts with extensive BUKKIT semantics below; treat early phrase as stale/editorial. | `N17` (mooted), full object/runtime support | `aligned` (documented as non-normative conflict) |
-| FP-15 | 145 (`HOW DUZ I`) vs 574 (`HOW IZ I`) | The spec contains two definition-site spellings; strict parser accepts `HOW IZ` and `HOW DUZ` as definition-site synonyms while keeping call syntax `IZ` only. | `N58`, `N89`, parser/runtime `HOW DUZ` coverage and `I DUZ` negative | `aligned` |
+| FP-15 | 145 (`HOW DUZ I`) vs 574 (`HOW IZ I`) | The spec contains two definition-site spellings; strict parser accepts `HOW IZ` and `HOW DUZ` as definition-site synonyms while keeping call syntax `IZ` only. | `N58`, parser/runtime `HOW DUZ` coverage and `I DUZ` negative | `aligned` |
 
 ---
 

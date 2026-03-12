@@ -47,7 +47,7 @@ This file provides direct named regression anchors for each `Nxx` item in the re
 | `N40` | function-call-arg-eval-order-src, method-call-arg-eval-order-src, logic-binary-left-to-right-src, logic-binary-eager-rhs-src | [ADJUDICATION_LEDGER.md:line 81](./ADJUDICATION_LEDGER.md#L81) |
 | `N41` | loop-dynamic-label-src, loop-dynamic-label-mismatch-src | [ADJUDICATION_LEDGER.md:line 82](./ADJUDICATION_LEDGER.md#L82) |
 | `N42` | (none explicit in ledger row) | [ADJUDICATION_LEDGER.md:line 46](./ADJUDICATION_LEDGER.md#L46) |
-| `N43` | (none explicit in ledger row) | [ADJUDICATION_LEDGER.md:line 45](./ADJUDICATION_LEDGER.md#L45) |
+| `N43` | reserved-keyword-mkay-name, reserved-keyword-mkay-arg, srs-keyword-name-in-function-arg-src, srs-keyword-slot-name-src, srs-keyword-function-name-src, srs-keyword-method-name-src, srs-keyword-object-name-src, srs-keyword-receiver-name-src, srs-parameter-binder-negative, function-dynamic-arg-name, method-dynamic-arg-name | [ADJUDICATION_LEDGER.md:line 45](./ADJUDICATION_LEDGER.md#L45) |
 | `N44` | inline-block-comment-tldr-handoff, preprocess-order-runtime-src | [ADJUDICATION_LEDGER.md:line 38](./ADJUDICATION_LEDGER.md#L38) |
 | `N45` | continuation-trailing-space-tab-n45-src, continuation-then-comma, continuation-with-trailing-comment | [ADJUDICATION_LEDGER.md:line 86](./ADJUDICATION_LEDGER.md#L86) |
 | `N46` | tldr-handoff-space-comma-n46-src, inline-block-comment-tldr-handoff, block-comment-tldr-trailing-statement-without-comma | [ADJUDICATION_LEDGER.md:line 87](./ADJUDICATION_LEDGER.md#L87) |
@@ -74,7 +74,7 @@ This file provides direct named regression anchors for each `Nxx` item in the re
 | `N67` | me-outside-method-src, me-does-not-leak-into-nested-function-from-method-src | [ADJUDICATION_LEDGER.md:line 98](./ADJUDICATION_LEDGER.md#L98) |
 | `N68` | method-def-receiver-missing-n68-src, method-def-receiver-nonbukkit-n68-src | [ADJUDICATION_LEDGER.md:line 99](./ADJUDICATION_LEDGER.md#L99) |
 | `N69` | mixin-copied-function-receiver-late-binding-src | [ADJUDICATION_LEDGER.md:line 84](./ADJUDICATION_LEDGER.md#L84) |
-| `N70` | (none explicit in ledger row) | [ADJUDICATION_LEDGER.md:line 102](./ADJUDICATION_LEDGER.md#L102) |
+| `N70` | reserved-literal-name-declaration-runtime-error-src, reserved-special-name-declaration-runtime-error-src, reserved-function-name-runtime-error-src, reserved-parameter-name-runtime-error-src, reserved-object-name-runtime-error-src | [ADJUDICATION_LEDGER.md:line 102](./ADJUDICATION_LEDGER.md#L102) |
 | `N71` | unsupported-v12, unsupported-v14, missing-version | [ADJUDICATION_LEDGER.md:line 103](./ADJUDICATION_LEDGER.md#L103) |
 | `N72` | empty-bukkit-truthy-src | [ADJUDICATION_LEDGER.md:line 104](./ADJUDICATION_LEDGER.md#L104) |
 | `N73` | quoshunt-division-by-zero-runtime-error-src, numbr-bignum-arithmetic-src | [ADJUDICATION_LEDGER.md:line 105](./ADJUDICATION_LEDGER.md#L105) |
@@ -92,8 +92,7 @@ This file provides direct named regression anchors for each `Nxx` item in the re
 | `N85` | izmakin-failure-surfaced-before-binding-src, compile-stmt-declare | [ADJUDICATION_LEDGER.md:line 57](./ADJUDICATION_LEDGER.md#L57) |
 | `N86` | variadic-optional-an-general-expr, variadic-leading-an-negative | [ADJUDICATION_LEDGER.md](./ADJUDICATION_LEDGER.md) |
 | `N87` | implicit-mkay-before-bang-negative, smoosh-explicit-mkay-before-bang-src | [ADJUDICATION_LEDGER.md](./ADJUDICATION_LEDGER.md) |
-| `N88` | srs-numeric-target-src | [ADJUDICATION_LEDGER.md](./ADJUDICATION_LEDGER.md) |
-| `N89` | how-duz-i-form, how-duz-callform, how-duz-i-runtime-src, how-duz-receiver-runtime-src, how-duz-objectblock-runtime-src | [ADJUDICATION_LEDGER.md](./ADJUDICATION_LEDGER.md) |
+| `N88` | srs-numeric-target-src, srs-nested-indirection-src, srs-generated-source-not-reparsed-src | [ADJUDICATION_LEDGER.md](./ADJUDICATION_LEDGER.md) |
 | `N90` | slot-set-no-itz-shorthand, slot-set-no-itz-shorthand-src, me-slot-no-itz-shorthand-src | [ADJUDICATION_LEDGER.md](./ADJUDICATION_LEDGER.md) |
 | `N91` | obtw-mid-command-negative, block-comment-comma-boundary-src | [ADJUDICATION_LEDGER.md](./ADJUDICATION_LEDGER.md) |
 | `N92` | format-string-whitespace-placeholder-src | [ADJUDICATION_LEDGER.md](./ADJUDICATION_LEDGER.md) |

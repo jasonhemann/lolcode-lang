@@ -12,7 +12,7 @@ Scope: strict LOLCODE 1.3 runtime (`src/lolcode/runtime.rkt`).
 1. Variable declaration (`I HAS A ...`)
 2. Assignment (`R`)
 3. Cast assignment (`IS NOW A`)
-4. Slot declaration/assignment form (`<object> HAS A <slot> ITZ <expression>`)
+4. Slot declaration/assignment forms (`<object> HAS A <slot>` and `<object> HAS A <slot> ITZ <expression>`)
 5. `GIMMEH`
 6. `VISIBLE`
 7. Object definition statement (`O HAI IM ... KTHX`)

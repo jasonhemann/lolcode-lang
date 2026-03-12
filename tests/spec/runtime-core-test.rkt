@@ -128,6 +128,64 @@
   (check-equal? (hash-ref srs-keyword-name-in-function-arg 'stdout)
                 "7\n")
 
+  (define srs-keyword-slot-name-src
+    "HAI 1.3\nI HAS A o ITZ A BUKKIT\nI HAS A nm ITZ \"MKAY\"\no HAS A SRS nm ITZ 9\nVISIBLE o'Z SRS nm\nKTHXBYE\n")
+  (define srs-keyword-slot-name
+    (run-source srs-keyword-slot-name-src))
+  (check-eq? (hash-ref srs-keyword-slot-name 'status) 'ok)
+  (check-equal? (hash-ref srs-keyword-slot-name 'stdout)
+                "9\n")
+
+  (define srs-keyword-function-name-src
+    "HAI 1.3\nI HAS A fname ITZ \"MKAY\"\nHOW IZ I SRS fname\n  FOUND YR \"ok-fn\"\nIF U SAY SO\nVISIBLE I IZ SRS fname MKAY\nKTHXBYE\n")
+  (define srs-keyword-function-name
+    (run-source srs-keyword-function-name-src))
+  (check-eq? (hash-ref srs-keyword-function-name 'status) 'ok)
+  (check-equal? (hash-ref srs-keyword-function-name 'stdout)
+                "ok-fn\n")
+
+  (define srs-keyword-method-name-src
+    "HAI 1.3\nI HAS A mname ITZ \"AN\"\nO HAI IM box\nKTHX\nHOW IZ box SRS mname\n  FOUND YR \"ok-method\"\nIF U SAY SO\nVISIBLE box IZ SRS mname MKAY\nKTHXBYE\n")
+  (define srs-keyword-method-name
+    (run-source srs-keyword-method-name-src))
+  (check-eq? (hash-ref srs-keyword-method-name 'status) 'ok)
+  (check-equal? (hash-ref srs-keyword-method-name 'stdout)
+                "ok-method\n")
+
+  (define srs-keyword-object-name-src
+    "HAI 1.3\nI HAS A oname ITZ \"MKAY\"\nO HAI IM SRS oname\n  I HAS A val ITZ 9\nKTHX\nI HAS A obj ITZ SRS oname\nVISIBLE obj'Z val\nKTHXBYE\n")
+  (define srs-keyword-object-name
+    (run-source srs-keyword-object-name-src))
+  (check-eq? (hash-ref srs-keyword-object-name 'status) 'ok)
+  (check-equal? (hash-ref srs-keyword-object-name 'stdout)
+                "9\n")
+
+  (define srs-keyword-receiver-name-src
+    "HAI 1.3\nI HAS A rname ITZ \"WTF\"\nO HAI IM SRS rname\nKTHX\nHOW IZ SRS rname ping\n  FOUND YR \"ok-receiver\"\nIF U SAY SO\nI HAS A recvobj ITZ SRS rname\nVISIBLE recvobj IZ ping MKAY\nKTHXBYE\n")
+  (define srs-keyword-receiver-name
+    (run-source srs-keyword-receiver-name-src))
+  (check-eq? (hash-ref srs-keyword-receiver-name 'status) 'ok)
+  (check-equal? (hash-ref srs-keyword-receiver-name 'stdout)
+                "ok-receiver\n")
+
+  (define srs-nested-indirection-src
+    "HAI 1.3\nI HAS A a ITZ \"b\"\nI HAS A b ITZ 7\nVISIBLE SRS SRS \"a\"\nKTHXBYE\n")
+  (define srs-nested-indirection
+    (run-source srs-nested-indirection-src))
+  (check-eq? (hash-ref srs-nested-indirection 'status) 'ok)
+  (check-equal? (hash-ref srs-nested-indirection 'stdout)
+                "7\n")
+
+  (define srs-generated-source-not-reparsed-src
+    "HAI 1.3\nI HAS A code ITZ \"SRS SMOOSH FOO MKAY\"\nVISIBLE SRS code\nKTHXBYE\n")
+  (define srs-generated-source-not-reparsed
+    (run-source srs-generated-source-not-reparsed-src))
+  (check-eq? (hash-ref srs-generated-source-not-reparsed 'status)
+             'runtime-error)
+  (check-true
+   (regexp-match? #px"invalid identifier syntax:"
+                  (hash-ref srs-generated-source-not-reparsed 'error)))
+
   (define bukkit-slot-src
     "HAI 1.3\nI HAS A obj ITZ A BUKKIT\nobj HAS A answer ITZ 42\nVISIBLE obj'Z answer\nKTHXBYE\n")
   (define bukkit-slot (run-source bukkit-slot-src))

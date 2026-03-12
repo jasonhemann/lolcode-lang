@@ -50,6 +50,9 @@ Apply these in order for each disputed behavior.
 - Direct identifier positions use strict reserved-keyword rejection.
 - Dynamic names must use `SRS` where the grammar permits dynamic identifiers.
 - Rationale: allows deterministic parsing and prevents delimiter-vs-identifier ambiguity (`MKAY`, `AN`, etc.).
+- Parameter names in function/method definitions are binder sites (not ordinary references) and remain direct single-word identifiers (`YR <ident-token>`); dynamic binders (`YR SRS <expr>`) are rejected.
+- Rationale: allowing dynamic parameter binders would require call-time recomputation of the binder set, which would make function interfaces unstable across calls, make duplicate-parameter legality runtime-dependent, and introduce avoidable ambiguity in recursive/mutually recursive binding behavior.
+- Stack-frame shape note: “Stack frames do not become impossible, but they cease to have a fixed binder layout determined by the function definition; instead the frame’s binding set would have to be computed dynamically at each call.”
 
 ## Extension Policy
 

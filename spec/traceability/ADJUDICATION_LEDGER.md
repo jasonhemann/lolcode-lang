@@ -42,7 +42,7 @@ Pass-2 tranche-1 targets:
 | `N56` | adjudicated               | `WTF?` binds to current `IT`; parser encodes `stmt-switch` with subject `(expr-ident \"IT\")`.                                                                                                                                                                                                                                                                                        |
 | `N60` | adjudicated               | IT update policy is narrowed to bare expression statements only; assignment-family and non-expression statements are non-mutating unless explicitly specified by text (`IT_UPDATE_MATRIX.md`, `it-update-matrix-src`, `visible-updates-it-src`).                                                                                                                                      |
 | `N61` | adjudicated               | `VISIBLE` remains statement-special variadic with delimiter closure and `!` suffix newline suppression; implicit `MKAY` omission is rejected before `!` (explicit `MKAY` required).                                                                                                                                                                                                   |
-| `N43` | adjudicated               | Keyword/literal/type recognition is strict-case in direct syntax positions; lowercase lookalikes remain identifiers (per identifier case-sensitivity text and strict extension policy).                                                                                                                                                                                               |
+| `N43` | adjudicated               | Keyword/literal/type recognition is strict-case in direct syntax positions; lowercase lookalikes remain identifiers. Direct keyword-shaped identifiers are rejected at binding sites, while `SRS` remains the dynamic escape hatch where identifier text is computed and then validated at identifier-expected sites (`reserved-keyword-mkay-name`, `reserved-keyword-mkay-arg`, `srs-keyword-name-in-function-arg-src`, `srs-keyword-slot-name-src`, `srs-keyword-function-name-src`, `srs-keyword-method-name-src`, `srs-keyword-object-name-src`, `srs-keyword-receiver-name-src`). Parameter binders remain direct-only (`YR <ident-token>`), so `YR SRS ...` is parse-rejected (`srs-parameter-binder-negative`). |
 | `N42` | adjudicated               | Method-call argument positions use expression semantics for coherence with call-expression section; parser/runtime tests now pin expression-argument method calls.                                                                                                                                                                                                                    |
 | `N63` | adjudicated               | TYPE-words are dual-role by context: expression-position words remain TYPE literals; declaration `ITZ A <...>` defaults are restricted to built-in types (`TROOF|YARN|NUMBR|NUMBAR|NOOB|BUKKIT`); prototyping remains `ITZ LIEK A <parent>` (plain) and `ITZ A <parent> SMOOSH ...` (mixin).                                                                                          |
 | `N64` | adjudicated               | Parser now enforces cast-target domain for both `MAEK <expr> [A] <type>` and `<lvalue> IS NOW A <type>` forms (`TROOF|YARN|NUMBR|NUMBAR|NOOB` only).                                                                                                                                                                                                                                  |
@@ -99,7 +99,7 @@ Pass-2 tranche-1 targets:
 | `N68` | adjudicated               | `HOW IZ <receiver> <slot>` receiver checks occur at execution/definition time: parse accepts receiver expression shapes, then runtime enforces receiver existence and BUKKIT type (`method-def-receiver-missing-n68-src`, `method-def-receiver-nonbukkit-n68-src`).                                                                                                                   |
 | `N20` | adjudicated (extended)    | `omgwtf` missing-slot policy is pinned for stateful hooks: return-value memoization is authoritative for the resolved slot name even if intermediate same-slot mutation occurs inside `omgwtf`; invocation arity is fixed at zero because the spec does not define hook arguments, and adding implicit missing-name arguments would introduce extra machinery not textually licensed. |
 | `N13` | adjudicated (edge policy) | `omgwtf` same-slot recursive re-entry is trapped as deterministic runtime error to avoid silent divergence in spec-underdetermined recursion scenarios.                                                                                                                                                                                                                               |
-| `N70` | adjudicated               | Reserved literal/special names are rejected at user binding sites (declarations, function/method/object names, parameter names) via runtime binder gate; added regressions for `WIN`/`ME` declarations and `FAIL`/`NOOB`/`TROOF` def-name/param/object collisions.                                                                                                                    |
+| `N70` | adjudicated               | Directly written reserved literal/special names are rejected at user binding sites (declarations, function/method/object names, parameter names) via parser/runtime binder gates; this coexists with `N43`/`N88` dynamic-name policy (`SRS` may synthesize keyword-shaped names where grammar admits dynamic identifiers), while parameter binders remain direct-only. Added regressions for `WIN`/`ME` declarations and `FAIL`/`NOOB`/`TROOF` def-name/param/object collisions.                                                                                                                    |
 | `N71` | adjudicated               | Version acceptance remains strict `1.3`; unsupported versions and missing-version behavior are pinned by parse negatives (`unsupported-v12`, `unsupported-v14`, `missing-version`).                                                                                                                                                                                                   |
 | `N72` | adjudicated               | BUKKIT values are truthy (no empty-container false special case), now explicitly pinned (`empty-bukkit-truthy-src`).                                                                                                                                                                                                                                                                  |
 | `N73` | adjudicated               | Numeric portability follows host runtime: division by zero surfaces runtime error, and large NUMBR arithmetic remains exact (`quoshunt-division-by-zero-runtime-error-src`, `numbr-bignum-arithmetic-src`).                                                                                                                                                                           |
@@ -110,8 +110,7 @@ Pass-2 tranche-1 targets:
 | `N78` | adjudicated               | Nested function definitions are rejected under strict 1.3 parser policy (`nested HOW IZ I definitions are not allowed in strict 1.3` parse negatives).                                                                                                                                                                                                                                |
 | `N86` | adjudicated               | Variadic optional-`AN` parsing is generalized to all argument positions for `SMOOSH`/`ALL OF`/`ANY OF` (not limited to raw-atom arguments), while leading `AN` remains invalid (`variadic-optional-an-general-expr`, `variadic-leading-an-negative`).                                                                                                                                |
 | `N87` | adjudicated               | Implicit `MKAY` omission is statement-boundary scoped: omission is rejected before `!` and before `AN YR` continuation inside the same statement (`implicit-mkay-before-bang-negative`, `smoosh-explicit-mkay-before-bang-src`).                                                                                                                                                    |
-| `N88` | adjudicated               | `SRS` at identifier-binding sites must produce identifier-shaped names at runtime; non-identifier results are runtime errors (`srs-numeric-target-src`).                                                                                                                                                                                                                             |
-| `N89` | adjudicated               | Definition-site verb synonyms are accepted: `HOW IZ` and `HOW DUZ` both parse for ordinary and receiver/object-block function definitions; call syntax remains `IZ`-only (`how-duz-i-form`, `how-duz-i-runtime-src`, `how-duz-receiver-runtime-src`, `how-duz-objectblock-runtime-src`, `how-duz-callform`).                                                                                                                                                              |
+| `N88` | adjudicated               | `SRS` at identifier-binding and lookup sites must produce identifier-shaped names at runtime; non-identifier results are runtime errors. Nested `SRS` is repeated identifier indirection (not source reparsing) (`srs-numeric-target-src`, `srs-nested-indirection-src`, `srs-generated-source-not-reparsed-src`).                                                                                                                                                                                                                             |
 | `N90` | adjudicated               | `<object> HAS A <slot>` without `ITZ` is accepted as declaration shorthand and initializes the slot to `NOOB` (canonical explicit form remains `... ITZ <expr>`). This applies generally (including `ME`) rather than as a receiver-only exception (`slot-set-no-itz-shorthand-src`, `me-slot-no-itz-shorthand-src`, parse acceptance `slot-set-no-itz-shorthand`).                                                                                                                                                              |
 | `N91` | adjudicated               | `OBTW` block comments are statement-boundary sensitive: recognized only at logical command start (line start or comma boundary), rejected mid-command (`obtw-mid-command-negative`, `block-comment-comma-boundary-src`).                                                                                                                                                             |
 | `N92` | adjudicated               | Interpolation placeholder `:{...}` remains identifier-only (no whitespace/expression trimming), pinned with strict runtime errors (`format-string-whitespace-placeholder-src`).                                                                                                                                                                                                         |
@@ -119,6 +118,50 @@ Pass-2 tranche-1 targets:
 | `N94` | adjudicated               | NUMBAR-to-YARN rendering policy is truncation to at most two decimals, no rounding, no forced zero padding (`numbar-visible-format-src`, `numbar-no-forced-padding-src`).                                                                                                                                                                                                             |
 | `N95` | adjudicated               | Variadic logical operators short-circuit left-to-right (`ANY OF` stop on first `WIN`, `ALL OF` stop on first `FAIL`) with side-effect/error order pinned, and `SMOOSH` arity remains one-or-more (one-argument identity accepted; zero-argument form parse-rejected) (`logic-variadic-any-short-circuit-src`, `logic-variadic-any-short-circuit-avoids-error-src`, `logic-variadic-all-short-circuit-rhs-src`, `smoosh-one-arg-src`, parse negative `smoosh-zero-arg-negative`).                                                                                |
 | `N96` | adjudicated               | Typed BUKKIT key-domain behavior is pinned: direct `<identifier>` slot access is YARN-keyed; dynamic `SRS` slot access uses evaluated `NUMBR`/`YARN` key values without identifier coercion (`bukkit-slot-keys-typed-src`).                                                                                                                                                         |
+
+## N43/N88 Binder-Site Rationale (No Dynamic Parameter Binders)
+
+The project rejects `SRS`-generated parameter names in function/method definitions even though `SRS` is accepted at many dynamic reference/name sites.
+
+Reason: parameter names are binders, not ordinary references. If parameter names were recomputed at call time, parameter binding would depend on ambient mutable state rather than on the fixed surface form of the function definition.
+
+Consequences of allowing dynamic parameter binders:
+
+1. Function interfaces would become unstable across calls.
+2. Duplicate-parameter legality would become runtime-dependent rather than a stable property of the definition.
+3. Recursive and mutually recursive calls could bind the same formal positions under different names as ambient state changes.
+4. Call frames would need dynamically computed binder sets instead of the ordinary fixed binder layout defined by the function declaration.
+
+Project wording pin:
+
+“Stack frames do not become impossible, but they cease to have a fixed binder layout determined by the function definition; instead the frame’s binding set would have to be computed dynamically at each call.”
+
+This behavior is pinned by parser negatives (`srs-parameter-binder-negative`, `function-dynamic-arg-name`, `method-dynamic-arg-name`) together with runtime duplicate-parameter guard behavior (`function-duplicate-params-runtime-error-src`).
+
+## N90 Rationale (Generic `<object> HAS A <slot>` No-`ITZ` Shorthand)
+
+`N90` intentionally adopts the general shorthand rule:
+
+`<object> HAS A <slot>`
+
+is accepted as declaration shorthand for:
+
+`<object> HAS A <slot> ITZ NOOB`
+
+Reasoning:
+
+1. A `ME`-only shorthand carve-out requires extra special-case machinery that the spec does not introduce. `ME` is described as the calling-object identifier, not as a distinct grammar class that licenses unique declaration syntax.
+2. The generic shorthand reading is structurally parallel to variable declaration shorthand (`I HAS A <var>` defaulting to `NOOB`), so it preserves the smallest coherent rule set across declaration forms.
+3. Restricting shorthand to `ME` adds policy noise and makes the language less compositional with no textual requirement for that asymmetry.
+
+Project ruling:
+
+- If no `ITZ` initializer is present in `<object> HAS A <slot>`, strict mode defaults the new slot value to `NOOB` for any receiver object expression, not only `ME`.
+- Explicit `... ITZ <expr>` remains canonical and equivalent where provided.
+
+This behavior is pinned by `slot-set-no-itz-shorthand`, `slot-set-no-itz-shorthand-src`, and `me-slot-no-itz-shorthand-src`.
+
+See also: `spec/traceability/archive/reports/N90_GENERIC_SLOT_SHORTHAND_RATIONALE_2026-03-12.md`.
 
 ## N23 Policy Table: Special Slots
 

@@ -65,7 +65,7 @@ Legend:
 | `N40` | policy+implemented | `src/lolcode/runtime.rkt` (left-to-right eager eval)                                  | adjudication row `N40`                               |
 | `N41` | implemented        | `src/lolcode/parser.rkt`, `src/lolcode/runtime.rkt` (dynamic labels)                  | adjudication row `N41`                               |
 | `N42` | policy+implemented | `src/lolcode/parser.rkt`, `src/lolcode/runtime.rkt` (expr args for methods)           | adjudication row `N42`                               |
-| `N43` | implemented        | `src/lolcode/lexer.rkt`, `src/lolcode/parser.rkt`, `src/lolcode/runtime.rkt`          | adjudication row `N43`                               |
+| `N43` | implemented        | `src/lolcode/lexer.rkt`, `src/lolcode/parser.rkt`, `src/lolcode/runtime.rkt` (strict direct keyword reservation + dynamic-name `SRS` escape path)          | adjudication row `N43`                               |
 | `N44` | implemented        | `src/lolcode/lexer.rkt` + `PREPROCESSING_AND_KEYWORD_POLICY.md`                       | adjudication row `N44`                               |
 | `N45` | implemented        | `src/lolcode/lexer.rkt` (ellipsis normalization/whitespace policy)                    | adjudication row `N45`                               |
 | `N46` | implemented        | `src/lolcode/lexer.rkt`, `src/lolcode/parser.rkt` (inline block comment handoff)      | adjudication row `N46`                               |
@@ -110,8 +110,7 @@ Legend:
 | `N85` | implemented        | `src/lolcode/runtime.rkt` (`izmakin` failure atomicity)                               | adjudication row `N85`                               |
 | `N86` | implemented        | `src/lolcode/parser.rkt` (variadic optional-`AN` generalized across argument positions) | adjudication row `N86`                               |
 | `N87` | implemented        | `src/lolcode/parser.rkt` (`MKAY`-omission boundary checks before `!` / `AN YR`)       | adjudication row `N87`                               |
-| `N88` | implemented        | `src/lolcode/runtime.rkt` (SRS binding-site identifier validation)                     | adjudication row `N88`                               |
-| `N89` | implemented        | `src/lolcode/parser.rkt`, `src/lolcode/runtime.rkt` (`HOW DUZ` definition-site synonym; call syntax remains `IZ`) | adjudication row `N89`                               |
+| `N88` | implemented        | `src/lolcode/runtime.rkt` (SRS identifier-shape validation; nested SRS indirection; no generated-source reparsing)                     | adjudication row `N88`                               |
 | `N90` | implemented        | `src/lolcode/parser.rkt`, `src/lolcode/runtime.rkt` (general `<object> HAS A <slot>` no-`ITZ` shorthand defaults to `NOOB`, including `ME`)                  | adjudication row `N90`                               |
 | `N91` | implemented        | `src/lolcode/lexer.rkt` (`OBTW` boundary-sensitive recognition)                        | adjudication row `N91`                               |
 | `N92` | implemented        | `src/lolcode/runtime.rkt`, `src/lolcode/lexer.rkt` (identifier-only interpolation + strict placeholder validation) | adjudication row `N92`                               |

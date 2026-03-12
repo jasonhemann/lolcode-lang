@@ -13,7 +13,7 @@ Grammar/parse policy tests for H08 also reference `tests/spec/parse-negative-tes
 | H05 | Bare method `IT` vs receiver slot `IT` distinction | `method-bare-it-distinct-from-slot-it`, `method-fallthrough-it-vs-slot-it`, `method-it-branch-distinct-from-slot-it-src` |
 | H06 | Plain `BUKKIT` defaults `parent = NOOB` | `bukkit-default-parent-noob` |
 | H07 | Parent-chain cycle safety + copy-on-write assignment | `parent-cycle-assignment-existing-name-copy-on-write`, `inherited-function-slot-assignment-copy-on-write`, `inherited-assignment-unknown-name` |
-| H08 | Declaration/prototype grammar preserved as written | `mixin-declare` (parse-negative), `invalid-plain-a-parent-declare` (parse-negative) |
+| H08 | Declaration/prototype grammar preserved as written | `mixin-declare` (parse-positive), `invalid-plain-a-parent-declare` (parse-negative) |
 | H09 | Mixin source-set includes effective-visible; reverse-order static copy | `mixin-object`, `mixin-source-own-only-slots`, `mixin-source-own-only-methods`, `mixin-static-snapshot` |
 | H10 | Special-slot copying with parent restoration | `mixin-special-parent-restored`, `mixin-special-omgwtf-copied`, `mixin-special-izmakin-copied` |
 | H11 | `omgwtf` zero-arity, one-shot miss hook, memoized synthesis | `omgwtf-nonzero-arity-rejected`, `omgwtf-memoizes-missing-slot`, `method-call-miss-omgwtf-after-full-chain` |
@@ -25,7 +25,7 @@ Grammar/parse policy tests for H08 also reference `tests/spec/parse-negative-tes
 | H17 | Variadic optional `AN` applies across general arg positions | `variadic-optional-an-general-expr`, `variadic-leading-an-negative` |
 | H18 | Implicit `MKAY` omission is statement-boundary scoped | `implicit-mkay-before-bang-negative`, `smoosh-explicit-mkay-before-bang-src` |
 | H19 | Binding-site `SRS` must evaluate to identifier syntax | `srs-numeric-target-src` |
-| H20 | `HOW DUZ` accepted at definition sites, not call sites | `how-duz-i-form`, `how-duz-callform`, `how-duz-i-runtime-src` |
+| H20 | `HOW DUZ` accepted at definition sites, not call sites | `how-duz-i-form`, `how-duz-callform`, `how-duz-i-runtime-src`, `how-duz-receiver-runtime-src`, `how-duz-objectblock-runtime-src` |
 | H21 | `<object> HAS A <slot>` no-`ITZ` shorthand defaults to `NOOB` | `slot-set-no-itz-shorthand`, `slot-set-no-itz-shorthand-src`, `me-slot-no-itz-shorthand-src` |
 | H22 | `OBTW` block comments are boundary-sensitive | `obtw-mid-command-negative`, `block-comment-comma-boundary-src` |
 | H23 | Interpolation placeholder is identifier-only | `format-string-whitespace-placeholder-src` |
@@ -34,3 +34,4 @@ Grammar/parse policy tests for H08 also reference `tests/spec/parse-negative-tes
 | H26 | Variadic logical forms short-circuit left-to-right | `logic-variadic-any-short-circuit-src`, `logic-variadic-all-short-circuit-rhs-src` |
 | H27 | `SMOOSH` arity is one-or-more | `smoosh-one-arg-src`, `smoosh-zero-arg-negative` |
 | H28 | BUKKIT dynamic slot keys are typed and non-coercing | `bukkit-slot-keys-typed-src` |
+| H29 | Direct keyword identifiers are rejected; `SRS` can synthesize keyword-shaped names at identifier sites; parameter binders remain direct-only | `reserved-keyword-mkay-name`, `reserved-keyword-mkay-arg`, `srs-keyword-name-in-function-arg-src`, `srs-keyword-slot-name-src`, `srs-keyword-function-name-src`, `srs-keyword-method-name-src`, `srs-keyword-object-name-src`, `srs-keyword-receiver-name-src`, `srs-parameter-binder-negative`, `function-dynamic-arg-name`, `method-dynamic-arg-name`, `srs-nested-indirection-src`, `srs-generated-source-not-reparsed-src` |
