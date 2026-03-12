@@ -33,7 +33,7 @@ Method:
 | FP-12 | 849, 857, 871 | Mixin copy semantics conflict: “defined on mixin” vs “and parent slots” example comment; static snapshot is explicit. | `N24`, `N81` | `policy-pin` (effective-visible donor members + static snapshot + shallow alias) |
 | FP-13 | 33-35 | Line continuation explicitly allows both `...` and Unicode ellipsis `u2026`. | `N45`, lexer continuation tests | `aligned` |
 | FP-14 | 219 vs 608-878 | “Arrays (BUKKIT) reserved for future expansion” conflicts with extensive BUKKIT semantics below; treat early phrase as stale/editorial. | `N17` (mooted), full object/runtime support | `aligned` (documented as non-normative conflict) |
-| FP-15 | 145 (`HOW DUZ I`) vs 574 (`HOW IZ I`) | Early function reference contains editorial old form; strict grammar should use canonical `HOW IZ I`. | `N58`, parser negatives for editorial form | `aligned` |
+| FP-15 | 145 (`HOW DUZ I`) vs 574 (`HOW IZ I`) | The spec contains two definition-site spellings; strict parser accepts `HOW IZ` and `HOW DUZ` as definition-site synonyms while keeping call syntax `IZ` only. | `N58`, `N89`, parser/runtime `HOW DUZ` coverage and `I DUZ` negative | `aligned` |
 
 ---
 
@@ -55,7 +55,7 @@ Method:
 ### Minor clarity opportunities
 1. Keep an explicit note that `VISIBLE` adjacency-without-`AN` is now supported for composite expressions (recent parser fix), to prevent future regression via typo-guard heuristics.
 2. Keep editorial-conflict notes visible for:
-   - `HOW DUZ I` vs `HOW IZ I`,
+   - `HOW DUZ I` vs `HOW IZ I` (definition-site synonym accepted; call syntax remains `IZ`),
    - “BUKKIT reserved for future expansion” vs full BUKKIT chapter.
 
 ---

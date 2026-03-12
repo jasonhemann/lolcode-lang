@@ -53,7 +53,7 @@ This file provides direct named regression anchors for each `Nxx` item in the re
 | `N46` | tldr-handoff-space-comma-n46-src, inline-block-comment-tldr-handoff, block-comment-tldr-trailing-statement-without-comma | [ADJUDICATION_LEDGER.md:line 87](./ADJUDICATION_LEDGER.md#L87) |
 | `N47` | malformed-number-leading-dot, malformed-number-minus-leading-dot, malformed-number-trailing-dot, malformed-number-negative-trailing-dot, malformed-number-multi-dot | [ADJUDICATION_LEDGER.md:line 88](./ADJUDICATION_LEDGER.md#L88) |
 | `N48` | cast-invalid-yarn-dotdot-n48-src, cast-invalid-yarn-double-minus-n48-src, cast-invalid-yarn-leading-dot-n48-src | [ADJUDICATION_LEDGER.md:line 89](./ADJUDICATION_LEDGER.md#L89) |
-| `N49` | invalid-unicode-codepoint, invalid-unicode-surrogate-codepoint, string-normative-escape-outside-41-src | [ADJUDICATION_LEDGER.md:line 90](./ADJUDICATION_LEDGER.md#L90) |
+| `N49` | invalid-unicode-codepoint, invalid-unicode-surrogate-codepoint, lowercase-unicode-normative-name, mixed-case-unicode-normative-name, string-normative-escape-outside-41-src | [ADJUDICATION_LEDGER.md:line 90](./ADJUDICATION_LEDGER.md#L90) |
 | `N50` | format-string-escaped-placeholder-src, escaped-interpolation-wtf-string-case | [ADJUDICATION_LEDGER.md:line 91](./ADJUDICATION_LEDGER.md#L91) |
 | `N51` | spaced-orly-question, spaced-wtf-question, split-im-outta-phrase | [ADJUDICATION_LEDGER.md:line 39](./ADJUDICATION_LEDGER.md#L39) |
 | `N52` | assignment-nonvariable-lhs, assignment-call-lhs, cast-assignment-nonvariable-lhs | [ADJUDICATION_LEDGER.md:line 92](./ADJUDICATION_LEDGER.md#L92) |
@@ -94,10 +94,10 @@ This file provides direct named regression anchors for each `Nxx` item in the re
 | `N87` | implicit-mkay-before-bang-negative, smoosh-explicit-mkay-before-bang-src | [ADJUDICATION_LEDGER.md](./ADJUDICATION_LEDGER.md) |
 | `N88` | srs-numeric-target-src | [ADJUDICATION_LEDGER.md](./ADJUDICATION_LEDGER.md) |
 | `N89` | how-duz-i-form, how-duz-callform, how-duz-i-runtime-src, how-duz-receiver-runtime-src, how-duz-objectblock-runtime-src | [ADJUDICATION_LEDGER.md](./ADJUDICATION_LEDGER.md) |
-| `N90` | me-slot-no-itz-shorthand-src, slot-set-missing-itz | [ADJUDICATION_LEDGER.md](./ADJUDICATION_LEDGER.md) |
+| `N90` | slot-set-no-itz-shorthand, slot-set-no-itz-shorthand-src, me-slot-no-itz-shorthand-src | [ADJUDICATION_LEDGER.md](./ADJUDICATION_LEDGER.md) |
 | `N91` | obtw-mid-command-negative, block-comment-comma-boundary-src | [ADJUDICATION_LEDGER.md](./ADJUDICATION_LEDGER.md) |
 | `N92` | format-string-whitespace-placeholder-src | [ADJUDICATION_LEDGER.md](./ADJUDICATION_LEDGER.md) |
-| `N93` | string-normative-escape-src, string-normative-escape-outside-41-src | [ADJUDICATION_LEDGER.md](./ADJUDICATION_LEDGER.md) |
+| `N93` | string-normative-escape-src, string-normative-escape-outside-41-src, lowercase-unicode-normative-name, mixed-case-unicode-normative-name | [ADJUDICATION_LEDGER.md](./ADJUDICATION_LEDGER.md) |
 | `N94` | numbar-visible-format-src, numbar-no-forced-padding-src | [ADJUDICATION_LEDGER.md](./ADJUDICATION_LEDGER.md) |
-| `N95` | logic-variadic-any-short-circuit-src, logic-variadic-any-short-circuit-avoids-error-src, logic-variadic-all-short-circuit-rhs-src | [ADJUDICATION_LEDGER.md](./ADJUDICATION_LEDGER.md) |
+| `N95` | logic-variadic-any-short-circuit-src, logic-variadic-any-short-circuit-avoids-error-src, logic-variadic-all-short-circuit-rhs-src, smoosh-one-arg-src, smoosh-zero-arg-negative | [ADJUDICATION_LEDGER.md](./ADJUDICATION_LEDGER.md) |
 | `N96` | bukkit-slot-keys-typed-src | [ADJUDICATION_LEDGER.md](./ADJUDICATION_LEDGER.md) |

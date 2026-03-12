@@ -213,6 +213,13 @@
   (check-eq? (hash-ref me-slot-no-itz-shorthand 'status) 'ok)
   (check-equal? (hash-ref me-slot-no-itz-shorthand 'stdout) "1\n")
 
+  (define slot-set-no-itz-shorthand-src
+    "HAI 1.3\nI HAS A obj ITZ A BUKKIT\nobj HAS A x\nVISIBLE obj'Z x\nKTHXBYE\n")
+  (define slot-set-no-itz-shorthand
+    (run-source slot-set-no-itz-shorthand-src))
+  (check-eq? (hash-ref slot-set-no-itz-shorthand 'status) 'ok)
+  (check-equal? (hash-ref slot-set-no-itz-shorthand 'stdout) "NOOB\n")
+
   (define declaration-an-rejected-src
     "HAI 1.3\nI HAS AN obj ITZ A BUKKIT\nKTHXBYE\n")
   (check-exn #px"syntax error:"
@@ -451,6 +458,15 @@
   ;; Object-body I HAS A IT declares a real slot on the object (no temp injected IT).
   (check-equal? (hash-ref object-body-it-slot-construction 'stdout)
                 "real-slot\n")
+
+  (define method-it-branch-distinct-from-slot-it-src
+    "HAI 1.3\nO HAI IM o\n  I HAS A IT ITZ FAIL\n  HOW IZ I choose\n    WIN\n    O RLY?\n      YA RLY\n        FOUND YR \"YA\"\n      NO WAI\n        FOUND YR \"NO\"\n    OIC\n  IF U SAY SO\nKTHX\nVISIBLE o IZ choose MKAY\nVISIBLE o'Z IT\nKTHXBYE\n")
+  (define method-it-branch-distinct-from-slot-it
+    (run-source method-it-branch-distinct-from-slot-it-src))
+  (check-eq? (hash-ref method-it-branch-distinct-from-slot-it 'status) 'ok)
+  ;; Branch selection consumes method-local bare IT; receiver slot IT is separate.
+  (check-equal? (hash-ref method-it-branch-distinct-from-slot-it 'stdout)
+                "YA\nFAIL\n")
 
   (define expr-stmt-src
     "HAI 1.3\nHOW IZ I ping\n  VISIBLE \"P\"\nIF U SAY SO\nI IZ ping MKAY\nKTHXBYE\n")

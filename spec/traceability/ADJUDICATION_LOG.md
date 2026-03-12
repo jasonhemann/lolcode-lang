@@ -320,7 +320,7 @@ Latest checklist-batch delta (`2026-03-12`, tranche-2 semantic-lint rev3 integra
   - variadic optional-`AN` generalization + `SMOOSH` one-arg acceptance,
   - implicit-`MKAY` omission boundary guard before `!`/`AN YR`,
   - `HOW DUZ` definition-site synonym (call syntax remains `IZ`),
-  - `ME HAS A` no-`ITZ` shorthand,
+  - general `<object> HAS A <slot>` no-`ITZ` shorthand (including `ME`),
   - statement-boundary `OBTW`,
   - binding-site `SRS` identifier validation,
   - Unicode normative-name freeze to 4.1 with uppercase requirement,

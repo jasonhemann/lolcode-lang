@@ -265,15 +265,7 @@
               target)]))
 
 (define (make-slot-set-stmt target slot maybe-init)
-  (cond
-    [maybe-init
-     (stmt-slot-set target slot maybe-init)]
-    [(and (expr-ident? target)
-          (string=? (expr-ident-name target) "ME"))
-     (stmt-slot-set target slot (expr-literal 'NOOB))]
-    [else
-     (error 'parse-source
-            "slot declaration without ITZ is only allowed as ME HAS A <slotname>")]))
+  (stmt-slot-set target slot (or maybe-init (expr-literal 'NOOB))))
 
 (define (switch-string->literal text)
   (define template (ensure-yarn-template text))

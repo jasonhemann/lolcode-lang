@@ -6,7 +6,7 @@ Inputs checked:
 - `spec/upstream/lolcode-spec-v1.3.md`
 - `tests/spec/runtime-core-test.rkt`
 - `tests/spec/parse-negative-test.rkt`
-- `tests/spec/spec-audit/known-gaps-failing-test.rkt`
+- `tests/spec/spec-audit/closed-gaps-regression-test.rkt`
 - `spec/traceability/spec-1.3-matrix.rktd`
 
 Status legend:

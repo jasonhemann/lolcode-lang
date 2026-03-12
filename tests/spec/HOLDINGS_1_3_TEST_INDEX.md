@@ -10,7 +10,7 @@ Grammar/parse policy tests for H08 also reference `tests/spec/parse-negative-tes
 | H02 | Methods are slot values (no separate namespace) | `method-defs-are-slot-callables`, `function-storage` |
 | H03 | Receiver-dynamic slot-call semantics | `slot-function-receiver-namespace`, `mixin-copied-function-receiver-late-binding` |
 | H04 | Object-body `I HAS A` is object-local | `top-level-object-scope-does-not-leak`, `object-body-redeclare-overwrite-does-not-mutate-outer` |
-| H05 | Bare method `IT` vs receiver slot `IT` distinction | `method-bare-it-distinct-from-slot-it`, `method-fallthrough-it-vs-slot-it` |
+| H05 | Bare method `IT` vs receiver slot `IT` distinction | `method-bare-it-distinct-from-slot-it`, `method-fallthrough-it-vs-slot-it`, `method-it-branch-distinct-from-slot-it-src` |
 | H06 | Plain `BUKKIT` defaults `parent = NOOB` | `bukkit-default-parent-noob` |
 | H07 | Parent-chain cycle safety + copy-on-write assignment | `parent-cycle-assignment-existing-name-copy-on-write`, `inherited-function-slot-assignment-copy-on-write`, `inherited-assignment-unknown-name` |
 | H08 | Declaration/prototype grammar preserved as written | `mixin-declare` (parse-negative), `invalid-plain-a-parent-declare` (parse-negative) |
@@ -26,10 +26,10 @@ Grammar/parse policy tests for H08 also reference `tests/spec/parse-negative-tes
 | H18 | Implicit `MKAY` omission is statement-boundary scoped | `implicit-mkay-before-bang-negative`, `smoosh-explicit-mkay-before-bang-src` |
 | H19 | Binding-site `SRS` must evaluate to identifier syntax | `srs-numeric-target-src` |
 | H20 | `HOW DUZ` accepted at definition sites, not call sites | `how-duz-i-form`, `how-duz-callform`, `how-duz-i-runtime-src` |
-| H21 | `ME HAS A <slot>` no-`ITZ` shorthand only | `me-slot-no-itz-shorthand-src`, `slot-set-missing-itz` |
+| H21 | `<object> HAS A <slot>` no-`ITZ` shorthand defaults to `NOOB` | `slot-set-no-itz-shorthand`, `slot-set-no-itz-shorthand-src`, `me-slot-no-itz-shorthand-src` |
 | H22 | `OBTW` block comments are boundary-sensitive | `obtw-mid-command-negative`, `block-comment-comma-boundary-src` |
 | H23 | Interpolation placeholder is identifier-only | `format-string-whitespace-placeholder-src` |
-| H24 | Unicode normative-name escape pinned to 4.1 table | `string-normative-escape-src`, `string-normative-escape-outside-41-src` |
+| H24 | Unicode normative-name escape pinned to 4.1 table | `string-normative-escape-src`, `string-normative-escape-outside-41-src`, `mixed-case-unicode-normative-name` |
 | H25 | NUMBAR print truncates without forced padding | `numbar-visible-format-src`, `numbar-no-forced-padding-src` |
 | H26 | Variadic logical forms short-circuit left-to-right | `logic-variadic-any-short-circuit-src`, `logic-variadic-all-short-circuit-rhs-src` |
 | H27 | `SMOOSH` arity is one-or-more | `smoosh-one-arg-src`, `smoosh-zero-arg-negative` |

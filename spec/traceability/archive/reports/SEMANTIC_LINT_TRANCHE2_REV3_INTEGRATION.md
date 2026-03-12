@@ -16,7 +16,7 @@ This note records how tranche-2 EXG holdings were integrated into strict 1.3 adj
 | EXG-102 | N87 | Implicit `MKAY` omission is statement-boundary only; explicit `MKAY` required before `!` and `AN YR` continuations. | `implicit-mkay-before-bang-negative`, `smoosh-explicit-mkay-before-bang-src` |
 | EXG-103 | N88 | `SRS` used at identifier-binding sites must evaluate to identifier-shaped names; non-identifier results error. | `srs-numeric-target-src` |
 | EXG-104 | N89 | `HOW DUZ` accepted as definition-site synonym for `HOW IZ` (ordinary, receiver, object-body); call syntax remains `IZ` only. | `how-duz-i-form`, `how-duz-callform`, `how-duz-i-runtime-src`, `how-duz-receiver-runtime-src`, `how-duz-objectblock-runtime-src` |
-| EXG-105 | N90 | `ME HAS A <slot>` no-`ITZ` shorthand allowed (defaults NOOB); generic `<object> HAS A <slot>` still requires `ITZ`. | `me-slot-no-itz-shorthand-src`, `slot-set-missing-itz` |
+| EXG-105 | N90 | `<object> HAS A <slot>` no-`ITZ` shorthand is allowed generally and defaults to `NOOB` (includes `ME`); explicit `ITZ` form remains canonical. | `slot-set-no-itz-shorthand`, `slot-set-no-itz-shorthand-src`, `me-slot-no-itz-shorthand-src` |
 | EXG-106 | N91 | `OBTW` recognized only at logical statement boundaries (line start/comma boundary), rejected mid-command. | `obtw-mid-command-negative`, `block-comment-comma-boundary-src` |
 | EXG-107 | N92 | Interpolation placeholders remain identifier-only (no whitespace/expression placeholders). | `format-string-whitespace-placeholder-src` |
 | EXG-108 | N93 | `:[<name>]` requires uppercase name and resolves against Unicode 4.1 normative-name set. | `string-normative-escape-src`, `string-normative-escape-outside-41-src`, parse negatives for invalid/lowercase names |

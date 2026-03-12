@@ -164,6 +164,11 @@
   (check-exn #px"invalid Unicode normative name in string literal"
              (lambda () (parse-program lowercase-unicode-normative-name)))
 
+  (define mixed-case-unicode-normative-name
+    "HAI 1.3\nVISIBLE \":[Dollar Sign]\"\nKTHXBYE\n")
+  (check-exn #px"invalid Unicode normative name in string literal"
+             (lambda () (parse-program mixed-case-unicode-normative-name)))
+
   (define spaced-unicode-normative-name
     "HAI 1.3\nVISIBLE \":[DOLLAR  SIGN]\"\nKTHXBYE\n")
   (check-exn #px"invalid Unicode normative name in string literal"
@@ -543,10 +548,10 @@
   (check-exn #px"syntax error:"
              (lambda () (parse-program slot-set-direct-numeric-target)))
 
-  (define slot-set-missing-itz
+  (define slot-set-no-itz-shorthand
     "HAI 1.3\nI HAS A obj ITZ A BUKKIT\nobj HAS A x\nKTHXBYE\n")
-  (check-exn #px"(syntax error:|slot declaration without ITZ is only allowed as ME HAS A <slotname>)"
-             (lambda () (parse-program slot-set-missing-itz)))
+  (check-not-exn
+   (lambda () (parse-program slot-set-no-itz-shorthand)))
 
   (define me-slot-declare-without-itz
     "HAI 1.3\nO HAI IM box\nKTHX\nHOW IZ I mk\n  ME HAS A x\n  ME'Z x R 1\nIF U SAY SO\nbox IZ mk MKAY\nVISIBLE box'Z x\nKTHXBYE\n")

@@ -112,12 +112,12 @@ Legend:
 | `N87` | implemented        | `src/lolcode/parser.rkt` (`MKAY`-omission boundary checks before `!` / `AN YR`)       | adjudication row `N87`                               |
 | `N88` | implemented        | `src/lolcode/runtime.rkt` (SRS binding-site identifier validation)                     | adjudication row `N88`                               |
 | `N89` | implemented        | `src/lolcode/parser.rkt`, `src/lolcode/runtime.rkt` (`HOW DUZ` definition-site synonym; call syntax remains `IZ`) | adjudication row `N89`                               |
-| `N90` | implemented        | `src/lolcode/parser.rkt` (`ME HAS A <slot>` no-`ITZ` shorthand only)                  | adjudication row `N90`                               |
+| `N90` | implemented        | `src/lolcode/parser.rkt`, `src/lolcode/runtime.rkt` (general `<object> HAS A <slot>` no-`ITZ` shorthand defaults to `NOOB`, including `ME`)                  | adjudication row `N90`                               |
 | `N91` | implemented        | `src/lolcode/lexer.rkt` (`OBTW` boundary-sensitive recognition)                        | adjudication row `N91`                               |
 | `N92` | implemented        | `src/lolcode/runtime.rkt`, `src/lolcode/lexer.rkt` (identifier-only interpolation + strict placeholder validation) | adjudication row `N92`                               |
 | `N93` | implemented        | `src/lolcode/lexer.rkt` (Unicode normative-name lookup pinned to 4.1, uppercase required) | adjudication row `N93`                               |
 | `N94` | implemented        | `src/lolcode/runtime/value.rkt` (NUMBAR print truncation/no forced pad)               | adjudication row `N94`                               |
-| `N95` | implemented        | `src/lolcode/runtime/operators.rkt` (left-to-right short-circuit for `ANY OF`/`ALL OF`) | adjudication row `N95`                               |
+| `N95` | implemented        | `src/lolcode/runtime/operators.rkt`, `src/lolcode/parser.rkt` (left-to-right short-circuit for `ANY OF`/`ALL OF`; `SMOOSH` one-or-more arity gate) | adjudication row `N95`                               |
 | `N96` | implemented        | `src/lolcode/runtime.rkt`, `src/lolcode/runtime/value.rkt`, `src/lolcode/parser.rkt` (typed BUKKIT slot-key semantics) | adjudication row `N96`                               |
 
 ## Notes on “already correct” and “mistake”
