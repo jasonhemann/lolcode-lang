@@ -30,14 +30,32 @@
     (current-continuation-marks)
     where)))
 
+(define identifier-runtime-rx #px"^[A-Za-z][A-Za-z0-9_]*$")
+
+(define (identifier-name who value)
+  (define text (identifier-text who value))
+  (unless (regexp-match? identifier-runtime-rx text)
+    (error 'run-program "invalid identifier syntax: ~v" text))
+  text)
+
+(define (slot-key-value who value)
+  (cond
+    [(string? value) value]
+    [(exact-integer? value) value]
+    [else
+     (error 'run-program
+            "~a must evaluate to NUMBR or YARN slot key, got ~e"
+            who
+            value)]))
+
 (define (compile-slot-name slot)
   (match slot
     [(expr-ident name) (lambda (_e _ctx) name)]
     [(expr-srs inner)
      (define inner-proc (compile-expr inner))
      (lambda (e ctx)
-       (identifier-text
-        "SRS slot must evaluate to identifier text"
+       (slot-key-value
+        "SRS slot must evaluate to NUMBR or YARN slot key"
         (inner-proc e ctx)))]
     [_ (raise-unsupported slot)]))
 
@@ -47,7 +65,7 @@
     [(expr-srs inner)
      (define inner-proc (compile-expr inner))
      (lambda (e ctx)
-       (identifier-text
+       (identifier-name
         "SRS target must evaluate to identifier text"
         (inner-proc e ctx)))]
     [_ (raise-unsupported target)]))
@@ -58,11 +76,11 @@
   (match name-spec
     [(expr-literal value)
      (lambda (_e _ctx)
-       (identifier-text who value))]
+       (identifier-name who value))]
     [(expr-srs inner)
      (define inner-proc (compile-expr inner))
      (lambda (e ctx)
-       (identifier-text who (inner-proc e ctx)))]
+       (identifier-name who (inner-proc e ctx)))]
     [_ (error 'run-program "invalid name spec: ~e" name-spec)]))
 
 (define (compile-lvalue target #:define-missing? [define-missing? #f])
@@ -373,7 +391,7 @@
   (define inner-proc (compile-expr inner))
   (lambda (e ctx)
     (define resolved-name
-      (identifier-text "SRS expression must evaluate to identifier text" (inner-proc e ctx)))
+      (identifier-name "SRS expression must evaluate to identifier text" (inner-proc e ctx)))
     (env-ref e resolved-name)))
 
 (define (compile-expr-clone inner)

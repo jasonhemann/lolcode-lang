@@ -8,12 +8,12 @@ Scope: strict LOLCODE 1.3 parser/lexer behavior.
 Execution order used by implementation:
 
 1. Lexical scan with string shielding (`"` delimited YARNs parsed first; comma/ellipsis inside YARN are literal text).
-2. Single-line comment stripping (`BTW ...` to newline) and block-comment skipping (`OBTW ... TLDR`) in lexer stream.
+2. Single-line comment stripping (`BTW ...` to newline) and block-comment skipping (`OBTW ... TLDR`) in lexer stream; `OBTW` is recognized only at logical statement boundaries.
 3. Line-continuation processing (`...` and `…`) at line end only.
 4. Comma soft-break conversion to `NEWLINE` tokens.
 5. Parser-side same-line phrase collapse (`IM IN` -> `IMIN`, `IM OUTTA` -> `IMOUTTA`).
-6. Parser-side normalization rewrites for optional-`AN` sugar forms (`SMOOSH`, `ALL OF`, `ANY OF`).
-7. Grammar parse over normalized token stream.
+6. Parser-side boundary validation for implicit-`MKAY` omission in variadics (rejected before same-statement continuations such as `!` / `AN YR`).
+7. Grammar parse over normalized token stream with optional-`AN` variadic argument forms.
 
 Evidence tests:
 - `inline-block-comment-tldr-handoff` in `tests/spec/parse-negative-test.rkt`

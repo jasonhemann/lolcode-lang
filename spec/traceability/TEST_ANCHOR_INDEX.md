@@ -29,7 +29,7 @@ This file provides direct named regression anchors for each `Nxx` item in the re
 | `N22` | (none explicit in ledger row) | [ADJUDICATION_LEDGER.md:line 28](./ADJUDICATION_LEDGER.md#L28) |
 | `N23` | (none explicit in ledger row) | [ADJUDICATION_LEDGER.md:line 29](./ADJUDICATION_LEDGER.md#L29) |
 | `N24` | (none explicit in ledger row) | [ADJUDICATION_LEDGER.md:line 30](./ADJUDICATION_LEDGER.md#L30) |
-| `N25` | bukkit-srs-numeric-slot-src, slot-set-direct-numeric-target | [ADJUDICATION_LEDGER.md:line 69](./ADJUDICATION_LEDGER.md#L69) |
+| `N25` | bukkit-srs-numeric-slot-src, bukkit-slot-keys-typed-src, slot-set-direct-numeric-target | [ADJUDICATION_LEDGER.md:line 69](./ADJUDICATION_LEDGER.md#L69) |
 | `N26` | object-self-reference-during-construction-src | [ADJUDICATION_LEDGER.md:line 70](./ADJUDICATION_LEDGER.md#L70) |
 | `N27` | (none explicit in ledger row) | [ADJUDICATION_LEDGER.md:line 31](./ADJUDICATION_LEDGER.md#L31) |
 | `N28` | loop-label-mismatch, duplicate-loop-labels-n57-src | [ADJUDICATION_LEDGER.md:line 71](./ADJUDICATION_LEDGER.md#L71) |
@@ -53,7 +53,7 @@ This file provides direct named regression anchors for each `Nxx` item in the re
 | `N46` | tldr-handoff-space-comma-n46-src, inline-block-comment-tldr-handoff, block-comment-tldr-trailing-statement-without-comma | [ADJUDICATION_LEDGER.md:line 87](./ADJUDICATION_LEDGER.md#L87) |
 | `N47` | malformed-number-leading-dot, malformed-number-minus-leading-dot, malformed-number-trailing-dot, malformed-number-negative-trailing-dot, malformed-number-multi-dot | [ADJUDICATION_LEDGER.md:line 88](./ADJUDICATION_LEDGER.md#L88) |
 | `N48` | cast-invalid-yarn-dotdot-n48-src, cast-invalid-yarn-double-minus-n48-src, cast-invalid-yarn-leading-dot-n48-src | [ADJUDICATION_LEDGER.md:line 89](./ADJUDICATION_LEDGER.md#L89) |
-| `N49` | invalid-unicode-codepoint, invalid-unicode-surrogate-codepoint | [ADJUDICATION_LEDGER.md:line 90](./ADJUDICATION_LEDGER.md#L90) |
+| `N49` | invalid-unicode-codepoint, invalid-unicode-surrogate-codepoint, string-normative-escape-outside-41-src | [ADJUDICATION_LEDGER.md:line 90](./ADJUDICATION_LEDGER.md#L90) |
 | `N50` | format-string-escaped-placeholder-src, escaped-interpolation-wtf-string-case | [ADJUDICATION_LEDGER.md:line 91](./ADJUDICATION_LEDGER.md#L91) |
 | `N51` | spaced-orly-question, spaced-wtf-question, split-im-outta-phrase | [ADJUDICATION_LEDGER.md:line 39](./ADJUDICATION_LEDGER.md#L39) |
 | `N52` | assignment-nonvariable-lhs, assignment-call-lhs, cast-assignment-nonvariable-lhs | [ADJUDICATION_LEDGER.md:line 92](./ADJUDICATION_LEDGER.md#L92) |
@@ -62,10 +62,10 @@ This file provides direct named regression anchors for each `Nxx` item in the re
 | `N55` | orphan-mebbe-without-ya-rly, orphan-no-wai-without-orly, orly-mebbe-after-no-wai | [ADJUDICATION_LEDGER.md:line 93](./ADJUDICATION_LEDGER.md#L93) |
 | `N56` | stmt-switch | [ADJUDICATION_LEDGER.md:line 42](./ADJUDICATION_LEDGER.md#L42) |
 | `N57` | loop-label-case-mismatch, duplicate-loop-labels-n57-src | [ADJUDICATION_LEDGER.md:line 94](./ADJUDICATION_LEDGER.md#L94) |
-| `N58` | editorial-how-duz-i-form | [ADJUDICATION_LEDGER.md:line 95](./ADJUDICATION_LEDGER.md#L95) |
+| `N58` | how-duz-i-form, how-duz-callform, how-duz-i-runtime-src, how-duz-receiver-runtime-src, how-duz-objectblock-runtime-src | [ADJUDICATION_LEDGER.md:line 95](./ADJUDICATION_LEDGER.md#L95) |
 | `N59` | expr-srs, ast-srs-sites-shape-src | [ADJUDICATION_LEDGER.md:line 96](./ADJUDICATION_LEDGER.md#L96) |
 | `N60` | it-update-matrix-src | [ADJUDICATION_LEDGER.md:line 43](./ADJUDICATION_LEDGER.md#L43) |
-| `N61` | (none explicit in ledger row) | [ADJUDICATION_LEDGER.md:line 44](./ADJUDICATION_LEDGER.md#L44) |
+| `N61` | implicit-mkay-before-bang-negative, smoosh-explicit-mkay-before-bang-src | [ADJUDICATION_LEDGER.md:line 44](./ADJUDICATION_LEDGER.md#L44) |
 | `N62` | gimmeh-undeclared-target-runtime-error-src, gimmeh-expression-target | [ADJUDICATION_LEDGER.md:line 97](./ADJUDICATION_LEDGER.md#L97) |
 | `N63` | (none explicit in ledger row) | [ADJUDICATION_LEDGER.md:line 47](./ADJUDICATION_LEDGER.md#L47) |
 | `N64` | (none explicit in ledger row) | [ADJUDICATION_LEDGER.md:line 48](./ADJUDICATION_LEDGER.md#L48) |
@@ -90,3 +90,14 @@ This file provides direct named regression anchors for each `Nxx` item in the re
 | `N83` | parent-slot-nonobject-terminates-chain-src, parent-method-nonobject-terminates-chain-src | [ADJUDICATION_LEDGER.md:line 55](./ADJUDICATION_LEDGER.md#L55) |
 | `N84` | method-call-miss-omgwtf-after-full-chain-src, method-call-miss-omgwtf-on-original-receiver-src | [ADJUDICATION_LEDGER.md:line 56](./ADJUDICATION_LEDGER.md#L56) |
 | `N85` | izmakin-failure-surfaced-before-binding-src, compile-stmt-declare | [ADJUDICATION_LEDGER.md:line 57](./ADJUDICATION_LEDGER.md#L57) |
+| `N86` | variadic-optional-an-general-expr, variadic-leading-an-negative | [ADJUDICATION_LEDGER.md](./ADJUDICATION_LEDGER.md) |
+| `N87` | implicit-mkay-before-bang-negative, smoosh-explicit-mkay-before-bang-src | [ADJUDICATION_LEDGER.md](./ADJUDICATION_LEDGER.md) |
+| `N88` | srs-numeric-target-src | [ADJUDICATION_LEDGER.md](./ADJUDICATION_LEDGER.md) |
+| `N89` | how-duz-i-form, how-duz-callform, how-duz-i-runtime-src, how-duz-receiver-runtime-src, how-duz-objectblock-runtime-src | [ADJUDICATION_LEDGER.md](./ADJUDICATION_LEDGER.md) |
+| `N90` | me-slot-no-itz-shorthand-src, slot-set-missing-itz | [ADJUDICATION_LEDGER.md](./ADJUDICATION_LEDGER.md) |
+| `N91` | obtw-mid-command-negative, block-comment-comma-boundary-src | [ADJUDICATION_LEDGER.md](./ADJUDICATION_LEDGER.md) |
+| `N92` | format-string-whitespace-placeholder-src | [ADJUDICATION_LEDGER.md](./ADJUDICATION_LEDGER.md) |
+| `N93` | string-normative-escape-src, string-normative-escape-outside-41-src | [ADJUDICATION_LEDGER.md](./ADJUDICATION_LEDGER.md) |
+| `N94` | numbar-visible-format-src, numbar-no-forced-padding-src | [ADJUDICATION_LEDGER.md](./ADJUDICATION_LEDGER.md) |
+| `N95` | logic-variadic-any-short-circuit-src, logic-variadic-any-short-circuit-avoids-error-src, logic-variadic-all-short-circuit-rhs-src | [ADJUDICATION_LEDGER.md](./ADJUDICATION_LEDGER.md) |
+| `N96` | bukkit-slot-keys-typed-src | [ADJUDICATION_LEDGER.md](./ADJUDICATION_LEDGER.md) |

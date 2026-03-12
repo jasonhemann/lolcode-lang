@@ -1,0 +1,4 @@
+HAI 1.3
+I HAS A idx ITZ 0
+I HAS A SRS idx ITZ 9
+KTHXBYE

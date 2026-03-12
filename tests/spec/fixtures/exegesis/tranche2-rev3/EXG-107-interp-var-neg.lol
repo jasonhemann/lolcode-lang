@@ -1,0 +1,4 @@
+HAI 1.3
+I HAS A n ITZ 7
+VISIBLE "X:{ n }:Y"
+KTHXBYE

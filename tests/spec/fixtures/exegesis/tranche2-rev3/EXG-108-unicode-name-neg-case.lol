@@ -1,0 +1,3 @@
+HAI 1.3
+VISIBLE ":[Dollar Sign]"
+KTHXBYE

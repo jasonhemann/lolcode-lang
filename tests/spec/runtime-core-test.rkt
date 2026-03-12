@@ -115,8 +115,10 @@
   (define srs-numeric-target-src
     "HAI 1.3\nI HAS A idx ITZ 0\nI HAS A SRS idx ITZ 9\nKTHXBYE\n")
   (define srs-numeric-target (run-source srs-numeric-target-src))
-  (check-eq? (hash-ref srs-numeric-target 'status) 'ok)
-  (check-equal? (hash-ref srs-numeric-target 'last-value) 'NOOB)
+  (check-eq? (hash-ref srs-numeric-target 'status) 'runtime-error)
+  (check-true
+   (regexp-match? #px"invalid identifier syntax:"
+                  (hash-ref srs-numeric-target 'error)))
 
   (define srs-keyword-name-in-function-arg-src
     "HAI 1.3\nI HAS A kw ITZ \"MKAY\"\nI HAS A SRS kw ITZ 7\nHOW IZ I echo YR x\n  FOUND YR x\nIF U SAY SO\nVISIBLE I IZ echo YR SRS kw MKAY\nKTHXBYE\n")
@@ -143,6 +145,13 @@
   (define bukkit-srs-numeric-slot (run-source bukkit-srs-numeric-slot-src))
   (check-eq? (hash-ref bukkit-srs-numeric-slot 'status) 'ok)
   (check-equal? (hash-ref bukkit-srs-numeric-slot 'stdout) "42\n")
+
+  (define bukkit-slot-keys-typed-src
+    "HAI 1.3\nI HAS A o ITZ A BUKKIT\no HAS A SRS 0 ITZ 41\no HAS A SRS \"0\" ITZ 99\nVISIBLE o'Z SRS 0\nVISIBLE o'Z SRS \"0\"\nKTHXBYE\n")
+  (define bukkit-slot-keys-typed
+    (run-source bukkit-slot-keys-typed-src))
+  (check-eq? (hash-ref bukkit-slot-keys-typed 'status) 'ok)
+  (check-equal? (hash-ref bukkit-slot-keys-typed 'stdout) "41\n99\n")
 
   (define prototype-srs-parent-and-mixins-src
     "HAI 1.3\nI HAS A pname ITZ \"Parent\"\nI HAS A m1name ITZ \"MixA\"\nI HAS A m2name ITZ \"MixB\"\nO HAI IM Parent\n  I HAS A pslot ITZ \"P\"\nKTHX\nO HAI IM MixA\n  I HAS A m1slot ITZ \"M1\"\nKTHX\nO HAI IM MixB\n  I HAS A m2slot ITZ \"M2\"\nKTHX\nI HAS A kid ITZ A SRS pname SMOOSH SRS m1name AN SRS m2name\nVISIBLE kid'Z pslot\nVISIBLE kid'Z m1slot\nVISIBLE kid'Z m2slot\nKTHXBYE\n")
@@ -176,12 +185,33 @@
   (check-equal? (hash-ref method-def-srs-receiver-slot-tail 'stdout)
                 "ok\n")
 
+  (define how-duz-receiver-runtime-src
+    "HAI 1.3\nI HAS A o ITZ A BUKKIT\nHOW DUZ o m\n  FOUND YR 7\nIF U SAY SO\nVISIBLE o IZ m MKAY\nKTHXBYE\n")
+  (define how-duz-receiver-runtime
+    (run-source how-duz-receiver-runtime-src))
+  (check-eq? (hash-ref how-duz-receiver-runtime 'status) 'ok)
+  (check-equal? (hash-ref how-duz-receiver-runtime 'stdout) "7\n")
+
+  (define how-duz-objectblock-runtime-src
+    "HAI 1.3\nO HAI IM box\n  HOW DUZ I ping\n    FOUND YR 9\n  IF U SAY SO\nKTHX\nVISIBLE box IZ ping MKAY\nKTHXBYE\n")
+  (define how-duz-objectblock-runtime
+    (run-source how-duz-objectblock-runtime-src))
+  (check-eq? (hash-ref how-duz-objectblock-runtime 'status) 'ok)
+  (check-equal? (hash-ref how-duz-objectblock-runtime 'stdout) "9\n")
+
   (define bukkit-slot-redeclare-overwrite-src
     "HAI 1.3\nI HAS A obj ITZ A BUKKIT\nobj HAS A answer ITZ 1\nobj HAS A answer ITZ 2\nVISIBLE obj'Z answer\nKTHXBYE\n")
   (define bukkit-slot-redeclare-overwrite
     (run-source bukkit-slot-redeclare-overwrite-src))
   (check-eq? (hash-ref bukkit-slot-redeclare-overwrite 'status) 'ok)
   (check-equal? (hash-ref bukkit-slot-redeclare-overwrite 'stdout) "2\n")
+
+  (define me-slot-no-itz-shorthand-src
+    "HAI 1.3\nO HAI IM box\nKTHX\nHOW IZ box mk\n  ME HAS A x\n  ME'Z x R 1\nIF U SAY SO\nbox IZ mk MKAY\nVISIBLE box'Z x\nKTHXBYE\n")
+  (define me-slot-no-itz-shorthand
+    (run-source me-slot-no-itz-shorthand-src))
+  (check-eq? (hash-ref me-slot-no-itz-shorthand 'status) 'ok)
+  (check-equal? (hash-ref me-slot-no-itz-shorthand 'stdout) "1\n")
 
   (define declaration-an-rejected-src
     "HAI 1.3\nI HAS AN obj ITZ A BUKKIT\nKTHXBYE\n")
@@ -263,6 +293,12 @@
   (define function-result (run-source function-src))
   (check-eq? (hash-ref function-result 'status) 'ok)
   (check-equal? (hash-ref function-result 'stdout) "5\n")
+
+  (define how-duz-i-runtime-src
+    "HAI 1.3\nHOW DUZ I f\n  FOUND YR 1\nIF U SAY SO\nVISIBLE I IZ f MKAY\nKTHXBYE\n")
+  (define how-duz-i-runtime (run-source how-duz-i-runtime-src))
+  (check-eq? (hash-ref how-duz-i-runtime 'status) 'ok)
+  (check-equal? (hash-ref how-duz-i-runtime 'stdout) "1\n")
 
   (define function-arg-eval-order-src
     "HAI 1.3\nI HAS A seq ITZ \"\"\nHOW IZ I mark YR c\n  seq R SMOOSH seq AN c MKAY\n  FOUND YR c\nIF U SAY SO\nHOW IZ I see YR a AN YR b\n  FOUND YR seq\nIF U SAY SO\nVISIBLE I IZ see YR I IZ mark YR \"A\" MKAY AN YR I IZ mark YR \"B\" MKAY MKAY\nKTHXBYE\n")
@@ -686,6 +722,14 @@
   (check-equal? (hash-ref logic-variadic-all-short-circuit-rhs 'stdout)
                 "FAIL\n")
 
+  (define variadic-optional-an-general-expr-src
+    "HAI 1.3\nVISIBLE SMOOSH SUM OF 1 AN 2 DIFF OF 5 AN 3 MKAY\nVISIBLE ALL OF WIN FAIL MKAY\nKTHXBYE\n")
+  (define variadic-optional-an-general-expr
+    (run-source variadic-optional-an-general-expr-src))
+  (check-eq? (hash-ref variadic-optional-an-general-expr 'status) 'ok)
+  (check-equal? (hash-ref variadic-optional-an-general-expr 'stdout)
+                "32\nFAIL\n")
+
   (define smoosh-eager-side-effect-before-error-src
     "HAI 1.3\nHOW IZ I loud\n  VISIBLE \"L\"\n  FOUND YR \"L\"\nIF U SAY SO\nSMOOSH I IZ loud MKAY AN missing MKAY\nKTHXBYE\n")
   (define smoosh-eager-side-effect-before-error
@@ -697,6 +741,13 @@
   (check-true (regexp-match? #px"unknown identifier: missing"
                              (hash-ref smoosh-eager-side-effect-before-error
                                        'error)))
+
+  (define smoosh-one-arg-src
+    "HAI 1.3\nVISIBLE SMOOSH 7 MKAY\nKTHXBYE\n")
+  (define smoosh-one-arg
+    (run-source smoosh-one-arg-src))
+  (check-eq? (hash-ref smoosh-one-arg 'status) 'ok)
+  (check-equal? (hash-ref smoosh-one-arg 'stdout) "7\n")
 
   (define binary-ops-optional-an-src
     "HAI 1.3\nVISIBLE SUM OF 1 2\nVISIBLE DIFF OF 5 2\nVISIBLE PRODUKT OF 3 4\nVISIBLE QUOSHUNT OF 6 2\nVISIBLE MOD OF 7 4\nVISIBLE BIGGR OF 5 2\nVISIBLE SMALLR OF 5 2\nVISIBLE BOTH OF WIN FAIL\nVISIBLE EITHER OF FAIL WIN\nVISIBLE WON OF WIN FAIL\nVISIBLE BOTH SAEM 3 3\nVISIBLE DIFFRINT 3 4\nKTHXBYE\n")
@@ -867,6 +918,14 @@
   ;; Policy: this is interpreted as "at most two decimals" (no forced zero pad).
   (check-equal? (hash-ref numbar-visible-format-result 'stdout)
                 "3.14\n2\n-1.23\n")
+
+  (define numbar-no-forced-padding-src
+    "HAI 1.3\nVISIBLE 2.5\nVISIBLE 2.0\nVISIBLE 0.0\nKTHXBYE\n")
+  (define numbar-no-forced-padding
+    (run-source numbar-no-forced-padding-src))
+  (check-eq? (hash-ref numbar-no-forced-padding 'status) 'ok)
+  (check-equal? (hash-ref numbar-no-forced-padding 'stdout)
+                "2.5\n2\n0\n")
 
   (define numbar-to-numbr-truncate-src
     "HAI 1.3\nVISIBLE MAEK \"-0.567\" A NUMBR\nVISIBLE MAEK \"-1.239\" A NUMBR\nVISIBLE MAEK \"1.999\" A NUMBR\nKTHXBYE\n")
@@ -1717,11 +1776,25 @@
   (check-eq? (hash-ref smoosh-optional-an 'status) 'ok)
   (check-equal? (hash-ref smoosh-optional-an 'stdout) "abc\n")
 
+  (define smoosh-explicit-mkay-before-bang-src
+    "HAI 1.3\nVISIBLE SMOOSH \"A\" AN \"B\" MKAY!\nKTHXBYE\n")
+  (define smoosh-explicit-mkay-before-bang
+    (run-source smoosh-explicit-mkay-before-bang-src))
+  (check-eq? (hash-ref smoosh-explicit-mkay-before-bang 'status) 'ok)
+  (check-equal? (hash-ref smoosh-explicit-mkay-before-bang 'stdout) "AB")
+
   (define block-comment-src
     "HAI 1.3\nVISIBLE \"A\"\nOBTW\nVISIBLE \"B\"\nTLDR\nVISIBLE \"C\"\nKTHXBYE\n")
   (define block-comment-result (run-source block-comment-src))
   (check-eq? (hash-ref block-comment-result 'status) 'ok)
   (check-equal? (hash-ref block-comment-result 'stdout) "A\nC\n")
+
+  (define block-comment-comma-boundary-src
+    "HAI 1.3\nI HAS A x ITZ 1,\nOBTW hi\nTLDR,\nVISIBLE x\nKTHXBYE\n")
+  (define block-comment-comma-boundary
+    (run-source block-comment-comma-boundary-src))
+  (check-eq? (hash-ref block-comment-comma-boundary 'status) 'ok)
+  (check-equal? (hash-ref block-comment-comma-boundary 'stdout) "1\n")
 
   (define string-escape-src
     "HAI 1.3\nVISIBLE \"A::B\"\nVISIBLE \"X:>Y\"\nKTHXBYE\n")
@@ -1752,6 +1825,12 @@
                                "E"
                                (string (integer->char #x03C0))
                                "\n"))
+
+  (define string-normative-escape-outside-41-src
+    "HAI 1.3\nVISIBLE \":[CLOWN FACE]\"\nKTHXBYE\n")
+  (check-exn #px"invalid Unicode normative name in string literal"
+             (lambda ()
+               (run-source string-normative-escape-outside-41-src)))
 
   (define string-literal-colon-src
     "HAI 1.3\nVISIBLE \"GIMME RADIUS:\"\nVISIBLE \":3:)\"\nKTHXBYE\n")

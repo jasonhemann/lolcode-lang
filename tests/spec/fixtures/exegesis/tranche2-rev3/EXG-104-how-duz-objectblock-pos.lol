@@ -1,0 +1,8 @@
+HAI 1.3
+O HAI IM box
+  HOW DUZ I ping
+    FOUND YR 9
+  IF U SAY SO
+KTHX
+VISIBLE box IZ ping MKAY
+KTHXBYE

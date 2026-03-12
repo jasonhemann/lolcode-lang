@@ -101,10 +101,15 @@
   (check-exn #px"program must begin with HAI opener"
              (lambda () (parse-program lowercase-keywords-program)))
 
-  (define editorial-how-duz-i-form
+  (define how-duz-i-form
     "HAI 1.3\nHOW DUZ I addin YR x\n  FOUND YR x\nIF U SAY SO\nKTHXBYE\n")
+  (check-not-exn
+   (lambda () (parse-program how-duz-i-form)))
+
+  (define how-duz-callform
+    "HAI 1.3\nHOW IZ I f\n  FOUND YR 0\nIF U SAY SO\nVISIBLE I DUZ f MKAY\nKTHXBYE\n")
   (check-exn #px"syntax error:"
-             (lambda () (parse-program editorial-how-duz-i-form)))
+             (lambda () (parse-program how-duz-callform)))
 
   (define can-has-extension
     "HAI 1.3\nCAN HAS STRING?\nKTHXBYE\n")
@@ -503,6 +508,26 @@
   (check-not-exn
    (lambda () (parse-program any-of-missing-mkay)))
 
+  (define variadic-optional-an-general-expr
+    "HAI 1.3\nVISIBLE SMOOSH SUM OF 1 AN 2 DIFF OF 5 AN 3 MKAY\nVISIBLE ALL OF WIN FAIL MKAY\nKTHXBYE\n")
+  (check-not-exn
+   (lambda () (parse-program variadic-optional-an-general-expr)))
+
+  (define variadic-leading-an-negative
+    "HAI 1.3\nVISIBLE SMOOSH AN \"A\" MKAY\nKTHXBYE\n")
+  (check-exn #px"syntax error:"
+             (lambda () (parse-program variadic-leading-an-negative)))
+
+  (define implicit-mkay-before-bang-negative
+    "HAI 1.3\nVISIBLE SMOOSH \"A\" AN \"B\"!\nKTHXBYE\n")
+  (check-exn #px"implicit MKAY omission is only allowed at statement boundary"
+             (lambda () (parse-program implicit-mkay-before-bang-negative)))
+
+  (define explicit-mkay-before-bang-positive
+    "HAI 1.3\nVISIBLE SMOOSH \"A\" AN \"B\" MKAY!\nKTHXBYE\n")
+  (check-not-exn
+   (lambda () (parse-program explicit-mkay-before-bang-positive)))
+
   (define slot-set-without-article
     "HAI 1.3\nI HAS A obj ITZ A BUKKIT\nobj HAS foo ITZ 1\nKTHXBYE\n")
   (check-exn #px"syntax error:"
@@ -520,8 +545,13 @@
 
   (define slot-set-missing-itz
     "HAI 1.3\nI HAS A obj ITZ A BUKKIT\nobj HAS A x\nKTHXBYE\n")
-  (check-exn #px"syntax error:"
+  (check-exn #px"(syntax error:|slot declaration without ITZ is only allowed as ME HAS A <slotname>)"
              (lambda () (parse-program slot-set-missing-itz)))
+
+  (define me-slot-declare-without-itz
+    "HAI 1.3\nO HAI IM box\nKTHX\nHOW IZ I mk\n  ME HAS A x\n  ME'Z x R 1\nIF U SAY SO\nbox IZ mk MKAY\nVISIBLE box'Z x\nKTHXBYE\n")
+  (check-not-exn
+   (lambda () (parse-program me-slot-declare-without-itz)))
 
   (define visible-with-an-separator
     "HAI 1.3\nVISIBLE \"A\" AN \"B\"\nKTHXBYE\n")
@@ -558,6 +588,21 @@
     "HAI 1.3\nOBTW\nVISIBLE \"oops\"\nKTHXBYE\n")
   (check-exn #px"unterminated OBTW block comment"
              (lambda () (parse-program unterminated-block-comment)))
+
+  (define obtw-mid-command-negative
+    "HAI 1.3\nI HAS A x ITZ 1 OBTW hi TLDR\nKTHXBYE\n")
+  (check-exn #px"OBTW block comment must start at statement boundary"
+             (lambda () (parse-program obtw-mid-command-negative)))
+
+  (define smoosh-zero-arg-negative
+    "HAI 1.3\nVISIBLE SMOOSH MKAY\nKTHXBYE\n")
+  (check-exn #px"syntax error:"
+             (lambda () (parse-program smoosh-zero-arg-negative)))
+
+  (define smoosh-one-arg-positive
+    "HAI 1.3\nVISIBLE SMOOSH 7 MKAY\nKTHXBYE\n")
+  (check-not-exn
+   (lambda () (parse-program smoosh-one-arg-positive)))
 
   (define loop-label-mismatch
     "HAI 1.3\nIM IN YR loop\nVISIBLE \"x\"\nIM OUTTA YR notloop\nKTHXBYE\n")

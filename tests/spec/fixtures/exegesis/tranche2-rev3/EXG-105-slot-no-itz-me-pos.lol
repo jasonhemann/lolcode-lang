@@ -1,0 +1,10 @@
+HAI 1.3
+O HAI IM box
+KTHX
+HOW IZ I mk
+  ME HAS A x
+  ME'Z x R 1
+IF U SAY SO
+box IZ mk MKAY
+VISIBLE box'Z x
+KTHXBYE

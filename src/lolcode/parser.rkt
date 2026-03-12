@@ -24,7 +24,7 @@
   (HAI KTHXBYE NEWLINE EOF
        I HAS A R ITZ O RLY RLYQ YA NO WAI OIC MEBBE
        WTFQ OMG OMGWTF GTFO FOUND YR
-       IF U SAY SO HOW IZ GIMMEH
+       IF U SAY SO HOW IZ DUZ GIMMEH
        VISIBLE AN BANG
        SUM OF DIFF PRODUKT QUOSHUNT MOD BIGGR SMALLR
        BOTH SAEM EITHER WON DIFFRINT NOT ALL ANY
@@ -46,6 +46,7 @@
         "BOTH" token-BOTH
         "DIFF" token-DIFF
         "DIFFRINT" token-DIFFRINT
+        "DUZ" token-DUZ
         "EITHER" token-EITHER
         "FOUND" token-FOUND
         "GIMMEH" token-GIMMEH
@@ -263,6 +264,17 @@
               "loop updater call must target a function name, got ~e"
               target)]))
 
+(define (make-slot-set-stmt target slot maybe-init)
+  (cond
+    [maybe-init
+     (stmt-slot-set target slot maybe-init)]
+    [(and (expr-ident? target)
+          (string=? (expr-ident-name target) "ME"))
+     (stmt-slot-set target slot (expr-literal 'NOOB))]
+    [else
+     (error 'parse-source
+            "slot declaration without ITZ is only allowed as ME HAS A <slotname>")]))
+
 (define (switch-string->literal text)
   (define template (ensure-yarn-template text))
   (when (yarn-template-has-placeholders? template)
@@ -348,7 +360,7 @@
    (end EOF)
    (tokens value-tokens op-tokens)
    (src-pos)
-   (expected-SR-conflicts 21)
+   (expected-SR-conflicts 131)
    (expected-RR-conflicts 0)
    (error
     (lambda (tok-ok? tok-name tok-value start-pos end-pos)
@@ -450,13 +462,15 @@
      [(GIMMEH declare-target) (stmt-input $2)])
 
     (slot-set-stmt
-     [(lvalue HAS slot-article slot-target slot-init) (stmt-slot-set $1 $4 $5)])
+     [(lvalue HAS slot-article slot-target slot-init-opt)
+      (make-slot-set-stmt $1 $4 $5)])
 
     (slot-target
      [(ident-token) (expr-ident $1)]
      [(SRS expr) (expr-srs $2)])
 
-    (slot-init
+    (slot-init-opt
+     [() #f]
      [(ITZ expr) $2])
 
     (visible-stmt
@@ -537,12 +551,16 @@
      [(OMGWTF nlopt statement-list-opt) $3])
 
     (function-stmt
-     [(HOW IZ I name-spec arg-def-opt nlopt statement-list-opt IF U SAY SO)
+     [(HOW how-definition-verb I name-spec arg-def-opt nlopt statement-list-opt IF U SAY SO)
       (stmt-function-def $4 $5 $7)])
 
     (method-stmt
-     [(HOW IZ method-receiver name-spec arg-def-opt nlopt statement-list-opt IF U SAY SO)
+     [(HOW how-definition-verb method-receiver name-spec arg-def-opt nlopt statement-list-opt IF U SAY SO)
       (stmt-method-def $3 $4 $5 $7)])
+
+    (how-definition-verb
+     [(IZ) (void)]
+     [(DUZ) (void)])
 
     (arg-def-opt
      [() '()]
@@ -601,7 +619,7 @@
       (lambda (base) ($5 (expr-method-call base $2 $3)))])
 
     (slot-ref
-     [(ident-token) (id->expr $1)]
+     [(ident-token) (expr-ident $1)]
      [(SRS expr-no-postfix) (expr-srs $2)])
 
     (simple-expr
@@ -709,28 +727,30 @@
      [(DIFFRINT expr rhs-no-an) (expr-binary "DIFFRINT" $2 $3)])
 
     (logic-variadic-expr
-     [(ALL OF expr AN expr logic-tail maybe-mkay)
-      (expr-variadic "ALL OF" (cons $3 (cons $5 $6)))]
-     [(ANY OF expr AN expr logic-tail maybe-mkay)
-      (expr-variadic "ANY OF" (cons $3 (cons $5 $6)))]
-     [(ALL OF raw-atom-expr raw-atom-expr-list+ MKAY)
-      (expr-variadic "ALL OF" (cons $3 $4))]
-     [(ANY OF raw-atom-expr raw-atom-expr-list+ MKAY)
-      (expr-variadic "ANY OF" (cons $3 $4))])
+     [(ALL OF expr logic-arg logic-arg-tail maybe-mkay)
+      (expr-variadic "ALL OF" (cons $3 (cons $4 $5)))]
+     [(ANY OF expr logic-arg logic-arg-tail maybe-mkay)
+      (expr-variadic "ANY OF" (cons $3 (cons $4 $5)))])
 
-    (logic-tail
+    (logic-arg
+     [(AN expr) $2]
+     [(expr) $1])
+
+    (logic-arg-tail
      [() '()]
-     [(AN expr logic-tail) (cons $2 $3)])
+     [(logic-arg logic-arg-tail) (cons $1 $2)])
 
     (smoosh-expr
-     [(SMOOSH expr AN expr smoosh-tail maybe-mkay)
-      (expr-variadic "SMOOSH" (cons $2 (cons $4 $5)))]
-     [(SMOOSH raw-atom-expr raw-atom-expr-list+ MKAY)
+     [(SMOOSH expr smoosh-arg-tail maybe-mkay)
       (expr-variadic "SMOOSH" (cons $2 $3))])
 
-    (smoosh-tail
+    (smoosh-arg
+     [(AN expr) $2]
+     [(expr) $1])
+
+    (smoosh-arg-tail
      [() '()]
-     [(AN expr smoosh-tail) (cons $2 $3)])
+     [(smoosh-arg smoosh-arg-tail) (cons $1 $2)])
 
     (maybe-mkay
      [() (void)]
@@ -748,6 +768,59 @@
      (validate-raw-token-stream (cons t2 rest))]
     [(cons _ rst) (validate-raw-token-stream rst)]
     [_ (void)]))
+
+(define (variadic-context? context-stack)
+  (for/or ([ctx (in-list context-stack)])
+    (eq? ctx 'variadic)))
+
+(define (push-context-if-opener t prev-word context-stack)
+  (match t
+    [(token 'WORD "IZ" _ _)
+     (if (string=? prev-word "HOW")
+         context-stack
+         (cons 'call context-stack))]
+    [(token 'WORD "OF" _ _)
+     (if (or (string=? prev-word "ALL")
+             (string=? prev-word "ANY"))
+         (cons 'variadic context-stack)
+         context-stack)]
+    [(token 'WORD "SMOOSH" _ _) (cons 'variadic context-stack)]
+    [(token 'WORD "MKAY" _ _)
+     (match context-stack
+       ['() context-stack]
+       [(cons _ rest) rest])]
+    [_ context-stack]))
+
+(define (validate-implicit-mkay-boundaries raws [prev-word ""] [context-stack '()])
+  (match raws
+    ['() (void)]
+    [(cons (token 'NEWLINE _ _ _) rst)
+     (validate-implicit-mkay-boundaries rst "" '())]
+    [(cons (token 'WORD "!" line col) rst)
+     (when (variadic-context? context-stack)
+       (error 'parse-source
+              (string-append
+               "implicit MKAY omission is only allowed at statement boundary; "
+               "explicit MKAY required before ! at line ~a, col ~a")
+              line
+              col))
+     (validate-implicit-mkay-boundaries rst "!" context-stack)]
+    [(cons (token 'WORD "AN" line col)
+           (cons (token 'WORD "YR" _ _) _))
+     #:when (variadic-context? context-stack)
+     (error 'parse-source
+            (string-append
+             "implicit MKAY omission is only allowed at statement boundary; "
+             "explicit MKAY required before AN YR at line ~a, col ~a")
+            line
+            col)]
+    [(cons (and t (token 'WORD word _ _)) rst)
+     (validate-implicit-mkay-boundaries
+      rst
+      word
+      (push-context-if-opener t prev-word context-stack))]
+    [(cons _ rst)
+     (validate-implicit-mkay-boundaries rst prev-word context-stack)]))
 
 (define (validate-kthxbye-postlude source raws)
   (define maybe-kthxbye
@@ -813,6 +886,7 @@
            "program must begin with HAI opener (no leading comments or tokens before HAI)"))
   (define normalized-raws (collapse-phrase-tokens (lex-source source)))
   (validate-raw-token-stream normalized-raws)
+  (validate-implicit-mkay-boundaries normalized-raws)
   (define toks (map raw->position-token normalized-raws))
   (unless (pair? toks)
     (error 'parse-source "internal error: lexer produced no tokens"))

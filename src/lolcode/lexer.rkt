@@ -3,6 +3,7 @@
 (require racket/match
          racket/port
          racket/string
+         (only-in codepoint/range-dict range-dict-ref)
          parser-tools/lex
          (prefix-in : parser-tools/lex-sre)
          "format-placeholder.rkt")
@@ -34,6 +35,7 @@
    'word->tokens/ok+line-continuation
    'word->tokens/split-slot-z
    'word->tokens/split-slot-dash
+   'word->tokens/split-bang-suffix
    'word->tokens/number
    'word->tokens/word
    'skip-comment-tail!/eof
@@ -168,9 +170,15 @@
      (define len (string-length text))
      (cond
        [(and (> len 3) (string-suffix? text "..."))
-        (lex-word-with-trailing-line-continuation text line col 3)]
+       (lex-word-with-trailing-line-continuation text line col 3)]
        [(and (> len 1) (string-suffix? text "…"))
         (lex-word-with-trailing-line-continuation text line col 1)]
+       [(and (> len 1) (string-suffix? text "!"))
+        (lexer-cover! 'word->tokens/split-bang-suffix)
+        (define base (substring text 0 (- len 1)))
+        (define base-token (word-or-number-token base line col))
+        (define bang-token (token 'WORD "!" line (+ col (- len 1))))
+        (values 'ok (list base-token bang-token))]
        [(and (> len 2) (string-suffix? text "'Z"))
         (lexer-cover! 'word->tokens/split-slot-z)
         (define base (substring text 0 (- len 2)))
@@ -379,6 +387,47 @@
               (or (not (char-alphabetic? ch))
                   (char-upper-case? ch))))))
 
+(define unicode-normative-reference-major 4)
+(define unicode-normative-reference-minor 1)
+
+(define unicode-version-rx #px"^([0-9]+)\\.([0-9]+)")
+;; Unicode 4.1 freeze is resolved from the versioned table in the installed
+;; `codepoint` package.
+(define unicode-derived-age-cache #f)
+
+(define (unicode-derived-age-table)
+  (unless unicode-derived-age-cache
+    (set! unicode-derived-age-cache
+          (call-with-input-file
+           (collection-file-path "generated/derived-age.rkt-src" "codepoint")
+           read)))
+  unicode-derived-age-cache)
+
+(define (unicode-age-for-codepoint cp)
+  (range-dict-ref (unicode-derived-age-table) cp #f))
+
+(define (unicode-version<=? version major minor)
+  (cond
+    [(regexp-match unicode-version-rx version)
+     => (lambda (m)
+          (define major* (string->number (list-ref m 1)))
+          (define minor* (string->number (list-ref m 2)))
+          (and major*
+               minor*
+               (or (< major* major)
+                   (and (= major* major)
+                        (<= minor* minor)))))]
+    [else #f]))
+
+(define (unicode-age-4.1-or-earlier? cp)
+  (cond
+    [(unicode-age-for-codepoint cp)
+     => (lambda (age)
+          (unicode-version<=? age
+                              unicode-normative-reference-major
+                              unicode-normative-reference-minor))]
+    [else #f]))
+
 (define (load-unicode-normative-name-table)
   (with-handlers ([exn:fail?
                    (lambda (e)
@@ -393,7 +442,8 @@
     (define table (make-hash))
     (for ([(cp raw-name) (in-hash cp->name)])
       (when (and (exact-nonnegative-integer? cp)
-                 (string? raw-name))
+                 (string? raw-name)
+                 (unicode-age-4.1-or-earlier? cp))
         (when (and (valid-normative-name? raw-name)
                    (not (hash-has-key? table raw-name)))
           (hash-set! table raw-name cp))))
@@ -647,6 +697,11 @@
            (return-without-pos (scanner in))]
           [(eq? status 'block-comment)
            (lexer-cover! 'scanner/word/block-comment)
+           (when line-has-token?
+             (lex-error 'lex-source
+                        "OBTW block comment must start at statement boundary"
+                        (position-line start-pos)
+                        (+ 1 (position-col start-pos))))
            (skip-block-comment! in)
            (return-without-pos (scanner in))]
           [(eq? status 'line-continuation)

@@ -22,3 +22,15 @@ Grammar/parse policy tests for H08 also reference `tests/spec/parse-negative-tes
 | H14 | Bare function identifiers are values, not implicit calls | `function-storage`, `function-identifier-value-binding` |
 | H15 | No true lexical closures; receiver-backed closure-like behavior only | `method-local-not-captured-by-global-function`, `extracted-slot-function-direct-call-namespace`, `slot-function-receiver-namespace` |
 | H16 | `SMOOSH` eager/strict, no rollback of earlier side effects | `smoosh-eager-side-effect-before-error` |
+| H17 | Variadic optional `AN` applies across general arg positions | `variadic-optional-an-general-expr`, `variadic-leading-an-negative` |
+| H18 | Implicit `MKAY` omission is statement-boundary scoped | `implicit-mkay-before-bang-negative`, `smoosh-explicit-mkay-before-bang-src` |
+| H19 | Binding-site `SRS` must evaluate to identifier syntax | `srs-numeric-target-src` |
+| H20 | `HOW DUZ` accepted at definition sites, not call sites | `how-duz-i-form`, `how-duz-callform`, `how-duz-i-runtime-src` |
+| H21 | `ME HAS A <slot>` no-`ITZ` shorthand only | `me-slot-no-itz-shorthand-src`, `slot-set-missing-itz` |
+| H22 | `OBTW` block comments are boundary-sensitive | `obtw-mid-command-negative`, `block-comment-comma-boundary-src` |
+| H23 | Interpolation placeholder is identifier-only | `format-string-whitespace-placeholder-src` |
+| H24 | Unicode normative-name escape pinned to 4.1 table | `string-normative-escape-src`, `string-normative-escape-outside-41-src` |
+| H25 | NUMBAR print truncates without forced padding | `numbar-visible-format-src`, `numbar-no-forced-padding-src` |
+| H26 | Variadic logical forms short-circuit left-to-right | `logic-variadic-any-short-circuit-src`, `logic-variadic-all-short-circuit-rhs-src` |
+| H27 | `SMOOSH` arity is one-or-more | `smoosh-one-arg-src`, `smoosh-zero-arg-negative` |
+| H28 | BUKKIT dynamic slot keys are typed and non-coercing | `bukkit-slot-keys-typed-src` |

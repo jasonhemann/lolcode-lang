@@ -313,3 +313,17 @@ Next corpus/harvest actions tied to this checklist:
 - [x] `48` Promote any checklist-related external fixtures into stable positive/negative regressions.
   Done: promoted external positive fixture `lci issue #47` into `tests/spec/fixtures/programs/v1_3_external_lci_issue_0047_it_expr.lol` (+ manifest entry), and added strict negative parse regression from external `lci issue #49` in `tests/spec/parse-negative-test.rkt`.
 - [x] `49` Re-run all three scripts after each checklist batch and append deltas to this file.
+
+Latest checklist-batch delta (`2026-03-12`, tranche-2 semantic-lint rev3 integration pass):
+- Ingested `lolcode_1_3_semantic_lint_tranche2_memo_2026-03-12-rev3.md` + `lolcode_tranche2_tests_bundle_rev3.zip`, promoted tranche-2 fixtures to `tests/spec/fixtures/exegesis/tranche2-rev3/`, and wired coverage into strict parse/runtime suites.
+- Updated parser/runtime/lexer behavior for tranche-2 holdings:
+  - variadic optional-`AN` generalization + `SMOOSH` one-arg acceptance,
+  - implicit-`MKAY` omission boundary guard before `!`/`AN YR`,
+  - `HOW DUZ` definition-site synonym (call syntax remains `IZ`),
+  - `ME HAS A` no-`ITZ` shorthand,
+  - statement-boundary `OBTW`,
+  - binding-site `SRS` identifier validation,
+  - Unicode normative-name freeze to 4.1 with uppercase requirement,
+  - typed BUKKIT slot-key behavior (`0` vs `"0"` distinct).
+- Updated traceability artifacts (`ADJUDICATION_LEDGER.md`, `RESOLUTION_MAP.md`, `TEST_ANCHOR_INDEX.md`, `spec-1.3-matrix.rktd`, `PREPROCESSING_AND_KEYWORD_POLICY.md`) to capture revised rulings and anchors.
+- Verification: `raco test tests` passes (`1141 tests passed`).
