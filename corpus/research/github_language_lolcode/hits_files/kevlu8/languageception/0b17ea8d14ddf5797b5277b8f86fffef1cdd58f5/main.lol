@@ -1,0 +1,5 @@
+HAI
+
+VISIBLE "YO"
+
+KTHXBYE

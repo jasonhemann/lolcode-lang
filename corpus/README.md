@@ -92,6 +92,48 @@ Seed one wave into the non-gating evidence suite:
 ./scripts/import_external_wave.sh 1
 ```
 
+## GitHub Language Discovery Snapshot
+
+Collect GitHub `language:LOLCODE` discovery signals (code-hit repos + repo-language hits),
+dedupe by repository, and produce a review queue for repos not yet in
+`corpus/tier2/CANDIDATE_REPOS.tsv`:
+
+```bash
+./scripts/sync_github_language_lolcode.sh
+```
+
+Outputs:
+
+- `corpus/research/github_language_lolcode/REPORT.md`
+- `corpus/research/github_language_lolcode/repos.json`
+- `corpus/research/github_language_lolcode/new_repos_to_review.tsv`
+
+Create a scored, noise-reduced top candidate queue from that snapshot:
+
+```bash
+./scripts/curate_github_language_lolcode_candidates.sh
+```
+
+Outputs:
+
+- `corpus/research/github_language_lolcode/CURATION_REPORT.md`
+- `corpus/research/github_language_lolcode/curated_candidates.tsv`
+- `corpus/research/github_language_lolcode/curated_top50.tsv`
+- `corpus/research/github_language_lolcode/excluded_noise.tsv`
+
+Run exhaustive static + dynamic processing over discovered GitHub code hits:
+
+```bash
+./scripts/process_github_language_lolcode.sh
+```
+
+Core outputs:
+
+- `corpus/research/github_language_lolcode/hits_fetch_summary.json`
+- `corpus/research/github_language_lolcode/hits-eval-classified.json`
+- `corpus/research/github_language_lolcode/hits-language-gaps.json`
+- `corpus/research/github_language_lolcode/PIPELINE_SUMMARY.md`
+
 ## Classified Tier2 Eval (Step 1)
 
 Classify tier2 `.lol` files into likely programs vs non-programs before lex/parse/eval:

@@ -1,0 +1,33 @@
+{
+  "generated_at": "2026-03-12T22:22:43Z",
+  "code_search": {
+    "kind": "code",
+    "query": "language:LOLCODE",
+    "page_limit": 10,
+    "pages_fetched": 9,
+    "total_count": 1728,
+    "last_page_count": 100,
+    "fetched_live": true,
+    "used_cache": false,
+    "likely_truncated": false
+  },
+  "repo_search": {
+    "kind": "repositories",
+    "query": "language:LOLCODE",
+    "page_limit": 10,
+    "pages_fetched": 5,
+    "total_count": 487,
+    "last_page_count": 87,
+    "fetched_live": true,
+    "used_cache": false,
+    "likely_truncated": false
+  },
+  "capture_gap_possible": true,
+  "totals": {
+    "repos_combined_unique": 845,
+    "repos_in_catalog": 18,
+    "repos_new_not_in_catalog": 827,
+    "code_hits": 742,
+    "top_new_limit": 100
+  }
+}

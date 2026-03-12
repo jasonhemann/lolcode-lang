@@ -1,0 +1,22 @@
+{
+  "generated_at": "2026-03-12T22:24:54Z",
+  "input": {
+    "hits_json": "corpus/research/github_language_lolcode/code_hits.json"
+  },
+  "output": {
+    "out_root": "corpus/research/github_language_lolcode/hits_files",
+    "report_tsv": "corpus/research/github_language_lolcode/hits_fetch_results.tsv"
+  },
+  "options": {
+    "only_lol": true,
+    "keep_existing": false
+  },
+  "totals": {
+    "entries_seen": 742,
+    "entries_selected": 739,
+    "downloaded": 739,
+    "skipped_non_lol": 3,
+    "skipped_existing": 0,
+    "failed": 0
+  }
+}

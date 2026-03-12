@@ -8,6 +8,7 @@
          racket/list
          racket/path
          racket/runtime-path
+         racket/sandbox
          racket/set
          racket/string
          "../src/lolcode/ast.rkt"
@@ -29,6 +30,8 @@
   (build-path repo-root "corpus" "research" "LANGUAGE_GAPS_REPORT.md"))
 (define promote-missing-version? #f)
 (define promoted-out-dir #f)
+(define eval-timeout-seconds 2.0)
+(define eval-memory-limit-bytes (* 256 1024 1024))
 
 (define promotion-comment
   "BTW AUTO-PROMOTE: inserted HAI 1.3 header for strict-1.3 triage")
@@ -58,7 +61,15 @@
  [("--promoted-out-dir")
   dir
   "If set with promotion mode, writes transformed promoted sources under this directory."
-  (set! promoted-out-dir (string->path dir))])
+  (set! promoted-out-dir (string->path dir))]
+ [("--eval-timeout-seconds")
+  secs
+  "Timeout for per-program evaluation during gap scan."
+  (set! eval-timeout-seconds (string->number secs))]
+ [("--eval-memory-limit-mb")
+  mb
+  "Memory limit (MB) for per-program evaluation during gap scan."
+  (set! eval-memory-limit-bytes (* 1024 1024 (string->number mb)))])
 
 (define (path->display p)
   (path->string (find-relative-path repo-root p)))
@@ -186,6 +197,24 @@
      (if (string=? stage "eval")
          "runtime-core-suspect"
          "parse-core-suspect")]))
+
+(define (run-program/report/limited parsed)
+  (with-handlers
+      ([exn:fail:resource?
+        (lambda (_e)
+          (hash 'status "runtime-error"
+                'error
+                (format "evaluation timed out (> ~a seconds) or exceeded memory limit"
+                        eval-timeout-seconds)))]
+       [exn:fail?
+        (lambda (e)
+          (hash 'status "runtime-error"
+                'error (exn-message e)))])
+    (call-with-limits
+     eval-timeout-seconds
+     eval-memory-limit-bytes
+     (lambda ()
+       (run-program/report parsed)))))
 
 (define statement-universe
   '(stmt-declare
@@ -498,7 +527,7 @@
            (set! in-scope-parse-ok-files (cons rel in-scope-parse-ok-files))
            (set! status-counts (hash-inc status-counts "parse-ok"))
            (visit-program! in-scope-cov parsed)
-           (define result (run-program/report parsed))
+           (define result (run-program/report/limited parsed))
            (define st (~a (hash-ref result 'status 'unknown)))
            (cond
              [(string=? st "ok")

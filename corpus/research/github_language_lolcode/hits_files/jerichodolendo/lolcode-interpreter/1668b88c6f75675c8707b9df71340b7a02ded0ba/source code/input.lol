@@ -1,0 +1,12 @@
+HAI
+I HAS A value
+VISIBLE value
+VISIBLE var
+GIMMEH var
+GIMMEH value
+VISIBLE value
+VISIBLE "hey"
+VISIBLE WIN
+VISIBLE 2
+KTHXBYE
+

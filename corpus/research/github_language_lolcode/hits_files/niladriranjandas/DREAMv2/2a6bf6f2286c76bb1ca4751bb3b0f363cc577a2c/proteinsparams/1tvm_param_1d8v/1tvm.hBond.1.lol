@@ -1,0 +1,56 @@
+ 24 ILE  H      54 GLU  O       1.50
+ 24 ILE  N      54 GLU  O       2.50
+ 26 VAL  H      56 ILE  O       1.50
+ 26 VAL  N      56 ILE  O       2.50
+ 54 GLU  H      22 ARG  O       1.50
+ 54 GLU  N      22 ARG  O       2.50
+ 56 ILE  H      24 ILE  O       1.50
+ 56 ILE  N      24 ILE  O       2.50
+ 58 CYS  H      26 VAL  O       1.50
+ 58 CYS  N      26 VAL  O       2.50
+ 25 ILE  H      72 LEU  O       1.50
+ 25 ILE  N      72 LEU  O       2.50
+ 27 ALA  H      74 CYS  O       1.50
+ 27 ALA  N      74 CYS  O       2.50
+ 72 LEU  H      23 LYS  O       1.50
+ 72 LEU  N      23 LYS  O       2.50
+ 74 CYS  H      25 ILE  O       1.50
+ 74 CYS  N      25 ILE  O       2.50
+ 73 ILE  H      87 PRO  O       1.50
+ 73 ILE  N      87 PRO  O       2.50
+ 75 THR  H      89 VAL  O       1.50
+ 75 THR  N      89 VAL  O       2.50
+ 89 VAL  H      73 ILE  O       1.50
+ 89 VAL  N      73 ILE  O       2.50
+ 40 GLU  H      36 THR  O       1.50
+ 40 GLU  N      36 THR  O       2.50
+ 41 GLU  H      37 MET  O       1.50
+ 41 GLU  N      37 MET  O       2.50
+ 42 ILE  H      38 ALA  O       1.50
+ 42 ILE  N      38 ALA  O       2.50
+ 43 LYS  H      39 ALA  O       1.50
+ 43 LYS  N      39 ALA  O       2.50
+ 44 GLU  H      40 GLU  O       1.50
+ 44 GLU  N      40 GLU  O       2.50
+ 45 LEU  H      41 GLU  O       1.50
+ 45 LEU  N      41 GLU  O       2.50
+ 46 CYS  H      42 ILE  O       1.50
+ 46 CYS  N      42 ILE  O       2.50
+ 47 GLN  H      43 LYS  O       1.50
+ 47 GLN  N      43 LYS  O       2.50
+ 66 TYR  H      62 GLU  O       1.50
+ 66 TYR  N      62 GLU  O       2.50
+104 GLN  H     100 ILE  O       1.50
+104 GLN  N     100 ILE  O       2.50
+107 ILE  H     103 LEU  O       1.50
+107 ILE  N     103 LEU  O       2.50
+108 LEU  H     104 GLN  O       1.50
+108 LEU  N     104 GLN  O       2.50
+109 THR  H     105 ASN  O       1.50
+109 THR  N     105 ASN  O       2.50
+110 ILE  H     106 LYS  O       1.50
+110 ILE  N     106 LYS  O       2.50
+111 LEU  H     107 ILE  O       1.50
+111 LEU  N     107 ILE  O       2.50
+112 GLN  H     108 LEU  O       1.50
+112 GLN  N     108 LEU  O       2.50
