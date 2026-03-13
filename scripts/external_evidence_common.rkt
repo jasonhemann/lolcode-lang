@@ -8,6 +8,7 @@
 
 (provide hash-inc
          counts->rows
+         manifest-line-id
          write-json-report)
 
 (define (hash-inc h k [n 1])
@@ -29,3 +30,11 @@
   (call-with-output-file path
     (lambda (out) (write-json report out))
     #:exists 'truncate/replace))
+
+(define manifest-line-id-rx
+  #px"^\\s*\\(id \\. \"([^\"]+)\"\\)")
+
+(define (manifest-line-id line)
+  (cond
+    [(regexp-match manifest-line-id-rx line) => cadr]
+    [else #f]))

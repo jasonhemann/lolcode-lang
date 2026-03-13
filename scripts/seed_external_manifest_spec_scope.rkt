@@ -17,11 +17,6 @@
 (define-runtime-path default-md-out-path
   "../corpus/research/EXTERNAL_EVIDENCE_SPEC_SCOPE_SEED.md")
 
-(define (line-id line)
-  (define m
-    (regexp-match #px"^\\s*\\(id \\. \"([^\"]+)\"\\)" line))
-  (and m (list-ref m 1)))
-
 (define (line-spec-scope line)
   (define m
     (regexp-match #px"^(\\s*\\(spec-scope \\. )\\(([^)]*)\\)(\\).*)$" line))
@@ -73,7 +68,7 @@
   (define changed '())
   (define updated-lines
     (for/list ([line (in-list lines)])
-      (define maybe-id (line-id line))
+      (define maybe-id (manifest-line-id line))
       (when maybe-id
         (set! current-id maybe-id))
       (define maybe-s (line-spec-scope line))
