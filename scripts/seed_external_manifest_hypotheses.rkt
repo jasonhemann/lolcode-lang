@@ -8,7 +8,7 @@
          racket/path
          racket/runtime-path
          racket/string
-         json
+         "./external_evidence_common.rkt"
          "../tests/regression-evidence/external/run-evidence.rkt")
 
 (define-runtime-path default-manifest-path
@@ -78,26 +78,6 @@
                 (hash-ref maybe-h 'suffix))]))
           line)))
   (values updated-lines (reverse changed)))
-
-(define (hash-inc h k [n 1])
-  (hash-set h k (+ n (hash-ref h k 0))))
-
-(define (counts->rows h)
-  (sort
-   (for/list ([(k v) (in-hash h)])
-     (hash 'label (~a k) 'count v))
-   (lambda (a b)
-     (define ca (hash-ref a 'count))
-     (define cb (hash-ref b 'count))
-     (if (= ca cb)
-         (string<? (hash-ref a 'label) (hash-ref b 'label))
-         (> ca cb)))))
-
-(define (write-json-report path report)
-  (make-directory* (or (path-only path) (current-directory)))
-  (call-with-output-file path
-    (lambda (out) (write-json report out))
-    #:exists 'truncate/replace))
 
 (define (write-md-report path report json-path)
   (make-directory* (or (path-only path) (current-directory)))

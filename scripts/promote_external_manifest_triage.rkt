@@ -8,7 +8,7 @@
          racket/path
          racket/runtime-path
          racket/string
-         json
+         "./external_evidence_common.rkt"
          "../tests/regression-evidence/external/run-evidence.rkt")
 
 (define-runtime-path default-manifest-path
@@ -17,20 +17,6 @@
   "../corpus/research/external-evidence-triage-promotion.json")
 (define-runtime-path default-md-out-path
   "../corpus/research/EXTERNAL_EVIDENCE_TRIAGE_PROMOTION.md")
-
-(define (hash-inc h k [n 1])
-  (hash-set h k (+ n (hash-ref h k 0))))
-
-(define (counts->rows h)
-  (sort
-   (for/list ([(k v) (in-hash h)])
-     (hash 'label (~a k) 'count v))
-   (lambda (a b)
-     (define ca (hash-ref a 'count))
-     (define cb (hash-ref b 'count))
-     (if (= ca cb)
-         (string<? (hash-ref a 'label) (hash-ref b 'label))
-         (> ca cb)))))
 
 (define (line-id line)
   (define m
@@ -94,13 +80,6 @@
                 (hash-ref maybe-t 'suffix))]))
           line)))
   (values updated-lines (reverse changed)))
-
-(define (write-json-report path report)
-  (make-directory* (or (path-only path) (current-directory)))
-  (call-with-output-file path
-    (lambda (out)
-      (write-json report out))
-    #:exists 'truncate/replace))
 
 (define (write-md-report path report json-path)
   (make-directory* (or (path-only path) (current-directory)))
@@ -199,4 +178,3 @@
   (printf "Promotions suggested: ~a\n" (hash-count promotions))
   (printf "Manifest entries updated: ~a\n" (length changes))
   (printf "Applied: ~a\n" (if apply? "yes" "no")))
-
