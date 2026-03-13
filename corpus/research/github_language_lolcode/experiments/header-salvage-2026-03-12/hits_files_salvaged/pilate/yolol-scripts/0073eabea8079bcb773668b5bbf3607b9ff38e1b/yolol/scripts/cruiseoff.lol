@@ -1,0 +1,1 @@
+if :idle>5 then :cruise=4 end goto 1

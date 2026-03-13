@@ -1,0 +1,437 @@
+path	status	original_message	actions
+corpus/research/github_language_lolcode/hits_files/A1rPun/nurture/1374f70cfdf80ab66308a83b7fb076101ae665fe/esolang/lolcode/helloworld.lol	modified	parse-source: program must begin with HAI opener (no leading comments or tokens before HAI)	trim-prefix-before-hai-1-lines
+corpus/research/github_language_lolcode/hits_files/ABCD-rgb/lolcode-interpreter/0f363b3c495ae3215263eead7274f752e4ae6b3e/source code/project-testcases/extra.lol	modified	parse-source: program must begin with HAI opener (no leading comments or tokens before HAI)	trim-prefix-before-hai-10-lines;promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/AbhishekR25/cerner_2_5_2022/260116f43dea917b50211300b0fcb818271c384e/PowerOfANum.lol	modified	parse-source: program must begin with HAI opener (no leading comments or tokens before HAI)	trim-prefix-before-hai-2-lines;rewrite-version-1.2-to-1.3
+corpus/research/github_language_lolcode/hits_files/Ajlyde/LOLCODE/135a9cc9987732751291dea6bad2fb9f4390bfba/test2.lol	modified	parse-source: syntax error: unexpected NEWLINE at line 1, col 4
+  HAI
+     ^	promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/Ajlyde/LOLCODE/13a4b7b5240b43d2e2d882621c335829ef779b44/test1.lol	modified	parse-source: syntax error: unexpected NEWLINE at line 1, col 4
+  HAI
+     ^	promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/AldCristobal/CMSC-124-Project-CodeAndDecode/1af61688a3013df1ca4522de0ef037e18a9daf19/samplecodes/this.lol	modified	parse-source: program must begin with HAI opener (no leading comments or tokens before HAI)	trim-prefix-before-hai-1-lines;promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/AlexaCabral/CMSC124_project/115b499144bcfa60a91c164fd1ce3307ed14aeed/project-testcases/04_smoosh_assign.lol	modified	parse-source: syntax error: unexpected NEWLINE at line 1, col 4
+  HAI
+     ^	promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/CharlesTabuzo/LOLCODE-interpreter/01d22e03bb5918e2aaed8b89fbd7a72d7d006009/t5.lol	modified	parse-source: syntax error: unexpected NEWLINE at line 1, col 4
+  HAI
+     ^	promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/CharlesTabuzo/LOLCODE-interpreter/07301d19a36aa99d785b99530016dcb6386b2d93/t1.lol	modified	parse-source: syntax error: unexpected NEWLINE at line 1, col 4
+  HAI
+     ^	promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/Danie-A/CMSC124_Project_LolCode_Interpreter/018c1acf065799595d6f2b1826dfb0ad0b7b1d66/test/arith2.lol	modified	parse-source: syntax error: unexpected NEWLINE at line 1, col 4
+  HAI
+     ^	promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/Danie-A/CMSC124_Project_LolCode_Interpreter/01964b65f4db00528321cfac08549bc2bceae39a/test/input.lol	modified	parse-source: syntax error: unexpected NEWLINE at line 1, col 4
+  HAI
+     ^	promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/Danie-A/CMSC124_Project_LolCode_Interpreter/02b6e6a6f881f8ab8293f0e32f39aaf59f56c91b/test/project-testcases-fixed/project-testcases-fixed/07_ifelse.lol	modified	parse-source: syntax error: unexpected NEWLINE at line 1, col 4
+  HAI
+     ^	promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/Danie-A/CMSC124_Project_LolCode_Interpreter/050e5cf00c5156ab37446e72967839e0eb8f3c76/test/project-testcases-fixed/project-testcases-fixed/08_switch.lol	modified	parse-source: syntax error: unexpected NEWLINE at line 1, col 4
+  HAI
+     ^	promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/Danie-A/CMSC124_Project_LolCode_Interpreter/0b34c1890d8e1e539ce9fcd209f0384178281e70/test/arith.lol	modified	parse-source: syntax error: unexpected NEWLINE at line 1, col 4
+  HAI
+     ^	promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/Danie-A/CMSC124_Project_LolCode_Interpreter/0de09cb0505a2bb05d3d1057e7f54aafa0a7e723/test/boolean.lol	modified	parse-source: syntax error: unexpected NEWLINE at line 1, col 4
+  HAI
+     ^	promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/Danie-A/CMSC124_Project_LolCode_Interpreter/175524e708ef629c4cd63e9992378e1cdc9ffa6e/test/arith3.lol	modified	parse-source: syntax error: unexpected NEWLINE at line 1, col 4
+  HAI
+     ^	promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/Danie-A/CMSC124_Project_LolCode_Interpreter/29239f58a7254add1d963eccca150d51c5f5827b/project/07_ifelse.lol	modified	parse-source: syntax error: unexpected NEWLINE at line 1, col 4
+  HAI
+     ^	promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/DavidLiuWangli/CMSC124Project/0a430b016de5131647fc05e9e7cd4b1be7400fc5/lolcode_test_cases/13_suppressed_print.lol	modified	parse-source: syntax error: unexpected NEWLINE at line 1, col 4
+  HAI
+     ^	promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/DavidLiuWangli/CMSC124Project/2a53313ff04d727bc9cfc83000a6450c6d6bb027/project/error_debug.lol	modified	parse-source: syntax error: unexpected NEWLINE at line 1, col 4
+  HAI
+     ^	promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/DvaeFroot/cmsc124-lolcode-interpreter/15135c6623ddd001a47ee2417a4f70cda22195a5/project-examples/01_variables.lol	modified	parse-source: program must begin with HAI opener (no leading comments or tokens before HAI)	trim-prefix-before-hai-1-lines;promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/DvaeFroot/cmsc124-lolcode-interpreter/210b7b99fb5efa3905e6bf96ccd41f1799c08ebc/project-examples/06_comparison.lol	modified	parse-source: syntax error: unexpected NEWLINE at line 1, col 4
+  HAI
+     ^	promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/EbrahimGabriel/lolcode-interpreter/0d853969af5c723ce4af8696db1c1ba90920ebc5/project-testcases/04_smoosh_assign.lol	modified	parse-source: syntax error: unexpected NEWLINE at line 1, col 4
+  HAI
+     ^	promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/GeSHi/coderepo/a6d3fe9144798c7daebd49ad6d727a26bc6d880c/lolcode/pi.lol	modified	parse-source: syntax error: unexpected NEWLINE at line 1, col 4
+  HAI
+     ^	promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/Holarse-Linuxgaming/ashley-madison-simulator/a2841dd771d684f20e3cd672f54bb1f527d302c5/ircbot.lol	modified	parse-source: program must begin with HAI opener (no leading comments or tokens before HAI)	trim-prefix-before-hai-8-lines;rewrite-version-1.4-to-1.3
+corpus/research/github_language_lolcode/hits_files/Izaaq/Izaaq-FYP/1ebdce66687884e38957fef302fdc58a3dffdd11/programs/helloworld.lol	modified	parse-source: syntax error: unexpected NEWLINE at line 1, col 4
+  HAI
+     ^	promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/JasonBock/LOLCode.net/02b33fcb17510559510a6200a35ffed599f66e50/LOLCode.Compiler.Tests/Samples/visible.lol	modified	parse-source: program must begin with HAI opener (no leading comments or tokens before HAI)	trim-prefix-before-hai-1-lines;promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/JiroKristoferTipan/CMSC-124-PROJECT-bahay-norio-tipan/0a924978760158a50bc35beb8f0d855dab312848/source code/project-testcases/test1.lol	modified	parse-source: syntax error: unexpected NEWLINE at line 1, col 4
+  HAI
+     ^	promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/JiroKristoferTipan/CMSC-124-PROJECT-bahay-norio-tipan/26f73f402f83cfa5e3d8b59a2e9805be5fe84b56/source code/project-testcases/05_bool.lol	modified	parse-source: syntax error: unexpected NEWLINE at line 1, col 4
+  HAI
+     ^	promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/Keith-S-Thompson/fizzbuzz-polyglot/b656ca3d52c366929c9d70ee6948f4f22a392472/fizzbuzz.lol	modified	parse-source: program must begin with HAI opener (no leading comments or tokens before HAI)	trim-prefix-before-hai-8-lines
+corpus/research/github_language_lolcode/hits_files/KelvinBeliber/CMSC-124-Project/098f5ce5cdcfaef6c9c0f93ae61aeafa764d32b7/src/testcases/10_functions.lol	modified	parse-source: syntax error: unexpected NEWLINE at line 1, col 4
+  HAI
+     ^	promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/KelvinBeliber/CMSC-124-Project/2479e1d80a56549a6fdb454136dedffea20da66c/src/testcases/08_switch.lol	modified	parse-source: syntax error: unexpected NEWLINE at line 1, col 4
+  HAI
+     ^	promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/KelvinBeliber/CMSC-124-Project/284225905c57b14ea7c83b11aa145790ce4aa4fc/src/testcases/09_loops.lol	modified	parse-source: syntax error: unexpected NEWLINE at line 1, col 4
+  HAI
+     ^	promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/Kenneth-Olano/cmsc124_project/23aadd4a1a376856ccfc8bb4f8cda9eb75e2cf8d/testcases/08_switch.lol	modified	parse-source: syntax error: unexpected NEWLINE at line 1, col 4
+  HAI
+     ^	promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/Kimbsy/lolcode/9814a249b649d7e6e17357fd23b6f078e26fc840/ICANHAZPRIME.lol	modified	parse-source: program must begin with HAI opener (no leading comments or tokens before HAI)	trim-prefix-before-hai-5-lines;rewrite-version-1.2-to-1.3
+corpus/research/github_language_lolcode/hits_files/Kimbsy/lolcode/e96fc6b9ef5572d909d577df504640edb7962d3d/FIZZBUZZ.lol	modified	parse-source: program must begin with HAI opener (no leading comments or tokens before HAI)	trim-prefix-before-hai-6-lines;rewrite-version-1.2-to-1.3
+corpus/research/github_language_lolcode/hits_files/Mahdi-196/HELLO-WORLD/036406774be2207eba6e1a4e3c4dbbbb154adf38/lolcode.lol	modified	parse-source: program must begin with HAI opener (no leading comments or tokens before HAI)	trim-prefix-before-hai-1-lines;rewrite-version-1.2-to-1.3
+corpus/research/github_language_lolcode/hits_files/MonliH/lulz/0fcc1cbb83e6648888c09b0aee58802027d2585a/tests/lizt/fail_frunt_out_of_range.lol	modified	parse-source: program must begin with HAI opener (no leading comments or tokens before HAI)	trim-prefix-before-hai-1-lines
+corpus/research/github_language_lolcode/hits_files/MonliH/lulz/1373ddc04f9a0404dd211942980040d379e9249f/tests/strings/fail_uni_norm_1.lol	modified	parse-source: program must begin with HAI opener (no leading comments or tokens before HAI)	trim-prefix-before-hai-1-lines
+corpus/research/github_language_lolcode/hits_files/MonliH/lulz/166c3901974fffde69bed2f2680aa9951e453cf6/tests/control/conditionals/if_scoping.lol	modified	parse-source: program must begin with HAI opener (no leading comments or tokens before HAI)	trim-prefix-before-hai-1-lines
+corpus/research/github_language_lolcode/hits_files/MonliH/lulz/181f437670f3819761002ed06ceff629e810d4dd/tests/control/switch/color.lol	modified	parse-source: program must begin with HAI opener (no leading comments or tokens before HAI)	trim-prefix-before-hai-1-lines;rewrite-version-1.2-to-1.3
+corpus/research/github_language_lolcode/hits_files/MonliH/lulz/1a7ad234e4f16f9e195771b89de6245d00b70c9e/tests/exprs/casts/fail_string_to_int.lol	modified	parse-source: program must begin with HAI opener (no leading comments or tokens before HAI)	trim-prefix-before-hai-1-lines
+corpus/research/github_language_lolcode/hits_files/MonliH/lulz/1afc5a11ba9c8ce22343773658ae016bf5bbf62e/tests/exprs/ops/math/uppin.lol	modified	parse-source: program must begin with HAI opener (no leading comments or tokens before HAI)	trim-prefix-before-hai-1-lines
+corpus/research/github_language_lolcode/hits_files/MonliH/lulz/1b82430684ba711dde53b297096014678f3f7161/tests/exprs/ops/math/sum.lol	modified	parse-source: program must begin with HAI opener (no leading comments or tokens before HAI)	trim-prefix-before-hai-1-lines
+corpus/research/github_language_lolcode/hits_files/MonliH/lulz/1bb68a971380550d9ec10aee5672a5008f568b39/tests/functions/scope_basic.lol	modified	parse-source: program must begin with HAI opener (no leading comments or tokens before HAI)	trim-prefix-before-hai-1-lines
+corpus/research/github_language_lolcode/hits_files/NTMTech/gsb_extranet/2c1474d08515369e694f54980682cf1a87781e3a/salut.lol	modified	parse-source: syntax error: unexpected NEWLINE at line 1, col 4
+  HAI
+     ^	promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/Prithvirajbilla/helloworld/9fff025e176d84a443e6737bfd81862765bdc593/lolcode.lol	modified	parse-source: syntax error: unexpected NEWLINE at line 1, col 4
+  HAI
+     ^	promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/ReciHub/FunnyAlgorithms/0f383c3caee1c00b637ee5ff9d9dc253e7ae1b5c/Factorial/factorial.lol	modified	parse-source: syntax error: unexpected NEWLINE at line 1, col 4
+  HAI
+     ^	promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/RodFlores27/CMSC124Project/0dce8317fb97f82dbd2e2b898cb89175e55ee725/source code/project-testcases/09_loops.lol	modified	parse-source: syntax error: unexpected NEWLINE at line 1, col 4
+  HAI
+     ^	promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/SallySanban/LOLCODE-Interpreter/0d5a4d709b022520d15b021dbc3bc20e8db72435/Project 3/EZR_B-4L/source code/Test Files/08_switch.lol	modified	parse-source: syntax error: unexpected NEWLINE at line 1, col 4
+  HAI
+     ^	promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/Theoistic/lolcode-dot-net/0cf38a90f9a96eefc66ae2560ac857f34c1914b4/LOLCode.net.Test/Samples/visible.lol	modified	parse-source: program must begin with HAI opener (no leading comments or tokens before HAI)	trim-prefix-before-hai-1-lines;promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/Theoistic/lolcode-dot-net/1c861eae48ae472a25b3a038138e20c191a3629c/lolc/bf.lol	modified	parse-source: syntax error: unexpected NEWLINE at line 1, col 4
+  HAI
+     ^	promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/abhisek247767/Hello-World/345c74c334efd816c4c8964f2058ec087ce20120/hello_world.lol	modified	parse-source: program must begin with HAI opener (no leading comments or tokens before HAI)	trim-prefix-before-hai-1-lines;rewrite-version-1.2-to-1.3
+corpus/research/github_language_lolcode/hits_files/acmeism/RosettaCodeData/0bdc2228dc5b044e8fbd2b35b2a0f5f0c720ed5b/Task/Happy-numbers/LOLCODE/happy-numbers.lol	modified	parse-source: program must begin with HAI opener (no leading comments or tokens before HAI)	trim-prefix-before-hai-4-lines
+corpus/research/github_language_lolcode/hits_files/aduros/trollcat/54b23f4bbcc668cfba9461ec506cb9fff7755040/trollcat.lol	modified	parse-source: program must begin with HAI opener (no leading comments or tokens before HAI)	trim-prefix-before-hai-7-lines;rewrite-version-1.3,-to-1.3
+corpus/research/github_language_lolcode/hits_files/alxzdani/LOLCODE-interpreter-cocoy-dani-kyro/247f138a419b020a03de1c08831c8c0e8133d835/source code/testcases/09_loops.lol	modified	parse-source: syntax error: unexpected NEWLINE at line 1, col 4
+  HAI
+     ^	promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/amtuazon4/PyGUI/16cc4305638fd77b1b9d6e5c2ed3140e79bf4c2c/project-examples/06_comparison.lol	modified	parse-source: syntax error: unexpected NEWLINE at line 1, col 4
+  HAI
+     ^	promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/austinbyers/LOLcat/a33a33316a3b16431252b44619178aa4d7b3c9cd/fib.lol	modified	parse-source: syntax error: unexpected NEWLINE at line 1, col 4
+  HAI
+     ^	promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/bajajvinamr/HacktoberFest2020/25d0af3bcea6baf9bb4a97d75afc2d369691349f/Hello World Programs/hello_world.lol	modified	parse-source: syntax error: unexpected NEWLINE at line 1, col 4
+  HAI
+     ^	promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/bjouhier/node-lol/0d26e91b6cb3284a78e29b939764b91d9c1f1ece/examples/hello.lol	modified	parse-source: syntax error: unexpected NEWLINE at line 1, col 4
+  HAI
+     ^	promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/blongden/lolcode-php/150d0d84e81c291c3e8b1c5ec7688b0ce234c377/test.lol	modified	parse-source: syntax error: unexpected NEWLINE at line 1, col 4
+  HAI
+     ^	promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/bluebat/mt9x9/f4d58198aeb54de6d3e4d57ea50af6560b44a409/mt9x9.lol	modified	parse-source: program must begin with HAI opener (no leading comments or tokens before HAI)	trim-prefix-before-hai-6-lines
+corpus/research/github_language_lolcode/hits_files/bsevangelista/cmsc124-project/2b64990e3eb19bc3f13255047e76fbbe46d39b9a/project-testcases/08_switch.lol	modified	parse-source: syntax error: unexpected NEWLINE at line 1, col 4
+  HAI
+     ^	promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/camanzanido/LOLCODE-Interpreter/1b8825aa1beb3e709cd5244a6da8d894906ed985/[BARE] project-testcases/03_arith.lol	modified	parse-source: syntax error: unexpected NEWLINE at line 1, col 4
+  HAI
+     ^	promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/camanzanido/LOLCODE-Interpreter/1b8825aa1beb3e709cd5244a6da8d894906ed985/project-testcases/03_arith.lol	modified	parse-source: syntax error: unexpected NEWLINE at line 1, col 4
+  HAI
+     ^	promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/carlmathisen/htmx-lolcode/d0bf2f9709d024d95539c9e40ab290889c8f8a77/httpd.lol	modified	parse-source: program must begin with HAI opener (no leading comments or tokens before HAI)	trim-prefix-before-hai-10-lines;rewrite-version-1.4-to-1.3
+corpus/research/github_language_lolcode/hits_files/chunlea/lolcode-dot-net/0cf38a90f9a96eefc66ae2560ac857f34c1914b4/LOLCode.net.Test/Samples/visible.lol	modified	parse-source: program must begin with HAI opener (no leading comments or tokens before HAI)	trim-prefix-before-hai-1-lines;promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/chunlea/lolcode-dot-net/1c861eae48ae472a25b3a038138e20c191a3629c/lolc/bf.lol	modified	parse-source: syntax error: unexpected NEWLINE at line 1, col 4
+  HAI
+     ^	promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/ckrp120/beilisangels/1b870daed70edcb694f20cff36756de057adff9b/testcases/extracredit/stringcomp.lol	modified	parse-source: program must begin with HAI opener (no leading comments or tokens before HAI)	trim-prefix-before-hai-1-lines;promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/ckrp120/beilisangels/21a7bac8a38a1282ef6698ca7695917a0c2e8063/testcases/errorprompts/switch-syntax.lol	modified	parse-source: program must begin with HAI opener (no leading comments or tokens before HAI)	trim-prefix-before-hai-1-lines;promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/ckrp120/beilisangels/29e7f1c72fd5935517d8d243c8e0b43867b31390/testcases/ops/compop.lol	modified	parse-source: program must begin with HAI opener (no leading comments or tokens before HAI)	trim-prefix-before-hai-1-lines;promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/cvpua/CMSC124_Project/0dc3c855a133c9680ae6a53c7de646aec99e1272/source code/self_testcases/control_nested_test.lol	modified	parse-source: syntax error: unexpected NEWLINE at line 1, col 4
+  HAI
+     ^	promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/cvpua/CMSC124_Project/1404e0180069a6e4dafd38782b06feee3432289f/source code/self_testcases/arithmetic_explanation.lol	modified	parse-source: syntax error: unexpected NEWLINE at line 1, col 4
+  HAI
+     ^	promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/darylldan/lolcode-testcases/00cdadb73ca1df37a2c455c2f3b86a16b568234c/other-testcases/printing_loops_func.lol	modified	parse-source: syntax error: unexpected NEWLINE at line 1, col 4
+  HAI
+     ^	promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/darylldan/lolcode-testcases/02b6e6a6f881f8ab8293f0e32f39aaf59f56c91b/project-testcases-fixed/07_ifelse.lol	modified	parse-source: syntax error: unexpected NEWLINE at line 1, col 4
+  HAI
+     ^	promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/darylldan/lolcode-testcases/050e5cf00c5156ab37446e72967839e0eb8f3c76/project-testcases-fixed/08_switch.lol	modified	parse-source: syntax error: unexpected NEWLINE at line 1, col 4
+  HAI
+     ^	promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/darylldan/lolcode-testcases/1965800f9573d362bea58bcaab3f456f29163966/other-testcases/if_case.lol	modified	parse-source: syntax error: unexpected NEWLINE at line 1, col 4
+  HAI
+     ^	promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/darylldan/lolcode-testcases/21fd0c09d82a45ce10db04d841bc375d44208ae8/other-testcases/switch_else.lol	modified	parse-source: syntax error: unexpected NEWLINE at line 1, col 4
+  HAI
+     ^	promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/driee17/cmsc124-project/080eb12a4cd88e4901f663344fe2c76638507d8f/sample.lol	modified	parse-source: program must begin with HAI opener (no leading comments or tokens before HAI)	trim-prefix-before-hai-1-lines;promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/driee17/cmsc124-project/1cd9914bd22d80135203a17d6642d8824faf52d2/project-testcases/08_switch.lol	modified	parse-source: syntax error: unexpected NEWLINE at line 1, col 4
+  HAI
+     ^	promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/driee17/cmsc124-project/228bb1495eb0b60aeca2e04315df2a7c70415f00/project-testcases/10_functions.lol	modified	parse-source: syntax error: unexpected NEWLINE at line 1, col 4
+  HAI
+     ^	promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/e9-o9/ro9se/0bdc2228dc5b044e8fbd2b35b2a0f5f0c720ed5b/Task/Happy-numbers/LOLCODE/happy-numbers.lol	modified	parse-source: program must begin with HAI opener (no leading comments or tokens before HAI)	trim-prefix-before-hai-4-lines
+corpus/research/github_language_lolcode/hits_files/eevee/project-euler/386b523a121ac4816c1a21afed0d7a0f2b343b02/heteroglot/009.lol	modified	parse-source: program must begin with HAI opener (no leading comments or tokens before HAI)	trim-prefix-before-hai-24-lines;rewrite-version-1.0-to-1.3
+corpus/research/github_language_lolcode/hits_files/emanestares/CMSC124_PROJECT/03631224936548ca2923769ff8d82dfb5d4ead45/sample3.lol	modified	parse-source: syntax error: unexpected NEWLINE at line 1, col 4
+  HAI
+     ^	promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/emanestares/CMSC124_PROJECT/09f616ba4f388d3d36385a376543895667d27175/official-testcases/08_switch.lol	modified	parse-source: syntax error: unexpected NEWLINE at line 1, col 4
+  HAI
+     ^	promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/garthendrich/lolcode-interpreter/15135c6623ddd001a47ee2417a4f70cda22195a5/sample_codes/01_variables.lol	modified	parse-source: program must begin with HAI opener (no leading comments or tokens before HAI)	trim-prefix-before-hai-1-lines;promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/garthendrich/lolcode-interpreter/16cc4305638fd77b1b9d6e5c2ed3140e79bf4c2c/sample_codes/06_comparison.lol	modified	parse-source: syntax error: unexpected NEWLINE at line 1, col 4
+  HAI
+     ^	promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/gauthamzz/John-Cena/a1897c7ecadbb179776267030e12756012279ed9/john-cena.lol	modified	parse-source: program must begin with HAI opener (no leading comments or tokens before HAI)	trim-prefix-before-hai-5-lines;rewrite-version-1.2-to-1.3
+corpus/research/github_language_lolcode/hits_files/gitsly/lolcode-dot-net/0cf38a90f9a96eefc66ae2560ac857f34c1914b4/LOLCode.net.Test/Samples/visible.lol	modified	parse-source: program must begin with HAI opener (no leading comments or tokens before HAI)	trim-prefix-before-hai-1-lines;promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/gitsly/lolcode-dot-net/1c861eae48ae472a25b3a038138e20c191a3629c/lolc/bf.lol	modified	parse-source: syntax error: unexpected NEWLINE at line 1, col 4
+  HAI
+     ^	promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/halvards/diamondz-lol/29f5a8b2d8f4cfbd195f0258372b54083f86c7d0/diamondz.lol	modified	parse-source: program must begin with HAI opener (no leading comments or tokens before HAI)	trim-prefix-before-hai-2-lines;rewrite-version-1.2-to-1.3
+corpus/research/github_language_lolcode/hits_files/javif89/webcat/5de5a63cf4348ab8f19855f67cea7bc2a979a245/LOLCODE/index.lol	modified	parse-source: program must begin with HAI opener (no leading comments or tokens before HAI)	trim-prefix-before-hai-14-lines;rewrite-version-1.2-to-1.3
+corpus/research/github_language_lolcode/hits_files/jedalain/cmsc-124-lolcode-project/0437eec8788734842ce3993a22a6d6a7853fad76/source_code/samples/other samples/ifelse_sample.lol	modified	parse-source: syntax error: unexpected NEWLINE at line 1, col 4
+  HAI
+     ^	promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/jerichodolendo/lolcode-interpreter/1668b88c6f75675c8707b9df71340b7a02ded0ba/source code/input.lol	modified	parse-source: syntax error: unexpected NEWLINE at line 1, col 4
+  HAI
+     ^	promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/jmarias-edu/arias-portfolio/11087fc671d022efc85d553e98fcf9725751cc69/03 LOLCODE Interpreter/source code/J2S Samples/sample4.lol	modified	parse-source: syntax error: unexpected NEWLINE at line 1, col 4
+  HAI
+     ^	promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/jmarias-edu/arias-portfolio/11087fc671d022efc85d553e98fcf9725751cc69/03 LOLCODE Interpreter/source code/modified samples/06 if else.lol	modified	parse-source: syntax error: unexpected NEWLINE at line 1, col 4
+  HAI
+     ^	promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/jmarias-edu/arias-portfolio/2501ad0d787d67583afcb07b531a32fe6f71ac2f/03 LOLCODE Interpreter/source code/J2S Samples/comments.lol	modified	parse-source: syntax error: unexpected NEWLINE at line 1, col 4
+  HAI
+     ^	promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/jmarias-edu/python-portfolio/11087fc671d022efc85d553e98fcf9725751cc69/03 LOLCode Interpreter (Group Project)/J2S Samples/sample4.lol	modified	parse-source: syntax error: unexpected NEWLINE at line 1, col 4
+  HAI
+     ^	promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/jmarias-edu/python-portfolio/11087fc671d022efc85d553e98fcf9725751cc69/03 LOLCode Interpreter (Group Project)/modified samples/06 if else.lol	modified	parse-source: syntax error: unexpected NEWLINE at line 1, col 4
+  HAI
+     ^	promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/jmarias-edu/python-portfolio/1e4c134554957c1eee0f53c6480f4a9aeb7045c3/03 LOLCode Interpreter (Group Project)/J2S Samples/sample6.lol	modified	parse-source: syntax error: unexpected NEWLINE at line 1, col 5
+  HAI 
+      ^	promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/jmarias-edu/python-portfolio/2321234c05d9200e488f7dadecb11e239f43f06c/03 LOLCode Interpreter (Group Project)/modified samples/08 special char and R.lol	modified	parse-source: syntax error: unexpected NEWLINE at line 1, col 5
+  HAI 
+      ^	promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/jocelyne8/lolcode/028a0af375342271bad2c6c739f1c6a740f20eda/rosalind/022_rna_splicing.lol	modified	parse-source: program must begin with HAI opener (no leading comments or tokens before HAI)	trim-prefix-before-hai-5-lines
+corpus/research/github_language_lolcode/hits_files/jocelyne8/lolcode/04fef02a5034a4d17657a3bbf5ca6a4cacd8d71b/rosalind/029_signed_permutations.lol	modified	parse-source: program must begin with HAI opener (no leading comments or tokens before HAI)	trim-prefix-before-hai-5-lines
+corpus/research/github_language_lolcode/hits_files/jocelyne8/lolcode/0a583a3ec72024742cf5560e4c76f1efce011ea8/lib/fasta_read_functions.lol	modified	parse-source: program must begin with HAI opener (no leading comments or tokens before HAI)	trim-prefix-before-hai-5-lines
+corpus/research/github_language_lolcode/hits_files/jocelyne8/lolcode/135918fb243d7bf49c36e08e6779af5d4e750e9f/lib/string_functions.lol	modified	parse-source: program must begin with HAI opener (no leading comments or tokens before HAI)	trim-prefix-before-hai-5-lines
+corpus/research/github_language_lolcode/hits_files/jocelyne8/lolcode/15defe4241a34604b4a4b59aeeecae46c6de0cee/rosalind/024_longest_subsequence.lol	modified	parse-source: program must begin with HAI opener (no leading comments or tokens before HAI)	trim-prefix-before-hai-4-lines
+corpus/research/github_language_lolcode/hits_files/jocelyne8/lolcode/1f05f2c205cb3bd7367674a74d0a85bdb3ca35b0/rosalind/012_overlap_graph.lol	modified	parse-source: program must begin with HAI opener (no leading comments or tokens before HAI)	trim-prefix-before-hai-4-lines
+corpus/research/github_language_lolcode/hits_files/jocelyne8/lolcode/267be5bfeca6499a1a89414eea149466a532cb4f/rosalind/005_gc_content.lol	modified	parse-source: program must begin with HAI opener (no leading comments or tokens before HAI)	trim-prefix-before-hai-4-lines
+corpus/research/github_language_lolcode/hits_files/jocelyne8/lolcode/294ee5381e2838b79a808111ecc8580613f00561/rosalind/015_independent_alleles.lol	modified	parse-source: program must begin with HAI opener (no leading comments or tokens before HAI)	trim-prefix-before-hai-4-lines
+corpus/research/github_language_lolcode/hits_files/jocelyne8/lolcode/2a73889ff8146c0a7d871fe4be8d9240899e6d55/rosalind/026_rna_perfect_matching.lol	modified	parse-source: program must begin with HAI opener (no leading comments or tokens before HAI)	trim-prefix-before-hai-5-lines
+corpus/research/github_language_lolcode/hits_files/jpcarreon/loco/051cc6fab35a6d4157e10fa84f617f1bd6e10a63/Samples/diamond.lol	modified	parse-source: syntax error: unexpected NEWLINE at line 1, col 4
+  HAI
+     ^	promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/jpcarreon/loco/0613b1964e789f584f5d78be0ba413a741a4dbf7/Samples/diamond_box.lol	modified	parse-source: syntax error: unexpected NEWLINE at line 1, col 4
+  HAI
+     ^	promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/jpcarreon/loco/1bfa5f3b860d845c316e0c6fa9b997e098203f5c/Samples/diamond_campfire.lol	modified	parse-source: syntax error: unexpected NEWLINE at line 1, col 4
+  HAI
+     ^	promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/jpcarreon/loco/27946520dfc01ced1f5a19d4dcc145062aa12eaf/Loco/src/main/java/sample.lol	modified	parse-source: syntax error: unexpected NEWLINE at line 1, col 5
+  HAI , QUOSHUNT OF 1 AN 0 , KTHXBYE
+      ^	rewrite-version-,-to-1.3
+corpus/research/github_language_lolcode/hits_files/jrppena/ChickenWingsCMSC124Proj/1549b02425810059ad7c23a05a0e293608fb2b13/testcases/others/typecast.lol	modified	parse-source: syntax error: unexpected NEWLINE at line 1, col 4
+  HAI
+     ^	promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/jrppena/ChickenWingsCMSC124Proj/15987af5b06cf2df481454c0590712c4718f0cb9/testcases/others/ifelse3.lol	modified	parse-source: program must begin with HAI opener (no leading comments or tokens before HAI)	trim-prefix-before-hai-1-lines;promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/jrppena/ChickenWingsCMSC124Proj/1e570ebfb3fc84df2e5f37eede0163f292e63c53/testcases/others/io2.lol	modified	parse-source: syntax error: unexpected NEWLINE at line 1, col 4
+  HAI
+     ^	promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/jrppena/ChickenWingsCMSC124Proj/26ef7c19832d6af559fdbed5b8e4dad3dbb28651/testcases/others/io.lol	modified	parse-source: program must begin with HAI opener (no leading comments or tokens before HAI)	trim-prefix-before-hai-1-lines;promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/jtvallente/CMSC124-Project/00f7b43afcf78bdb11230228988b33ca5962b48a/GROUP_YARN_ST4L/project-testcases/10_functions.lol	modified	parse-source: syntax error: unexpected NEWLINE at line 1, col 4
+  HAI
+     ^	promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/jtvallente/CMSC124-Project/00f7b43afcf78bdb11230228988b33ca5962b48a/GUI/project-testcases/10_functions.lol	modified	parse-source: syntax error: unexpected NEWLINE at line 1, col 4
+  HAI
+     ^	promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/jtvallente/CMSC124-Project/00ffc538d5df142b4cbb2acc2446ee520a85901c/GROUP_YARN_ST4L/project-testcases/07_ifelse.lol	modified	parse-source: syntax error: unexpected NEWLINE at line 1, col 4
+  HAI
+     ^	promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/jtvallente/CMSC124-Project/00ffc538d5df142b4cbb2acc2446ee520a85901c/GUI/project-testcases/07_ifelse.lol	modified	parse-source: syntax error: unexpected NEWLINE at line 1, col 4
+  HAI
+     ^	promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/jtvallente/CMSC124-Project/037bd2b3f86641d181a542f42ace90ae6c091636/GROUP_YARN_ST4L/project-testcases/04_smoosh_assign.lol	modified	parse-source: syntax error: unexpected NEWLINE at line 1, col 4
+  HAI
+     ^	promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/jtvallente/CMSC124-Project/037bd2b3f86641d181a542f42ace90ae6c091636/GUI/project-testcases/04_smoosh_assign.lol	modified	parse-source: syntax error: unexpected NEWLINE at line 1, col 4
+  HAI
+     ^	promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/jtvallente/CMSC124-Project/19981a4bceb64cfdad2e522f0c7513860094d011/GROUP_YARN_ST4L/project-testcases/09_loops.lol	modified	parse-source: syntax error: unexpected NEWLINE at line 1, col 4
+  HAI
+     ^	promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/jtvallente/CMSC124-Project/19981a4bceb64cfdad2e522f0c7513860094d011/GUI/project-testcases/09_loops.lol	modified	parse-source: syntax error: unexpected NEWLINE at line 1, col 4
+  HAI
+     ^	promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/jtvallente/CMSC124-Project/19b49c5896134d9421e3c826e89fd43913a911be/GROUP_YARN_ST4L/project-testcases/01_variables.lol	modified	parse-source: program must begin with HAI opener (no leading comments or tokens before HAI)	trim-prefix-before-hai-1-lines;rewrite-version-1.2-to-1.3
+corpus/research/github_language_lolcode/hits_files/jtvallente/CMSC124-Project/19b49c5896134d9421e3c826e89fd43913a911be/GUI/project-testcases/01_variables.lol	modified	parse-source: program must begin with HAI opener (no leading comments or tokens before HAI)	trim-prefix-before-hai-1-lines;rewrite-version-1.2-to-1.3
+corpus/research/github_language_lolcode/hits_files/jwdpanganiban/lolterpreter/01d6fe26ebdc1f10e487dc5a687e8a21a336cc43/lolcodes/typecast_troof.lol	modified	parse-source: syntax error: unexpected NEWLINE at line 1, col 4
+  HAI
+     ^	promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/jwdpanganiban/lolterpreter/027e22397e1f2642867843b12ee9b1e9656e21cc/lolcodes/comparison.lol	modified	parse-source: syntax error: unexpected NEWLINE at line 1, col 4
+  HAI
+     ^	promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/jwdpanganiban/lolterpreter/05cb965647d759cff3d5019f0ce25e44f1d76e5b/lolcodes/typecast_noob.lol	modified	parse-source: syntax error: unexpected NEWLINE at line 1, col 4
+  HAI
+     ^	promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/jwdpanganiban/lolterpreter/0fe4f7a57440a0e2be0a85a87c5069bdfda5f752/lolcodes/arithmetic.lol	modified	parse-source: syntax error: unexpected NEWLINE at line 1, col 4
+  HAI
+     ^	promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/jynnantonix/lolcode/012e360059e7966009d3224b1d7ea8c9119cfb85/test/1-Structure/WhitespaceBetweenTokens.lol	modified	parse-source: program must begin with HAI opener (no leading comments or tokens before HAI)	trim-prefix-before-hai-3-lines;promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/jynnantonix/lolcode/020037cdf6ab5efc62ba7fc332a2c2b261d31790/test/4-Output/NoArgEmptyLine.lol	modified	parse-source: program must begin with HAI opener (no leading comments or tokens before HAI)	trim-prefix-before-hai-2-lines;promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/jynnantonix/lolcode/0206c1c8985a8e5ec768338cb338b8352b66ad7a/test/7-Operators/4-Division/Integers.lol	modified	parse-source: program must begin with HAI opener (no leading comments or tokens before HAI)	trim-prefix-before-hai-3-lines;promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/jynnantonix/lolcode/02755bdeff5a8d0686b9b80a486fdbde4a598c37/test/7-Operators/2-Subtraction/Integers.lol	modified	parse-source: program must begin with HAI opener (no leading comments or tokens before HAI)	trim-prefix-before-hai-3-lines;promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/jynnantonix/lolcode/02d7f07b403d16f818ceba908169aa60051fc463/test/7-Operators/1-Addition/ArityCheck.lol	modified	parse-source: program must begin with HAI opener (no leading comments or tokens before HAI)	trim-prefix-before-hai-2-lines;promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/jynnantonix/lolcode/02eabde85256a50e65b8aa1449f54fcd4117d20a/test/7-Operators/3-Multiplication/Nested.lol	modified	parse-source: program must begin with HAI opener (no leading comments or tokens before HAI)	trim-prefix-before-hai-2-lines;promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/jynnantonix/lolcode/05a89d5071f8654dab6a19650d13e0c53e56e4ed/test/7-Operators/5-Modulo/Nested.lol	modified	parse-source: program must begin with HAI opener (no leading comments or tokens before HAI)	trim-prefix-before-hai-2-lines;promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/jynnantonix/lolcode/091632c423f908c660de8cc421000fbea972a28b/test/1-Structure/MustEndWithKTHXBAI.lol	modified	parse-source: program must begin with HAI opener (no leading comments or tokens before HAI)	trim-prefix-before-hai-1-lines;promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/jynnantonix/lolcode/0a189f7077a66752703c5d95a9b265652951471d/test/7-Operators/4-Division/NumberStrings.lol	modified	parse-source: program must begin with HAI opener (no leading comments or tokens before HAI)	trim-prefix-before-hai-2-lines;rewrite-version-1.2-to-1.3
+corpus/research/github_language_lolcode/hits_files/jynnantonix/lolcode/0a1b8f3cafe1f812f24651599ae3ab72cfb33269/test/7-Operators/14-Equality/Boolean.lol	modified	parse-source: program must begin with HAI opener (no leading comments or tokens before HAI)	trim-prefix-before-hai-2-lines;promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/jynnantonix/lolcode/0f236c551d67f531a3be6d69fc4267b8336f7a7d/test/1-Structure/NewlineCR.lol	modified	parse-source: program must begin with HAI opener (no leading comments or tokens before HAI)	trim-prefix-before-hai-2-lines;promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/jynnantonix/lolcode/126fefa26cff55d7ce3f70d4eff8abf0e241352f/test/3-Types/3-Integer/MustHaveAdjacentHyphen.lol	modified	parse-source: program must begin with HAI opener (no leading comments or tokens before HAI)	trim-prefix-before-hai-2-lines;promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/jynnantonix/lolcode/13896280c2eeff0354065e21bb8bca950366fb73/test/7-Operators/15-Inequality/String.lol	modified	parse-source: program must begin with HAI opener (no leading comments or tokens before HAI)	trim-prefix-before-hai-2-lines;promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/jynnantonix/lolcode/13970c55da6010df2efa968e64a3486157f9fdb9/test/9-Functions/VoidWithSideEffects.lol	modified	parse-source: program must begin with HAI opener (no leading comments or tokens before HAI)	trim-prefix-before-hai-2-lines;promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/jynnantonix/lolcode/17fa2a43fa8e1ee969ec62ed8e98ab9a980e225d/test/6-Variables/Initialization.lol	modified	parse-source: program must begin with HAI opener (no leading comments or tokens before HAI)	trim-prefix-before-hai-2-lines;promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/jynnantonix/lolcode/19832ed4457f0bc13b043f638509aa4d978925ed/test/7-Operators/11-LogicalNOTUnary/TruthTable.lol	modified	parse-source: program must begin with HAI opener (no leading comments or tokens before HAI)	trim-prefix-before-hai-2-lines;promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/jynnantonix/lolcode/1b5ee924816eb7e5d2b2f30b4f4474d3e2eba4eb/test/7-Operators/5-Modulo/Integers.lol	modified	parse-source: program must begin with HAI opener (no leading comments or tokens before HAI)	trim-prefix-before-hai-3-lines;promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/jynnantonix/lolcode/1c3a94cf020081c9993df6df183465698602c771/test/3-Types/1-Nil/NilToInt.lol	modified	parse-source: program must begin with HAI opener (no leading comments or tokens before HAI)	trim-prefix-before-hai-2-lines;promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/jynnantonix/lolcode/1f2ee8842b60d2fa3aea038918b00d57de7d3aee/test/6-Variables/Assignment.lol	modified	parse-source: program must begin with HAI opener (no leading comments or tokens before HAI)	trim-prefix-before-hai-2-lines;promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/jynnantonix/lolcode/24d81dd44b6fceaf438fcd079a1b5d3736f4bcc1/test/1-Structure/NewlineLF.lol	modified	parse-source: program must begin with HAI opener (no leading comments or tokens before HAI)	trim-prefix-before-hai-1-lines;promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/kevlu8/languageception/0b17ea8d14ddf5797b5277b8f86fffef1cdd58f5/main.lol	modified	parse-source: syntax error: unexpected NEWLINE at line 1, col 4
+  HAI
+     ^	promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/klenndacoder69/lolcode-project-124/0e7b1dbd5158e9c8e350331a2cabebea84f8d2da/project-testcases/08_switch.lol	modified	parse-source: syntax error: unexpected NEWLINE at line 1, col 4
+  HAI
+     ^	promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/krispypatata/lolcode-interpreter-py/115b499144bcfa60a91c164fd1ce3307ed14aeed/tests/04_smoosh_assign.lol	modified	parse-source: syntax error: unexpected NEWLINE at line 1, col 4
+  HAI
+     ^	promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/ksumallo/lolspeaker/078a90773c2ac73dd81ea53340ca60906919d858/project-testcases/09_loops.lol	modified	parse-source: syntax error: unexpected NEWLINE at line 1, col 4
+  HAI
+     ^	promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/kunaltyagi/helloworld/9fff025e176d84a443e6737bfd81862765bdc593/lolcode.lol	modified	parse-source: syntax error: unexpected NEWLINE at line 1, col 4
+  HAI
+     ^	promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/lol-qwop/lol-qwop/101d8ba34b08be37424073505292afa48a443cf4/lol-qwop.lol	modified	parse-source: program must begin with HAI opener (no leading comments or tokens before HAI)	trim-prefix-before-hai-1-lines;rewrite-version-1.2-to-1.3
+corpus/research/github_language_lolcode/hits_files/maadriana/lolcode-interpreter/07a8e8d178598b21f47589332eb0c65bc9600911/week2-3/test/conditional.lol	modified	parse-source: syntax error: unexpected NEWLINE at line 1, col 4
+  HAI
+     ^	promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/markjreed/eulol/047580a771782df937ed2933741ba4bd8e16c633/problem0005.lol	modified	parse-source: program must begin with HAI opener (no leading comments or tokens before HAI)	trim-prefix-before-hai-7-lines
+corpus/research/github_language_lolcode/hits_files/markjreed/eulol/225193241e3f3abfaf960645834ec0bfd50683f9/problem0004.lol	modified	parse-source: program must begin with HAI opener (no leading comments or tokens before HAI)	trim-prefix-before-hai-8-lines;rewrite-version-1.2-to-1.3
+corpus/research/github_language_lolcode/hits_files/mattleibow/dotnet-lolcode/18fb2b51447b944627f849061ed15cfdc6d19c7a/samples/games/arena-game/Game.lol	modified	parse-source: program must begin with HAI opener (no leading comments or tokens before HAI)	trim-prefix-before-hai-6-lines;rewrite-version-1.2-to-1.3
+corpus/research/github_language_lolcode/hits_files/mattleibow/dotnet-lolcode/1ad1483d358562bdb5730ec858a1fc622783949a/samples/basics/variables/variables.lol	modified	parse-source: program must begin with HAI opener (no leading comments or tokens before HAI)	trim-prefix-before-hai-3-lines;rewrite-version-1.2-to-1.3
+corpus/research/github_language_lolcode/hits_files/mattleibow/dotnet-lolcode/258a7872cd1b35d3f0ef2662de8c5d826beca01b/samples/basics/string-ops/strings.lol	modified	parse-source: program must begin with HAI opener (no leading comments or tokens before HAI)	trim-prefix-before-hai-3-lines;rewrite-version-1.2-to-1.3
+corpus/research/github_language_lolcode/hits_files/mattleibow/lolcode-dot-net/0cf38a90f9a96eefc66ae2560ac857f34c1914b4/LOLCode.net.Test/Samples/visible.lol	modified	parse-source: program must begin with HAI opener (no leading comments or tokens before HAI)	trim-prefix-before-hai-1-lines;promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/mattleibow/lolcode-dot-net/1c861eae48ae472a25b3a038138e20c191a3629c/lolc/bf.lol	modified	parse-source: syntax error: unexpected NEWLINE at line 1, col 4
+  HAI
+     ^	promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/mertabo/cmsc-124-project/020e7fec5a6cd9491738410477847d77932be510/extra credit/nested_if-then.lol	modified	parse-source: syntax error: unexpected NEWLINE at line 1, col 4
+  HAI
+     ^	promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/mjrb/mongo-lol-driver-example/270196ec96b5cd6fb23c01535b224449f58fbaf7/cgi-bin/todo.lol	modified	parse-source: program must begin with HAI opener (no leading comments or tokens before HAI)	trim-prefix-before-hai-1-lines;rewrite-version-1.4-to-1.3
+corpus/research/github_language_lolcode/hits_files/mldamalerio/LOLCODE-Interpreter/18eae82f891cc3bdd2a4b248c3fb4ac44ad4c4df/more_samples/sample4.lol	modified	parse-source: syntax error: unexpected NEWLINE at line 1, col 4
+  HAI
+     ^	promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/mldamalerio/LOLCODE-Interpreter/1e133b4a1c7af9ce8d30eafc88c72f8bb3bc1b04/more_samples/sample1.lol	modified	parse-source: program must begin with HAI opener (no leading comments or tokens before HAI)	trim-prefix-before-hai-1-lines;promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/mldamalerio/LOLCODE-Interpreter/2226abfb24a5a3cbaddfb74b6b1128454c82c407/more_samples/comparison.lol	modified	parse-source: syntax error: unexpected NEWLINE at line 1, col 4
+  HAI
+     ^	promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/monumei/skibidi-brat/00494cff61d14089b0f8463cdaa97c2261a24c11/project-testcases/10_functions.lol	modified	parse-source: syntax error: unexpected NEWLINE at line 1, col 4
+  HAI
+     ^	promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/msttnakashima/cmsc124_project/02dd09a868135bc861c2a407a555b49abd4da167/self-tests/comparison.lol	modified	parse-source: syntax error: unexpected NEWLINE at line 1, col 4
+  HAI
+     ^	promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/mutcianm/lolcodec/0151e169b9577a1f3e960147458b2d1a6c4f75ba/tests/com/lolcode/tree/loop.lol	modified	parse-source: syntax error: unexpected NEWLINE at line 1, col 4
+  HAI
+     ^	promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/mutcianm/lolcodec/0359f36869ba670b7bd7654e74da077d54440e00/tests/com/lolcode/tree/expressions.lol	modified	parse-source: syntax error: unexpected NEWLINE at line 1, col 4
+  HAI
+     ^	promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/nadineanareta/lolcode-interpreter/1cd9914bd22d80135203a17d6642d8824faf52d2/testcases/08_switch.lol	modified	parse-source: syntax error: unexpected NEWLINE at line 1, col 4
+  HAI
+     ^	promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/nfenciso1/lolcode-interpreter/0bf6410d0647d20dfc7ce57944ee8e8c1016785e/test-cases/e02_line_continuation.lol	modified	parse-source: syntax error: unexpected NEWLINE at line 1, col 4
+  HAI
+     ^	promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/nicodecastro/lolcode-interpreter/0035f9860f39adc566e5525c04d9b6ba67beae33/tests/10_functions.lol	modified	parse-source: syntax error: unexpected NEWLINE at line 1, col 4
+  HAI
+     ^	promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/nicodecastro/lolcode-interpreter/038689e6952496cbded4bf8a0b6d4daa82eb1d17/tests/test_file.lol	modified	parse-source: program must begin with HAI opener (no leading comments or tokens before HAI)	trim-prefix-before-hai-3-lines;promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/nicodecastro/lolcode-interpreter/1bc0c8060136f96dc1007dffd03716fbe5f465ec/tests/03_arith.lol	modified	parse-source: syntax error: unexpected NEWLINE at line 1, col 4
+  HAI
+     ^	promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/pmonks/clj-lolcode/0b26dc9027dfca2b624c551718314680cbc5c854/test/valid/COMMENT4.LOL	modified	parse-source: program must begin with HAI opener (no leading comments or tokens before HAI)	trim-prefix-before-hai-3-lines;rewrite-version-1.2-to-1.3
+corpus/research/github_language_lolcode/hits_files/pmonks/clj-lolcode/18f89b6590c5b4ab3ee4939774311b2b2dc713ba/test/valid/COMMENT7.LOL	modified	parse-source: program must begin with HAI opener (no leading comments or tokens before HAI)	trim-prefix-before-hai-8-lines;rewrite-version-1.2-to-1.3
+corpus/research/github_language_lolcode/hits_files/pmonks/clj-lolcode/1b1d914e1d96f14ee680ff46e32f6c207ba65220/test/valid/COMMENT1.LOL	modified	parse-source: program must begin with HAI opener (no leading comments or tokens before HAI)	trim-prefix-before-hai-1-lines;rewrite-version-1.2-to-1.3
+corpus/research/github_language_lolcode/hits_files/redcapital/layo/2999d8694d6d870179d270b52d4d769f492a4872/examples/2.lol	modified	parse-source: program must begin with HAI opener (no leading comments or tokens before HAI)	trim-prefix-before-hai-15-lines;rewrite-version-1.2-to-1.3
+corpus/research/github_language_lolcode/hits_files/redcapital/layo/3a1ed2ced7044567efbdbc58ca37826541cb03c4/examples/3.lol	modified	parse-source: program must begin with HAI opener (no leading comments or tokens before HAI)	trim-prefix-before-hai-5-lines;rewrite-version-1.2-to-1.3
+corpus/research/github_language_lolcode/hits_files/redcapital/layo/460fbd6c10c2631b3017c60cc258cb76387a4688/examples/1.lol	modified	parse-source: program must begin with HAI opener (no leading comments or tokens before HAI)	trim-prefix-before-hai-11-lines;rewrite-version-1.2-to-1.3
+corpus/research/github_language_lolcode/hits_files/reeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee/reeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee/0b64a50d41deec2ee36aa0c23e6683b1ecd0bb57/reee.lol	modified	parse-source: program must begin with HAI opener (no leading comments or tokens before HAI)	trim-prefix-before-hai-3-lines;rewrite-version-1.2-to-1.3
+corpus/research/github_language_lolcode/hits_files/roxanneypr/LolCode-interpreter/09f616ba4f388d3d36385a376543895667d27175/Testcases edit/08_switch.lol	modified	parse-source: syntax error: unexpected NEWLINE at line 1, col 4
+  HAI
+     ^	promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/roxanneypr/LolCode-interpreter/09f616ba4f388d3d36385a376543895667d27175/Testcases/08_switch.lol	modified	parse-source: syntax error: unexpected NEWLINE at line 1, col 4
+  HAI
+     ^	promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/roxanneypr/LolCode-interpreter/09f616ba4f388d3d36385a376543895667d27175/project-testcases/08_switch.lol	modified	parse-source: syntax error: unexpected NEWLINE at line 1, col 4
+  HAI
+     ^	promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/rseangueco/CMSC124-Galido-Gueco-Valenzuela-Project/09e89fd7f07f24a03d9282d1185a1f2c43ab9697/project-testcases (2)/03_arith.lol	modified	parse-source: syntax error: unexpected NEWLINE at line 1, col 4
+  HAI
+     ^	promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/rseangueco/CMSC124-Galido-Gueco-Valenzuela-Project/28d56a6f4220a213174332f8e9552e5549b1191e/project-testcases (2)/04_smoosh_assign.lol	modified	parse-source: syntax error: unexpected NEWLINE at line 1, col 4
+  HAI
+     ^	promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/rseangueco/CMSC124-Galido-Gueco-Valenzuela-Project/299f3d86eb5d2f0c0684ff292386ce7ad481d3ab/project-testcases (2)/07_ifelse.lol	modified	parse-source: syntax error: unexpected NEWLINE at line 1, col 4
+  HAI
+     ^	promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/sadirige/brazil_decuzar_dirige_project/13e8313a2e00208e940a98837f4772669a273632/examples/07_ifelse.lol	modified	parse-source: syntax error: unexpected NEWLINE at line 1, col 4
+  HAI
+     ^	promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/sadirige/brazil_decuzar_dirige_project/22a463ddc2762e10b88893b0e673a4cb118e848a/examples/08_switch.lol	modified	parse-source: syntax error: unexpected NEWLINE at line 1, col 4
+  HAI
+     ^	promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/seanpm2001/Git-Templates/dff878b544ed3b4c9bd55eda5d72c13277b15766/Git-Templates/ProjectLanguageFiles/SNU/2D/ProgrammingTools/!/IDE/LOLCODE/LOLCODE/PROJECT_LANG_1.lol	modified	parse-source: syntax error: unexpected NEWLINE at line 1, col 4
+  HAI
+     ^	promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/seanpm2001/Git-Templates/dff878b544ed3b4c9bd55eda5d72c13277b15766/Git-Templates/ProjectLanguageFiles/SNU/2D/ProgrammingTools/!/IDE/LOLCODE/LOLCODE/PROJECT_LANG_1_V1.lol	modified	parse-source: syntax error: unexpected NEWLINE at line 1, col 4
+  HAI
+     ^	promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/seanpm2001/SNU_2D_ProgrammingTools_IDE_LOLCODE/dff878b544ed3b4c9bd55eda5d72c13277b15766/OldVersions/PROJECT_LANGUAGE/LOLCODE/PROJECT_LANG_1_V1.lol	modified	parse-source: syntax error: unexpected NEWLINE at line 1, col 4
+  HAI
+     ^	promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/seanpm2001/SNU_2D_ProgrammingTools_IDE_LOLCODE/dff878b544ed3b4c9bd55eda5d72c13277b15766/PROJECT_LANG_1.lol	modified	parse-source: syntax error: unexpected NEWLINE at line 1, col 4
+  HAI
+     ^	promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/smola/language-dataset/9814a249b649d7e6e17357fd23b6f078e26fc840/data/github.com/Kimbsy/lolcode/830341dcaae473e652c115eb782b95e4a113755a/ICANHAZPRIME.lol	modified	parse-source: program must begin with HAI opener (no leading comments or tokens before HAI)	trim-prefix-before-hai-5-lines;rewrite-version-1.2-to-1.3
+corpus/research/github_language_lolcode/hits_files/smola/language-dataset/a2841dd771d684f20e3cd672f54bb1f527d302c5/data/github.com/Holarse-Linuxgaming/ashley-madison-simulator/a59cdcc45652fcb6e9f249c61e98b7acee42fea1/ircbot.lol	modified	parse-source: program must begin with HAI opener (no leading comments or tokens before HAI)	trim-prefix-before-hai-8-lines;rewrite-version-1.4-to-1.3
+corpus/research/github_language_lolcode/hits_files/sopyb/AoC/b91a6ef15480b71673501bd64236d016ac5a1bdc/2017/DAI01/PURT1.lol	modified	parse-source: program must begin with HAI opener (no leading comments or tokens before HAI)	trim-prefix-before-hai-4-lines;rewrite-version-1.4-to-1.3
+corpus/research/github_language_lolcode/hits_files/sopyb/AoC/edf6a0c1d1a2bd48f5e22460d6e72921181350de/2017/DAI01/PURT2.lol	modified	parse-source: program must begin with HAI opener (no leading comments or tokens before HAI)	trim-prefix-before-hai-1-lines;rewrite-version-1.4-to-1.3
+corpus/research/github_language_lolcode/hits_files/stefanos1316/Rosetta-Code-Research/0bdc2228dc5b044e8fbd2b35b2a0f5f0c720ed5b/Scripts/Task/happy-numbers/lolcode/happy-numbers.lol	modified	parse-source: program must begin with HAI opener (no leading comments or tokens before HAI)	trim-prefix-before-hai-4-lines
+corpus/research/github_language_lolcode/hits_files/tedneward/lolcomp/009c0084858be8a5690a4316dfa78731f051a4a3/examples/hai.lol	modified	parse-source: syntax error: unexpected NEWLINE at line 1, col 4
+  HAI
+     ^	promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/tedneward/lolcomp/06685a48fc1579101fd5b00dc98635ca17e2fe2d/examples/inputage.lol	modified	parse-source: syntax error: unexpected NEWLINE at line 1, col 4
+  HAI
+     ^	promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/unycorn/lolcode-dot-net/0cf38a90f9a96eefc66ae2560ac857f34c1914b4/LOLCode.net.Test/Samples/visible.lol	modified	parse-source: program must begin with HAI opener (no leading comments or tokens before HAI)	trim-prefix-before-hai-1-lines;promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/unycorn/lolcode-dot-net/1c861eae48ae472a25b3a038138e20c191a3629c/lolc/bf.lol	modified	parse-source: syntax error: unexpected NEWLINE at line 1, col 4
+  HAI
+     ^	promote-bare-hai-to-1.3
+corpus/research/github_language_lolcode/hits_files/verdihatorou/html.ulangtahun/02d9667087b900c6dcc3f2ad2358dccfab6c02cf/script/verdi.lol	modified	parse-source: program must begin with HAI opener (no leading comments or tokens before HAI)	rewrite-version-it-to-1.3

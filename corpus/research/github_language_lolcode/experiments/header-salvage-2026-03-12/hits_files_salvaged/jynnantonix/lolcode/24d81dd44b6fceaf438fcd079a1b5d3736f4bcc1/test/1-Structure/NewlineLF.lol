@@ -1,0 +1,7 @@
+HAI 1.3
+	VISIBLE "Lorem" MKAY?
+	VISIBLE "ipsum" MKAY?
+	VISIBLE "dolor" MKAY?
+	VISIBLE "sit" MKAY?
+KTHXBAI
+

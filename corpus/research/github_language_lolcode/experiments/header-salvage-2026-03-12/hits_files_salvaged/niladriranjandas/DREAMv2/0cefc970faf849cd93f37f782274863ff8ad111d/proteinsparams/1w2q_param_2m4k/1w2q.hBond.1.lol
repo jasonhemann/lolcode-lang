@@ -1,0 +1,50 @@
+ 29 GLU  H      25 LEU  O       1.80
+ 29 GLU  N      25 LEU  O       1.80
+ 30 GLN  H      26 LYS  O       1.80
+ 30 GLN  N      26 LYS  O       1.80
+ 32 ILE  H      28 CYS  O       1.80
+ 32 ILE  N      28 CYS  O       1.80
+ 33 MET  H      29 GLU  O       1.80
+ 33 MET  N      29 GLU  O       1.80
+ 34 GLN  H      30 GLN  O       1.80
+ 34 GLN  N      30 GLN  O       1.80
+ 36 ILE  H      32 ILE  O       1.80
+ 36 ILE  N      32 ILE  O       1.80
+ 62 ASP  H      58 GLN  O       1.80
+ 62 ASP  N      58 GLN  O       1.80
+ 63 GLU  H      59 ARG  O       1.80
+ 63 GLU  N      59 ARG  O       1.80
+ 64 LEU  H      60 CYS  O       1.80
+ 64 LEU  N      60 CYS  O       1.80
+ 67 MET  H      63 GLU  O       1.80
+ 67 MET  N      63 GLU  O       1.80
+ 77 ALA  H      73 CYS  O       1.80
+ 77 ALA  N      73 CYS  O       1.80
+ 78 LEU  H      74 MET  O       1.80
+ 78 LEU  N      74 MET  O       1.80
+ 79 GLN  H      75 CYS  O       1.80
+ 79 GLN  N      75 CYS  O       1.80
+ 80 GLN  H      76 GLU  O       1.80
+ 80 GLN  N      76 GLU  O       1.80
+ 81 ILE  H      77 ALA  O       1.80
+ 81 ILE  N      77 ALA  O       1.80
+ 82 MET  H      78 LEU  O       1.80
+ 82 MET  N      78 LEU  O       1.80
+ 83 GLU  H      79 GLN  O       1.80
+ 83 GLU  N      79 GLN  O       1.80
+ 85 GLN  H      81 ILE  O       1.80
+ 85 GLN  N      81 ILE  O       1.80
+ 98 PHE  H      94 MET  O       1.80
+ 98 PHE  N      94 MET  O       1.80
+ 99 LYS  H      95 VAL  O       1.80
+ 99 LYS  N      95 VAL  O       1.80
+100 ARG  H      96 GLN  O       1.80
+100 ARG  N      96 GLN  O       1.80
+101 GLU  H      97 GLN  O       1.80
+101 GLU  N      97 GLN  O       1.80
+102 LEU  H      98 PHE  O       1.80
+102 LEU  N      98 PHE  O       1.80
+103 MET  H      99 LYS  O       1.80
+103 MET  N      99 LYS  O       1.80
+105 LEU  H     101 GLU  O       1.80
+105 LEU  N     101 GLU  O       1.80

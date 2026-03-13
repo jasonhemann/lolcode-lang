@@ -1,0 +1,72 @@
+ 72 THR  H     155 ILE  O       1.80
+ 72 THR  N     155 ILE  O       1.80
+ 70 ALA  H     153 TYR  O       1.80
+ 70 ALA  N     153 TYR  O       1.80
+ 68 VAL  H     151 THR  O       1.80
+ 68 VAL  N     151 THR  O       1.80
+ 66 TYR  H     149 ASN  O       1.80
+ 66 TYR  N     149 ASN  O       1.80
+ 70 ALA  O     155 ILE  H       1.80
+ 70 ALA  O     155 ILE  N       1.80
+ 68 VAL  O     153 TYR  H       1.80
+ 68 VAL  O     153 TYR  N       1.80
+ 66 TYR  O     151 THR  H       1.80
+ 66 TYR  O     151 THR  N       1.80
+ 67 THR  H     103 VAL  O       1.80
+ 67 THR  N     103 VAL  O       1.80
+ 65 GLN  O     105 GLY  H       1.80
+ 65 GLN  O     105 GLY  N       1.80
+ 67 THR  O     103 VAL  H       1.80
+ 67 THR  O     103 VAL  N       1.80
+116 ARG  H     124 VAL  O       1.80
+116 ARG  N     124 VAL  O       1.80
+118 THR  H     122 ALA  O       1.80
+118 THR  N     122 ALA  O       1.80
+102 VAL  O     119 LEU  H       1.80
+102 VAL  O     119 LEU  N       1.80
+116 ARG  O     124 VAL  H       1.80
+116 ARG  O     124 VAL  N       1.80
+125 THR  H     136 GLY  O       1.80
+125 THR  N     136 GLY  O       1.80
+114 GLY  O     126 VAL  H       1.80
+114 GLY  O     126 VAL  N       1.80
+127 THR  H     134 LYS  O       1.80
+127 THR  N     134 LYS  O       1.80
+127 THR  O     134 LYS  H       1.80
+127 THR  O     134 LYS  N       1.80
+135 VAL  H     138 ALA  O       1.80
+135 VAL  N     138 ALA  O       1.80
+147 THR  H     150 ALA  O       1.80
+147 THR  N     150 ALA  O       1.80
+145 VAL  H     152 VAL  O       1.80
+145 VAL  N     152 VAL  O       1.80
+142 CYS  H     154 MET  O       1.80
+142 CYS  N     154 MET  O       1.80
+141 VAL  H     154 MET  O       1.80
+141 VAL  N     154 MET  O       1.80
+133 LEU  O     140 VAL  H       1.80
+133 LEU  O     140 VAL  N       1.80
+ 37 ASN  O      40 LEU  H       1.80
+ 37 ASN  O      40 LEU  N       1.80
+ 40 LEU  O      43 LEU  H       1.80
+ 40 LEU  O      43 LEU  N       1.80
+ 40 LEU  O      44 THR  H       1.80
+ 40 LEU  O      44 THR  N       1.80
+ 41 THR  O      45 ALA  H       1.80
+ 41 THR  O      45 ALA  N       1.80
+ 43 LEU  O      46 ALA  H       1.80
+ 43 LEU  O      46 ALA  N       1.80
+ 43 LEU  O      47 LEU  H       1.80
+ 43 LEU  O      47 LEU  N       1.80
+ 44 THR  O      48 SER  H       1.80
+ 44 THR  O      48 SER  N       1.80
+ 45 ALA  O      49 GLY  H       1.80
+ 45 ALA  O      49 GLY  N       1.80
+ 94 LEU  O      97 ILE  H       1.80
+ 94 LEU  O      97 ILE  N       1.80
+ 94 LEU  O      98 LEU  H       1.80
+ 94 LEU  O      98 LEU  N       1.80
+ 95 THR  O      99 THR  H       1.80
+ 95 THR  O      99 THR  N       1.80
+ 97 ILE  O     100 TYR  H       1.80
+ 97 ILE  O     100 TYR  N       1.80

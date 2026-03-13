@@ -1,0 +1,4 @@
+HAI 1.3
+    VISIBLE 8
+    VISIBLE 5
+KTHXBYE

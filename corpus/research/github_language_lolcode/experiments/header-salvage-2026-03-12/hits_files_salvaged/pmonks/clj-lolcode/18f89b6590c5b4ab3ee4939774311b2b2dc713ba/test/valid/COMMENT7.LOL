@@ -1,0 +1,8 @@
+HAI 1.3
+BTW Import some stuffs
+CAN HAZ STDIO?
+
+BTW Assign 1 to VAR
+I HAS A VAR ITZ 1
+
+KTHXBYE

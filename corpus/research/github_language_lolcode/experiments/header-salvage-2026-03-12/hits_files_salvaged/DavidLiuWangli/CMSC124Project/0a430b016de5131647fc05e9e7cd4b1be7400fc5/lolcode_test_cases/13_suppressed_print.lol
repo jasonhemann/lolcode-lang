@@ -1,0 +1,14 @@
+HAI 1.3
+	VISIBLE "C" !
+	VISIBLE "M" !
+	VISIBLE "S" !
+	VISIBLE "C " !
+	VISIBLE "124"
+	VISIBLE "S" !
+	VISIBLE "T" !
+	VISIBLE "1" !
+	VISIBLE "L" !
+KTHXBYE
+
+
+
