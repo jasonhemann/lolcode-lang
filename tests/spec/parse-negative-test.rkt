@@ -528,6 +528,11 @@
   (check-exn #px"implicit MKAY omission is only allowed at statement boundary"
              (lambda () (parse-program implicit-mkay-before-bang-negative)))
 
+  (define implicit-mkay-before-an-yr-negative
+    "HAI 1.3\nHOW IZ I f YR x AN YR y\n  FOUND YR x\nIF U SAY SO\nVISIBLE I IZ f YR SMOOSH \"A\" AN \"B\" AN YR 0 MKAY\nKTHXBYE\n")
+  (check-exn #px"explicit MKAY required before AN YR"
+             (lambda () (parse-program implicit-mkay-before-an-yr-negative)))
+
   (define explicit-mkay-before-bang-positive
     "HAI 1.3\nVISIBLE SMOOSH \"A\" AN \"B\" MKAY!\nKTHXBYE\n")
   (check-not-exn

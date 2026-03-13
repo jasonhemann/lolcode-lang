@@ -12,7 +12,6 @@
 
 (provide load-and-validate-manifest
          evaluate-evidence-cases
-         select-cases
          run-evidence-cases)
 
 (define valid-source-kinds
@@ -212,15 +211,6 @@
 
   cases)
 
-(define (select-cases cases selected-wave selected-id)
-  (filter
-   (lambda (c)
-     (and (or (not selected-wave)
-              (= (hash-ref c 'wave) selected-wave))
-          (or (not selected-id)
-              (string=? (hash-ref c 'id) selected-id))))
-   cases))
-
 (define (parse-scope-arg s)
   (cond
     [(string=? s "1.2") '("1.2")]
@@ -257,17 +247,6 @@
           (filter-label selected-scope 'scope)
           (filter-label selected-triage 'triage)
           (filter-label selected-hypothesis 'hypothesis)))
-
-(define (select-cases/scope cases selected-wave selected-id selected-scope)
-  (filter
-   (lambda (c)
-     (and (or (not selected-wave)
-              (= (hash-ref c 'wave) selected-wave))
-          (or (not selected-id)
-              (string=? (hash-ref c 'id) selected-id))
-          (or (not selected-scope)
-              (equal? (hash-ref c 'spec-scope) selected-scope))))
-   cases))
 
 (define (parse-one-of who arg allowed)
   (unless (member arg allowed)

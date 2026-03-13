@@ -10,8 +10,9 @@
 ## House Style (Racket)
 
 - Prefer direct recursion over ad hoc local `let` loops when the recursion is the core control flow.
-- For local recursive helpers, prefer explicit arity and an explicit initial call at the one call site rather than default arguments.
+- Do not introduce internal helper definitions or local loops solely to remove default-argument recursion; keep the clearer form.
 - If a list traversal branch uses `null?`/`else` with `car`/`cdr`, rewrite to `match` on the list shape (`'()` and `(cons ...)`).
+- For simple two-way `null?` checks that do not destructure (`car`/`cdr`) and do not reuse the tested value, prefer `if`.
 - For list/index scans (e.g., `find-first`), thread list and index as explicit parameters and call once with explicit initial values.
 - Prefer `cond` with `=>` when testing a lookup and immediately consuming the looked-up value.
 - Prefer `case` for simple symbol dispatch; prefer `match` for structural dispatch.

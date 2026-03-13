@@ -41,16 +41,19 @@ Purpose:
 3. Keep parser comments aligned with strict semantics; remove stale extension notes.
 4. Prefer direct recursive helpers over local named-`let`/internal loop definitions when behavior is equivalent.
    - Use local loop bindings only when they materially improve clarity (e.g., mutually recursive local helpers, tightly scoped accumulators).
-5. Avoid alias-only wrapper functions that just forward to another function unchanged.
+   - Do not introduce an internal helper/local loop solely to eliminate default-argument recursion; keep the clearer form.
+5. For simple two-way `null?` branching with no list destructuring (`car`/`cdr`) and no reuse of the tested value, prefer `if`.
+   - Reserve `match`/`cond` for structural dispatch or multi-branch logic.
+6. Avoid alias-only wrapper functions that just forward to another function unchanged.
    - If there is no behavior, contract, or boundary value, inline call sites to the canonical function name.
    - Exception: explicit public-API compatibility shims may remain when intentionally documented.
-6. Target small functions: generally keep method/function bodies under ~50 lines.
+7. Target small functions: generally keep method/function bodies under ~50 lines.
    - Not a hard cap; exceptions are allowed when complexity is intrinsic and clearly documented.
    - Multiple nested local helper functions are a refactor signal: split behavior into top-level or separately testable units.
-7. Reserve `!` suffix for mutation.
+8. Reserve `!` suffix for mutation.
    - Use `!` only when function behavior mutates state (boxes, object slots, hash tables, ports, etc.).
    - Do not use `!` merely because a function may raise an error.
-8. Prefer immutable local state.
+9. Prefer immutable local state.
    - Default to pure/immutable local transformations instead of `set!` in function bodies.
    - Allow localized mutation only when it materially improves clarity or performance (e.g., stream scanners/tokenizers), and keep it tightly scoped with a short comment.
 
