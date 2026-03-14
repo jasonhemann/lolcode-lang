@@ -93,7 +93,7 @@ Legend:
 | `N68` | implemented        | `src/lolcode/parser.rkt`, `src/lolcode/runtime.rkt` (receiver existence/type checks)  | adjudication row `N68`                               |
 | `N69` | implemented        | `src/lolcode/runtime.rkt` (receiver late binding for mixin-copied functions)          | adjudication row `N69`                               |
 | `N70` | implemented        | `src/lolcode/runtime.rkt` (reserved-name binding rejection)                           | adjudication row `N70`                               |
-| `N71` | implemented        | `src/lolcode/parser.rkt` (strict `HAI 1.3`)                                           | adjudication row `N71`                               |
+| `N71` | implemented        | `src/lolcode/parser.rkt`, `tests/spec/parse-negative-test.rkt` (`HAI` version-token must be numeric; strict acceptance remains `1.3`)                                           | adjudication row `N71`                               |
 | `N72` | implemented        | `src/lolcode/runtime.rkt` (BUKKIT truthiness policy)                                  | adjudication row `N72`                               |
 | `N73` | policy+implemented | `src/lolcode/runtime.rkt` (host numeric portability decisions)                        | adjudication row `N73`                               |
 | `N74` | policy+implemented | `src/lolcode/runtime.rkt` + `IT_UPDATE_MATRIX.md`                                     | adjudication row `N74`                               |
@@ -118,6 +118,8 @@ Legend:
 | `N94` | implemented        | `src/lolcode/runtime/value.rkt` (NUMBAR print truncation/no forced pad)               | adjudication row `N94`                               |
 | `N95` | implemented        | `src/lolcode/runtime/operators.rkt`, `src/lolcode/parser.rkt` (left-to-right short-circuit for `ANY OF`/`ALL OF`; `SMOOSH` one-or-more arity gate) | adjudication row `N95`                               |
 | `N96` | implemented        | `src/lolcode/runtime.rkt`, `src/lolcode/runtime/value.rkt`, `src/lolcode/parser.rkt` (typed BUKKIT slot-key semantics) | adjudication row `N96`                               |
+| `N97` | implemented        | `src/lolcode/parser.rkt`, `tests/spec/parse-negative-test.rkt` (`KTHXBYE` hard-close boundary with no inline/trailing comment material) | adjudication row `N97`                               |
+| `N98` | implemented        | `src/lolcode/parser.rkt`, `src/lolcode/runtime.rkt`, `tests/spec/parse-negative-test.rkt` (ASCII identifier domain pin with mixed-case/underscore allow and non-ASCII rejection) | adjudication row `N98`                               |
 
 ## Notes on “already correct” and “mistake”
 

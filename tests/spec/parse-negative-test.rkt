@@ -96,6 +96,22 @@
   (check-true (string? unsupported-v14-msg))
   (check-true (regexp-match? #px"unsupported version: 1\\.4" unsupported-v14-msg))
 
+  (define version-token-must-be-number
+    "HAI nope\nKTHXBYE\n")
+  (define version-token-must-be-number-msg
+    (capture-message (lambda () (parse-program version-token-must-be-number))))
+  (check-true (string? version-token-must-be-number-msg))
+  (check-true (regexp-match? #px"syntax error: unexpected ID"
+                             version-token-must-be-number-msg))
+
+  (define version-string-literal-negative
+    "HAI \"1.3\"\nKTHXBYE\n")
+  (define version-string-literal-negative-msg
+    (capture-message (lambda () (parse-program version-string-literal-negative))))
+  (check-true (string? version-string-literal-negative-msg))
+  (check-true (regexp-match? #px"syntax error: unexpected STRING"
+                             version-string-literal-negative-msg))
+
   (define lowercase-keywords-program
     "hai 1.3\nvisible \"nope\"\nkthxbye\n")
   (check-exn #px"program must begin with HAI opener"
@@ -261,13 +277,13 @@
 
   (define kthxbye-inline-btw
     "HAI 1.3\nKTHXBYE BTW end\n")
-  (check-not-exn
-   (lambda () (parse-program kthxbye-inline-btw)))
+  (check-exn #px"no material allowed after KTHXBYE"
+             (lambda () (parse-program kthxbye-inline-btw)))
 
   (define one-line-minimal-inline-btw
     "HAI 1.3, KTHXBYE BTW end\n")
-  (check-not-exn
-   (lambda () (parse-program one-line-minimal-inline-btw)))
+  (check-exn #px"no material allowed after KTHXBYE"
+             (lambda () (parse-program one-line-minimal-inline-btw)))
 
   (define one-line-missing-close
     "HAI 1.3\n")
@@ -284,12 +300,12 @@
 
   (define trailing-btw-after-close
     "HAI 1.3\nKTHXBYE\nBTW end\n")
-  (check-exn #px"no material allowed after KTHXBYE except optional same-line BTW comment"
+  (check-exn #px"no material allowed after KTHXBYE"
              (lambda () (parse-program trailing-btw-after-close)))
 
   (define trailing-obtw-after-close
     "HAI 1.3\nKTHXBYE\nOBTW trailing block\nTLDR\n")
-  (check-exn #px"no material allowed after KTHXBYE except optional same-line BTW comment"
+  (check-exn #px"no material allowed after KTHXBYE"
              (lambda () (parse-program trailing-obtw-after-close)))
 
   (define trailing-code-after-close
@@ -351,6 +367,16 @@
     "HAI 1.3\nI HAS A ++ ITZ 1\nKTHXBYE\n")
   (check-exn #px"invalid identifier syntax"
              (lambda () (parse-program invalid-ident-symbol-only)))
+
+  (define valid-ident-mixed-case-underscore
+    "HAI 1.3\nI HAS A CheezBurger_9 ITZ 1\nVISIBLE CheezBurger_9\nKTHXBYE\n")
+  (check-not-exn
+   (lambda () (parse-program valid-ident-mixed-case-underscore)))
+
+  (define invalid-ident-unicode-letter
+    "HAI 1.3\nI HAS A caf\\u00E9 ITZ 1\nKTHXBYE\n")
+  (check-exn #px"invalid identifier syntax"
+             (lambda () (parse-program invalid-ident-unicode-letter)))
 
   (define and-as-identifier-when-an-omitted
     "HAI 1.3\nVISIBLE SUM OF 1 AND 2\nKTHXBYE\n")

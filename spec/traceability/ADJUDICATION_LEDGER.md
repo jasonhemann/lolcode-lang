@@ -80,7 +80,7 @@ Pass-2 tranche-1 targets:
 | `N39` | adjudicated               | Higher-order callability is shape-limited: function values are storable/extractable and callable via identifier/slot call forms, but no arbitrary expression-call form is introduced (`function-storage-src`, `extracted-slot-function-direct-call-namespace-src`).                                                                                                                   |
 | `N40` | adjudicated               | Expression evaluation order is pinned as deterministic left-to-right: function/method call arguments are evaluated before body entry, and binary-operator operands are eager left-to-right (`function-call-arg-eval-order-src`, `method-call-arg-eval-order-src`, `logic-binary-left-to-right-src`, `logic-binary-eager-rhs-src`). |
 | `N41` | adjudicated               | Dynamic loop labels via `SRS` are supported; label matching/errors still apply with dynamic names (`loop-dynamic-label-src`, `loop-dynamic-label-mismatch-src`).                                                                                                                                                                                                                      |
-| `N66` | adjudicated               | Primitive values are observationally immutable absent explicit rebinding; object identity remains observable through reference equality behavior (`primitive-ops-immutable-src`, `equality-complex-values-identity-src`).                                                                                                                                                             |
+| `N66` | adjudicated               | Primitive-ops clause is read as non-mutating value semantics with canonical singleton sharpness only for `WIN`/`FAIL`/`NOOB`; numeric/YARN representation identity remains implementation-level and non-observable under strict equality semantics (`primitive-ops-immutable-src`, `equality-complex-values-identity-src`).                                                                                                                                       |
 | `N69` | adjudicated               | Receiver late-binding invariant holds for mixin-copied function slots: slot-call dispatch projects receiver scope at call time, while extracted direct calls use global namespace (`mixin-copied-function-receiver-late-binding-src`).                                                                                                                                                |
 | `N38` | adjudicated               | Optional article `A` remains grammar-site specific: declaration and `MAEK` may omit `A`, and if an article is present there it must be `A` (not `AN`); slot declaration and cast-assignment require strict forms; `ITZ <TYPE>` vs `ITZ A <TYPE>` remain distinct semantics (`optional-article-scope-n38-src`, parse negatives around declaration `AN`, `slot-set-without-article`, `cast-assignment-missing-a`).                                     |
 | `N45` | adjudicated               | Continuation marker normalization supports both `...` and `…`; trailing horizontal whitespace before newline is accepted while non-whitespace trailing content is rejected (`continuation-trailing-space-tab-n45-src`, parse negatives `continuation-then-comma`, `continuation-with-trailing-comment`).                                                                              |
@@ -100,7 +100,7 @@ Pass-2 tranche-1 targets:
 | `N20` | adjudicated (extended)    | `omgwtf` missing-slot policy is pinned for stateful hooks: return-value memoization is authoritative for the resolved slot name even if intermediate same-slot mutation occurs inside `omgwtf`; invocation arity is fixed at zero because the spec does not define hook arguments, and adding implicit missing-name arguments would introduce extra machinery not textually licensed. |
 | `N13` | adjudicated (edge policy) | `omgwtf` same-slot recursive re-entry is trapped as deterministic runtime error to avoid silent divergence in spec-underdetermined recursion scenarios.                                                                                                                                                                                                                               |
 | `N70` | adjudicated               | Directly written reserved literal/special names are rejected at user binding sites (declarations, function/method/object names, parameter names) via parser/runtime binder gates; this coexists with `N43`/`N88` dynamic-name policy (`SRS` may synthesize keyword-shaped names where grammar admits dynamic identifiers), while parameter binders remain direct-only. Added regressions for `WIN`/`ME` declarations and `FAIL`/`NOOB`/`TROOF` def-name/param/object collisions.                                                                                                                    |
-| `N71` | adjudicated               | Version acceptance remains strict `1.3`; unsupported versions and missing-version behavior are pinned by parse negatives (`unsupported-v12`, `unsupported-v14`, `missing-version`).                                                                                                                                                                                                   |
+| `N71` | adjudicated               | `HAI` header version must be a numeric token, and strict acceptance remains exactly `1.3`. Non-numeric version tokens are parse errors; numeric non-`1.3` versions are unsupported-version errors (`missing-version`, `version-token-must-be-number`, `version-string-literal-negative`, `unsupported-v12`, `unsupported-v14`).                                                                                                                                                                                                   |
 | `N72` | adjudicated               | BUKKIT values are truthy (no empty-container false special case), now explicitly pinned (`empty-bukkit-truthy-src`).                                                                                                                                                                                                                                                                  |
 | `N73` | adjudicated               | Numeric portability follows host runtime: division by zero surfaces runtime error, and large NUMBR arithmetic remains exact (`quoshunt-division-by-zero-runtime-error-src`, `numbr-bignum-arithmetic-src`).                                                                                                                                                                           |
 | `N74` | adjudicated               | IT-sensitive statement behavior follows `N60`: only bare expression statements update `IT`; wrappers/assignment-family statements preserve current `IT` (`it-update-matrix-src`, `visible-updates-it-src`).                                                                                                                                                                            |
@@ -118,6 +118,8 @@ Pass-2 tranche-1 targets:
 | `N94` | adjudicated               | NUMBAR-to-YARN rendering policy is truncation to at most two decimals, no rounding, no forced zero padding (`numbar-visible-format-src`, `numbar-no-forced-padding-src`).                                                                                                                                                                                                             |
 | `N95` | adjudicated               | Variadic logical operators short-circuit left-to-right (`ANY OF` stop on first `WIN`, `ALL OF` stop on first `FAIL`) with side-effect/error order pinned, and `SMOOSH` arity remains one-or-more (one-argument identity accepted; zero-argument form parse-rejected) (`logic-variadic-any-short-circuit-src`, `logic-variadic-any-short-circuit-avoids-error-src`, `logic-variadic-all-short-circuit-rhs-src`, `smoosh-one-arg-src`, parse negative `smoosh-zero-arg-negative`).                                                                                |
 | `N96` | adjudicated               | Typed BUKKIT key-domain behavior is pinned: direct `<identifier>` slot access is YARN-keyed; dynamic `SRS` slot access uses evaluated `NUMBR`/`YARN` key values without identifier coercion (`bukkit-slot-keys-typed-src`).                                                                                                                                                         |
+| `N97` | adjudicated               | `KTHXBYE` is a hard program terminator in strict mode: no same-line `BTW` tail is permitted, and no trailing non-whitespace lines are permitted after close (`kthxbye-inline-btw`, `one-line-minimal-inline-btw`, `trailing-btw-after-close`, `trailing-obtw-after-close`, `one-line-extra-after-close`).                                                                                                                                                        |
+| `N98` | adjudicated               | Identifier-character domain is pinned to ASCII letters/digits/underscore with leading ASCII letter (`^[A-Za-z][A-Za-z0-9_]*$`): mixed-case and underscores are allowed; non-ASCII letters are rejected in strict mode as underdetermined by spec text (`valid-ident-mixed-case-underscore`, `invalid-ident-unicode-letter`, `invalid-ident-leading-underscore`, `invalid-ident-with-dash`, `invalid-ident-symbol-only`).                                                                                                                                                        |
 
 ## N43/N88 Binder-Site Rationale (No Dynamic Parameter Binders)
 
@@ -162,6 +164,100 @@ Project ruling:
 This behavior is pinned by `slot-set-no-itz-shorthand`, `slot-set-no-itz-shorthand-src`, and `me-slot-no-itz-shorthand-src`.
 
 See also: `spec/traceability/archive/reports/N90_GENERIC_SLOT_SHORTHAND_RATIONALE_2026-03-12.md`.
+
+## N71 Rationale (`HAI` Version Number Is Numeric Syntax)
+
+Spec text basis (`spec/upstream/lolcode-spec-v1.3.md:89`):
+
+- Programs must open with `HAI`.
+- `HAI` should be followed by the current language version *number* (`1.3` in this spec).
+- The spec notes no canonical cross-implementation policy for how version numbers are treated.
+
+Strict holding:
+
+1. The token immediately after `HAI` is header syntax, not an expression position.
+2. Therefore it must lex/parse as a numeric token.
+3. In this implementation, strict acceptance is only `1.3`; other numeric versions are rejected as unsupported.
+
+Why this is the narrow reading:
+
+- Accepting identifier/string tokens after `HAI` would contradict the explicit “version number” requirement and invent extra coercion behavior not stated by the text.
+- Treating header version as runtime-castable data (`YARN`/`MAEK` style) would import expression semantics into a grammar header position where the spec gives a direct syntactic directive.
+
+Pinned regressions:
+
+- `missing-version`
+- `version-token-must-be-number`
+- `version-string-literal-negative`
+- `unsupported-v12`
+- `unsupported-v14`
+
+## N97 Rationale (`KTHXBYE` Hard-Close Boundary)
+
+Spec text basis (`spec/upstream/lolcode-spec-v1.3.md:91`):
+
+- “A LOLCODE file is closed by the keyword `KTHXBYE` which closes the `HAI` code-block.”
+
+Strict holding:
+
+1. `KTHXBYE` closes the program body itself.
+2. Therefore no additional code/comment material is accepted after `KTHXBYE` on the same line or later lines.
+3. After `KTHXBYE`, only trailing whitespace is accepted.
+
+Why this is the narrow reading:
+
+- A permissive “inline `BTW` after `KTHXBYE`” rule introduces an extra carve-out not stated in the file-close clause.
+- Under strict exegesis, once the file/code-block is declared closed, accepting additional lexical material is expansionary and should be rejected unless the text explicitly reopens that boundary.
+
+Pinned regressions:
+
+- `kthxbye-inline-btw`
+- `one-line-minimal-inline-btw`
+- `trailing-btw-after-close`
+- `trailing-obtw-after-close`
+- `one-line-extra-after-close`
+
+## N98 Rationale (Identifier Character Domain)
+
+Spec text basis (`spec/upstream/lolcode-spec-v1.3.md:111`):
+
+- Identifiers “must begin with a letter” and continue with letters, numbers, underscores.
+- The same sentence is case-sensitive and contains mixed historical wording (“small or lowercase letters”), without a formal Unicode character-class definition.
+
+Strict holding:
+
+1. Direct identifier syntax uses ASCII letter classes:
+   `^[A-Za-z][A-Za-z0-9_]*$`.
+2. Mixed-case identifiers and underscores are valid.
+3. Non-ASCII letters in direct identifier syntax are rejected in strict mode.
+
+Why this is the narrow reading:
+
+- The spec gives no explicit Unicode identifier category/version/normalization model for identifiers (its Unicode 4.1 citation applies to `:[<char name>]` escapes, not identifier lexing).
+- Accepting broad Unicode categories without a pinned profile introduces implementation-dependent drift; strict mode therefore selects the minimal deterministic character domain.
+
+Pinned regressions:
+
+- `valid-ident-mixed-case-underscore`
+- `invalid-ident-unicode-letter`
+- `invalid-ident-leading-underscore`
+- `invalid-ident-with-dash`
+- `invalid-ident-symbol-only`
+
+## N66 Clarification (Primitive “New Objects” vs Canonical Singletons)
+
+Spec text basis (`spec/upstream/lolcode-spec-v1.3.md:166`):
+
+- Primitive types are immutable.
+- Built-in operations return new objects.
+- Explicit exceptions are `WIN`, `FAIL`, and `NOOB`, where references are canonicalized.
+
+Project clarification:
+
+1. The “new objects” clause is partly implementation-oriented language about immutable, non-mutating primitive operations.
+2. It becomes semantically sharp only where the spec explicitly mandates canonical singleton instances (`WIN`/`FAIL`/`NOOB`).
+3. For numbers and strings, the spec leaves representation/identity largely noncommittal.
+4. Implementations are free not to exploit that latitude, as long as they do not expose semantics that require non-singleton or singleton identity for numeric/string values.
 
 ## N23 Policy Table: Special Slots
 
