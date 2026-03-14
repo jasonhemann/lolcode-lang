@@ -538,7 +538,7 @@
        (status . implemented)
        (code-refs . ("src/lolcode/parser.rkt"))
        (test-refs . ("tests/spec/parse-negative-test.rkt" "tests/spec/conformance-test.rkt"))
-       (notes . "Programs without closing KTHXBYE are rejected at parse time; same-line KTHXBYE BTW tails are allowed, but trailing standalone comment/code lines after close are rejected."))
+       (notes . "Programs without closing KTHXBYE are rejected at parse time; after KTHXBYE only trailing whitespace is accepted (no same-line BTW tails and no trailing comment/code lines)."))
  #hash((id . "string.escape-verbose-bracket-forms")
        (spec-version . "1.3")
        (source-file . "spec/upstream/lolcode-spec-v1.3.md")
