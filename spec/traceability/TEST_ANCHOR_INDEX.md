@@ -47,7 +47,7 @@ This file provides direct named regression anchors for each `Nxx` item in the re
 | `N40` | function-call-arg-eval-order-src, method-call-arg-eval-order-src, logic-binary-left-to-right-src, logic-binary-eager-rhs-src | [ADJUDICATION_LEDGER.md:line 81](./ADJUDICATION_LEDGER.md#L81) |
 | `N41` | loop-dynamic-label-src, loop-dynamic-label-mismatch-src | [ADJUDICATION_LEDGER.md:line 82](./ADJUDICATION_LEDGER.md#L82) |
 | `N42` | (none explicit in ledger row) | [ADJUDICATION_LEDGER.md:line 46](./ADJUDICATION_LEDGER.md#L46) |
-| `N43` | reserved-keyword-mkay-name, reserved-keyword-mkay-arg, srs-keyword-name-in-function-arg-src, srs-keyword-slot-name-src, srs-keyword-function-name-src, srs-keyword-method-name-src, srs-keyword-object-name-src, srs-keyword-receiver-name-src, srs-parameter-binder-negative | [ADJUDICATION_LEDGER.md:line 45](./ADJUDICATION_LEDGER.md#L45) |
+| `N43` | reserved-keyword-mkay-name, reserved-keyword-mkay-arg, srs-keyword-name-in-function-arg-src, srs-keyword-slot-name-src, srs-keyword-function-name-src, srs-keyword-method-name-src, srs-keyword-object-name-src, srs-keyword-receiver-name-src, prototype-srs-keyword-parent-name-src, prototype-srs-keyword-mixin-name-src, method-def-srs-keyword-receiver-slot-tail-src, srs-parameter-binder-negative | [ADJUDICATION_LEDGER.md:line 45](./ADJUDICATION_LEDGER.md#L45) |
 | `N44` | inline-block-comment-tldr-handoff, preprocess-order-runtime-src | [ADJUDICATION_LEDGER.md:line 38](./ADJUDICATION_LEDGER.md#L38) |
 | `N45` | continuation-trailing-space-tab-n45-src, continuation-then-comma, continuation-with-trailing-comment | [ADJUDICATION_LEDGER.md:line 86](./ADJUDICATION_LEDGER.md#L86) |
 | `N46` | tldr-handoff-space-comma-n46-src, inline-block-comment-tldr-handoff, block-comment-tldr-trailing-statement-without-comma | [ADJUDICATION_LEDGER.md:line 87](./ADJUDICATION_LEDGER.md#L87) |
@@ -92,9 +92,9 @@ This file provides direct named regression anchors for each `Nxx` item in the re
 | `N85` | izmakin-failure-surfaced-before-binding-src, compile-stmt-declare | [ADJUDICATION_LEDGER.md:line 57](./ADJUDICATION_LEDGER.md#L57) |
 | `N86` | variadic-optional-an-general-expr, variadic-leading-an-negative | [ADJUDICATION_LEDGER.md:line 111](./ADJUDICATION_LEDGER.md#L111) |
 | `N87` | implicit-mkay-before-bang-negative, smoosh-explicit-mkay-before-bang-src | [ADJUDICATION_LEDGER.md:line 112](./ADJUDICATION_LEDGER.md#L112) |
-| `N88` | srs-numeric-target-src, srs-nested-indirection-src, srs-generated-source-not-reparsed-src | [ADJUDICATION_LEDGER.md:line 113](./ADJUDICATION_LEDGER.md#L113) |
-| `N90` | slot-set-no-itz-shorthand-src, me-slot-no-itz-shorthand-src, slot-set-no-itz-shorthand | [ADJUDICATION_LEDGER.md:line 114](./ADJUDICATION_LEDGER.md#L114) |
-| `N91` | obtw-mid-command-negative, block-comment-comma-boundary-src | [ADJUDICATION_LEDGER.md:line 115](./ADJUDICATION_LEDGER.md#L115) |
+| `N88` | srs-numeric-target-src, srs-keyword-assignment-target-src, srs-keyword-input-target-src, srs-keyword-cast-target-src, srs-nested-indirection-src, srs-generated-source-not-reparsed-src | [ADJUDICATION_LEDGER.md:line 113](./ADJUDICATION_LEDGER.md#L113) |
+| `N90` | slot-set-no-itz-shorthand-src, me-slot-no-itz-shorthand-src, slot-set-no-itz-shorthand-srs-slot-src, slot-set-no-itz-redeclare-resets-noob-src, slot-set-no-itz-then-explicit-init-src, slot-set-no-itz-inherited-shadow-src, slot-set-no-itz-mixin-shadow-src, slot-set-no-itz-shorthand | [ADJUDICATION_LEDGER.md:line 114](./ADJUDICATION_LEDGER.md#L114) |
+| `N91` | obtw-mid-command-negative, object-body-obtw-mid-command-negative, block-comment-comma-boundary-src, object-body-block-comment-comma-boundary-src | [ADJUDICATION_LEDGER.md:line 115](./ADJUDICATION_LEDGER.md#L115) |
 | `N92` | format-string-whitespace-placeholder-src | [ADJUDICATION_LEDGER.md:line 116](./ADJUDICATION_LEDGER.md#L116) |
 | `N93` | string-normative-escape-src, string-normative-escape-outside-41-src, lowercase-unicode-normative-name, mixed-case-unicode-normative-name | [ADJUDICATION_LEDGER.md:line 117](./ADJUDICATION_LEDGER.md#L117) |
 | `N94` | numbar-visible-format-src, numbar-no-forced-padding-src | [ADJUDICATION_LEDGER.md:line 118](./ADJUDICATION_LEDGER.md#L118) |
@@ -102,3 +102,4 @@ This file provides direct named regression anchors for each `Nxx` item in the re
 | `N96` | bukkit-slot-keys-typed-src | [ADJUDICATION_LEDGER.md:line 120](./ADJUDICATION_LEDGER.md#L120) |
 | `N97` | kthxbye-inline-btw, one-line-minimal-inline-btw, trailing-btw-after-close, trailing-obtw-after-close, one-line-extra-after-close | [ADJUDICATION_LEDGER.md:line 121](./ADJUDICATION_LEDGER.md#L121) |
 | `N98` | valid-ident-mixed-case-underscore, invalid-ident-unicode-letter, invalid-ident-leading-underscore, invalid-ident-with-dash, invalid-ident-symbol-only | [ADJUDICATION_LEDGER.md:line 122](./ADJUDICATION_LEDGER.md#L122) |
+| `N99` | method-def-inside-function-src, method-def-inside-method-src, nested-function-def, nested-function-def-in-method | [ADJUDICATION_LEDGER.md:line 123](./ADJUDICATION_LEDGER.md#L123) |

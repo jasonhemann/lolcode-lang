@@ -630,6 +630,11 @@
   (check-exn #px"OBTW block comment must start at statement boundary"
              (lambda () (parse-program obtw-mid-command-negative)))
 
+  (define object-body-obtw-mid-command-negative
+    "HAI 1.3\nO HAI IM o\n  I HAS A x ITZ 1 OBTW hi\n  TLDR\nKTHX\nKTHXBYE\n")
+  (check-exn #px"OBTW block comment must start at statement boundary"
+             (lambda () (parse-program object-body-obtw-mid-command-negative)))
+
   (define smoosh-zero-arg-negative
     "HAI 1.3\nVISIBLE SMOOSH MKAY\nKTHXBYE\n")
   (check-exn #px"syntax error:"

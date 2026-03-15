@@ -168,6 +168,31 @@
   (check-equal? (hash-ref srs-keyword-receiver-name 'stdout)
                 "ok-receiver\n")
 
+  (define srs-keyword-assignment-target-src
+    "HAI 1.3\nI HAS A kw ITZ \"MKAY\"\nI HAS A SRS kw ITZ 1\nSRS kw R 2\nVISIBLE SRS kw\nKTHXBYE\n")
+  (define srs-keyword-assignment-target
+    (run-source srs-keyword-assignment-target-src))
+  (check-eq? (hash-ref srs-keyword-assignment-target 'status) 'ok)
+  (check-equal? (hash-ref srs-keyword-assignment-target 'stdout)
+                "2\n")
+
+  (define srs-keyword-input-target-src
+    "HAI 1.3\nI HAS A kw ITZ \"MKAY\"\nI HAS A SRS kw\nGIMMEH SRS kw\nVISIBLE SRS kw\nKTHXBYE\n")
+  (define srs-keyword-input-target
+    (run-source srs-keyword-input-target-src
+                #:input "zebra\n"))
+  (check-eq? (hash-ref srs-keyword-input-target 'status) 'ok)
+  (check-equal? (hash-ref srs-keyword-input-target 'stdout)
+                "zebra\n")
+
+  (define srs-keyword-cast-target-src
+    "HAI 1.3\nI HAS A kw ITZ \"MKAY\"\nI HAS A SRS kw ITZ \"3\"\nSRS kw IS NOW A NUMBR\nVISIBLE SRS kw\nKTHXBYE\n")
+  (define srs-keyword-cast-target
+    (run-source srs-keyword-cast-target-src))
+  (check-eq? (hash-ref srs-keyword-cast-target 'status) 'ok)
+  (check-equal? (hash-ref srs-keyword-cast-target 'stdout)
+                "3\n")
+
   (define srs-nested-indirection-src
     "HAI 1.3\nI HAS A a ITZ \"b\"\nI HAS A b ITZ 7\nVISIBLE SRS SRS \"a\"\nKTHXBYE\n")
   (define srs-nested-indirection
@@ -219,6 +244,22 @@
   (check-equal? (hash-ref prototype-srs-parent-and-mixins 'stdout)
                 "P\nM1\nM2\n")
 
+  (define prototype-srs-keyword-parent-name-src
+    "HAI 1.3\nI HAS A pname ITZ \"MKAY\"\nO HAI IM SRS pname\n  I HAS A p ITZ 1\nKTHX\nI HAS A child ITZ LIEK A SRS pname\nVISIBLE child'Z p\nKTHXBYE\n")
+  (define prototype-srs-keyword-parent-name
+    (run-source prototype-srs-keyword-parent-name-src))
+  (check-eq? (hash-ref prototype-srs-keyword-parent-name 'status) 'ok)
+  (check-equal? (hash-ref prototype-srs-keyword-parent-name 'stdout)
+                "1\n")
+
+  (define prototype-srs-keyword-mixin-name-src
+    "HAI 1.3\nI HAS A mname ITZ \"AN\"\nO HAI IM SRS mname\n  I HAS A m ITZ 2\nKTHX\nI HAS A root ITZ A BUKKIT\nI HAS A child ITZ A root SMOOSH SRS mname\nVISIBLE child'Z m\nKTHXBYE\n")
+  (define prototype-srs-keyword-mixin-name
+    (run-source prototype-srs-keyword-mixin-name-src))
+  (check-eq? (hash-ref prototype-srs-keyword-mixin-name 'status) 'ok)
+  (check-equal? (hash-ref prototype-srs-keyword-mixin-name 'stdout)
+                "2\n")
+
   (define method-def-srs-receiver-and-name-src
     "HAI 1.3\nI HAS A recv ITZ \"box\"\nI HAS A mname ITZ \"bump\"\nO HAI IM box\n  I HAS A n ITZ 0\nKTHX\nHOW IZ SRS recv SRS mname\n  n R SUM OF n AN 1\n  FOUND YR n\nIF U SAY SO\nVISIBLE box IZ bump MKAY\nVISIBLE box IZ bump MKAY\nKTHXBYE\n")
   (define method-def-srs-receiver-and-name
@@ -243,6 +284,15 @@
   (check-equal? (hash-ref method-def-srs-receiver-slot-tail 'stdout)
                 "ok\n")
 
+  (define method-def-srs-keyword-receiver-slot-tail-src
+    "HAI 1.3\nI HAS A rname ITZ \"WTF\"\nI HAS A cname ITZ \"OMG\"\nO HAI IM SRS rname\n  I HAS A SRS cname ITZ A BUKKIT\nKTHX\nHOW IZ SRS rname'Z SRS cname ping\n  FOUND YR \"ok\"\nIF U SAY SO\nI HAS A recv ITZ SRS rname\nVISIBLE recv'Z SRS cname IZ ping MKAY\nKTHXBYE\n")
+  (define method-def-srs-keyword-receiver-slot-tail
+    (run-source method-def-srs-keyword-receiver-slot-tail-src))
+  (check-eq? (hash-ref method-def-srs-keyword-receiver-slot-tail 'status)
+             'ok)
+  (check-equal? (hash-ref method-def-srs-keyword-receiver-slot-tail 'stdout)
+                "ok\n")
+
   (define how-duz-receiver-runtime-src
     "HAI 1.3\nI HAS A o ITZ A BUKKIT\nHOW DUZ o m\n  FOUND YR 7\nIF U SAY SO\nVISIBLE o IZ m MKAY\nKTHXBYE\n")
   (define how-duz-receiver-runtime
@@ -256,6 +306,20 @@
     (run-source how-duz-objectblock-runtime-src))
   (check-eq? (hash-ref how-duz-objectblock-runtime 'status) 'ok)
   (check-equal? (hash-ref how-duz-objectblock-runtime 'stdout) "9\n")
+
+  (define method-def-inside-function-src
+    "HAI 1.3\nI HAS A o ITZ A BUKKIT\nHOW IZ I outer\n  HOW IZ o m\n    FOUND YR 1\n  IF U SAY SO\n  FOUND YR o IZ m MKAY\nIF U SAY SO\nVISIBLE I IZ outer MKAY\nKTHXBYE\n")
+  (define method-def-inside-function
+    (run-source method-def-inside-function-src))
+  (check-eq? (hash-ref method-def-inside-function 'status) 'ok)
+  (check-equal? (hash-ref method-def-inside-function 'stdout) "1\n")
+
+  (define method-def-inside-method-src
+    "HAI 1.3\nI HAS A o ITZ A BUKKIT\nHOW IZ o seed\n  HOW IZ o m\n    FOUND YR 2\n  IF U SAY SO\n  FOUND YR o IZ m MKAY\nIF U SAY SO\nVISIBLE o IZ seed MKAY\nKTHXBYE\n")
+  (define method-def-inside-method
+    (run-source method-def-inside-method-src))
+  (check-eq? (hash-ref method-def-inside-method 'status) 'ok)
+  (check-equal? (hash-ref method-def-inside-method 'stdout) "2\n")
 
   (define bukkit-slot-redeclare-overwrite-src
     "HAI 1.3\nI HAS A obj ITZ A BUKKIT\nobj HAS A answer ITZ 1\nobj HAS A answer ITZ 2\nVISIBLE obj'Z answer\nKTHXBYE\n")
@@ -277,6 +341,45 @@
     (run-source slot-set-no-itz-shorthand-src))
   (check-eq? (hash-ref slot-set-no-itz-shorthand 'status) 'ok)
   (check-equal? (hash-ref slot-set-no-itz-shorthand 'stdout) "NOOB\n")
+
+  (define slot-set-no-itz-shorthand-srs-slot-src
+    "HAI 1.3\nI HAS A o ITZ A BUKKIT\nI HAS A nm ITZ \"x\"\no HAS A SRS nm\nVISIBLE BOTH SAEM o'Z x AN NOOB\nKTHXBYE\n")
+  (define slot-set-no-itz-shorthand-srs-slot
+    (run-source slot-set-no-itz-shorthand-srs-slot-src))
+  (check-eq? (hash-ref slot-set-no-itz-shorthand-srs-slot 'status) 'ok)
+  (check-equal? (hash-ref slot-set-no-itz-shorthand-srs-slot 'stdout)
+                "WIN\n")
+
+  (define slot-set-no-itz-redeclare-resets-noob-src
+    "HAI 1.3\nI HAS A o ITZ A BUKKIT\no HAS A x ITZ 7\no HAS A x\nVISIBLE BOTH SAEM o'Z x AN NOOB\nKTHXBYE\n")
+  (define slot-set-no-itz-redeclare-resets-noob
+    (run-source slot-set-no-itz-redeclare-resets-noob-src))
+  (check-eq? (hash-ref slot-set-no-itz-redeclare-resets-noob 'status) 'ok)
+  (check-equal? (hash-ref slot-set-no-itz-redeclare-resets-noob 'stdout)
+                "WIN\n")
+
+  (define slot-set-no-itz-then-explicit-init-src
+    "HAI 1.3\nI HAS A o ITZ A BUKKIT\no HAS A x\no HAS A x ITZ 9\nVISIBLE o'Z x\nKTHXBYE\n")
+  (define slot-set-no-itz-then-explicit-init
+    (run-source slot-set-no-itz-then-explicit-init-src))
+  (check-eq? (hash-ref slot-set-no-itz-then-explicit-init 'status) 'ok)
+  (check-equal? (hash-ref slot-set-no-itz-then-explicit-init 'stdout) "9\n")
+
+  (define slot-set-no-itz-inherited-shadow-src
+    "HAI 1.3\nO HAI IM p\n  I HAS A x ITZ 7\nKTHX\nI HAS A c ITZ LIEK A p\nc HAS A x\nVISIBLE p'Z x\nVISIBLE BOTH SAEM c'Z x AN NOOB\nKTHXBYE\n")
+  (define slot-set-no-itz-inherited-shadow
+    (run-source slot-set-no-itz-inherited-shadow-src))
+  (check-eq? (hash-ref slot-set-no-itz-inherited-shadow 'status) 'ok)
+  (check-equal? (hash-ref slot-set-no-itz-inherited-shadow 'stdout)
+                "7\nWIN\n")
+
+  (define slot-set-no-itz-mixin-shadow-src
+    "HAI 1.3\nO HAI IM m\n  I HAS A x ITZ 4\nKTHX\nI HAS A root ITZ A BUKKIT\nI HAS A c ITZ A root SMOOSH m\nc HAS A x\nVISIBLE m'Z x\nVISIBLE BOTH SAEM c'Z x AN NOOB\nKTHXBYE\n")
+  (define slot-set-no-itz-mixin-shadow
+    (run-source slot-set-no-itz-mixin-shadow-src))
+  (check-eq? (hash-ref slot-set-no-itz-mixin-shadow 'status) 'ok)
+  (check-equal? (hash-ref slot-set-no-itz-mixin-shadow 'stdout)
+                "4\nWIN\n")
 
   (define declaration-an-rejected-src
     "HAI 1.3\nI HAS AN obj ITZ A BUKKIT\nKTHXBYE\n")
@@ -1357,6 +1460,22 @@
                           'stdout)
                 "outer\ninner-2\n")
 
+  (define object-body-declare-without-article-src
+    "HAI 1.3\nO HAI IM o\n  I HAS x ITZ 1\nKTHX\nVISIBLE o'Z x\nKTHXBYE\n")
+  (define object-body-declare-without-article
+    (run-source object-body-declare-without-article-src))
+  (check-eq? (hash-ref object-body-declare-without-article 'status) 'ok)
+  (check-equal? (hash-ref object-body-declare-without-article 'stdout)
+                "1\n")
+
+  (define object-body-declare-no-init-default-noob-src
+    "HAI 1.3\nO HAI IM o\n  I HAS x\nKTHX\nVISIBLE BOTH SAEM o'Z x AN NOOB\nKTHXBYE\n")
+  (define object-body-declare-no-init-default-noob
+    (run-source object-body-declare-no-init-default-noob-src))
+  (check-eq? (hash-ref object-body-declare-no-init-default-noob 'status) 'ok)
+  (check-equal? (hash-ref object-body-declare-no-init-default-noob 'stdout)
+                "WIN\n")
+
   (define object-block-slot-first-over-lexical-local-src
     "HAI 1.3\nHOW IZ I maker YR x\n  O HAI IM obj\n    I HAS A x ITZ \"slot\"\n    I HAS A seen ITZ x\n  KTHX\n  VISIBLE obj'Z seen\n  FOUND YR x\nIF U SAY SO\nVISIBLE I IZ maker YR \"local\" MKAY\nKTHXBYE\n")
   (define object-block-slot-first-over-lexical-local
@@ -1869,6 +1988,38 @@
     (run-source block-comment-comma-boundary-src))
   (check-eq? (hash-ref block-comment-comma-boundary 'status) 'ok)
   (check-equal? (hash-ref block-comment-comma-boundary 'stdout) "1\n")
+
+  (define object-body-inline-btw-after-declare-src
+    "HAI 1.3\nO HAI IM o\n  I HAS A x ITZ 1 BTW hi\nKTHX\nVISIBLE o'Z x\nKTHXBYE\n")
+  (define object-body-inline-btw-after-declare
+    (run-source object-body-inline-btw-after-declare-src))
+  (check-eq? (hash-ref object-body-inline-btw-after-declare 'status) 'ok)
+  (check-equal? (hash-ref object-body-inline-btw-after-declare 'stdout)
+                "1\n")
+
+  (define object-body-block-comment-comma-boundary-src
+    "HAI 1.3\nO HAI IM o\n  I HAS A x ITZ 1,\n  OBTW hi\n  TLDR,\n  I HAS A y ITZ 2\nKTHX\nVISIBLE o'Z y\nKTHXBYE\n")
+  (define object-body-block-comment-comma-boundary
+    (run-source object-body-block-comment-comma-boundary-src))
+  (check-eq? (hash-ref object-body-block-comment-comma-boundary 'status) 'ok)
+  (check-equal? (hash-ref object-body-block-comment-comma-boundary 'stdout)
+                "2\n")
+
+  (define object-body-continuation-declare-src
+    "HAI 1.3\nO HAI IM o\n  I HAS A x ITZ ...\n  1\nKTHX\nVISIBLE o'Z x\nKTHXBYE\n")
+  (define object-body-continuation-declare
+    (run-source object-body-continuation-declare-src))
+  (check-eq? (hash-ref object-body-continuation-declare 'status) 'ok)
+  (check-equal? (hash-ref object-body-continuation-declare 'stdout)
+                "1\n")
+
+  (define object-end-inline-btw-after-kthx-src
+    "HAI 1.3\nO HAI IM o\n  I HAS A x ITZ 1\nKTHX BTW end object\nVISIBLE o'Z x\nKTHXBYE\n")
+  (define object-end-inline-btw-after-kthx
+    (run-source object-end-inline-btw-after-kthx-src))
+  (check-eq? (hash-ref object-end-inline-btw-after-kthx 'status) 'ok)
+  (check-equal? (hash-ref object-end-inline-btw-after-kthx 'stdout)
+                "1\n")
 
   (define string-escape-src
     "HAI 1.3\nVISIBLE \"A::B\"\nVISIBLE \"X:>Y\"\nKTHXBYE\n")

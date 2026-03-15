@@ -120,6 +120,7 @@ Legend:
 | `N96` | implemented        | `src/lolcode/runtime.rkt`, `src/lolcode/runtime/value.rkt`, `src/lolcode/parser.rkt` (typed BUKKIT slot-key semantics) | adjudication row `N96`                               |
 | `N97` | implemented        | `src/lolcode/parser.rkt`, `tests/spec/parse-negative-test.rkt` (`KTHXBYE` hard-close boundary with no inline/trailing comment material) | adjudication row `N97`                               |
 | `N98` | implemented        | `src/lolcode/parser.rkt`, `src/lolcode/runtime.rkt`, `tests/spec/parse-negative-test.rkt` (ASCII identifier domain pin with mixed-case/underscore allow and non-ASCII rejection) | adjudication row `N98`                               |
+| `N99` | implemented        | `src/lolcode/parser.rkt`, `src/lolcode/runtime.rkt`, `tests/spec/runtime-core-test.rkt`, `tests/spec/parse-negative-test.rkt` (method-definition placement split: declaration-like `HOW ... I ...` restriction with executable receiver-targeted `HOW ... <receiver> ...`) | adjudication row `N99`                               |
 
 ## Notes on “already correct” and “mistake”
 
