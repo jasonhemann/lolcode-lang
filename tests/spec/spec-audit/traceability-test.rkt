@@ -7,7 +7,8 @@
          racket/path
          racket/string
          "../../../scripts/check_spec_traceability.rkt"
-         "../../../scripts/adjudication_index_lib.rkt")
+         "../../../scripts/adjudication_index_lib.rkt"
+         "../../../scripts/traceability_clause_spans_lib.rkt")
 
 (module+ test
   (define entries
@@ -127,4 +128,26 @@
   (define graph-counts (hash-ref traceability-graph 'counts))
   (check-true (>= (hash-ref graph-counts 'adjudications) 90))
   (check-true (>= (hash-ref graph-counts 'clauses) 70))
-  (check-true (> (hash-ref graph-counts 'edges) 0)))
+  (check-true (> (hash-ref graph-counts 'edges) 0))
+
+  (define clause-spans-path
+    (build-path here
+                ".."
+                ".."
+                ".."
+                "spec"
+                "traceability"
+                "traceability-clause-spans.json"))
+  (check-true (file-exists? clause-spans-path))
+  (define clause-spans
+    (validate-traceability-clause-spans
+     (load-traceability-clause-spans clause-spans-path)))
+  (define regenerated-clause-spans
+    (validate-traceability-clause-spans
+     (build-traceability-clause-spans)))
+  (check-equal? clause-spans regenerated-clause-spans)
+  (check-equal? (hash-ref clause-spans 'schema_version) 1)
+  (check-equal? (hash-ref clause-spans 'spec_file)
+                default-spec-file)
+  (check-equal? (length (hash-ref clause-spans 'clauses))
+                (hash-ref graph-counts 'clauses)))

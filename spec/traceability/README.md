@@ -22,6 +22,8 @@ This directory tracks clause-level conformance status for the strict 1.3 target.
   - Generated index mapping each `Nxx` item to regression anchor names.
 - `adjudication-index.rktd`
   - Canonical machine-readable `Nxx` index (disposition, implementation refs, anchor refs, source lines).
+- `traceability-clause-spans.json`
+  - Canonical clause ID to exact spec text span coordinates (line/column).
 
 ## Supporting Data / Inputs
 
@@ -66,8 +68,10 @@ Run:
 ```sh
 racket scripts/check_spec_traceability.rkt
 racket scripts/check_adjudication_index.rkt
+racket scripts/check_traceability_clause_spans.rkt
 racket scripts/check_epistemic_safety.rkt
 racket scripts/generate_nxx_test_anchors.rkt
+racket scripts/build_traceability_clause_spans.rkt
 racket scripts/export_traceability_graph.rkt
 ```
 
