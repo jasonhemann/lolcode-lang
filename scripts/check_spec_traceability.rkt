@@ -1,27 +1,16 @@
 #lang racket/base
 
-(require racket/cmdline
-         racket/file
+(require racket/file
          racket/format
          racket/list
          racket/path
          racket/port
-         racket/string)
+         racket/string
+         "validation_rules_lib.rkt")
 
 (provide load-traceability
          validate-traceability
          summarize-statuses)
-
-(define required-keys
-  '(id
-    spec-version
-    source-file
-    source-line
-    clause
-    status
-    code-refs
-    test-refs
-    notes))
 
 (define allowed-statuses
   '(implemented partial known-divergence deferred out-of-scope))
@@ -56,88 +45,135 @@
     (error 'check_spec_traceability "matrix must contain a list, got ~e" entries))
   entries)
 
-(define (entry-error idx fmt . args)
-  (format "entry ~a: ~a" idx (apply format fmt args)))
-
 (define (all-strings? xs)
   (and (list? xs)
        (andmap string? xs)))
 
-(define (validate-entry idx entry root)
-  (define errs '())
-  (define (add! fmt . args)
-    (set! errs (cons (apply entry-error idx fmt args) errs)))
-  (unless (hash? entry)
-    (add! "expected hash entry, got ~e" entry))
-  (when (hash? entry)
-    (for ([k (in-list required-keys)])
-      (unless (hash-has-key? entry k)
-        (add! "missing key ~a" k)))
-    (when (hash-has-key? entry 'id)
-      (define v (hash-ref entry 'id))
-      (unless (and (string? v) (positive? (string-length v)))
-        (add! "id must be non-empty string, got ~e" v)))
-    (when (hash-has-key? entry 'spec-version)
-      (define v (hash-ref entry 'spec-version))
-      (unless (and (string? v) (positive? (string-length v)))
-        (add! "spec-version must be non-empty string, got ~e" v)))
-    (when (hash-has-key? entry 'source-file)
-      (define v (hash-ref entry 'source-file))
-      (unless (string? v)
-        (add! "source-file must be string, got ~e" v))
-      (when (string? v)
-        (define p (path-under-root root v))
-        (unless (file-exists? p)
-          (add! "source-file does not exist: ~a" v))))
-    (when (hash-has-key? entry 'source-line)
-      (define v (hash-ref entry 'source-line))
-      (unless (exact-positive-integer? v)
-        (add! "source-line must be positive integer, got ~e" v)))
-    (when (hash-has-key? entry 'clause)
-      (define v (hash-ref entry 'clause))
-      (unless (and (string? v) (positive? (string-length v)))
-        (add! "clause must be non-empty string, got ~e" v)))
-    (when (hash-has-key? entry 'status)
-      (define v (hash-ref entry 'status))
-      (unless (memq v allowed-statuses)
-        (add! "status must be one of ~a, got ~e" allowed-statuses v)))
-    (for ([field (in-list '(code-refs test-refs))])
-      (when (hash-has-key? entry field)
-        (define refs (hash-ref entry field))
-        (unless (all-strings? refs)
-          (add! "~a must be list of strings, got ~e" field refs))
-        (when (all-strings? refs)
-          (for ([ref (in-list refs)])
-            (define p (path-under-root root ref))
-            (unless (file-exists? p)
-              (add! "~a references missing path: ~a" field ref))))))
-    (when (hash-has-key? entry 'notes)
-      (define v (hash-ref entry 'notes))
-      (unless (string? v)
-        (add! "notes must be string, got ~e" v))))
-  (reverse errs))
+(define (non-empty-string? v)
+  (and (string? v)
+       (positive? (string-length v))))
+
+(define traceability-id-rule
+  (make-field-rule 'id
+                   #t
+                   (list (make-check
+                          (lambda (v _ctx) (non-empty-string? v))
+                          (lambda (v _ctx) (format "id must be non-empty string, got ~e" v))))))
+
+(define traceability-spec-version-rule
+  (make-field-rule 'spec-version
+                   #t
+                   (list (make-check
+                          (lambda (v _ctx) (non-empty-string? v))
+                          (lambda (v _ctx) (format "spec-version must be non-empty string, got ~e" v))))))
+
+(define traceability-source-file-rule
+  (make-field-rule
+   'source-file
+   #t
+   (list
+    (make-check
+     (lambda (v _ctx) (string? v))
+     (lambda (v _ctx) (format "source-file must be string, got ~e" v)))
+    (make-check
+     (lambda (v ctx)
+       (or (not (string? v))
+           (file-exists? (path-under-root (hash-ref ctx 'root) v))))
+     (lambda (v _ctx) (format "source-file does not exist: ~a" v))))))
+
+(define traceability-source-line-rule
+  (make-field-rule 'source-line
+                   #t
+                   (list (make-check
+                          (lambda (v _ctx) (exact-positive-integer? v))
+                          (lambda (v _ctx) (format "source-line must be positive integer, got ~e" v))))))
+
+(define traceability-clause-rule
+  (make-field-rule 'clause
+                   #t
+                   (list (make-check
+                          (lambda (v _ctx) (non-empty-string? v))
+                          (lambda (v _ctx) (format "clause must be non-empty string, got ~e" v))))))
+
+(define traceability-status-rule
+  (make-field-rule
+   'status
+   #t
+   (list (make-check
+          (lambda (v _ctx) (memq v allowed-statuses))
+          (lambda (v _ctx)
+            (format "status must be one of ~a, got ~e" allowed-statuses v))))))
+
+(define traceability-code-refs-rule
+  (make-field-rule
+   'code-refs
+   #t
+   (list
+    (make-check
+     (lambda (v _ctx) (all-strings? v))
+     (lambda (v _ctx) (format "code-refs must be list of strings, got ~e" v)))
+    (make-check
+     (lambda (v ctx)
+       (or (not (all-strings? v))
+           (null? (missing-relative-paths (hash-ref ctx 'root) v))))
+     (lambda (v ctx)
+       (format "code-refs references missing path: ~a"
+               (string-join (missing-relative-paths (hash-ref ctx 'root) v) ", ")))))))
+
+(define traceability-test-refs-rule
+  (make-field-rule
+   'test-refs
+   #t
+   (list
+    (make-check
+     (lambda (v _ctx) (all-strings? v))
+     (lambda (v _ctx) (format "test-refs must be list of strings, got ~e" v)))
+    (make-check
+     (lambda (v ctx)
+       (or (not (all-strings? v))
+           (null? (missing-relative-paths (hash-ref ctx 'root) v))))
+     (lambda (v ctx)
+       (format "test-refs references missing path: ~a"
+               (string-join (missing-relative-paths (hash-ref ctx 'root) v) ", ")))))))
+
+(define traceability-notes-rule
+  (make-field-rule 'notes
+                   #t
+                   (list (make-check
+                          (lambda (v _ctx) (string? v))
+                          (lambda (v _ctx) (format "notes must be string, got ~e" v))))))
+
+(define traceability-entry-rules
+  (list traceability-id-rule
+        traceability-spec-version-rule
+        traceability-source-file-rule
+        traceability-source-line-rule
+        traceability-clause-rule
+        traceability-status-rule
+        traceability-code-refs-rule
+        traceability-test-refs-rule
+        traceability-notes-rule))
+
+(define (collect-traceability-ids entries)
+  (for/list ([entry (in-list entries)]
+             #:when (and (hash? entry)
+                         (hash-has-key? entry 'id)
+                         (string? (hash-ref entry 'id))))
+    (hash-ref entry 'id)))
 
 (define (assert-unique-ids entries)
-  (define seen (make-hash))
-  (define dupes '())
-  (for ([entry (in-list entries)])
-    (define id (hash-ref entry 'id #f))
-    (when (string? id)
-      (if (hash-has-key? seen id)
-          (set! dupes (cons id dupes))
-          (hash-set! seen id #t))))
-  (unless (null? dupes)
-    (error 'check_spec_traceability
-           "duplicate ids in matrix: ~a"
-           (string-join (sort (remove-duplicates dupes) string<?) ", "))))
+  (define dupes-err
+    (duplicate-string-id-error (collect-traceability-ids entries)
+                               "duplicate ids in matrix"))
+  (when dupes-err
+    (error 'check_spec_traceability "~a" dupes-err)))
 
 (define (validate-traceability entries)
   (define root (find-repo-root))
   (define errs
-    (append*
-     (for/list ([entry (in-list entries)]
-                [idx (in-naturals 1)])
-       (validate-entry idx entry root))))
+    (validate-entry-list entries
+                         traceability-entry-rules
+                         (lambda (_entry _idx) (hasheq 'root root))))
   (unless (null? errs)
     (error 'check_spec_traceability
            (string-append
@@ -147,24 +183,27 @@
   entries)
 
 (define (summarize-statuses entries)
-  (define counts (make-hash))
-  (for ([entry (in-list entries)])
+  (for/fold ([counts (hash)])
+            ([entry (in-list entries)])
     (define st (hash-ref entry 'status))
-    (hash-set! counts st (+ 1 (hash-ref counts st 0))))
-  counts)
+    (hash-update counts st add1 0)))
 
 (module+ main
-  (define strict? #f)
-  (define matrix-path #f)
-  (command-line
-   #:program "check_spec_traceability.rkt"
-   #:once-each
-   [("--strict")
-    "Fail if any entry is partial/known-divergence/deferred."
-    (set! strict? #t)]
-   [("--matrix") path
-    "Path to a matrix .rktd file."
-    (set! matrix-path path)])
+  (define option-specs
+    (list (hasheq 'flag "--strict" 'key 'strict? 'mode 'switch 'value #t)
+          (hasheq 'flag "--matrix" 'key 'matrix-path 'mode 'value)))
+  (define defaults
+    (hasheq 'strict? #f
+            'matrix-path #f))
+  (define opts
+    (parse-cli-options 'check_spec_traceability
+                       (vector->list (current-command-line-arguments))
+                       option-specs
+                       defaults))
+  (define strict?
+    (hash-ref opts 'strict?))
+  (define matrix-path
+    (hash-ref opts 'matrix-path))
   (define entries
     (validate-traceability (load-traceability matrix-path)))
   (define counts
