@@ -4,9 +4,6 @@
          "../../../src/lolcode/main.rkt"
          "../../../src/lolcode/internal/reporting.rkt")
 
-(define (run-source source)
-  (run-source/report source))
-
 (module+ test
   ;; Spec ref: spec/upstream/lolcode-spec-v1.3.md:269
   ;; Variadics may omit MKAY when EOL closes open variadic operators.
@@ -15,7 +12,7 @@
    (define src
      "HAI 1.3\nVISIBLE ALL OF WIN AN FAIL\nVISIBLE ANY OF FAIL AN WIN\nKTHXBYE\n")
    (check-not-exn (lambda () (parse-program src)))
-   (define out (run-source src))
+   (define out (run-source/report src))
    (check-eq? (hash-ref out 'status) 'ok)
    (check-equal? (hash-ref out 'stdout) "FAIL\nWIN\n"))
 
@@ -34,7 +31,7 @@
    "REGRESSION: child observes parent-chain slot updates"
    (define src
      "HAI 1.3\nO HAI IM parent\n  I HAS A x ITZ 1\nKTHX\nO HAI IM child IM LIEK parent\nKTHX\nparent'Z x R 2\nVISIBLE child'Z x\nKTHXBYE\n")
-   (define out (run-source src))
+   (define out (run-source/report src))
    (check-eq? (hash-ref out 'status) 'ok)
    (check-equal? (hash-ref out 'stdout) "2\n"))
 
@@ -42,7 +39,7 @@
    "REGRESSION: child exposes a non-NOOB parent slot"
    (define src
      "HAI 1.3\nO HAI IM parent\n  I HAS A x ITZ 1\nKTHX\nO HAI IM child IM LIEK parent\nKTHX\nVISIBLE child'Z parent\nKTHXBYE\n")
-   (define out (run-source src))
+   (define out (run-source/report src))
    (check-eq? (hash-ref out 'status) 'ok)
    (check-equal? (hash-ref out 'stdout) "<BUKKIT>\n"))
 
@@ -50,7 +47,7 @@
    "REGRESSION: omgwtf slot fallback runs on missing slot access"
    (define src
      "HAI 1.3\nO HAI IM obj\n  HOW IZ I omgwtf\n    FOUND YR 42\n  IF U SAY SO\nKTHX\nVISIBLE obj'Z missing\nKTHXBYE\n")
-   (define out (run-source src))
+   (define out (run-source/report src))
    (check-eq? (hash-ref out 'status) 'ok)
    (check-equal? (hash-ref out 'stdout) "42\n"))
 
@@ -58,7 +55,7 @@
    "REGRESSION: izmakin hook runs after object construction"
    (define src
      "HAI 1.3\nO HAI IM obj\n  I HAS A n ITZ 1\n  HOW IZ I izmakin\n    n R 9\n  IF U SAY SO\nKTHX\nVISIBLE obj'Z n\nKTHXBYE\n")
-   (define out (run-source src))
+   (define out (run-source/report src))
    (check-eq? (hash-ref out 'status) 'ok)
    (check-equal? (hash-ref out 'stdout) "9\n"))
 
@@ -68,7 +65,7 @@
    "REGRESSION: object method IT is activation-local (not global/receiver)"
    (define src
      "HAI 1.3\nO HAI IM obj\n  HOW IZ I show\n    VISIBLE IT\n  IF U SAY SO\nKTHX\n7\nobj IZ show MKAY\nKTHXBYE\n")
-   (define out (run-source src))
+   (define out (run-source/report src))
    (check-eq? (hash-ref out 'status) 'ok)
    (check-equal? (hash-ref out 'stdout) "NOOB\n"))
 
@@ -78,7 +75,7 @@
    "REGRESSION: bare TYPE values are valid expressions"
    (define src
      "HAI 1.3\nVISIBLE MAEK NUMBR A YARN\nVISIBLE MAEK TYPE A TROOF\nKTHXBYE\n")
-   (define out (run-source src))
+   (define out (run-source/report src))
    (check-eq? (hash-ref out 'status) 'ok)
    (check-equal? (hash-ref out 'stdout) "NUMBR\nWIN\n"))
 

@@ -47,15 +47,17 @@ Purpose:
 6. Avoid alias-only wrapper functions that just forward to another function unchanged.
    - If there is no behavior, contract, or boundary value, inline call sites to the canonical function name.
    - Exception: explicit public-API compatibility shims may remain when intentionally documented.
-7. Target small functions: generally keep method/function bodies under ~50 lines.
-   - Not a hard cap; exceptions are allowed when complexity is intrinsic and clearly documented.
+7. Target small functions.
+   - Definitions over 50 lines are suspicious and should be refactored unless complexity is intrinsic and the exception is documented.
+   - Definitions over 75 lines are considered mistakes and should be split before check-in.
    - Multiple nested local helper functions are a refactor signal: split behavior into top-level or separately testable units.
 8. Reserve `!` suffix for mutation.
    - Use `!` only when function behavior mutates state (boxes, object slots, hash tables, ports, etc.).
    - Do not use `!` merely because a function may raise an error.
-9. Prefer immutable local state.
-   - Default to pure/immutable local transformations instead of `set!` in function bodies.
-   - Allow localized mutation only when it materially improves clarity or performance (e.g., stream scanners/tokenizers), and keep it tightly scoped with a short comment.
+9. Eschew mutation in implementation code.
+   - Prefer pure/immutable local transformations instead of `set!` in function bodies.
+   - Avoid mutable accumulator state and mutable hash-update patterns in routine logic.
+   - If mutation is unavoidable, keep it tightly scoped and justify it with a short comment.
 
 ## Test Discipline
 

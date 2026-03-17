@@ -5,9 +5,6 @@
          "../../../src/lolcode/main.rkt"
          "../../../src/lolcode/internal/reporting.rkt")
 
-(define (run-source source)
-  (run-source/report source))
-
 (struct context (id wrap) #:transparent)
 
 (define (indent n text)
@@ -141,6 +138,6 @@
                      "KTHXBYE\n"))
     (test-case
      (format "n2 confluence ~a x ~a" outer-id inner-id)
-     (define out (run-source src))
+     (define out (run-source/report src))
      (check-eq? (hash-ref out 'status) 'ok)
      (check-equal? (hash-ref out 'stdout) "OK\n"))))

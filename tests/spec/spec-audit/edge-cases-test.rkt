@@ -4,35 +4,32 @@
          "../../../src/lolcode/main.rkt"
          "../../../src/lolcode/internal/reporting.rkt")
 
-(define (run-source source)
-  (run-source/report source))
-
 (module+ test
   (define optional-an-binary
     "HAI 1.3\nVISIBLE SUM OF 1 2\nKTHXBYE\n")
   (define optional-an-binary-result
-    (run-source optional-an-binary))
+    (run-source/report optional-an-binary))
   (check-eq? (hash-ref optional-an-binary-result 'status) 'ok)
   (check-equal? (hash-ref optional-an-binary-result 'stdout) "3\n")
 
   (define optional-an-variadic
     "HAI 1.3\nVISIBLE ALL OF WIN FAIL MKAY\nVISIBLE ANY OF FAIL WIN MKAY\nKTHXBYE\n")
   (define optional-an-variadic-result
-    (run-source optional-an-variadic))
+    (run-source/report optional-an-variadic))
   (check-eq? (hash-ref optional-an-variadic-result 'status) 'ok)
   (check-equal? (hash-ref optional-an-variadic-result 'stdout) "FAIL\nWIN\n")
 
   (define optional-an-smoosh
     "HAI 1.3\nVISIBLE SMOOSH \"A\" \"B\" MKAY\nKTHXBYE\n")
   (define optional-an-smoosh-result
-    (run-source optional-an-smoosh))
+    (run-source/report optional-an-smoosh))
   (check-eq? (hash-ref optional-an-smoosh-result 'status) 'ok)
   (check-equal? (hash-ref optional-an-smoosh-result 'stdout) "AB\n")
 
   (define visible-adjacent-composite-exprs
     "HAI 1.3\nVISIBLE \"A\" SUM OF 1 AN 2\nKTHXBYE\n")
   (define visible-adjacent-composite-exprs-result
-    (run-source visible-adjacent-composite-exprs))
+    (run-source/report visible-adjacent-composite-exprs))
   (check-eq? (hash-ref visible-adjacent-composite-exprs-result 'status) 'ok)
   (check-equal? (hash-ref visible-adjacent-composite-exprs-result 'stdout) "A3\n")
 
@@ -49,7 +46,7 @@
   (define and-as-second-arg-without-an
     "HAI 1.3\nVISIBLE SUM OF 1 AND 2\nKTHXBYE\n")
   (define and-as-second-arg-without-an-result
-    (run-source and-as-second-arg-without-an))
+    (run-source/report and-as-second-arg-without-an))
   (check-eq? (hash-ref and-as-second-arg-without-an-result 'status) 'runtime-error)
   (check-true (regexp-match? #px"unknown identifier: AND"
                              (hash-ref and-as-second-arg-without-an-result 'error)))
@@ -57,7 +54,7 @@
   (define and-unbound-runtime
     "HAI 1.3\nVISIBLE SUM OF 1 AN AND\nKTHXBYE\n")
   (define and-unbound-runtime-result
-    (run-source and-unbound-runtime))
+    (run-source/report and-unbound-runtime))
   (check-eq? (hash-ref and-unbound-runtime-result 'status) 'runtime-error)
   (check-true (regexp-match? #px"unknown identifier: AND"
                              (hash-ref and-unbound-runtime-result 'error)))
@@ -65,6 +62,6 @@
   (define and-bound-parse
     "HAI 1.3\nI HAS A AND ITZ 2\nVISIBLE SUM OF 1 AN AND\nKTHXBYE\n")
   (define and-bound-runtime-result
-    (run-source and-bound-parse))
+    (run-source/report and-bound-parse))
   (check-eq? (hash-ref and-bound-runtime-result 'status) 'ok)
   (check-equal? (hash-ref and-bound-runtime-result 'stdout) "3\n"))

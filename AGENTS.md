@@ -17,3 +17,6 @@
 - Prefer `cond` with `=>` when testing a lookup and immediately consuming the looked-up value.
 - Prefer `case` for simple symbol dispatch; prefer `match` for structural dispatch.
 - Keep functions small enough to reason about locally; split large semantic dispatchers into top-level helper functions.
+- Eschew mutation in implementation code (`set!`, mutable accumulator state, mutable hash updates) unless there is a good clear reason.
+- Definitions over 50 lines are suspicious and should be refactored unless there is a good, clear reason.
+- Definitions over 75 lines are a mistake and should be split.
