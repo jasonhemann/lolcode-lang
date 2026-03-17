@@ -3,3 +3,8 @@
 .trash/
 compiled/
 **/compiled/
+
+# Local traceability/safety scratch outputs (non-canonical)
+spec/traceability/epistemic-safety-report.json
+spec/traceability/traceability-graph.local.json
+spec/traceability/adjudication-index.local.rktd

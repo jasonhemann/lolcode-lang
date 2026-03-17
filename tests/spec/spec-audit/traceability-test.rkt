@@ -1,10 +1,13 @@
 #lang racket/base
 
 (require rackunit
+         json
          racket/file
+         racket/list
          racket/path
          racket/string
-         "../../../scripts/check_spec_traceability.rkt")
+         "../../../scripts/check_spec_traceability.rkt"
+         "../../../scripts/adjudication_index_lib.rkt")
 
 (module+ test
   (define entries
@@ -96,4 +99,32 @@
   (for ([name (in-list (list "mixin-declare"
                              "invalid-plain-a-parent-declare"))])
     (check-true (string-contains? parse-negative-text name))
-    (check-true (string-contains? holdings-index-text name))))
+    (check-true (string-contains? holdings-index-text name)))
+
+  (define adjudication-index-path
+    (build-path here ".." ".." ".." "spec" "traceability" "adjudication-index.rktd"))
+  (check-true (file-exists? adjudication-index-path))
+  (define adjudication-index
+    (validate-adjudication-index
+     (load-adjudication-index adjudication-index-path)))
+  (define regenerated-adjudication-index
+    (validate-adjudication-index
+     (build-adjudication-index)))
+  (check-equal? adjudication-index regenerated-adjudication-index)
+  (check-true (> (length adjudication-index) 90))
+
+  (define ids
+    (sort (map (lambda (h) (hash-ref h 'id)) adjudication-index) string<?))
+  (check-not-false (member "N01" ids))
+  (check-not-false (member "N99" ids))
+
+  (define traceability-graph-path
+    (build-path here ".." ".." ".." "spec" "traceability" "traceability-graph.json"))
+  (check-true (file-exists? traceability-graph-path))
+  (define traceability-graph
+    (call-with-input-file traceability-graph-path read-json))
+  (check-equal? (hash-ref traceability-graph 'schema_version) 1)
+  (define graph-counts (hash-ref traceability-graph 'counts))
+  (check-true (>= (hash-ref graph-counts 'adjudications) 90))
+  (check-true (>= (hash-ref graph-counts 'clauses) 70))
+  (check-true (> (hash-ref graph-counts 'edges) 0)))

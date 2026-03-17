@@ -6,6 +6,8 @@ This directory tracks clause-level conformance status for the strict 1.3 target.
 
 - `ADJUDICATION_POLICY.md`
   - Canonical adjudication/exegesis rules.
+- `EPISTEMIC_SAFETY_POLICY.md`
+  - Automation-first integrity policy for keeping adjudications authoritative-but-revisable.
 - `IMPLEMENTATION_QUEUE.md`
   - Active and recently closed implementation work queue.
 - `RESOLUTION_MAP.md`
@@ -18,11 +20,15 @@ This directory tracks clause-level conformance status for the strict 1.3 target.
   - Chronological execution log of adjudication work.
 - `TEST_ANCHOR_INDEX.md`
   - Generated index mapping each `Nxx` item to regression anchor names.
+- `adjudication-index.rktd`
+  - Canonical machine-readable `Nxx` index (disposition, implementation refs, anchor refs, source lines).
 
 ## Supporting Data / Inputs
 
 - `spec-1.3-matrix.rktd`
   - Machine-readable clause-level traceability matrix (status + evidence).
+- `traceability-graph.json`
+  - Deterministic JSON export linking clauses, adjudications, test anchors/files, and code refs.
 - `spec-1.3-clause-index.tsv`
   - Generated clause index from the vendored spec (`extract_spec_clauses.rkt`).
 - `spec-1.3-clause-mapping-audit.md`
@@ -59,7 +65,10 @@ Run:
 
 ```sh
 racket scripts/check_spec_traceability.rkt
+racket scripts/check_adjudication_index.rkt
+racket scripts/check_epistemic_safety.rkt
 racket scripts/generate_nxx_test_anchors.rkt
+racket scripts/export_traceability_graph.rkt
 ```
 
 This validates schema, file references, and emits a status summary.
