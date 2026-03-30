@@ -1,54 +1,57 @@
 #lang racket/base
 
 (require json
-         racket/cmdline
          racket/file
          racket/format
          racket/list
          racket/match
          racket/path
          racket/runtime-path
-         racket/string)
+         racket/string
+         "./validation_rules_lib.rkt")
 
 (define-runtime-path script-dir ".")
 (define repo-root
   (simplify-path (build-path script-dir "..")))
 
-(define manifest-path
-  (build-path repo-root "tests" "regression-evidence" "external" "manifest.rktd"))
-(define queue-path
-  (build-path repo-root "corpus" "research" "external_issues" "candidate_repros_ranked.json"))
-(define evidence-root
-  (build-path repo-root "tests" "regression-evidence" "external"))
+(define option-specs
+  (list (hasheq 'flag "--manifest" 'key 'manifest-path
+                'mode 'value 'convert string->path)
+        (hasheq 'flag "--queue" 'key 'queue-path
+                'mode 'value 'convert string->path)
+        (hasheq 'flag "--evidence-root" 'key 'evidence-root
+                'mode 'value 'convert string->path)
+        (hasheq 'flag "--apply" 'key 'apply?
+                'mode 'switch 'value #t)
+        (hasheq 'flag "--no-move-fixtures" 'key 'move-fixtures?
+                'mode 'switch 'value #f)
+        (hasheq 'flag "--verbose" 'key 'verbose?
+                'mode 'switch 'value #t)))
 
-(define apply? #f)
-(define move-fixtures? #t)
-(define verbose? #f)
+(define option-defaults
+  (hasheq 'manifest-path
+          (build-path repo-root "tests" "regression-evidence" "external" "manifest.rktd")
+          'queue-path
+          (build-path repo-root "corpus" "research" "external_issues"
+                      "candidate_repros_ranked.json")
+          'evidence-root
+          (build-path repo-root "tests" "regression-evidence" "external")
+          'apply? #f
+          'move-fixtures? #t
+          'verbose? #f))
 
-(command-line
- #:program "reconcile_external_manifest_waves.rkt"
- #:once-each
- [("--manifest")
-  p
-  "Path to evidence manifest.rktd."
-  (set! manifest-path (string->path p))]
- [("--queue")
-  p
-  "Path to candidate_repros_ranked.json."
-  (set! queue-path (string->path p))]
- [("--evidence-root")
-  p
-  "Path to tests/regression-evidence/external root."
-  (set! evidence-root (string->path p))]
- [("--apply")
-  "Apply updates in-place (otherwise dry-run)."
-  (set! apply? #t)]
- [("--no-move-fixtures")
-  "Do not move fixture files when source-file wave segment changes."
-  (set! move-fixtures? #f)]
- [("--verbose")
-  "Print per-entry reconciliation details."
-  (set! verbose? #t)])
+(define opts
+  (parse-cli-options 'reconcile_external_manifest_waves
+                     (vector->list (current-command-line-arguments))
+                     option-specs
+                     option-defaults))
+
+(define manifest-path (hash-ref opts 'manifest-path))
+(define queue-path (hash-ref opts 'queue-path))
+(define evidence-root (hash-ref opts 'evidence-root))
+(define apply? (hash-ref opts 'apply?))
+(define move-fixtures? (hash-ref opts 'move-fixtures?))
+(define verbose? (hash-ref opts 'verbose?))
 
 (define (die fmt . args)
   (error 'reconcile-external-manifest-waves (apply format fmt args)))

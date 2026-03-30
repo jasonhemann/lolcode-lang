@@ -641,6 +641,14 @@
             (mb-body (extend-env e) ctx))]
       [else (else-proc (extend-env e) ctx)])))
 
+(define (first-matching-switch-cases case-procs subject-value e ctx)
+  (match case-procs
+    ['() #f]
+    [(cons (cons case-match-proc _case-body-proc) rest)
+     (if (lol-equal? subject-value (case-match-proc e ctx))
+         case-procs
+         (first-matching-switch-cases rest subject-value e ctx))]))
+
 (define (compile-stmt-switch subject cases default)
   (define subject-proc (compile-expr subject))
   (define case-procs
@@ -653,17 +661,14 @@
     (let/ec break-k
       (define subject-value (subject-proc e ctx))
       (define switch-ctx (ctx-derive ctx #:break-k break-k))
-      (define-values (_before matching-and-after)
-        (splitf-at case-procs
-                   (match-lambda
-                     [(cons case-match-proc _case-body-proc)
-                      (not (lol-equal? subject-value (case-match-proc e ctx)))])))
-      (if (null? matching-and-after)
-          (default-proc (extend-env e) switch-ctx)
+      (define matching-and-after
+        (first-matching-switch-cases case-procs subject-value e ctx))
+      (if matching-and-after
           (for ([compiled-case (in-list matching-and-after)])
             (match-define (cons _case-match-proc case-body-proc)
               compiled-case)
-            (case-body-proc (extend-env e) switch-ctx))))))
+            (case-body-proc (extend-env e) switch-ctx))
+          (default-proc (extend-env e) switch-ctx)))))
 
 (define (compile-stmt-loop label-open label-close update-var-spec
                            update-op cond-kind cond-expr body)

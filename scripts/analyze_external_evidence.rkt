@@ -1,7 +1,6 @@
 #lang racket/base
 
-(require racket/cmdline
-         racket/date
+(require racket/date
          racket/file
          racket/format
          racket/list
@@ -9,6 +8,7 @@
          racket/runtime-path
          racket/string
          "./external_evidence_common.rkt"
+         "./validation_rules_lib.rkt"
          "../tests/regression-evidence/external/run-evidence.rkt")
 
 (define-runtime-path default-manifest-path
@@ -60,6 +60,18 @@
            (string-join allowed ", ")
            arg))
   arg)
+
+(define (parse-positive-wave who raw)
+  (define maybe-wave
+    (string->number raw))
+  (unless (and maybe-wave
+               (exact-integer? maybe-wave)
+               (> maybe-wave 0))
+    (error 'analyze-external-evidence
+           "~a must be a positive integer, got ~e"
+           who
+           raw))
+  maybe-wave)
 
 (define (scope-label scope)
   (cond
@@ -252,62 +264,65 @@
     #:exists 'truncate/replace))
 
 (module+ main
-  (define manifest-path default-manifest-path)
-  (define json-out-path default-json-out-path)
-  (define md-out-path default-md-out-path)
-  (define selected-wave #f)
-  (define selected-id #f)
-  (define selected-scope #f)
-  (define selected-triage #f)
-  (define selected-hypothesis #f)
-
-  (command-line
-   #:program "analyze_external_evidence.rkt"
-   #:once-each
-   [("--manifest") path "Path to external evidence manifest"
-                    (set! manifest-path (string->path path))]
-   [("--json-out") path "JSON output path"
-                    (set! json-out-path (string->path path))]
-   [("--md-out") path "Markdown output path"
-                  (set! md-out-path (string->path path))]
-   [("--wave") w "Select only wave N"
-                (define maybe-wave (string->number w))
-                (unless (and maybe-wave
-                             (exact-integer? maybe-wave)
-                             (> maybe-wave 0))
-                  (error 'analyze-external-evidence
-                         "--wave must be a positive integer, got ~e"
-                         w))
-                (set! selected-wave maybe-wave)]
-   [("--id") case-id "Select only one case id"
-               (set! selected-id case-id)]
-   [("--scope") s "Select only one spec scope: 1.2 | 1.3 | 1.2+1.3 | unknown"
-                 (set! selected-scope (parse-scope-arg s))]
-   [("--triage") s "Select only one triage-status"
-                  (set! selected-triage
-                        (parse-one-of "--triage" s valid-triage-status))]
-   [("--hypothesis") s "Select only one hypothesis"
-                      (set! selected-hypothesis
-                            (parse-one-of "--hypothesis" s valid-hypotheses))])
+  (define option-specs
+    (list (hasheq 'flag "--manifest" 'key 'manifest-path
+                  'mode 'value 'convert string->path)
+          (hasheq 'flag "--json-out" 'key 'json-out-path
+                  'mode 'value 'convert string->path)
+          (hasheq 'flag "--md-out" 'key 'md-out-path
+                  'mode 'value 'convert string->path)
+          (hasheq 'flag "--wave" 'key 'selected-wave
+                  'mode 'value
+                  'convert (lambda (w)
+                             (parse-positive-wave "--wave" w)))
+          (hasheq 'flag "--id" 'key 'selected-id 'mode 'value)
+          (hasheq 'flag "--scope" 'key 'selected-scope
+                  'mode 'value 'convert parse-scope-arg)
+          (hasheq 'flag "--triage" 'key 'selected-triage
+                  'mode 'value
+                  'convert (lambda (s)
+                             (parse-one-of "--triage" s valid-triage-status)))
+          (hasheq 'flag "--hypothesis" 'key 'selected-hypothesis
+                  'mode 'value
+                  'convert (lambda (s)
+                             (parse-one-of "--hypothesis" s valid-hypotheses)))))
+  (define option-defaults
+    (hasheq 'manifest-path default-manifest-path
+            'json-out-path default-json-out-path
+            'md-out-path default-md-out-path
+            'selected-wave #f
+            'selected-id #f
+            'selected-scope #f
+            'selected-triage #f
+            'selected-hypothesis #f))
+  (define opts
+    (parse-cli-options 'analyze-external-evidence
+                       (vector->list (current-command-line-arguments))
+                       option-specs
+                       option-defaults))
 
   (define rows
-    (evaluate-evidence-cases manifest-path
-                             selected-wave
-                             selected-id
-                             selected-scope
-                             selected-triage
-                             selected-hypothesis))
+    (evaluate-evidence-cases (hash-ref opts 'manifest-path)
+                             (hash-ref opts 'selected-wave)
+                             (hash-ref opts 'selected-id)
+                             (hash-ref opts 'selected-scope)
+                             (hash-ref opts 'selected-triage)
+                             (hash-ref opts 'selected-hypothesis)))
   (define report
     (build-report rows
-                  selected-wave
-                  selected-id
-                  selected-scope
-                  selected-triage
-                  selected-hypothesis))
+                  (hash-ref opts 'selected-wave)
+                  (hash-ref opts 'selected-id)
+                  (hash-ref opts 'selected-scope)
+                  (hash-ref opts 'selected-triage)
+                  (hash-ref opts 'selected-hypothesis)))
 
-  (write-json-report json-out-path report)
-  (write-md-report md-out-path report json-out-path)
+  (write-json-report (hash-ref opts 'json-out-path) report)
+  (write-md-report (hash-ref opts 'md-out-path)
+                   report
+                   (hash-ref opts 'json-out-path))
 
-  (printf "Wrote JSON report: ~a\n" (path->string json-out-path))
-  (printf "Wrote Markdown report: ~a\n" (path->string md-out-path))
+  (printf "Wrote JSON report: ~a\n"
+          (path->string (hash-ref opts 'json-out-path)))
+  (printf "Wrote Markdown report: ~a\n"
+          (path->string (hash-ref opts 'md-out-path)))
   (printf "Cases evaluated: ~a\n" (hash-ref (hash-ref report 'totals) 'cases)))

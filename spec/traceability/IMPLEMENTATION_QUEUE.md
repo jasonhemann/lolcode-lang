@@ -124,3 +124,33 @@ With the expert-checklist adjudication queue closed, the next useful work is evi
      - `object-body-it-slot-construction`
      - `method-call-noncallable-after-omgwtf-synthesis`
    - These remain in `tests/spec/runtime-core-test.rkt` (always executed by `./scripts/test_racket.sh`), and traceability audit now checks their presence.
+
+## 6) Traceability Accounting TODOs
+
+These are follow-up tooling/data tasks, not active language-semantics changes.
+
+1. Direct adjudication-to-clause linkage.
+   - Stop relying only on `adjudication_to_clause_inferred_by_code_ref`.
+   - Add explicit clause IDs or other canonical spec refs per `Nxx` item so clause provenance is first-class.
+
+2. Clause-span precision.
+   - Current `traceability-clause-spans.json` generation is still heuristic and line-based.
+   - Decide whether canonical spans should become hand-maintained or generated from stronger clause-index metadata.
+
+3. Clause hotspot reporting.
+   - Add a generated report ranking clauses/sections by linked adjudications, linked tests, policy-vs-implemented decisions, and confluence/intersection cases.
+   - Use direct clause links once available, not shared-code-ref overlap.
+
+4. Adjudication completeness checks.
+   - Add machine checks that every `Nxx` item has either explicit clause IDs/spec refs or an explicit reason it does not.
+   - Existing warning queue already shows weak spots (`adjudications-without-test-anchors`, `anchors-without-test-files`).
+
+5. Clause/index consistency.
+   - Validate that each matrix entry’s `source-line` and `clause` still correspond to vendored spec text or canonical span data.
+   - Add a drift check for paraphrase-vs-exact-quote policy.
+
+6. Section-level aggregation.
+   - Add generated per-section summaries so it is easy to see which parts of the spec account for most adjudication or traceability load.
+
+7. Confluence accounting.
+   - Extend the graph/data model so cross-clause interaction cases are explicit data, not only prose in `spec-1.3-confluence-matrix.md`.

@@ -1,6 +1,7 @@
 #lang racket/base
 
 (require json
+         racket/dict
          racket/file
          racket/format
          racket/list
@@ -212,7 +213,7 @@
               ([id (in-list ids)])
       (hash-update h id add1 0)))
   (sort
-   (for/list ([(id count) (in-hash counts)]
+   (for/list ([(id count) (in-dict counts)]
               #:when (> count 1))
      id)
    string<?))

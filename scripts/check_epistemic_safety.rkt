@@ -1,6 +1,7 @@
 #lang racket/base
 
 (require json
+         racket/dict
          racket/file
          racket/format
          racket/list
@@ -46,7 +47,7 @@
               ([x (in-list xs)])
       (hash-update h x add1 0)))
   (sort
-   (for/list ([(x count) (in-hash counts)]
+   (for/list ([(x count) (in-dict counts)]
               #:when (> count 1))
      x)
    string<?))
@@ -60,15 +61,16 @@
     (error 'check_epistemic_safety "expected JSON object, got ~e" v))
   v)
 
+(define (failure label data)
+  (hasheq 'label label 'data data))
+
+(define (warning label data)
+  (hasheq 'label label 'data data))
+
 (define (build-epistemic-safety-report [index-path default-adjudication-index-path]
                                        [matrix-path #f]
                                        [graph-path default-graph-path]
                                        [defaults-doc-path default-defaults-doc-path])
-  (define (failure label data)
-    (hasheq 'label label 'data data))
-  (define (warning label data)
-    (hasheq 'label label 'data data))
-
   (define index
     (validate-adjudication-index
      (load-adjudication-index index-path)))
@@ -77,7 +79,11 @@
      (load-traceability matrix-path)))
   (define graph
     (json-hash graph-path))
-  (void defaults-doc-path)
+  (define defaults-doc-failures
+    (if (file-exists? defaults-doc-path)
+        '()
+        (list (failure "missing-defaults-doc"
+                       (path->string defaults-doc-path)))))
 
   (define graph-adjudications
     (as-list (hash-ref graph 'adjudications '())))
@@ -102,7 +108,7 @@
             'test_anchors expected-anchor-count))
 
   (define count-mismatch-failures
-    (for/list ([(k v) (in-hash expected-counts)]
+    (for/list ([(k v) (in-dict expected-counts)]
                #:unless (equal? (hash-ref graph-counts k #f) v))
       (failure "count-mismatch"
                (hasheq 'field k
@@ -198,7 +204,8 @@
                   (sorted-strings unresolved-anchor-names)))))
 
   (define failures
-    (append count-mismatch-failures
+    (append defaults-doc-failures
+            count-mismatch-failures
             adjudication-id-mismatch-failures
             clause-id-mismatch-failures
             bad-edge-type-failures

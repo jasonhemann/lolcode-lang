@@ -1,14 +1,14 @@
 #lang racket/base
 
-(require racket/cmdline
-         racket/file
+(require racket/file
          racket/format
          racket/list
          racket/path
          racket/runtime-path
          racket/string
          "../../../src/lolcode/main.rkt"
-         "../../../src/lolcode/internal/reporting.rkt")
+         "../../../src/lolcode/internal/reporting.rkt"
+         "../../../scripts/validation_rules_lib.rkt")
 
 (provide load-and-validate-manifest
          evaluate-evidence-cases
@@ -256,6 +256,15 @@
           arg))
   arg)
 
+(define (parse-positive-wave who raw)
+  (define maybe-wave
+    (string->number raw))
+  (unless (and maybe-wave
+               (exact-integer? maybe-wave)
+               (> maybe-wave 0))
+    (fail "~a must be a positive integer, got ~e" who raw))
+  maybe-wave)
+
 (define (select-cases/filters cases
                               selected-wave
                               selected-id
@@ -317,37 +326,51 @@
 
   (define source
     (file->string source-path))
-
-  (define observed-status #f)
-  (define observed-stdout "")
-  (define observed-message #f)
-
-  (define parsed
+  (define parse-result
     (with-handlers ([exn:fail?
                      (lambda (e)
-                       (set! observed-status "parse-error")
-                       (set! observed-message (exn-message e))
-                       #f)])
-      (parse-program source)))
+                       (hasheq 'kind 'parse-error
+                               'message (exn-message e)))])
+      (hasheq 'kind 'parsed
+              'value (parse-program source))))
+  (define observation
+    (case (hash-ref parse-result 'kind)
+      [(parse-error)
+       (hasheq 'observed-status "parse-error"
+               'observed-stdout ""
+               'observed-message (hash-ref parse-result 'message))]
+      [(parsed)
+       (with-handlers ([exn:fail?
+                        (lambda (e)
+                          (hasheq 'observed-status "runtime-error"
+                                  'observed-stdout ""
+                                  'observed-message (exn-message e)))])
+         (define result
+           (run-program/report (hash-ref parse-result 'value)))
+         (define observed-status
+           (case (hash-ref result 'status)
+             [(ok) "ok"]
+             [(runtime-error) "runtime-error"]
+             [(unsupported) "unsupported"]
+             [else (format "~a" (hash-ref result 'status))]))
+         (define observed-message
+           (cond
+             [(hash-has-key? result 'reason) (hash-ref result 'reason)]
+             [(hash-has-key? result 'error) (hash-ref result 'error)]
+             [else #f]))
+         (hasheq 'observed-status observed-status
+                 'observed-stdout (hash-ref result 'stdout "")
+                 'observed-message observed-message))]
+      [else
+       (fail "unexpected parse result kind: ~e"
+             (hash-ref parse-result 'kind))]))
 
-  (when parsed
-    (with-handlers ([exn:fail?
-                     (lambda (e)
-                       (set! observed-status "runtime-error")
-                       (set! observed-message (exn-message e)))])
-      (define result (run-program/report parsed))
-      (define status (hash-ref result 'status))
-      (set! observed-status
-            (case status
-              [(ok) "ok"]
-              [(runtime-error) "runtime-error"]
-              [(unsupported) "unsupported"]
-              [else (format "~a" status)]))
-      (set! observed-stdout (hash-ref result 'stdout ""))
-      (when (hash-has-key? result 'error)
-        (set! observed-message (hash-ref result 'error)))
-      (when (hash-has-key? result 'reason)
-        (set! observed-message (hash-ref result 'reason)))))
+  (define observed-status
+    (hash-ref observation 'observed-status))
+  (define observed-stdout
+    (hash-ref observation 'observed-stdout))
+  (define observed-message
+    (hash-ref observation 'observed-message))
 
   (define-values (assessment stdout-check regex-check)
     (assessment-for c observed-status observed-stdout observed-message))
@@ -467,44 +490,44 @@
 (define-runtime-path default-manifest-path "manifest.rktd")
 
 (module+ main
-  (define manifest-path
-    default-manifest-path)
-  (define selected-wave #f)
-  (define selected-id #f)
-  (define selected-scope #f)
-  (define selected-triage #f)
-  (define selected-hypothesis #f)
-  (define summary-only? #f)
+  (define option-specs
+    (list (hasheq 'flag "--manifest" 'key 'manifest-path
+                  'mode 'value 'convert string->path)
+          (hasheq 'flag "--wave" 'key 'selected-wave
+                  'mode 'value
+                  'convert (lambda (w)
+                             (parse-positive-wave "--wave" w)))
+          (hasheq 'flag "--id" 'key 'selected-id 'mode 'value)
+          (hasheq 'flag "--scope" 'key 'selected-scope
+                  'mode 'value 'convert parse-scope-arg)
+          (hasheq 'flag "--triage" 'key 'selected-triage
+                  'mode 'value
+                  'convert (lambda (s)
+                             (parse-one-of "--triage" s valid-triage-status)))
+          (hasheq 'flag "--hypothesis" 'key 'selected-hypothesis
+                  'mode 'value
+                  'convert (lambda (s)
+                             (parse-one-of "--hypothesis" s valid-hypotheses)))
+          (hasheq 'flag "--summary-only" 'key 'summary-only?
+                  'mode 'switch 'value #t)))
+  (define option-defaults
+    (hasheq 'manifest-path default-manifest-path
+            'selected-wave #f
+            'selected-id #f
+            'selected-scope #f
+            'selected-triage #f
+            'selected-hypothesis #f
+            'summary-only? #f))
+  (define opts
+    (parse-cli-options 'run-evidence
+                       (vector->list (current-command-line-arguments))
+                       option-specs
+                       option-defaults))
 
-  (command-line
-   #:program "run-evidence.rkt"
-   #:once-each
-   [("--manifest") m "Path to manifest.rktd"
-                    (set! manifest-path (string->path m))]
-   [("--wave") w "Select only wave N"
-                 (define maybe-wave (string->number w))
-                 (unless (and maybe-wave
-                              (exact-integer? maybe-wave)
-                              (> maybe-wave 0))
-                   (fail "--wave must be a positive integer, got ~e" w))
-                 (set! selected-wave maybe-wave)]
-   [("--id") case-id "Select only one case id"
-               (set! selected-id case-id)]
-   [("--scope") s "Select only one spec scope: 1.2 | 1.3 | 1.2+1.3 | unknown"
-                 (set! selected-scope (parse-scope-arg s))]
-   [("--triage") s "Select only one triage-status"
-                  (set! selected-triage
-                        (parse-one-of "--triage" s valid-triage-status))]
-   [("--hypothesis") s "Select only one hypothesis"
-                      (set! selected-hypothesis
-                            (parse-one-of "--hypothesis" s valid-hypotheses))]
-   [("--summary-only") "Print only aggregate counts (suppress per-case rows)"
-                       (set! summary-only? #t)])
-
-  (void (run-evidence-cases manifest-path
-                            selected-wave
-                            selected-id
-                            selected-scope
-                            selected-triage
-                            selected-hypothesis
-                            summary-only?)))
+  (void (run-evidence-cases (hash-ref opts 'manifest-path)
+                            (hash-ref opts 'selected-wave)
+                            (hash-ref opts 'selected-id)
+                            (hash-ref opts 'selected-scope)
+                            (hash-ref opts 'selected-triage)
+                            (hash-ref opts 'selected-hypothesis)
+                            (hash-ref opts 'summary-only?))))

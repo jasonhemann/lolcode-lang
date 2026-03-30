@@ -42,22 +42,31 @@ Purpose:
 4. Prefer direct recursive helpers over local named-`let`/internal loop definitions when behavior is equivalent.
    - Use local loop bindings only when they materially improve clarity (e.g., mutually recursive local helpers, tightly scoped accumulators).
    - Do not introduce an internal helper/local loop solely to eliminate default-argument recursion; keep the clearer form.
+   - Avoid `let ()` or local-definition wrappers whose only job is to define-and-immediately-call a helper or create an intermediate result that could be matched directly.
 5. For simple two-way `null?` branching with no list destructuring (`car`/`cdr`) and no reuse of the tested value, prefer `if`.
    - Reserve `match`/`cond` for structural dispatch or multi-branch logic.
-6. Avoid alias-only wrapper functions that just forward to another function unchanged.
+   - If a list branch destructures with `car`/`cdr`, rewrite to `match` on the list shape instead.
+6. Prefer direct `in-dict` key/value binding in `for` clauses over post-destructuring hash iteration.
+   - When using most or all fields of a struct/list node, prefer one `match-define` over repeated accessors.
+   - Prefer `cond` with `=>` for lookup-and-consume cases.
+7. Avoid alias-only wrapper functions that just forward to another function unchanged.
    - If there is no behavior, contract, or boundary value, inline call sites to the canonical function name.
    - Exception: explicit public-API compatibility shims may remain when intentionally documented.
-7. Target small functions.
+   - Do not use compile-time `rename-in` aliases merely to preserve an old local name; import plainly and call the canonical name directly.
+8. Prefer the shared immutable CLI parser over ad hoc `command-line` plus outer mutable option variables in new or refactored scripts.
+9. Target small functions.
    - Definitions over 50 lines are suspicious and should be refactored unless complexity is intrinsic and the exception is documented.
    - Definitions over 75 lines are considered mistakes and should be split before check-in.
    - Multiple nested local helper functions are a refactor signal: split behavior into top-level or separately testable units.
-8. Reserve `!` suffix for mutation.
+   - Lines over 75 columns are mistakes unless there is a compelling documented exception.
+10. Reserve `!` suffix for mutation.
    - Use `!` only when function behavior mutates state (boxes, object slots, hash tables, ports, etc.).
    - Do not use `!` merely because a function may raise an error.
-9. Eschew mutation in implementation code.
+11. Eschew mutation in implementation code.
    - Prefer pure/immutable local transformations instead of `set!` in function bodies.
    - Avoid mutable accumulator state and mutable hash-update patterns in routine logic.
    - If mutation is unavoidable, keep it tightly scoped and justify it with a short comment.
+12. Avoid tabs in implementation/source files.
 
 ## Test Discipline
 

@@ -11,12 +11,19 @@
 
 - Prefer direct recursion over ad hoc local `let` loops when the recursion is the core control flow.
 - Do not introduce internal helper definitions or local loops solely to remove default-argument recursion; keep the clearer form.
+- Prefer direct `in-dict` key/value binding in `for` clauses over post-destructuring hash iteration.
 - If a list traversal branch uses `null?`/`else` with `car`/`cdr`, rewrite to `match` on the list shape (`'()` and `(cons ...)`).
 - For simple two-way `null?` checks that do not destructure (`car`/`cdr`) and do not reuse the tested value, prefer `if`.
 - For list/index scans (e.g., `find-first`), thread list and index as explicit parameters and call once with explicit initial values.
+- When using most or all fields of a struct/list node, prefer a single `match-define` over repeated accessors.
 - Prefer `cond` with `=>` when testing a lookup and immediately consuming the looked-up value.
 - Prefer `case` for simple symbol dispatch; prefer `match` for structural dispatch.
+- Avoid `let ()` or local-definition wrappers whose only job is to define-and-immediately-call a helper or to create an intermediate result that could be matched directly.
+- Do not use compile-time `rename-in` aliases merely to preserve an old local name; import plainly and call the canonical name directly.
+- Prefer the shared immutable CLI parser over ad hoc `command-line` plus outer mutable option variables in new or refactored scripts.
 - Keep functions small enough to reason about locally; split large semantic dispatchers into top-level helper functions.
 - Eschew mutation in implementation code (`set!`, mutable accumulator state, mutable hash updates) unless there is a good clear reason.
+- Avoid tabs in implementation/source files.
 - Definitions over 50 lines are suspicious and should be refactored unless there is a good, clear reason.
 - Definitions over 75 lines are a mistake and should be split.
+- Lines over 75 columns are a mistake unless there is a compelling documented exception.

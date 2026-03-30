@@ -1,6 +1,7 @@
 #lang racket/base
 
 (require racket/class
+         racket/dict
          racket/format
          racket/list
          racket/set
@@ -71,7 +72,7 @@
 
     (define/public (clone)
       (define copied-slots (make-hash))
-      (for ([(name b) (in-hash slots)])
+      (for ([(name b) (in-dict slots)])
         (hash-set! copied-slots name (box (unbox b))))
       (new lol-object%
            [slots copied-slots]
@@ -85,10 +86,10 @@
     (define/public (slot-names [visited (mutable-seteq)])
       (set-add! visited this)
       (define parent-names
-		(cond
-		  [(parent-object visited)
-			=> (lambda (p) (send p slot-names visited))]
-		  [else '()]))
+        (cond
+          [(parent-object visited)
+           => (lambda (p) (send p slot-names visited))]
+          [else '()]))
       (remove-duplicates (append (hash-keys slots) parent-names)))
 
     (define/public (copy-visible-into! target)

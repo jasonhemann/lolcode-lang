@@ -1,16 +1,17 @@
 #lang racket/base
 
 (require json
-         racket/cmdline
          racket/date
          racket/file
          racket/format
          racket/list
+         racket/match
          racket/path
          racket/runtime-path
          racket/sandbox
          racket/set
          racket/string
+         "./validation_rules_lib.rkt"
          "../src/lolcode/ast.rkt"
          "../src/lolcode/lexer.rkt"
          "../src/lolcode/main.rkt"
@@ -20,56 +21,92 @@
 (define repo-root
   (simplify-path (build-path script-dir "..")))
 
-(define corpus-root
+(define default-corpus-root
   (build-path repo-root "corpus" "tier2"))
-(define fixtures-root
+(define default-fixtures-root
   (build-path repo-root "tests" "spec" "fixtures" "programs"))
-(define json-out
+(define default-json-out
   (build-path repo-root "corpus" "research" "language-gaps-report.json"))
-(define md-out
+(define default-md-out
   (build-path repo-root "corpus" "research" "LANGUAGE_GAPS_REPORT.md"))
-(define promote-missing-version? #f)
-(define promoted-out-dir #f)
-(define eval-timeout-seconds 2.0)
-(define eval-memory-limit-bytes (* 256 1024 1024))
+(define default-promote-missing-version? #f)
+(define default-promoted-out-dir #f)
+(define default-eval-timeout-seconds 2.0)
+(define default-eval-memory-limit-bytes (* 256 1024 1024))
 
 (define promotion-comment
   "BTW AUTO-PROMOTE: inserted HAI 1.3 header for strict-1.3 triage")
 
-(command-line
- #:program "analyze_corpus_gaps.rkt"
- #:once-each
- [("--corpus-root")
-  dir
-  "Tier corpus root directory to scan recursively for .lol files."
-  (set! corpus-root (string->path dir))]
- [("--fixtures-root")
-  dir
-  "1.3 fixture root directory to scan recursively for .lol files."
-  (set! fixtures-root (string->path dir))]
- [("--json-out")
-  p
-  "Output JSON path."
-  (set! json-out (string->path p))]
- [("--md-out")
-  p
-  "Output markdown path."
-  (set! md-out (string->path p))]
- [("--promote-missing-version-to-1.3")
-  "Promote leading `HAI` (without explicit version) to `HAI 1.3` during analysis."
-  (set! promote-missing-version? #t)]
- [("--promoted-out-dir")
-  dir
-  "If set with promotion mode, writes transformed promoted sources under this directory."
-  (set! promoted-out-dir (string->path dir))]
- [("--eval-timeout-seconds")
-  secs
-  "Timeout for per-program evaluation during gap scan."
-  (set! eval-timeout-seconds (string->number secs))]
- [("--eval-memory-limit-mb")
-  mb
-  "Memory limit (MB) for per-program evaluation during gap scan."
-  (set! eval-memory-limit-bytes (* 1024 1024 (string->number mb)))])
+(define (parse-positive-real who raw)
+  (define n
+    (string->number raw))
+  (unless (and n
+               (real? n)
+               (positive? n))
+    (error 'analyze_corpus_gaps "~a must be a positive number, got ~e" who raw))
+  n)
+
+(define (parse-positive-int who raw)
+  (define n
+    (string->number raw))
+  (unless (and n
+               (exact-integer? n)
+               (positive? n))
+    (error 'analyze_corpus_gaps
+           "~a must be a positive integer, got ~e"
+           who
+           raw))
+  n)
+
+(define option-specs
+  (list (hasheq 'flag "--corpus-root" 'key 'corpus-root
+                'mode 'value 'convert string->path)
+        (hasheq 'flag "--fixtures-root" 'key 'fixtures-root
+                'mode 'value 'convert string->path)
+        (hasheq 'flag "--json-out" 'key 'json-out
+                'mode 'value 'convert string->path)
+        (hasheq 'flag "--md-out" 'key 'md-out
+                'mode 'value 'convert string->path)
+        (hasheq 'flag "--promote-missing-version-to-1.3"
+                'key 'promote-missing-version?
+                'mode 'switch 'value #t)
+        (hasheq 'flag "--promoted-out-dir" 'key 'promoted-out-dir
+                'mode 'value 'convert string->path)
+        (hasheq 'flag "--eval-timeout-seconds" 'key 'eval-timeout-seconds
+                'mode 'value
+                'convert (lambda (secs)
+                           (parse-positive-real "--eval-timeout-seconds" secs)))
+        (hasheq 'flag "--eval-memory-limit-mb"
+                'key 'eval-memory-limit-bytes
+                'mode 'value
+                'convert (lambda (mb)
+                           (* 1024 1024
+                              (parse-positive-int "--eval-memory-limit-mb" mb))))))
+
+(define option-defaults
+  (hasheq 'corpus-root default-corpus-root
+          'fixtures-root default-fixtures-root
+          'json-out default-json-out
+          'md-out default-md-out
+          'promote-missing-version? default-promote-missing-version?
+          'promoted-out-dir default-promoted-out-dir
+          'eval-timeout-seconds default-eval-timeout-seconds
+          'eval-memory-limit-bytes default-eval-memory-limit-bytes))
+
+(define opts
+  (parse-cli-options 'analyze_corpus_gaps
+                     (vector->list (current-command-line-arguments))
+                     option-specs
+                     option-defaults))
+
+(define corpus-root (hash-ref opts 'corpus-root))
+(define fixtures-root (hash-ref opts 'fixtures-root))
+(define json-out (hash-ref opts 'json-out))
+(define md-out (hash-ref opts 'md-out))
+(define promote-missing-version? (hash-ref opts 'promote-missing-version?))
+(define promoted-out-dir (hash-ref opts 'promoted-out-dir))
+(define eval-timeout-seconds (hash-ref opts 'eval-timeout-seconds))
+(define eval-memory-limit-bytes (hash-ref opts 'eval-memory-limit-bytes))
 
 (define (path->display p)
   (path->string (find-relative-path repo-root p)))
@@ -88,27 +125,24 @@
 
 (define (first-meaningful-line source)
   (define lines (regexp-split #px"\r\n|\n|\r" source))
-  (let loop ([ls lines] [in-block-comment? #f])
-    (cond
-      [(null? ls) #f]
-      [else
-       (define line (string-trim (car ls)))
+  (define (go remaining in-block-comment?)
+    (match remaining
+      ['() #f]
+      [(cons raw-line rest)
+       (define line (string-trim raw-line))
        (cond
          [in-block-comment?
-          (if (regexp-match? #px"(?i:\\bTLDR\\b)" line)
-              (loop (cdr ls) #f)
-              (loop (cdr ls) #t))]
+          (go rest (not (regexp-match? #px"(?i:\\bTLDR\\b)" line)))]
          [(string=? line "")
-          (loop (cdr ls) #f)]
+          (go rest #f)]
          [(regexp-match? #px"^#!" line)
-          (loop (cdr ls) #f)]
+          (go rest #f)]
          [(regexp-match? #px"(?i:^OBTW\\b)" line)
-          (if (regexp-match? #px"(?i:\\bTLDR\\b)" line)
-              (loop (cdr ls) #f)
-              (loop (cdr ls) #t))]
+          (go rest (not (regexp-match? #px"(?i:\\bTLDR\\b)" line)))]
          [(regexp-match? #px"(?i:^BTW\\b)" line)
-          (loop (cdr ls) #f)]
-         [else line])])))
+          (go rest #f)]
+         [else line])]))
+  (go lines #f))
 
 (define (header-class source)
   (define first-line (first-meaningful-line source))
@@ -128,27 +162,28 @@
             (format "out-of-scope-version-~a" v))])]))
 
 (define (first-meaningful-line-index lines)
-  (let loop ([i 0] [in-block-comment? #f])
-    (cond
-      [(>= i (length lines)) #f]
-      [else
-       (define line (string-trim (list-ref lines i)))
+  (define (go i remaining in-block-comment?)
+    (match remaining
+      ['() #f]
+      [(cons raw-line rest)
+       (define line (string-trim raw-line))
        (cond
          [in-block-comment?
-          (if (regexp-match? #px"(?i:\\bTLDR\\b)" line)
-              (loop (+ i 1) #f)
-              (loop (+ i 1) #t))]
+          (go (add1 i)
+              rest
+              (not (regexp-match? #px"(?i:\\bTLDR\\b)" line)))]
          [(string=? line "")
-          (loop (+ i 1) #f)]
+          (go (add1 i) rest #f)]
          [(regexp-match? #px"^#!" line)
-          (loop (+ i 1) #f)]
+          (go (add1 i) rest #f)]
          [(regexp-match? #px"(?i:^OBTW\\b)" line)
-          (if (regexp-match? #px"(?i:\\bTLDR\\b)" line)
-              (loop (+ i 1) #f)
-              (loop (+ i 1) #t))]
+          (go (add1 i)
+              rest
+              (not (regexp-match? #px"(?i:\\bTLDR\\b)" line)))]
          [(regexp-match? #px"(?i:^BTW\\b)" line)
-          (loop (+ i 1) #f)]
-         [else i])])))
+          (go (add1 i) rest #f)]
+         [else i])]))
+  (go 0 lines #f))
 
 (define (promote-missing-version-source source)
   (define lines (regexp-split #px"\r\n|\n|\r" source))

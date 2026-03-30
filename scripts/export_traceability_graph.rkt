@@ -1,6 +1,7 @@
 #lang racket/base
 
 (require json
+         racket/dict
          racket/file
          racket/format
          racket/list
@@ -149,7 +150,7 @@
 (define inferred-overlap-edges
   (for*/fold ([acc '()])
              ([adj (in-list adjudication-nodes)]
-              [(cid code-refs) (in-hash clause-code-set)])
+              [(cid code-refs) (in-dict clause-code-set)])
     (define aid (hash-ref adj 'id))
     (define overlap
       (filter (lambda (x) (member x code-refs))

@@ -1,6 +1,7 @@
 #lang racket/base
 
 (require racket/format
+         racket/dict
          racket/list
          racket/match
          racket/path
@@ -63,10 +64,10 @@
 (define (validate-hash-entry entry idx rules [ctx #hasheq()])
   (if (hash? entry)
       (let ([entry-ctx (hash-set ctx 'entry entry)])
-		(append*
-		  (required-key-errors entry idx rules)
-		  (for/list ([rule (in-list rules)])
-			(rule-check-errors entry idx rule entry-ctx))))
+        (append*
+         (required-key-errors entry idx rules)
+         (for/list ([rule (in-list rules)])
+           (rule-check-errors entry idx rule entry-ctx))))
       (list (entry-error idx "expected hash entry, got ~e" entry))))
 
 (define (validate-entry-list entries rules [context-builder (lambda (_entry _idx) #hasheq())])
@@ -82,7 +83,7 @@
       (hash-update h id add1 0)))
   (define dupes
     (sort
-     (for/list ([(id count) (in-hash counts)]
+     (for/list ([(id count) (in-dict counts)]
                 #:when (> count 1))
        id)
      string<?))

@@ -169,4 +169,13 @@
     (expected-stdout . "3\n")
     (source-ref . "external:lci-issue-47 + v1.3:407")
     (tags . ("it" "external-promotion")))
+
+  #hasheq(
+    (id . "v1_3_project_authored_quine")
+    (spec-version . "1.3")
+    (title . "Project-authored multiline quine")
+    (source-file . "programs/v1_3_project_authored_quine.lol")
+    (expected-stdout . #f)
+    (source-ref . "project-authored:quine")
+    (tags . ("project-authored" "quine" "functions" "smoosh")))
 )
