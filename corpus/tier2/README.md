@@ -24,6 +24,19 @@ Implementation and corpus candidates discovered from the top-level PDF survey ar
 
 `CANDIDATE_REPOS.tsv` is now tiered (`tier1`, `tier2`, `tier3`) and drives all corpus sync operations.
 
+Implementation-like candidate kinds now include:
+
+- `interpreter`
+- `compiler`
+- `parser`
+- `transpiler`
+- `dsl`
+
+These are treated as code-bearing implementation captures during corpus sync
+and extraction. They are not all runtime oracles by default; parser-only and
+transpiler repos stay in the catalog because they matter for later syntax and
+capability comparison work.
+
 ## Refreshing
 
 Run:

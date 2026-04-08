@@ -1,0 +1,588 @@
+repo	language	stars	code_hit_count	in_candidate_catalog	in_language_snapshot	html_url
+justinmeza/lci	C	809	10	yes	yes	https://github.com/justinmeza/lci
+justinmeza/lolcode-spec		631	0	no	no	https://github.com/justinmeza/lolcode-spec
+justinmeza/httpd.lol	LOLCODE	137	0	yes	yes	https://github.com/justinmeza/httpd.lol
+justinmeza/lolcode	C	58	0	no	no	https://github.com/justinmeza/lolcode
+igrigorik/ruby2lolz	Ruby	38	0	no	no	https://github.com/igrigorik/ruby2lolz
+replit-archive/lol-coffee	CoffeeScript	25	0	no	no	https://github.com/replit-archive/lol-coffee
+rodrigocaldeira/tictactoelolcode	LOLCODE	21	1	no	yes	https://github.com/rodrigocaldeira/tictactoelolcode
+LeartS/loleuler	LOLCODE	18	2	yes	yes	https://github.com/LeartS/loleuler
+jD91mZM2/rust-lci	Rust	16	3	yes	yes	https://github.com/jD91mZM2/rust-lci
+arwinneil/vscode-lolcode		15	0	no	no	https://github.com/arwinneil/vscode-lolcode
+leyarotheconquerer/lolcode-reference	HTML	14	0	no	no	https://github.com/leyarotheconquerer/lolcode-reference
+Swizec/lolcode-babel-macro	JavaScript	12	0	no	no	https://github.com/Swizec/lolcode-babel-macro
+NullDev/I-HAS-JS	JavaScript	11	0	yes	no	https://github.com/NullDev/I-HAS-JS
+blongden/lolcode-php	PHP	10	1	no	yes	https://github.com/blongden/lolcode-php
+Stovoy/LOLCODE-Snake	LOLCODE	10	0	no	yes	https://github.com/Stovoy/LOLCODE-Snake
+ash-of-the-meadow/LOLC	C	9	0	no	no	https://github.com/ash-of-the-meadow/LOLC
+fsill99/fibonacci	LOLCODE	8	1	no	yes	https://github.com/fsill99/fibonacci
+Adjamo/ROFL-On-Rails	Ruby	8	0	no	no	https://github.com/Adjamo/ROFL-On-Rails
+CodaFi/LOLCODE.tmLanguage		8	0	no	no	https://github.com/CodaFi/LOLCODE.tmLanguage
+Kimbsy/lolcode	LOLCODE	7	2	no	yes	https://github.com/Kimbsy/lolcode
+markjreed/eulol	LOLCODE	7	2	yes	yes	https://github.com/markjreed/eulol
+Xe/lolcode.vim	VimL	7	0	no	no	https://github.com/Xe/lolcode.vim
+jynnantonix/lolcode	Python	6	20	no	yes	https://github.com/jynnantonix/lolcode
+JSantosP/lolcode-dsl	Scala	6	0	no	no	https://github.com/JSantosP/lolcode-dsl
+eggyknap/pllolcode	C	6	0	yes	no	https://github.com/eggyknap/pllolcode
+mapmeld/MapPLZ	JavaScript	6	0	no	no	https://github.com/mapmeld/MapPLZ
+netfri25/rlci	Rust	6	0	no	no	https://github.com/netfri25/rlci
+browndeer/lcc	C	5	4	no	yes	https://github.com/browndeer/lcc
+parrot/lolcode	Perl	5	3	no	yes	https://github.com/parrot/lolcode
+HogardDeLauger/lolcode-equation-solver	LOLCODE	5	1	no	yes	https://github.com/HogardDeLauger/lolcode-equation-solver
+javif89/webcat	Python	5	1	no	yes	https://github.com/javif89/webcat
+PieVieRo/LOLCODE-calculator	LOLCODE	5	0	no	yes	https://github.com/PieVieRo/LOLCODE-calculator
+gomfunkel/lolcode-playground		5	0	no	no	https://github.com/gomfunkel/lolcode-playground
+jqr/lolcodr	Ruby	5	0	no	no	https://github.com/jqr/lolcodr
+meh/llvm-lol	C++	5	0	no	no	https://github.com/meh/llvm-lol
+satyamshorrf/Funny-Coding-Languages	POV-Ray SDL	5	0	no	no	https://github.com/satyamshorrf/Funny-Coding-Languages
+jocelyne8/lolcode	LOLCODE	4	9	no	yes	https://github.com/jocelyne8/lolcode
+mattleibow/lolcode-dot-net	C#	4	2	no	yes	https://github.com/mattleibow/lolcode-dot-net
+Buttars/LOLCODE-FIBONACCI	LOLCODE	4	1	no	yes	https://github.com/Buttars/LOLCODE-FIBONACCI
+aurasphere/scripts	Java	4	0	no	no	https://github.com/aurasphere/scripts
+qoobaa/lol	Ruby	4	0	yes	no	https://github.com/qoobaa/lol
+MonliH/lulz	Rust	3	10	no	yes	https://github.com/MonliH/lulz
+redcapital/layo	Ruby	3	10	no	yes	https://github.com/redcapital/layo
+JasonBock/LOLCode.net	C#	3	2	yes	yes	https://github.com/JasonBock/LOLCode.net
+aduros/trollcat		3	1	no	yes	https://github.com/aduros/trollcat
+carlmathisen/htmx-lolcode	LOLCODE	3	1	no	yes	https://github.com/carlmathisen/htmx-lolcode
+justinmeza/lollm	LOLCODE	3	1	no	yes	https://github.com/justinmeza/lollm
+Zyndoras/calculator.lol	LOLCODE	3	0	no	yes	https://github.com/Zyndoras/calculator.lol
+akleemans/pogo-ivrater-lolcode	LOLCODE	3	0	no	yes	https://github.com/akleemans/pogo-ivrater-lolcode
+aurasphere/ftpd.lol	LOLCODE	3	0	yes	yes	https://github.com/aurasphere/ftpd.lol
+bodil/lolcode-mode	Emacs Lisp	3	0	no	no	https://github.com/bodil/lolcode-mode
+netfri25/lolcode-json	LOLCODE	3	0	no	yes	https://github.com/netfri25/lolcode-json
+rymaju/lolcode	Racket	3	0	no	no	https://github.com/rymaju/lolcode
+theDrake/lolcode-experiments	LOLCODE	3	0	yes	yes	https://github.com/theDrake/lolcode-experiments
+Danie-A/CMSC124_Project_LolCode_Interpreter	Python	2	8	no	yes	https://github.com/Danie-A/CMSC124_Project_LolCode_Interpreter
+seanpm2001/SNU_2D_ProgrammingTools_IDE_LOLCODE	LOLCODE	2	6	no	yes	https://github.com/seanpm2001/SNU_2D_ProgrammingTools_IDE_LOLCODE
+pmonks/clj-lolcode	Clojure	2	4	no	yes	https://github.com/pmonks/clj-lolcode
+belkadan/lolcode-rb	Ruby	2	3	no	yes	https://github.com/belkadan/lolcode-rb
+chutasano/lolcode	LOLCODE	2	3	no	yes	https://github.com/chutasano/lolcode
+simark/lolc	Java	2	3	no	yes	https://github.com/simark/lolc
+seanpm2001/Learn-LOLCODE	LOLCODE	2	2	yes	yes	https://github.com/seanpm2001/Learn-LOLCODE
+austinbyers/LOLcat	Python	2	1	no	yes	https://github.com/austinbyers/LOLcat
+Chameleon-Coder/cat-journey	LOLCODE	2	0	no	yes	https://github.com/Chameleon-Coder/cat-journey
+EloniX-X/LOLCODE-calculator	LOLCODE	2	0	no	yes	https://github.com/EloniX-X/LOLCODE-calculator
+KrazIvan/LOLCODE-grammar-vscode	TypeScript	2	0	no	no	https://github.com/KrazIvan/LOLCODE-grammar-vscode
+YS-L/hlci	Haskell	2	0	yes	no	https://github.com/YS-L/hlci
+bernardjezua/LOLCODE-Interpreter	Python	2	0	yes	no	https://github.com/bernardjezua/LOLCODE-Interpreter
+calvinmm/lolcode-dsl	Scala	2	0	no	no	https://github.com/calvinmm/lolcode-dsl
+fabasoad/setup-lolcode-action	Shell	2	0	no	no	https://github.com/fabasoad/setup-lolcode-action
+nathanchere/HackerRank_LOLCODE	LOLCODE	2	0	no	yes	https://github.com/nathanchere/HackerRank_LOLCODE
+rae-ralston/can-i-haz-blockchain	JavaScript	2	0	no	no	https://github.com/rae-ralston/can-i-haz-blockchain
+rlbayeta2589/LOLCODE-ProtoInterpreter-CMSC124Proj	C#	2	0	no	no	https://github.com/rlbayeta2589/LOLCODE-ProtoInterpreter-CMSC124Proj
+rodrigocaldeira/Bitcoin-Prices	LOLCODE	2	0	no	yes	https://github.com/rodrigocaldeira/Bitcoin-Prices
+seanpm2001/AI2001_Category-Source_Code-SC-LOLCODE	R	2	0	yes	no	https://github.com/seanpm2001/AI2001_Category-Source_Code-SC-LOLCODE
+seanpm2001/Bliss_Browser_LOLCODE	LOLCODE	2	0	no	yes	https://github.com/seanpm2001/Bliss_Browser_LOLCODE
+shreyaslad/Fun-with-LOLCODE	LOLCODE	2	0	no	yes	https://github.com/shreyaslad/Fun-with-LOLCODE
+steenhulthin/LOLCODE_NPP		2	0	no	no	https://github.com/steenhulthin/LOLCODE_NPP
+timotei/lolcode_to_c	C	2	0	no	no	https://github.com/timotei/lolcode_to_c
+lolcodepp/lci	C	1	10	no	yes	https://github.com/lolcodepp/lci
+nikitagrygoriev/LOLCODE_Compiler	Java	1	6	no	yes	https://github.com/nikitagrygoriev/LOLCODE_Compiler
+CharlesTabuzo/LOLCODE-interpreter	Python	1	2	no	yes	https://github.com/CharlesTabuzo/LOLCODE-interpreter
+camanzanido/LOLCODE-Interpreter	Python	1	2	no	yes	https://github.com/camanzanido/LOLCODE-Interpreter
+cvpua/CMSC124_Project	Python	1	2	no	yes	https://github.com/cvpua/CMSC124_Project
+gitsly/lolcode-dot-net	C#	1	2	no	yes	https://github.com/gitsly/lolcode-dot-net
+mutcianm/lolcodec	Java	1	2	no	yes	https://github.com/mutcianm/lolcodec
+ABCD-rgb/lolcode-interpreter	Python	1	1	no	yes	https://github.com/ABCD-rgb/lolcode-interpreter
+TheDummi/Meow	LOLCODE	1	1	no	yes	https://github.com/TheDummi/Meow
+jedalain/cmsc-124-lolcode-project	Python	1	1	no	yes	https://github.com/jedalain/cmsc-124-lolcode-project
+mathisneunzig/LOLCODE	LOLCODE	1	1	no	yes	https://github.com/mathisneunzig/LOLCODE
+mjrb/mongo-lol-driver-example	LOLCODE	1	1	no	yes	https://github.com/mjrb/mongo-lol-driver-example
+monumei/skibidi-brat	Python	1	1	no	yes	https://github.com/monumei/skibidi-brat
+Arfuirl/Text-Adventure-in-LOLCODE		1	0	no	no	https://github.com/Arfuirl/Text-Adventure-in-LOLCODE
+BGP100/LOLCODE-Guide		1	0	no	no	https://github.com/BGP100/LOLCODE-Guide
+Chameleon-Coder/lolcode-rpg-template	LOLCODE	1	0	no	yes	https://github.com/Chameleon-Coder/lolcode-rpg-template
+Chameleon-Coder/stunning-sniffle	LOLCODE	1	0	no	yes	https://github.com/Chameleon-Coder/stunning-sniffle
+ChristopherA8/lolcalc	LOLCODE	1	0	no	yes	https://github.com/ChristopherA8/lolcalc
+Daniel-Pete/dolomite-lolcode-interpreter	Python	1	0	no	no	https://github.com/Daniel-Pete/dolomite-lolcode-interpreter
+Devedir/lolcodeweb	HTML	1	0	no	no	https://github.com/Devedir/lolcodeweb
+GerardOlviga/lolcode-interpreter	Java	1	0	no	no	https://github.com/GerardOlviga/lolcode-interpreter
+Idkwhoami42/Lolcode	LOLCODE	1	0	no	yes	https://github.com/Idkwhoami42/Lolcode
+InzamamRahaman/LOLCODE	Python	1	0	no	no	https://github.com/InzamamRahaman/LOLCODE
+Lucki/gtksourceview-lolcode		1	0	no	no	https://github.com/Lucki/gtksourceview-lolcode
+MemeFlavor/LOLSCRIPT	Lua	1	0	no	no	https://github.com/MemeFlavor/LOLSCRIPT
+Nameless9000/LOLCODE_Shell	LOLCODE	1	0	no	yes	https://github.com/Nameless9000/LOLCODE_Shell
+Nicolas-hr/Lolcode	LOLCODE	1	0	no	yes	https://github.com/Nicolas-hr/Lolcode
+SandeeepKiran/LOLCODE		1	0	no	no	https://github.com/SandeeepKiran/LOLCODE
+Shellanigans/EmojiPaster	PowerShell	1	0	no	no	https://github.com/Shellanigans/EmojiPaster
+StexX/catpiler	Java	1	0	no	no	https://github.com/StexX/catpiler
+Swizec/lolcode.macro-example	JavaScript	1	0	no	no	https://github.com/Swizec/lolcode.macro-example
+Teach-Programming/LolCode		1	0	no	no	https://github.com/Teach-Programming/LolCode
+TechDudie/learning-lolcode	LOLCODE	1	0	no	yes	https://github.com/TechDudie/learning-lolcode
+TheWrongAlice/ROK-PAPR-STABBERS	LOLCODE	1	0	no	yes	https://github.com/TheWrongAlice/ROK-PAPR-STABBERS
+Yash-Singh1/lolcode-console	JavaScript	1	0	no	no	https://github.com/Yash-Singh1/lolcode-console
+abhinavk001/my-first-esoteric-lang	LOLCODE	1	0	no	yes	https://github.com/abhinavk001/my-first-esoteric-lang
+ajgajg1134/LolcodeInterpreter		1	0	no	no	https://github.com/ajgajg1134/LolcodeInterpreter
+aleless/Guess-the-Numer-LOLCODE	LOLCODE	1	0	no	yes	https://github.com/aleless/Guess-the-Numer-LOLCODE
+calebwherry/LOLCODE-Examples		1	0	no	no	https://github.com/calebwherry/LOLCODE-Examples
+cemtuver/aoc21-lolcode	LOLCODE	1	0	no	yes	https://github.com/cemtuver/aoc21-lolcode
+chriswaugh/lolbuzz	LOLCODE	1	0	no	yes	https://github.com/chriswaugh/lolbuzz
+chunkybanana/PXLCODE	Python	1	0	no	no	https://github.com/chunkybanana/PXLCODE
+d-stew/lmaonade-stand	Makefile	1	0	no	no	https://github.com/d-stew/lmaonade-stand
+denzven/PalindromeChecker.lol	LOLCODE	1	0	no	yes	https://github.com/denzven/PalindromeChecker.lol
+dunngh/LOLtranslator	C++	1	0	no	no	https://github.com/dunngh/LOLtranslator
+francisquianzon/CMSC124-LOLCode-Interpreter	Python	1	0	no	no	https://github.com/francisquianzon/CMSC124-LOLCode-Interpreter
+fruit-in/lolcat-translator	LOLCODE	1	0	no	yes	https://github.com/fruit-in/lolcat-translator
+hmlendea/rock-paper-scissors-lolcode	LOLCODE	1	0	no	yes	https://github.com/hmlendea/rock-paper-scissors-lolcode
+huyvohcmc/lolcode-parser	Scala	1	0	no	no	https://github.com/huyvohcmc/lolcode-parser
+ishowportugal/LOLCODE	LOLCODE	1	0	no	yes	https://github.com/ishowportugal/LOLCODE
+keijeizei/nyanterpreter	JavaScript	1	0	no	no	https://github.com/keijeizei/nyanterpreter
+marioaquino/LOLcode.tmbundle		1	0	no	no	https://github.com/marioaquino/LOLcode.tmbundle
+markwatkinson/lol-cm	JavaScript	1	0	no	no	https://github.com/markwatkinson/lol-cm
+markwatkinson/loljs	JavaScript	1	0	yes	no	https://github.com/markwatkinson/loljs
+markwongsk/LOLCODE	Standard ML	1	0	no	no	https://github.com/markwongsk/LOLCODE
+martinmorando/lolcode	LOLCODE	1	0	no	yes	https://github.com/martinmorando/lolcode
+mclarkk/LOLCode	Python	1	0	no	no	https://github.com/mclarkk/LOLCode
+mishaaq/pylol	Python	1	0	no	no	https://github.com/mishaaq/pylol
+morristech/LOLCode	Java	1	0	no	no	https://github.com/morristech/LOLCode
+netfri25/magshimim-trivia-lol		1	0	no	no	https://github.com/netfri25/magshimim-trivia-lol
+oey192/LOLCODE2Cplusplus	C++	1	0	no	no	https://github.com/oey192/LOLCODE2Cplusplus
+prisems/LOLCODE-Calculator-v2	LOLCODE	1	0	no	yes	https://github.com/prisems/LOLCODE-Calculator-v2
+racarlos/lolterpreter	Python	1	0	no	no	https://github.com/racarlos/lolterpreter
+ryzbaka/LOLCODE-STUFF	LOLCODE	1	0	no	yes	https://github.com/ryzbaka/LOLCODE-STUFF
+shaunlgs/lolcode-simple-algorithms	LOLCODE	1	0	yes	yes	https://github.com/shaunlgs/lolcode-simple-algorithms
+sjansen/lolcode-go	Go	1	0	no	no	https://github.com/sjansen/lolcode-go
+stephen-riley/lolc	C#	1	0	no	no	https://github.com/stephen-riley/lolc
+stephenchouca/lol2cpp	C++	1	0	no	no	https://github.com/stephenchouca/lol2cpp
+threeifbywhiskey/vim-lolcode	VimL	1	0	no	no	https://github.com/threeifbywhiskey/vim-lolcode
+tmaciejewski/lcc	C	1	0	no	no	https://github.com/tmaciejewski/lcc
+wspace/0x0dea-lolcode	LOLCODE	1	0	no	yes	https://github.com/wspace/0x0dea-lolcode
+yule/lolcode		1	0	no	no	https://github.com/yule/lolcode
+darylldan/lolcode-testcases	LOLCODE	0	5	no	yes	https://github.com/darylldan/lolcode-testcases
+DvaeFroot/cmsc124-lolcode-interpreter	Python	0	4	yes	yes	https://github.com/DvaeFroot/cmsc124-lolcode-interpreter
+jpcarreon/loco	Java	0	4	yes	yes	https://github.com/jpcarreon/loco
+mattleibow/dotnet-lolcode	C#	0	4	no	yes	https://github.com/mattleibow/dotnet-lolcode
+driee17/cmsc124-project	Python	0	3	no	yes	https://github.com/driee17/cmsc124-project
+mldamalerio/LOLCODE-Interpreter	Python	0	3	no	yes	https://github.com/mldamalerio/LOLCODE-Interpreter
+mreifer1/RUST_LOLCODE_COMPILER	Rust	0	3	no	yes	https://github.com/mreifer1/RUST_LOLCODE_COMPILER
+nicodecastro/lolcode-interpreter	Python	0	3	yes	yes	https://github.com/nicodecastro/lolcode-interpreter
+roxanneypr/LolCode-interpreter	Python	0	3	no	yes	https://github.com/roxanneypr/LolCode-interpreter
+tedneward/lolcomp	Kotlin	0	3	no	yes	https://github.com/tedneward/lolcomp
+Ajlyde/LOLCODE	Python	0	2	no	yes	https://github.com/Ajlyde/LOLCODE
+Theoistic/lolcode-dot-net	C#	0	2	no	yes	https://github.com/Theoistic/lolcode-dot-net
+chunlea/lolcode-dot-net	C#	0	2	no	yes	https://github.com/chunlea/lolcode-dot-net
+garthendrich/lolcode-interpreter	Python	0	2	yes	yes	https://github.com/garthendrich/lolcode-interpreter
+rdohms/lolcode-parser	PHP	0	2	no	yes	https://github.com/rdohms/lolcode-parser
+unycorn/lolcode-dot-net	C#	0	2	no	yes	https://github.com/unycorn/lolcode-dot-net
+EbrahimGabriel/lolcode-interpreter	Python	0	1	no	yes	https://github.com/EbrahimGabriel/lolcode-interpreter
+Izaaq/Izaaq-FYP	Python	0	1	no	yes	https://github.com/Izaaq/Izaaq-FYP
+MichaelSun48/LOLCODE_TTT	LOLCODE	0	1	no	yes	https://github.com/MichaelSun48/LOLCODE_TTT
+RodFlores27/CMSC124Project	Python	0	1	no	yes	https://github.com/RodFlores27/CMSC124Project
+SallySanban/LOLCODE-Interpreter	Python	0	1	yes	yes	https://github.com/SallySanban/LOLCODE-Interpreter
+alxzdani/LOLCODE-interpreter-cocoy-dani-kyro	Python	0	1	no	yes	https://github.com/alxzdani/LOLCODE-interpreter-cocoy-dani-kyro
+amtuazon4/PyGUI	Python	0	1	no	yes	https://github.com/amtuazon4/PyGUI
+bearddan2000/lolcode-cli-hello-world	Shell	0	1	no	yes	https://github.com/bearddan2000/lolcode-cli-hello-world
+cbrepp/lolchess	LOLCODE	0	1	no	yes	https://github.com/cbrepp/lolchess
+donno2048/Quines	HTML	0	1	no	yes	https://github.com/donno2048/Quines
+jerichodolendo/lolcode-interpreter	Python	0	1	no	yes	https://github.com/jerichodolendo/lolcode-interpreter
+klenndacoder69/lolcode-project-124	Python	0	1	no	yes	https://github.com/klenndacoder69/lolcode-project-124
+krispypatata/lolcode-interpreter-py	Python	0	1	no	yes	https://github.com/krispypatata/lolcode-interpreter-py
+ksumallo/lolspeaker	Python	0	1	no	yes	https://github.com/ksumallo/lolspeaker
+maadriana/lolcode-interpreter	Python	0	1	yes	yes	https://github.com/maadriana/lolcode-interpreter
+nadineanareta/lolcode-interpreter	Python	0	1	no	yes	https://github.com/nadineanareta/lolcode-interpreter
+nfenciso1/lolcode-interpreter	Python	0	1	yes	yes	https://github.com/nfenciso1/lolcode-interpreter
+rvantonder/antlr-lolcode	Java	0	1	no	yes	https://github.com/rvantonder/antlr-lolcode
+tashrique/LOLCODE-The-Williams-Frosh-Game	LOLCODE	0	1	no	yes	https://github.com/tashrique/LOLCODE-The-Williams-Frosh-Game
+williambl/lolcode-matrix-multiplier	LOLCODE	0	1	no	yes	https://github.com/williambl/lolcode-matrix-multiplier
+0xKY/LOL	LOLCODE	0	0	no	yes	https://github.com/0xKY/LOL
+0xicl33n/discord.lol		0	0	no	no	https://github.com/0xicl33n/discord.lol
+11A11/Lolcode-spongebob-meme-text	LOLCODE	0	0	no	yes	https://github.com/11A11/Lolcode-spongebob-meme-text
+3r1k0n/LOLCODEshenanigans	LOLCODE	0	0	no	yes	https://github.com/3r1k0n/LOLCODEshenanigans
+5quirre1/LOLCODE-learning-progress	LOLCODE	0	0	no	yes	https://github.com/5quirre1/LOLCODE-learning-progress
+AFlyingCar/Interpreter	Python	0	0	no	no	https://github.com/AFlyingCar/Interpreter
+AJEvans/AdventOfCode2022	LOLCODE	0	0	no	yes	https://github.com/AJEvans/AdventOfCode2022
+ALRnoche/CMSC-124-ST2L-LOLCODE-Interpreter-by-AGA-Translator		0	0	no	no	https://github.com/ALRnoche/CMSC-124-ST2L-LOLCODE-Interpreter-by-AGA-Translator
+ANG3L0/mipsr10k	Verilog	0	0	no	no	https://github.com/ANG3L0/mipsr10k
+AScheibe/lolcode-calculator	LOLCODE	0	0	no	yes	https://github.com/AScheibe/lolcode-calculator
+Ahmadzaihabib/lolCodeFinal		0	0	no	no	https://github.com/Ahmadzaihabib/lolCodeFinal
+AidanTheJsDev/lolcode-calculator	LOLCODE	0	0	no	yes	https://github.com/AidanTheJsDev/lolcode-calculator
+Ajlyde/LOLCODE-group6		0	0	no	no	https://github.com/Ajlyde/LOLCODE-group6
+AlisaTemp/lolcode-project	LOLCODE	0	0	no	yes	https://github.com/AlisaTemp/lolcode-project
+Anormalm/EsoSim	JavaScript	0	0	no	no	https://github.com/Anormalm/EsoSim
+Antropom/lolcode-docs	HTML	0	0	no	no	https://github.com/Antropom/lolcode-docs
+ArnavK-09/trieslolcode	LOLCODE	0	0	no	yes	https://github.com/ArnavK-09/trieslolcode
+AydenMartin/LOLCalc		0	0	no	no	https://github.com/AydenMartin/LOLCalc
+BLANK-Zora/LOLCODE	LOLCODE	0	0	no	yes	https://github.com/BLANK-Zora/LOLCODE
+BOXEL-REBOUND/LOLCODE	LOLCODE	0	0	no	yes	https://github.com/BOXEL-REBOUND/LOLCODE
+Bonkowz/lolcode-interpreter-Python	Python	0	0	no	no	https://github.com/Bonkowz/lolcode-interpreter-Python
+BrilZliaN/VKCode-bin		0	0	no	no	https://github.com/BrilZliaN/VKCode-bin
+Brimirrrr/lolcode-interpreter	Python	0	0	no	no	https://github.com/Brimirrrr/lolcode-interpreter
+BrookTheBook/Hello-World-In-LOLCODE	LOLCODE	0	0	no	yes	https://github.com/BrookTheBook/Hello-World-In-LOLCODE
+CMSC124-SAT-SEM1-2021/Eclarin_A_Milla_R_LOLCODE		0	0	no	no	https://github.com/CMSC124-SAT-SEM1-2021/Eclarin_A_Milla_R_LOLCODE
+CMSC124-SAT-SEM1-2021/Gamata_M_Tiangson_C_LOLCODE	LOLCODE	0	0	no	yes	https://github.com/CMSC124-SAT-SEM1-2021/Gamata_M_Tiangson_C_LOLCODE
+Camto/mk.lol	LOLCODE	0	0	no	yes	https://github.com/Camto/mk.lol
+CaseySchneider/LMAOcode-Compiler	Python	0	0	no	no	https://github.com/CaseySchneider/LMAOcode-Compiler
+CheikOmar325/LolCode-Snippets	LOLCODE	0	0	no	yes	https://github.com/CheikOmar325/LolCode-Snippets
+ChenDDDAA/LOLcode		0	0	no	no	https://github.com/ChenDDDAA/LOLcode
+Chingles2404/first-lolcode-program	LOLCODE	0	0	no	yes	https://github.com/Chingles2404/first-lolcode-program
+ChristianLois/CMSC124-LOLCODE-INTERPRETER	Python	0	0	no	no	https://github.com/ChristianLois/CMSC124-LOLCODE-INTERPRETER
+Ckeshua/lolcode	LOLCODE	0	0	no	yes	https://github.com/Ckeshua/lolcode
+Cleggatron/LoLCodeFizzBuzz	LOLCODE	0	0	no	yes	https://github.com/Cleggatron/LoLCodeFizzBuzz
+ComputerGuyYash/LOLCODE-RawProgam	LOLCODE	0	0	no	yes	https://github.com/ComputerGuyYash/LOLCODE-RawProgam
+ConradLax/CMSC124-LOLCode_Interpreter	Java	0	0	no	no	https://github.com/ConradLax/CMSC124-LOLCode_Interpreter
+DavidBenavidez/lolcode-interpreter	C	0	0	no	no	https://github.com/DavidBenavidez/lolcode-interpreter
+DeepakMartinez/LoLcode		0	0	no	no	https://github.com/DeepakMartinez/LoLcode
+DrownedInAPond/Lolcode-Calculator	LOLCODE	0	0	no	yes	https://github.com/DrownedInAPond/Lolcode-Calculator
+EastsidePreparatorySchool/Compilers	Java	0	0	no	no	https://github.com/EastsidePreparatorySchool/Compilers
+ElroyCabalda/LOLCODE-Interpreter	Python	0	0	no	no	https://github.com/ElroyCabalda/LOLCODE-Interpreter
+EmptineX/Lolcode	LOLCODE	0	0	no	yes	https://github.com/EmptineX/Lolcode
+EmritYR/LOLCODE-PARSER	Python	0	0	no	no	https://github.com/EmritYR/LOLCODE-PARSER
+EtherDaler/lolcode-iterpr	C++	0	0	no	no	https://github.com/EtherDaler/lolcode-iterpr
+EvanCPSC/lolcodes	LOLCODE	0	0	no	yes	https://github.com/EvanCPSC/lolcodes
+FlamongoBird/LOLCODE-Fib	LOLCODE	0	0	no	yes	https://github.com/FlamongoBird/LOLCODE-Fib
+FoxWorn3365/LOL-Test	LOLCODE	0	0	no	yes	https://github.com/FoxWorn3365/LOL-Test
+Gaurav2015/lolcode2	C	0	0	no	no	https://github.com/Gaurav2015/lolcode2
+GayathriPCh/LoLCode-AI	TypeScript	0	0	no	no	https://github.com/GayathriPCh/LoLCode-AI
+Github12121/LOLCODE-STUFF	LOLCODE	0	0	no	yes	https://github.com/Github12121/LOLCODE-STUFF
+IceboxDev/LOLCODE	LOLCODE	0	0	no	yes	https://github.com/IceboxDev/LOLCODE
+InversionSpaces/lolcode-interpreter	C++	0	0	no	no	https://github.com/InversionSpaces/lolcode-interpreter
+JaiLeonor/LOLCODE-Interpreter	JavaScript	0	0	no	no	https://github.com/JaiLeonor/LOLCODE-Interpreter
+JayJeyaruban/rlcc	Rust	0	0	no	no	https://github.com/JayJeyaruban/rlcc
+Jeansidharta/lolcode-ast	Rust	0	0	no	no	https://github.com/Jeansidharta/lolcode-ast
+Jeansidharta/lolcode-interpreter	Rust	0	0	no	no	https://github.com/Jeansidharta/lolcode-interpreter
+Jeansidharta/lolcode-lsp	Rust	0	0	no	no	https://github.com/Jeansidharta/lolcode-lsp
+Jeansidharta/lolcode_to_lua	Rust	0	0	no	no	https://github.com/Jeansidharta/lolcode_to_lua
+JemTorres/lolinterpreter		0	0	no	no	https://github.com/JemTorres/lolinterpreter
+JohnReeves/lolcode		0	0	no	no	https://github.com/JohnReeves/lolcode
+Johnmacrocraft/stop-making-pmmp-forks	JavaScript	0	0	no	no	https://github.com/Johnmacrocraft/stop-making-pmmp-forks
+JonJC/lolcode-docs	HTML	0	0	no	no	https://github.com/JonJC/lolcode-docs
+JonathanMcCormickJr/lolcode-fractal-tree	LOLCODE	0	0	no	yes	https://github.com/JonathanMcCormickJr/lolcode-fractal-tree
+JonathanMcCormickJr/lolcode-web-app	LOLCODE	0	0	no	yes	https://github.com/JonathanMcCormickJr/lolcode-web-app
+JonathanMcCormickJr/my-first-lolcode-program	LOLCODE	0	0	no	yes	https://github.com/JonathanMcCormickJr/my-first-lolcode-program
+JoshuaStapleton/lolcode-parser	Python	0	0	no	no	https://github.com/JoshuaStapleton/lolcode-parser
+JramaeGallos/lmaoCode	Python	0	0	no	no	https://github.com/JramaeGallos/lmaoCode
+Jun-L04/RelativelyPRIME	LOLCODE	0	0	no	yes	https://github.com/Jun-L04/RelativelyPRIME
+KAYDAVID/LOLCALC	LOLCODE	0	0	no	yes	https://github.com/KAYDAVID/LOLCALC
+KevinGines1/lolcode	Python	0	0	no	no	https://github.com/KevinGines1/lolcode
+KyleCow/LOLCODe	LOLCODE	0	0	no	yes	https://github.com/KyleCow/LOLCODe
+Legitra/LOLCODE-THINGS	Python	0	0	no	no	https://github.com/Legitra/LOLCODE-THINGS
+Lizurt/jlci	Java	0	0	no	no	https://github.com/Lizurt/jlci
+Ljmbautista/LOLCODE-Interpreter-CMSC-124-Project-	Java	0	0	no	no	https://github.com/Ljmbautista/LOLCODE-Interpreter-CMSC-124-Project-
+LolCode9999/LOlCode99991		0	0	no	no	https://github.com/LolCode9999/LOlCode99991
+MKX00/lolcode	Python	0	0	no	no	https://github.com/MKX00/lolcode
+MKstarFromSwitch/lci-installer	Shell	0	0	no	no	https://github.com/MKstarFromSwitch/lci-installer
+Madseffect/LOLCODE		0	0	no	no	https://github.com/Madseffect/LOLCODE
+MarekGluch/lolcode-circle-and-cross	LOLCODE	0	0	no	yes	https://github.com/MarekGluch/lolcode-circle-and-cross
+MarkRidings/lolcode-docs	HTML	0	0	no	no	https://github.com/MarkRidings/lolcode-docs
+Mashuramaru/lolcode	LOLCODE	0	0	no	yes	https://github.com/Mashuramaru/lolcode
+Matiasarapura/lolcodeanalisis.github.io	HTML	0	0	no	no	https://github.com/Matiasarapura/lolcodeanalisis.github.io
+McMunchly/lolcode	LOLCODE	0	0	no	yes	https://github.com/McMunchly/lolcode
+Milkdromeda-333/Favorite-food-using-LOLCODE	LOLCODE	0	0	no	yes	https://github.com/Milkdromeda-333/Favorite-food-using-LOLCODE
+Milkdromeda-333/Integer-calculator-using-LOLCODE	LOLCODE	0	0	no	yes	https://github.com/Milkdromeda-333/Integer-calculator-using-LOLCODE
+Milkdromeda-333/name-asker-wiff-LOLCODE	LOLCODE	0	0	no	yes	https://github.com/Milkdromeda-333/name-asker-wiff-LOLCODE
+MineRobber9000/lua-lcvm	Lua	0	0	no	no	https://github.com/MineRobber9000/lua-lcvm
+MiscStuff839/Lolcode	LOLCODE	0	0	no	yes	https://github.com/MiscStuff839/Lolcode
+MrFlyingToasterman/lolcode-crackme		0	0	no	no	https://github.com/MrFlyingToasterman/lolcode-crackme
+Mtlayones/lolcode-interpreter	JavaScript	0	0	no	no	https://github.com/Mtlayones/lolcode-interpreter
+Multiball/LOLCAML	OCaml	0	0	no	no	https://github.com/Multiball/LOLCAML
+Neverjr/lolcode	Lex	0	0	no	no	https://github.com/Neverjr/lolcode
+NghiLamPhuc/ProgrammingLanguage.	Scala	0	0	no	no	https://github.com/NghiLamPhuc/ProgrammingLanguage.
+NicolePrivado/LolCode-Interpreter-ReactJS	JavaScript	0	0	no	no	https://github.com/NicolePrivado/LolCode-Interpreter-ReactJS
+NippyTheDev/LOLCODE-IDE	Python	0	0	no	no	https://github.com/NippyTheDev/LOLCODE-IDE
+Nuculais/21-Sticks	C#	0	0	no	no	https://github.com/Nuculais/21-Sticks
+OddballGreg/lolcode2019	Ruby	0	0	no	no	https://github.com/OddballGreg/lolcode2019
+Owkik/LOLCODE-Interpreter	Python	0	0	no	no	https://github.com/Owkik/LOLCODE-Interpreter
+PathikShah-13/-root-programming-entry		0	0	no	no	https://github.com/PathikShah-13/-root-programming-entry
+PathikShah-13/-root-programming-msd-entry		0	0	no	no	https://github.com/PathikShah-13/-root-programming-msd-entry
+PatricCaviezel/LOLCODE-Fibonacci	LOLCODE	0	0	no	yes	https://github.com/PatricCaviezel/LOLCODE-Fibonacci
+Pigottni/LOLcode_Project	Python	0	0	no	no	https://github.com/Pigottni/LOLcode_Project
+Praoubl/lolcode-stuff		0	0	no	no	https://github.com/Praoubl/lolcode-stuff
+QojoSatoru/LOLCODE	LOLCODE	0	0	no	yes	https://github.com/QojoSatoru/LOLCODE
+RaddedMC/gcd-in-lol	LOLCODE	0	0	no	yes	https://github.com/RaddedMC/gcd-in-lol
+RamBenitez/lolcode-lexical-analyzer	Python	0	0	no	no	https://github.com/RamBenitez/lolcode-lexical-analyzer
+RealFatCat/lolcode-jff		0	0	no	no	https://github.com/RealFatCat/lolcode-jff
+Rex-Kim/LOLCODE	C	0	0	no	no	https://github.com/Rex-Kim/LOLCODE
+SKDelow/lolcode	HTML	0	0	no	no	https://github.com/SKDelow/lolcode
+SVersj/go-lolcode	Go	0	0	no	no	https://github.com/SVersj/go-lolcode
+SandeeepKiran/LOLCODE-https-learnxinyminutes.com-docs-LOLCODE-		0	0	no	no	https://github.com/SandeeepKiran/LOLCODE-https-learnxinyminutes.com-docs-LOLCODE-
+Sig00rd/lol2py	Python	0	0	no	no	https://github.com/Sig00rd/lol2py
+SomeUnusualGames/Flag-Wars-3-LOLCODE	LOLCODE	0	0	yes	yes	https://github.com/SomeUnusualGames/Flag-Wars-3-LOLCODE
+Stanlee1234/LOLCODE-ADV-CALC	LOLCODE	0	0	no	yes	https://github.com/Stanlee1234/LOLCODE-ADV-CALC
+Sterlinsheeja/lolcode		0	0	no	no	https://github.com/Sterlinsheeja/lolcode
+Surachhya/LOLCODE_Markdown_Compiler	Rust	0	0	no	no	https://github.com/Surachhya/LOLCODE_Markdown_Compiler
+Swizec/lolcode-fizzbuzz-example	JavaScript	0	0	no	no	https://github.com/Swizec/lolcode-fizzbuzz-example
+TStut15/Random-Code	Fortran	0	0	no	no	https://github.com/TStut15/Random-Code
+TheRepoArchiver/stop-making-pmmp-forks	Python	0	0	no	no	https://github.com/TheRepoArchiver/stop-making-pmmp-forks
+TheSquashyMaker/LOLCODE-EXPERIMENTS	LOLCODE	0	0	no	yes	https://github.com/TheSquashyMaker/LOLCODE-EXPERIMENTS
+TheeErnie/lolcode_stuff	LOLCODE	0	0	no	yes	https://github.com/TheeErnie/lolcode_stuff
+Thisismygirlrakshaforsure/-LOLCODE		0	0	no	no	https://github.com/Thisismygirlrakshaforsure/-LOLCODE
+TimothyJosef-Reyes/LOL_CODE-INTERPRETER	Python	0	0	no	no	https://github.com/TimothyJosef-Reyes/LOL_CODE-INTERPRETER
+TylerMathews12/lolcode-RPS	LOLCODE	0	0	no	yes	https://github.com/TylerMathews12/lolcode-RPS
+UlisseMini/RockPaperScissors	LOLCODE	0	0	no	yes	https://github.com/UlisseMini/RockPaperScissors
+Vapidjimbo/LOLCode	HTML	0	0	no	no	https://github.com/Vapidjimbo/LOLCode
+Vapidjimbo/LOLCode3	HTML	0	0	no	no	https://github.com/Vapidjimbo/LOLCode3
+ViWilde/i-can-haz-mr-eatens-name	LOLCODE	0	0	no	yes	https://github.com/ViWilde/i-can-haz-mr-eatens-name
+Welcome-To-My-Repo/LOLCODE-Compiler	C	0	0	no	no	https://github.com/Welcome-To-My-Repo/LOLCODE-Compiler
+WorkInProgress-Development/LOLCODE-HelloWorld	LOLCODE	0	0	no	yes	https://github.com/WorkInProgress-Development/LOLCODE-HelloWorld
+Yana-Koroliuk/LOLCODE-Interpreter	Java	0	0	no	no	https://github.com/Yana-Koroliuk/LOLCODE-Interpreter
+ZadenMaestas/Dank-Calculator	LOLCODE	0	0	no	yes	https://github.com/ZadenMaestas/Dank-Calculator
+Zelika3435/CMSC124-Project-lolcode_interpreter	Python	0	0	no	no	https://github.com/Zelika3435/CMSC124-Project-lolcode_interpreter
+aDENTinTIME/toying_with_LOLCODE	LOLCODE	0	0	no	yes	https://github.com/aDENTinTIME/toying_with_LOLCODE
+aagoshi/lolcode	Python	0	0	no	no	https://github.com/aagoshi/lolcode
+abim91/lolcodeCompiler	Rust	0	0	no	no	https://github.com/abim91/lolcodeCompiler
+achiisan/LOLCode	C#	0	0	no	no	https://github.com/achiisan/LOLCode
+acnadua/lolcode_interpreter	C#	0	0	no	no	https://github.com/acnadua/lolcode_interpreter
+actions-marketplace-validations/fabasoad_setup-lolcode-action	Shell	0	0	no	no	https://github.com/actions-marketplace-validations/fabasoad_setup-lolcode-action
+aghastmuffin/lolcode.py		0	0	no	no	https://github.com/aghastmuffin/lolcode.py
+akashdeeep/LOLcode-compiler	C	0	0	no	no	https://github.com/akashdeeep/LOLcode-compiler
+akeustis/lolcode	Go	0	0	no	no	https://github.com/akeustis/lolcode
+akplayle/LOLTracer		0	0	no	no	https://github.com/akplayle/LOLTracer
+alcalamatthew/lolcode-test		0	0	no	no	https://github.com/alcalamatthew/lolcode-test
+alecgerona/cmsc124lolterpreter	C#	0	0	no	no	https://github.com/alecgerona/cmsc124lolterpreter
+alexa0o/lolcode-interpreter	C++	0	0	no	no	https://github.com/alexa0o/lolcode-interpreter
+alexcimr/Transpiler-LOLCODE-do-Pythona		0	0	no	no	https://github.com/alexcimr/Transpiler-LOLCODE-do-Pythona
+alexpana/lolcode.js	JavaScript	0	0	no	no	https://github.com/alexpana/lolcode.js
+alisshamac/LOLCODE-Compiler	Python	0	0	no	no	https://github.com/alisshamac/LOLCODE-Compiler
+aljonnovelo/lolcode-parser	Python	0	0	no	no	https://github.com/aljonnovelo/lolcode-parser
+amsmite001/LOLCode	Jupyter Notebook	0	0	no	no	https://github.com/amsmite001/LOLCode
+anatolyburtsev/lolcode_ply_interpreter	Python	0	0	no	no	https://github.com/anatolyburtsev/lolcode_ply_interpreter
+andreanics/LolCode-Interpreter	JavaScript	0	0	no	no	https://github.com/andreanics/LolCode-Interpreter
+andrel/lolpizza		0	0	no	no	https://github.com/andrel/lolpizza
+anton-br/lolcode_interpreter	Python	0	0	no	no	https://github.com/anton-br/lolcode_interpreter
+antonrufino/project-iwaca	JavaScript	0	0	no	no	https://github.com/antonrufino/project-iwaca
+anttijuu/lolhello	LOLCODE	0	0	no	yes	https://github.com/anttijuu/lolhello
+aquaviter/lolcode-docs	HTML	0	0	no	no	https://github.com/aquaviter/lolcode-docs
+arcblast/project	Python	0	0	no	no	https://github.com/arcblast/project
+arrudagates/lolcode-funzies	LOLCODE	0	0	no	yes	https://github.com/arrudagates/lolcode-funzies
+artificialstarlight/LOLchat	LOLCODE	0	0	no	yes	https://github.com/artificialstarlight/LOLchat
+arymus/lolcode-basics	LOLCODE	0	0	no	yes	https://github.com/arymus/lolcode-basics
+aur-archive/lolcode-git	Shell	0	0	no	no	https://github.com/aur-archive/lolcode-git
+aurik3/Lolcodev	JavaScript	0	0	no	no	https://github.com/aurik3/Lolcodev
+baotoq/LolCode	Scala	0	0	no	no	https://github.com/baotoq/LolCode
+bdwilliamsvanzant/LolCode	HTML	0	0	no	no	https://github.com/bdwilliamsvanzant/LolCode
+bennettaur/lol-files		0	0	no	no	https://github.com/bennettaur/lol-files
+bfedward/lolcoders	Rust	0	0	no	no	https://github.com/bfedward/lolcoders
+blake18/COSC-455-Project-1-LOLCODE-Markdown-Language-Translation	Rust	0	0	no	no	https://github.com/blake18/COSC-455-Project-1-LOLCODE-Markdown-Language-Translation
+bmwoods1111/LOLCode	HTML	0	0	no	no	https://github.com/bmwoods1111/LOLCode
+brainjuicer/lolcode2		0	0	no	no	https://github.com/brainjuicer/lolcode2
+brightblackhole/lolcode		0	0	no	no	https://github.com/brightblackhole/lolcode
+brlimarce/lmao-code	Python	0	0	no	no	https://github.com/brlimarce/lmao-code
+btseytlin/ply_lolcode	Python	0	0	no	no	https://github.com/btseytlin/ply_lolcode
+camaeyeban/lolcode_interpreter	C#	0	0	no	no	https://github.com/camaeyeban/lolcode_interpreter
+camh96/lolcode	LOLCODE	0	0	no	yes	https://github.com/camh96/lolcode
+camilomolina/lolcode-labs	LOLCODE	0	0	no	yes	https://github.com/camilomolina/lolcode-labs
+cgtnt/lolcode-interpreter	C#	0	0	no	no	https://github.com/cgtnt/lolcode-interpreter
+chjuruena/LOLCODE_Interpreter_CMSC124	C#	0	0	no	no	https://github.com/chjuruena/LOLCODE_Interpreter_CMSC124
+ciaramaegotis/CMSC-129-LOLCODE-lexyacc	C	0	0	no	no	https://github.com/ciaramaegotis/CMSC-129-LOLCODE-lexyacc
+cj-mm/LOLterpreter	Python	0	0	no	no	https://github.com/cj-mm/LOLterpreter
+clarmndp/lolcode-interpreter-cmsc124	Python	0	0	no	no	https://github.com/clarmndp/lolcode-interpreter-cmsc124
+cloew/LOLCodeParser	Python	0	0	no	no	https://github.com/cloew/LOLCodeParser
+clstia/124_LOLCode_Interpreter	C#	0	0	no	no	https://github.com/clstia/124_LOLCode_Interpreter
+coding-club-toulouse/fizzbuzz-lolcode		0	0	no	no	https://github.com/coding-club-toulouse/fizzbuzz-lolcode
+cslabiano/cmsc124-project	Python	0	0	no	no	https://github.com/cslabiano/cmsc124-project
+cyberdrk/hello-reimagined-octo-fortnight-world		0	0	no	no	https://github.com/cyberdrk/hello-reimagined-octo-fortnight-world
+cyronquillo/lolcode-interpreter	Python	0	0	no	no	https://github.com/cyronquillo/lolcode-interpreter
+da1ssk7/justinmezad		0	0	no	no	https://github.com/da1ssk7/justinmezad
+danfoy/fizzbuzz-lolcode	LOLCODE	0	0	no	yes	https://github.com/danfoy/fizzbuzz-lolcode
+daniellucasdev/calc-cat	LOLCODE	0	0	no	yes	https://github.com/daniellucasdev/calc-cat
+devoops0/lolfun	LOLCODE	0	0	no	yes	https://github.com/devoops0/lolfun
+dlsantos/lolcode		0	0	no	no	https://github.com/dlsantos/lolcode
+dr2xmillion371/lolcode-projects	LOLCODE	0	0	no	yes	https://github.com/dr2xmillion371/lolcode-projects
+dreamcruise/lolcode	Python	0	0	no	no	https://github.com/dreamcruise/lolcode
+dwinchell/ref-app-lolcode	Dockerfile	0	0	no	no	https://github.com/dwinchell/ref-app-lolcode
+dworzycp/track_and_trace		0	0	no	no	https://github.com/dworzycp/track_and_trace
+eaedgington/LOLCODE	HTML	0	0	no	no	https://github.com/eaedgington/LOLCODE
+egozverev/esoteric_interpreter	Yacc	0	0	no	no	https://github.com/egozverev/esoteric_interpreter
+elishaluzano/124-LOLCODE-Interpreter	JavaScript	0	0	no	no	https://github.com/elishaluzano/124-LOLCODE-Interpreter
+elliott1645/lolcode	LOLCODE	0	0	no	yes	https://github.com/elliott1645/lolcode
+enoviti/lolcode-docs	HTML	0	0	no	no	https://github.com/enoviti/lolcode-docs
+evyatarmeged/lolcode-snek	LOLCODE	0	0	no	yes	https://github.com/evyatarmeged/lolcode-snek
+ezancanaro/LolCode-T2ezancanaro	Java	0	0	no	no	https://github.com/ezancanaro/LolCode-T2ezancanaro
+fhchina/lolcode	HTML	0	0	no	no	https://github.com/fhchina/lolcode
+filipw/ScriptCs.Engine.LolCode	C#	0	0	no	no	https://github.com/filipw/ScriptCs.Engine.LolCode
+foshesss/LOLCODE	LOLCODE	0	0	no	yes	https://github.com/foshesss/LOLCODE
+foshesss/ROFLCODE	C++	0	0	no	no	https://github.com/foshesss/ROFLCODE
+fromanan/lolcode	Python	0	0	no	no	https://github.com/fromanan/lolcode
+garvit-batra-7/lolcode-hello-unkown		0	0	no	no	https://github.com/garvit-batra-7/lolcode-hello-unkown
+gcpelletero/LOLCode-Interpreter-Project-	Python	0	0	no	no	https://github.com/gcpelletero/LOLCode-Interpreter-Project-
+gcv-auk/lolcode-docs	HTML	0	0	no	no	https://github.com/gcv-auk/lolcode-docs
+geeklearningpath/lolcode-docs	HTML	0	0	no	no	https://github.com/geeklearningpath/lolcode-docs
+hackfest-dev/HF24-LoLCode	HTML	0	0	no	no	https://github.com/hackfest-dev/HF24-LoLCode
+harsh778/lol	LOLCODE	0	0	no	yes	https://github.com/harsh778/lol
+hectoxor/DFS-in-LOLcode	LOLCODE	0	0	no	yes	https://github.com/hectoxor/DFS-in-LOLcode
+helionek/lolcode-n-befunge	LOLCODE	0	0	no	yes	https://github.com/helionek/lolcode-n-befunge
+hkunkel2/lolcode	Rust	0	0	no	no	https://github.com/hkunkel2/lolcode
+hlbreyes/lolcode-interpreter	C#	0	0	no	no	https://github.com/hlbreyes/lolcode-interpreter
+hoangleminh2709/lolcode	HTML	0	0	no	no	https://github.com/hoangleminh2709/lolcode
+holyPancakes/LOLCodeInterpreter_OTP	C#	0	0	no	no	https://github.com/holyPancakes/LOLCodeInterpreter_OTP
+htrant/lol-world	LOLCODE	0	0	no	yes	https://github.com/htrant/lol-world
+ikiki1008/lolcode-desu	HTML	0	0	no	no	https://github.com/ikiki1008/lolcode-desu
+impressivewebs/lolcode-docs	HTML	0	0	no	no	https://github.com/impressivewebs/lolcode-docs
+in0x/spoj_lol	LOLCODE	0	0	no	yes	https://github.com/in0x/spoj_lol
+ioanatanasiciuc/LOLCODE_PLP_TanasiciucIoana	Coq	0	0	no	no	https://github.com/ioanatanasiciuc/LOLCODE_PLP_TanasiciucIoana
+itrujnara/List_1_LOLCODE	LOLCODE	0	0	no	yes	https://github.com/itrujnara/List_1_LOLCODE
+ivanpolo-pro/lolcode		0	0	no	no	https://github.com/ivanpolo-pro/lolcode
+jBugman/lol		0	0	no	no	https://github.com/jBugman/lol
+jacob-a132/LOLcode	LOLCODE	0	0	no	yes	https://github.com/jacob-a132/LOLcode
+jamiec-0123/LOLcode		0	0	no	no	https://github.com/jamiec-0123/LOLcode
+jamtot/LOLCODE	LOLCODE	0	0	no	yes	https://github.com/jamtot/LOLCODE
+jans-code/janslolcodekernel	Python	0	0	no	no	https://github.com/jans-code/janslolcodekernel
+jasonhemann/canhazKanren	LOLCODE	0	0	no	no	https://github.com/jasonhemann/canhazKanren
+jasonhemann/lolcode-lang	LOLCODE	0	0	no	yes	https://github.com/jasonhemann/lolcode-lang
+jasonhemann/lolcode-spec-graph	Racket	0	0	no	no	https://github.com/jasonhemann/lolcode-spec-graph
+jaungos/lolcode-interpreter	Python	0	0	no	no	https://github.com/jaungos/lolcode-interpreter
+jaysonix3/CMSC-124-LOLCODE	Python	0	0	no	no	https://github.com/jaysonix3/CMSC-124-LOLCODE
+jcgaza/LOLCode-Interpreter	JavaScript	0	0	no	no	https://github.com/jcgaza/LOLCode-Interpreter
+jemacalalad/CMSC124-LOLcode-Interpreter-Final-Project	Python	0	0	no	no	https://github.com/jemacalalad/CMSC124-LOLcode-Interpreter-Final-Project
+jeoffnathaniel/CMSC124-MALOLOPETS-SYNTAXSEMANTICS-LOLCODE-ANALYZER	Python	0	0	no	no	https://github.com/jeoffnathaniel/CMSC124-MALOLOPETS-SYNTAXSEMANTICS-LOLCODE-ANALYZER
+jessicamarie/cat-translator	LOLCODE	0	0	no	yes	https://github.com/jessicamarie/cat-translator
+jessterryberry/lolcode_tempconvert		0	0	no	no	https://github.com/jessterryberry/lolcode_tempconvert
+jgjadaoag/cmsc124-lolcode-interpreter	C#	0	0	no	no	https://github.com/jgjadaoag/cmsc124-lolcode-interpreter
+jhuang314/lolcode-compiler	C	0	0	no	no	https://github.com/jhuang314/lolcode-compiler
+jinsen-x/lolcode-game-of-life	LOLCODE	0	0	no	yes	https://github.com/jinsen-x/lolcode-game-of-life
+jirrroooo/Lolcode-Interpreter	Java	0	0	no	no	https://github.com/jirrroooo/Lolcode-Interpreter
+jkcdarunday/ProjectDestiny	C++	0	0	no	no	https://github.com/jkcdarunday/ProjectDestiny
+jlmatienzo/CMSC124-project	Java	0	0	no	no	https://github.com/jlmatienzo/CMSC124-project
+jlppascual/LOLCODE_Beililits	Python	0	0	no	no	https://github.com/jlppascual/LOLCODE_Beililits
+jmacato/LOLSharp		0	0	no	no	https://github.com/jmacato/LOLSharp
+johnbyron-garin/LolCode-Compiler	Python	0	0	no	no	https://github.com/johnbyron-garin/LolCode-Compiler
+jojo2357/ConvolutionLolcode	LOLCODE	0	0	no	yes	https://github.com/jojo2357/ConvolutionLolcode
+josephrhobbs/lolcode	Rust	0	0	no	no	https://github.com/josephrhobbs/lolcode
+joshjavier/lolcode-docs	HTML	0	0	no	no	https://github.com/joshjavier/lolcode-docs
+jrem090/LOLCODE	LOLCODE	0	0	no	yes	https://github.com/jrem090/LOLCODE
+jrochafonso/lolcode_tryout	LOLCODE	0	0	no	yes	https://github.com/jrochafonso/lolcode_tryout
+jubiman/AOC2022	LOLCODE	0	0	no	yes	https://github.com/jubiman/AOC2022
+jvesguerra/LOLCode_interpreter	Java	0	0	no	no	https://github.com/jvesguerra/LOLCode_interpreter
+kajeagentspi/LOLi	JavaScript	0	0	no	no	https://github.com/kajeagentspi/LOLi
+karlpaolo/lolcode-interpreter	JavaScript	0	0	no	no	https://github.com/karlpaolo/lolcode-interpreter
+kathcabrera/LOLterpreter	Python	0	0	no	no	https://github.com/kathcabrera/LOLterpreter
+keithliam/lolcode-interpreter	HTML	0	0	no	no	https://github.com/keithliam/lolcode-interpreter
+keksprache/lolcat.py		0	0	no	no	https://github.com/keksprache/lolcat.py
+kevinahuber/LOLCATFUNYAY	LOLCODE	0	0	no	yes	https://github.com/kevinahuber/LOLCATFUNYAY
+kjdeluna/Lolcode-Interpreter	C#	0	0	yes	no	https://github.com/kjdeluna/Lolcode-Interpreter
+klgonzales/cmsc124-lolcode-main	Python	0	0	no	no	https://github.com/klgonzales/cmsc124-lolcode-main
+koral293/lolcode-lexer	C	0	0	no	no	https://github.com/koral293/lolcode-lexer
+kylelemons/lolcode-ctools	C++	0	0	no	no	https://github.com/kylelemons/lolcode-ctools
+kylereblora/cmsc-124-project-beta-copy	Java	0	0	no	no	https://github.com/kylereblora/cmsc-124-project-beta-copy
+kylewensman/CITPT-225_LOLCode_documentation	HTML	0	0	no	no	https://github.com/kylewensman/CITPT-225_LOLCode_documentation
+lacraig2/lolcode-java	Java	0	0	no	no	https://github.com/lacraig2/lolcode-java
+lbarry00/LOL	LOLCODE	0	0	no	yes	https://github.com/lbarry00/LOL
+lehahel/lolcode	C++	0	0	no	no	https://github.com/lehahel/lolcode
+lepermessiah57/lolcode-java	Java	0	0	no	no	https://github.com/lepermessiah57/lolcode-java
+lmlawas/lolterpreter-2000	C#	0	0	no	no	https://github.com/lmlawas/lolterpreter-2000
+lolcodepp/lolcode-spec		0	0	no	no	https://github.com/lolcodepp/lolcode-spec
+lolcodepp/lolcodepp.github.io	HTML	0	0	no	no	https://github.com/lolcodepp/lolcodepp.github.io
+loloshkaCode/lolCode		0	0	no	no	https://github.com/loloshkaCode/lolCode
+lorenzggabriel/WitLang-LolCode-Interpreter	Python	0	0	no	no	https://github.com/lorenzggabriel/WitLang-LolCode-Interpreter
+mSulleza/cmsc124-lolcode-chipmunks	C#	0	0	no	no	https://github.com/mSulleza/cmsc124-lolcode-chipmunks
+maddyb99/lolcode	LOLCODE	0	0	no	yes	https://github.com/maddyb99/lolcode
+madhuprasanna/lolcode		0	0	no	no	https://github.com/madhuprasanna/lolcode
+mamerisawesome/acubeLolLexer	C#	0	0	no	no	https://github.com/mamerisawesome/acubeLolLexer
+manisha069/Even-Odd-LOLCODE	LOLCODE	0	0	no	yes	https://github.com/manisha069/Even-Odd-LOLCODE
+markarenillo/LOLCODE-Interpreter	Java	0	0	no	no	https://github.com/markarenillo/LOLCODE-Interpreter
+mattyejohnson/LOLCodeDocSite	HTML	0	0	no	no	https://github.com/mattyejohnson/LOLCodeDocSite
+mburnayev/LOLCODE-networking	LOLCODE	0	0	no	yes	https://github.com/mburnayev/LOLCODE-networking
+mcy/LOLCODE		0	0	no	no	https://github.com/mcy/LOLCODE
+michal98kowalczyk/LolcodeCompiler	Java	0	0	no	no	https://github.com/michal98kowalczyk/LolcodeCompiler
+michalier/LOLcodeInterpreter	Rust	0	0	no	no	https://github.com/michalier/LOLcodeInterpreter
+miixs/CMSC124_LOLCODE_Interpreter	Python	0	0	no	no	https://github.com/miixs/CMSC124_LOLCODE_Interpreter
+mikegogulski/99Bottles-LOLCODE		0	0	no	no	https://github.com/mikegogulski/99Bottles-LOLCODE
+mikhmakarov/lolcode_interpreter	Python	0	0	no	no	https://github.com/mikhmakarov/lolcode_interpreter
+mmayr-at/VsLolcode	C#	0	0	no	no	https://github.com/mmayr-at/VsLolcode
+mmdeviterbo/recreate-lolcode-project	Java	0	0	no	no	https://github.com/mmdeviterbo/recreate-lolcode-project
+molnarmark/lolcode-lua	Lua	0	0	no	no	https://github.com/molnarmark/lolcode-lua
+morristech/LOLCodeInterpreter	Java	0	0	no	no	https://github.com/morristech/LOLCodeInterpreter
+mphay/LOLCODE-Compiler	Java	0	0	no	no	https://github.com/mphay/LOLCODE-Compiler
+msbitancor/LOLCODE-interpreter	Python	0	0	no	no	https://github.com/msbitancor/LOLCODE-interpreter
+msteinmetz1/LOLCode	HTML	0	0	no	no	https://github.com/msteinmetz1/LOLCode
+murraytime803/lolcode		0	0	no	no	https://github.com/murraytime803/lolcode
+nalbion/lol-json	Python	0	0	no	no	https://github.com/nalbion/lol-json
+naynesmikel/LOLCode_Interpreter	C#	0	0	no	no	https://github.com/naynesmikel/LOLCode_Interpreter
+nchammer/adventofcode2019_lolcode	LOLCODE	0	0	no	yes	https://github.com/nchammer/adventofcode2019_lolcode
+nikilink/lolcode-dot-net	C#	0	0	no	no	https://github.com/nikilink/lolcode-dot-net
+nikmend/LoLCode		0	0	no	no	https://github.com/nikmend/LoLCode
+nina-vyedin-simplisafe/agentic-workshop	LOLCODE	0	0	no	yes	https://github.com/nina-vyedin-simplisafe/agentic-workshop
+nishantshobhit/lolcode-java	Java	0	0	no	no	https://github.com/nishantshobhit/lolcode-java
+niwohlos/niwohcode	Ruby	0	0	no	no	https://github.com/niwohlos/niwohcode
+noreenlouisecb/CMSC124-LOLCODE-Interpreter	C#	0	0	no	no	https://github.com/noreenlouisecb/CMSC124-LOLCODE-Interpreter
+norvylle/lci	C#	0	0	no	no	https://github.com/norvylle/lci
+nourishk7c8/cosc455-lolcode-html-compiler	Java	0	0	no	no	https://github.com/nourishk7c8/cosc455-lolcode-html-compiler
+ofekih/lolcode	LOLCODE	0	0	no	yes	https://github.com/ofekih/lolcode
+ofekih/lolcode-sublime		0	0	no	no	https://github.com/ofekih/lolcode-sublime
+ogii/circleci-lolcode		0	0	no	no	https://github.com/ogii/circleci-lolcode
+onejane123/justinmezad		0	0	no	no	https://github.com/onejane123/justinmezad
+orchardstreet/LOLCODE-IRC-client	LOLCODE	0	0	no	yes	https://github.com/orchardstreet/LOLCODE-IRC-client
+patmaevrgs/LOLCode-Interpreter	Python	0	0	no	no	https://github.com/patmaevrgs/LOLCode-Interpreter
+perez-aaron/CMSC-124-Project-LOLCode-Interpreter	Python	0	0	no	no	https://github.com/perez-aaron/CMSC-124-Project-LOLCode-Interpreter
+peterrupa/uLOLCODE-Interpreter	JavaScript	0	0	no	no	https://github.com/peterrupa/uLOLCODE-Interpreter
+pksinghus/lolcode	HTML	0	0	no	no	https://github.com/pksinghus/lolcode
+prince-sachdev/lolcode		0	0	no	no	https://github.com/prince-sachdev/lolcode
+prince-sachdev/lolcode-2		0	0	no	no	https://github.com/prince-sachdev/lolcode-2
+prince-sachdev/lolcode-3		0	0	no	no	https://github.com/prince-sachdev/lolcode-3
+prince-sachdev/lolcode-4		0	0	no	no	https://github.com/prince-sachdev/lolcode-4
+prince-sachdev/lolcode-5		0	0	no	no	https://github.com/prince-sachdev/lolcode-5
+prince-sachdev/lolcode-6		0	0	no	no	https://github.com/prince-sachdev/lolcode-6
+prince-sachdev/lolcode-8		0	0	no	no	https://github.com/prince-sachdev/lolcode-8
+prince-sachdev/lolcode-9		0	0	no	no	https://github.com/prince-sachdev/lolcode-9
+projectyotta/TryingOutLolcode	HTML	0	0	no	no	https://github.com/projectyotta/TryingOutLolcode
+pvtan/CMSC124LOLCODE_Interpreter	C#	0	0	no	no	https://github.com/pvtan/CMSC124LOLCODE_Interpreter
+quevinjames/cmsc_124_project	Python	0	0	no	no	https://github.com/quevinjames/cmsc_124_project
+rabby7701/lolcodes	Shell	0	0	no	no	https://github.com/rabby7701/lolcodes
+rafdp/Language2AST	C++	0	0	no	no	https://github.com/rafdp/Language2AST
+ranmocy/lolcode	Ruby	0	0	no	no	https://github.com/ranmocy/lolcode
+remotesynth/lolcode-docs	HTML	0	0	no	no	https://github.com/remotesynth/lolcode-docs
+remotesynth/lolcode-docs-test	HTML	0	0	no	no	https://github.com/remotesynth/lolcode-docs-test
+renderAR/LOLCODE-Interpreter	Java	0	0	no	no	https://github.com/renderAR/LOLCODE-Interpreter
+residualmind/lolifyjs		0	0	no	no	https://github.com/residualmind/lolifyjs
+rhanneken/lolcode-docs	HTML	0	0	no	no	https://github.com/rhanneken/lolcode-docs
+rihsdavid/lolcode_compiler	Python	0	0	no	no	https://github.com/rihsdavid/lolcode_compiler
+rjcapuno/AeroHurricanes	C#	0	0	no	no	https://github.com/rjcapuno/AeroHurricanes
+rlknre/lolcode-interpreter-proj	Python	0	0	no	no	https://github.com/rlknre/lolcode-interpreter-proj
+rmartyna/LOLCODE-examples	LOLCODE	0	0	no	yes	https://github.com/rmartyna/LOLCODE-examples
+roboJF/lolcode_compiler	Rust	0	0	no	no	https://github.com/roboJF/lolcode_compiler
+robstoll/lolcode	C++	0	0	no	no	https://github.com/robstoll/lolcode
+rollen1/lolcode	LOLCODE	0	0	no	yes	https://github.com/rollen1/lolcode
+royston/ICanHazLolCode		0	0	no	no	https://github.com/royston/ICanHazLolCode
+ryanresoles/LOLCODE-compiler		0	0	no	no	https://github.com/ryanresoles/LOLCODE-compiler
+sarvex/lolCode125		0	0	no	no	https://github.com/sarvex/lolCode125
+saveniukk/lolcode-interpreter	Python	0	0	no	no	https://github.com/saveniukk/lolcode-interpreter
+seancua/CMSC124-Project		0	0	no	no	https://github.com/seancua/CMSC124-Project
+sergiomtzlosa/LOLPROGRAMS		0	0	no	no	https://github.com/sergiomtzlosa/LOLPROGRAMS
+sh1roee/LOLCode-Interpreter	Python	0	0	no	no	https://github.com/sh1roee/LOLCode-Interpreter
+sharin974/lolcodegenerator	CSS	0	0	no	no	https://github.com/sharin974/lolcodegenerator
+shyboynccu/LOLCODE		0	0	no	no	https://github.com/shyboynccu/LOLCODE
+skushneryuk/lolcode_interpreter	C++	0	0	no	no	https://github.com/skushneryuk/lolcode_interpreter
+sobernt/lolcode		0	0	no	no	https://github.com/sobernt/lolcode
+soumitradev/assembly-fun-lolcode	C	0	0	no	no	https://github.com/soumitradev/assembly-fun-lolcode
+sribnyak/lolbison	C++	0	0	no	no	https://github.com/sribnyak/lolbison
+ssuksawat/LOLTACTOE	LOLCODE	0	0	no	yes	https://github.com/ssuksawat/LOLTACTOE
+starquell/LOLCODE-Interpreter	C++	0	0	no	no	https://github.com/starquell/LOLCODE-Interpreter
+stephen-riley/ll-lolcode	C#	0	0	no	no	https://github.com/stephen-riley/ll-lolcode
+stephen-riley/lolcode	Perl	0	0	no	no	https://github.com/stephen-riley/lolcode
+stetsonia/lolcode-docs	HTML	0	0	no	no	https://github.com/stetsonia/lolcode-docs
+strangeglyph/lolcode-compiler	Rust	0	0	no	no	https://github.com/strangeglyph/lolcode-compiler
+sudharsh/fatso	C++	0	0	no	no	https://github.com/sudharsh/fatso
+sudo-gera/lolcode-interpreter	Python	0	0	no	no	https://github.com/sudo-gera/lolcode-interpreter
+superman12747-crypto/esolang-bucket		0	0	no	no	https://github.com/superman12747-crypto/esolang-bucket
+swaghma1-cosc-455/cosc_455_lolcode_compiler_project	Rust	0	0	no	no	https://github.com/swaghma1-cosc-455/cosc_455_lolcode_compiler_project
+sweetx2apple/lolcode	LOLCODE	0	0	no	yes	https://github.com/sweetx2apple/lolcode
+taddeus/lolwut	OCaml	0	0	no	no	https://github.com/taddeus/lolwut
+taj-caeli/lolcode-interpreter	Python	0	0	no	no	https://github.com/taj-caeli/lolcode-interpreter
+taprapka/lolcode	LOLCODE	0	0	no	yes	https://github.com/taprapka/lolcode
+tcarver371/LOLCODE-Test	HTML	0	0	no	no	https://github.com/tcarver371/LOLCODE-Test
+tcarver371/LOLCODE_test	CSS	0	0	no	no	https://github.com/tcarver371/LOLCODE_test
+tcort/minou	Lex	0	0	no	no	https://github.com/tcort/minou
+technoi7/ticTacToeLOLCODE	LOLCODE	0	0	no	yes	https://github.com/technoi7/ticTacToeLOLCODE
+tedneward/LOLSELF	Kotlin	0	0	no	no	https://github.com/tedneward/LOLSELF
+tewe11/lolcode-docs		0	0	no	no	https://github.com/tewe11/lolcode-docs
+texmex76/tree-sitter-lolcode	JavaScript	0	0	no	no	https://github.com/texmex76/tree-sitter-lolcode
+theFox6/LOLCoinz	LOLCODE	0	0	no	yes	https://github.com/theFox6/LOLCoinz
+tim-speed/loljs	JavaScript	0	0	no	no	https://github.com/tim-speed/loljs
+tony-stark18/LolCode	C++	0	0	no	no	https://github.com/tony-stark18/LolCode
+tuffk/lols	LOLCODE	0	0	no	yes	https://github.com/tuffk/lols
+ulrich-barnstedt-archive/brainfuck.lol	LOLCODE	0	0	no	yes	https://github.com/ulrich-barnstedt-archive/brainfuck.lol
+vulnanx/LOLcode-Compiler-with-GUI	Python	0	0	no	no	https://github.com/vulnanx/LOLcode-Compiler-with-GUI
+wattsap/lolearning	LOLCODE	0	0	no	yes	https://github.com/wattsap/lolearning
+wonder-coconut/lolcode_circlejerk	LOLCODE	0	0	no	yes	https://github.com/wonder-coconut/lolcode_circlejerk
+wookietreiber/scalolcode	Scala	0	0	no	no	https://github.com/wookietreiber/scalolcode
+wydialang/lolcode-project	LOLCODE	0	0	no	yes	https://github.com/wydialang/lolcode-project
+x-ae-a-12/lolcode		0	0	no	no	https://github.com/x-ae-a-12/lolcode
+xtrxtrkiyoshi/WildcatsInterpreter	C#	0	0	no	no	https://github.com/xtrxtrkiyoshi/WildcatsInterpreter
+yamaz420/PythonIntro-LOLcodeAndShit	Python	0	0	no	no	https://github.com/yamaz420/PythonIntro-LOLcodeAndShit
+yashbee313839/LOLCODE-Scripts	LOLCODE	0	0	no	yes	https://github.com/yashbee313839/LOLCODE-Scripts
+yawkat/lolcode	Java	0	0	no	no	https://github.com/yawkat/lolcode
+yuktamsingh/LOLCODE		0	0	no	no	https://github.com/yuktamsingh/LOLCODE
+zachdeibert/lol-say	LOLCODE	0	0	no	yes	https://github.com/zachdeibert/lol-say
+zatrodev/lolcode	Rust	0	0	no	no	https://github.com/zatrodev/lolcode
+zenithcipriano/LOLCode-Interpreter		0	0	no	no	https://github.com/zenithcipriano/LOLCode-Interpreter

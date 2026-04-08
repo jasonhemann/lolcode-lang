@@ -90,6 +90,17 @@ url_encode_path_preserving_slash() {
   jq -nr --arg p "$raw_path" '$p|@uri' | sed 's/%2[Ff]/\//g'
 }
 
+kind_is_implementation_like() {
+  case "$1" in
+    interpreter|compiler|parser|transpiler|dsl)
+      return 0
+      ;;
+    *)
+      return 1
+      ;;
+  esac
+}
+
 write_empty_json() {
   local path="$1"
   printf '{}\n' > "$path"
@@ -302,11 +313,9 @@ download_repo_snapshot() {
     return 1
   fi
 
-  case "$kind" in
-    interpreter|compiler)
-      include_impl=1
-      ;;
-  esac
+  if kind_is_implementation_like "$kind"; then
+    include_impl=1
+  fi
 
   jq -r '.tree[]? | select(.type=="blob") | .path' "$tree_json" > "$all_paths"
 
@@ -359,11 +368,9 @@ download_repo_snapshot_via_git() {
   local branch=""
   local commit=""
 
-  case "$kind" in
-    interpreter|compiler)
-      include_impl=1
-      ;;
-  esac
+  if kind_is_implementation_like "$kind"; then
+    include_impl=1
+  fi
 
   trash_path "$out"
   mkdir -p "$out/files"

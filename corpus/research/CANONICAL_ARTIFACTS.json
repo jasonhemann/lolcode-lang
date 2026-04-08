@@ -112,6 +112,265 @@
       "include_in_readme": false
     },
     {
+      "id": "github-repo-search-query-json",
+      "kind": "json",
+      "path": "corpus/research/github_repo_search_lolcode/repo_search.json",
+      "producer": "./scripts/sync_github_repo_search_lolcode.sh",
+      "depends_on": [],
+      "purpose": "Raw GitHub broad repo-search query snapshot metadata",
+      "include_in_readme": false
+    },
+    {
+      "id": "github-repo-search-summary-json",
+      "kind": "json",
+      "path": "corpus/research/github_repo_search_lolcode/summary.json",
+      "producer": "./scripts/sync_github_repo_search_lolcode.sh",
+      "depends_on": [
+        "corpus/research/github_repo_search_lolcode/repo_search.json",
+        "corpus/tier2/CANDIDATE_REPOS.tsv",
+        "corpus/research/github_language_lolcode/repos.json"
+      ],
+      "purpose": "Broad repo-search overlap and totals summary",
+      "include_in_readme": false
+    },
+    {
+      "id": "github-repo-search-json",
+      "kind": "json",
+      "path": "corpus/research/github_repo_search_lolcode/repos.json",
+      "producer": "./scripts/sync_github_repo_search_lolcode.sh",
+      "depends_on": [
+        "corpus/tier2/CANDIDATE_REPOS.tsv",
+        "corpus/research/github_language_lolcode/repos.json"
+      ],
+      "purpose": "Broad GitHub repo-search discovery snapshot for `q=lolcode`",
+      "include_in_readme": false
+    },
+    {
+      "id": "github-repo-search-tsv",
+      "kind": "tsv",
+      "path": "corpus/research/github_repo_search_lolcode/repos.tsv",
+      "producer": "./scripts/sync_github_repo_search_lolcode.sh",
+      "depends_on": [
+        "corpus/research/github_repo_search_lolcode/repos.json"
+      ],
+      "purpose": "Tabular broad repo-search discovery snapshot",
+      "include_in_readme": false
+    },
+    {
+      "id": "github-repo-search-report-md",
+      "kind": "md",
+      "path": "corpus/research/github_repo_search_lolcode/REPORT.md",
+      "producer": "./scripts/sync_github_repo_search_lolcode.sh",
+      "depends_on": [
+        "corpus/research/github_repo_search_lolcode/summary.json"
+      ],
+      "rendered_from": null,
+      "purpose": "Broad repo-search discovery summary",
+      "include_in_readme": false
+    },
+    {
+      "id": "github-repo-search-enriched-json",
+      "kind": "json",
+      "path": "corpus/research/github_repo_search_lolcode/repos_enriched.json",
+      "producer": "./scripts/enrich_github_repo_search_lolcode.sh",
+      "depends_on": [
+        "corpus/research/github_repo_search_lolcode/repos.json"
+      ],
+      "purpose": "Broad repo-search snapshot enriched with metadata and root listings",
+      "include_in_readme": false
+    },
+    {
+      "id": "github-repo-search-enrichment-failures-tsv",
+      "kind": "tsv",
+      "path": "corpus/research/github_repo_search_lolcode/enrichment_failures.tsv",
+      "producer": "./scripts/enrich_github_repo_search_lolcode.sh",
+      "depends_on": [
+        "corpus/research/github_repo_search_lolcode/repos_enriched.json"
+      ],
+      "purpose": "Broad repo-search enrichment failure and partial-inspection list",
+      "include_in_readme": false
+    },
+    {
+      "id": "github-repo-search-curation-json",
+      "kind": "json",
+      "path": "corpus/research/github_repo_search_lolcode/curation_scored.json",
+      "producer": "./scripts/curate_github_repo_search_lolcode.sh",
+      "depends_on": [
+        "corpus/research/github_repo_search_lolcode/repos.json",
+        "corpus/research/github_repo_search_lolcode/repos_enriched.json"
+      ],
+      "purpose": "Broad repo-search long-tail curation and scoring state",
+      "include_in_readme": false
+    },
+    {
+      "id": "github-repo-search-classified-tsv",
+      "kind": "tsv",
+      "path": "corpus/research/github_repo_search_lolcode/classified_repos.tsv",
+      "producer": "./scripts/curate_github_repo_search_lolcode.sh",
+      "depends_on": [
+        "corpus/research/github_repo_search_lolcode/curation_scored.json"
+      ],
+      "purpose": "Tabular broad repo-search classification output",
+      "include_in_readme": false
+    },
+    {
+      "id": "github-repo-search-priority-tsv",
+      "kind": "tsv",
+      "path": "corpus/research/github_repo_search_lolcode/priority_candidates.tsv",
+      "producer": "./scripts/curate_github_repo_search_lolcode.sh",
+      "depends_on": [
+        "corpus/research/github_repo_search_lolcode/curation_scored.json"
+      ],
+      "purpose": "Promotion-ready broad repo-search candidate queue",
+      "include_in_readme": false
+    },
+    {
+      "id": "github-repo-search-obvious-tsv",
+      "kind": "tsv",
+      "path": "corpus/research/github_repo_search_lolcode/obvious_keep.tsv",
+      "producer": "./scripts/curate_github_repo_search_lolcode.sh",
+      "depends_on": [
+        "corpus/research/github_repo_search_lolcode/curation_scored.json"
+      ],
+      "purpose": "Broad repo-search obvious-keep subset",
+      "include_in_readme": false
+    },
+    {
+      "id": "github-repo-search-manual-tsv",
+      "kind": "tsv",
+      "path": "corpus/research/github_repo_search_lolcode/manual_review.tsv",
+      "producer": "./scripts/curate_github_repo_search_lolcode.sh",
+      "depends_on": [
+        "corpus/research/github_repo_search_lolcode/curation_scored.json"
+      ],
+      "purpose": "Broad repo-search manual-review subset",
+      "include_in_readme": false
+    },
+    {
+      "id": "github-repo-search-unlikely-tsv",
+      "kind": "tsv",
+      "path": "corpus/research/github_repo_search_lolcode/unlikely_keep.tsv",
+      "producer": "./scripts/curate_github_repo_search_lolcode.sh",
+      "depends_on": [
+        "corpus/research/github_repo_search_lolcode/curation_scored.json"
+      ],
+      "purpose": "Broad repo-search unlikely-keep subset",
+      "include_in_readme": false
+    },
+    {
+      "id": "github-repo-search-enrichment-md",
+      "kind": "md",
+      "path": "corpus/research/github_repo_search_lolcode/ENRICHMENT_REPORT.md",
+      "producer": "./scripts/enrich_github_repo_search_lolcode.sh",
+      "depends_on": [
+        "corpus/research/github_repo_search_lolcode/repos_enriched.json",
+        "corpus/research/github_repo_search_lolcode/enrichment_failures.tsv"
+      ],
+      "rendered_from": null,
+      "purpose": "Broad repo-search enrichment summary",
+      "include_in_readme": false
+    },
+    {
+      "id": "github-repo-search-curation-md",
+      "kind": "md",
+      "path": "corpus/research/github_repo_search_lolcode/CURATION_REPORT.md",
+      "producer": "./scripts/curate_github_repo_search_lolcode.sh",
+      "depends_on": [
+        "corpus/research/github_repo_search_lolcode/curation_scored.json"
+      ],
+      "rendered_from": null,
+      "purpose": "Broad repo-search curation summary",
+      "include_in_readme": false
+    },
+    {
+      "id": "external-implementation-matrix-tranches-md",
+      "kind": "md",
+      "path": "corpus/research/EXTERNAL_IMPLEMENTATION_MATRIX_TRANCHES.md",
+      "producer": "manual/project-policy",
+      "depends_on": [],
+      "rendered_from": null,
+      "purpose": "Staged plan for later external implementation comparison tranches",
+      "include_in_readme": false
+    },
+    {
+      "id": "github-repo-search-promotion-md",
+      "kind": "md",
+      "path": "corpus/research/github_repo_search_lolcode/PROMOTION_REPORT.md",
+      "producer": "./scripts/promote_github_repo_search_lolcode_candidates.sh",
+      "depends_on": [
+        "corpus/research/github_repo_search_lolcode/priority_candidates.tsv",
+        "corpus/tier2/CANDIDATE_REPOS.tsv"
+      ],
+      "rendered_from": null,
+      "purpose": "Promotion report for broad repo-search candidate additions",
+      "include_in_readme": false
+    },
+    {
+      "id": "codeberg-repo-search-query-json",
+      "kind": "json",
+      "path": "corpus/research/codeberg_repo_search_lolcode/repo_search.json",
+      "producer": "./scripts/sync_codeberg_repo_search_lolcode.sh",
+      "depends_on": [],
+      "purpose": "Raw Codeberg repo-search query snapshot metadata",
+      "include_in_readme": false
+    },
+    {
+      "id": "codeberg-repo-search-summary-json",
+      "kind": "json",
+      "path": "corpus/research/codeberg_repo_search_lolcode/summary.json",
+      "producer": "./scripts/sync_codeberg_repo_search_lolcode.sh",
+      "depends_on": [
+        "corpus/research/codeberg_repo_search_lolcode/repo_search.json",
+        "corpus/tier2/CANDIDATE_REPOS.tsv"
+      ],
+      "purpose": "Codeberg repo-search overlap and totals summary",
+      "include_in_readme": false
+    },
+    {
+      "id": "codeberg-repo-search-json",
+      "kind": "json",
+      "path": "corpus/research/codeberg_repo_search_lolcode/repos.json",
+      "producer": "./scripts/sync_codeberg_repo_search_lolcode.sh",
+      "depends_on": [
+        "corpus/tier2/CANDIDATE_REPOS.tsv"
+      ],
+      "purpose": "Codeberg discovery snapshot for `q=lolcode`",
+      "include_in_readme": false
+    },
+    {
+      "id": "codeberg-repo-search-tsv",
+      "kind": "tsv",
+      "path": "corpus/research/codeberg_repo_search_lolcode/repos.tsv",
+      "producer": "./scripts/sync_codeberg_repo_search_lolcode.sh",
+      "depends_on": [
+        "corpus/research/codeberg_repo_search_lolcode/repos.json"
+      ],
+      "purpose": "Tabular Codeberg repo-search discovery snapshot",
+      "include_in_readme": false
+    },
+    {
+      "id": "codeberg-repo-search-report-md",
+      "kind": "md",
+      "path": "corpus/research/codeberg_repo_search_lolcode/REPORT.md",
+      "producer": "./scripts/sync_codeberg_repo_search_lolcode.sh",
+      "depends_on": [
+        "corpus/research/codeberg_repo_search_lolcode/summary.json"
+      ],
+      "rendered_from": null,
+      "purpose": "Codeberg repo-search discovery summary",
+      "include_in_readme": false
+    },
+    {
+      "id": "non-github-discovery-status-md",
+      "kind": "md",
+      "path": "corpus/research/NON_GITHUB_DISCOVERY_STATUS.md",
+      "producer": "manual/project-policy",
+      "depends_on": [],
+      "rendered_from": null,
+      "purpose": "Current non-GitHub host support and blocker status",
+      "include_in_readme": false
+    },
+    {
       "id": "rejected-noncompliant-json",
       "kind": "json",
       "path": "corpus/research/PROMOTED_1_3_REJECTED_NONCOMPLIANT.json",

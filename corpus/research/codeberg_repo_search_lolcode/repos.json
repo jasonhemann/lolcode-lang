@@ -1,0 +1,19 @@
+[
+  {
+    "host": "codeberg",
+    "repo_path": "juliencherry/lolcode-bankin-survis",
+    "repo": "codeberg:juliencherry/lolcode-bankin-survis",
+    "language": "LOLCODE",
+    "description": "Banking for internet cats 😸",
+    "stars": 0,
+    "forks": 0,
+    "watchers": 1,
+    "open_issues": 0,
+    "archived": false,
+    "created_at": "2023-07-03T22:17:58+02:00",
+    "updated_at": "2024-12-03T05:38:20+01:00",
+    "pushed_at": "2024-12-03T05:38:20+01:00",
+    "html_url": "https://codeberg.org/juliencherry/lolcode-bankin-survis",
+    "in_candidate_catalog_by_path": false
+  }
+]

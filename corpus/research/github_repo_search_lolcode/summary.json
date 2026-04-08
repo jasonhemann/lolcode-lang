@@ -1,0 +1,25 @@
+{
+  "generated_at": "2026-04-01T16:00:21Z",
+  "repo_search": {
+    "kind": "repositories",
+    "query": "lolcode",
+    "page_limit": 10,
+    "pages_fetched": 6,
+    "total_count": 587,
+    "last_page_count": 87,
+    "fetched_live": true,
+    "used_cache": false,
+    "likely_truncated": false
+  },
+  "inputs": {
+    "candidate_catalog": "corpus/tier2/CANDIDATE_REPOS.tsv",
+    "language_snapshot": "corpus/research/github_language_lolcode/repos.json"
+  },
+  "totals": {
+    "repos_seen": 587,
+    "repos_in_candidate_catalog": 26,
+    "repos_not_in_candidate_catalog": 561,
+    "repos_also_in_language_snapshot": 217,
+    "repos_only_in_broad_search": 362
+  }
+}

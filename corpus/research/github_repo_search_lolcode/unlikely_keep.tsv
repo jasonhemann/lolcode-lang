@@ -1,0 +1,150 @@
+repo	kind	priority	curation_score	language	stars	code_hit_count	reasons	html_url
+jasonhemann/lolcode-spec-graph	docs	P2	30	Racket	0	0	tooling-signal,docs-signal,corpus-signal	https://github.com/jasonhemann/lolcode-spec-graph
+Swizec/lolcode-fizzbuzz-example	tooling	P2	22	JavaScript	0	0	tooling-signal,corpus-signal	https://github.com/Swizec/lolcode-fizzbuzz-example
+GayathriPCh/LoLCode-AI	tooling	P2	12	TypeScript	0	0	tooling-signal	https://github.com/GayathriPCh/LoLCode-AI
+actions-marketplace-validations/fabasoad_setup-lolcode-action	tooling	P2	12	Shell	0	0	tooling-signal	https://github.com/actions-marketplace-validations/fabasoad_setup-lolcode-action
+kajeagentspi/LOLi	tooling	P2	12	JavaScript	0	0	tooling-signal	https://github.com/kajeagentspi/LOLi
+mmayr-at/VsLolcode	tooling	P2	12	C#	0	0	tooling-signal	https://github.com/mmayr-at/VsLolcode
+rabby7701/lolcodes	tooling	P2	12	Shell	0	0	tooling-signal	https://github.com/rabby7701/lolcodes
+texmex76/tree-sitter-lolcode	tooling	P2	12	JavaScript	0	0	tooling-signal	https://github.com/texmex76/tree-sitter-lolcode
+Anormalm/EsoSim	corpus	P3	10	JavaScript	0	0	corpus-signal	https://github.com/Anormalm/EsoSim
+Johnmacrocraft/stop-making-pmmp-forks	corpus	P3	10	JavaScript	0	0	corpus-signal	https://github.com/Johnmacrocraft/stop-making-pmmp-forks
+Nuculais/21-Sticks	corpus	P3	10	C#	0	0	corpus-signal	https://github.com/Nuculais/21-Sticks
+RamBenitez/lolcode-lexical-analyzer	corpus	P3	10	Python	0	0	corpus-signal	https://github.com/RamBenitez/lolcode-lexical-analyzer
+SVersj/go-lolcode	corpus	P3	10	Go	0	0	corpus-signal	https://github.com/SVersj/go-lolcode
+TheRepoArchiver/stop-making-pmmp-forks	corpus	P3	10	Python	0	0	corpus-signal	https://github.com/TheRepoArchiver/stop-making-pmmp-forks
+arcblast/project	corpus	P3	10	Python	0	0	corpus-signal	https://github.com/arcblast/project
+bennettaur/lol-files	corpus	P3	10		0	0	corpus-signal	https://github.com/bennettaur/lol-files
+coding-club-toulouse/fizzbuzz-lolcode	corpus	P3	10		0	0	corpus-signal	https://github.com/coding-club-toulouse/fizzbuzz-lolcode
+jBugman/lol	corpus	P3	10		0	0	corpus-signal	https://github.com/jBugman/lol
+jans-code/janslolcodekernel	corpus	P3	10	Python	0	0	corpus-signal	https://github.com/jans-code/janslolcodekernel
+jasonhemann/canhazKanren	corpus	P3	10	LOLCODE	0	0	corpus-signal	https://github.com/jasonhemann/canhazKanren
+jeoffnathaniel/CMSC124-MALOLOPETS-SYNTAXSEMANTICS-LOLCODE-ANALYZER	corpus	P3	10	Python	0	0	corpus-signal	https://github.com/jeoffnathaniel/CMSC124-MALOLOPETS-SYNTAXSEMANTICS-LOLCODE-ANALYZER
+klgonzales/cmsc124-lolcode-main	corpus	P3	10	Python	0	0	corpus-signal	https://github.com/klgonzales/cmsc124-lolcode-main
+michalier/LOLcodeInterpreter	corpus	P3	10	Rust	0	0	corpus-signal	https://github.com/michalier/LOLcodeInterpreter
+nalbion/lol-json	corpus	P3	10	Python	0	0	corpus-signal	https://github.com/nalbion/lol-json
+residualmind/lolifyjs	corpus	P3	10		0	0	corpus-signal	https://github.com/residualmind/lolifyjs
+sergiomtzlosa/LOLPROGRAMS	corpus	P3	10		0	0	corpus-signal	https://github.com/sergiomtzlosa/LOLPROGRAMS
+shyboynccu/LOLCODE	corpus	P3	10		0	0	corpus-signal	https://github.com/shyboynccu/LOLCODE
+Antropom/lolcode-docs	docs	P2	8	HTML	0	0	docs-signal	https://github.com/Antropom/lolcode-docs
+CMSC124-SAT-SEM1-2021/Eclarin_A_Milla_R_LOLCODE	docs	P2	8		0	0	docs-signal	https://github.com/CMSC124-SAT-SEM1-2021/Eclarin_A_Milla_R_LOLCODE
+JonJC/lolcode-docs	docs	P2	8	HTML	0	0	docs-signal	https://github.com/JonJC/lolcode-docs
+MarkRidings/lolcode-docs	docs	P2	8	HTML	0	0	docs-signal	https://github.com/MarkRidings/lolcode-docs
+SandeeepKiran/LOLCODE-https-learnxinyminutes.com-docs-LOLCODE-	docs	P2	8		0	0	docs-signal	https://github.com/SandeeepKiran/LOLCODE-https-learnxinyminutes.com-docs-LOLCODE-
+aquaviter/lolcode-docs	docs	P2	8	HTML	0	0	docs-signal	https://github.com/aquaviter/lolcode-docs
+brainjuicer/lolcode2	docs	P2	8		0	0	docs-signal	https://github.com/brainjuicer/lolcode2
+enoviti/lolcode-docs	docs	P2	8	HTML	0	0	docs-signal	https://github.com/enoviti/lolcode-docs
+gcv-auk/lolcode-docs	docs	P2	8	HTML	0	0	docs-signal	https://github.com/gcv-auk/lolcode-docs
+geeklearningpath/lolcode-docs	docs	P2	8	HTML	0	0	docs-signal	https://github.com/geeklearningpath/lolcode-docs
+impressivewebs/lolcode-docs	docs	P2	8	HTML	0	0	docs-signal	https://github.com/impressivewebs/lolcode-docs
+joshjavier/lolcode-docs	docs	P2	8	HTML	0	0	docs-signal	https://github.com/joshjavier/lolcode-docs
+lolcodepp/lolcode-spec	docs	P2	8		0	0	docs-signal	https://github.com/lolcodepp/lolcode-spec
+madhuprasanna/lolcode	docs	P2	8		0	0	docs-signal	https://github.com/madhuprasanna/lolcode
+mattyejohnson/LOLCodeDocSite	docs	P2	8	HTML	0	0	docs-signal	https://github.com/mattyejohnson/LOLCodeDocSite
+mcy/LOLCODE	docs	P2	8		0	0	docs-signal	https://github.com/mcy/LOLCODE
+onejane123/justinmezad	docs	P2	8		0	0	docs-signal	https://github.com/onejane123/justinmezad
+prince-sachdev/lolcode	docs	P2	8		0	0	docs-signal	https://github.com/prince-sachdev/lolcode
+prince-sachdev/lolcode-2	docs	P2	8		0	0	docs-signal	https://github.com/prince-sachdev/lolcode-2
+prince-sachdev/lolcode-3	docs	P2	8		0	0	docs-signal	https://github.com/prince-sachdev/lolcode-3
+prince-sachdev/lolcode-4	docs	P2	8		0	0	docs-signal	https://github.com/prince-sachdev/lolcode-4
+prince-sachdev/lolcode-5	docs	P2	8		0	0	docs-signal	https://github.com/prince-sachdev/lolcode-5
+prince-sachdev/lolcode-6	docs	P2	8		0	0	docs-signal	https://github.com/prince-sachdev/lolcode-6
+prince-sachdev/lolcode-8	docs	P2	8		0	0	docs-signal	https://github.com/prince-sachdev/lolcode-8
+prince-sachdev/lolcode-9	docs	P2	8		0	0	docs-signal	https://github.com/prince-sachdev/lolcode-9
+remotesynth/lolcode-docs	docs	P2	8	HTML	0	0	docs-signal	https://github.com/remotesynth/lolcode-docs
+remotesynth/lolcode-docs-test	docs	P2	8	HTML	0	0	docs-signal	https://github.com/remotesynth/lolcode-docs-test
+rhanneken/lolcode-docs	docs	P2	8	HTML	0	0	docs-signal	https://github.com/rhanneken/lolcode-docs
+stetsonia/lolcode-docs	docs	P2	8	HTML	0	0	docs-signal	https://github.com/stetsonia/lolcode-docs
+tewe11/lolcode-docs	docs	P2	8		0	0	docs-signal	https://github.com/tewe11/lolcode-docs
+Adjamo/ROFL-On-Rails	noise	P4	3	Ruby	8	0		https://github.com/Adjamo/ROFL-On-Rails
+satyamshorrf/Funny-Coding-Languages	noise	P4	3	POV-Ray SDL	5	0		https://github.com/satyamshorrf/Funny-Coding-Languages
+aurasphere/scripts	noise	P4	3	Java	4	0		https://github.com/aurasphere/scripts
+Arfuirl/Text-Adventure-in-LOLCODE	noise	P4	3		1	0		https://github.com/Arfuirl/Text-Adventure-in-LOLCODE
+MemeFlavor/LOLSCRIPT	noise	P4	3	Lua	1	0		https://github.com/MemeFlavor/LOLSCRIPT
+Shellanigans/EmojiPaster	noise	P4	3	PowerShell	1	0		https://github.com/Shellanigans/EmojiPaster
+Teach-Programming/LolCode	noise	P4	3		1	0		https://github.com/Teach-Programming/LolCode
+chunkybanana/PXLCODE	noise	P4	3	Python	1	0		https://github.com/chunkybanana/PXLCODE
+markwatkinson/lol-cm	noise	P4	3	JavaScript	1	0		https://github.com/markwatkinson/lol-cm
+sjansen/lolcode-go	noise	P4	3	Go	1	0		https://github.com/sjansen/lolcode-go
+0xicl33n/discord.lol	noise	P4	0		0	0		https://github.com/0xicl33n/discord.lol
+ANG3L0/mipsr10k	noise	P4	0	Verilog	0	0		https://github.com/ANG3L0/mipsr10k
+Ahmadzaihabib/lolCodeFinal	noise	P4	0		0	0		https://github.com/Ahmadzaihabib/lolCodeFinal
+AydenMartin/LOLCalc	noise	P4	0		0	0		https://github.com/AydenMartin/LOLCalc
+ChenDDDAA/LOLcode	noise	P4	0		0	0		https://github.com/ChenDDDAA/LOLcode
+DeepakMartinez/LoLcode	noise	P4	0		0	0		https://github.com/DeepakMartinez/LoLcode
+Jeansidharta/lolcode-ast	noise	P4	0	Rust	0	0		https://github.com/Jeansidharta/lolcode-ast
+Jeansidharta/lolcode-lsp	noise	P4	0	Rust	0	0		https://github.com/Jeansidharta/lolcode-lsp
+JohnReeves/lolcode	noise	P4	0		0	0		https://github.com/JohnReeves/lolcode
+Legitra/LOLCODE-THINGS	noise	P4	0	Python	0	0		https://github.com/Legitra/LOLCODE-THINGS
+LolCode9999/LOlCode99991	noise	P4	0		0	0		https://github.com/LolCode9999/LOlCode99991
+MKstarFromSwitch/lci-installer	noise	P4	0	Shell	0	0		https://github.com/MKstarFromSwitch/lci-installer
+Madseffect/LOLCODE	noise	P4	0		0	0		https://github.com/Madseffect/LOLCODE
+Matiasarapura/lolcodeanalisis.github.io	noise	P4	0	HTML	0	0		https://github.com/Matiasarapura/lolcodeanalisis.github.io
+MineRobber9000/lua-lcvm	noise	P4	0	Lua	0	0		https://github.com/MineRobber9000/lua-lcvm
+MrFlyingToasterman/lolcode-crackme	noise	P4	0		0	0		https://github.com/MrFlyingToasterman/lolcode-crackme
+NghiLamPhuc/ProgrammingLanguage.	noise	P4	0	Scala	0	0		https://github.com/NghiLamPhuc/ProgrammingLanguage.
+NippyTheDev/LOLCODE-IDE	noise	P4	0	Python	0	0		https://github.com/NippyTheDev/LOLCODE-IDE
+PathikShah-13/-root-programming-entry	noise	P4	0		0	0		https://github.com/PathikShah-13/-root-programming-entry
+PathikShah-13/-root-programming-msd-entry	noise	P4	0		0	0		https://github.com/PathikShah-13/-root-programming-msd-entry
+Praoubl/lolcode-stuff	noise	P4	0		0	0		https://github.com/Praoubl/lolcode-stuff
+RealFatCat/lolcode-jff	noise	P4	0		0	0		https://github.com/RealFatCat/lolcode-jff
+Sterlinsheeja/lolcode	noise	P4	0		0	0		https://github.com/Sterlinsheeja/lolcode
+TStut15/Random-Code	noise	P4	0	Fortran	0	0		https://github.com/TStut15/Random-Code
+Thisismygirlrakshaforsure/-LOLCODE	noise	P4	0		0	0		https://github.com/Thisismygirlrakshaforsure/-LOLCODE
+Vapidjimbo/LOLCode3	noise	P4	0	HTML	0	0		https://github.com/Vapidjimbo/LOLCode3
+abim91/lolcodeCompiler	noise	P4	0	Rust	0	0		https://github.com/abim91/lolcodeCompiler
+aghastmuffin/lolcode.py	noise	P4	0		0	0		https://github.com/aghastmuffin/lolcode.py
+akplayle/LOLTracer	noise	P4	0		0	0		https://github.com/akplayle/LOLTracer
+alcalamatthew/lolcode-test	noise	P4	0		0	0		https://github.com/alcalamatthew/lolcode-test
+alexcimr/Transpiler-LOLCODE-do-Pythona	noise	P4	0		0	0		https://github.com/alexcimr/Transpiler-LOLCODE-do-Pythona
+andrel/lolpizza	noise	P4	0		0	0		https://github.com/andrel/lolpizza
+aur-archive/lolcode-git	noise	P4	0	Shell	0	0		https://github.com/aur-archive/lolcode-git
+aurik3/Lolcodev	noise	P4	0	JavaScript	0	0		https://github.com/aurik3/Lolcodev
+blake18/COSC-455-Project-1-LOLCODE-Markdown-Language-Translation	noise	P4	0	Rust	0	0		https://github.com/blake18/COSC-455-Project-1-LOLCODE-Markdown-Language-Translation
+brightblackhole/lolcode	noise	P4	0		0	0		https://github.com/brightblackhole/lolcode
+btseytlin/ply_lolcode	noise	P4	0	Python	0	0		https://github.com/btseytlin/ply_lolcode
+cyberdrk/hello-reimagined-octo-fortnight-world	noise	P4	0		0	0		https://github.com/cyberdrk/hello-reimagined-octo-fortnight-world
+dlsantos/lolcode	noise	P4	0		0	0		https://github.com/dlsantos/lolcode
+dwinchell/ref-app-lolcode	noise	P4	0	Dockerfile	0	0		https://github.com/dwinchell/ref-app-lolcode
+dworzycp/track_and_trace	noise	P4	0		0	0		https://github.com/dworzycp/track_and_trace
+filipw/ScriptCs.Engine.LolCode	noise	P4	0	C#	0	0		https://github.com/filipw/ScriptCs.Engine.LolCode
+garvit-batra-7/lolcode-hello-unkown	noise	P4	0		0	0		https://github.com/garvit-batra-7/lolcode-hello-unkown
+hackfest-dev/HF24-LoLCode	noise	P4	0	HTML	0	0		https://github.com/hackfest-dev/HF24-LoLCode
+holyPancakes/LOLCodeInterpreter_OTP	noise	P4	0	C#	0	0		https://github.com/holyPancakes/LOLCodeInterpreter_OTP
+ikiki1008/lolcode-desu	noise	P4	0	HTML	0	0		https://github.com/ikiki1008/lolcode-desu
+ioanatanasiciuc/LOLCODE_PLP_TanasiciucIoana	noise	P4	0	Coq	0	0		https://github.com/ioanatanasiciuc/LOLCODE_PLP_TanasiciucIoana
+ivanpolo-pro/lolcode	noise	P4	0		0	0		https://github.com/ivanpolo-pro/lolcode
+jamiec-0123/LOLcode	noise	P4	0		0	0		https://github.com/jamiec-0123/LOLcode
+jessterryberry/lolcode_tempconvert	noise	P4	0		0	0		https://github.com/jessterryberry/lolcode_tempconvert
+jkcdarunday/ProjectDestiny	noise	P4	0	C++	0	0		https://github.com/jkcdarunday/ProjectDestiny
+keksprache/lolcat.py	noise	P4	0		0	0		https://github.com/keksprache/lolcat.py
+kylewensman/CITPT-225_LOLCode_documentation	noise	P4	0	HTML	0	0		https://github.com/kylewensman/CITPT-225_LOLCode_documentation
+lacraig2/lolcode-java	noise	P4	0	Java	0	0		https://github.com/lacraig2/lolcode-java
+lepermessiah57/lolcode-java	noise	P4	0	Java	0	0		https://github.com/lepermessiah57/lolcode-java
+lolcodepp/lolcodepp.github.io	noise	P4	0	HTML	0	0		https://github.com/lolcodepp/lolcodepp.github.io
+loloshkaCode/lolCode	noise	P4	0		0	0		https://github.com/loloshkaCode/lolCode
+mSulleza/cmsc124-lolcode-chipmunks	noise	P4	0	C#	0	0		https://github.com/mSulleza/cmsc124-lolcode-chipmunks
+mikegogulski/99Bottles-LOLCODE	noise	P4	0		0	0		https://github.com/mikegogulski/99Bottles-LOLCODE
+mmdeviterbo/recreate-lolcode-project	noise	P4	0	Java	0	0		https://github.com/mmdeviterbo/recreate-lolcode-project
+murraytime803/lolcode	noise	P4	0		0	0		https://github.com/murraytime803/lolcode
+nikmend/LoLCode	noise	P4	0		0	0		https://github.com/nikmend/LoLCode
+nishantshobhit/lolcode-java	noise	P4	0	Java	0	0		https://github.com/nishantshobhit/lolcode-java
+niwohlos/niwohcode	noise	P4	0	Ruby	0	0		https://github.com/niwohlos/niwohcode
+ofekih/lolcode-sublime	noise	P4	0		0	0		https://github.com/ofekih/lolcode-sublime
+ogii/circleci-lolcode	noise	P4	0		0	0		https://github.com/ogii/circleci-lolcode
+projectyotta/TryingOutLolcode	noise	P4	0	HTML	0	0		https://github.com/projectyotta/TryingOutLolcode
+quevinjames/cmsc_124_project	noise	P4	0	Python	0	0		https://github.com/quevinjames/cmsc_124_project
+royston/ICanHazLolCode	noise	P4	0		0	0		https://github.com/royston/ICanHazLolCode
+sarvex/lolCode125	noise	P4	0		0	0		https://github.com/sarvex/lolCode125
+sharin974/lolcodegenerator	noise	P4	0	CSS	0	0		https://github.com/sharin974/lolcodegenerator
+sobernt/lolcode	noise	P4	0		0	0		https://github.com/sobernt/lolcode
+soumitradev/assembly-fun-lolcode	noise	P4	0	C	0	0		https://github.com/soumitradev/assembly-fun-lolcode
+sudharsh/fatso	noise	P4	0	C++	0	0		https://github.com/sudharsh/fatso
+tcarver371/LOLCODE-Test	noise	P4	0	HTML	0	0		https://github.com/tcarver371/LOLCODE-Test
+tcarver371/LOLCODE_test	noise	P4	0	CSS	0	0		https://github.com/tcarver371/LOLCODE_test
+tedneward/LOLSELF	noise	P4	0	Kotlin	0	0		https://github.com/tedneward/LOLSELF
+wookietreiber/scalolcode	noise	P4	0	Scala	0	0		https://github.com/wookietreiber/scalolcode
+x-ae-a-12/lolcode	noise	P4	0		0	0		https://github.com/x-ae-a-12/lolcode
+yamaz420/PythonIntro-LOLcodeAndShit	noise	P4	0	Python	0	0		https://github.com/yamaz420/PythonIntro-LOLcodeAndShit
+yuktamsingh/LOLCODE	noise	P4	0		0	0		https://github.com/yuktamsingh/LOLCODE
+OddballGreg/lolcode2019	tooling	P2	-4	Ruby	0	0	tooling-signal,noise-signal	https://github.com/OddballGreg/lolcode2019

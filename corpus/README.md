@@ -134,6 +134,104 @@ Core outputs:
 - `corpus/research/github_language_lolcode/hits-language-gaps.json`
 - `corpus/research/github_language_lolcode/PIPELINE_SUMMARY.md`
 
+## GitHub Broad `lolcode` Repo Search
+
+Collect the full-tail broad GitHub repository search for `q=lolcode`, and enrich
+it with cross-references to the existing candidate catalog plus the
+`github_language_lolcode` snapshot:
+
+```bash
+./scripts/sync_github_repo_search_lolcode.sh
+```
+
+Outputs:
+
+- `corpus/research/github_repo_search_lolcode/REPORT.md`
+- `corpus/research/github_repo_search_lolcode/repos.json`
+- `corpus/research/github_repo_search_lolcode/new_repos_to_review.tsv`
+
+Enrich that snapshot with cached/live repo metadata and root listings:
+
+```bash
+./scripts/enrich_github_repo_search_lolcode.sh
+```
+
+Rebuild the enriched outputs from cached raw responses only:
+
+```bash
+./scripts/enrich_github_repo_search_lolcode.sh --combine-only
+```
+
+Outputs:
+
+- `corpus/research/github_repo_search_lolcode/repos_enriched.json`
+- `corpus/research/github_repo_search_lolcode/ENRICHMENT_REPORT.md`
+- `corpus/research/github_repo_search_lolcode/enrichment_failures.tsv`
+
+The current snapshot remains partially inspected: `22` repos are missing root
+listings and stay marked that way until enrichment can fill them in.
+
+Classify the enriched broad-search repos into `implementation`, `tooling`,
+`docs`, `corpus`, or `noise`, and emit the full long-tail priority queue:
+
+```bash
+./scripts/curate_github_repo_search_lolcode.sh
+```
+
+Outputs:
+
+- `corpus/research/github_repo_search_lolcode/CURATION_REPORT.md`
+- `corpus/research/github_repo_search_lolcode/classified_repos.tsv`
+- `corpus/research/github_repo_search_lolcode/priority_candidates.tsv`
+
+Promote only `obvious-keep` `implementation` and `corpus` rows from the
+broad-search lane into the tiered candidate catalog:
+
+```bash
+./scripts/promote_github_repo_search_lolcode_candidates.sh
+```
+
+Outputs:
+
+- `corpus/research/github_repo_search_lolcode/PROMOTION_REPORT.md`
+- appended rows in `corpus/tier2/CANDIDATE_REPOS.tsv`
+
+This tranche is inventory and promotion only. It stops before `sync_corpus`,
+external installation, or differential execution of external implementations.
+
+Future external-implementation comparison work is staged separately in:
+
+- `corpus/research/EXTERNAL_IMPLEMENTATION_MATRIX_TRANCHES.md`
+
+## Non-GitHub `lolcode` Discovery
+
+Collect Codeberg repository search results for `q=lolcode`:
+
+```bash
+./scripts/sync_codeberg_repo_search_lolcode.sh
+```
+
+Outputs:
+
+- `corpus/research/codeberg_repo_search_lolcode/REPORT.md`
+- `corpus/research/codeberg_repo_search_lolcode/repos.json`
+- `corpus/research/codeberg_repo_search_lolcode/new_repos_to_review.tsv`
+
+Current host-status note:
+
+- `corpus/research/NON_GITHUB_DISCOVERY_STATUS.md`
+
+Current limitation:
+
+- GitLab is not yet a stable discovery lane in this repo. As of
+  `2026-04-06`, unauthenticated API search returned `500`, and the plain
+  search surface returned `403` or JS-heavy explore pages that are not yet
+  scripted here.
+- Bitbucket does not currently have a verified public global repo-search lane
+  analogous to GitHub in this repo.
+- SourceHut and `gitea.com` were probed and currently produced `0` `lolcode`
+  hits, so they are recorded only in the host-status note.
+
 ## Classified Tier2 Eval (Step 1)
 
 Classify tier2 `.lol` files into likely programs vs non-programs before lex/parse/eval:

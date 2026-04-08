@@ -1,0 +1,13 @@
+bucket	count	example_path	example_message
+split-hai-header	486	corpus/tier2/aagoshi-lolcode/files/customtestcases/Declaration.lol	parse-source: syntax error: unexpected NEWLINE at line 1, col 4
+leading-material-before-hai	475	corpus/tier2/aagoshi-lolcode/files/actual testcases/ifelse.lol	parse-source: program must begin with HAI opener (no leading comments or tokens before HAI)
+unsupported-version-1.2	75	corpus/tier2/aagoshi-lolcode/files/sample codes lol/arith.lol	parse-source: unsupported version: 1.2 (this implementation only accepts HAI 1.3)
+unsupported-version-1.4	2	corpus/tier2/d-stew-lmaonade-stand/files/lmaonade-stand.lol	parse-source: unsupported version: 1.4 (this implementation only accepts HAI 1.3)
+extension-import-or-question-id	38	corpus/tier2/boxel-rebound-lolcode/files/lol.lol	parse-source: syntax error: unexpected ID ("STDIO?") at line 2, col 11
+string-literal-at-non-expression-site	16	corpus/tier2/belkadan-lolcode-rb/files/examples/huffman.lol	parse-source: syntax error: unexpected STRING ((yarn-template (list (yarn-part-text "pairs")))) at line 3, col 9
+strict-switch-negative-fixture	7	corpus/tier2/d-stew-lmaonade-stand/files/test/1.3-Tests/8-Conditionals/2-Switch/4-MixedTypes/test.lol	parse-source: duplicate OMG literal in WTF?: (expr-number "1")
+invalid-identifier-syntax	3	corpus/tier2/ksumallo-lolspeaker/files/project-testcases/test_2.lol	parse-source: invalid identifier syntax: "+"
+invalid-numeric-literal	4	corpus/tier2/d-stew-lmaonade-stand/files/test/1.3-Tests/3-Types/3-Integer/2-MustHaveAdjacentHyphen/test.lol	parse-source: invalid numeric literal: '-' must be adjacent to digits at line 2, col 25
+post-kthxbye-material	4	corpus/tier2/d-stew-lmaonade-stand/files/test/1.3-Tests/2-Comments/1-SingleLine/5-AfterKTHXBYE/test.lol	parse-source: no material allowed after KTHXBYE
+implicit-mkay-boundary	1	corpus/tier2/nadineanareta-lolcode-interpreter/files/testcases/bonus3_loop_nesting.lol	parse-source: implicit MKAY omission is only allowed at statement boundary; explicit MKAY required before ! at line 14, col 46
+other-grammar-drift	90	corpus/tier2/belkadan-lolcode-rb/files/examples/animal.lol	parse-source: syntax error: unexpected ID ("guess") at line 7, col 38

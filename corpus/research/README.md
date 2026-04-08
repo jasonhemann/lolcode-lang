@@ -58,6 +58,28 @@ Install local non-blocking pre-push hook:
 
 The installed hook is read-only: it runs advisory drift checks but does not run refresh/generation steps.
 
+## Advisory Discovery Lanes
+
+These are maintained discovery/inventory surfaces. They are useful inputs to
+promotion and later comparison work, but they are not release-blocking
+conformance surfaces.
+
+- `corpus/research/github_language_lolcode/`
+- `corpus/research/github_repo_search_lolcode/`
+- `corpus/research/codeberg_repo_search_lolcode/`
+
+The broad GitHub repo-search lane keeps JSON/TSV as source of truth and
+Markdown as rendered summary. The current snapshot is still partially
+inspected: `22` repos are missing root listings and remain marked that way.
+
+Current non-GitHub host status is tracked in:
+
+- `corpus/research/NON_GITHUB_DISCOVERY_STATUS.md`
+
+The staged plan for later external implementation comparison lives in:
+
+- `corpus/research/EXTERNAL_IMPLEMENTATION_MATRIX_TRANCHES.md`
+
 ## Historical Snapshots
 
 Historical snapshots and one-off reports live under:
