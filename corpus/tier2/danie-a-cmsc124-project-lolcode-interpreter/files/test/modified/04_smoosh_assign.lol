@@ -1,0 +1,14 @@
+HAI
+    WAZZUP
+        BTW variable dec
+        I HAS A x ITZ 1
+        I HAS A y ITZ 20
+    BUHBYE    
+
+    VISIBLE MAEK x A TROOF
+    VISIBLE MAEK x A NUMBR
+    VISIBLE MAEK x A YARN
+    VISIBLE MAEK x A NUMBAR
+    x IS NOW A NOOB
+    VISIBLE x
+KTHXBYE

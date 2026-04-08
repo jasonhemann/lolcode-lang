@@ -1,0 +1,9 @@
+HAI
+	I HAS A var ITZ 5
+	I HAS A var2 ITZ var
+	var R 3
+
+	SUM OF "3" AN 4
+	SUM OF 2.5 AN 2.2
+	SUM OF var AN 200
+KTHXBYE

@@ -1,0 +1,17 @@
+[package]
+name = "lolcode-gui"
+version = "0.1.0"
+edition = "2024"
+
+[[bin]]
+name = "lolcode-gui"
+path = "./src/main.rs"
+
+[dependencies]
+lolcode-lexer = { path = "../lexer" }
+lolcode-parser = { path = "../parser" }
+lolcode-interpreter = { path = "../interpreter" }
+iced = {version = "0.13.1", features = ["image", "tokio"]}
+iced_font_awesome = "0.2.1"
+iced_table = "0.13.0"
+native-dialog = "0.9.3"

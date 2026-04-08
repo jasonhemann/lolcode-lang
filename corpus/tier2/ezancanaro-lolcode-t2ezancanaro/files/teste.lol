@@ -1,0 +1,30 @@
+BTW LOLCATZ CNT SPEL 2 GUD
+BTW
+HAI
+    VISIBLE "O HAI! IM IN UR BEERZ!"!
+    I HAS A VAR
+    VAR R 99
+    IM IN YR LOOP
+        VISIBLE VAR!
+        VISIBLE " BOTTLZ OF BEER N TEH WALL, "!
+        VISIBLE VAR!
+        VISIBLE " BOTTLZ OF BEER!"!
+        VISIBLE "TAKE 1 DWN, PAS IT AROUN, "!
+        BTW NERFZ VAR!!
+        VAR R DIFF OF VAR AN 1
+	BOTH SAEM VAR AN 0 
+	O RLY?
+            YA RLY
+                VISIBLE "NO MOAR"!
+            NO WAI
+                VISIBLE VAR!
+        OIC
+        VISIBLE " BOTTLZ OF BEER N TEH WALL!"!
+        BOTH SAEM VAR AN 0
+	O RLY?
+            GTFO
+        OIC
+    GTFO
+    IM OUTTA YR LOOP
+    VISIBLE "GIEV MOAR PLZ! KTHXBAI!"!
+KTHXBYE

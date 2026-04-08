@@ -1,0 +1,5 @@
+require_relative 'ast/node'
+require_relative 'ast/program'
+require_relative 'ast/block'
+require_relative 'ast/statement'
+require_relative 'ast/expression'

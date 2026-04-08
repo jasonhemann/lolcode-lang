@@ -1,0 +1,6 @@
+HAI
+
+I HAS A neg ITZ -1.0
+I HAS A bigNeg ITZ -10000
+
+KTHXBYE

@@ -1,0 +1,4 @@
+HAI
+	GIMMEH var
+	VISIBLE var
+KTHXBYE

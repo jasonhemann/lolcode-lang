@@ -1,0 +1,7 @@
+## lolcode-compiler - Compiling lolcode to java bytecode
+
+# Compiling
+Todo - rustc compiler.rs for now
+
+# Using
+Doesn't do much yet, just emits the very skeleton of a java class file

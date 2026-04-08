@@ -1,0 +1,18 @@
+BTW no other statements above HAI
+HAI
+	
+	I HAS A X
+	I HAS A Y
+	I HAS A Z
+
+	BTW lezz tezz i/o
+	VISIBLE 5
+	VISIBLE 5.0
+	VISIBLE FAIL
+	VISIBLE "SINGKO"
+
+	VISIBLE "GIMMEH X: "
+	GIMMEH X
+	VISIBLE X
+KTHXBYE
+BTW nothing after

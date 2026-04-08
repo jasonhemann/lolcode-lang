@@ -1,0 +1,19 @@
+HAI 1.2
+	I HAS A NUM ITZ 2		BTW NUM = 2
+	I HAS A FLOT ITZ 2.5	BTW FLOT = 2.5
+	I HAS A NAME ITZ "erika"	BTW NAME = "erika"
+	I HAS A OP ITZ SUM OF 3 AN 4
+
+BTW printing values
+	VISIBLE NUM
+	VISIBLE FLOT
+	VISIBLE NAME
+	VISIBLE OP
+
+BTW assignment statement:
+	NUM R 17
+	
+	VISIBLE "NUM is now " NUM 
+
+KTHXBYE
+

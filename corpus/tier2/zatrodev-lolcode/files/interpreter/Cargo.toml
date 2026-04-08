@@ -1,0 +1,15 @@
+[package]
+name = "lolcode-interpreter"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+name = "interpreter"
+path= "./src/lib.rs"
+
+[[bin]]
+name = "lolcode-interpreter"
+path = "./src/main.rs"
+
+[dependencies]
+lolcode-parser = { path = "../parser" }

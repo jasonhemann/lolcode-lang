@@ -1,0 +1,10 @@
+OBTW 
+    Semantic Error Testcase
+TLDR
+HAI
+BTW HELLO WORLD
+
+    SUM OF "1" AN 1
+    VISIBLE IT
+
+KTHXBYE

@@ -1,0 +1,23 @@
+HAI
+	WAZZUP
+		I HAS A numA
+		I HAS A numB
+	BUHBYE
+	
+	VISIBLE "Gimmeh a number: "
+	GIMMEH numA
+
+	numB R 0
+
+	IM IN YR asc UPPIN YR numB WILE BOTH SAEM numB AN SMALLR OF numB AN numA
+		VISIBLE numB
+	IM OUTTA YR asc
+
+	VISIBLE "***"
+
+	IM IN YR desc NERFIN YR numB TIL BOTH SAEM numB AN 0
+		VISIBLE numB
+	IM OUTTA YR desc
+
+
+KTHXBYE

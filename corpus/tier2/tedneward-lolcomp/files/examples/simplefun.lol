@@ -1,0 +1,13 @@
+HAI 1.2
+
+HOW DUZ I fun1
+  VISIBLE "a"
+IF U SAY SO
+
+HOW DUZ I fun2 YR arg
+  VISIBLE arg
+IF U SAY SO
+
+fun1 MKAY?
+
+KTHXBYE

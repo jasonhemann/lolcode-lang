@@ -1,0 +1,5 @@
+HAI
+
+VISIBLE "Hello world" MKAY?
+
+KTHXBYE

@@ -1,0 +1,15 @@
+[package]
+name = "lolcode-lexer"
+version = "0.1.0"
+edition = "2024"
+
+[lib]
+name = "lexer"
+path= "./src/lib.rs"
+
+[[bin]]
+name = "lolcode-lexer"
+path = "./src/main.rs"
+
+[dev-dependencies]
+insta = "1.42.2"

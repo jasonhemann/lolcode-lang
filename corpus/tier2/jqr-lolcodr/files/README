@@ -1,0 +1,79 @@
+Lolcode
+=======
+
+A Ruby LOLCode interpreter using Treetop.
+
+Partially adhering to LOLCode 1.2 spec and other code I've seen.
+
+
+All Supported Syntax
+====================
+
+Must start every program with this:
+  HAI  
+
+Booleans(TROOF):
+  WIN
+  FAIL
+  
+Strings(YARNS):
+  "asdf"
+
+Escape Codes:
+  Newline: ":)"
+  Tab: ":>"
+  Bell: ":o"
+  Colon: "::"
+  
+Integers(NUMBRS)
+  123
+  
+Floats(NUMBARS)
+  1.23
+  
+Print command with optional newline removal
+  VISIBLE <value>[!]
+
+
+Optional exit command:
+  KTHXBYE
+
+Declare a variable with an optional value:
+  I HAS A <variable> [ITZ <value>]
+
+Variable assignment:
+  <variable> R <value>
+  
+Increment with optional delta, defaults to 1:
+  UP VAR!![<delta>]
+
+Equal comparison:
+  BOTH SAEM <value> AN <value>
+  
+Bare value expressions set IT variable:
+  WIN
+  VISIBLE IT
+
+If statement with optional else, operates on IT:
+  O RLY?
+  YA RLY
+    <expressions>
+  [NO WAI
+    <expressions>]
+  OIC
+
+Short if statement:
+  IZ <value>? <expression>
+  
+Loop with optional break:
+  IM IN YR <label>
+    <expressions>
+    [KTHX]
+  IM OUTTA YR <label>
+  
+Type querying:
+  TIPE OF UNSET_VAR   BTW NOOB
+  TIPE OF WIN         BTW TROOF
+  TIPE OF 1           BTW NUMBR
+  TIPE OF 1.1         BTW NUMBAR
+  TIPE OF "HAI!"      BTW YARN

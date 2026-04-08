@@ -1,0 +1,18 @@
+[package]
+name = "lolcode-parser"
+version = "0.1.0"
+edition = "2024"
+
+[lib]
+name = "parser"
+path= "./src/lib.rs"
+
+[[bin]]
+name = "lolcode-parser"
+path = "./src/main.rs"
+
+[dependencies]
+lolcode-lexer = { path = "../lexer", version = "0.1.0" }
+
+[dev-dependencies]
+insta = "1.42.2"

@@ -1,0 +1,50 @@
+The following outlines the LOLCODE specification that this parser uses.
+
+LOLCODE Recommendation v1.0 + modifications
+  - Statements are separated by [\n.]+
+  - CAN HAS <module/"file">?
+    - for inclusion/requirement
+  - GIMMEH [(LINE|WORD|LETTAR)] <VAR> [OUTTA <filedesc>]
+    - with default being LINE and STDIN
+  - HAI
+  - KTHXBYE
+    - only closes HAI and exits with good condition
+  - DIAF [<num> [<text>]]
+    - Exits the program (failure)
+    - Status code: <num>
+    - Printed to stderr or equivalent: <text>
+  - BYES [<num> [<text>]]
+  - KTHX 
+    - is the universal "closing bracket" line
+    - for any if block, looping block, function, etc... except HAI
+  - IM IN YR [<loop label>]
+    - label has no effect
+  - VISIBLE <stuff>[!]
+    - prints stuff as minimally as possible and with a newline (unless !)
+  - I HAS A <l_value> [ITZ <expr>]
+    Declare a variable.  Auto-recognize the type among:
+    - NUMBAR (integer, currently)
+    - YARN (string)
+    - TROOF (boolean)
+    - BUKKIT (array)
+  - MAH <var>!!<expression>
+    - <expression> indexes into the array
+    - Multiple occurences of this index sub-levels of the array.
+      - 1 IN MAH 2 IN MAH arr <=> arr[2][1]
+    - Does NOT expand the size of the array (except as l_value of assignment)
+      - Throws error/dies on out of bounds?
+  - LOL <var> R <val>
+    - Assigns value into l_value specified by var.
+    - Extends the size of var if necessary
+    - If no index is specified, applies to all elements? (one by default)
+  - IZ <cond> [?] [(.|\n) YARLY] (.|\n) <code> (.|\n) [NOWAI (.|\n) <code>] KTHX
+    - Conditional syntax.  See examples.
+  - Operators are PREFIX.  Everything but NOT is binary.
+  - Logical/Bitwise operators: (NOT|AND|OR|XOR)
+    - NOT OR <condexpr> AN <condexpr>
+    - XOR <condexpr> AN <condexpr>
+  - Comparison operators: (BIGR|SMALR|LIEK) (<expr> [DEN|AN] <expr>)
+    - NOT BIGR <expr> DEN <expr>
+    - LIEK <expr> AN <expr>
+  - BTW <comment>
+    - Comment syntax.  Runs until end of line.  Only valid on its own line.

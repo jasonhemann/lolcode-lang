@@ -1,0 +1,16 @@
+HAI
+	I HAS A dog
+	dog R BOTH SAEM 1 AN 1.0
+	BOTH OF WIN AN FAIL
+
+	VISIBLE "You did it! Yay!"
+	VISIBLE "Now you see me" "HI"
+	VISIBLE dog
+	VISIBLE "hello " dog " hello"
+	VISIBLE IT
+	VISIBLE 1
+	VISIBLE WIN
+	VISIBLE BOTH OF WIN AN WIN
+	GIMMEH dog
+	VISIBLE dog
+KTHXBYE

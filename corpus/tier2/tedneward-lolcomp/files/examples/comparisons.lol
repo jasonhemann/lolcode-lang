@@ -1,0 +1,15 @@
+HAI 1.2
+
+I HAS A num1 ITZ 3
+I HAS A num2 ITZ 5
+
+I HAS A eqnum ITZ BOTH SAEM num1 AN num2
+VISIBLE eqnum
+I HAS A neqnum ITZ DIFFRINT num1 AN num2
+VISIBLE neqnum
+I HAS A gtnum ITZ BIGGR OF num1 AN num2
+VISIBLE gtnum
+I HAS A ltnum ITZ SMALLR OF num1 AN num2
+VISIBLE ltnum
+
+KTHXBYE

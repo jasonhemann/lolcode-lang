@@ -1,0 +1,5 @@
+HAI
+    I HAS A VAR1 ITZ "test"
+    SUM OF 123 AN 123
+    VISIBLE VAR1
+KTHXBYE
