@@ -1,7 +1,7 @@
 lolcode-lang
 ===========
 
-Most advanced strict HAI 1.3 implementation we know of (we believe), by adjudication depth and traceability completeness. This is a strict-spec, evidence-scoped claim, not a canonical head-to-head benchmark claim. Adjudicated policy choices and implementation-dependent defaults are documented in spec/traceability/.
+Most advanced strictly-HAI 1.3 compliant LOLCODE implementation (that we know of). As judged by adjudication depth and traceability completeness. Adjudicated policy choices and implementation-dependent defaults are documented in spec/traceability/.
 
 ## Install
 
